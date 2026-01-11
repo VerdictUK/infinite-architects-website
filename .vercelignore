@@ -1,11 +1,14 @@
 # Large video files (exclude only specific large ones)
 hero-portal.mp4
-*.mov
 *.avi
 
+# Note: BBC clips in videos/ folder are .mov format (~38MB total)
+# and are needed for the Prophecy Hero section
+
 # Keep smaller MP4s for Mandelbrot background:
-# - Mandelbrot_Set_Video_Loop.mp4 (9.9MB)
-# - Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4 (4.5MB)
+# - Mandelbrot_Set_Video_Loop.mp4 (5.5MB)
+# - Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4 (2.4MB)
+# - london-night.mp4 (2.6MB)
 
 # Screenshots folder
 Mobile-and-desktop-screenshots/
@@ -14,7 +17,20 @@ Mobile-and-desktop-screenshots/
 *.backup.*
 index.html.backup.*
 
+# Development screenshots (not needed on live site)
+Screen Shot*.jpg
+
+# Documentation and planning files
+*.md
+!README.md
+
 # Development files
 .DS_Store
 node_modules/
 *.log
+
+# Hero cosmic (not currently used, large)
+hero-cosmic.png
+
+# Old/unused images
+IMG_6833.jpg
