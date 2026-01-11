@@ -1678,7 +1678,8 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(212, 168, 75, 0.2);
-            padding: 1rem;
+            padding: 0.8rem 1rem;
+            padding-bottom: calc(0.8rem + env(safe-area-inset-bottom, 0px));
             z-index: calc(var(--z-nav) - 1);
             transform: translateY(100%);
             transition: transform 0.5s var(--ease-out-expo);
@@ -1792,43 +1793,201 @@
             transform: translateY(0);
         }
 
+        /* CRITICAL FIX: Force content visibility on mobile */
+        @media (max-width: 768px) {
+            .reveal {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        }
+
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
         .reveal-delay-5 { transition-delay: 0.5s; }
 
+        /* Ripple Effect Animation */
+        @keyframes rippleEffect {
+            from { transform: scale(0); opacity: 0.6; }
+            to { transform: scale(4); opacity: 0; }
+        }
+
         /* ═══════════════════════════════════════════════════════════════════════
            RESPONSIVE BREAKPOINTS
            ═══════════════════════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
+            /* SECTIONS */
             .section {
-                padding: var(--space-xl) var(--space-md);
+                padding: var(--space-lg) var(--space-md);
             }
 
+            /* HERO - Force Visibility */
             .hero {
-                padding: var(--space-xl) var(--space-md);
+                min-height: 100svh;
+                padding: 100px var(--space-md) 80px;
+            }
+
+            .hero-badge,
+            .hero-title,
+            .hero-subtitle,
+            .hero-author,
+            .hero-cta,
+            .hero-book {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+                letter-spacing: 0.15em;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+            }
+
+            .hero-author {
+                font-size: 0.7rem;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .hero::after {
+                height: 150px;
             }
 
             .hero-book {
                 width: min(260px, 65vw);
             }
 
+            /* QUOTE - Reduce Height */
+            .quote-section {
+                min-height: 60vh;
+                padding: var(--space-lg) var(--space-md);
+            }
+
             .quote-mark {
-                font-size: 8rem;
+                font-size: 6rem;
+                margin-bottom: -1rem;
+            }
+
+            .quote-text {
+                font-size: clamp(1.2rem, 5vw, 1.8rem);
+                line-height: 1.6;
+            }
+
+            /* CTA - Reduce Height */
+            .cta-section {
+                min-height: 50vh;
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .cta-title {
+                font-size: clamp(1.3rem, 5vw, 2rem);
+            }
+
+            /* IDEAS - Tighter Grid */
+            .ideas-header {
+                margin-bottom: var(--space-lg);
+            }
+
+            .ideas-grid {
+                gap: 1rem;
             }
 
             .idea-card {
-                padding: 2rem;
+                padding: 1.5rem;
+            }
+
+            .idea-number {
+                font-size: 3rem;
+                top: 0.2rem;
+                right: 0.8rem;
+            }
+
+            .idea-title {
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .idea-text {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+
+            /* ABOUT */
+            .about-section {
+                padding: var(--space-lg) var(--space-md);
             }
 
             .about-inner {
                 gap: 3rem;
             }
 
+            .about-text p {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+
             .tesseract-container {
                 width: 220px;
                 height: 220px;
+            }
+
+            /* CAROUSEL */
+            .carousel-section {
+                padding: var(--space-lg) 0;
+            }
+
+            .carousel-item {
+                max-width: 280px;
+                padding: 1rem 1.5rem;
+                font-size: 0.95rem;
+                line-height: 1.7;
+            }
+
+            .carousel-section::before,
+            .carousel-section::after {
+                width: 60px;
+            }
+
+            /* REVIEWS */
+            .reviews-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .reviews-grid {
+                gap: 1rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+
+            /* NEWSLETTER */
+            .newsletter-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            /* FOOTER */
+            footer {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            /* PERFORMANCE - Reduce Effects on Mobile */
+            #canvas-container {
+                opacity: 0.3;
+            }
+
+            .cosmic-bg {
+                opacity: 0.7;
+            }
+
+            .film-grain {
+                display: none;
             }
         }
 
@@ -2818,19 +2977,31 @@
         // ═══════════════════════════════════════════════════════════════════════
         function initScrollAnimations() {
             const reveals = document.querySelectorAll('.reveal');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
+            const isMobile = window.innerWidth <= 768;
 
-            reveals.forEach(el => observer.observe(el));
+            // Force visibility on mobile immediately
+            if (isMobile) {
+                reveals.forEach(el => el.classList.add('active'));
+                return;
+            }
+
+            // Desktop: Use IntersectionObserver
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                reveals.forEach(el => observer.observe(el));
+            } else {
+                reveals.forEach(el => el.classList.add('active'));
+            }
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -3092,6 +3263,8 @@
                 const target = e.currentTarget;
                 const rect = target.getBoundingClientRect();
                 const ripple = document.createElement('span');
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const y = e.touches ? e.touches[0].clientY : e.clientY;
 
                 ripple.style.cssText = `
                     position: absolute;
@@ -3102,44 +3275,67 @@
                     pointer-events: none;
                     width: 100px;
                     height: 100px;
-                    left: ${e.clientX - rect.left - 50}px;
-                    top: ${e.clientY - rect.top - 50}px;
+                    left: ${x - rect.left - 50}px;
+                    top: ${y - rect.top - 50}px;
                 `;
 
                 target.style.position = 'relative';
                 target.style.overflow = 'hidden';
                 target.appendChild(ripple);
-
                 setTimeout(() => ripple.remove(), 600);
             }
 
-            // Add ripple to interactive elements
             document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(el => {
                 el.addEventListener('touchstart', createRipple, { passive: true });
             });
 
-            // Gyroscope parallax for book cover (if available)
-            if (window.DeviceOrientationEvent) {
-                const book = document.getElementById('hero-book');
-                if (book) {
-                    window.addEventListener('deviceorientation', function(e) {
-                        if (e.gamma === null || e.beta === null) return;
-                        const tiltX = Math.max(-15, Math.min(15, e.gamma)) / 15;
-                        const tiltY = Math.max(-15, Math.min(15, e.beta - 45)) / 15;
-                        book.style.transform = `perspective(1000px) rotateY(${tiltX * 10}deg) rotateX(${-tiltY * 5}deg)`;
-                    }, { passive: true });
+            // iOS Gyroscope with permission request
+            const book = document.getElementById('hero-book');
+
+            function initGyroscope() {
+                if (!book) return;
+                let lastGamma = 0, lastBeta = 0;
+
+                function handleOrientation(e) {
+                    if (e.gamma === null || e.beta === null) return;
+                    const gamma = lastGamma + (e.gamma - lastGamma) * 0.1;
+                    const beta = lastBeta + (e.beta - lastBeta) * 0.1;
+                    lastGamma = gamma;
+                    lastBeta = beta;
+
+                    const tiltX = Math.max(-15, Math.min(15, gamma)) / 15;
+                    const tiltY = Math.max(-15, Math.min(15, beta - 45)) / 15;
+                    book.style.transform = `perspective(1000px) rotateY(${tiltX * 10}deg) rotateX(${-tiltY * 5}deg)`;
                 }
+                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
             }
 
-            // Haptic feedback (if available)
-            function vibrate(pattern) {
+            // iOS 13+ requires permission
+            if (typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                let permissionRequested = false;
+                function requestGyroPermission() {
+                    if (permissionRequested) return;
+                    permissionRequested = true;
+                    DeviceOrientationEvent.requestPermission()
+                        .then(response => { if (response === 'granted') initGyroscope(); })
+                        .catch(console.error);
+                }
+                document.addEventListener('touchstart', requestGyroPermission, { once: true, passive: true });
+            } else if (window.DeviceOrientationEvent) {
+                initGyroscope();
+            }
+
+            // Haptic feedback
+            function triggerHaptic(style = 'light') {
                 if (navigator.vibrate) {
-                    navigator.vibrate(pattern);
+                    const patterns = { light: 10, medium: 25, heavy: 50 };
+                    navigator.vibrate(patterns[style] || 10);
                 }
             }
 
-            document.querySelectorAll('a[href*="amazon"], .cta-button, .hero-cta').forEach(el => {
-                el.addEventListener('click', () => vibrate(10), { passive: true });
+            document.querySelectorAll('a[href*="amazon"], .cta-button, .hero-cta, .mobile-cta-button').forEach(el => {
+                el.addEventListener('touchstart', () => triggerHaptic('light'), { passive: true });
             });
         }
 
