@@ -1979,15 +1979,226 @@
 
             /* PERFORMANCE - Reduce Effects on Mobile */
             #canvas-container {
-                opacity: 0.3;
+                opacity: 0.4;
             }
 
             .cosmic-bg {
-                opacity: 0.7;
+                opacity: 0.8;
             }
 
             .film-grain {
                 display: none;
+            }
+
+            /* ═══════════════════════════════════════════════════════════════════════
+               MOBILE WOW EFFECTS
+               ═══════════════════════════════════════════════════════════════════════ */
+
+            /* Ambient Floating Particles */
+            .mobile-particles {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 2;
+                overflow: hidden;
+            }
+
+            .mobile-particle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: var(--gold);
+                border-radius: 50%;
+                opacity: 0;
+                animation: floatUp 12s ease-in-out infinite;
+                box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(212, 168, 75, 0.5);
+            }
+
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(100vh) translateX(0) scale(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.8;
+                    transform: translateY(90vh) translateX(10px) scale(1);
+                }
+                50% {
+                    opacity: 0.6;
+                    transform: translateY(50vh) translateX(-15px) scale(1.2);
+                }
+                90% {
+                    opacity: 0.3;
+                    transform: translateY(10vh) translateX(10px) scale(0.8);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-5vh) translateX(0) scale(0);
+                }
+            }
+
+            /* Glowing Orbs */
+            .mobile-orb {
+                position: fixed;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(212, 168, 75, 0.15) 0%, transparent 70%);
+                pointer-events: none;
+                z-index: 1;
+                filter: blur(30px);
+                animation: orbFloat 15s ease-in-out infinite;
+            }
+
+            @keyframes orbFloat {
+                0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+                33% { transform: translate(20px, -30px) scale(1.1); opacity: 0.7; }
+                66% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.4; }
+            }
+
+            /* Touch Ripple Container */
+            .touch-ripple-container {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 9998;
+                overflow: hidden;
+            }
+
+            .touch-ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(212, 168, 75, 0.4) 0%, rgba(212, 168, 75, 0.1) 40%, transparent 70%);
+                transform: translate(-50%, -50%) scale(0);
+                animation: touchRipple 0.8s ease-out forwards;
+            }
+
+            .touch-ripple-ring {
+                position: absolute;
+                border-radius: 50%;
+                border: 2px solid rgba(212, 168, 75, 0.5);
+                transform: translate(-50%, -50%) scale(0);
+                animation: ringExpand 0.6s ease-out forwards;
+            }
+
+            @keyframes touchRipple {
+                to {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes ringExpand {
+                to {
+                    transform: translate(-50%, -50%) scale(2);
+                    opacity: 0;
+                }
+            }
+
+            /* Motion Enable Button */
+            .motion-enable-btn {
+                position: fixed;
+                bottom: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.1) 100%);
+                border: 1px solid rgba(212, 168, 75, 0.4);
+                padding: 0.8rem 1.5rem;
+                border-radius: 50px;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                z-index: 9999;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                cursor: pointer;
+                animation: pulseGlow 2s ease-in-out infinite;
+                transition: all 0.3s ease;
+            }
+
+            .motion-enable-btn:active {
+                transform: translateX(-50%) scale(0.95);
+            }
+
+            .motion-enable-btn.hidden {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateX(-50%) translateY(20px);
+            }
+
+            .motion-enable-icon {
+                font-size: 1.2rem;
+                animation: tiltPhone 1.5s ease-in-out infinite;
+            }
+
+            @keyframes tiltPhone {
+                0%, 100% { transform: rotate(-10deg); }
+                50% { transform: rotate(10deg); }
+            }
+
+            .motion-enable-text {
+                font-family: var(--font-mono);
+                font-size: 0.6rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--gold);
+            }
+
+            @keyframes pulseGlow {
+                0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 75, 0.2); }
+                50% { box-shadow: 0 0 30px rgba(212, 168, 75, 0.4); }
+            }
+
+            /* Book Breathing Glow */
+            .hero-book {
+                position: relative;
+            }
+
+            .hero-book::before {
+                content: '';
+                position: absolute;
+                inset: -30px;
+                background: radial-gradient(ellipse, rgba(212, 168, 75, 0.25) 0%, transparent 70%);
+                z-index: -1;
+                animation: bookBreath 4s ease-in-out infinite;
+                border-radius: 10px;
+            }
+
+            @keyframes bookBreath {
+                0%, 100% { opacity: 0.5; transform: scale(1); }
+                50% { opacity: 0.9; transform: scale(1.05); }
+            }
+
+            /* Motion Status Indicator */
+            .motion-status {
+                position: fixed;
+                top: 70px;
+                right: 15px;
+                font-family: var(--font-mono);
+                font-size: 0.5rem;
+                letter-spacing: 0.1em;
+                color: var(--gold);
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                z-index: 101;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+
+            .motion-status.visible {
+                opacity: 0.7;
+            }
+
+            .motion-status-dot {
+                width: 6px;
+                height: 6px;
+                background: var(--gold);
+                border-radius: 50%;
+                animation: statusPulse 2s ease-in-out infinite;
+            }
+
+            @keyframes statusPulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.3; }
             }
         }
 
@@ -3253,90 +3464,234 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // MOBILE WOW ENHANCEMENTS
+        // MOBILE WOW ENHANCEMENTS - Complete System
         // ═══════════════════════════════════════════════════════════════════════
         function initMobileEnhancements() {
-            if (window.innerWidth > 768) return;
+            const isMobile = window.innerWidth <= 768;
+            if (!isMobile) return;
 
-            // Touch ripple effect
-            function createRipple(e) {
-                const target = e.currentTarget;
-                const rect = target.getBoundingClientRect();
-                const ripple = document.createElement('span');
-                const x = e.touches ? e.touches[0].clientX : e.clientX;
-                const y = e.touches ? e.touches[0].clientY : e.clientY;
+            console.log('🚀 Initializing Mobile WOW Enhancements');
 
-                ripple.style.cssText = `
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(212, 168, 75, 0.3);
-                    transform: scale(0);
-                    animation: rippleEffect 0.6s ease-out;
-                    pointer-events: none;
-                    width: 100px;
-                    height: 100px;
-                    left: ${x - rect.left - 50}px;
-                    top: ${y - rect.top - 50}px;
-                `;
+            // ─────────────────────────────────────────────────────────────────────
+            // 1. AMBIENT FLOATING PARTICLES
+            // ─────────────────────────────────────────────────────────────────────
+            const particleContainer = document.createElement('div');
+            particleContainer.className = 'mobile-particles';
+            document.body.appendChild(particleContainer);
 
-                target.style.position = 'relative';
-                target.style.overflow = 'hidden';
-                target.appendChild(ripple);
-                setTimeout(() => ripple.remove(), 600);
+            function createFloatingParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'mobile-particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (10 + Math.random() * 8) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particleContainer.appendChild(particle);
+                setTimeout(() => particle.remove(), 20000);
             }
 
-            document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(el => {
-                el.addEventListener('touchstart', createRipple, { passive: true });
-            });
+            // Create initial particles
+            for (let i = 0; i < 12; i++) {
+                setTimeout(createFloatingParticle, i * 400);
+            }
+            // Continuous particle creation
+            setInterval(createFloatingParticle, 1500);
 
-            // iOS Gyroscope with permission request
-            const book = document.getElementById('hero-book');
+            // ─────────────────────────────────────────────────────────────────────
+            // 2. GLOWING ORBS
+            // ─────────────────────────────────────────────────────────────────────
+            for (let i = 0; i < 3; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'mobile-orb';
+                const size = 120 + Math.random() * 100;
+                orb.style.width = size + 'px';
+                orb.style.height = size + 'px';
+                orb.style.left = (10 + Math.random() * 80) + '%';
+                orb.style.top = (10 + Math.random() * 80) + '%';
+                orb.style.animationDelay = i * 4 + 's';
+                document.body.appendChild(orb);
+            }
 
-            function initGyroscope() {
-                if (!book) return;
-                let lastGamma = 0, lastBeta = 0;
+            // ─────────────────────────────────────────────────────────────────────
+            // 3. SCREEN-WIDE TOUCH RIPPLES
+            // ─────────────────────────────────────────────────────────────────────
+            const rippleContainer = document.createElement('div');
+            rippleContainer.className = 'touch-ripple-container';
+            document.body.appendChild(rippleContainer);
 
-                function handleOrientation(e) {
-                    if (e.gamma === null || e.beta === null) return;
-                    const gamma = lastGamma + (e.gamma - lastGamma) * 0.1;
-                    const beta = lastBeta + (e.beta - lastBeta) * 0.1;
-                    lastGamma = gamma;
-                    lastBeta = beta;
+            function createScreenRipple(x, y) {
+                const size = Math.max(window.innerWidth, window.innerHeight) * 0.6;
 
-                    const tiltX = Math.max(-15, Math.min(15, gamma)) / 15;
-                    const tiltY = Math.max(-15, Math.min(15, beta - 45)) / 15;
-                    book.style.transform = `perspective(1000px) rotateY(${tiltX * 10}deg) rotateX(${-tiltY * 5}deg)`;
+                // Main ripple
+                const ripple = document.createElement('div');
+                ripple.className = 'touch-ripple';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                rippleContainer.appendChild(ripple);
+
+                // Rings
+                for (let i = 0; i < 2; i++) {
+                    const ring = document.createElement('div');
+                    ring.className = 'touch-ripple-ring';
+                    ring.style.left = x + 'px';
+                    ring.style.top = y + 'px';
+                    ring.style.width = (size * 0.4) + 'px';
+                    ring.style.height = (size * 0.4) + 'px';
+                    ring.style.animationDelay = (i * 0.1) + 's';
+                    rippleContainer.appendChild(ring);
                 }
-                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-            }
 
-            // iOS 13+ requires permission
-            if (typeof DeviceOrientationEvent !== 'undefined' &&
-                typeof DeviceOrientationEvent.requestPermission === 'function') {
-                let permissionRequested = false;
-                function requestGyroPermission() {
-                    if (permissionRequested) return;
-                    permissionRequested = true;
-                    DeviceOrientationEvent.requestPermission()
-                        .then(response => { if (response === 'granted') initGyroscope(); })
-                        .catch(console.error);
-                }
-                document.addEventListener('touchstart', requestGyroPermission, { once: true, passive: true });
-            } else if (window.DeviceOrientationEvent) {
-                initGyroscope();
-            }
+                // Cleanup
+                setTimeout(() => {
+                    rippleContainer.innerHTML = '';
+                }, 900);
 
-            // Haptic feedback
-            function triggerHaptic(style = 'light') {
+                // Haptic feedback (Android only)
                 if (navigator.vibrate) {
-                    const patterns = { light: 10, medium: 25, heavy: 50 };
-                    navigator.vibrate(patterns[style] || 10);
+                    navigator.vibrate(15);
                 }
             }
 
-            document.querySelectorAll('a[href*="amazon"], .cta-button, .hero-cta, .mobile-cta-button').forEach(el => {
-                el.addEventListener('touchstart', () => triggerHaptic('light'), { passive: true });
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                createScreenRipple(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            // ─────────────────────────────────────────────────────────────────────
+            // 4. MOTION STATUS INDICATOR
+            // ─────────────────────────────────────────────────────────────────────
+            const motionStatus = document.createElement('div');
+            motionStatus.className = 'motion-status';
+            motionStatus.innerHTML = '<span class="motion-status-dot"></span><span>MOTION</span>';
+            document.body.appendChild(motionStatus);
+
+            // ─────────────────────────────────────────────────────────────────────
+            // 5. iOS GYROSCOPE WITH VISIBLE PERMISSION BUTTON
+            // ─────────────────────────────────────────────────────────────────────
+            const book = document.getElementById('hero-book');
+            let gyroEnabled = false;
+            let lastGamma = 0, lastBeta = 0;
+
+            function handleOrientation(e) {
+                if (e.gamma === null || e.beta === null) return;
+
+                // Smooth interpolation
+                const gamma = lastGamma + (e.gamma - lastGamma) * 0.08;
+                const beta = lastBeta + (e.beta - lastBeta) * 0.08;
+                lastGamma = gamma;
+                lastBeta = beta;
+
+                // Calculate tilt
+                const tiltX = Math.max(-20, Math.min(20, gamma)) / 20;
+                const tiltY = Math.max(-20, Math.min(20, beta - 45)) / 20;
+
+                // Apply to book
+                if (book) {
+                    book.style.transform = `perspective(1000px) rotateY(${tiltX * 12}deg) rotateX(${-tiltY * 8}deg) scale(1.02)`;
+                }
+
+                // Move particle container slightly
+                if (particleContainer) {
+                    particleContainer.style.transform = `translate(${tiltX * 10}px, ${tiltY * 10}px)`;
+                }
+            }
+
+            function enableGyroscope() {
+                gyroEnabled = true;
+                window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+                motionStatus.classList.add('visible');
+                console.log('✨ Gyroscope enabled!');
+            }
+
+            // Check if iOS requires permission
+            const needsPermission = typeof DeviceOrientationEvent !== 'undefined' &&
+                                    typeof DeviceOrientationEvent.requestPermission === 'function';
+
+            if (needsPermission) {
+                // iOS 13+ - Create visible button
+                const motionBtn = document.createElement('button');
+                motionBtn.className = 'motion-enable-btn';
+                motionBtn.innerHTML = '<span class="motion-enable-icon">📱</span><span class="motion-enable-text">Enable Motion Effects</span>';
+                document.body.appendChild(motionBtn);
+
+                motionBtn.addEventListener('click', async function() {
+                    try {
+                        const permission = await DeviceOrientationEvent.requestPermission();
+                        if (permission === 'granted') {
+                            enableGyroscope();
+                            motionBtn.classList.add('hidden');
+                            setTimeout(() => motionBtn.remove(), 500);
+                        } else {
+                            motionBtn.innerHTML = '<span class="motion-enable-icon">❌</span><span class="motion-enable-text">Permission Denied</span>';
+                            setTimeout(() => motionBtn.classList.add('hidden'), 2000);
+                        }
+                    } catch (err) {
+                        console.error('Gyroscope error:', err);
+                        motionBtn.classList.add('hidden');
+                    }
+                });
+
+                // Auto-hide after 10 seconds if not tapped
+                setTimeout(() => {
+                    if (!gyroEnabled && motionBtn.parentNode) {
+                        motionBtn.classList.add('hidden');
+                    }
+                }, 10000);
+            } else if (window.DeviceOrientationEvent) {
+                // Android or older iOS - enable directly
+                enableGyroscope();
+            }
+
+            // ─────────────────────────────────────────────────────────────────────
+            // 6. ENHANCED HAPTIC FEEDBACK (Android)
+            // ─────────────────────────────────────────────────────────────────────
+            const hapticTargets = document.querySelectorAll(
+                '.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button, ' +
+                '.idea-card, .review-card, .quote-card, a[href*="amazon"]'
+            );
+
+            hapticTargets.forEach(el => {
+                el.addEventListener('touchstart', () => {
+                    if (navigator.vibrate) {
+                        navigator.vibrate(12);
+                    }
+                }, { passive: true });
             });
+
+            // ─────────────────────────────────────────────────────────────────────
+            // 7. BUTTON RIPPLE EFFECTS (on specific elements)
+            // ─────────────────────────────────────────────────────────────────────
+            document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(btn => {
+                btn.addEventListener('touchstart', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.touches[0].clientX - rect.left;
+                    const y = e.touches[0].clientY - rect.top;
+
+                    const ripple = document.createElement('span');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.4);
+                        width: 100px;
+                        height: 100px;
+                        left: ${x - 50}px;
+                        top: ${y - 50}px;
+                        transform: scale(0);
+                        animation: rippleEffect 0.5s ease-out forwards;
+                        pointer-events: none;
+                    `;
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 500);
+                }, { passive: true });
+            });
+
+            console.log('✅ Mobile WOW Enhancements Active');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
