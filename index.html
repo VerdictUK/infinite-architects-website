@@ -3718,7 +3718,15 @@
             function completeLoader() {
                 document.body.classList.add('cinematic');
                 loader.classList.add('hidden');
-                initMainCanvas();
+
+                // Initialize Three.js canvas only when library is ready
+                if (window.THREE) {
+                    initMainCanvas();
+                } else if (window.threeJsReady === false) {
+                    // Wait for lazy-loaded Three.js
+                    window.addEventListener('threejs-ready', initMainCanvas, { once: true });
+                }
+
                 initScrollAnimations();
                 initNavigation();
 
@@ -3863,7 +3871,8 @@
         }
 
         function createConnections() {
-            const maxConnections = 600;
+            // Use adaptive buffer size based on CONFIG
+            const maxConnections = CONFIG.main.maxConnections || 400;
             const geometry = new THREE.BufferGeometry();
             const positions = new Float32Array(maxConnections * 6);
             const colors = new Float32Array(maxConnections * 6);
@@ -4255,6 +4264,16 @@
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', initLoader);
 
+        // Export to window for cross-IIFE access (needed by enhancement scripts)
+        window.PERF = PERF;
+        window.Features = Features;
+        window.pageVisible = pageVisible;
+
+        // Keep pageVisible synced on window
+        document.addEventListener('visibilitychange', () => {
+            window.pageVisible = !document.hidden;
+        });
+
     })();
     </script>
 
@@ -4281,6 +4300,16 @@
     <script>
     (function() {
         'use strict';
+
+        // Import from window scope (set by first script block)
+        const PERF = window.PERF || { isMobile: window.innerWidth <= 768, isSlowConnection: false, reducedMotion: false };
+        const Features = window.Features || { particles: true, connections: true, filmGrain: true, quantumParticles: true, neuralNetwork: true, smoothScroll: true, cursor: true };
+        let pageVisible = window.pageVisible !== undefined ? window.pageVisible : true;
+
+        // Sync pageVisible with window
+        document.addEventListener('visibilitychange', () => {
+            pageVisible = !document.hidden;
+        });
 
         // ═══════════════════════════════════════════════════════════════════════
         // READING PROGRESS BAR
@@ -4310,12 +4339,25 @@
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const email = document.getElementById('newsletter-email').value;
+                const emailInput = document.getElementById('newsletter-email');
+                const email = emailInput.value.trim();
+
+                // Validate email format
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    emailInput.setCustomValidity('Please enter a valid email address');
+                    emailInput.reportValidity();
+                    return;
+                }
+                emailInput.setCustomValidity('');
+
+                // Sanitize email (remove potential HTML)
+                const sanitizedEmail = email.replace(/[<>]/g, '');
 
                 // Store email locally (in production, send to backend)
                 const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
-                if (!subscribers.includes(email)) {
-                    subscribers.push(email);
+                if (!subscribers.includes(sanitizedEmail)) {
+                    subscribers.push(sanitizedEmail);
                     localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
                 }
 
@@ -4389,10 +4431,10 @@
             // Check if already responded
             if (localStorage.getItem('ia_cookies') !== null) return;
 
-            // Show banner after loader
+            // Show banner shortly after loader completes (loader is 2.5-5s)
             setTimeout(() => {
                 banner.classList.add('show');
-            }, 6000);
+            }, 3500);
 
             function handleResponse(accepted) {
                 localStorage.setItem('ia_cookies', accepted ? 'accepted' : 'declined');
@@ -4589,8 +4631,17 @@
             for (let i = 0; i < 6; i++) {
                 setTimeout(createFloatingParticle, i * 600);
             }
-            // Slower continuous particle creation
-            setInterval(createFloatingParticle, 2500);
+            // Slower continuous particle creation - only when page visible
+            let particleInterval = setInterval(() => {
+                if (pageVisible) createFloatingParticle();
+            }, 2500);
+
+            // Clean up interval when page hidden for extended time
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && particleInterval) {
+                    // Particles will auto-cleanup, just stop creating new ones
+                }
+            });
 
             // ─────────────────────────────────────────────────────────────────────
             // 2. GLOWING ORBS (Reduced for performance)
@@ -4831,6 +4882,23 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // CAROUSEL VISIBILITY OPTIMIZATION - Pause animation when not visible
+        // ═══════════════════════════════════════════════════════════════════════
+        function initCarouselOptimization() {
+            const carouselTrack = document.querySelector('.carousel-track');
+            if (!carouselTrack) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Pause animation when not visible
+                    carouselTrack.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(carouselTrack.parentElement);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
@@ -4841,6 +4909,7 @@
             initCookieConsent();
             initMobileCTA();
             initMobileEnhancements();
+            initCarouselOptimization();
         });
 
         // ═══════════════════════════════════════════════════════════════════════════════
@@ -4873,12 +4942,13 @@
             }
             requestAnimationFrame(lenisRaf);
 
+            // Combined scroll handler for efficiency
             lenis.on('scroll', ({ scroll, progress }) => {
+                // Set CSS custom properties
                 document.documentElement.style.setProperty('--scroll-y', scroll);
                 document.documentElement.style.setProperty('--scroll-progress', progress);
-            });
 
-            lenis.on('scroll', ({ scroll }) => {
+                // Parallax effects
                 document.querySelectorAll('[data-parallax]').forEach(el => {
                     const speed = parseFloat(el.dataset.parallax) || 0.5;
                     const rect = el.getBoundingClientRect();
@@ -5012,11 +5082,25 @@
 
                 // Load Tone.js on demand (not at page load)
                 if (typeof Tone === 'undefined') {
+                    if (typeof window.loadToneJs !== 'function') {
+                        console.error('❌ Tone.js loader not available');
+                        return false;
+                    }
                     console.log('🎵 Loading Tone.js on demand...');
-                    await window.loadToneJs();
+                    try {
+                        await window.loadToneJs();
+                    } catch (err) {
+                        console.error('❌ Failed to load Tone.js:', err);
+                        return false;
+                    }
                 }
 
-                await Tone.start();
+                try {
+                    await Tone.start();
+                } catch (err) {
+                    console.error('❌ Failed to start Tone.js:', err);
+                    return false;
+                }
 
                 this.synths.pad = new Tone.PolySynth(Tone.Synth, {
                     oscillator: { type: 'sine' },
@@ -5067,10 +5151,13 @@
 
                 playChord();
 
-                if (lenis) {
+                // Safer lenis check with null guards
+                if (typeof lenis !== 'undefined' && lenis && typeof lenis.on === 'function') {
                     lenis.on('scroll', ({ progress }) => {
                         const freq = 400 + (progress * 1200);
-                        this.filter.frequency.rampTo(freq, 0.5);
+                        if (this.filter && this.filter.frequency) {
+                            this.filter.frequency.rampTo(freq, 0.5);
+                        }
                     });
                 }
             },
@@ -5451,17 +5538,16 @@
             resizeNeuralCanvas();
             window.addEventListener('resize', resizeNeuralCanvas);
 
-            const neuralObserver = new IntersectionObserver((entries) => {
+            // Start animation when section becomes visible
+            const startObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.isIntersecting && !animationFrame) {
                         drawNetwork();
-                    } else {
-                        cancelAnimationFrame(animationFrame);
                     }
                 });
             }, { threshold: 0.1 });
 
-            neuralObserver.observe(neuralCanvas.parentElement);
+            startObserver.observe(neuralCanvas.parentElement);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -5572,6 +5658,12 @@
             });
 
             function animateRing() {
+                // Pause when tab hidden
+                if (!pageVisible) {
+                    setTimeout(() => requestAnimationFrame(animateRing), 200);
+                    return;
+                }
+
                 ringX += (mouseX - ringX) * 0.15;
                 ringY += (mouseY - ringY) * 0.15;
 
