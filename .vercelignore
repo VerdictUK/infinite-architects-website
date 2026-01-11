@@ -1,7 +1,11 @@
-# Large files
-*.mp4
+# Large video files (exclude only specific large ones)
+hero-portal.mp4
 *.mov
 *.avi
+
+# Keep smaller MP4s for Mandelbrot background:
+# - Mandelbrot_Set_Video_Loop.mp4 (9.9MB)
+# - Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4 (4.5MB)
 
 # Screenshots folder
 Mobile-and-desktop-screenshots/

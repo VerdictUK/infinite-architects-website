@@ -184,6 +184,12 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Prevent scroll during loader - keeps page at top */
+        body:not(.cinematic) {
+            overflow: hidden;
+            height: 100vh;
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -633,6 +639,77 @@
             height: 300px;
             background: linear-gradient(to bottom, transparent, var(--void));
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           MANDELBROT FRACTAL VIDEO BACKGROUND
+           ═══════════════════════════════════════════════════════════════════════ */
+        .mandelbrot-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .mandelbrot-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .mandelbrot-video.active {
+            opacity: 1;
+        }
+
+        .mandelbrot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.4) 50%, rgba(2, 3, 10, 0.85) 100%),
+                linear-gradient(180deg, rgba(2, 3, 10, 0.3) 0%, transparent 30%, transparent 70%, rgba(2, 3, 10, 0.6) 100%);
+            pointer-events: none;
+        }
+
+        /* Gold tint overlay for brand consistency */
+        .mandelbrot-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 30%, rgba(212, 168, 75, 0.08) 0%, transparent 60%);
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        /* Hide on mobile for performance, or show with reduced opacity */
+        @media (max-width: 768px) {
+            .mandelbrot-bg {
+                display: none;
+            }
+        }
+
+        /* Reduced motion: hide video */
+        @media (prefers-reduced-motion: reduce) {
+            .mandelbrot-bg {
+                display: none;
+            }
         }
 
         .hero-book {
@@ -3044,6 +3121,18 @@
     <div class="content">
         <!-- Hero Section -->
         <section class="hero" id="hero">
+            <!-- Mandelbrot Fractal Video Background -->
+            <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
+                <video class="mandelbrot-video mandelbrot-video-a" id="mandelbrot-video-a"
+                       muted playsinline preload="metadata" poster="">
+                    <source src="Mandelbrot_Set_Video_Loop.mp4" type="video/mp4">
+                </video>
+                <video class="mandelbrot-video mandelbrot-video-b" id="mandelbrot-video-b"
+                       muted playsinline preload="metadata" poster="">
+                    <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
+                </video>
+                <div class="mandelbrot-overlay"></div>
+            </div>
             <span class="hero-badge">NOW AVAILABLE</span>
             <!-- Holographic Book Container (Phase 11) -->
             <div class="hero-book-container">
@@ -3326,6 +3415,18 @@
     <script>
     (function() {
         'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SCROLL POSITION FIX - Ensure page starts at top
+        // ═══════════════════════════════════════════════════════════════════════
+        // Disable browser's automatic scroll restoration (fixes page opening mid-scroll)
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        // Force scroll to top immediately
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0; // For Safari
 
         // ═══════════════════════════════════════════════════════════════════════
         // LAZY LOAD THREE.JS - After first paint for faster initial render
@@ -3718,6 +3819,9 @@
             function completeLoader() {
                 document.body.classList.add('cinematic');
                 loader.classList.add('hidden');
+
+                // Ensure page is at top when loader completes
+                window.scrollTo(0, 0);
 
                 // Initialize Three.js canvas only when library is ready
                 if (window.THREE) {
@@ -5804,6 +5908,132 @@
         // Initialize quantum field (desktop only, features check)
         if (window.innerWidth > 768 && Features.quantumParticles) {
             setTimeout(() => QuantumField.init(), 2000);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // MANDELBROT FRACTAL VIDEO BACKGROUND - Seamless Dual-Video Loop
+        // ═══════════════════════════════════════════════════════════════════════
+        const MandelbrotBackground = {
+            videoA: null,
+            videoB: null,
+            container: null,
+            currentVideo: 'A',
+            isPlaying: false,
+            heroVisible: true,
+
+            init() {
+                this.container = document.getElementById('mandelbrot-bg');
+                this.videoA = document.getElementById('mandelbrot-video-a');
+                this.videoB = document.getElementById('mandelbrot-video-b');
+
+                if (!this.container || !this.videoA || !this.videoB) {
+                    console.log('⚡ Mandelbrot background: Elements not found');
+                    return;
+                }
+
+                // Skip on slow connections or mobile
+                if (PERF.isSlowConnection || PERF.isMobile) {
+                    console.log('⚡ Mandelbrot background: Disabled for performance');
+                    this.container.style.display = 'none';
+                    return;
+                }
+
+                // Set up IntersectionObserver to pause when not visible
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        this.heroVisible = entries[0].isIntersecting;
+                        if (this.heroVisible && pageVisible) {
+                            this.play();
+                        } else {
+                            this.pause();
+                        }
+                    }, { threshold: 0.1 });
+                    observer.observe(this.container.parentElement);
+                }
+
+                // Set up video end listeners for seamless crossfade
+                this.videoA.addEventListener('ended', () => this.crossfadeTo('B'));
+                this.videoB.addEventListener('ended', () => this.crossfadeTo('A'));
+
+                // Handle video load errors
+                this.videoA.addEventListener('error', () => this.handleError('A'));
+                this.videoB.addEventListener('error', () => this.handleError('B'));
+
+                // Start when videos are ready
+                this.videoA.addEventListener('canplaythrough', () => {
+                    if (!this.isPlaying) {
+                        this.start();
+                    }
+                }, { once: true });
+
+                // Visibility change handler
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        this.pause();
+                    } else if (this.heroVisible) {
+                        this.play();
+                    }
+                });
+
+                // Load videos
+                this.videoA.load();
+                this.videoB.load();
+
+                console.log('✨ Mandelbrot Fractal Background initialized');
+            },
+
+            start() {
+                this.isPlaying = true;
+                this.currentVideo = 'A';
+                this.videoA.classList.add('active');
+                this.videoA.play().catch(e => {
+                    console.log('Mandelbrot video autoplay blocked:', e);
+                    // Try to play on first user interaction
+                    document.addEventListener('click', () => this.play(), { once: true });
+                });
+            },
+
+            play() {
+                if (!this.isPlaying) return;
+                const current = this.currentVideo === 'A' ? this.videoA : this.videoB;
+                current.play().catch(() => {});
+            },
+
+            pause() {
+                this.videoA.pause();
+                this.videoB.pause();
+            },
+
+            crossfadeTo(target) {
+                const fromVideo = target === 'A' ? this.videoB : this.videoA;
+                const toVideo = target === 'A' ? this.videoA : this.videoB;
+
+                // Reset the next video to start
+                toVideo.currentTime = 0;
+
+                // Crossfade
+                fromVideo.classList.remove('active');
+                toVideo.classList.add('active');
+
+                // Start playing the new video
+                toVideo.play().catch(() => {});
+
+                this.currentVideo = target;
+                console.log('🎬 Mandelbrot crossfade to Video', target);
+            },
+
+            handleError(video) {
+                console.error('❌ Mandelbrot video error:', video);
+                // Hide container on error
+                if (this.container) {
+                    this.container.style.opacity = '0';
+                }
+            }
+        };
+
+        // Initialize Mandelbrot background after a delay (after loader)
+        if (window.innerWidth > 768 && !PERF.isSlowConnection) {
+            setTimeout(() => MandelbrotBackground.init(), 3000);
         }
 
         console.log('🚀 Future Tier Enhancements Phases 8-17 loaded');
