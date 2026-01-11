@@ -1,0 +1,13 @@
+# Infinite Architects - robots.txt
+# https://infinitearchitects.io
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://infinitearchitects.io/sitemap.xml
+
+# Block common bot paths (not applicable but good practice)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.pdf$

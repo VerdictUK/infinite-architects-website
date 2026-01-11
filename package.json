@@ -1,0 +1,39 @@
+{
+  "name": "infinite-architects-website",
+  "version": "1.0.0",
+  "description": "Ultimate website for Infinite Architects: Intelligence, Recursion, and the Creation of Everything by Michael Darius Eastwood",
+  "main": "index.html",
+  "scripts": {
+    "serve": "npx serve . -p 3000",
+    "dev": "npx serve . -p 3000 --cors",
+    "preview": "vercel",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "logs": "vercel logs",
+    "list": "vercel ls",
+    "optimize:images": "echo 'Use: cwebp -q 85 input.jpg -o output.webp'",
+    "validate:html": "npx html-validate index.html",
+    "lighthouse": "npx lighthouse http://localhost:3000 --view"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/infinite-architects-website"
+  },
+  "keywords": [
+    "infinite-architects",
+    "michael-darius-eastwood",
+    "ai-philosophy",
+    "book-website",
+    "three.js",
+    "author-website"
+  ],
+  "author": "Michael Darius Eastwood <michael@michaeldariuseastwood.com>",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
