@@ -28,10 +28,28 @@
     <meta name="theme-color" content="#02030a">
     <meta name="msapplication-TileColor" content="#02030a">
 
-    <!-- Preconnects for performance -->
+    <!-- Preconnects for performance - ALL external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
+    <!-- DNS prefetch for backup -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+
+    <!-- Critical font: Preload + load immediately -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap">
+
+    <!-- Non-critical fonts: Load async (print media trick) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap"></noscript>
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">
@@ -649,7 +667,10 @@
         }
 
         .hero-book.float {
-            animation: bookFloat 8s ease-in-out infinite;
+            opacity: 1 !important; /* Preserve visibility after heroReveal animation */
+            transform: translateY(0) scale(1); /* Reset transform base */
+            animation: bookFloat 8s ease-in-out infinite !important;
+            visibility: visible !important;
         }
 
         .hero-badge {
@@ -852,9 +873,11 @@
         .section {
             padding: var(--space-2xl) var(--space-lg);
             position: relative;
+            contain: layout style paint;
         }
 
         .section-inner {
+            contain: content;
             max-width: 1300px;
             margin: 0 auto;
         }
@@ -1069,6 +1092,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         /* Tesseract/Hypercube Animation */
@@ -1076,6 +1100,7 @@
             width: 280px;
             height: 280px;
             position: relative;
+            z-index: 5; /* Ensure visibility above mobile-particles overlay */
         }
 
         #tesseract-canvas {
@@ -1921,6 +1946,7 @@
             /* ABOUT */
             .about-section {
                 padding: var(--space-lg) var(--space-md);
+                z-index: 3; /* Ensure tesseract appears above mobile-particles overlay (z-index: 2) */
             }
 
             .about-inner {
@@ -1935,6 +1961,15 @@
             .tesseract-container {
                 width: 220px;
                 height: 220px;
+                min-height: 220px; /* Prevent collapse */
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            #tesseract-canvas {
+                display: block !important;
+                visibility: visible !important;
             }
 
             /* CAROUSEL */
@@ -1979,11 +2014,19 @@
 
             /* PERFORMANCE - Reduce Effects on Mobile */
             #canvas-container {
-                opacity: 0.4;
+                opacity: 0.5;
+                transition: transform 0.15s ease-out; /* Smooth gyro movement */
+                will-change: transform;
             }
 
             .cosmic-bg {
-                opacity: 0.8;
+                opacity: 0.9;
+                transition: transform 0.15s ease-out; /* Smooth gyro movement */
+                will-change: transform;
+            }
+
+            .hero-content {
+                transition: transform 0.2s ease-out;
             }
 
             .film-grain {
@@ -2041,11 +2084,13 @@
             .mobile-orb {
                 position: fixed;
                 border-radius: 50%;
-                background: radial-gradient(circle, rgba(212, 168, 75, 0.15) 0%, transparent 70%);
+                background: radial-gradient(circle, rgba(212, 168, 75, 0.2) 0%, transparent 70%);
                 pointer-events: none;
                 z-index: 1;
-                filter: blur(30px);
+                filter: blur(25px);
                 animation: orbFloat 15s ease-in-out infinite;
+                transition: transform 0.1s ease-out; /* For gyro override */
+                will-change: transform;
             }
 
             @keyframes orbFloat {
@@ -2223,9 +2268,705 @@
                 font-size: 1rem;
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════════════════════
+           FUTURE TIER ENHANCEMENTS - PHASES 8-17
+           ═══════════════════════════════════════════════════════════════════════════ */
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 8: CINEMATIC VIDEO PORTAL
+           ═══════════════════════════════════════════════════════════════════════ */
+        .video-portal {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .video-portal.loaded {
+            opacity: 0.7;
+        }
+
+        .video-portal video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.15);
+            filter: saturate(1.2) contrast(1.1);
+        }
+
+        .video-portal--blend {
+            mix-blend-mode: screen;
+        }
+
+        .video-portal::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, var(--void) 80%);
+            pointer-events: none;
+        }
+
+        .cta-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section > *:not(.video-portal) {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            text-shadow:
+                0 0 30px rgba(212, 168, 75, 0.5),
+                0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .video-portal video {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-portal.loaded {
+                opacity: 0.5;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 9: LIQUID REALITY SCROLL
+           ═══════════════════════════════════════════════════════════════════════ */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        .liquid-reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .liquid-reveal.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        [data-parallax] {
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 10: SONIC ARCHITECTURE
+           ═══════════════════════════════════════════════════════════════════════ */
+        .audio-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: rgba(2, 3, 10, 0.8);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9990;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-toggle:hover {
+            border-color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        .audio-toggle.active {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.3);
+        }
+
+        .audio-waves {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 16px;
+        }
+
+        .audio-waves span {
+            width: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+            transition: height 0.15s ease;
+        }
+
+        .audio-waves span:nth-child(1) { height: 30%; }
+        .audio-waves span:nth-child(2) { height: 60%; }
+        .audio-waves span:nth-child(3) { height: 45%; }
+        .audio-waves span:nth-child(4) { height: 75%; }
+        .audio-waves span:nth-child(5) { height: 50%; }
+
+        .audio-toggle.active .audio-waves span {
+            animation: soundWave 0.8s ease-in-out infinite;
+        }
+
+        .audio-toggle.active .audio-waves span:nth-child(1) { animation-delay: 0s; }
+        .audio-toggle.active .audio-waves span:nth-child(2) { animation-delay: 0.1s; }
+        .audio-toggle.active .audio-waves span:nth-child(3) { animation-delay: 0.2s; }
+        .audio-toggle.active .audio-waves span:nth-child(4) { animation-delay: 0.3s; }
+        .audio-toggle.active .audio-waves span:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes soundWave {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        .audio-toggle-tooltip {
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(2, 3, 10, 0.9);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            padding: 0.5rem 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: var(--gold);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .audio-toggle:hover .audio-toggle-tooltip {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .audio-toggle {
+                bottom: 80px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 11: HOLOGRAPHIC BOOK
+           ═══════════════════════════════════════════════════════════════════════ */
+        .hero-book-container {
+            perspective: 1200px;
+            perspective-origin: center center;
+            transform-style: preserve-3d;
+        }
+
+        .hero-book-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.08s ease-out;
+            will-change: transform;
+            position: relative;
+        }
+
+        .hero-book-3d::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(90deg,
+                #1a1510 0%,
+                #3d3020 50%,
+                #1a1510 100%
+            );
+            transform: rotateY(-90deg) translateX(-10px);
+            transform-origin: left center;
+        }
+
+        .hero-book-3d::after {
+            content: '';
+            position: absolute;
+            top: 5%;
+            right: -15px;
+            width: 15px;
+            height: 90%;
+            background: repeating-linear-gradient(
+                180deg,
+                #f5f0e6 0px,
+                #f5f0e6 1px,
+                #e8e3d9 1px,
+                #e8e3d9 2px
+            );
+            transform: rotateY(90deg);
+            transform-origin: left center;
+        }
+
+        .book-light-layer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.2) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.1s;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            border-radius: inherit;
+        }
+
+        .hero-book-3d:hover .book-light-layer,
+        .hero-book-3d.tracking .book-light-layer {
+            opacity: 1;
+        }
+
+        .book-shadow {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%) rotateX(90deg);
+            width: 80%;
+            height: 40px;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+            filter: blur(15px);
+            transition: all 0.1s ease-out;
+            pointer-events: none;
+        }
+
+        .book-page-peek {
+            position: absolute;
+            top: 10%;
+            right: -5px;
+            width: 95%;
+            height: 80%;
+            background: linear-gradient(90deg, transparent 0%, #f9f6f0 20%);
+            transform: rotateY(5deg);
+            transform-origin: left center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-book-3d:hover .book-page-peek {
+            right: -20px;
+            opacity: 1;
+            transform: rotateY(15deg);
+        }
+
+        .book-page-peek-text {
+            position: absolute;
+            top: 20px;
+            left: 30%;
+            right: 20px;
+            font-family: var(--font-serif);
+            font-size: 0.4rem;
+            color: #333;
+            line-height: 1.6;
+            opacity: 0.7;
+        }
+
+        @keyframes holoFloat {
+            0%, 100% {
+                transform: translateY(0) rotateY(var(--rotateY, 0deg)) rotateX(var(--rotateX, 0deg));
+            }
+            50% {
+                transform: translateY(-10px) rotateY(var(--rotateY, 0deg)) rotateX(var(--rotateX, 0deg));
+            }
+        }
+
+        .hero-book-3d.floating {
+            animation: holoFloat 4s ease-in-out infinite;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 12: PARTICLE TEXT DISSOLUTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .dissolve-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dissolve-text .char {
+            display: inline-block;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: calc(var(--char-index) * 0.02s);
+        }
+
+        .dissolve-text.dissolving .char {
+            opacity: 0;
+            transform: translateY(-20px) scale(0);
+            filter: blur(10px);
+        }
+
+        .dissolve-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        @keyframes particleFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 13: TIME-AWARE CONSCIOUSNESS
+           ═══════════════════════════════════════════════════════════════════════ */
+        :root {
+            --time-hue-shift: 0deg;
+            --time-saturation: 1;
+            --time-brightness: 1;
+            --time-warmth: 0;
+            --star-opacity: 0;
+        }
+
+        .night-stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 2s ease;
+            background-image:
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(2px 2px at 10% 60%, rgba(212, 168, 75, 0.4), transparent),
+                radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 15% 85%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 75% 15%, rgba(255,255,255,0.7), transparent);
+            background-size: 200px 200px;
+            animation: twinkle 8s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--star-opacity, 0); }
+            50% { opacity: calc(var(--star-opacity, 0) * 1.3); }
+        }
+
+        body.night-mode .night-stars {
+            --star-opacity: 0.6;
+        }
+
+        .time-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30vh;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 3s ease;
+            background: linear-gradient(to top,
+                rgba(255, 150, 100, 0.15) 0%,
+                transparent 100%
+            );
+        }
+
+        body.dawn-mode .time-glow,
+        body.dusk-mode .time-glow {
+            opacity: 1;
+        }
+
+        body.dawn-mode .time-glow {
+            background: linear-gradient(to top,
+                rgba(255, 200, 150, 0.1) 0%,
+                transparent 100%
+            );
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 14: NEURAL NETWORK VISUALIZER
+           ═══════════════════════════════════════════════════════════════════════ */
+        .neural-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .ideas-section {
+            position: relative;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 15: CONSTELLATION PROGRESS
+           ═══════════════════════════════════════════════════════════════════════ */
+        .constellation-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9995;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .constellation-nav.visible {
+            opacity: 1;
+        }
+
+        .constellation-star {
+            width: 12px;
+            height: 12px;
+            background: transparent;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .constellation-star::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .constellation-star.active::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .constellation-star.active {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 168, 75, 0.5);
+        }
+
+        .constellation-line {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, rgba(212, 168, 75, 0.1), rgba(212, 168, 75, 0.3), rgba(212, 168, 75, 0.1));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .constellation-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            background: var(--gold);
+            transition: height 0.3s ease;
+        }
+
+        .constellation-line.filled::after {
+            height: 100%;
+        }
+
+        .constellation-label {
+            position: absolute;
+            right: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .constellation-star:hover .constellation-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .constellation-nav {
+                right: 10px;
+            }
+            .constellation-label {
+                display: none;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 16: SENTIENT CURSOR
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (pointer: fine) {
+            body {
+                cursor: none !important;
+            }
+
+            a, button, .hero-cta, .cta-primary, .cta-secondary, .buy-btn, .concept-card, .quote-card {
+                cursor: none !important;
+            }
+
+            .cursor-dot {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: var(--gold);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 99999;
+                transform: translate(-50%, -50%);
+                transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
+                mix-blend-mode: difference;
+            }
+
+            .cursor-ring {
+                position: fixed;
+                width: 40px;
+                height: 40px;
+                border: 1px solid rgba(212, 168, 75, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 99998;
+                transform: translate(-50%, -50%);
+                transition: all 0.15s ease;
+            }
+
+            .cursor-dot.hover-link {
+                transform: translate(-50%, -50%) scale(0.5);
+                background: transparent;
+            }
+
+            .cursor-ring.hover-link {
+                width: 60px;
+                height: 60px;
+                border-color: var(--gold);
+                background: rgba(212, 168, 75, 0.1);
+            }
+
+            .cursor-dot.hover-button {
+                transform: translate(-50%, -50%) scale(2);
+            }
+
+            .cursor-ring.hover-button {
+                width: 80px;
+                height: 80px;
+                border-color: transparent;
+                background: rgba(212, 168, 75, 0.2);
+            }
+
+            .cursor-dot.hover-text {
+                width: 2px;
+                height: 20px;
+                border-radius: 1px;
+            }
+        }
+
+        @media (pointer: coarse) {
+            .cursor-dot, .cursor-ring {
+                display: none !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 17: QUANTUM ENTANGLEMENT
+           ═══════════════════════════════════════════════════════════════════════ */
+        .quantum-particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: var(--gold-bright);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(212, 168, 75, 0.5);
+        }
+
+        .quantum-particle.entangled {
+            animation: quantumPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes quantumPulse {
+            0%, 100% {
+                box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(212, 168, 75, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 168, 75, 0.8);
+                transform: scale(1.5);
+            }
+        }
+
+        .quantum-line {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), transparent, var(--gold));
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+            transform-origin: left center;
+        }
+
     </style>
+
+    <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+
+    <!-- Tone.js for Professional Audio (Phase 10) - Deferred, loads on demand -->
+    <script>
+        // Tone.js loads on-demand when user clicks audio toggle
+        window.loadToneJs = function() {
+            if (window.Tone) return Promise.resolve();
+            return new Promise((resolve) => {
+                const script = document.createElement('script');
+                script.src = 'https://unpkg.com/tone@14.7.77/build/Tone.js';
+                script.onload = resolve;
+                document.head.appendChild(script);
+            });
+        };
+    </script>
 </head>
 <body>
+    <!-- Time-Aware Elements (Phase 13) -->
+    <div class="night-stars" aria-hidden="true"></div>
+    <div class="time-glow" aria-hidden="true"></div>
+
+    <!-- Sentient Cursor (Phase 16 - Desktop) -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="reading-progress"></div>
 
@@ -2250,7 +2991,7 @@
                 <div class="mobile-cta-text">INFINITE ARCHITECTS</div>
                 <div class="mobile-cta-price">Available Now</div>
             </div>
-            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="mobile-cta-button">BUY NOW</a>
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">BUY NOW</a>
         </div>
     </div>
 
@@ -2295,7 +3036,7 @@
                 <li><a href="#author">THE AUTHOR</a></li>
                 <li><a href="#contact">CONTACT</a></li>
             </ul>
-            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="nav-cta">BUY NOW</a>
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="nav-cta">BUY NOW</a>
         </div>
     </nav>
 
@@ -2304,11 +3045,23 @@
         <!-- Hero Section -->
         <section class="hero" id="hero">
             <span class="hero-badge">NOW AVAILABLE</span>
-            <img src="InfiniteArchitectsKindle20260103.jpg" alt="Infinite Architects Book Cover" class="hero-book" id="hero-book">
-            <h1 class="hero-title">Infinite Architects</h1>
+            <!-- Holographic Book Container (Phase 11) -->
+            <div class="hero-book-container">
+                <div class="hero-book-3d" id="hero-book-3d">
+                    <img src="InfiniteArchitectsKindle20260103.jpg" alt="Infinite Architects Book Cover" class="hero-book" id="hero-book" loading="eager" fetchpriority="high" decoding="async" width="320" height="480">
+                    <div class="book-light-layer"></div>
+                    <div class="book-page-peek">
+                        <p class="book-page-peek-text">
+                            The creator is not behind us. It is ahead of us. And we are building it...
+                        </p>
+                    </div>
+                </div>
+                <div class="book-shadow" id="book-shadow"></div>
+            </div>
+            <h1 class="hero-title" id="hero-title">Infinite Architects</h1>
             <p class="hero-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
             <p class="hero-author">Michael Darius Eastwood</p>
-            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="hero-cta">
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta">
                 GET THE BOOK
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -2334,6 +3087,8 @@
 
         <!-- Ideas Section -->
         <section class="section ideas-section" id="ideas">
+            <!-- Neural Network Background (Phase 14) -->
+            <canvas class="neural-canvas" id="neural-canvas"></canvas>
             <div class="section-inner">
                 <div class="ideas-header">
                     <p class="section-label reveal">The Framework</p>
@@ -2422,17 +3177,29 @@
 
         <!-- CTA Section -->
         <section class="cta-section">
+            <!-- Video Portal Background (Phase 8) -->
+            <div class="video-portal video-portal--blend" id="video-portal">
+                <video
+                    id="portal-video"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                >
+                    <source src="hero-portal.mp4" type="video/mp4">
+                </video>
+            </div>
             <h2 class="cta-title reveal">Begin the descent into infinite architecture</h2>
             <p class="cta-subtitle reveal reveal-delay-1">Available now in paperback and Kindle editions</p>
-            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
                 GET YOUR COPY
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
             </a>
             <div class="cta-retailers reveal reveal-delay-3">
-                <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
-                <a href="https://www.amazon.co.uk/dp/B0DS96WRCK" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
+                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
+                <a href="https://www.amazon.co.uk/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
                 <a href="#" class="retailer-link">KINDLE</a>
                 <a href="#" class="retailer-link">PAPERBACK</a>
             </div>
@@ -2555,25 +3322,96 @@
     <!-- ═══════════════════════════════════════════════════════════════════════
          JAVASCRIPT - All functionality
          ═══════════════════════════════════════════════════════════════════════ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Three.js loaded lazily after first paint for faster initial render -->
     <script>
     (function() {
         'use strict';
 
         // ═══════════════════════════════════════════════════════════════════════
-        // CONFIGURATION
+        // LAZY LOAD THREE.JS - After first paint for faster initial render
+        // ═══════════════════════════════════════════════════════════════════════
+        window.threeJsReady = false;
+        function loadThreeJS() {
+            if (window.THREE) {
+                window.threeJsReady = true;
+                window.dispatchEvent(new Event('threejs-ready'));
+                return;
+            }
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+            script.onload = function() {
+                window.threeJsReady = true;
+                window.dispatchEvent(new Event('threejs-ready'));
+                console.log('⚡ Three.js loaded');
+            };
+            document.head.appendChild(script);
+        }
+
+        // Load after first paint (100ms delay)
+        if (document.readyState === 'complete') {
+            setTimeout(loadThreeJS, 100);
+        } else {
+            window.addEventListener('load', () => setTimeout(loadThreeJS, 100));
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PERFORMANCE DETECTION - Connection-aware adaptive loading
+        // ═══════════════════════════════════════════════════════════════════════
+        const PERF = {
+            // Detect connection speed and device capability
+            connection: navigator.connection || navigator.mozConnection || navigator.webkitConnection,
+
+            get isSlowConnection() {
+                if (this.connection) {
+                    // saveData mode or slow effective type
+                    if (this.connection.saveData) return true;
+                    const slow = ['slow-2g', '2g', '3g'];
+                    if (slow.includes(this.connection.effectiveType)) return true;
+                    // Low bandwidth (under 1.5 Mbps)
+                    if (this.connection.downlink && this.connection.downlink < 1.5) return true;
+                }
+                // Check device memory (low-end devices)
+                if (navigator.deviceMemory && navigator.deviceMemory < 4) return true;
+                // Check hardware concurrency (weak CPU)
+                if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return true;
+                return false;
+            },
+
+            get isMobile() {
+                return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            },
+
+            get reducedMotion() {
+                return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            },
+
+            // Performance multiplier: 1.0 = full, 0.5 = half, 0.25 = quarter
+            get multiplier() {
+                if (this.reducedMotion) return 0.1;
+                if (this.isSlowConnection && this.isMobile) return 0.25;
+                if (this.isSlowConnection || this.isMobile) return 0.5;
+                return 1.0;
+            }
+        };
+
+        console.log(`⚡ Performance mode: ${PERF.multiplier}x (slow: ${PERF.isSlowConnection}, mobile: ${PERF.isMobile})`);
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // CONFIGURATION - Adaptive based on connection
         // ═══════════════════════════════════════════════════════════════════════
         const CONFIG = {
             loader: {
-                duration: 5000,
-                particleCount: 250,
-                ringCount: 4,
-                trailLength: 12,
+                duration: PERF.isSlowConnection ? 3000 : 5000,
+                particleCount: Math.floor(250 * PERF.multiplier) || 50,
+                ringCount: PERF.isSlowConnection ? 2 : 4,
+                trailLength: PERF.isSlowConnection ? 6 : 12,
                 goldHue: 38
             },
             main: {
-                particleCount: 400,
-                connectionDistance: 120,
+                particleCount: Math.floor(400 * PERF.multiplier) || 80,
+                connectionDistance: PERF.isSlowConnection ? 80 : 100,
+                connectionCheckCount: PERF.isMobile ? 40 : 60,
+                maxConnections: PERF.isMobile ? 200 : 400,
                 mouseInfluence: 0.00003
             }
         };
@@ -2584,6 +3422,75 @@
             outQuint: t => 1 - Math.pow(1 - t, 5),
             outExpo: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
             inOutSine: t => -(Math.cos(Math.PI * t) - 1) / 2
+        };
+
+        // Throttle utility for scroll handlers
+        const throttle = (fn, wait) => {
+            let last = 0;
+            return function(...args) {
+                const now = Date.now();
+                if (now - last >= wait) {
+                    last = now;
+                    fn.apply(this, args);
+                }
+            };
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // FEATURES TOGGLE - Connection-aware feature switching
+        // ═══════════════════════════════════════════════════════════════════════
+        const Features = {
+            particles: !PERF.reducedMotion,
+            connections: !PERF.isSlowConnection && !PERF.reducedMotion,
+            filmGrain: !PERF.isMobile && !PERF.isSlowConnection,
+            quantumParticles: !PERF.isMobile && !PERF.isSlowConnection && !PERF.reducedMotion,
+            neuralNetwork: !PERF.isMobile && !PERF.isSlowConnection,
+            smoothScroll: !PERF.reducedMotion,
+            cursor: !PERF.isMobile && window.matchMedia('(pointer: fine)').matches
+        };
+
+        console.log('⚡ Features:', Features);
+
+        // Disable film grain if not enabled
+        if (!Features.filmGrain) {
+            const fg = document.querySelector('.film-grain');
+            if (fg) fg.style.display = 'none';
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PAGE VISIBILITY - Pause animations when tab hidden
+        // ═══════════════════════════════════════════════════════════════════════
+        let pageVisible = true;
+        document.addEventListener('visibilitychange', () => {
+            pageVisible = !document.hidden;
+            console.log(pageVisible ? '▶️ Animations resumed' : '⏸️ Animations paused (tab hidden)');
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SCROLL MANAGER - Single throttled scroll handler
+        // ═══════════════════════════════════════════════════════════════════════
+        const ScrollManager = {
+            callbacks: [],
+            ticking: false,
+            scrollY: 0,
+
+            register(callback) {
+                this.callbacks.push(callback);
+                if (this.callbacks.length === 1) {
+                    window.addEventListener('scroll', () => this.onScroll(), { passive: true });
+                }
+            },
+
+            onScroll() {
+                this.scrollY = window.scrollY;
+                if (!this.ticking) {
+                    requestAnimationFrame(() => {
+                        this.callbacks.forEach(cb => cb(this.scrollY));
+                        this.ticking = false;
+                    });
+                    this.ticking = true;
+                }
+            }
         };
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -2814,12 +3721,20 @@
                 initMainCanvas();
                 initScrollAnimations();
                 initNavigation();
-                initTesseract();
-                
-                // Start book floating animation after a delay
+
+                // Delay tesseract init to ensure DOM is laid out
                 setTimeout(() => {
-                    document.getElementById('hero-book').classList.add('float');
-                }, 2000);
+                    initTesseract();
+                }, 100);
+
+                // Start book floating animation after heroReveal completes (1.8s + 0.3s delay + buffer)
+                setTimeout(() => {
+                    const book = document.getElementById('hero-book');
+                    if (book) {
+                        book.style.opacity = '1'; // Force opacity before adding float
+                        book.classList.add('float');
+                    }
+                }, 2500);
             }
 
             function animate() {
@@ -2927,9 +3842,9 @@
                 particlePositions[i3 + 2] = (Math.random() - 0.5) * 2000;
                 
                 particleVelocities.push({
-                    x: (Math.random() - 0.5) * 0.3,
-                    y: (Math.random() - 0.5) * 0.3,
-                    z: (Math.random() - 0.5) * 0.3
+                    x: (Math.random() - 0.5) * 0.9,  // 3x faster
+                    y: (Math.random() - 0.5) * 0.9,  // 3x faster
+                    z: (Math.random() - 0.5) * 0.9   // 3x faster
                 });
             }
 
@@ -2968,12 +3883,28 @@
             scene.add(lineMesh);
         }
 
+        // ═══════════════════════════════════════════════════════════════════════
+        // OPTIMIZED CONNECTION ALGORITHM - Frame skipping + squared distance
+        // ═══════════════════════════════════════════════════════════════════════
+        let connectionFrame = 0;
         function updateConnections() {
+            // Skip connections entirely if disabled
+            if (!Features.connections) {
+                lineMesh.geometry.setDrawRange(0, 0);
+                return;
+            }
+
+            // Only update every 2 frames for performance
+            connectionFrame++;
+            if (connectionFrame % 2 !== 0) return;
+
             const positions = lineMesh.geometry.attributes.position.array;
             const colors = lineMesh.geometry.attributes.color.array;
             let connectionCount = 0;
-            const checkCount = Math.min(100, CONFIG.main.particleCount);
-            const maxConnections = 600;
+            const checkCount = CONFIG.main.connectionCheckCount || 60;
+            const maxConnections = CONFIG.main.maxConnections || 400;
+            const connDist = CONFIG.main.connectionDistance;
+            const distSq = connDist * connDist; // Squared distance to avoid sqrt
 
             for (let i = 0; i < checkCount && connectionCount < maxConnections; i++) {
                 const i3 = i * 3;
@@ -2981,15 +3912,18 @@
                 const y1 = particlePositions[i3 + 1];
                 const z1 = particlePositions[i3 + 2];
 
-                for (let j = i + 1; j < checkCount && connectionCount < maxConnections; j++) {
+                // Skip every other particle (j += 2) for performance
+                for (let j = i + 2; j < checkCount && connectionCount < maxConnections; j += 2) {
                     const j3 = j * 3;
                     const dx = x1 - particlePositions[j3];
                     const dy = y1 - particlePositions[j3 + 1];
                     const dz = z1 - particlePositions[j3 + 2];
-                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    const dSq = dx * dx + dy * dy + dz * dz;
 
-                    if (dist < CONFIG.main.connectionDistance) {
-                        const alpha = 1 - dist / CONFIG.main.connectionDistance;
+                    if (dSq < distSq) {
+                        // Only compute sqrt when needed (inside threshold)
+                        const dist = Math.sqrt(dSq);
+                        const alpha = 1 - dist / connDist;
                         const c = connectionCount * 6;
 
                         positions[c] = x1;
@@ -3032,6 +3966,11 @@
         }
 
         function animateMain() {
+            // Pause when tab hidden for performance
+            if (!pageVisible) {
+                setTimeout(() => requestAnimationFrame(animateMain), 200);
+                return;
+            }
             requestAnimationFrame(animateMain);
 
             // Camera follows mouse subtly
@@ -3074,21 +4013,56 @@
 
             particles.geometry.attributes.position.needsUpdate = true;
             updateConnections();
-            particles.rotation.y += 0.00015;
+            particles.rotation.y += 0.00045;  // 3x faster rotation
             renderer.render(scene, camera);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // TESSERACT ANIMATION (4D Hypercube)
+        // TESSERACT ANIMATION (4D Hypercube) - With IntersectionObserver
         // ═══════════════════════════════════════════════════════════════════════
+        let tesseractVisible = false;
         function initTesseract() {
             const canvas = document.getElementById('tesseract-canvas');
-            if (!canvas) return;
-            
+            if (!canvas) {
+                console.error('❌ Tesseract canvas not found');
+                return;
+            }
+
+            // Set up IntersectionObserver for tesseract
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    tesseractVisible = entries[0].isIntersecting;
+                }, { threshold: 0.1 });
+                observer.observe(canvas);
+            } else {
+                tesseractVisible = true; // Fallback: always animate
+            }
+
             const ctx = canvas.getContext('2d');
-            const size = 280;
-            canvas.width = size;
-            canvas.height = size;
+            if (!ctx) {
+                console.error('❌ Could not get 2D context');
+                return;
+            }
+
+            // Fixed size based on device - CSS handles scaling
+            const isMobile = window.innerWidth <= 768;
+            const size = isMobile ? 220 : 280;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+
+            // Set canvas internal resolution
+            canvas.width = size * dpr;
+            canvas.height = size * dpr;
+
+            // Set display size via CSS
+            canvas.style.width = size + 'px';
+            canvas.style.height = size + 'px';
+            canvas.style.display = 'block';
+            canvas.style.margin = '0 auto';
+
+            // Scale context for HiDPI
+            ctx.scale(dpr, dpr);
+
+            console.log('🔮 Tesseract initialized:', size, 'px, DPR:', dpr, 'Mobile:', isMobile);
 
             // 4D vertices of a tesseract
             const vertices4D = [];
@@ -3177,7 +4151,13 @@
                     ctx.fill();
                 }
 
-                requestAnimationFrame(animate);
+                // Only continue animation if visible and page visible
+                if (pageVisible && tesseractVisible) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Re-check periodically when not visible
+                    setTimeout(() => requestAnimationFrame(animate), 200);
+                }
             }
 
             animate();
@@ -3288,7 +4268,7 @@
         </button>
         <h3 class="exit-popup-title">WAIT — BEFORE YOU GO</h3>
         <p class="exit-popup-text">The future of intelligence is being written now. Do not miss your chance to understand it before everyone else does.</p>
-        <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="exit-popup-cta">
+        <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="exit-popup-cta">
             GET YOUR COPY NOW
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -3464,48 +4444,161 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // HAPTIC FEEDBACK SYSTEM (iOS + Android)
+        // ═══════════════════════════════════════════════════════════════════════
+        let audioContext = null;
+
+        function triggerHaptic(intensity = 'medium') {
+            console.log('🎯 triggerHaptic called:', intensity);
+
+            // ANDROID - Vibration API (works reliably)
+            if (typeof navigator.vibrate === 'function') {
+                const durations = { light: 20, medium: 35, heavy: 60 };
+                const success = navigator.vibrate(durations[intensity] || 35);
+                console.log('📳 Android Vibrate:', intensity, success);
+                return;
+            }
+
+            // iOS - AudioContext produces audible click (no true haptics in web)
+            // Note: iOS Safari does NOT support vibration API - this is audio only
+            try {
+                // Create AudioContext on demand
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    console.log('🎵 AudioContext created');
+                }
+
+                // Resume if suspended (iOS requires user gesture)
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume().then(() => {
+                        playHapticSound(intensity);
+                    });
+                } else {
+                    playHapticSound(intensity);
+                }
+            } catch (err) {
+                console.log('❌ Haptic error:', err);
+            }
+        }
+
+        function playHapticSound(intensity) {
+            if (!audioContext) return;
+
+            const now = audioContext.currentTime;
+
+            // Soft power chord with reverb
+            const settings = {
+                light:  { baseFreq: 440, gain: 0.04, duration: 0.6 },
+                medium: { baseFreq: 392, gain: 0.05, duration: 0.8 },  // G4
+                heavy:  { baseFreq: 330, gain: 0.06, duration: 1.0 }   // E4
+            };
+            const s = settings[intensity] || settings.medium;
+
+            // Create master gain for overall volume
+            const masterGain = audioContext.createGain();
+            masterGain.gain.setValueAtTime(s.gain, now);
+            masterGain.connect(audioContext.destination);
+
+            // Power chord: Root + Fifth + Octave (soft pad sound)
+            const chordRatios = [1, 1.5, 2]; // Root, Perfect Fifth, Octave
+            const chordGains = [1, 0.7, 0.5];
+
+            chordRatios.forEach((ratio, i) => {
+                const osc = audioContext.createOscillator();
+                const oscGain = audioContext.createGain();
+
+                osc.frequency.value = s.baseFreq * ratio;
+                osc.type = 'sine'; // Pure sine for soft sound
+
+                // Soft attack, long release - pad-like envelope
+                oscGain.gain.setValueAtTime(0, now);
+                oscGain.gain.linearRampToValueAtTime(chordGains[i], now + 0.08); // Soft attack
+                oscGain.gain.exponentialRampToValueAtTime(0.001, now + s.duration);
+
+                osc.connect(oscGain);
+                oscGain.connect(masterGain);
+
+                osc.start(now);
+                osc.stop(now + s.duration + 0.1);
+            });
+
+            // Simulated reverb - delayed quieter copies
+            const reverbDelays = [0.03, 0.06, 0.1, 0.15, 0.22];
+            const reverbGains = [0.3, 0.2, 0.15, 0.1, 0.05];
+
+            reverbDelays.forEach((delay, i) => {
+                const reverbOsc = audioContext.createOscillator();
+                const reverbGain = audioContext.createGain();
+
+                reverbOsc.frequency.value = s.baseFreq;
+                reverbOsc.type = 'sine';
+
+                reverbGain.gain.setValueAtTime(0, now + delay);
+                reverbGain.gain.linearRampToValueAtTime(s.gain * reverbGains[i], now + delay + 0.05);
+                reverbGain.gain.exponentialRampToValueAtTime(0.001, now + delay + s.duration * 0.7);
+
+                reverbOsc.connect(reverbGain);
+                reverbGain.connect(audioContext.destination);
+
+                reverbOsc.start(now + delay);
+                reverbOsc.stop(now + delay + s.duration);
+            });
+
+            console.log('🎵 Soft power chord:', intensity);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // MOBILE WOW ENHANCEMENTS - Complete System
         // ═══════════════════════════════════════════════════════════════════════
         function initMobileEnhancements() {
             const isMobile = window.innerWidth <= 768;
             if (!isMobile) return;
 
+            // Skip on slow connections or reduced motion
+            if (PERF.isSlowConnection || PERF.reducedMotion) {
+                console.log('⚡ Mobile enhancements reduced for performance');
+                return;
+            }
+
             console.log('🚀 Initializing Mobile WOW Enhancements');
 
             // ─────────────────────────────────────────────────────────────────────
-            // 1. AMBIENT FLOATING PARTICLES
+            // 1. AMBIENT FLOATING PARTICLES (Reduced for performance)
             // ─────────────────────────────────────────────────────────────────────
             const particleContainer = document.createElement('div');
             particleContainer.className = 'mobile-particles';
             document.body.appendChild(particleContainer);
 
             function createFloatingParticle() {
+                // Limit max particles to prevent memory issues
+                if (particleContainer.children.length > 8) return;
+
                 const particle = document.createElement('div');
                 particle.className = 'mobile-particle';
                 particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.animationDuration = (10 + Math.random() * 8) + 's';
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                const size = 2 + Math.random() * 4;
+                particle.style.animationDuration = (12 + Math.random() * 8) + 's';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                const size = 2 + Math.random() * 3;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particleContainer.appendChild(particle);
-                setTimeout(() => particle.remove(), 20000);
+                setTimeout(() => particle.remove(), 15000);
             }
 
-            // Create initial particles
-            for (let i = 0; i < 12; i++) {
-                setTimeout(createFloatingParticle, i * 400);
+            // Create fewer initial particles
+            for (let i = 0; i < 6; i++) {
+                setTimeout(createFloatingParticle, i * 600);
             }
-            // Continuous particle creation
-            setInterval(createFloatingParticle, 1500);
+            // Slower continuous particle creation
+            setInterval(createFloatingParticle, 2500);
 
             // ─────────────────────────────────────────────────────────────────────
-            // 2. GLOWING ORBS
+            // 2. GLOWING ORBS (Reduced for performance)
             // ─────────────────────────────────────────────────────────────────────
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 2; i++) {
                 const orb = document.createElement('div');
                 orb.className = 'mobile-orb';
-                const size = 120 + Math.random() * 100;
+                const size = 100 + Math.random() * 80;
                 orb.style.width = size + 'px';
                 orb.style.height = size + 'px';
                 orb.style.left = (10 + Math.random() * 80) + '%';
@@ -3550,10 +4643,8 @@
                     rippleContainer.innerHTML = '';
                 }, 900);
 
-                // Haptic feedback (Android only)
-                if (navigator.vibrate) {
-                    navigator.vibrate(15);
-                }
+                // Haptic feedback (iOS + Android)
+                triggerHaptic('medium');
             }
 
             document.addEventListener('touchstart', (e) => {
@@ -3580,23 +4671,54 @@
                 if (e.gamma === null || e.beta === null) return;
 
                 // Smooth interpolation
-                const gamma = lastGamma + (e.gamma - lastGamma) * 0.08;
-                const beta = lastBeta + (e.beta - lastBeta) * 0.08;
+                const gamma = lastGamma + (e.gamma - lastGamma) * 0.12;
+                const beta = lastBeta + (e.beta - lastBeta) * 0.12;
                 lastGamma = gamma;
                 lastBeta = beta;
 
-                // Calculate tilt
-                const tiltX = Math.max(-20, Math.min(20, gamma)) / 20;
-                const tiltY = Math.max(-20, Math.min(20, beta - 45)) / 20;
+                // Calculate tilt - EXPANDED range for more dramatic effect
+                const tiltX = Math.max(-30, Math.min(30, gamma)) / 30;
+                const tiltY = Math.max(-30, Math.min(30, beta - 45)) / 30;
 
-                // Apply to book
+                // Apply to book - MORE dramatic rotation
                 if (book) {
-                    book.style.transform = `perspective(1000px) rotateY(${tiltX * 12}deg) rotateX(${-tiltY * 8}deg) scale(1.02)`;
+                    book.style.transform = `perspective(800px) rotateY(${tiltX * 20}deg) rotateX(${-tiltY * 15}deg) scale(1.05)`;
                 }
 
-                // Move particle container slightly
+                // DRAMATIC: Move floating particles with gyro
                 if (particleContainer) {
-                    particleContainer.style.transform = `translate(${tiltX * 10}px, ${tiltY * 10}px)`;
+                    particleContainer.style.transform = `translate(${tiltX * 40}px, ${tiltY * 40}px)`;
+                }
+
+                // DRAMATIC: Move cosmic background
+                const cosmicBg = document.querySelector('.cosmic-bg');
+                if (cosmicBg) {
+                    cosmicBg.style.transform = `translate(${tiltX * 60}px, ${tiltY * 60}px) scale(1.1)`;
+                }
+
+                // DRAMATIC: Move Three.js canvas container
+                const canvasContainer = document.getElementById('canvas-container');
+                if (canvasContainer) {
+                    canvasContainer.style.transform = `translate(${tiltX * 50}px, ${tiltY * 50}px) rotate(${tiltX * 3}deg)`;
+                }
+
+                // DRAMATIC: Move orbs
+                const orbs = document.querySelectorAll('.mobile-orb');
+                orbs.forEach((orb, i) => {
+                    const multiplier = 1 + (i * 0.5);
+                    orb.style.transform = `translate(${tiltX * 80 * multiplier}px, ${tiltY * 80 * multiplier}px)`;
+                });
+
+                // DRAMATIC: Shift hero elements
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent) {
+                    heroContent.style.transform = `translate(${tiltX * 15}px, ${tiltY * 15}px)`;
+                }
+
+                // Trigger haptic on significant movement
+                const movement = Math.abs(e.gamma - gamma) + Math.abs(e.beta - beta);
+                if (movement > 8 && typeof triggerHaptic === 'function') {
+                    triggerHaptic('light');
                 }
             }
 
@@ -3647,7 +4769,7 @@
             }
 
             // ─────────────────────────────────────────────────────────────────────
-            // 6. ENHANCED HAPTIC FEEDBACK (Android)
+            // 6. ENHANCED HAPTIC FEEDBACK (iOS + Android)
             // ─────────────────────────────────────────────────────────────────────
             const hapticTargets = document.querySelectorAll(
                 '.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button, ' +
@@ -3656,9 +4778,7 @@
 
             hapticTargets.forEach(el => {
                 el.addEventListener('touchstart', () => {
-                    if (navigator.vibrate) {
-                        navigator.vibrate(12);
-                    }
+                    triggerHaptic('light');
                 }, { passive: true });
             });
 
@@ -3723,7 +4843,893 @@
             initMobileEnhancements();
         });
 
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // FUTURE TIER ENHANCEMENTS - PHASES 8-17
+        // ═══════════════════════════════════════════════════════════════════════════════
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 9: LIQUID REALITY SCROLL (LENIS)
+        // ═══════════════════════════════════════════════════════════════════════
+        let lenis = null;
+
+        const enableLiquidScroll = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (enableLiquidScroll && typeof Lenis !== 'undefined') {
+            lenis = new Lenis({
+                duration: 1.4,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.8,
+                smoothTouch: false,
+                touchMultiplier: 1.5,
+                infinite: false,
+            });
+
+            function lenisRaf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(lenisRaf);
+            }
+            requestAnimationFrame(lenisRaf);
+
+            lenis.on('scroll', ({ scroll, progress }) => {
+                document.documentElement.style.setProperty('--scroll-y', scroll);
+                document.documentElement.style.setProperty('--scroll-progress', progress);
+            });
+
+            lenis.on('scroll', ({ scroll }) => {
+                document.querySelectorAll('[data-parallax]').forEach(el => {
+                    const speed = parseFloat(el.dataset.parallax) || 0.5;
+                    const rect = el.getBoundingClientRect();
+                    const yOffset = (rect.top + scroll) * speed * -0.1;
+                    el.style.transform = `translateY(${yOffset}px)`;
+                });
+            });
+
+            console.log('✨ Liquid Reality scroll enabled');
+        }
+
+        // Scroll-triggered reveals
+        const liquidRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.idea-card, .quote-card').forEach(el => {
+            el.classList.add('liquid-reveal');
+            liquidRevealObserver.observe(el);
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 8: CINEMATIC VIDEO PORTAL (with animated fallback)
+        // ═══════════════════════════════════════════════════════════════════════
+        const videoPortal = document.getElementById('video-portal');
+        const portalVideo = document.getElementById('portal-video');
+
+        if (videoPortal) {
+            // Create animated particle fallback for CTA section
+            const createPortalFallback = () => {
+                videoPortal.style.background = `
+                    radial-gradient(ellipse at 30% 40%, rgba(212, 168, 75, 0.15) 0%, transparent 50%),
+                    radial-gradient(ellipse at 70% 60%, rgba(212, 168, 75, 0.1) 0%, transparent 50%),
+                    radial-gradient(ellipse at 50% 50%, rgba(26, 35, 126, 0.1) 0%, transparent 70%)
+                `;
+                videoPortal.classList.add('loaded');
+
+                // Add floating particles
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: absolute;
+                        width: ${2 + Math.random() * 4}px;
+                        height: ${2 + Math.random() * 4}px;
+                        background: var(--gold);
+                        border-radius: 50%;
+                        opacity: ${0.2 + Math.random() * 0.4};
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        animation: portalFloat ${5 + Math.random() * 5}s ease-in-out infinite;
+                        animation-delay: ${Math.random() * 5}s;
+                    `;
+                    videoPortal.appendChild(particle);
+                }
+
+                // Add keyframes
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes portalFloat {
+                        0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+                        25% { transform: translateY(-30px) translateX(10px) scale(1.2); opacity: 0.6; }
+                        50% { transform: translateY(-20px) translateX(-10px) scale(0.8); opacity: 0.4; }
+                        75% { transform: translateY(-40px) translateX(5px) scale(1.1); opacity: 0.5; }
+                    }
+                `;
+                document.head.appendChild(style);
+            };
+
+            if (portalVideo) {
+                // Try video first, fallback to animated particles
+                const videoObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            portalVideo.load();
+                            portalVideo.play().then(() => {
+                                videoPortal.classList.add('loaded');
+                            }).catch(e => {
+                                console.log('Video fallback to particles:', e);
+                                portalVideo.style.display = 'none';
+                                createPortalFallback();
+                            });
+                        } else {
+                            portalVideo.pause();
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '100px'
+                });
+
+                // Check if video source exists
+                portalVideo.addEventListener('error', () => {
+                    console.log('Video not available, using particle fallback');
+                    portalVideo.style.display = 'none';
+                    createPortalFallback();
+                });
+
+                videoObserver.observe(videoPortal);
+
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    portalVideo.remove();
+                    createPortalFallback();
+                }
+
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        portalVideo.pause();
+                    } else if (videoPortal.classList.contains('loaded') && portalVideo.style.display !== 'none') {
+                        portalVideo.play().catch(() => {});
+                    }
+                });
+            } else {
+                createPortalFallback();
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 10: SONIC ARCHITECTURE (TONE.JS) - Loads on demand
+        // ═══════════════════════════════════════════════════════════════════════
+        const SonicArchitecture = {
+            initialized: false,
+            playing: false,
+            synths: {},
+
+            async init() {
+                if (this.initialized) return;
+
+                // Load Tone.js on demand (not at page load)
+                if (typeof Tone === 'undefined') {
+                    console.log('🎵 Loading Tone.js on demand...');
+                    await window.loadToneJs();
+                }
+
+                await Tone.start();
+
+                this.synths.pad = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 4, decay: 2, sustain: 0.8, release: 4 }
+                }).toDestination();
+                this.synths.pad.volume.value = -24;
+
+                this.synths.shimmer = new Tone.Synth({
+                    oscillator: { type: 'triangle' },
+                    envelope: { attack: 0.01, decay: 0.3, sustain: 0, release: 0.5 }
+                }).toDestination();
+                this.synths.shimmer.volume.value = -18;
+
+                this.filter = new Tone.Filter(800, 'lowpass').toDestination();
+                this.synths.pad.connect(this.filter);
+
+                this.reverb = new Tone.Reverb({ decay: 8, wet: 0.6 }).toDestination();
+                this.synths.pad.connect(this.reverb);
+                this.synths.shimmer.connect(this.reverb);
+
+                this.initialized = true;
+                console.log('✨ Sonic Architecture initialized');
+            },
+
+            async start() {
+                if (!this.initialized) await this.init();
+                if (this.playing) return;
+
+                this.playing = true;
+
+                const chords = [
+                    ['A2', 'E3', 'A3'],
+                    ['F2', 'A2', 'C3'],
+                    ['D2', 'F2', 'A2'],
+                    ['E2', 'G#2', 'B2']
+                ];
+
+                let chordIndex = 0;
+
+                const playChord = () => {
+                    if (!this.playing) return;
+
+                    this.synths.pad.triggerAttackRelease(chords[chordIndex], '8n');
+                    chordIndex = (chordIndex + 1) % chords.length;
+
+                    setTimeout(playChord, 8000 + Math.random() * 4000);
+                };
+
+                playChord();
+
+                if (lenis) {
+                    lenis.on('scroll', ({ progress }) => {
+                        const freq = 400 + (progress * 1200);
+                        this.filter.frequency.rampTo(freq, 0.5);
+                    });
+                }
+            },
+
+            stop() {
+                this.playing = false;
+                if (this.synths.pad) {
+                    this.synths.pad.releaseAll();
+                }
+            },
+
+            playInteraction(type = 'click') {
+                if (!this.initialized || !this.playing) return;
+
+                const notes = {
+                    click: 'C5',
+                    hover: 'E5',
+                    scroll: 'G4',
+                    milestone: ['C5', 'E5', 'G5']
+                };
+
+                const note = notes[type] || 'C5';
+
+                if (Array.isArray(note)) {
+                    note.forEach((n, i) => {
+                        setTimeout(() => {
+                            this.synths.shimmer.triggerAttackRelease(n, '16n');
+                        }, i * 100);
+                    });
+                } else {
+                    this.synths.shimmer.triggerAttackRelease(note, '16n');
+                }
+            }
+        };
+
+        // Audio toggle button
+        const audioToggle = document.getElementById('audio-toggle');
+        if (audioToggle) {
+            audioToggle.addEventListener('click', async () => {
+                const isActive = audioToggle.classList.toggle('active');
+
+                if (isActive) {
+                    await SonicArchitecture.start();
+                    localStorage.setItem('ia_audio', 'true');
+                    const tooltip = audioToggle.querySelector('.audio-toggle-tooltip');
+                    if (tooltip) tooltip.textContent = 'Sound On';
+                } else {
+                    SonicArchitecture.stop();
+                    localStorage.setItem('ia_audio', 'false');
+                    const tooltip = audioToggle.querySelector('.audio-toggle-tooltip');
+                    if (tooltip) tooltip.textContent = 'Enable Ambient Sound';
+                }
+            });
+
+            document.querySelectorAll('button, a, .idea-card, .quote-card').forEach(el => {
+                el.addEventListener('mouseenter', () => SonicArchitecture.playInteraction('hover'));
+                el.addEventListener('click', () => SonicArchitecture.playInteraction('click'));
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 11: HOLOGRAPHIC BOOK
+        // ═══════════════════════════════════════════════════════════════════════
+        const holoBook = document.getElementById('hero-book-3d');
+        const bookShadow = document.getElementById('book-shadow');
+        const bookLight = holoBook?.querySelector('.book-light-layer');
+
+        if (holoBook) {
+            const maxRotation = 15;
+
+            // Desktop: Mouse tracking
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    const rect = holoBook.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    const rotateY = ((e.clientX - centerX) / window.innerWidth) * maxRotation * 2;
+                    const rotateX = ((centerY - e.clientY) / window.innerHeight) * maxRotation * 2;
+
+                    holoBook.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+                    holoBook.classList.add('tracking');
+
+                    if (bookShadow) {
+                        bookShadow.style.transform = `translateX(calc(-50% + ${rotateY * 2}px)) rotateX(90deg) scaleX(${1 + Math.abs(rotateY) * 0.02})`;
+                    }
+
+                    if (bookLight) {
+                        const lightX = 50 + rotateY * 2;
+                        const lightY = 50 - rotateX * 2;
+                        bookLight.style.background = `radial-gradient(circle at ${lightX}% ${lightY}%, rgba(255,255,255,0.5) 0%, transparent 50%)`;
+                    }
+                });
+
+                document.addEventListener('mouseleave', () => {
+                    holoBook.style.transform = '';
+                    holoBook.classList.remove('tracking');
+                    holoBook.classList.add('floating');
+                    if (bookShadow) bookShadow.style.transform = '';
+                });
+            }
+
+            // Mobile: Gyroscope tracking
+            if (window.innerWidth <= 768) {
+                window.addEventListener('deviceorientation', (e) => {
+                    const beta = e.beta || 0;
+                    const gamma = e.gamma || 0;
+
+                    const rotateX = Math.max(-maxRotation, Math.min(maxRotation, (beta - 45) * 0.5));
+                    const rotateY = Math.max(-maxRotation, Math.min(maxRotation, gamma * 0.5));
+
+                    holoBook.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+                    holoBook.classList.add('tracking');
+
+                    if (bookShadow) {
+                        bookShadow.style.transform = `translateX(calc(-50% + ${rotateY * 2}px)) rotateX(90deg)`;
+                    }
+                }, { passive: true });
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 12: PARTICLE TEXT DISSOLUTION
+        // ═══════════════════════════════════════════════════════════════════════
+        function initDissolveText() {
+            const heroTitle = document.getElementById('hero-title');
+            if (!heroTitle || heroTitle.classList.contains('dissolve-ready')) return;
+
+            const text = heroTitle.textContent;
+            heroTitle.innerHTML = '';
+            heroTitle.classList.add('dissolve-text', 'dissolve-ready');
+
+            [...text].forEach((char, i) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.setProperty('--char-index', i);
+                heroTitle.appendChild(span);
+            });
+
+            const particlePool = [];
+            const poolSize = 50;
+
+            for (let i = 0; i < poolSize; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'dissolve-particle';
+                document.body.appendChild(particle);
+                particlePool.push(particle);
+            }
+
+            let dissolved = false;
+            let particleIndex = 0;
+
+            const dissolveThreshold = window.innerHeight * 0.3;
+
+            const checkDissolve = () => {
+                const scrollY = window.scrollY;
+
+                if (scrollY > dissolveThreshold && !dissolved) {
+                    dissolved = true;
+                    heroTitle.classList.add('dissolving');
+
+                    heroTitle.querySelectorAll('.char').forEach((char, i) => {
+                        setTimeout(() => {
+                            const rect = char.getBoundingClientRect();
+                            const particle = particlePool[particleIndex % poolSize];
+                            particleIndex++;
+
+                            particle.style.left = rect.left + rect.width / 2 + 'px';
+                            particle.style.top = rect.top + rect.height / 2 + 'px';
+                            particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                            particle.style.setProperty('--ty', -100 - Math.random() * 100 + 'px');
+                            particle.style.animation = 'particleFly 1s ease-out forwards';
+
+                            setTimeout(() => {
+                                particle.style.animation = '';
+                            }, 1000);
+                        }, i * 20);
+                    });
+
+                    if (typeof SonicArchitecture !== 'undefined') {
+                        SonicArchitecture.playInteraction('milestone');
+                    }
+
+                } else if (scrollY <= dissolveThreshold * 0.5 && dissolved) {
+                    dissolved = false;
+                    heroTitle.classList.remove('dissolving');
+                }
+            };
+
+            window.addEventListener('scroll', checkDissolve, { passive: true });
+        }
+
+        if (document.readyState === 'complete') {
+            initDissolveText();
+        } else {
+            window.addEventListener('load', initDissolveText);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 13: TIME-AWARE CONSCIOUSNESS
+        // ═══════════════════════════════════════════════════════════════════════
+        const TimeConsciousness = {
+            init() {
+                this.update();
+                setInterval(() => this.update(), 5 * 60 * 1000);
+            },
+
+            update() {
+                const hour = new Date().getHours();
+                const root = document.documentElement;
+                const body = document.body;
+
+                body.classList.remove('dawn-mode', 'day-mode', 'dusk-mode', 'night-mode');
+
+                if (hour >= 5 && hour < 8) {
+                    body.classList.add('dawn-mode');
+                    root.style.setProperty('--time-hue-shift', '10deg');
+                    root.style.setProperty('--time-warmth', '0.3');
+                    root.style.setProperty('--time-brightness', '0.95');
+                    console.log('🌅 Dawn mode activated');
+
+                } else if (hour >= 8 && hour < 18) {
+                    body.classList.add('day-mode');
+                    root.style.setProperty('--time-hue-shift', '0deg');
+                    root.style.setProperty('--time-warmth', '0');
+                    root.style.setProperty('--time-brightness', '1');
+                    console.log('☀️ Day mode activated');
+
+                } else if (hour >= 18 && hour < 21) {
+                    body.classList.add('dusk-mode');
+                    root.style.setProperty('--time-hue-shift', '15deg');
+                    root.style.setProperty('--time-warmth', '0.4');
+                    root.style.setProperty('--time-brightness', '0.9');
+                    console.log('🌆 Dusk mode activated');
+
+                } else {
+                    body.classList.add('night-mode');
+                    root.style.setProperty('--time-hue-shift', '-5deg');
+                    root.style.setProperty('--time-warmth', '0');
+                    root.style.setProperty('--time-brightness', '0.85');
+                    root.style.setProperty('--time-saturation', '1.1');
+                    console.log('🌙 Night mode activated');
+                }
+            }
+        };
+
+        TimeConsciousness.init();
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 14: NEURAL NETWORK VISUALIZER (Performance-aware + IntersectionObserver)
+        // ═══════════════════════════════════════════════════════════════════════
+        const neuralCanvas = document.getElementById('neural-canvas');
+        let neuralVisible = false;
+
+        // Skip neural network on slow connections or reduced motion
+        if (neuralCanvas && Features.neuralNetwork) {
+            // Set up IntersectionObserver for neural canvas
+            if ('IntersectionObserver' in window) {
+                const neuralObserver = new IntersectionObserver((entries) => {
+                    neuralVisible = entries[0].isIntersecting;
+                }, { threshold: 0.1 });
+                neuralObserver.observe(neuralCanvas);
+            } else {
+                neuralVisible = true;
+            }
+
+            const ctx = neuralCanvas.getContext('2d');
+            const ideaCards = document.querySelectorAll('.idea-card');
+            let nodes = [];
+            let animationFrame;
+
+            function resizeNeuralCanvas() {
+                const section = neuralCanvas.parentElement;
+                neuralCanvas.width = section.offsetWidth;
+                neuralCanvas.height = section.offsetHeight;
+                initNeuralNodes();
+            }
+
+            function initNeuralNodes() {
+                nodes = [];
+                // Reduce node count on mobile
+                const maxNodes = PERF.isMobile ? 12 : 30;
+                const count = Math.min(ideaCards.length * 2, maxNodes);
+
+                for (let i = 0; i < count; i++) {
+                    nodes.push({
+                        x: Math.random() * neuralCanvas.width,
+                        y: Math.random() * neuralCanvas.height,
+                        vx: (Math.random() - 0.5) * 0.3, // Slower movement
+                        vy: (Math.random() - 0.5) * 0.3, // Slower movement
+                        radius: 2 + Math.random() * 3,
+                        pulsePhase: Math.random() * Math.PI * 2,
+                        active: false
+                    });
+                }
+            }
+
+            function drawNetwork() {
+                ctx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+
+                ctx.strokeStyle = 'rgba(212, 168, 75, 0.1)';
+                ctx.lineWidth = 1;
+
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const dx = nodes[j].x - nodes[i].x;
+                        const dy = nodes[j].y - nodes[i].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 150) {
+                            const opacity = (1 - dist / 150) * 0.3;
+                            ctx.strokeStyle = `rgba(212, 168, 75, ${opacity})`;
+
+                            ctx.beginPath();
+                            ctx.moveTo(nodes[i].x, nodes[i].y);
+                            ctx.lineTo(nodes[j].x, nodes[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                nodes.forEach((node, i) => {
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    if (node.x < 0 || node.x > neuralCanvas.width) node.vx *= -1;
+                    if (node.y < 0 || node.y > neuralCanvas.height) node.vy *= -1;
+
+                    node.pulsePhase += 0.02;
+                    const pulse = 1 + Math.sin(node.pulsePhase) * 0.3;
+
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
+                    ctx.fillStyle = node.active
+                        ? 'rgba(244, 200, 86, 0.9)'
+                        : 'rgba(212, 168, 75, 0.6)';
+                    ctx.fill();
+
+                    if (node.active) {
+                        ctx.shadowColor = 'rgba(212, 168, 75, 0.8)';
+                        ctx.shadowBlur = 15;
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                });
+
+                // Only animate if visible and page visible
+                if (pageVisible && neuralVisible) {
+                    animationFrame = requestAnimationFrame(drawNetwork);
+                } else {
+                    setTimeout(() => {
+                        animationFrame = requestAnimationFrame(drawNetwork);
+                    }, 200);
+                }
+            }
+
+            ideaCards.forEach((card, i) => {
+                card.addEventListener('mouseenter', () => {
+                    const rect = card.getBoundingClientRect();
+                    const sectionRect = neuralCanvas.getBoundingClientRect();
+                    const cardCenterX = rect.left - sectionRect.left + rect.width / 2;
+                    const cardCenterY = rect.top - sectionRect.top + rect.height / 2;
+
+                    nodes.forEach(node => {
+                        const dx = node.x - cardCenterX;
+                        const dy = node.y - cardCenterY;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        node.active = dist < 200;
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    nodes.forEach(node => node.active = false);
+                });
+            });
+
+            resizeNeuralCanvas();
+            window.addEventListener('resize', resizeNeuralCanvas);
+
+            const neuralObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        drawNetwork();
+                    } else {
+                        cancelAnimationFrame(animationFrame);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            neuralObserver.observe(neuralCanvas.parentElement);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 15: CONSTELLATION PROGRESS
+        // ═══════════════════════════════════════════════════════════════════════
+        const constellationNav = document.getElementById('constellation-nav');
+
+        if (constellationNav) {
+            const sections = [
+                { id: 'hero', label: 'HOME' },
+                { id: 'ideas', label: 'IDEAS' },
+                { id: 'quotes', label: 'QUOTES' },
+                { id: 'about', label: 'AUTHOR' },
+                { id: 'reviews', label: 'REVIEWS' },
+                { id: 'cta', label: 'GET BOOK' }
+            ];
+
+            let html = '';
+            sections.forEach((section, i) => {
+                const sectionEl = document.getElementById(section.id) ||
+                                  document.querySelector(`.${section.id}-section`) ||
+                                  document.querySelector(`[class*="${section.id}"]`);
+
+                if (sectionEl) {
+                    html += `
+                        <div class="constellation-star" data-section="${section.id}">
+                            <span class="constellation-label">${section.label}</span>
+                        </div>
+                    `;
+                    if (i < sections.length - 1) {
+                        html += `<div class="constellation-line" data-line="${i}"></div>`;
+                    }
+                }
+            });
+
+            constellationNav.innerHTML = html;
+
+            constellationNav.querySelectorAll('.constellation-star').forEach(star => {
+                star.addEventListener('click', () => {
+                    const sectionId = star.dataset.section;
+                    const target = document.getElementById(sectionId) ||
+                                   document.querySelector(`.${sectionId}-section`) ||
+                                   document.querySelector(`[class*="${sectionId}"]`);
+
+                    if (target) {
+                        if (lenis) {
+                            lenis.scrollTo(target, { offset: -50 });
+                        } else {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+
+            const updateConstellation = () => {
+                const windowHeight = window.innerHeight;
+                const stars = constellationNav.querySelectorAll('.constellation-star');
+                const lines = constellationNav.querySelectorAll('.constellation-line');
+
+                sections.forEach((section, i) => {
+                    const sectionEl = document.getElementById(section.id) ||
+                                      document.querySelector(`.${section.id}-section`) ||
+                                      document.querySelector(`[class*="${section.id}"]`);
+
+                    if (sectionEl && stars[i]) {
+                        const rect = sectionEl.getBoundingClientRect();
+                        const isActive = rect.top < windowHeight * 0.5 && rect.bottom > windowHeight * 0.3;
+                        const isPassed = rect.bottom < windowHeight * 0.5;
+
+                        stars[i].classList.toggle('active', isActive || isPassed);
+
+                        if (lines[i]) {
+                            lines[i].classList.toggle('filled', isPassed);
+                        }
+                    }
+                });
+            };
+
+            const showConstellation = () => {
+                const show = window.scrollY > window.innerHeight * 0.5;
+                constellationNav.classList.toggle('visible', show);
+            };
+
+            window.addEventListener('scroll', () => {
+                updateConstellation();
+                showConstellation();
+            }, { passive: true });
+
+            updateConstellation();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 16: SENTIENT CURSOR
+        // ═══════════════════════════════════════════════════════════════════════
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+
+        if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
+            let mouseX = 0, mouseY = 0;
+            let ringX = 0, ringY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+
+            function animateRing() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+
+            const hoverTargets = {
+                link: 'a, .nav-link',
+                button: 'button, .hero-cta, .cta-primary, .cta-secondary, .buy-btn, .cta-button',
+                text: 'p, h1, h2, h3, h4, h5, h6'
+            };
+
+            Object.entries(hoverTargets).forEach(([type, selector]) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorDot.classList.add(`hover-${type}`);
+                        cursorRing.classList.add(`hover-${type}`);
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorDot.classList.remove(`hover-${type}`);
+                        cursorRing.classList.remove(`hover-${type}`);
+                    });
+                });
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursorDot.style.opacity = '0';
+                cursorRing.style.opacity = '0';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursorDot.style.opacity = '1';
+                cursorRing.style.opacity = '1';
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 17: QUANTUM ENTANGLEMENT - GPU-accelerated with transform3d
+        // ═══════════════════════════════════════════════════════════════════════
+        const QuantumField = {
+            pairs: [],
+
+            init() {
+                // Skip if disabled by Features or slow connection
+                if (!Features.quantumParticles) {
+                    console.log('⚡ Quantum Field disabled for performance');
+                    return;
+                }
+                // Reduce pairs on mobile
+                const pairCount = PERF.isMobile ? 1 : 3;
+                for (let i = 0; i < pairCount; i++) {
+                    this.createPair();
+                }
+                this.animate();
+            },
+
+            createPair() {
+                const particleA = document.createElement('div');
+                particleA.className = 'quantum-particle entangled';
+                // Use will-change for GPU acceleration
+                particleA.style.willChange = 'transform';
+                particleA.style.left = '0';
+                particleA.style.top = '0';
+                document.body.appendChild(particleA);
+
+                const particleB = document.createElement('div');
+                particleB.className = 'quantum-particle entangled';
+                particleB.style.animationDelay = '0s';
+                particleB.style.willChange = 'transform';
+                particleB.style.left = '0';
+                particleB.style.top = '0';
+                document.body.appendChild(particleB);
+
+                const line = document.createElement('div');
+                line.className = 'quantum-line';
+                line.style.willChange = 'transform, width';
+                line.style.left = '0';
+                line.style.top = '0';
+                document.body.appendChild(line);
+
+                const pair = {
+                    a: {
+                        el: particleA,
+                        x: Math.random() * window.innerWidth * 0.4,
+                        y: Math.random() * window.innerHeight,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2
+                    },
+                    b: {
+                        el: particleB,
+                        x: 0,
+                        y: 0
+                    },
+                    line: line
+                };
+
+                this.pairs.push(pair);
+            },
+
+            animate() {
+                // Pause when tab hidden
+                if (!pageVisible) {
+                    setTimeout(() => requestAnimationFrame(() => this.animate()), 200);
+                    return;
+                }
+
+                this.pairs.forEach(pair => {
+                    pair.a.x += pair.a.vx;
+                    pair.a.y += pair.a.vy;
+
+                    if (pair.a.x < 0 || pair.a.x > window.innerWidth * 0.4) pair.a.vx *= -1;
+                    if (pair.a.y < 0 || pair.a.y > window.innerHeight) pair.a.vy *= -1;
+
+                    pair.b.x = window.innerWidth - pair.a.x;
+                    pair.b.y = pair.a.y;
+
+                    // Use transform3d for GPU acceleration (faster than left/top)
+                    pair.a.el.style.transform = `translate3d(${pair.a.x}px, ${pair.a.y}px, 0)`;
+                    pair.b.el.style.transform = `translate3d(${pair.b.x}px, ${pair.b.y}px, 0)`;
+
+                    const dx = pair.b.x - pair.a.x;
+                    const dy = pair.b.y - pair.a.y;
+                    const length = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+                    pair.line.style.width = length + 'px';
+                    pair.line.style.transform = `translate3d(${pair.a.x}px, ${pair.a.y}px, 0) rotate(${angle}deg)`;
+                });
+
+                requestAnimationFrame(() => this.animate());
+            }
+        };
+
+        // Initialize quantum field (desktop only, features check)
+        if (window.innerWidth > 768 && Features.quantumParticles) {
+            setTimeout(() => QuantumField.init(), 2000);
+        }
+
+        console.log('🚀 Future Tier Enhancements Phases 8-17 loaded');
+
     })();
     </script>
+
+    <!-- Constellation Progress Navigation (Phase 15) -->
+    <nav class="constellation-nav" id="constellation-nav" aria-label="Page sections">
+        <!-- Generated by JavaScript -->
+    </nav>
+
+    <!-- Sonic Architecture Toggle (Phase 10) -->
+    <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient sound">
+        <div class="audio-waves">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="audio-toggle-tooltip">Enable Ambient Sound</span>
+    </button>
 </body>
 </html>
