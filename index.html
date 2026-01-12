@@ -761,6 +761,12 @@
             height: 100%;
             overflow: hidden;
             z-index: 0;
+            background: var(--void);
+        }
+
+        /* Global video dark background fallback */
+        video {
+            background: var(--void) !important;
         }
 
         .mandelbrot-video {
@@ -774,6 +780,16 @@
             transform: translate(-50%, -50%);
             object-fit: cover;
             opacity: 1;
+            background: var(--void);
+        }
+
+        /* Hide video controls and prevent white flash */
+        .mandelbrot-video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        .mandelbrot-video::-webkit-media-controls-enclosure {
+            display: none !important;
         }
 
         .mandelbrot-overlay {
@@ -3741,7 +3757,8 @@
             background: linear-gradient(90deg, transparent 0%, #f9f6f0 20%);
             transform: rotateY(5deg);
             transform-origin: left center;
-            opacity: 0;
+            opacity: 0 !important;
+            visibility: hidden;
             transition: all 0.4s ease;
             pointer-events: none;
             overflow: hidden;
@@ -3749,7 +3766,8 @@
 
         .hero-book-3d:hover .book-page-peek {
             right: -20px;
-            opacity: 1;
+            opacity: 1 !important;
+            visibility: visible;
             transform: rotateY(15deg);
         }
 
@@ -8907,7 +8925,9 @@
             <!-- Mandelbrot Fractal Video Background - Precision Seamless Loop -->
             <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
                 <video class="mandelbrot-video" id="mandelbrot-video"
-                       muted playsinline preload="auto">
+                       muted playsinline preload="auto" autoplay loop
+                       poster="images/hero-background.webp"
+                       style="background: #02030a;">
                     <source src="Mandelbrot_Set_Video_Loop.mp4" type="video/mp4">
                 </video>
                 <div class="mandelbrot-overlay"></div>
