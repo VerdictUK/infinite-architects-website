@@ -16582,18 +16582,84 @@ img {
     transform: translateZ(0);
 }
 
-/* Disable heavy effects on mobile */
+/* Mobile performance optimizations - keep particles, disable heavy effects */
 @media (max-width: 768px) {
+    /* Keep particles visible but disable film grain for performance */
+    .film-grain {
+        display: none !important;
+    }
+
+    /* Reduce particle opacity for better readability */
     .neural-canvas,
     .particle-canvas,
-    .film-grain,
     #canvas-container {
-        display: none !important;
+        opacity: 0.6;
     }
 
     /* Simpler transitions */
     * {
         transition-duration: 0.2s !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHAPTER TITLE DIVIDERS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.chapter-title-divider {
+    width: 100%;
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.chapter-title-divider__numeral {
+    display: block;
+    font-family: var(--font-display, 'Cinzel', serif);
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 400;
+    color: var(--gold, #d4a84b);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 30px rgba(212, 168, 75, 0.4);
+}
+
+.chapter-title-divider__name {
+    display: block;
+    font-family: var(--font-display, 'Cinzel', serif);
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-weight: 600;
+    color: var(--gold, #d4a84b);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.chapter-title-divider__line {
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold, #d4a84b), transparent);
+    margin: 1rem auto 0;
+}
+
+/* First section of each chapter gets the title */
+.chapter-start {
+    padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+}
+
+@media (max-width: 768px) {
+    .chapter-title-divider {
+        padding: 1.5rem 1rem;
+    }
+
+    .chapter-title-divider__numeral {
+        font-size: clamp(1.5rem, 10vw, 2.5rem);
+    }
+
+    .chapter-title-divider__name {
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
     }
 }
 
@@ -17209,7 +17275,13 @@ img {
         <!-- ═══════════════════════════════════════════════════════════════════════
              BBC TIMELINE EVIDENCE - "Five Years" (bbc_clip_3)
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="timeline-evidence-section snap-section" id="bbc-timeline">
+        <section class="timeline-evidence-section snap-section chapter-start" id="bbc-timeline">
+            <!-- Chapter II Title -->
+            <div class="chapter-title-divider">
+                <span class="chapter-title-divider__numeral">II</span>
+                <span class="chapter-title-divider__name">The Evidence</span>
+                <span class="chapter-title-divider__line"></span>
+            </div>
             <div class="timeline-evidence-inner">
                 <p class="section-label reveal">THE WINDOW IS CLOSING</p>
                 <h2 class="section-title reveal reveal-delay-1">How Long Do We Have?</h2>
@@ -17543,7 +17615,13 @@ img {
         <!-- ═══════════════════════════════════════════════════════════════════════
              RELIGIOUS INTEGRATION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="religion-section snap-section" id="religion">
+        <section class="religion-section snap-section chapter-start" id="religion">
+            <!-- Chapter III Title -->
+            <div class="chapter-title-divider">
+                <span class="chapter-title-divider__numeral">III</span>
+                <span class="chapter-title-divider__name">The Philosophy</span>
+                <span class="chapter-title-divider__line"></span>
+            </div>
             <div class="religion-inner">
                 <div class="religion-content">
                     <p class="section-label reveal">The Ignored Resource</p>
@@ -18102,7 +18180,13 @@ img {
         <!-- ═══════════════════════════════════════════════════════════════════════
              TRI-PATH CONVERSION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="tripath-section snap-section" id="get-the-book">
+        <section class="tripath-section snap-section chapter-start" id="get-the-book">
+            <!-- Chapter V Title -->
+            <div class="chapter-title-divider">
+                <span class="chapter-title-divider__numeral">V</span>
+                <span class="chapter-title-divider__name">Get the Book</span>
+                <span class="chapter-title-divider__line"></span>
+            </div>
             <div class="tripath-inner">
                 <p class="section-label reveal">CHOOSE YOUR PATH</p>
                 <h2 class="section-title reveal reveal-delay-1">Three Doors. One Framework.</h2>
@@ -18350,7 +18434,13 @@ img {
         <!-- ═══════════════════════════════════════════════════════════════════════
              BOOK COMPARISON SECTION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="comparison-section snap-section" id="comparison">
+        <section class="comparison-section snap-section chapter-start" id="comparison">
+            <!-- Chapter IV Title -->
+            <div class="chapter-title-divider">
+                <span class="chapter-title-divider__numeral">IV</span>
+                <span class="chapter-title-divider__name">The Stakes</span>
+                <span class="chapter-title-divider__line"></span>
+            </div>
             <div class="comparison-inner">
                 <p class="section-label reveal">Why This Book</p>
                 <h2 class="section-title reveal reveal-delay-1">How It Compares</h2>
