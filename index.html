@@ -13042,120 +13042,224 @@
             }
 
             /* ══════════════════════════════════════════════════════════════════
-               SLIDE 1: HERO SECTION
+               SLIDE 1: HERO - Premium Book Presentation
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .hero,
             html.slideshow-mode #hero {
-                padding: 30px 20px calc(85px + env(safe-area-inset-bottom, 0px)) 20px !important;
+                padding: 15px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+                gap: 0.5rem !important;
             }
 
-            html.slideshow-mode .hero-content {
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                align-items: center !important;
-                gap: 1rem !important;
-                max-height: calc(100vh - 130px) !important;
+            /* Hide hero extras in slideshow mode */
+            html.slideshow-mode .hero-badge,
+            html.slideshow-mode .hero-status-pill,
+            html.slideshow-mode .scroll-indicator {
+                display: none !important;
             }
 
-            html.slideshow-mode .hero-book-container,
-            html.slideshow-mode .book-cover-container {
-                max-height: 40vh !important;
+            /* Mandelbrot background positioning */
+            html.slideshow-mode .hero .mandelbrot-bg {
+                position: absolute !important;
+                inset: 0 !important;
+                z-index: 0 !important;
+            }
+
+            /* Book container */
+            html.slideshow-mode .hero-book-container {
+                max-height: 38vh !important;
                 flex-shrink: 0 !important;
+                z-index: 1 !important;
             }
 
             html.slideshow-mode .hero-book-container img,
-            html.slideshow-mode .book-cover-container img {
-                max-height: 38vh !important;
+            html.slideshow-mode .hero-book img {
+                max-height: 36vh !important;
                 width: auto !important;
                 object-fit: contain !important;
+                border-radius: 4px !important;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
             }
 
             html.slideshow-mode .hero-title {
-                font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
-                margin-bottom: 0.5rem !important;
+                font-size: clamp(1.4rem, 5.5vw, 1.9rem) !important;
+                margin: 0.5rem 0 0.25rem 0 !important;
+                z-index: 1 !important;
+                line-height: 1.1 !important;
             }
 
-            html.slideshow-mode .hero-tagline {
-                font-size: clamp(0.85rem, 3vw, 1rem) !important;
+            html.slideshow-mode .hero-subtitle {
+                font-size: clamp(0.8rem, 3vw, 0.95rem) !important;
                 line-height: 1.4 !important;
-                max-width: 90vw !important;
-                text-align: center !important;
+                max-width: 85vw !important;
+                margin-bottom: 0.25rem !important;
+                z-index: 1 !important;
+                color: var(--text-dim) !important;
+            }
+
+            html.slideshow-mode .hero-author {
+                font-size: 0.75rem !important;
+                margin-bottom: 0.5rem !important;
+                z-index: 1 !important;
+                letter-spacing: 0.1em !important;
             }
 
             html.slideshow-mode .hero-cta {
-                margin-top: 0.5rem !important;
-                padding: 0.8rem 2rem !important;
-                font-size: 0.9rem !important;
+                padding: 0.7rem 1.5rem !important;
+                font-size: 0.8rem !important;
+                margin-top: 0.25rem !important;
+                z-index: 1 !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
-               SLIDE 2: QUOTE/BOOK SECTION
+               SLIDE 2: OPENING QUOTE
                ══════════════════════════════════════════════════════════════════ */
-            html.slideshow-mode .book-section,
-            html.slideshow-mode #book,
-            html.slideshow-mode .quote-section {
-                justify-content: center !important;
+            html.slideshow-mode .quote-section,
+            html.slideshow-mode #book {
+                padding: 30px 25px calc(90px + env(safe-area-inset-bottom, 0px)) 25px !important;
             }
 
-            html.slideshow-mode .quote-text,
-            html.slideshow-mode .hero-quote {
-                font-size: clamp(1.1rem, 4.5vw, 1.5rem) !important;
-                line-height: 1.5 !important;
+            html.slideshow-mode .quote-container {
+                max-width: 90vw !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            html.slideshow-mode .quote-mark {
+                font-size: 4rem !important;
+                line-height: 0.5 !important;
+                margin-bottom: 0.5rem !important;
+                color: var(--gold) !important;
+                opacity: 0.8 !important;
+            }
+
+            html.slideshow-mode .quote-text {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                line-height: 1.6 !important;
+                font-style: italic !important;
                 text-align: center !important;
-                padding: 0 1rem !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
-               SLIDE 3: EQUATION SECTION - U = I × R²
+               SLIDE 3: EQUATION U = I × R²
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .equation-section,
             html.slideshow-mode #equation {
-                padding: 20px 16px calc(85px + env(safe-area-inset-bottom, 0px)) 16px !important;
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
             }
 
-            html.slideshow-mode .equation-content,
-            html.slideshow-mode .equation-inner {
-                max-height: calc(100vh - 130px) !important;
-                overflow: hidden !important;
+            html.slideshow-mode .equation-container {
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: center !important;
                 align-items: center !important;
-                gap: 0.75rem !important;
+                gap: 0.5rem !important;
+                width: 100% !important;
             }
 
-            html.slideshow-mode .eq-term,
-            html.slideshow-mode .equation-term {
-                padding: 0.75rem 1rem !important;
-                margin: 0.25rem 0 !important;
-            }
-
-            html.slideshow-mode .eq-symbol,
-            html.slideshow-mode .equation-symbol {
-                font-size: clamp(1.5rem, 6vw, 2rem) !important;
-            }
-
-            html.slideshow-mode .eq-label,
-            html.slideshow-mode .equation-label {
-                font-size: clamp(0.75rem, 2.5vw, 0.9rem) !important;
-                line-height: 1.3 !important;
-            }
-
-            html.slideshow-mode .equation-result {
-                font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
-                margin-top: 0.5rem !important;
-                padding: 0.5rem !important;
-            }
-
-            html.slideshow-mode .equation-counters {
+            /* The main equation display */
+            html.slideshow-mode .equation-display {
                 display: flex !important;
-                gap: 2rem !important;
-                margin-top: 0.5rem !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 0.4rem !important;
+                margin: 0.5rem 0 !important;
             }
 
-            html.slideshow-mode .equation-counter-value {
-                font-size: clamp(1.5rem, 6vw, 2rem) !important;
+            html.slideshow-mode .eq-term {
+                font-size: clamp(2.5rem, 10vw, 3.5rem) !important;
+                font-family: var(--font-display) !important;
+                color: var(--gold) !important;
+            }
+
+            html.slideshow-mode .eq-equals,
+            html.slideshow-mode .eq-times {
+                font-size: clamp(1.5rem, 6vw, 2.5rem) !important;
+                color: var(--text-dim) !important;
+            }
+
+            html.slideshow-mode .eq-power {
+                font-size: clamp(1rem, 4vw, 1.5rem) !important;
+                vertical-align: super !important;
+            }
+
+            html.slideshow-mode .equation-name {
+                font-size: clamp(0.85rem, 3vw, 1rem) !important;
+                letter-spacing: 0.2em !important;
+                margin: 0.5rem 0 !important;
+                color: var(--gold) !important;
+            }
+
+            /* Variable definitions */
+            html.slideshow-mode .equation-explanation {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.35rem !important;
+                margin: 0.5rem 0 !important;
+                width: 100% !important;
+                max-width: 95vw !important;
+            }
+
+            html.slideshow-mode .eq-def {
+                display: flex !important;
+                align-items: flex-start !important;
+                gap: 0.75rem !important;
+                text-align: left !important;
+            }
+
+            html.slideshow-mode .eq-letter {
+                font-size: 1rem !important;
+                color: var(--gold) !important;
+                min-width: 35px !important;
+                font-family: var(--font-display) !important;
+            }
+
+            html.slideshow-mode .eq-meaning {
+                font-size: 0.75rem !important;
+                line-height: 1.4 !important;
+                color: var(--text-dim) !important;
+            }
+
+            /* Tagline */
+            html.slideshow-mode .equation-tagline {
+                font-size: 0.75rem !important;
+                line-height: 1.5 !important;
+                margin: 0.5rem 0 !important;
+                max-width: 90vw !important;
+                color: var(--text-dim) !important;
+            }
+
+            html.slideshow-mode .equation-tagline strong {
+                color: var(--gold) !important;
+            }
+
+            /* Proof bar */
+            html.slideshow-mode .equation-proof-bar {
+                display: flex !important;
+                justify-content: center !important;
+                gap: 1.5rem !important;
+                margin-top: 0.5rem !important;
+                flex-wrap: wrap !important;
+            }
+
+            html.slideshow-mode .proof-metric {
+                text-align: center !important;
+            }
+
+            html.slideshow-mode .proof-number {
+                font-size: clamp(1.3rem, 5vw, 1.8rem) !important;
+                color: var(--gold) !important;
+                display: block !important;
+                font-family: var(--font-display) !important;
+            }
+
+            html.slideshow-mode .proof-label {
+                font-size: 0.6rem !important;
+                letter-spacing: 0.1em !important;
+                color: var(--text-dim) !important;
+            }
+
+            html.slideshow-mode .proof-divider {
+                display: none !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
@@ -13163,17 +13267,20 @@
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .evidence-locker,
             html.slideshow-mode #evidence-locker {
-                padding: 20px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important;
+                padding: 15px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
             }
 
             html.slideshow-mode .evidence-locker-inner {
-                max-height: calc(100vh - 130px) !important;
+                width: 100% !important;
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: center !important;
                 align-items: center !important;
-                gap: 0.75rem !important;
-                width: 100% !important;
+                gap: 0.5rem !important;
+            }
+
+            html.slideshow-mode .evidence-locker .section-title {
+                font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+                padding: 0 1rem !important;
             }
 
             html.slideshow-mode .evidence-grid {
@@ -13182,10 +13289,10 @@
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
-                padding: 0.5rem 1rem 1rem 1rem !important;
+                gap: 0.75rem !important;
+                padding: 0.5rem 1rem !important;
                 width: 100% !important;
-                max-height: calc(100vh - 220px) !important;
+                max-height: calc(100dvh - 200px) !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
             }
@@ -13194,67 +13301,104 @@
                 display: none !important;
             }
 
-            /* Show ALL cards - horizontal scroll */
+            /* Show ALL cards */
             html.slideshow-mode .evidence-grid .evidence-card:nth-child(n+7) {
                 display: flex !important;
             }
 
             html.slideshow-mode .evidence-card {
-                flex: 0 0 80vw !important;
-                min-width: 80vw !important;
-                max-width: 80vw !important;
+                flex: 0 0 85vw !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
                 scroll-snap-align: center !important;
                 padding: 1rem !important;
                 border-radius: 12px !important;
-                min-height: 200px !important;
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: flex-start !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
             }
 
-            html.slideshow-mode .evidence-card h4,
-            html.slideshow-mode .evidence-card .evidence-title {
+            html.slideshow-mode .evidence-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .evidence-type {
+                font-size: 0.65rem !important;
+            }
+
+            html.slideshow-mode .evidence-badge {
+                font-size: 0.55rem !important;
+                padding: 3px 8px !important;
+            }
+
+            html.slideshow-mode .evidence-title,
+            html.slideshow-mode .evidence-card h3 {
                 font-size: 0.9rem !important;
-                margin-bottom: 8px !important;
+                margin-bottom: 0.4rem !important;
                 line-height: 1.3 !important;
+                color: var(--gold) !important;
             }
 
-            html.slideshow-mode .evidence-card p,
-            html.slideshow-mode .evidence-card .evidence-desc {
+            html.slideshow-mode .evidence-desc,
+            html.slideshow-mode .evidence-card p {
                 font-size: 0.8rem !important;
                 line-height: 1.5 !important;
                 display: -webkit-box !important;
-                -webkit-line-clamp: 4 !important;
+                -webkit-line-clamp: 3 !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
             }
 
-            html.slideshow-mode .evidence-badge {
-                font-size: 0.6rem !important;
-                padding: 4px 10px !important;
+            html.slideshow-mode .evidence-terminal {
+                font-size: 0.65rem !important;
+                margin-top: auto !important;
+                padding-top: 0.5rem !important;
             }
 
-            html.slideshow-mode .evidence-terminal {
-                font-size: 0.7rem !important;
+            html.slideshow-mode .evidence-terminal .terminal-line {
+                padding: 0.15rem 0 !important;
+            }
+
+            html.slideshow-mode .evidence-link {
+                font-size: 0.75rem !important;
                 margin-top: auto !important;
             }
 
+            html.slideshow-mode .swipe-hint {
+                font-size: 0.7rem !important;
+                opacity: 0.5 !important;
+                margin-top: 0.5rem !important;
+            }
+
             /* ══════════════════════════════════════════════════════════════════
-               SLIDE 5: IDEAS GRID - HORIZONTAL SWIPE
+               SLIDE 5: IDEAS - 37 CONCEPTS HORIZONTAL SWIPE
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .ideas-section,
             html.slideshow-mode #ideas {
-                padding: 20px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important;
+                padding: 15px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
             }
 
-            html.slideshow-mode .ideas-inner {
-                max-height: calc(100vh - 130px) !important;
+            html.slideshow-mode .ideas-section .section-inner,
+            html.slideshow-mode #ideas .section-inner {
+                width: 100% !important;
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: center !important;
                 align-items: center !important;
-                gap: 0.75rem !important;
-                width: 100% !important;
+                gap: 0.5rem !important;
+            }
+
+            html.slideshow-mode .ideas-header {
+                padding: 0 1rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            html.slideshow-mode .ideas-header .section-title {
+                font-size: clamp(1rem, 4vw, 1.3rem) !important;
+                line-height: 1.3 !important;
             }
 
             html.slideshow-mode .ideas-grid {
@@ -13263,10 +13407,10 @@
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
-                padding: 0.5rem 1rem 1rem 1rem !important;
+                gap: 0.75rem !important;
+                padding: 0.5rem 1rem !important;
                 width: 100% !important;
-                max-height: calc(100vh - 280px) !important;
+                max-height: calc(100dvh - 250px) !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
             }
@@ -13275,75 +13419,69 @@
                 display: none !important;
             }
 
-            /* Show ALL cards - horizontal scroll */
+            /* Show ALL cards */
             html.slideshow-mode .ideas-grid .idea-card:nth-child(n+7) {
                 display: flex !important;
             }
 
             html.slideshow-mode .idea-card {
-                flex: 0 0 75vw !important;
-                min-width: 75vw !important;
-                max-width: 75vw !important;
+                flex: 0 0 80vw !important;
+                min-width: 80vw !important;
+                max-width: 80vw !important;
                 scroll-snap-align: center !important;
                 padding: 1.25rem !important;
                 border-radius: 12px !important;
-                min-height: 180px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
                 text-align: center !important;
+                position: relative !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
             }
 
-            html.slideshow-mode .idea-card h3,
-            html.slideshow-mode .idea-title {
+            html.slideshow-mode .idea-number {
+                position: absolute !important;
+                top: 8px !important;
+                right: 12px !important;
+                font-size: 1.25rem !important;
+                opacity: 0.15 !important;
+                font-family: var(--font-display) !important;
+            }
+
+            html.slideshow-mode .idea-image {
+                max-height: 80px !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .idea-title,
+            html.slideshow-mode .idea-card h3 {
                 font-size: 1rem !important;
-                margin-bottom: 8px !important;
-                line-height: 1.3 !important;
+                margin-bottom: 0.4rem !important;
+                color: var(--gold) !important;
             }
 
-            html.slideshow-mode .idea-card p,
-            html.slideshow-mode .idea-text {
-                display: block !important;
+            html.slideshow-mode .idea-text,
+            html.slideshow-mode .idea-card p {
                 font-size: 0.85rem !important;
                 line-height: 1.5 !important;
                 display: -webkit-box !important;
-                -webkit-line-clamp: 3 !important;
+                -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
             }
 
-            html.slideshow-mode .idea-number {
-                font-size: 1.5rem !important;
-                opacity: 0.2 !important;
-                position: absolute !important;
-                top: 8px !important;
-                right: 12px !important;
-            }
-
-            html.slideshow-mode .idea-image {
-                max-height: 60px !important;
-                margin-bottom: 0.5rem !important;
-            }
-
             html.slideshow-mode .view-all-concepts-btn {
-                margin-top: 0.5rem !important;
-                padding: 0.8rem 1.8rem !important;
-                font-size: 0.9rem !important;
+                margin-top: 0.75rem !important;
+                padding: 0.7rem 1.5rem !important;
+                font-size: 0.85rem !important;
             }
 
-            /* Swipe indicators */
-            html.slideshow-mode .swipe-hint,
-            html.slideshow-mode .swipe-indicator {
-                font-size: 0.75rem !important;
-                opacity: 0.7 !important;
-            }
-
-            html.slideshow-mode .ideas-dots,
-            html.slideshow-mode .evidence-dots {
-                display: flex !important;
-                justify-content: center !important;
-                gap: 6px !important;
+            /* Swipe indicator for Ideas */
+            html.slideshow-mode .ideas-section .swipe-hint {
+                font-size: 0.7rem !important;
+                opacity: 0.5 !important;
                 margin-top: 0.5rem !important;
             }
 
@@ -13363,142 +13501,987 @@
                 padding: 0 1rem !important;
             }
 
-            /* SLIDE 6: QUOTE CAROUSEL */
-            html.slideshow-mode .carousel-section {
-                padding: 30px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important;
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 6: QUOTE CAROUSEL - Wisdom Gallery
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .carousel-section,
+            html.slideshow-mode #quotes {
+                padding: 30px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
             }
-            html.slideshow-mode .quote-carousel { max-height: 55vh !important; overflow: hidden !important; }
-            html.slideshow-mode .quote-text { font-size: clamp(1rem, 4vw, 1.3rem) !important; line-height: 1.5 !important; }
 
-            /* SLIDE 7: BBC TIMELINE */
+            html.slideshow-mode .quote-carousel {
+                max-height: 60vh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            html.slideshow-mode .carousel-section .quote-mark,
+            html.slideshow-mode .carousel-quote-mark {
+                font-size: 3.5rem !important;
+                color: var(--gold) !important;
+                opacity: 0.6 !important;
+                line-height: 0.6 !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .carousel-section .quote-text,
+            html.slideshow-mode .carousel-quote-text {
+                font-size: clamp(1rem, 4.5vw, 1.3rem) !important;
+                line-height: 1.6 !important;
+                font-style: italic !important;
+                color: var(--text-primary) !important;
+                text-align: center !important;
+                max-width: 90vw !important;
+            }
+
+            html.slideshow-mode .carousel-author,
+            html.slideshow-mode .quote-author {
+                font-size: 0.75rem !important;
+                letter-spacing: 0.15em !important;
+                text-transform: uppercase !important;
+                color: var(--gold) !important;
+                margin-top: 1rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 7: BBC TIMELINE - Proof Section
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .timeline-evidence-section,
-            html.slideshow-mode #bbc-timeline { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .bbc-evidence-card { max-height: calc(100vh - 160px) !important; }
-            html.slideshow-mode .bbc-evidence-card__video { max-height: 35vh !important; border-radius: 10px !important; }
-            html.slideshow-mode .bbc-evidence-card__description { font-size: 0.85rem !important; display: -webkit-box !important; -webkit-line-clamp: 3 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+            html.slideshow-mode #bbc-timeline {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 8: ARCHITECTURE */
+            html.slideshow-mode .bbc-evidence-card {
+                max-height: calc(100dvh - 140px) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                background: rgba(10, 12, 20, 0.85) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 12px !important;
+                padding: 1rem !important;
+                overflow: hidden !important;
+            }
+
+            html.slideshow-mode .bbc-evidence-card__video {
+                max-height: 32vh !important;
+                border-radius: 8px !important;
+                object-fit: cover !important;
+            }
+
+            html.slideshow-mode .bbc-evidence-card__title {
+                font-size: 1rem !important;
+                font-family: var(--font-display) !important;
+                color: var(--gold) !important;
+                margin: 0 !important;
+            }
+
+            html.slideshow-mode .bbc-evidence-card__description {
+                font-size: 0.8rem !important;
+                line-height: 1.5 !important;
+                color: var(--text-secondary) !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 3 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+            }
+
+            html.slideshow-mode .bbc-evidence-card__link {
+                font-size: 0.75rem !important;
+                color: var(--gold) !important;
+                text-decoration: underline !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 8: ARCHITECTURE - System Diagram
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .diagram-section,
-            html.slideshow-mode #architecture { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .architecture-diagram, html.slideshow-mode .diagram-image { max-height: 50vh !important; max-width: 95vw !important; object-fit: contain !important; }
+            html.slideshow-mode #architecture {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 9: CHOKEPOINT */
+            html.slideshow-mode .architecture-title,
+            html.slideshow-mode .diagram-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .architecture-diagram,
+            html.slideshow-mode .diagram-image {
+                max-height: 50vh !important;
+                max-width: 92vw !important;
+                object-fit: contain !important;
+                border-radius: 8px !important;
+                border: 1px solid rgba(212, 168, 75, 0.1) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 9: CHOKEPOINT - 4 Companies Grid
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .chokepoint-section,
-            html.slideshow-mode #chokepoint { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .chokepoint-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; max-height: 45vh !important; }
-            html.slideshow-mode .chokepoint-card { padding: 0.75rem !important; }
-            html.slideshow-mode .chokepoint-card h4 { font-size: 0.8rem !important; }
+            html.slideshow-mode #chokepoint {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 10: PREDICTIONS - HORIZONTAL SWIPE */
+            html.slideshow-mode .chokepoint-title,
+            html.slideshow-mode .chokepoint-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .chokepoint-subtitle {
+                font-size: 0.75rem !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode .chokepoint-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.75rem !important;
+                max-height: 50vh !important;
+                width: 100% !important;
+                max-width: 380px !important;
+            }
+
+            html.slideshow-mode .chokepoint-card {
+                padding: 1rem 0.75rem !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 10px !important;
+                text-align: center !important;
+            }
+
+            html.slideshow-mode .chokepoint-card h4 {
+                font-size: 0.9rem !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            html.slideshow-mode .chokepoint-card p {
+                font-size: 0.7rem !important;
+                color: var(--text-dim) !important;
+                line-height: 1.3 !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 10: PREDICTIONS - Horizontal Swipe Cards
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .predictions-section,
-            html.slideshow-mode #predictions { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
-            html.slideshow-mode .predictions-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; max-height: calc(100vh - 180px) !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode #predictions {
+                padding: 20px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
+            }
+
+            html.slideshow-mode .predictions-title,
+            html.slideshow-mode .predictions-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                padding: 0 1rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .predictions-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 1rem !important;
+                padding: 0.5rem 1rem 1rem 1rem !important;
+                max-height: calc(100dvh - 180px) !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+
             html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: none !important; }
-            html.slideshow-mode .prediction-card { flex: 0 0 80vw !important; min-width: 80vw !important; scroll-snap-align: center !important; padding: 1rem !important; }
 
-            /* SLIDE 11: FALSIFICATION */
+            html.slideshow-mode .prediction-card {
+                flex: 0 0 82vw !important;
+                min-width: 82vw !important;
+                max-width: 82vw !important;
+                scroll-snap-align: center !important;
+                padding: 1.25rem !important;
+                background: rgba(10, 12, 20, 0.85) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 12px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            html.slideshow-mode .prediction-card .prediction-number {
+                font-size: 0.7rem !important;
+                color: var(--gold) !important;
+                letter-spacing: 0.15em !important;
+                text-transform: uppercase !important;
+            }
+
+            html.slideshow-mode .prediction-card .prediction-title,
+            html.slideshow-mode .prediction-card h4 {
+                font-size: 1rem !important;
+                color: var(--gold-pale) !important;
+                margin: 0 !important;
+            }
+
+            html.slideshow-mode .prediction-card .prediction-text,
+            html.slideshow-mode .prediction-card p {
+                font-size: 0.8rem !important;
+                color: var(--text-secondary) !important;
+                line-height: 1.5 !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 11: FALSIFICATION - Test the Theory
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .falsification-section,
-            html.slideshow-mode #falsification { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .falsification-list { font-size: 0.9rem !important; line-height: 1.6 !important; text-align: left !important; }
+            html.slideshow-mode #falsification {
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* SLIDE 12: HRIH */
+            html.slideshow-mode .falsification-title,
+            html.slideshow-mode .falsification-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode .falsification-list {
+                font-size: 0.85rem !important;
+                line-height: 1.7 !important;
+                text-align: left !important;
+                max-width: 340px !important;
+            }
+
+            html.slideshow-mode .falsification-list li {
+                margin-bottom: 0.75rem !important;
+                position: relative !important;
+                padding-left: 1.25rem !important;
+            }
+
+            html.slideshow-mode .falsification-list li::before {
+                content: "×" !important;
+                position: absolute !important;
+                left: 0 !important;
+                color: var(--gold) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 12: HRIH - Recursive Intelligence Hypothesis
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .hrih-section,
-            html.slideshow-mode #hrih { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .hrih-diagram { max-height: 35vh !important; max-width: 90vw !important; }
-            html.slideshow-mode .hrih-text { font-size: 0.9rem !important; display: -webkit-box !important; -webkit-line-clamp: 4 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+            html.slideshow-mode #hrih {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 13: RELIGION */
+            html.slideshow-mode .hrih-title,
+            html.slideshow-mode .hrih-section .section-title {
+                font-size: clamp(1rem, 4vw, 1.3rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .hrih-diagram {
+                max-height: 32vh !important;
+                max-width: 88vw !important;
+                border-radius: 8px !important;
+                border: 1px solid rgba(212, 168, 75, 0.1) !important;
+            }
+
+            html.slideshow-mode .hrih-text {
+                font-size: 0.85rem !important;
+                line-height: 1.6 !important;
+                color: var(--text-secondary) !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                margin-top: 0.75rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 13: RELIGION - 84% Statistic
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .religion-section,
-            html.slideshow-mode #religion { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .religion-stat { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
+            html.slideshow-mode #religion {
+                padding: 30px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* SLIDE 14: FUTURE BORN */
-            html.slideshow-mode .future-born-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .religion-stat {
+                font-size: clamp(3rem, 15vw, 5rem) !important;
+                font-family: var(--font-display) !important;
+                color: var(--gold) !important;
+                line-height: 1 !important;
+                margin-bottom: 0.5rem !important;
+            }
 
-            /* SLIDE 15: WINDOW */
+            html.slideshow-mode .religion-stat-label {
+                font-size: 0.75rem !important;
+                letter-spacing: 0.2em !important;
+                text-transform: uppercase !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode .religion-text {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+                max-width: 320px !important;
+                color: var(--text-secondary) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 14: FUTURE BORN - Closing Loop
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .future-born-section,
+            html.slideshow-mode #future-born {
+                padding: 30px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
+
+            html.slideshow-mode .future-born-title {
+                font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode .future-born-text {
+                font-size: 0.9rem !important;
+                line-height: 1.7 !important;
+                font-style: italic !important;
+                max-width: 320px !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 15: WINDOW - Time Warning
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .window-section,
-            html.slideshow-mode #window { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .window-visual { max-height: 40vh !important; }
+            html.slideshow-mode #window {
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* SLIDE 16: ABOUT/AUTHOR */
+            html.slideshow-mode .window-title,
+            html.slideshow-mode .window-section .section-title {
+                font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .window-visual {
+                max-height: 35vh !important;
+                max-width: 85vw !important;
+                border-radius: 8px !important;
+            }
+
+            html.slideshow-mode .window-text {
+                font-size: 0.85rem !important;
+                line-height: 1.6 !important;
+                color: var(--text-secondary) !important;
+                margin-top: 0.75rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 16: ABOUT/AUTHOR - The Mind Behind
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .about-section,
-            html.slideshow-mode #author { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .about-content { max-height: calc(100vh - 140px) !important; gap: 0.75rem !important; overflow: hidden !important; }
-            html.slideshow-mode .about-visual { display: flex !important; justify-content: center !important; gap: 1rem !important; }
-            html.slideshow-mode .author-photo { max-width: 100px !important; max-height: 100px !important; }
-            html.slideshow-mode .tesseract-container { max-height: 120px !important; max-width: 120px !important; }
-            html.slideshow-mode .author-bio { font-size: 0.85rem !important; line-height: 1.5 !important; display: -webkit-box !important; -webkit-line-clamp: 5 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+            html.slideshow-mode #author {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 17: COMPARISON */
-            html.slideshow-mode .comparison-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .comparison-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+            html.slideshow-mode .about-title,
+            html.slideshow-mode .about-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
 
-            /* SLIDE 18: STAKES */
+            html.slideshow-mode .about-content {
+                max-height: calc(100dvh - 140px) !important;
+                gap: 0.75rem !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            html.slideshow-mode .about-visual {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 1rem !important;
+            }
+
+            html.slideshow-mode .author-photo {
+                max-width: 90px !important;
+                max-height: 90px !important;
+                border-radius: 50% !important;
+                border: 2px solid rgba(212, 168, 75, 0.3) !important;
+            }
+
+            html.slideshow-mode .tesseract-container {
+                max-height: 100px !important;
+                max-width: 100px !important;
+            }
+
+            html.slideshow-mode .author-name {
+                font-size: 1.1rem !important;
+                color: var(--gold) !important;
+                margin-top: 0.5rem !important;
+            }
+
+            html.slideshow-mode .author-bio {
+                font-size: 0.8rem !important;
+                line-height: 1.6 !important;
+                color: var(--text-secondary) !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 5 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                max-width: 340px !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 17: COMPARISON - Old vs New
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .comparison-section,
+            html.slideshow-mode #comparison {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
+
+            html.slideshow-mode .comparison-title,
+            html.slideshow-mode .comparison-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .comparison-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+                max-width: 360px !important;
+            }
+
+            html.slideshow-mode .comparison-card {
+                padding: 1rem !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 10px !important;
+            }
+
+            html.slideshow-mode .comparison-card h4 {
+                font-size: 0.8rem !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .comparison-card p {
+                font-size: 0.7rem !important;
+                line-height: 1.4 !important;
+                color: var(--text-dim) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 18: STAKES - Why This Matters
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .stakes-section,
-            html.slideshow-mode #stakes { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .stakes-image-wrapper { max-height: 40vh !important; border-radius: 12px !important; overflow: hidden !important; }
+            html.slideshow-mode #stakes {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 19: EXPERT VALIDATION - HORIZONTAL SWIPE */
+            html.slideshow-mode .stakes-title,
+            html.slideshow-mode .stakes-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .stakes-image-wrapper {
+                max-height: 38vh !important;
+                border-radius: 12px !important;
+                overflow: hidden !important;
+                border: 1px solid rgba(212, 168, 75, 0.1) !important;
+            }
+
+            html.slideshow-mode .stakes-image-wrapper img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            }
+
+            html.slideshow-mode .stakes-text {
+                font-size: 0.85rem !important;
+                line-height: 1.6 !important;
+                color: var(--text-secondary) !important;
+                margin-top: 0.75rem !important;
+                max-width: 340px !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 19: EXPERT VALIDATION - Horizontal Swipe
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .expert-validation,
-            html.slideshow-mode #expert-validation { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
-            html.slideshow-mode .expert-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode #expert-validation {
+                padding: 20px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
+            }
+
+            html.slideshow-mode .expert-title,
+            html.slideshow-mode .expert-validation .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                padding: 0 1rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .expert-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 1rem !important;
+                padding: 0.5rem 1rem 1rem 1rem !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+
             html.slideshow-mode .expert-grid::-webkit-scrollbar { display: none !important; }
-            html.slideshow-mode .expert-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; }
 
-            /* SLIDE 20: PREDICTIONS VALIDATED - HORIZONTAL SWIPE */
+            html.slideshow-mode .expert-card {
+                flex: 0 0 85vw !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                scroll-snap-align: center !important;
+                padding: 1.25rem !important;
+                background: rgba(10, 12, 20, 0.85) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 12px !important;
+            }
+
+            html.slideshow-mode .expert-card .expert-name {
+                font-size: 0.95rem !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.25rem !important;
+            }
+
+            html.slideshow-mode .expert-card .expert-role {
+                font-size: 0.7rem !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .expert-card .expert-quote {
+                font-size: 0.8rem !important;
+                font-style: italic !important;
+                line-height: 1.5 !important;
+                color: var(--text-secondary) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 20: PREDICTIONS VALIDATED - Horizontal Swipe
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .predictions-validated,
-            html.slideshow-mode #predictions-validated { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
-            html.slideshow-mode .validated-grid, html.slideshow-mode .predictions-validated-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
-            html.slideshow-mode .validated-card, html.slideshow-mode .validated-prediction-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; }
+            html.slideshow-mode #predictions-validated {
+                padding: 20px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
+            }
 
-            /* SLIDE 21: REVIEWS - HORIZONTAL SWIPE */
+            html.slideshow-mode .validated-title,
+            html.slideshow-mode .predictions-validated .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                padding: 0 1rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .validated-grid,
+            html.slideshow-mode .predictions-validated-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 1rem !important;
+                padding: 0.5rem 1rem 1rem 1rem !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+
+            html.slideshow-mode .validated-grid::-webkit-scrollbar,
+            html.slideshow-mode .predictions-validated-grid::-webkit-scrollbar { display: none !important; }
+
+            html.slideshow-mode .validated-card,
+            html.slideshow-mode .validated-prediction-card {
+                flex: 0 0 85vw !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                scroll-snap-align: center !important;
+                padding: 1.25rem !important;
+                background: rgba(10, 12, 20, 0.85) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 12px !important;
+            }
+
+            html.slideshow-mode .validated-card .validated-status {
+                font-size: 0.65rem !important;
+                padding: 0.25rem 0.5rem !important;
+                background: rgba(39, 174, 96, 0.2) !important;
+                color: #27ae60 !important;
+                border-radius: 4px !important;
+                margin-bottom: 0.5rem !important;
+                display: inline-block !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 21: REVIEWS - Horizontal Swipe
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .reviews-section,
-            html.slideshow-mode #reviews { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
-            html.slideshow-mode .reviews-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; max-height: calc(100vh - 180px) !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode #reviews {
+                padding: 20px 0 calc(90px + env(safe-area-inset-bottom, 0px)) 0 !important;
+            }
+
+            html.slideshow-mode .reviews-title,
+            html.slideshow-mode .reviews-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                padding: 0 1rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .reviews-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 1rem !important;
+                padding: 0.5rem 1rem 1rem 1rem !important;
+                max-height: calc(100dvh - 180px) !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: none !important;
+            }
+
             html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: none !important; }
-            html.slideshow-mode .review-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; padding: 1.25rem !important; }
-            html.slideshow-mode .review-text { font-size: 0.9rem !important; line-height: 1.5 !important; }
 
-            /* SLIDE 22: PROPHECY */
+            html.slideshow-mode .review-card {
+                flex: 0 0 85vw !important;
+                min-width: 85vw !important;
+                max-width: 85vw !important;
+                scroll-snap-align: center !important;
+                padding: 1.25rem !important;
+                background: rgba(10, 12, 20, 0.85) !important;
+                border: 1px solid rgba(212, 168, 75, 0.15) !important;
+                border-radius: 12px !important;
+            }
+
+            html.slideshow-mode .review-card .review-stars {
+                color: var(--gold) !important;
+                font-size: 0.9rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .review-card .review-text {
+                font-size: 0.85rem !important;
+                font-style: italic !important;
+                line-height: 1.6 !important;
+                color: var(--text-secondary) !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+            }
+
+            html.slideshow-mode .review-card .review-author {
+                font-size: 0.75rem !important;
+                color: var(--gold) !important;
+                margin-top: 0.75rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 22: PROPHECY - Video Proof
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .prophecy-hero,
-            html.slideshow-mode #prophecy { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .prophecy-video { max-height: 40vh !important; border-radius: 12px !important; }
+            html.slideshow-mode #prophecy {
+                padding: 20px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
 
-            /* SLIDE 23: GET THE BOOK */
+            html.slideshow-mode .prophecy-title,
+            html.slideshow-mode .prophecy-hero .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode .prophecy-video {
+                max-height: 38vh !important;
+                border-radius: 12px !important;
+                width: 100% !important;
+                max-width: 340px !important;
+            }
+
+            html.slideshow-mode .prophecy-text {
+                font-size: 0.8rem !important;
+                line-height: 1.5 !important;
+                color: var(--text-secondary) !important;
+                margin-top: 0.75rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 23: GET THE BOOK - Purchase Options
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .tripath-section,
-            html.slideshow-mode #get-the-book { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .tripath-options, html.slideshow-mode .buy-options { display: flex !important; flex-direction: column !important; gap: 0.75rem !important; width: 100% !important; max-width: 320px !important; }
-            html.slideshow-mode .tripath-option, html.slideshow-mode .buy-option { padding: 1rem !important; }
+            html.slideshow-mode #get-the-book {
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* SLIDE 24: CTA */
-            html.slideshow-mode .cta-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .cta-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
-            html.slideshow-mode .cta-button, html.slideshow-mode .buy-button { padding: 1rem 2.5rem !important; font-size: 1rem !important; }
+            html.slideshow-mode .tripath-title,
+            html.slideshow-mode .tripath-section .section-title {
+                font-size: clamp(1.2rem, 5vw, 1.5rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 1rem !important;
+            }
 
-            /* SLIDE 25: PARADISE */
+            html.slideshow-mode .tripath-options,
+            html.slideshow-mode .buy-options {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                width: 100% !important;
+                max-width: 300px !important;
+            }
+
+            html.slideshow-mode .tripath-option,
+            html.slideshow-mode .buy-option {
+                padding: 1rem 1.25rem !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.2) !important;
+                border-radius: 10px !important;
+                text-decoration: none !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                transition: all 0.3s ease !important;
+            }
+
+            html.slideshow-mode .tripath-option:active,
+            html.slideshow-mode .buy-option:active {
+                transform: scale(0.98) !important;
+                border-color: var(--gold) !important;
+            }
+
+            html.slideshow-mode .tripath-option .option-name,
+            html.slideshow-mode .buy-option .option-name {
+                font-size: 0.9rem !important;
+                color: var(--gold-pale) !important;
+            }
+
+            html.slideshow-mode .tripath-option .option-price,
+            html.slideshow-mode .buy-option .option-price {
+                font-size: 0.8rem !important;
+                color: var(--text-dim) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 24: CTA - Final Call to Action
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .cta-section,
+            html.slideshow-mode #cta {
+                padding: 30px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
+
+            html.slideshow-mode .cta-title {
+                font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.5rem !important;
+                line-height: 1.2 !important;
+            }
+
+            html.slideshow-mode .cta-subtitle {
+                font-size: 0.85rem !important;
+                color: var(--text-secondary) !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            html.slideshow-mode .cta-button,
+            html.slideshow-mode .buy-button {
+                padding: 1rem 2.5rem !important;
+                font-size: 0.95rem !important;
+                background: linear-gradient(135deg, var(--gold), var(--gold-bright)) !important;
+                color: var(--void) !important;
+                border: none !important;
+                border-radius: 50px !important;
+                font-weight: 600 !important;
+                text-decoration: none !important;
+                display: inline-block !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 25: PARADISE - Closing Quote
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .paradise-section,
-            html.slideshow-mode #paradise { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .paradise-quote { font-size: clamp(1rem, 4vw, 1.3rem) !important; font-style: italic !important; }
+            html.slideshow-mode #paradise {
+                padding: 30px 25px calc(90px + env(safe-area-inset-bottom, 0px)) 25px !important;
+            }
 
-            /* SLIDE 26: NEWSLETTER */
+            html.slideshow-mode .paradise-quote {
+                font-size: clamp(1rem, 4.5vw, 1.3rem) !important;
+                font-style: italic !important;
+                line-height: 1.7 !important;
+                color: var(--text-primary) !important;
+                max-width: 320px !important;
+            }
+
+            html.slideshow-mode .paradise-author {
+                font-size: 0.75rem !important;
+                letter-spacing: 0.15em !important;
+                text-transform: uppercase !important;
+                color: var(--gold) !important;
+                margin-top: 1rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 26: NEWSLETTER - Stay Updated
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .newsletter-section,
-            html.slideshow-mode #newsletter { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .newsletter-form { width: 100% !important; max-width: 320px !important; }
-            html.slideshow-mode .newsletter-input { padding: 0.875rem 1rem !important; }
-            html.slideshow-mode .newsletter-button { padding: 0.875rem 1.5rem !important; }
+            html.slideshow-mode #newsletter {
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* SLIDE 27: PRESS */
+            html.slideshow-mode .newsletter-title,
+            html.slideshow-mode .newsletter-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .newsletter-subtitle {
+                font-size: 0.8rem !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode .newsletter-form {
+                width: 100% !important;
+                max-width: 300px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+
+            html.slideshow-mode .newsletter-input {
+                padding: 0.875rem 1rem !important;
+                background: rgba(10, 12, 20, 0.8) !important;
+                border: 1px solid rgba(212, 168, 75, 0.2) !important;
+                border-radius: 8px !important;
+                color: var(--text-primary) !important;
+                font-size: 0.9rem !important;
+            }
+
+            html.slideshow-mode .newsletter-button {
+                padding: 0.875rem 1.5rem !important;
+                background: var(--gold) !important;
+                color: var(--void) !important;
+                border: none !important;
+                border-radius: 8px !important;
+                font-weight: 600 !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 27: PRESS - Media Logos
+               ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .press-section,
-            html.slideshow-mode #press { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
-            html.slideshow-mode .press-logos { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
+            html.slideshow-mode #press {
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
 
-            /* FOOTER */
-            html.slideshow-mode footer { height: 100vh !important; height: 100dvh !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; scroll-snap-align: start !important; padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .press-title,
+            html.slideshow-mode .press-section .section-title {
+                font-size: clamp(1.1rem, 4.5vw, 1.4rem) !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.5rem !important;
+            }
 
-            /* EFFECTS */
-            html.slideshow-mode .mobile-particles { display: block !important; opacity: 1 !important; z-index: 0 !important; }
+            html.slideshow-mode .press-subtitle {
+                font-size: 0.75rem !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 1rem !important;
+            }
 
-            /* TRANSITIONS */
+            html.slideshow-mode .press-logos {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 1.5rem !important;
+                max-width: 320px !important;
+            }
+
+            html.slideshow-mode .press-logo {
+                max-height: 30px !important;
+                opacity: 0.6 !important;
+                filter: grayscale(100%) brightness(1.5) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               FOOTER - Final Slide
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode footer {
+                height: 100vh !important;
+                height: 100dvh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                scroll-snap-align: start !important;
+                padding: 25px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
+
+            html.slideshow-mode footer .footer-logo {
+                font-size: 1rem !important;
+                color: var(--gold) !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            html.slideshow-mode footer .footer-tagline {
+                font-size: 0.8rem !important;
+                color: var(--text-dim) !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode footer .footer-links {
+                display: flex !important;
+                gap: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            html.slideshow-mode footer .footer-links a {
+                font-size: 0.75rem !important;
+                color: var(--text-secondary) !important;
+            }
+
+            html.slideshow-mode footer .footer-copyright {
+                font-size: 0.65rem !important;
+                color: var(--text-dim) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               GLOBAL EFFECTS & TRANSITIONS
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .mobile-particles {
+                display: block !important;
+                opacity: 1 !important;
+                z-index: 0 !important;
+            }
+
+            html.slideshow-mode .swipe-hint {
+                font-size: 0.65rem !important;
+                color: var(--text-dim) !important;
+                opacity: 0.6 !important;
+                margin-top: 0.5rem !important;
+                letter-spacing: 0.1em !important;
+            }
+
+            /* Slide Transitions */
             html.slideshow-mode .snap-section.slide-exit { opacity: 0.5; }
             html.slideshow-mode .snap-section.slide-enter { animation: slideEnter 0.4s ease forwards; }
             @keyframes slideEnter { from { opacity: 0.7; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
