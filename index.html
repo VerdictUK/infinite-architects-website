@@ -16680,34 +16680,62 @@ img {
     }
 }
 
-/* HIDE ALL UNWANTED UI ELEMENTS */
+/* NUCLEAR HIDE - ALL UNWANTED UI ELEMENTS */
 .slideshow-nav,
 #slideshowNav,
 .slideshow-dots,
+#slideshowDots,
 .slideshow-swipe-hint,
+#swipeHint,
 .slideshow-controls,
 .slideshow-arrows,
+.slideshow-arrow,
 .slideshow-counter,
 .slideshow-progress-container,
 .slideshow-progress-bar,
+#slideshowProgress,
 .slideshow-section-title,
+#slideshowTitle,
+.slideshow-dot,
 .reading-progress,
 #reading-progress,
 .reading-progress-bar,
 #reading-progress-bar,
 .social-proof,
 .social-proof-badge,
+#social-proof-badge,
 .social-proof-dot,
+.social-proof-icon,
+.social-proof-number,
+.social-proof-label,
+.social-proof-text,
 .audio-toggle,
 #audio-toggle,
 .audio-waves,
-.audio-toggle-tooltip {
+.audio-toggle-tooltip,
+div[class*="slideshow"],
+div[id*="slideshow"],
+div[class*="social-proof"],
+div[class*="reading-progress"],
+div[class*="audio-toggle"] {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
     opacity: 0 !important;
     width: 0 !important;
     height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+/* Also prevent slideshow-mode from being applied */
+html.slideshow-mode .slideshow-nav,
+html.slideshow-mode #slideshowNav,
+html.slideshow-mode .slideshow-controls,
+html.slideshow-mode .slideshow-dots {
+    display: none !important;
 }
 
 /* FIX: Remove ALL max-height constraints that clip content */
@@ -24925,6 +24953,10 @@ img {
         // INITIALIZE
         // ─────────────────────────────────────────────────────────────────────
         function init() {
+            // DISABLED: Old slideshow navigation replaced by chapter navigation
+            console.log('Slideshow nav disabled - using chapter navigation');
+            return; // Exit early - don't initialize old nav
+
             // Get all sections
             sections = Array.from(document.querySelectorAll('.snap-section'));
             if (sections.length === 0) return;
