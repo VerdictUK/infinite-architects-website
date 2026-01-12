@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Offline | Infinite Architects</title>
+    <meta name="theme-color" content="#02030a">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <style>
+        :root {
+            --gold-primary: #d4a84b;
+            --gold-bright: #f4c856;
+            --gold-pale: #e8d4a0;
+            --void: #02030a;
+            --void-surface: #0a0c14;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--void);
+            color: var(--gold-pale);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(212, 168, 75, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(212, 168, 75, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .offline-container {
+            max-width: 400px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated offline icon */
+        .offline-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .offline-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wifi-waves {
+            animation: pulse 2s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .wifi-waves:nth-child(2) { animation-delay: 0.2s; }
+        .wifi-waves:nth-child(3) { animation-delay: 0.4s; }
+
+        .cross-line {
+            stroke: #e74c3c;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--gold-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #e74c3c;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .retry-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright));
+            color: var(--void);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .retry-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+        }
+
+        .retry-btn:active {
+            transform: scale(0.98);
+        }
+
+        .retry-btn svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .retry-btn:hover svg {
+            transform: rotate(180deg);
+        }
+
+        .cached-notice {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(212, 168, 75, 0.05);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .book-title {
+            font-style: italic;
+            color: var(--gold-primary);
+        }
+
+        /* Online detection */
+        .online-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .online-banner.show {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="online-banner" id="online-banner">
+        You're back online! Redirecting...
+    </div>
+
+    <div class="offline-container">
+        <div class="offline-icon">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <!-- WiFi symbol -->
+                <path class="wifi-waves" d="M50 70 Q30 50 10 60" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+                <path class="wifi-waves" d="M50 70 Q35 55 20 62" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+                <path class="wifi-waves" d="M50 70 Q40 60 30 65" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+                <path class="wifi-waves" d="M50 70 Q70 50 90 60" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.3"/>
+                <path class="wifi-waves" d="M50 70 Q65 55 80 62" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+                <path class="wifi-waves" d="M50 70 Q60 60 70 65" fill="none" stroke="#d4a84b" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+                <circle cx="50" cy="75" r="5" fill="#d4a84b"/>
+                <!-- Cross line -->
+                <line class="cross-line" x1="20" y1="20" x2="80" y2="80"/>
+            </svg>
+        </div>
+
+        <h1>You're Offline</h1>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            <span>No internet connection</span>
+        </div>
+
+        <p>
+            It seems you've lost your connection to the cosmic network.
+            Check your connection and try again.
+        </p>
+
+        <button class="retry-btn" onclick="retryConnection()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            </svg>
+            Try Again
+        </button>
+
+        <div class="cached-notice">
+            <span class="book-title">Infinite Architects</span> may have cached content available.
+            Some features require an internet connection.
+        </div>
+    </div>
+
+    <script>
+        // Retry connection
+        function retryConnection() {
+            // Haptic feedback if available
+            if ('vibrate' in navigator) {
+                navigator.vibrate(20);
+            }
+
+            // Try to reload
+            window.location.reload();
+        }
+
+        // Auto-detect when back online
+        window.addEventListener('online', () => {
+            const banner = document.getElementById('online-banner');
+            banner.classList.add('show');
+
+            // Haptic feedback
+            if ('vibrate' in navigator) {
+                navigator.vibrate([50, 50, 50]);
+            }
+
+            // Redirect after showing message
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        });
+
+        // Check if already online (page might be cached)
+        if (navigator.onLine) {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
