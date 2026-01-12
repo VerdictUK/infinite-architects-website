@@ -10645,6 +10645,13 @@
         'use strict';
 
         // ═══════════════════════════════════════════════════════════════════════
+        // PRODUCTION MODE: Suppress console.log in production
+        // ═══════════════════════════════════════════════════════════════════════
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            console.log = function() {};
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // NUCLEAR FIX: SAFE QUERY UTILITIES
         // ═══════════════════════════════════════════════════════════════════════
         const $ = (selector) => document.querySelector(selector);
