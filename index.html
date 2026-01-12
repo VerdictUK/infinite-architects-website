@@ -12757,13 +12757,209 @@
                 overflow-y: visible;
             }
 
-            /* Hide duplicate navigation elements */
-            html.slideshow-mode .constellation-nav,
-            html.slideshow-mode .mobile-cta,
+            /* 1. HIDE ALL REDUNDANT UI */
             html.slideshow-mode .nav,
-            html.slideshow-mode header.nav,
-            html.slideshow-mode .ticker {
+            html.slideshow-mode header,
+            html.slideshow-mode .constellation-nav,
+            html.slideshow-mode .nav-toggle,
+            html.slideshow-mode .mobile-nav-toggle,
+            html.slideshow-mode .mobile-cta,
+            html.slideshow-mode .ticker,
+            html.slideshow-mode .reading-progress,
+            html.slideshow-mode .evidence-intro {
                 display: none !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+            }
+
+            /* 2. PWA SPLASH SCREEN STYLES */
+            .pwa-splash {
+                position: fixed;
+                inset: 0;
+                background: #02030a;
+                z-index: 100000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            body.standalone-mode .pwa-splash.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .pwa-splash-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                transform: scale(0.9);
+                animation: splashEnter 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            .pwa-splash-logo {
+                font-family: var(--font-display, 'Cinzel', serif);
+                font-size: 3rem;
+                color: var(--gold-primary, #d4a84b);
+                letter-spacing: 0.2em;
+                text-shadow: 0 0 30px rgba(212, 168, 75, 0.4);
+            }
+
+            .pwa-splash-title {
+                font-family: var(--font-display, 'Cinzel', serif);
+                font-size: 0.8rem;
+                letter-spacing: 0.4em;
+                color: rgba(212, 168, 75, 0.6);
+            }
+
+            .pwa-splash-loader {
+                width: 120px;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 2px;
+                overflow: hidden;
+            }
+
+            .pwa-splash-progress {
+                height: 100%;
+                width: 0%;
+                background: var(--gold-primary, #d4a84b);
+                box-shadow: 0 0 10px var(--gold-primary, #d4a84b);
+                animation: splashProgress 2s ease-in-out forwards;
+            }
+
+            @keyframes splashEnter {
+                from { opacity: 0; transform: scale(0.8) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+
+            @keyframes splashProgress {
+                0% { width: 0%; }
+                100% { width: 100%; }
+            }
+
+            /* 3. CENTERED POSTER LAYOUT */
+            html.slideshow-mode .snap-section {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 2rem 1.5rem calc(100px + env(safe-area-inset-bottom, 0px)) 1.5rem !important;
+                overflow: hidden !important;
+            }
+
+            html.slideshow-mode .section-inner,
+            html.slideshow-mode .container,
+            html.slideshow-mode .snap-section > div:first-child:not(.mobile-particles):not(canvas):not(.mandelbrot-bg) {
+                max-height: 100% !important;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            /* 4. SECTION-SPECIFIC SCALE FIXES */
+            html.slideshow-mode .hero-content { transform: scale(0.85); }
+            html.slideshow-mode .about-inner { flex-direction: column !important; gap: 1rem; }
+            html.slideshow-mode .author-photo-wrapper { width: 120px !important; height: 120px !important; margin-bottom: 0.5rem; }
+            html.slideshow-mode .tesseract-container { width: 150px !important; height: 150px !important; }
+            
+            html.slideshow-mode .about-text p { 
+                font-size: 0.85rem !important; 
+                line-height: 1.4 !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            /* 5. PREDICTIONS & EVIDENCE GRIDS */
+            html.slideshow-mode .ideas-grid,
+            html.slideshow-mode .evidence-grid,
+            html.slideshow-mode .predictions-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.5rem !important;
+                max-height: 55vh !important;
+                overflow-y: auto !important;
+                padding: 0.5rem !important;
+            }
+
+            /* 6. FLOATING BUTTONS OVERRIDE */
+            html.slideshow-mode .audio-toggle {
+                bottom: calc(95px + env(safe-area-inset-bottom, 0px)) !important;
+                right: 20px !important;
+                transform: scale(0.9) !important;
+                z-index: 10000 !important;
+            }
+
+            /* 7. IMAGE SECTION REFINEMENTS */
+            html.slideshow-mode .stakes-image-wrapper,
+            html.slideshow-mode .hrih-visual {
+                max-height: 45vh !important;
+                margin-bottom: 1rem !important;
+                transform: scale(1.05);
+                transition: transform 1s ease-out;
+            }
+
+            html.slideshow-mode .snap-section.in-view .stakes-image-wrapper,
+            html.slideshow-mode .snap-section.in-view .hrih-visual {
+                transform: scale(1);
+            }
+
+            html.slideshow-mode .stakes-headline {
+                font-size: 1.2rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            html.slideshow-mode .stakes-overlay {
+                background: linear-gradient(to top, rgba(2, 3, 10, 0.9) 0%, transparent 100%) !important;
+            }
+
+            /* 8. QUOTE SECTION ENHANCEMENT */
+            html.slideshow-mode .quote-mark {
+                font-size: 3rem !important;
+                margin-bottom: -1rem !important;
+            }
+
+            html.slideshow-mode .quote-text {
+                font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+                letter-spacing: 0.05em !important;
+            }
+                font-family: var(--font-display, 'Cinzel', serif);
+                font-size: 0.8rem;
+                letter-spacing: 0.4em;
+                color: rgba(212, 168, 75, 0.6);
+            }
+
+            .pwa-splash-loader {
+                width: 120px;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 2px;
+                overflow: hidden;
+            }
+
+            .pwa-splash-progress {
+                height: 100%;
+                width: 0%;
+                background: var(--gold-primary, #d4a84b);
+                box-shadow: 0 0 10px var(--gold-primary, #d4a84b);
+                animation: splashProgress 2s ease-in-out forwards;
+            }
+
+            @keyframes splashEnter {
+                from { opacity: 0; transform: scale(0.8) translateY(20px); }
+                to { opacity: 1; transform: scale(1) translateY(0); }
+            }
+
+            @keyframes splashProgress {
+                0% { width: 0%; }
+                100% { width: 100%; }
             }
 
             /* Position floating buttons above slideshow nav */
@@ -13429,6 +13625,19 @@
     <div class="cursor-ring" id="cursor-ring"></div>
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="reading-progress"></div>
+
+    <!-- PWA Splash Screen (Cinematic Entrance) -->
+    <div id="pwa-splash" class="pwa-splash" aria-hidden="true">
+        <div class="pwa-splash-content">
+            <div class="pwa-splash-logo">
+                <span class="u">U</span><span class="equals">=</span><span class="i">I</span><span class="times">×</span><span class="r">R</span><span class="power">²</span>
+            </div>
+            <div class="pwa-splash-title">INFINITE ARCHITECTS</div>
+            <div class="pwa-splash-loader">
+                <div class="pwa-splash-progress"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Cookie Consent Banner -->
     <div class="cookie-banner" id="cookie-banner">
@@ -16259,6 +16468,23 @@
             if (isStandaloneMode()) {
                 document.body.classList.add('standalone-mode');
                 console.log('Running in standalone/PWA mode');
+
+                // ─────────────────────────────────────────────────────────────
+                // PWA SPLASH SCREEN LOGIC
+                // ─────────────────────────────────────────────────────────────
+                const splash = document.getElementById('pwa-splash');
+                if (splash) {
+                    splash.classList.add('active');
+                    
+                    // Remove splash after 2.5s (allows animation to finish)
+                    setTimeout(() => {
+                        splash.style.opacity = '0';
+                        setTimeout(() => {
+                            splash.style.display = 'none';
+                            splash.classList.remove('active');
+                        }, 800);
+                    }, 2500);
+                }
             }
 
             // Expose hapticFeedback for other scripts
@@ -19869,26 +20095,12 @@
         });
 
         // ═══════════════════════════════════════════════════════════════════════
-        // 5. iOS GYROSCOPE PARALLAX (with permission request)
+        // 5. GYROSCOPE SYSTEM (Unified with Phase 1)
         // ═══════════════════════════════════════════════════════════════════════
-        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-            // iOS 13+ requires permission
-            const enableGyro = () => {
-                DeviceOrientationEvent.requestPermission()
-                    .then(response => {
-                        if (response === 'granted') {
-                            initGyroParallax();
-                        }
-                    })
-                    .catch(console.error);
-            };
-
-            // Enable on first touch
-            document.addEventListener('touchstart', enableGyro, { once: true });
-        } else if ('DeviceOrientationEvent' in window) {
-            initGyroParallax();
-        }
-
+        // Note: Gyroscope and Motion permissions are handled by the 
+        // motion-enable-btn created in the main initialization block.
+        // This ensures zero duplication and consistent performance.
+        
         function initGyroParallax() {
             const parallaxElements = document.querySelectorAll('.hero-image, .hero-content');
             let lastGamma = 0, lastBeta = 0;
@@ -20108,7 +20320,7 @@
             },
             tick: () => {
                 if (config.hapticEnabled && 'vibrate' in navigator) {
-                    navigator.vibrate([5, 5, 5]);
+                    navigator.vibrate([10, 30, 10]); // Mechanical click feel
                 }
             }
         };
@@ -20145,6 +20357,29 @@
 
             // Initial state update
             updateState();
+
+            // ─────────────────────────────────────────────────────────────
+            // PREMIUM SNAP HAPTICS
+            // Trigger tick exactly when a section is centered
+            // ─────────────────────────────────────────────────────────────
+            const snapObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        const index = sections.indexOf(entry.target);
+                        if (index !== -1 && index !== currentIndex && !isScrolling) {
+                            currentIndex = index;
+                            visitedSections.add(index);
+                            haptic.tick();
+                            updateState();
+                        }
+                    }
+                });
+            }, { 
+                threshold: [0.5],
+                rootMargin: '-10% 0px -10% 0px'
+            });
+
+            sections.forEach(section => snapObserver.observe(section));
 
             console.log('✨ Slideshow Navigation Active:', sections.length, 'sections');
         }
