@@ -1,13 +1,13 @@
-# Infinite Architects - robots.txt
-# https://infinitearchitects.io
+# 🤖 ROBOTS.TXT: SENTINEL PROTOCOL
+# Subject: Infinite Architects / Michael Darius Eastwood
+# Directing crawlers to the Command Centre.
 
 User-agent: *
 Allow: /
+Disallow: /offline.html
 
-# Sitemap
+# Sitemap location for absolute dominance
 Sitemap: https://infinitearchitects.io/sitemap.xml
 
-# Block common bot paths (not applicable but good practice)
-Disallow: /admin/
-Disallow: /private/
-Disallow: /*.pdf$
+# Performance guard
+Crawl-delay: 1
