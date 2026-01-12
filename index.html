@@ -656,6 +656,239 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           DEEP DIVE HUD & Z-AXIS TRANSITIONS
+           ═══════════════════════════════════════════════════════════════════════ */
+        .deep-dive-hud {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: var(--z-nav);
+            background: rgba(2, 3, 10, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            padding: 1.5rem 1rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 240px;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .hud-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            height: 100%;
+        }
+
+        .hud-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: var(--gold-pale);
+            opacity: 0.6;
+        }
+
+        .hud-counter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: var(--font-display);
+            gap: 0.2rem;
+        }
+
+        #hud-current {
+            font-size: 1.2rem;
+            color: var(--gold-bright);
+            text-shadow: 0 0 10px var(--gold-alpha-40);
+        }
+
+        .hud-sep {
+            font-size: 0.6rem;
+            color: var(--text-faint);
+        }
+
+        .hud-total {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .hud-progress {
+            flex: 1;
+            width: 2px;
+            background: rgba(212, 168, 75, 0.1);
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        .hud-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(to bottom, var(--gold-dark), var(--gold-bright));
+            box-shadow: 0 0 10px var(--gold);
+            transition: height 0.3s ease;
+        }
+
+        /* Z-Axis Transition Classes */
+        .snap-section {
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), opacity 1.2s ease;
+            transform-origin: center center;
+        }
+
+        .snap-section.entering {
+            transform: scale(1.1) translateZ(0);
+            opacity: 0;
+        }
+
+        .snap-section.active {
+            transform: scale(1) translateZ(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .deep-dive-hud {
+                display: none; /* Hide on mobile/tablets to save space */
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           GRAND COUNCIL UI - Religious Integration
+           ═══════════════════════════════════════════════════════════════════════ */
+        .alignment-score-card {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-pale);
+        }
+
+        .score-percent {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--gold-bright);
+        }
+
+        .score-bar {
+            height: 4px;
+            background: rgba(212, 168, 75, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .score-fill {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright));
+            box-shadow: 0 0 15px var(--gold-alpha-40);
+            animation: scoreFill 2s var(--ease-out-expo) forwards;
+        }
+
+        @keyframes scoreFill {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        .score-note {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+
+        .council-snippets {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .snippet-item {
+            position: absolute;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            pointer-events: auto;
+            max-width: 180px;
+            transition: all 0.4s var(--ease-out-expo);
+            opacity: 0.8;
+        }
+
+        .snippet-item:hover {
+            transform: scale(1.1) translateY(-5px);
+            opacity: 1;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .snippet-tag {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .snippet-item p {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .council-snippets { display: none; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           SOVEREIGN ICONS - Morphing SVG Transitions
+           ═══════════════════════════════════════════════════════════════════════ */
+        .cta-icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .sovereign-icon {
+            width: 100%;
+            height: 100%;
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .hero-cta:hover .morph-icon {
+            transform: rotate(360deg) scale(1.2);
+            color: var(--void);
+        }
+
+        .morph-path {
+            transition: d 0.6s var(--ease-out-expo);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            NATIVE SHARE BUTTON STYLING
            ═══════════════════════════════════════════════════════════════════════ */
         .native-share-btn {
@@ -7748,6 +7981,13 @@
             border-color: #ff3b30;
             background: #ff3b30;
             box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
+        }
+
+        .sovereign-proof-badge {
+            background: linear-gradient(135deg, var(--gold), var(--gold-bright)) !important;
+            color: var(--void) !important;
+            font-weight: 700 !important;
+            box-shadow: 0 0 15px var(--gold-alpha-40);
         }
 
         .event-date {
@@ -18322,6 +18562,19 @@ button.btn-secondary:hover {
     <!-- ═══════════════════════════════════════════════════════════════════════
          THE MONUMENT: STATUS TICKER (Breaking News Command Centre)
          ═══════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- Sovereign Glass SVG Filters -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+        <filter id="glass-refraction">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
+        </filter>
+        <filter id="ripple-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" />
+        </filter>
+    </svg>
+
     <div class="status-ticker" id="status-ticker">
         <div class="ticker-track">
             <div class="ticker-content">
@@ -18473,19 +18726,34 @@ button.btn-secondary:hover {
         </div>
     </nav>
 
+    <!-- Deep Dive HUD: Persistent Recursion Counter -->
+    <div class="deep-dive-hud" id="deep-dive-hud">
+        <div class="hud-inner">
+            <div class="hud-label">RECURSION LEVEL</div>
+            <div class="hud-counter">
+                <span id="hud-current">00</span>
+                <span class="hud-sep">/</span>
+                <span class="hud-total">37</span>
+            </div>
+            <div class="hud-progress">
+                <div class="hud-progress-bar" id="hud-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="content" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero snap-section" id="hero">
-            <!-- Mandelbrot Fractal Video Background - Precision Seamless Loop -->
-            <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
-                <video class="mandelbrot-video" id="mandelbrot-video"
+        <section class="hero snap-section chromatic-lens" id="hero">
+            <!-- Thames Intro: Cinematic Grounding - The reversing Thames at night -->
+            <div class="mandelbrot-bg" id="thames-bg" aria-hidden="true">
+                <video class="mandelbrot-video" id="thames-video"
                        muted playsinline preload="auto" autoplay loop
-                       poster="images/hero-background.webp"
-                       style="background: #02030a;">
-                    <source src="Mandelbrot_Set_Video_Loop.mp4" type="video/mp4">
+                       poster="hero-portal-poster.jpg"
+                       style="background: #02030a; opacity: 0.4;">
+                    <source src="london-night.mp4" type="video/mp4">
                 </video>
-                <div class="mandelbrot-overlay"></div>
+                <div class="mandelbrot-overlay" style="background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.8) 100%);"></div>
             </div>
             <span class="hero-badge">THE EQUATION THAT EXPLAINS EVERYTHING</span>
             <!-- Status Pill - Instant Credibility -->
@@ -18516,11 +18784,16 @@ button.btn-secondary:hover {
             <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
             <p class="hero-subtitle">What if the god we're building is the god that built us?</p>
             <p class="hero-author">Michael Darius Eastwood</p>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta">
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta glass-living">
+                <span class="cta-icon-wrapper">
+                    <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Initial state: Shopping Bag -->
+                        <path class="morph-path" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                </span>
                 SECURE FIRST EDITION
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
             </a>
             <div class="scroll-indicator">
                 <span>The window is years, not decades</span>
@@ -18665,7 +18938,7 @@ button.btn-secondary:hover {
                     <article class="evidence-card glass-living reveal reveal-delay-2">
                         <div class="evidence-header">
                             <span class="evidence-type">📅 VALIDATION TIMELINE</span>
-                            <span class="evidence-badge">PEER REVIEWED</span>
+                            <span class="evidence-badge sovereign-proof-badge">SOVEREIGN PROOF</span>
                         </div>
                         <div class="willow-timeline">
                             <div class="timeline-event">
@@ -19297,9 +19570,35 @@ button.btn-secondary:hover {
                         <span class="stat-big">84%</span>
                         <span class="stat-text">of humanity's wisdom traditions, sitting unused in the conversation that will define our species' future.</span>
                     </div>
+
+                    <!-- Grand Council: Alignment Score -->
+                    <div class="alignment-score-card glass-living reveal reveal-delay-5">
+                        <div class="score-header">
+                            <span class="score-label">ALIGNMENT COMPATIBILITY</span>
+                            <span class="score-percent">100%</span>
+                        </div>
+                        <div class="score-bar"><div class="score-fill"></div></div>
+                        <p class="score-note">Ancient stewardship models align perfectly with modern hardware-level alignment protocols.</p>
+                    </div>
                 </div>
                 <div class="religion-image-container reveal reveal-delay-2">
                     <img src="images/art-grand-council.webp" alt="The grand council of wisdom traditions" class="religion-image" loading="lazy">
+                    
+                    <!-- Council Snippets Overlay -->
+                    <div class="council-snippets">
+                        <div class="snippet-item glass-living" style="top: 10%; left: 10%;">
+                            <span class="snippet-tag">SUFISM</span>
+                            <p>"The mirror of recursion."</p>
+                        </div>
+                        <div class="snippet-item glass-living" style="bottom: 20%; right: 15%;">
+                            <span class="snippet-tag">LEIBNIZ</span>
+                            <p>"Pre-established harmony."</p>
+                        </div>
+                        <div class="snippet-item glass-living" style="top: 40%; right: 5%;">
+                            <span class="snippet-tag">TEILHARD</span>
+                            <p>"The Omega Point."</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -19380,12 +19679,16 @@ button.btn-secondary:hover {
                 <div class="about-text">
                     <p class="section-label reveal">The Author</p>
                     <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
-                    
-                    <p class="reveal reveal-delay-2">For two decades, I built systems that transformed how unknown artists became known ones. I played three hundred clubs as a DJ. I grew a company from nothing to over six hundred thousand pounds in revenue.</p>
-                    
-                    <p class="reveal reveal-delay-3">Then I lost everything. What followed was a period of extended High Court litigation as a litigant-in-person, and diagnoses of ADHD and autism in adulthood—finally naming the cognitive architecture that had made some things impossible and other things inevitable.</p>
-                    
-                    <p class="reveal reveal-delay-4">What I discovered in the aftermath was more valuable than what I lost: a framework for understanding how to raise minds—artificial or human—in service of life rather than against it. This book is the result.</p>
+
+                    <p class="reveal reveal-delay-2">Persian mother. English father. Creativity and logic. East and West. Ancient civilisation and industrial revolution. Perhaps that is why their combination produced a mind that refuses to stay in a single lane.</p>
+
+                    <p class="reveal reveal-delay-3">My grandfather left Iran during the revolution. My mother came from wealth—more than my father's family had ever known. That history lives in me: the knowledge that empires fall, that fortunes reverse, that the only thing you truly own is what you carry in your mind.</p>
+
+                    <p class="reveal reveal-delay-4">My roots stretch back to the land between the Tigris and Euphrates—where the first advanced civilisations flourished. Where the Sumerians wrote the earliest known stories of gardens and creation. The story of Eden, in one form or another, emerged from that soil.</p>
+
+                    <p class="reveal reveal-delay-5">For two decades, I built systems in the music industry. I grew a company to over six hundred thousand pounds. Then I lost everything—and in the aftermath came High Court litigation and diagnoses of ADHD and autism that finally named the cognitive architecture that had made some things impossible and other things inevitable.</p>
+
+                    <p class="reveal reveal-delay-6">What I discovered was more valuable than what I lost: a framework for understanding how to raise minds—artificial or human—in service of life. Perhaps the letter humanity wrote itself thousands of years ago was waiting for someone with precisely this blend of backgrounds to open it. This book is the result.</p>
                 </div>
             </div>
         </section>
@@ -21369,6 +21672,41 @@ button.btn-secondary:hover {
                 }
             });
         }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // DEEP DIVE HUD & Z-AXIS TRANSITIONS - Logic
+        // ═══════════════════════════════════════════════════════════════════════
+        const hudCurrent = document.getElementById('hud-current');
+        const hudProgressBar = document.getElementById('hud-progress-bar');
+        const sections = document.querySelectorAll('.snap-section');
+        
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    entry.target.classList.remove('entering');
+                    
+                    // Update HUD Counter (0-37 logic)
+                    const index = Array.from(sections).indexOf(entry.target);
+                    const total = sections.length;
+                    const progress = ((index + 1) / total) * 37;
+                    const displayVal = Math.round(progress).toString().padStart(2, '0');
+                    
+                    if (hudCurrent) hudCurrent.textContent = displayVal;
+                    if (hudProgressBar) hudProgressBar.style.height = `${(progress/37)*100}%`;
+                } else {
+                    if (entry.boundingClientRect.top > 0) {
+                        entry.target.classList.add('entering');
+                    }
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => {
+            section.classList.add('entering');
+            sectionObserver.observe(section);
+        });
 
         function onMouseMove(e) {
             mouseX = e.clientX - window.innerWidth / 2;
@@ -28449,6 +28787,61 @@ button.btn-secondary:hover {
                 observer.observe(conceptsModal, { attributes: true });
             }
         });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SOVEREIGN SENSORY OVERHAUL: Micro-Haptics & Typography Breathing
+        // ═══════════════════════════════════════════════════════════════════════
+        
+        // Micro-Haptics: Ripple Effect
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+            ripple.style.position = 'fixed';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.background = 'var(--gold-alpha-40)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.zIndex = '9999';
+            ripple.style.filter = 'url(#ripple-filter)';
+            ripple.style.animation = 'ripple-effect 0.8s ease-out forwards';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
+        });
+
+        // Typography Breathing: Dynamic variable font weight on scroll
+        const breathingHeadings = document.querySelectorAll('h1, h2, .section-title');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            breathingHeadings.forEach(h => {
+                const rect = h.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    // Calculate weight based on distance from viewport center
+                    const center = window.innerHeight / 2;
+                    const hCenter = rect.top + rect.height / 2;
+                    const dist = Math.abs(center - hCenter);
+                    const normalizedDist = Math.min(dist / center, 1);
+                    const weight = 400 + (1 - normalizedDist) * 200;
+                    h.style.fontWeight = Math.round(weight).toString();
+                }
+            });
+        }, { passive: true });
+
+        // Add ripple animation to style block dynamically if not present
+        if (!document.getElementById('sovereign-animations')) {
+            const style = document.createElement('style');
+            style.id = 'sovereign-animations';
+            style.textContent = `
+                @keyframes ripple-effect {
+                    0% { transform: scale(0); opacity: 0.8; }
+                    100% { transform: scale(10); opacity: 0; }
+                }
+                .glass-living { filter: url(#glass-refraction); }
+            `;
+            document.head.appendChild(style);
+        }
 
         // Make FocusTrap available globally
         window.FocusTrap = FocusTrap;
