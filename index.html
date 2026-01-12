@@ -8,16 +8,28 @@
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
     <meta name="author" content="Michael Darius Eastwood">
     
-    <!-- Open Graph -->
+    <!-- Open Graph - Complete for optimal social sharing -->
     <meta property="og:title" content="Infinite Architects | Michael Darius Eastwood">
     <meta property="og:description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="InfiniteArchitectsKindle20260103.jpg">
-    
-    <!-- Twitter Card -->
+    <meta property="og:type" content="book">
+    <meta property="og:url" content="https://infinitearchitects.com/">
+    <meta property="og:image" content="https://infinitearchitects.com/InfiniteArchitectsKindle20260103.jpg">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="2560">
+    <meta property="og:image:alt" content="Infinite Architects book cover - Intelligence, Recursion, and the Creation of Everything">
+    <meta property="og:site_name" content="Infinite Architects">
+    <meta property="og:locale" content="en_GB">
+    <meta property="book:author" content="Michael Darius Eastwood">
+    <meta property="book:isbn" content="B0DS2L8BVC">
+    <meta property="book:release_date" content="2026-01">
+
+    <!-- Twitter Card - Complete for optimal display -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Infinite Architects | Michael Darius Eastwood">
-    <meta name="twitter:description" content="What if the god we're building is the god that built us?">
+    <meta name="twitter:description" content="What if the god we're building is the god that built us? 37 original concepts for understanding AI.">
+    <meta name="twitter:image" content="https://infinitearchitects.com/InfiniteArchitectsKindle20260103.jpg">
+    <meta name="twitter:image:alt" content="Infinite Architects book cover">
+    <meta name="twitter:creator" content="@MichaelDEastwood">
 
     <!-- Favicons and PWA -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -137,7 +149,7 @@
             
             /* Text */
             --text: #f0ebe3;
-            --text-dim: rgba(240, 235, 227, 0.55);
+            --text-dim: rgba(240, 235, 227, 0.72); /* WCAG AA compliant - increased from 0.55 */
             --text-faint: rgba(240, 235, 227, 0.25);
             
             /* Typography */
@@ -690,6 +702,18 @@
                 --gold: #ffcc00;
                 --text: #ffffff;
                 --text-dim: rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* Backdrop-filter fallback for Firefox <103 and older browsers */
+        @supports not (backdrop-filter: blur(1px)) {
+            .nav-links,
+            .nav-menu,
+            .cookie-banner,
+            .modal-overlay,
+            .mobile-nav,
+            [style*="backdrop-filter"] {
+                background-color: rgba(2, 3, 10, 0.95) !important;
             }
         }
 
@@ -18368,27 +18392,52 @@
 
         function initMainCanvas() {
             const container = document.getElementById('canvas-container');
-            
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
-            camera.position.z = 1000;
 
-            renderer = new THREE.WebGLRenderer({ 
-                antialias: true, 
-                alpha: true,
-                powerPreference: 'high-performance'
-            });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
+            // Guard: Check container exists
+            if (!container) {
+                console.warn('[Three.js] Canvas container not found');
+                return;
+            }
 
-            createParticles();
-            createConnections();
+            try {
+                // Guard: Check WebGL support
+                if (!window.WebGLRenderingContext) {
+                    throw new Error('WebGL not supported');
+                }
 
-            document.addEventListener('mousemove', onMouseMove);
-            window.addEventListener('resize', onWindowResize);
-            
-            animateMain();
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
+                camera.position.z = 1000;
+
+                renderer = new THREE.WebGLRenderer({
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance'
+                });
+
+                // Check if context was created successfully
+                if (!renderer.getContext()) {
+                    throw new Error('WebGL context creation failed');
+                }
+
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(renderer.domElement);
+
+                createParticles();
+                createConnections();
+
+                document.addEventListener('mousemove', onMouseMove);
+                window.addEventListener('resize', onWindowResize);
+
+                animateMain();
+
+            } catch (error) {
+                console.error('[Three.js] Initialization failed:', error.message);
+                // Graceful fallback - show static gradient background
+                container.style.background = 'radial-gradient(ellipse at center, rgba(212, 168, 75, 0.08) 0%, rgba(2, 3, 10, 1) 70%)';
+                container.innerHTML = ''; // Clear any partial DOM
+            }
         }
 
         function createParticles() {
@@ -18766,19 +18815,26 @@
             const navToggle = document.getElementById('nav-toggle');
             const navMenu = document.getElementById('nav-menu');
 
-            // Scroll behavior
+            // Scroll behavior - throttled for performance
             let lastScroll = 0;
+            let navScrollTicking = false;
             window.addEventListener('scroll', () => {
-                const currentScroll = window.scrollY;
-                
-                if (currentScroll > 100) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
+                if (!navScrollTicking) {
+                    requestAnimationFrame(() => {
+                        const currentScroll = window.scrollY;
+
+                        if (currentScroll > 100) {
+                            nav.classList.add('scrolled');
+                        } else {
+                            nav.classList.remove('scrolled');
+                        }
+
+                        lastScroll = currentScroll;
+                        navScrollTicking = false;
+                    });
+                    navScrollTicking = true;
                 }
-                
-                lastScroll = currentScroll;
-            });
+            }, { passive: true });
 
             // Mobile toggle
             navToggle.addEventListener('click', () => {
@@ -19734,13 +19790,35 @@
 
             // ─────────────────────────────────────────────────────────────────────
             // 5. iOS GYROSCOPE WITH VISIBLE PERMISSION BUTTON
+            // Performance optimized with RAF batching and cached DOM queries
             // ─────────────────────────────────────────────────────────────────────
             const book = document.getElementById('hero-book');
             let gyroEnabled = false;
             let lastGamma = 0, lastBeta = 0;
+            let gyroTicking = false;
+            let pendingGyroEvent = null;
 
-            function handleOrientation(e) {
-                if (e.gamma === null || e.beta === null) return;
+            // Cache DOM queries for performance (60 DOM lookups/sec → 0)
+            const cachedGyroElements = {
+                cosmicBg: null,
+                canvasContainer: null,
+                heroContent: null,
+                orbs: null
+            };
+
+            function cacheGyroElements() {
+                cachedGyroElements.cosmicBg = document.querySelector('.cosmic-bg');
+                cachedGyroElements.canvasContainer = document.getElementById('canvas-container');
+                cachedGyroElements.heroContent = document.querySelector('.hero-content');
+                cachedGyroElements.orbs = document.querySelectorAll('.mobile-orb');
+            }
+
+            function applyGyroTransforms() {
+                const e = pendingGyroEvent;
+                if (!e || e.gamma === null || e.beta === null) {
+                    gyroTicking = false;
+                    return;
+                }
 
                 // Smooth interpolation
                 const gamma = lastGamma + (e.gamma - lastGamma) * 0.12;
@@ -19752,39 +19830,37 @@
                 const tiltX = Math.max(-30, Math.min(30, gamma)) / 30;
                 const tiltY = Math.max(-30, Math.min(30, beta - 45)) / 30;
 
-                // Apply to book - MORE dramatic rotation
+                // Batch all transforms in single RAF - Apply to book
                 if (book) {
                     book.style.transform = `perspective(800px) rotateY(${tiltX * 20}deg) rotateX(${-tiltY * 15}deg) scale(1.05)`;
                 }
 
-                // DRAMATIC: Move floating particles with gyro
+                // Move floating particles with gyro
                 if (particleContainer) {
                     particleContainer.style.transform = `translate(${tiltX * 40}px, ${tiltY * 40}px)`;
                 }
 
-                // DRAMATIC: Move cosmic background
-                const cosmicBg = document.querySelector('.cosmic-bg');
-                if (cosmicBg) {
-                    cosmicBg.style.transform = `translate(${tiltX * 60}px, ${tiltY * 60}px) scale(1.1)`;
+                // Move cosmic background (cached)
+                if (cachedGyroElements.cosmicBg) {
+                    cachedGyroElements.cosmicBg.style.transform = `translate(${tiltX * 60}px, ${tiltY * 60}px) scale(1.1)`;
                 }
 
-                // DRAMATIC: Move Three.js canvas container
-                const canvasContainer = document.getElementById('canvas-container');
-                if (canvasContainer) {
-                    canvasContainer.style.transform = `translate(${tiltX * 50}px, ${tiltY * 50}px) rotate(${tiltX * 3}deg)`;
+                // Move Three.js canvas container (cached)
+                if (cachedGyroElements.canvasContainer) {
+                    cachedGyroElements.canvasContainer.style.transform = `translate(${tiltX * 50}px, ${tiltY * 50}px) rotate(${tiltX * 3}deg)`;
                 }
 
-                // DRAMATIC: Move orbs
-                const orbs = document.querySelectorAll('.mobile-orb');
-                orbs.forEach((orb, i) => {
-                    const multiplier = 1 + (i * 0.5);
-                    orb.style.transform = `translate(${tiltX * 80 * multiplier}px, ${tiltY * 80 * multiplier}px)`;
-                });
+                // Move orbs (cached)
+                if (cachedGyroElements.orbs) {
+                    cachedGyroElements.orbs.forEach((orb, i) => {
+                        const multiplier = 1 + (i * 0.5);
+                        orb.style.transform = `translate(${tiltX * 80 * multiplier}px, ${tiltY * 80 * multiplier}px)`;
+                    });
+                }
 
-                // DRAMATIC: Shift hero elements
-                const heroContent = document.querySelector('.hero-content');
-                if (heroContent) {
-                    heroContent.style.transform = `translate(${tiltX * 15}px, ${tiltY * 15}px)`;
+                // Shift hero elements (cached)
+                if (cachedGyroElements.heroContent) {
+                    cachedGyroElements.heroContent.style.transform = `translate(${tiltX * 15}px, ${tiltY * 15}px)`;
                 }
 
                 // Trigger haptic on significant movement
@@ -19792,10 +19868,21 @@
                 if (movement > 8 && typeof triggerHaptic === 'function') {
                     triggerHaptic('light');
                 }
+
+                gyroTicking = false;
+            }
+
+            function handleOrientation(e) {
+                pendingGyroEvent = e;
+                if (!gyroTicking) {
+                    requestAnimationFrame(applyGyroTransforms);
+                    gyroTicking = true;
+                }
             }
 
             function enableGyroscope() {
                 gyroEnabled = true;
+                cacheGyroElements(); // Cache DOM queries once for performance
                 window.addEventListener('deviceorientation', handleOrientation, { passive: true });
                 motionStatus.classList.add('visible');
                 // console.log('✨ Gyroscope enabled!');
