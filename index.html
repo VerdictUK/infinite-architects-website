@@ -136,12 +136,31 @@
             --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
             --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
             
-            /* Z-index layers */
+            /* Z-index scale - consolidated */
+            --z-deep: -1;
+            --z-base: 0;
             --z-canvas: 0;
             --z-content: 1;
+            --z-card: 2;
+            --z-card-hover: 3;
+            --z-sticky: 10;
+            --z-header: 100;
             --z-nav: 100;
+            --z-dropdown: 200;
+            --z-modal-backdrop: 500;
             --z-overlay: 500;
-            --z-loader: 1000;
+            --z-modal: 600;
+            --z-toast: 700;
+            --z-tooltip: 800;
+            --z-loader: 900;
+            --z-ticker: 1000;
+            --z-max: 9999;
+
+            /* Viewport spacing */
+            --ticker-height: 40px;
+            --nav-height: 60px;
+            --section-safe-padding: calc(var(--ticker-height) + var(--nav-height) + 2rem);
+            --section-content-max: calc(100vh - var(--ticker-height) - var(--nav-height) - 6rem);
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -8816,7 +8835,7 @@
         <div class="cookie-banner-inner">
             <p class="cookie-text">
                 We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-                <a href="#" onclick="return false;">Learn more</a>
+                <span class="cookie-learn-more" style="text-decoration: underline; cursor: pointer;">Learn more</span>
             </p>
             <div class="cookie-buttons">
                 <button class="cookie-accept" id="cookie-accept">Accept</button>
@@ -8864,7 +8883,7 @@
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
-        <a href="#" class="nav-logo"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></a>
+        <a href="#hero" class="nav-logo"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></a>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
             <span></span>
             <span></span>
@@ -10272,8 +10291,8 @@
             <div class="cta-retailers reveal reveal-delay-3">
                 <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
                 <a href="https://www.amazon.co.uk/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
-                <a href="#" class="retailer-link">KINDLE</a>
-                <a href="#" class="retailer-link">PAPERBACK</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">KINDLE</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="retailer-link">PAPERBACK</a>
             </div>
 
             <!-- BBC Manhattan Project Video -->
@@ -10398,17 +10417,17 @@
                 <a href="/cdn-cgi/l/email-protection#1d70747e757c78715d70747e757c7871797c6f74686e787c6e696a727279337e7270"><span class="__cf_email__" data-cfemail="3e53575d565f5b527e53575d565f5b525a5f4c574b4d5b5f4d4a4951515a105d5153">[email&#160;protected]</span></a>
             </div>
             <div class="footer-social">
-                <a href="#" aria-label="Twitter">
+                <a href="https://x.com/MichaelDEastwd" target="_blank" rel="noopener" aria-label="X (Twitter)">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
                 </a>
-                <a href="#" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/michaeldariuseastwood" target="_blank" rel="noopener" aria-label="LinkedIn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                 </a>
-                <a href="#" aria-label="Substack">
+                <a href="https://michaeldariuseastwood.substack.com" target="_blank" rel="noopener" aria-label="Substack">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
                     </svg>
@@ -10425,6 +10444,71 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     (function() {
         'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NUCLEAR FIX: SAFE QUERY UTILITIES
+        // ═══════════════════════════════════════════════════════════════════════
+        const $ = (selector) => document.querySelector(selector);
+        const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+        const safeQuery = (selector, callback) => {
+            const el = document.querySelector(selector);
+            if (el && typeof callback === 'function') {
+                callback(el);
+            }
+            return el;
+        };
+
+        const safeQueryAll = (selector, callback) => {
+            const els = document.querySelectorAll(selector);
+            if (els.length && typeof callback === 'function') {
+                els.forEach(callback);
+            }
+            return els;
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NUCLEAR FIX: INTERVAL CLEANUP SYSTEM (Memory Leak Prevention)
+        // ═══════════════════════════════════════════════════════════════════════
+        const intervalIds = [];
+        const timeoutIds = [];
+
+        const safeInterval = (callback, delay) => {
+            const id = setInterval(callback, delay);
+            intervalIds.push(id);
+            return id;
+        };
+
+        const safeTimeout = (callback, delay) => {
+            const id = setTimeout(callback, delay);
+            timeoutIds.push(id);
+            return id;
+        };
+
+        // Clear all intervals/timeouts on page unload
+        window.addEventListener('beforeunload', () => {
+            intervalIds.forEach(id => clearInterval(id));
+            timeoutIds.forEach(id => clearTimeout(id));
+        });
+
+        // Pause intervals when tab is hidden (battery saver)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                intervalIds.forEach(id => clearInterval(id));
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NUCLEAR FIX: GLOBAL ERROR BOUNDARY
+        // ═══════════════════════════════════════════════════════════════════════
+        window.addEventListener('error', (event) => {
+            // Prevent error from breaking the page
+            event.preventDefault();
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            event.preventDefault();
+        });
 
         // ═══════════════════════════════════════════════════════════════════════
         // SCROLL POSITION FIX - Ensure page starts at top
@@ -10453,7 +10537,7 @@
             script.onload = function() {
                 window.threeJsReady = true;
                 window.dispatchEvent(new Event('threejs-ready'));
-                console.log('⚡ Three.js loaded');
+                // console.log('⚡ Three.js loaded');
             };
             document.head.appendChild(script);
         }
@@ -10505,7 +10589,7 @@
             }
         };
 
-        console.log(`⚡ Performance mode: ${PERF.multiplier}x (slow: ${PERF.isSlowConnection}, mobile: ${PERF.isMobile})`);
+        // console.log(`⚡ Performance mode: ${PERF.multiplier}x (slow: ${PERF.isSlowConnection}, mobile: ${PERF.isMobile})`);
 
         // ═══════════════════════════════════════════════════════════════════════
         // CONFIGURATION - Adaptive based on connection
@@ -10560,7 +10644,7 @@
             cursor: !PERF.isMobile && window.matchMedia('(pointer: fine)').matches
         };
 
-        console.log('⚡ Features:', Features);
+        // console.log('⚡ Features:', Features);
 
         // Disable film grain if not enabled
         if (!Features.filmGrain) {
@@ -10574,7 +10658,7 @@
         let pageVisible = true;
         document.addEventListener('visibilitychange', () => {
             pageVisible = !document.hidden;
-            console.log(pageVisible ? '▶️ Animations resumed' : '⏸️ Animations paused (tab hidden)');
+            // console.log(pageVisible ? '▶️ Animations resumed' : '⏸️ Animations paused (tab hidden)');
         });
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -11185,7 +11269,7 @@
             // Scale context for HiDPI
             ctx.scale(dpr, dpr);
 
-            console.log('🔮 Tesseract initialized:', size, 'px, DPR:', dpr, 'Mobile:', isMobile);
+            // console.log('🔮 Tesseract initialized:', size, 'px, DPR:', dpr, 'Mobile:', isMobile);
 
             // 4D vertices of a tesseract
             const vertices4D = [];
@@ -11556,7 +11640,7 @@
 
                 if (accepted) {
                     // Enable analytics (placeholder)
-                    console.log('Cookies accepted - analytics enabled');
+                    // console.log('Cookies accepted - analytics enabled');
                 }
             }
 
@@ -11605,13 +11689,13 @@
         let audioContext = null;
 
         function triggerHaptic(intensity = 'medium') {
-            console.log('🎯 triggerHaptic called:', intensity);
+            // console.log('🎯 triggerHaptic called:', intensity);
 
             // ANDROID - Vibration API (works reliably)
             if (typeof navigator.vibrate === 'function') {
                 const durations = { light: 20, medium: 35, heavy: 60 };
                 const success = navigator.vibrate(durations[intensity] || 35);
-                console.log('📳 Android Vibrate:', intensity, success);
+                // console.log('📳 Android Vibrate:', intensity, success);
                 return;
             }
 
@@ -11621,7 +11705,7 @@
                 // Create AudioContext on demand
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    console.log('🎵 AudioContext created');
+                    // console.log('🎵 AudioContext created');
                 }
 
                 // Resume if suspended (iOS requires user gesture)
@@ -11633,7 +11717,7 @@
                     playHapticSound(intensity);
                 }
             } catch (err) {
-                console.log('❌ Haptic error:', err);
+                // console.log('❌ Haptic error:', err);
             }
         }
 
@@ -11700,7 +11784,7 @@
                 reverbOsc.stop(now + delay + s.duration);
             });
 
-            console.log('🎵 Soft power chord:', intensity);
+            // console.log('🎵 Soft power chord:', intensity);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -11712,11 +11796,11 @@
 
             // Skip on slow connections or reduced motion
             if (PERF.isSlowConnection || PERF.reducedMotion) {
-                console.log('⚡ Mobile enhancements reduced for performance');
+                // console.log('⚡ Mobile enhancements reduced for performance');
                 return;
             }
 
-            console.log('🚀 Initializing Mobile WOW Enhancements');
+            // console.log('🚀 Initializing Mobile WOW Enhancements');
 
             // ─────────────────────────────────────────────────────────────────────
             // 1. AMBIENT FLOATING PARTICLES (Reduced for performance)
@@ -11891,7 +11975,7 @@
                 gyroEnabled = true;
                 window.addEventListener('deviceorientation', handleOrientation, { passive: true });
                 motionStatus.classList.add('visible');
-                console.log('✨ Gyroscope enabled!');
+                // console.log('✨ Gyroscope enabled!');
             }
 
             // Check if iOS requires permission
@@ -11976,7 +12060,7 @@
                 }, { passive: true });
             });
 
-            console.log('✅ Mobile WOW Enhancements Active');
+            // console.log('✅ Mobile WOW Enhancements Active');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12112,7 +12196,7 @@
                 }, { passive: true });
             }
 
-            console.log('✨ Mobile WOW factor enabled');
+            // console.log('✨ Mobile WOW factor enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12199,7 +12283,7 @@
             updateTextReveals();
             updateParallax();
 
-            console.log('✨ Apple-grade effects enabled');
+            // console.log('✨ Apple-grade effects enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12230,7 +12314,7 @@
                 });
             });
 
-            console.log('✨ Magnetic cursor enabled');
+            // console.log('✨ Magnetic cursor enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12253,7 +12337,7 @@
                 });
             });
 
-            console.log('✨ Cursor glow enabled');
+            // console.log('✨ Cursor glow enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12298,10 +12382,70 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // NUCLEAR FIX: ANIMATION PAUSE CONTROLLER
+        // ═══════════════════════════════════════════════════════════════════════
+        function initAnimationPauser() {
+            if (!('IntersectionObserver' in window)) return;
+
+            const animationPauser = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const section = entry.target;
+                    const animations = section.querySelectorAll('[class*="animate"], .ticker-track, .carousel-track');
+
+                    if (entry.isIntersecting) {
+                        animations.forEach(el => el.style.animationPlayState = 'running');
+                    } else {
+                        animations.forEach(el => el.style.animationPlayState = 'paused');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.snap-section').forEach(section => {
+                animationPauser.observe(section);
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NUCLEAR FIX: VIDEO PERFORMANCE MANAGER
+        // ═══════════════════════════════════════════════════════════════════════
+        function initVideoManager() {
+            if (!('IntersectionObserver' in window)) return;
+            const videos = document.querySelectorAll('video');
+
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target;
+
+                    if (entry.isIntersecting) {
+                        if (video.paused && video.hasAttribute('autoplay')) {
+                            video.play().catch(() => {});
+                        }
+                    } else {
+                        if (!video.paused) {
+                            video.pause();
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            videos.forEach(video => {
+                video.addEventListener('error', () => {
+                    const parent = video.parentElement;
+                    if (parent) {
+                        parent.classList.add('video-error');
+                    }
+                });
+                videoObserver.observe(video);
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
             initImageErrorHandlers();
+            initAnimationPauser();
+            initVideoManager();
             addRippleStyles();
             initReadingProgress();
             initNewsletter();
@@ -12344,7 +12488,7 @@
                 staggerObserver.observe(group);
             });
 
-            console.log('✨ Stagger reveal system enabled');
+            // console.log('✨ Stagger reveal system enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12439,7 +12583,7 @@
                 lastScrollY = scrollY;
             }, { passive: true });
 
-            console.log('✨ Section progress dots enabled');
+            // console.log('✨ Section progress dots enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12466,7 +12610,7 @@
             const mainContent = document.querySelector('.main-content') || document.body.firstChild;
             document.body.insertBefore(orbsContainer, mainContent);
 
-            console.log('✨ Ambient orbs enabled');
+            // console.log('✨ Ambient orbs enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12503,7 +12647,7 @@
                 });
             });
 
-            console.log('✨ 3D card tilt enabled');
+            // console.log('✨ 3D card tilt enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12578,7 +12722,7 @@
                 });
             });
 
-            console.log('✨ Spatial audio ready (activates on first click)');
+            // console.log('✨ Spatial audio ready (activates on first click)');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12619,7 +12763,7 @@
                 }, { once: true }); // Only prefetch once
             });
 
-            console.log('✨ Progressive images enabled');
+            // console.log('✨ Progressive images enabled');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12642,7 +12786,7 @@
 
             motionElements.forEach(el => motionObserver.observe(el));
 
-            console.log('✨ Motion reveals enabled');
+            // console.log('✨ Motion reveals enabled');
         }
 
         // Initialize all Phase 16-25 features
@@ -12701,7 +12845,7 @@
                 });
             });
 
-            console.log('✨ Liquid Reality scroll enabled');
+            // console.log('✨ Liquid Reality scroll enabled');
         }
 
         // Scroll-triggered reveals
@@ -12774,7 +12918,7 @@
                             portalVideo.play().then(() => {
                                 videoPortal.classList.add('loaded');
                             }).catch(e => {
-                                console.log('Video fallback to particles:', e);
+                                // console.log('Video fallback to particles:', e);
                                 portalVideo.style.display = 'none';
                                 createPortalFallback();
                             });
@@ -12789,7 +12933,7 @@
 
                 // Check if video source exists
                 portalVideo.addEventListener('error', () => {
-                    console.log('Video not available, using particle fallback');
+                    // console.log('Video not available, using particle fallback');
                     portalVideo.style.display = 'none';
                     createPortalFallback();
                 });
@@ -12830,7 +12974,7 @@
                         console.error('❌ Tone.js loader not available');
                         return false;
                     }
-                    console.log('🎵 Loading Tone.js on demand...');
+                    // console.log('🎵 Loading Tone.js on demand...');
                     try {
                         await window.loadToneJs();
                     } catch (err) {
@@ -12866,7 +13010,7 @@
                 this.synths.shimmer.connect(this.reverb);
 
                 this.initialized = true;
-                console.log('✨ Sonic Architecture initialized');
+                // console.log('✨ Sonic Architecture initialized');
             },
 
             async start() {
@@ -13122,21 +13266,21 @@
                     root.style.setProperty('--time-hue-shift', '10deg');
                     root.style.setProperty('--time-warmth', '0.3');
                     root.style.setProperty('--time-brightness', '0.95');
-                    console.log('🌅 Dawn mode activated');
+                    // console.log('🌅 Dawn mode activated');
 
                 } else if (hour >= 8 && hour < 18) {
                     body.classList.add('day-mode');
                     root.style.setProperty('--time-hue-shift', '0deg');
                     root.style.setProperty('--time-warmth', '0');
                     root.style.setProperty('--time-brightness', '1');
-                    console.log('☀️ Day mode activated');
+                    // console.log('☀️ Day mode activated');
 
                 } else if (hour >= 18 && hour < 21) {
                     body.classList.add('dusk-mode');
                     root.style.setProperty('--time-hue-shift', '15deg');
                     root.style.setProperty('--time-warmth', '0.4');
                     root.style.setProperty('--time-brightness', '0.9');
-                    console.log('🌆 Dusk mode activated');
+                    // console.log('🌆 Dusk mode activated');
 
                 } else {
                     body.classList.add('night-mode');
@@ -13144,7 +13288,7 @@
                     root.style.setProperty('--time-warmth', '0');
                     root.style.setProperty('--time-brightness', '0.85');
                     root.style.setProperty('--time-saturation', '1.1');
-                    console.log('🌙 Night mode activated');
+                    // console.log('🌙 Night mode activated');
                 }
             }
         };
@@ -13457,7 +13601,7 @@
             init() {
                 // Skip if disabled by Features or slow connection
                 if (!Features.quantumParticles) {
-                    console.log('⚡ Quantum Field disabled for performance');
+                    // console.log('⚡ Quantum Field disabled for performance');
                     return;
                 }
                 // Reduce pairs on mobile
@@ -13570,13 +13714,13 @@
                 this.video = document.getElementById('mandelbrot-video');
 
                 if (!this.container || !this.video) {
-                    console.log('⚡ Mandelbrot background: Elements not found');
+                    // console.log('⚡ Mandelbrot background: Elements not found');
                     return;
                 }
 
                 // Skip on slow connections or mobile
                 if (PERF.isSlowConnection || PERF.isMobile) {
-                    console.log('⚡ Mandelbrot background: Disabled for performance');
+                    // console.log('⚡ Mandelbrot background: Disabled for performance');
                     this.container.style.display = 'none';
                     return;
                 }
@@ -13601,7 +13745,7 @@
                 this.video.addEventListener('loadedmetadata', () => {
                     // Set loop end point slightly before video end to avoid jolt
                     this.loopEnd = this.video.duration - this.loopBuffer;
-                    console.log(`✨ Mandelbrot loop: 0s → ${this.loopEnd.toFixed(2)}s (duration: ${this.video.duration.toFixed(2)}s)`);
+                    // console.log(`✨ Mandelbrot loop: 0s → ${this.loopEnd.toFixed(2)}s (duration: ${this.video.duration.toFixed(2)}s)`);
                 });
 
                 // Precision loop using timeupdate event
@@ -13637,14 +13781,14 @@
                 // Load video
                 this.video.load();
 
-                console.log('✨ Mandelbrot Precision Loop initialized');
+                // console.log('✨ Mandelbrot Precision Loop initialized');
             },
 
             start() {
                 this.isPlaying = true;
                 this.video.currentTime = this.loopStart;
                 this.video.play().catch(e => {
-                    console.log('Mandelbrot video autoplay blocked:', e);
+                    // console.log('Mandelbrot video autoplay blocked:', e);
                     // Try to play on first user interaction
                     document.addEventListener('click', () => this.play(), { once: true });
                 });
@@ -13673,7 +13817,7 @@
             setTimeout(() => MandelbrotBackground.init(), 3000);
         }
 
-        console.log('🚀 Future Tier Enhancements Phases 8-17 loaded');
+        // console.log('🚀 Future Tier Enhancements Phases 8-17 loaded');
 
         // ═══════════════════════════════════════════════════════════════════════
         // 37 CONCEPTS MODAL
@@ -13708,7 +13852,7 @@
                     }
                 });
 
-                console.log('✨ 37 Concepts Modal initialized');
+                // console.log('✨ 37 Concepts Modal initialized');
             }
         })();
 
@@ -13832,7 +13976,7 @@
             resize();
             animate();
 
-            console.log('✨ Living Equation particles initialized with', particles.length, 'particles');
+            // console.log('✨ Living Equation particles initialized with', particles.length, 'particles');
         })();
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -13865,7 +14009,7 @@
                 }
             });
 
-            console.log('✨ Prophecy Video player initialized');
+            // console.log('✨ Prophecy Video player initialized');
         })();
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -13896,7 +14040,7 @@
                 });
             });
 
-            console.log('✨ Chokepoint animation initialized');
+            // console.log('✨ Chokepoint animation initialized');
         })();
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -13991,7 +14135,7 @@
                 }, 40);
             }, 2500);
 
-            console.log('✨ Time-Slip Slider initialized');
+            // console.log('✨ Time-Slip Slider initialized');
         })();
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -14033,7 +14177,7 @@
                 return rect.top < window.innerHeight && rect.bottom > 0;
             }
 
-            console.log('✨ Mission Bar initialized');
+            // console.log('✨ Mission Bar initialized');
         })();
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -14072,7 +14216,7 @@
                             permBtn.remove();
                         }
                     } catch (e) {
-                        console.log('Gyroscope permission denied');
+                        // console.log('Gyroscope permission denied');
                         permBtn.remove();
                     }
                 });
@@ -14103,7 +14247,7 @@
                     }
                 }, { passive: true });
 
-                console.log('✨ Haptic Equation gyroscope enabled');
+                // console.log('✨ Haptic Equation gyroscope enabled');
             }
         })();
 
@@ -14144,7 +14288,7 @@
                 }, { passive: true });
             });
 
-            console.log('✨ Swipe indicators initialized');
+            // console.log('✨ Swipe indicators initialized');
         })();
 
     })();
