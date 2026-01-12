@@ -988,6 +988,26 @@
             transition: d 0.6s var(--ease-out-expo);
         }
 
+        .nav-link-iconic {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+        }
+
+        .nav-link-iconic .sovereign-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.6;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .nav-link-iconic:hover .sovereign-icon {
+            opacity: 1;
+            transform: scale(1.2) rotate(10deg);
+            color: var(--gold-bright);
+        }
+
         /* ═══════════════════════════════════════════════════════════════════════
            NATIVE SHARE BUTTON STYLING
            ═══════════════════════════════════════════════════════════════════════ */
@@ -3868,9 +3888,41 @@
         }
 
         .newsletter-success.show {
-            display: block;
-            animation: fadeUp 0.5s var(--ease-out-expo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            animation: fadeUp 0.6s var(--ease-out-expo) forwards;
         }
+
+        .newsletter-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--gold);
+            color: var(--void);
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--gold-alpha-30);
+            background: var(--gold-bright);
+        }
+
+        .success-note {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+        }
+
 
         @media (max-width: 600px) {
             .newsletter-inner {
@@ -19966,10 +20018,30 @@ button.btn-secondary:hover {
         </button>
         <div class="nav-menu" id="nav-menu">
             <ul class="nav-links">
-                <li><a href="#equation">THE EASTWOOD EQUATION</a></li>
-                <li><a href="#ideas">THE IDEAS</a></li>
-                <li><a href="#author">THE AUTHOR</a></li>
-                <li><a href="#contact">CONTACT</a></li>
+                <li>
+                    <a href="#equation" class="nav-link-iconic">
+                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M2 12h20M12 2l-4 4M12 2l4 4M12 22l-4-4M12 22l4-4"/>
+                        </svg>
+                        <span>THE EASTWOOD EQUATION</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#ideas" class="nav-link-iconic">
+                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>THE IDEAS</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#author" class="nav-link-iconic">
+                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 01-4-4V5a4 4 0 118 0v2a4 4 0 01-4 4z"/>
+                        </svg>
+                        <span>THE AUTHOR</span>
+                    </a>
+                </li>
             </ul>
             <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="nav-cta">GET FIRST EDITION</a>
         </div>
@@ -21702,7 +21774,12 @@ button.btn-secondary:hover {
                 </form>
                 <p class="newsletter-privacy reveal reveal-delay-6">I cannot promise certainty. I can promise honesty.<br><span class="newsletter-unsubscribe">Unsubscribe anytime. Your data stays private.</span></p>
                 <div class="newsletter-success" id="newsletter-success">
-                    Thank you. The first letter arrives within 24 hours.<br>— Michael
+                    <p>Welcome, Architect. You are now inside the loop.</p>
+                    <button class="newsletter-download-btn glass-living" onclick="window.open('press-release.pdf', '_blank')">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                        DOWNLOAD WELCOME PACKAGE
+                    </button>
+                    <p class="success-note">Your first briefing arrives within 24 hours.</p>
                 </div>
             </div>
         </section>
@@ -23259,7 +23336,7 @@ button.btn-secondary:hover {
         // ═══════════════════════════════════════════════════════════════════════
         // DOPAMINE MILESTONES - Logic
         // ═══════════════════════════════════════════════════════════════════════
-        let lastMilestone = -1;
+        let lastMilestone = parseInt(localStorage.getItem('ia_last_milestone')) || -1;
         const milestones = [
             { level: 1, title: "The Architect", text: "You have entered the first recursion.", icon: "🏛️" },
             { level: 10, title: "The Pattern Seer", text: "Universal structures are becoming visible.", icon: "✨" },
@@ -23284,6 +23361,7 @@ button.btn-secondary:hover {
             text.innerHTML = `<strong>Level ${milestone.level}:</strong> ${milestone.title}`;
             
             toast.classList.add('active');
+            localStorage.setItem('ia_last_milestone', milestone.level);
             
             // Visual gold flash transition
             document.body.style.transition = 'background-color 0.3s ease';
