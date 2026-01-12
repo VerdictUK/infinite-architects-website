@@ -112,8 +112,8 @@ self.addEventListener('fetch', (event) => {
     if (request.destination === 'document' || request.mode === 'navigate') {
         // HTML: Network-first with offline fallback
         event.respondWith(networkFirstWithOfflineFallback(request));
-    } else if (request.destination === 'image') {
-        // Images: Cache-first with network fallback
+    } else if (request.destination === 'image' || request.destination === 'video') {
+        // Images & Videos: Cache-first with network fallback
         event.respondWith(cacheFirstWithNetworkFallback(request, IMAGE_CACHE));
     } else if (
         url.hostname === 'fonts.googleapis.com' ||
