@@ -2028,9 +2028,15 @@
            QUOTE CAROUSEL
            ═══════════════════════════════════════════════════════════════════════ */
         .carousel-section {
-            padding: var(--space-xl) 0;
+            padding: var(--space-md) 0;
+            min-height: auto !important;
             overflow: hidden;
             position: relative;
+        }
+
+        .carousel-section.snap-section {
+            min-height: auto !important;
+            height: auto !important;
         }
 
         .carousel-section::before,
@@ -2071,14 +2077,14 @@
 
         .carousel-item {
             flex-shrink: 0;
-            max-width: 420px;
-            padding: 1.5rem 2rem;
+            max-width: 380px;
+            padding: 1rem 1.5rem;
             border-left: 2px solid rgba(212, 168, 75, 0.25);
             font-family: var(--font-serif);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-style: italic;
             color: var(--text-dim);
-            line-height: 1.8;
+            line-height: 1.6;
             transition: all 0.4s ease;
         }
 
@@ -12668,9 +12674,115 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════════
-           DESKTOP ENHANCEMENTS (>768px) - Wider layout, hover states
+           DESKTOP CHAPTER SIDEBAR - Left side vertical navigation
            ═══════════════════════════════════════════════════════════════════════════ */
-        @media (min-width: 769px) {
+        .chapter-sidebar {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9990;
+            background: rgba(2, 3, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(212, 168, 75, 0.15);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 12px;
+            opacity: 0;
+            transform: translateY(-50%) translateX(-100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .chapter-sidebar.active {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        .chapter-sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chapter-sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .chapter-sidebar-item:hover {
+            background: rgba(212, 168, 75, 0.08);
+            border-color: rgba(212, 168, 75, 0.2);
+        }
+
+        .chapter-sidebar-item.active {
+            background: rgba(212, 168, 75, 0.12);
+            border-color: rgba(212, 168, 75, 0.3);
+        }
+
+        .chapter-sidebar-num {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold-primary, #d4a84b);
+            min-width: 24px;
+        }
+
+        .chapter-sidebar-name {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(232, 212, 160, 0.7);
+            white-space: nowrap;
+        }
+
+        .chapter-sidebar-item.active .chapter-sidebar-name {
+            color: var(--gold-primary, #d4a84b);
+        }
+
+        .chapter-sidebar-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: rgba(212, 168, 75, 0.1);
+            border-radius: 0 3px 3px 0;
+            overflow: hidden;
+        }
+
+        .chapter-sidebar-progress-fill {
+            width: 100%;
+            background: var(--gold-primary, #d4a84b);
+            transition: height 0.3s ease;
+        }
+
+        /* Desktop: Show sidebar, hide bottom bar */
+        @media (min-width: 1024px) {
+            .chapter-sidebar {
+                display: block;
+            }
+
+            .chapter-nav {
+                display: none !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════════
+           DESKTOP ENHANCEMENTS (769-1023px) - Tablet/small desktop - bottom bar
+           ═══════════════════════════════════════════════════════════════════════════ */
+        @media (min-width: 769px) and (max-width: 1023px) {
             .chapter-nav-main {
                 max-width: 900px;
                 margin: 0 auto;
@@ -12732,6 +12844,25 @@
             .chapter-arrow svg {
                 width: 20px;
                 height: 20px;
+            }
+        }
+
+        /* Large Desktop: Enhanced sidebar */
+        @media (min-width: 1024px) {
+            .chapter-sidebar {
+                padding: 24px 16px;
+            }
+
+            .chapter-sidebar-item {
+                padding: 14px 18px;
+            }
+
+            .chapter-sidebar-num {
+                font-size: 1rem;
+            }
+
+            .chapter-sidebar-name {
+                font-size: 0.7rem;
             }
         }
 
@@ -15691,77 +15822,7 @@
             transition: width 0.1s ease-out;
         }
 
-        /* ═══════════════════════════════════════════════════════════════════════════
-           SOCIAL PROOF COUNTER
-           ═══════════════════════════════════════════════════════════════════════════ */
-        .social-proof-badge {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(10, 12, 20, 0.95);
-            border: 1px solid rgba(212, 168, 75, 0.2);
-            border-radius: 8px;
-            padding: 0.75rem 1rem;
-            z-index: 9998;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-            pointer-events: none;
-        }
-
-        .social-proof-badge.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .social-proof-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-bright));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--void);
-            font-size: 0.9rem;
-        }
-
-        .social-proof-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.15rem;
-        }
-
-        .social-proof-number {
-            font-family: var(--font-mono);
-            font-size: 0.95rem;
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .social-proof-label {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        @media (max-width: 768px) {
-            .social-proof-badge {
-                bottom: 70px;
-                left: 10px;
-                right: 10px;
-                justify-content: center;
-                padding: 0.5rem 0.75rem;
-            }
-        }
+        /* SOCIAL PROOF COUNTER - REMOVED */
 
         /* ═══════════════════════════════════════════════════════════════════════════
            ENHANCED SECTION NAVIGATION
@@ -17448,14 +17509,7 @@ button.btn-secondary:hover {
         <div class="reading-progress-bar" id="reading-progress-bar"></div>
     </div>
 
-    <!-- Social Proof Badge -->
-    <div class="social-proof-badge" id="social-proof-badge">
-        <div class="social-proof-icon">👁</div>
-        <div class="social-proof-text">
-            <span class="social-proof-number" id="social-proof-number">0</span>
-            <span class="social-proof-label">people viewing now</span>
-        </div>
-    </div>
+    <!-- Social Proof Badge REMOVED - user requested removal -->
 
     <!-- ═══════════════════════════════════════════════════════════════════════
          THE MONUMENT: STATUS TICKER (Breaking News Command Centre)
@@ -23654,67 +23708,7 @@ button.btn-secondary:hover {
         });
 
         // ═══════════════════════════════════════════════════════════════════════
-        // SOCIAL PROOF COUNTER - Simulated viewer count
-        // ═══════════════════════════════════════════════════════════════════════
-        document.addEventListener('DOMContentLoaded', function initSocialProof() {
-            const badge = document.getElementById('social-proof-badge');
-            const numberEl = document.getElementById('social-proof-number');
-            if (!badge || !numberEl) return;
-
-            // Base viewers + time-based variance
-            const baseViewers = 12;
-            const maxVariance = 8;
-
-            function getViewerCount() {
-                // Simulate realistic viewer count with small fluctuations
-                const timeVariance = Math.sin(Date.now() / 30000) * 3;
-                const randomVariance = Math.random() * maxVariance;
-                return Math.floor(baseViewers + timeVariance + randomVariance);
-            }
-
-            function animateNumber(target) {
-                const current = parseInt(numberEl.textContent) || 0;
-                const diff = target - current;
-                const steps = 10;
-                let step = 0;
-
-                const animate = () => {
-                    step++;
-                    const progress = step / steps;
-                    const value = Math.round(current + diff * progress);
-                    numberEl.textContent = value;
-                    if (step < steps) {
-                        requestAnimationFrame(animate);
-                    }
-                };
-                animate();
-            }
-
-            // Show badge after 5 seconds
-            setTimeout(() => {
-                badge.classList.add('visible');
-                animateNumber(getViewerCount());
-            }, 5000);
-
-            // Update every 30 seconds
-            setInterval(() => {
-                animateNumber(getViewerCount());
-            }, 30000);
-
-            // Hide after scroll past certain point
-            let scrollTimeout;
-            window.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                    const scrollPercent = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                    if (scrollPercent > 80) {
-                        badge.classList.remove('visible');
-                    } else if (scrollPercent > 10) {
-                        badge.classList.add('visible');
-                    }
-                }, 100);
-            }, { passive: true });
-        });
+        // SOCIAL PROOF COUNTER - REMOVED
 
         // ═══════════════════════════════════════════════════════════════════════
         // LIVING EQUATION PARTICLES (ULTRATHINK)
@@ -24726,7 +24720,35 @@ button.btn-secondary:hover {
     </script>
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
-         CHAPTER-BASED NAVIGATION - Mobile Book-Like Experience
+         DESKTOP CHAPTER SIDEBAR - Left side vertical navigation (1024px+)
+         ═══════════════════════════════════════════════════════════════════════════ -->
+    <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation">
+        <ul class="chapter-sidebar-list" role="navigation">
+            <li class="chapter-sidebar-item active" data-chapter="0">
+                <span class="chapter-sidebar-num">I</span>
+                <span class="chapter-sidebar-name">THE THESIS</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="1">
+                <span class="chapter-sidebar-num">II</span>
+                <span class="chapter-sidebar-name">THE EVIDENCE</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="2">
+                <span class="chapter-sidebar-num">III</span>
+                <span class="chapter-sidebar-name">THE PHILOSOPHY</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="3">
+                <span class="chapter-sidebar-num">IV</span>
+                <span class="chapter-sidebar-name">THE STAKES</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="4">
+                <span class="chapter-sidebar-num">V</span>
+                <span class="chapter-sidebar-name">GET THE BOOK</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════
+         CHAPTER-BASED NAVIGATION - Mobile/Tablet Bottom Bar (<1024px)
          ═══════════════════════════════════════════════════════════════════════════ -->
 
     <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation">
@@ -24883,7 +24905,13 @@ button.btn-secondary:hover {
                 if (this.elements.nav) {
                     this.elements.nav.classList.add('active');
                 }
+                if (this.elements.sidebar) {
+                    this.elements.sidebar.classList.add('active');
+                }
             }, 1500);
+
+            // Bind sidebar clicks
+            this.bindSidebarEvents();
 
             console.log('[ChapterNav] Initialised with', this.chapters.length, 'chapters,', this.totalSections, 'sections');
         },
@@ -24892,6 +24920,8 @@ button.btn-secondary:hover {
         cacheElements() {
             this.elements = {
                 nav: document.getElementById('chapterNav'),
+                sidebar: document.getElementById('chapterSidebar'),
+                sidebarItems: document.querySelectorAll('.chapter-sidebar-item'),
                 selector: document.getElementById('chapterSelector'),
                 chapterNumber: document.getElementById('chapterNumber'),
                 chapterName: document.getElementById('chapterName'),
@@ -24901,6 +24931,25 @@ button.btn-secondary:hover {
                 prevBtn: document.getElementById('chapterPrev'),
                 nextBtn: document.getElementById('chapterNext')
             };
+        },
+
+        // Bind sidebar click events
+        bindSidebarEvents() {
+            if (!this.elements.sidebarItems) return;
+            this.elements.sidebarItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const chapterIndex = parseInt(item.dataset.chapter);
+                    this.goToChapter(chapterIndex);
+                });
+            });
+        },
+
+        // Update sidebar active state
+        updateSidebar(chapterIndex) {
+            if (!this.elements.sidebarItems) return;
+            this.elements.sidebarItems.forEach((item, index) => {
+                item.classList.toggle('active', index === chapterIndex);
+            });
         },
 
         // Build section-to-chapter mapping
@@ -25081,8 +25130,9 @@ button.btn-secondary:hover {
                     this.state.globalSectionIndex === this.totalSections - 1);
             }
 
-            // Update menu
+            // Update menu and sidebar
             this.updateMenuState();
+            this.updateSidebar(this.state.currentChapter);
         },
 
         // Update menu items state
