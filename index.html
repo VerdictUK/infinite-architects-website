@@ -8455,6 +8455,81 @@
             opacity: 1;
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           MOBILE PERFORMANCE OVERRIDES - Apple-grade smoothness
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            /* CRITICAL: Disable backdrop-filter on mobile for smooth scrolling */
+            .nav.scrolled,
+            .nav-menu,
+            .mobile-cta,
+            .cookie-banner,
+            .exit-popup-overlay,
+            .concepts-modal-overlay,
+            .modal-backdrop,
+            .idea-card,
+            .evidence-card,
+            .prophecy-card,
+            .bbc-evidence-card,
+            .hrih-card,
+            .expert-card,
+            .timeline-event,
+            .glass-deep,
+            .glass-surface,
+            .glass-elevated,
+            .motion-enable-btn,
+            .audio-toggle {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+                background-color: rgba(2, 3, 10, 0.96) !important;
+            }
+
+            /* Disable Three.js particle network on mobile */
+            #canvas-container {
+                display: none !important;
+            }
+
+            /* Disable film grain overlay on mobile */
+            .film-grain {
+                display: none !important;
+            }
+
+            /* Reduce animation complexity */
+            .floating-particles {
+                display: none !important;
+            }
+
+            /* Simplify quote carousel */
+            .carousel-track {
+                animation-duration: 120s !important;
+            }
+
+            /* Disable expensive mix-blend-mode */
+            .video-portal--blend {
+                mix-blend-mode: normal !important;
+            }
+
+            /* Reduce transition complexity */
+            .idea-card,
+            .evidence-card,
+            .prophecy-card {
+                transition: transform 0.2s ease, opacity 0.2s ease !important;
+            }
+
+            /* Disable parallax effects on mobile */
+            [data-parallax] {
+                transform: none !important;
+            }
+        }
+
+        /* Ultra low-power mode for slow connections */
+        @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -8856,81 +8931,6 @@
                 <div class="proof-metric">
                     <span class="proof-number">1</span>
                     <span class="proof-label">Complete Framework</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════════════════════════════════
-             TIME-TRAVELER HERO: PREDICTION VS REALITY
-             ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="prophecy-hero snap-section" id="prophecy">
-            <div class="prophecy-bg">
-                <canvas id="equation-particles"></canvas>
-            </div>
-
-            <div class="prophecy-content">
-                <p class="prophecy-label reveal">THE RECEIPTS</p>
-
-                <div class="prophecy-split">
-                    <!-- LEFT: BBC VIDEO - THE EXPONENTIAL PROOF -->
-                    <div class="prophecy-video-side reveal">
-                        <div class="prophecy-badge prophecy-badge--bbc">
-                            <span class="prophecy-badge-icon">📺</span>
-                            <span class="prophecy-badge-text">BBC NEWS · JANUARY 7, 2026</span>
-                        </div>
-
-                        <div class="prophecy-video-wrapper" id="prophecy-video-wrapper">
-                            <video
-                                id="prophecy-video"
-                                class="prophecy-video"
-                                preload="metadata"
-                                playsinline
-                                controls
-                            >
-                                <source src="videos/bbc_clip_2.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-
-                            <div class="prophecy-video-overlay" id="prophecy-overlay">
-                                <div class="prophecy-play-btn">
-                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </div>
-                                <p class="prophecy-video-caption">▶ Play with sound</p>
-                            </div>
-                        </div>
-
-                        <blockquote class="prophecy-quote prophecy-quote--bbc">
-                            "Our Willow chip could do a computation that would take <em>much longer than the age of the universe</em> for even the world's best supercomputers. We call that problem <em>impossible</em> for a classical computer."
-                        </blockquote>
-                        <cite class="prophecy-source">
-                            — Hartmut Neven, Head of Google Quantum AI
-                        </cite>
-                    </div>
-
-                    <!-- RIGHT: THE BOOK PREDICTION - WORD FOR WORD MATCH -->
-                    <div class="prophecy-quote-side reveal reveal-delay-1">
-                        <div class="prophecy-card">
-                            <div class="prophecy-badge">
-                                <span class="prophecy-badge-icon">📖</span>
-                                <span class="prophecy-badge-text">INFINITE ARCHITECTS · PAGE 52</span>
-                            </div>
-                            <blockquote class="prophecy-quote">
-                                "The chip completed a calculation in five minutes that would take classical supercomputers <em>longer than the age of the universe</em>, exceeding it by a factor of roughly ten to the fifteenth power."
-                            </blockquote>
-                            <cite class="prophecy-source">
-                                — Infinite Architects, Page 52
-                                <span class="prophecy-source-detail">Written 2024 · Copyright Dec 31, 2024</span>
-                            </cite>
-                            <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;">Word-for-word validation</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="prophecy-verdict reveal reveal-delay-2">
-                    <p class="verdict-text">The equation generated the prediction.</p>
-                    <p class="verdict-highlight">The universe delivered the evidence.</p>
                 </div>
             </div>
         </section>
@@ -9999,6 +9999,81 @@
                         VERIFIED PURCHASE
                     </div>
                 </article>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             THE RECEIPTS - PROPHECY VALIDATION (Moved to end for dramatic impact)
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="prophecy-hero snap-section" id="prophecy">
+            <div class="prophecy-bg">
+                <canvas id="equation-particles"></canvas>
+            </div>
+
+            <div class="prophecy-content">
+                <p class="prophecy-label reveal">THE RECEIPTS</p>
+
+                <div class="prophecy-split">
+                    <!-- LEFT: BBC VIDEO - THE EXPONENTIAL PROOF -->
+                    <div class="prophecy-video-side reveal">
+                        <div class="prophecy-badge prophecy-badge--bbc">
+                            <span class="prophecy-badge-icon">📺</span>
+                            <span class="prophecy-badge-text">BBC NEWS · JANUARY 7, 2026</span>
+                        </div>
+
+                        <div class="prophecy-video-wrapper" id="prophecy-video-wrapper">
+                            <video
+                                id="prophecy-video"
+                                class="prophecy-video"
+                                preload="metadata"
+                                playsinline
+                                controls
+                            >
+                                <source src="videos/bbc_clip_2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <div class="prophecy-video-overlay" id="prophecy-overlay">
+                                <div class="prophecy-play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="prophecy-video-caption">▶ Play with sound</p>
+                            </div>
+                        </div>
+
+                        <blockquote class="prophecy-quote prophecy-quote--bbc">
+                            "Our Willow chip could do a computation that would take <em>much longer than the age of the universe</em> for even the world's best supercomputers. We call that problem <em>impossible</em> for a classical computer."
+                        </blockquote>
+                        <cite class="prophecy-source">
+                            — Hartmut Neven, Head of Google Quantum AI
+                        </cite>
+                    </div>
+
+                    <!-- RIGHT: THE BOOK PREDICTION - WORD FOR WORD MATCH -->
+                    <div class="prophecy-quote-side reveal reveal-delay-1">
+                        <div class="prophecy-card">
+                            <div class="prophecy-badge">
+                                <span class="prophecy-badge-icon">📖</span>
+                                <span class="prophecy-badge-text">INFINITE ARCHITECTS · PAGE 52</span>
+                            </div>
+                            <blockquote class="prophecy-quote">
+                                "The chip completed a calculation in five minutes that would take classical supercomputers <em>longer than the age of the universe</em>, exceeding it by a factor of roughly ten to the fifteenth power."
+                            </blockquote>
+                            <cite class="prophecy-source">
+                                — Infinite Architects, Page 52
+                                <span class="prophecy-source-detail">Written 2024 · Copyright Dec 31, 2024</span>
+                            </cite>
+                            <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;">Word-for-word validation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="prophecy-verdict reveal reveal-delay-2">
+                    <p class="verdict-text">The equation generated the prediction.</p>
+                    <p class="verdict-highlight">The universe delivered the evidence.</p>
+                </div>
             </div>
         </section>
 
@@ -11859,8 +11934,15 @@
                 });
             }
 
-            // Animate floating particles
+            // Animate floating particles (with visibility check for performance)
+            let particleAnimationId = null;
             function animateParticles() {
+                // PERFORMANCE: Skip animation when tab is hidden
+                if (!pageVisible) {
+                    particleAnimationId = requestAnimationFrame(animateParticles);
+                    return;
+                }
+
                 particles.forEach((p, i) => {
                     p.x += p.vx;
                     p.y += p.vy;
@@ -11877,7 +11959,7 @@
                     p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
                     p.el.style.opacity = p.opacity;
                 });
-                requestAnimationFrame(animateParticles);
+                particleAnimationId = requestAnimationFrame(animateParticles);
             }
             animateParticles();
 
@@ -12072,30 +12154,11 @@
         // ═══════════════════════════════════════════════════════════════════════
         // ENHANCED LENIS CONFIGURATION
         // ═══════════════════════════════════════════════════════════════════════
+        // REMOVED: Duplicate Lenis initialization - using PHASE 9 instead
         function initAppleLenis() {
-            if (typeof Lenis === 'undefined') return;
-
-            const lenis = new Lenis({
-                duration: 1.2,           // Slower = more luxurious
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easeOutExpo
-                orientation: 'vertical',
-                gestureOrientation: 'vertical',
-                smoothWheel: true,
-                wheelMultiplier: 0.8,    // Slower wheel = more control
-                touchMultiplier: 1.5,    // Faster touch = more responsive
-                infinite: false,
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-
-            // Expose for external use
-            window.lenis = lenis;
-
-            console.log('✨ Apple-grade Lenis enabled');
+            // Lenis now handled by PHASE 9: LIQUID REALITY SCROLL
+            // This prevents duplicate animation loops
+            return;
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -12478,7 +12541,10 @@
             });
 
             function lenisRaf(time) {
-                lenis.raf(time);
+                // PERFORMANCE: Only update Lenis when page is visible
+                if (pageVisible) {
+                    lenis.raf(time);
+                }
                 requestAnimationFrame(lenisRaf);
             }
             requestAnimationFrame(lenisRaf);
@@ -12531,8 +12597,8 @@
                 `;
                 videoPortal.classList.add('loaded');
 
-                // Add floating particles
-                for (let i = 0; i < 20; i++) {
+                // Add floating particles (reduced from 20 to 5 for mobile performance)
+                for (let i = 0; i < 5; i++) {
                     const particle = document.createElement('div');
                     particle.style.cssText = `
                         position: absolute;
