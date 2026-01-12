@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>Infinite Architects | Michael Darius Eastwood</title>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
@@ -337,7 +337,7 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
-            z-index: 1000;
+            z-index: 9997; /* Above content, below mobile buy bar */
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -9245,17 +9245,17 @@
         /* TABLETS (769px - 1024px) */
         @media (min-width: 769px) and (max-width: 1024px) {
             html {
-                scroll-snap-type: y mandatory !important;
-                scroll-behavior: auto !important;
+                scroll-snap-type: y proximity; /* Gentle snap - doesn't trap users */
+                scroll-behavior: smooth;
             }
 
             .snap-section {
-                scroll-snap-align: start !important;
-                scroll-snap-stop: always !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                overflow: hidden !important;
-                padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 0.5rem !important;
+                scroll-snap-align: start;
+                scroll-snap-stop: normal; /* Allow scrolling past sections */
+                min-height: 100vh;
+                height: auto; /* Allow content to determine height */
+                overflow: visible;
+                padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 0.5rem;
             }
 
             /* Tablet grids */
@@ -9279,16 +9279,16 @@
         /* SMALL DESKTOPS (1025px - 1440px) */
         @media (min-width: 1025px) and (max-width: 1440px) {
             html {
-                scroll-snap-type: y mandatory !important;
-                scroll-behavior: auto !important;
+                scroll-snap-type: y proximity; /* Gentle snap */
+                scroll-behavior: smooth;
             }
 
             .snap-section {
-                scroll-snap-align: start !important;
-                scroll-snap-stop: always !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                overflow: hidden !important;
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+                min-height: 100vh;
+                height: auto;
+                overflow: visible;
             }
 
             .ideas-grid {
@@ -9307,16 +9307,16 @@
         /* LARGE DESKTOPS (1441px+) */
         @media (min-width: 1441px) {
             html {
-                scroll-snap-type: y mandatory !important;
-                scroll-behavior: auto !important;
+                scroll-snap-type: y proximity; /* Gentle snap */
+                scroll-behavior: smooth;
             }
 
             .snap-section {
-                scroll-snap-align: start !important;
-                scroll-snap-stop: always !important;
-                height: 100vh !important;
-                max-height: 100vh !important;
-                overflow: hidden !important;
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+                min-height: 100vh;
+                height: auto;
+                overflow: visible;
             }
 
             .ideas-grid {
@@ -14791,61 +14791,12 @@
         // ═══════════════════════════════════════════════════════════════════════
 
         // ═══════════════════════════════════════════════════════════════════════
-        // APP-LIKE ZOOM PREVENTION - Blocks pinch-to-zoom like Amazon/Google
+        // APP-LIKE ZOOM PREVENTION - DISABLED FOR ACCESSIBILITY (WCAG 1.4.4)
         // ═══════════════════════════════════════════════════════════════════════
-        (function() {
-            // Track touch points for gesture detection
-            let lastTouchEnd = 0;
-
-            // Prevent double-tap zoom
-            document.addEventListener('touchend', function(e) {
-                const now = Date.now();
-                if (now - lastTouchEnd <= 300) {
-                    e.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, { passive: false });
-
-            // Prevent pinch-to-zoom (multi-touch gesture)
-            document.addEventListener('touchstart', function(e) {
-                if (e.touches.length > 1) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            document.addEventListener('touchmove', function(e) {
-                if (e.touches.length > 1) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            // iOS gesture events (gesturestart/gesturechange/gestureend)
-            document.addEventListener('gesturestart', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-
-            document.addEventListener('gesturechange', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-
-            document.addEventListener('gestureend', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-
-            // Prevent Ctrl/Cmd + scroll wheel zoom (desktop fallback)
-            document.addEventListener('wheel', function(e) {
-                if (e.ctrlKey || e.metaKey) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            // Prevent keyboard zoom shortcuts
-            document.addEventListener('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
-                    e.preventDefault();
-                }
-            });
-        })();
+        // NOTE: Zoom prevention has been disabled to comply with WCAG 2.1
+        // accessibility guidelines. Users must be able to zoom content to 200%.
+        // The viewport meta tag now allows user-scalable=yes, maximum-scale=5.0
+        // ═══════════════════════════════════════════════════════════════════════
 
         // ═══════════════════════════════════════════════════════════════════════
         // PREMIUM APP FEATURES - Haptics, Ripples, Native Share
@@ -14929,10 +14880,14 @@
                 // Add ripple to element
                 element.appendChild(ripple);
 
-                // Remove ripple after animation
+                // Remove ripple after animation (with timeout fallback)
                 ripple.addEventListener('animationend', () => {
-                    ripple.remove();
+                    if (ripple.parentNode) ripple.remove();
                 });
+                // Fallback timeout in case animationend doesn't fire
+                setTimeout(() => {
+                    if (ripple.parentNode) ripple.remove();
+                }, 700);
             }
 
             // Apply ripple effect to interactive elements
