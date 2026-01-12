@@ -22,7 +22,14 @@ const PRECACHE_ASSETS = [
     '/favicon-16x16.png',
     '/apple-touch-icon.png',
     '/android-chrome-192x192.png',
-    '/android-chrome-512x512.png'
+    '/android-chrome-512x512.png',
+    '/images/pillar-1.webp',
+    '/images/pillar-2.webp',
+    '/images/pillar-3.webp',
+    '/images/hrih-hero.webp',
+    '/images/love-core-ai.webp',
+    '/images/art-eden-greenhouse.webp',
+    '/images/hero-background.webp'
 ];
 
 // External resources to cache on first use

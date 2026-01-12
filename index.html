@@ -33,6 +33,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Infinite Architects">
+    
+    <!-- iOS SPLASH SCREENS (Premium Entrance) -->
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
+
     <!-- Android Web App -->
     <meta name="mobile-web-app-capable" content="yes">
     <!-- Prevent telephone number detection -->
@@ -16246,6 +16254,20 @@
                 navigator.serviceWorker.addEventListener('controllerchange', () => {
                     console.log('[PWA] New Service Worker activated');
                 });
+
+                // ─────────────────────────────────────────────────────────────
+                // APP BADGING API (Phase 18)
+                // Sets a "37" badge on the app icon representing the concepts
+                // ─────────────────────────────────────────────────────────────
+                if ('setAppBadge' in navigator) {
+                    try {
+                        const conceptCount = 37;
+                        navigator.setAppBadge(conceptCount);
+                        console.log('✨ App Badge set to:', conceptCount);
+                    } catch (err) {
+                        console.log('Badge API Error:', err);
+                    }
+                }
             }
 
             // ─────────────────────────────────────────────────────────────────
