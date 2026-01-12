@@ -6180,8 +6180,61 @@
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(0, 255, 136, 0.02) 50%, var(--void-deep) 100%);
         }
 
-        .evidence-locker-inner { max-width: 1200px; margin: 0 auto; text-align: center; }
-        .evidence-intro { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-dim); margin-bottom: 3rem; }
+        /* Evidence Locker snap-section override - prevent header cutoff */
+        .evidence-locker.snap-section {
+            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+            padding-bottom: 1rem !important;
+            justify-content: flex-start !important; /* Align from top, not center */
+        }
+
+        .evidence-locker-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 3rem);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .evidence-intro {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* Constrain evidence grid to fit within viewport */
+        .evidence-locker .evidence-grid {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 12rem);
+        }
+
+        /* Compact evidence cards to fit */
+        .evidence-locker .evidence-card {
+            padding: 1rem;
+        }
+
+        .evidence-locker .evidence-title {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            margin-bottom: 0.4rem;
+        }
+
+        .evidence-locker .evidence-desc {
+            font-size: clamp(0.75rem, 1vw, 0.85rem);
+            line-height: 1.4;
+        }
+
+        .evidence-locker .section-title {
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-locker .section-label {
+            margin-bottom: 0.25rem;
+        }
 
         .evidence-grid {
             display: grid;
