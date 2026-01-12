@@ -1079,17 +1079,53 @@
 
         .ideas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1rem;
+            width: 100%;
+            max-width: 1400px;
+            max-height: calc(100vh - 14rem);
+            max-height: calc(100dvh - 14rem);
+            overflow: hidden;
         }
 
         .idea-card {
             background: rgba(212, 168, 75, 0.02);
             border: 1px solid rgba(212, 168, 75, 0.08);
-            padding: 2.5rem;
+            padding: 1rem 1.25rem;
             position: relative;
             overflow: hidden;
             transition: all 0.6s var(--ease-out-expo);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .idea-image {
+            height: clamp(60px, 8vh, 100px);
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .idea-number {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            line-height: 1;
+        }
+
+        .idea-title {
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+            margin-bottom: 0.4rem;
+        }
+
+        .idea-text {
+            font-size: clamp(0.65rem, 0.85vw, 0.8rem);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .idea-card::before {
@@ -1129,12 +1165,12 @@
 
         .idea-number {
             font-family: var(--font-display);
-            font-size: 4rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             color: var(--gold);
             opacity: 0.08;
             position: absolute;
             top: 0.3rem;
-            right: 1.2rem;
+            right: 1rem;
             line-height: 1;
             transition: opacity 0.5s ease;
         }
@@ -1145,26 +1181,55 @@
 
         .idea-title {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
             font-weight: 500;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             color: var(--gold);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             position: relative;
             z-index: 1;
         }
 
         .idea-text {
-            font-size: clamp(0.88rem, 1.5vw, 1rem);
+            font-size: clamp(0.7rem, 0.95vw, 0.85rem);
             color: var(--text-dim);
-            line-height: 1.8;
+            line-height: 1.5;
             position: relative;
             z-index: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1200px) {
+            .ideas-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                max-height: calc(100vh - 12rem);
+                overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
+            }
         }
 
         @media (max-width: 768px) {
             .ideas-grid {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+                max-height: none;
+                height: auto;
+                padding-bottom: 1rem;
+            }
+
+            .idea-card {
+                flex: 0 0 280px;
+                scroll-snap-align: center;
+                max-height: calc(100vh - 16rem);
             }
         }
 
@@ -4310,12 +4375,28 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .hrih-section {
             position: relative;
-            min-height: 120vh;
+            min-height: 100vh;
+            max-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             background: #000;
+        }
+
+        .hrih-section.snap-section {
+            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 2rem 1rem;
+        }
+
+        .hrih-section .hrih-content {
+            max-height: calc(100vh - 12rem);
+            overflow: hidden;
+        }
+
+        .hrih-theory-card {
+            padding: 1.5rem 2rem;
+            max-height: 50vh;
         }
 
         .hrih-visual-wrapper {
@@ -4530,13 +4611,25 @@
             background: linear-gradient(180deg, transparent 0%, rgba(212, 168, 75, 0.02) 50%, transparent 100%);
         }
 
+        .religion-section.snap-section {
+            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem) 2rem 2rem;
+            justify-content: flex-start;
+            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 4rem);
+        }
+
         .religion-inner {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.3fr;
-            gap: 4rem;
+            gap: 3rem;
             align-items: center;
+            max-height: calc(100vh - 14rem);
+        }
+
+        .religion-image {
+            max-height: 45vh;
+            object-fit: cover;
         }
 
         .religion-content { padding: 1rem 0; }
@@ -5921,10 +6014,31 @@
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.03) 50%, var(--void-deep) 100%);
         }
 
+        .timeline-evidence-section.snap-section {
+            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 2rem 1.5rem;
+        }
+
         .timeline-evidence-inner {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            max-height: calc(100vh - 12rem);
+            overflow: hidden;
+        }
+
+        /* Constrain BBC video heights for viewport fit */
+        .bbc-evidence-card__video {
+            max-height: 40vh;
+        }
+
+        .bbc-evidence-card__video video {
+            max-height: 40vh;
+            object-fit: contain;
+        }
+
+        .bbc-quote {
+            font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+            line-height: 1.5;
         }
 
         /* Manhattan Project CTA Enhancement */
@@ -7533,8 +7647,53 @@
             scroll-snap-stop: always;
             min-height: 100vh;
             min-height: 100dvh;
+            max-height: 100vh;
+            max-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
             /* Ensure content isn't hidden behind ticker */
-            padding-top: max(2rem, env(safe-area-inset-top));
+            padding-top: max(5rem, calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem));
+            padding-bottom: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Force section content to fit within viewport */
+        .snap-section > *:not(.neural-canvas):not(.particle-canvas):not(canvas) {
+            max-height: calc(100vh - 10rem);
+            max-height: calc(100dvh - 10rem);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .snap-section .section-inner,
+        .snap-section .container,
+        .snap-section > div:first-child:not(canvas) {
+            max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem);
+            max-height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Compact section typography */
+        .snap-section .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .snap-section .section-title {
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
         }
 
         /* Image fallback styling for when images fail to load */
