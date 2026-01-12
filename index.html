@@ -3804,26 +3804,18 @@
         }
 
         .book-page-peek {
-            position: absolute;
-            top: 10%;
-            right: -5px;
-            width: 95%;
-            height: 80%;
-            background: linear-gradient(90deg, transparent 0%, #f9f6f0 20%);
-            transform: rotateY(5deg);
-            transform-origin: left center;
+            /* DISABLED - white panel was showing on hover */
+            display: none !important;
+            visibility: hidden !important;
             opacity: 0 !important;
-            visibility: hidden;
-            transition: all 0.4s ease;
             pointer-events: none;
-            overflow: hidden;
         }
 
         .hero-book-3d:hover .book-page-peek {
-            right: -20px;
-            opacity: 1 !important;
-            visibility: visible;
-            transform: rotateY(15deg);
+            /* Keep disabled on hover too */
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
 
         .book-page-peek-text {
