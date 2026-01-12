@@ -6,11 +6,11 @@
   "scripts": {
     "serve": "npx serve . -p 3000",
     "dev": "npx serve . -p 3000 --cors",
-    "preview": "vercel",
-    "deploy": "vercel --prod",
-    "deploy:preview": "vercel",
-    "logs": "vercel logs",
-    "list": "vercel ls",
+    "preview": "npx vercel",
+    "deploy": "npx vercel --prod",
+    "deploy:preview": "npx vercel",
+    "logs": "npx vercel logs",
+    "list": "npx vercel ls",
     "optimize:images": "echo 'Use: cwebp -q 85 input.jpg -o output.webp'",
     "validate:html": "npx html-validate index.html",
     "lighthouse": "npx lighthouse http://localhost:3000 --view"
@@ -34,6 +34,7 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "serve": "^14.2.0"
+    "serve": "^14.2.0",
+    "vercel": "^50.1.6"
   }
 }
