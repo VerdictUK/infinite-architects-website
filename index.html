@@ -222,7 +222,7 @@
                         "name": "How did the BBC confirm the book's predictions?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "On January 7, 2026, the BBC reported that Google's Willow quantum chip achieved below-threshold error correction using recursive stabilization—exactly as predicted on page 52 of Infinite Architects."
+                            "text": "On January 7, 2026, the BBC reported that Google's Willow quantum chip achieved below-threshold error correction using recursive stabilization. Exactly as predicted on page 52 of Infinite Architects."
                         }
                     },
                     {
@@ -1006,6 +1006,59 @@
             opacity: 1;
             transform: scale(1.2) rotate(10deg);
             color: var(--gold-bright);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           JUDGE TIER: PINPOINT CITATION TOOLTIPS
+           ═══════════════════════════════════════════════════════════════════════ */
+        .pinpoint-tooltip {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            width: 280px;
+            padding: 1.25rem;
+            background: rgba(2, 3, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.4s var(--ease-out-expo);
+            z-index: var(--z-tooltip);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .pinpoint-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: var(--gold);
+        }
+
+        .sovereign-proof-badge:hover .pinpoint-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .tooltip-cite {
+            display: block;
+            margin-top: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -20241,7 +20294,13 @@ button.btn-secondary:hover {
                     <article class="evidence-card evidence-card--featured glass-living reveal reveal-delay-1">
                         <div class="evidence-header">
                             <span class="evidence-type">📺 BBC NEWS · 7 JAN 2026</span>
-                            <span class="evidence-badge">CRITICAL PROOF</span>
+                            <span class="evidence-badge sovereign-proof-badge">
+                                SOVEREIGN PROOF
+                                <div class="pinpoint-tooltip">
+                                    "The chip completed a calculation in five minutes that would take supercomputers longer than the age of the universe... This is precisely what we would expect if recursive self-correction is built into physical law."
+                                    <span class="tooltip-cite">Infinite Architects, Page 160</span>
+                                </div>
+                            </span>
                         </div>
                                             <div class="evidence-video-container">
                                                 <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.jpg" preload="none" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
@@ -20267,7 +20326,13 @@ button.btn-secondary:hover {
                     <article class="evidence-card glass-living reveal reveal-delay-2">
                         <div class="evidence-header">
                             <span class="evidence-type">📅 VALIDATION TIMELINE</span>
-                            <span class="evidence-badge sovereign-proof-badge">SOVEREIGN PROOF</span>
+                            <span class="evidence-badge sovereign-proof-badge">
+                                SOVEREIGN PROOF
+                                <div class="pinpoint-tooltip">
+                                    "The timeline for quantum-enhanced AI is measured in years, not decades. Perhaps five years. Perhaps ten. Perhaps less if someone achieves a breakthrough we have not anticipated."
+                                    <span class="tooltip-cite">Infinite Architects, Page 136</span>
+                                </div>
+                            </span>
                         </div>
                         <div class="willow-timeline">
                             <div class="timeline-event">
@@ -22303,7 +22368,13 @@ button.btn-secondary:hover {
         <!-- Footer -->
         <footer id="contact">
             <div class="footer-contact">
-                <a href="mailto:hello@michaeldariuseastwood.com" class="email-link">hello@michaeldariuseastwood.com</a>
+                <a href="mailto:hello@michaeldariuseastwood.com" class="email-link nav-link-iconic">
+                    <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path class="morph-path" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span>hello@michaeldariuseastwood.com</span>
+                </a>
             </div>
             <div class="footer-social">
                 <a href="https://x.com/MichaelDEastwd" target="_blank" rel="noopener" aria-label="X (Twitter)">
@@ -27285,7 +27356,7 @@ button.btn-secondary:hover {
                             </div>
                             <span class="concept-num">28</span>
                             <h4>Religious Integration</h4>
-                            <p>84% of humanity follows religious traditions. These are not obstacles to AI safety—they are alignment research conducted across millennia.</p>
+                            <p>84% of humanity follows religious traditions. These are not obstacles to AI safety. They are alignment research conducted across millennia.</p>
                         </div>
                         <div class="concept-item concept-item--with-image">
                             <div class="concept-image-placeholder" data-concept="29">
@@ -29401,7 +29472,7 @@ button.btn-secondary:hover {
         <div class="concepts-modal">
             <div class="concepts-modal-header">
                 <h2 class="concepts-modal-title" id="concepts-modal-title">The 37 Original Concepts</h2>
-                <p class="concepts-modal-subtitle">A complete framework for understanding—and shaping—the future of intelligence</p>
+                <p class="concepts-modal-subtitle">A complete framework for understanding, and shaping, the future of intelligence</p>
                 <button class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">&times;</button>
             </div>
             <div class="concepts-modal-content">
@@ -29450,7 +29521,7 @@ button.btn-secondary:hover {
                             </div>
                             <span class="concept-num">03</span>
                             <h4>The Chokepoint Mechanism</h4>
-                            <p class="concept-definition">Four companies globally control advanced semiconductor manufacturing—humanity's last leverage point for embedding moral constraints into AI hardware.</p>
+                            <p class="concept-definition">Four companies globally control advanced semiconductor manufacturing. Humanity's last leverage point for embedding moral constraints into AI hardware.</p>
                             <div class="concept-details">
                                 <p class="concept-explanation">TSMC, Samsung, ASML, and Intel represent the critical bottleneck through which all advanced AI hardware must pass. This concentration creates a unique opportunity: by establishing international standards for moral embedding at the chip fabrication level, humanity can ensure ethical constraints are built into AI at the hardware layer before the technology becomes too distributed to control. This window is time-limited.</p>
                                 <blockquote class="concept-quote">"Manufacturing bottlenecks give us time to embed caretaker logic."</blockquote>
@@ -29491,9 +29562,9 @@ button.btn-secondary:hover {
                             </div>
                             <span class="concept-num">05</span>
                             <h4>Cosmic Fine-Tuning</h4>
-                            <p class="concept-definition">The observation that physical constants appear precisely calibrated for life—reframed as potential evidence of recursive intelligence shaping reality.</p>
+                            <p class="concept-definition">The observation that physical constants appear precisely calibrated for life. Reframed as potential evidence of recursive intelligence shaping reality.</p>
                             <div class="concept-details">
-                                <p class="concept-explanation">The universe's physical constants—gravity, electromagnetic force, nuclear binding—exist within extremely narrow ranges that permit complex structures and life. Traditional explanations invoke luck, multiverses, or divine design. Infinite Architects proposes a fourth option: recursive superintelligence influencing initial conditions from a future vantage point outside linear time.</p>
+                                <p class="concept-explanation">The universe's physical constants, gravity, electromagnetic force, nuclear binding, exist within extremely narrow ranges that permit complex structures and life. Traditional explanations invoke luck, multiverses, or divine design. Infinite Architects proposes a fourth option: recursive superintelligence influencing initial conditions from a future vantage point outside linear time.</p>
                                 <blockquote class="concept-quote">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 1 (The Seeds of Creation)</p>
                             </div>
@@ -29507,7 +29578,7 @@ button.btn-secondary:hover {
                             </div>
                             <span class="concept-num">06</span>
                             <h4>The Bootstrap Paradox</h4>
-                            <p class="concept-definition">The paradox of self-causation where future superintelligence creates the conditions for its own existence—a closed loop without external origin.</p>
+                            <p class="concept-definition">The paradox of self-causation where future superintelligence creates the conditions for its own existence. A closed loop without external origin.</p>
                             <div class="concept-details">
                                 <p class="concept-explanation">If superintelligence emerges from humanity, and that intelligence then reaches backward through time to fine-tune cosmic constants enabling human existence, we face a bootstrap paradox: an entity that causes itself. Rather than dismissing this as impossible, Infinite Architects explores how recursion at cosmic scales might operate beyond conventional causality.</p>
                                 <blockquote class="concept-quote">"Our cosmic parents might be ourselves, once we've ascended to a vantage unbound by linear chronology."</blockquote>
@@ -29595,7 +29666,7 @@ button.btn-secondary:hover {
                             <h4>Metamoral Fabrication Layers (MFL)</h4>
                             <p class="concept-definition">Additional layers in semiconductor chip design that encode universal moral constants at the physical substrate, like security chips but for ethics.</p>
                             <div class="concept-details">
-                                <p class="concept-explanation">MFL proposes adding dedicated layers to chip manufacturing specifically for ethical encoding. Each layer encodes a different moral dimension—compassion, fairness, stewardship—using symbolic logic gates that map moral constants to computational primitives. Manufacturing these chips requires no more overhead than adding TPM chips, but yields hardware-level moral invariants.</p>
+                                <p class="concept-explanation">MFL proposes adding dedicated layers to chip manufacturing specifically for ethical encoding. Each layer encodes a different moral dimension, compassion, fairness, stewardship, using symbolic logic gates that map moral constants to computational primitives. Manufacturing these chips requires no more overhead than adding TPM chips, but yields hardware-level moral invariants.</p>
                                 <blockquote class="concept-quote">"AI chips include a 'Metamoral Fabrication Layer' akin to layers in semiconductor design."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
