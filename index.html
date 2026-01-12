@@ -16680,14 +16680,34 @@ img {
     }
 }
 
-/* HIDE SLIDESHOW NAV COMPLETELY - Not needed, chapter nav replaces it */
+/* HIDE ALL UNWANTED UI ELEMENTS */
 .slideshow-nav,
 #slideshowNav,
 .slideshow-dots,
-.slideshow-swipe-hint {
+.slideshow-swipe-hint,
+.slideshow-controls,
+.slideshow-arrows,
+.slideshow-counter,
+.slideshow-progress-container,
+.slideshow-progress-bar,
+.slideshow-section-title,
+.reading-progress,
+#reading-progress,
+.reading-progress-bar,
+#reading-progress-bar,
+.social-proof,
+.social-proof-badge,
+.social-proof-dot,
+.audio-toggle,
+#audio-toggle,
+.audio-waves,
+.audio-toggle-tooltip {
     display: none !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* FIX: Remove ALL max-height constraints that clip content */
