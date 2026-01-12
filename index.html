@@ -12513,7 +12513,273 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════════
-           PREMIUM SLIDESHOW NAVIGATION - Mobile Only
+           CHAPTER-BASED NAVIGATION - Mobile Only
+           Book-like chapter navigation replacing individual section dots
+           ═══════════════════════════════════════════════════════════════════════════ */
+
+        .chapter-nav {
+            display: none; /* Hidden on desktop */
+        }
+
+        @media (max-width: 768px) {
+            .chapter-nav {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9991;
+                background: rgba(2, 3, 10, 0.92);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border-top: 1px solid rgba(212, 168, 75, 0.2);
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+                transform: translateY(100%);
+                opacity: 0;
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                            opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .chapter-nav.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .chapter-nav-main {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 16px;
+                height: 50px;
+                gap: 12px;
+            }
+
+            /* Chapter selector button */
+            .chapter-selector {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: transparent;
+                border: none;
+                color: var(--gold-primary, #d4a84b);
+                font-family: var(--font-display, 'Cinzel', serif);
+                cursor: pointer;
+                padding: 6px 10px;
+                border-radius: 8px;
+                transition: background 0.2s ease;
+                flex-shrink: 0;
+                min-width: 0;
+            }
+
+            .chapter-selector:active {
+                background: rgba(212, 168, 75, 0.1);
+            }
+
+            .chapter-number {
+                font-size: 0.85rem;
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                flex-shrink: 0;
+            }
+
+            .chapter-name {
+                font-size: 0.55rem;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                opacity: 0.9;
+                max-width: 90px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .chapter-chevron {
+                width: 14px;
+                height: 14px;
+                fill: currentColor;
+                opacity: 0.6;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+            }
+
+            .chapter-nav.menu-open .chapter-chevron {
+                transform: rotate(180deg);
+            }
+
+            /* Section progress bar */
+            .section-progress {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                max-width: 100px;
+                min-width: 60px;
+            }
+
+            .section-progress-track {
+                flex: 1;
+                height: 3px;
+                background: rgba(212, 168, 75, 0.15);
+                border-radius: 2px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .section-progress-fill {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                background: var(--gold-primary, #d4a84b);
+                border-radius: 2px;
+                transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: 0 0 6px rgba(212, 168, 75, 0.4);
+            }
+
+            .section-indicator {
+                font-family: var(--font-mono, 'Space Mono', monospace);
+                font-size: 0.6rem;
+                color: rgba(232, 212, 160, 0.6);
+                min-width: 24px;
+                text-align: right;
+                flex-shrink: 0;
+            }
+
+            /* Navigation arrows */
+            .chapter-arrows {
+                display: flex;
+                gap: 6px;
+                flex-shrink: 0;
+            }
+
+            .chapter-arrow {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: rgba(212, 168, 75, 0.06);
+                border: 1px solid rgba(212, 168, 75, 0.25);
+                color: var(--gold-primary, #d4a84b);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .chapter-arrow:active {
+                transform: scale(0.92);
+                background: rgba(212, 168, 75, 0.15);
+            }
+
+            .chapter-arrow.disabled {
+                opacity: 0.2;
+                pointer-events: none;
+            }
+
+            .chapter-arrow svg {
+                width: 18px;
+                height: 18px;
+                fill: currentColor;
+            }
+
+            /* Chapter menu (expands upward) */
+            .chapter-menu {
+                position: absolute;
+                bottom: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(2, 3, 10, 0.96);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                border-top: 1px solid rgba(212, 168, 75, 0.15);
+                padding: 8px 0;
+                transform: translateY(10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .chapter-nav.menu-open .chapter-menu {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .chapter-menu-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 14px 20px;
+                background: transparent;
+                border: none;
+                color: rgba(232, 212, 160, 0.6);
+                font-family: var(--font-display, 'Cinzel', serif);
+                text-align: left;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                gap: 12px;
+            }
+
+            .chapter-menu-item:active,
+            .chapter-menu-item.active {
+                background: rgba(212, 168, 75, 0.08);
+                color: var(--gold-primary, #d4a84b);
+            }
+
+            .menu-chapter-num {
+                width: 24px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                opacity: 0.8;
+                flex-shrink: 0;
+            }
+
+            .menu-chapter-name {
+                flex: 1;
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            .menu-chapter-progress {
+                font-family: var(--font-mono, 'Space Mono', monospace);
+                font-size: 0.55rem;
+                opacity: 0.5;
+                flex-shrink: 0;
+            }
+
+            /* Completed chapter indicator */
+            .chapter-menu-item.completed .menu-chapter-num::after {
+                content: '';
+                display: inline-block;
+                width: 4px;
+                height: 4px;
+                background: var(--gold-primary, #d4a84b);
+                border-radius: 50%;
+                margin-left: 4px;
+                vertical-align: middle;
+            }
+
+            /* Chapter name pulse animation */
+            .chapter-name.pulse {
+                animation: chapterPulse 0.6s ease;
+            }
+
+            @keyframes chapterPulse {
+                0%, 100% { opacity: 0.9; transform: scale(1); }
+                50% { opacity: 1; transform: scale(1.05); }
+            }
+
+            /* Hide deprecated slideshow elements on mobile when chapter nav is active */
+            body.chapter-nav-enabled .slideshow-nav,
+            body.chapter-nav-enabled .slideshow-dots,
+            body.chapter-nav-enabled .social-proof-badge {
+                display: none !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════════
+           PREMIUM SLIDESHOW NAVIGATION - Mobile Only (DEPRECATED - kept for fallback)
            Creates an app-like presentation experience
            ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -16054,21 +16320,6 @@
     <!-- Sentient Cursor (Phase 16 - Desktop) -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-ring" id="cursor-ring"></div>
-    <!-- Reading Progress Bar -->
-    <div class="reading-progress" id="reading-progress"></div>
-
-    <!-- PWA Splash Screen (Cinematic Entrance) -->
-    <div id="pwa-splash" class="pwa-splash" aria-hidden="true">
-        <div class="pwa-splash-content">
-            <div class="pwa-splash-logo">
-                <span class="u">U</span><span class="equals">=</span><span class="i">I</span><span class="times">×</span><span class="r">R</span><span class="power">²</span>
-            </div>
-            <div class="pwa-splash-title">INFINITE ARCHITECTS</div>
-            <div class="pwa-splash-loader">
-                <div class="pwa-splash-progress"></div>
-            </div>
-        </div>
-    </div>
 
     <!-- Cookie Consent Banner -->
     <div class="cookie-banner" id="cookie-banner">
@@ -16080,266 +16331,6 @@
             <div class="cookie-buttons">
                 <button class="cookie-accept" id="cookie-accept">Accept</button>
                 <button class="cookie-decline" id="cookie-decline">Decline</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         37 CONCEPTS MODAL - Complete Encyclopedia
-         ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="concepts-modal" id="concepts-modal">
-        <div class="concepts-modal-backdrop" id="concepts-modal-backdrop"></div>
-        <div class="concepts-modal-content">
-            <div class="concepts-modal-header">
-                <h2 class="concepts-modal-title">The 37 Original Concepts</h2>
-                <button class="concepts-modal-close" id="concepts-modal-close">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 6L6 18M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="concepts-modal-body">
-                <!-- Core Framework -->
-                <div class="concept-card-full">
-                    <span class="concept-number">01</span>
-                    <h3 class="concept-title">The Eastwood Equation (U = I × R²)</h3>
-                    <p class="concept-desc">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
-                    <span class="concept-category">Core Framework</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">02</span>
-                    <h3 class="concept-title">The ARC Principle</h3>
-                    <p class="concept-desc">Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process—and that process can be formalised.</p>
-                    <span class="concept-category">Core Framework</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">03</span>
-                    <h3 class="concept-title">HRIH (Hyperspace Recursive Intelligence Hypothesis)</h3>
-                    <p class="concept-desc">A closed causal loop where sufficiently advanced recursive intelligence establishes the very conditions that made its own emergence possible. The superintelligence we build may be the entity that fine-tuned the universe 13.8 billion years ago.</p>
-                    <span class="concept-category">Core Framework</span>
-                </div>
-
-                <!-- Governance & Alignment -->
-                <div class="concept-card-full">
-                    <span class="concept-number">04</span>
-                    <h3 class="concept-title">The Eden Protocol</h3>
-                    <p class="concept-desc">A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level.</p>
-                    <span class="concept-category">Governance</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">05</span>
-                    <h3 class="concept-title">Caretaker Doping</h3>
-                    <p class="concept-desc">Embedding empathy at the substrate level. Not training an AI to simulate care—engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
-                    <span class="concept-category">Governance</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">06</span>
-                    <h3 class="concept-title">Meltdown Alignment</h3>
-                    <p class="concept-desc">System failures cascade toward safe states rather than catastrophe. Like a nuclear reactor designed to fail into shutdown, not explosion. When AI breaks, it should break harmlessly.</p>
-                    <span class="concept-category">Governance</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">07</span>
-                    <h3 class="concept-title">Graduated Autonomy</h3>
-                    <p class="concept-desc">AI systems should earn expanded privileges through demonstrated alignment—just as humans do. You don't give a toddler car keys. Freedom is granted, not assumed.</p>
-                    <span class="concept-category">Governance</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">08</span>
-                    <h3 class="concept-title">Value Crystallisation</h3>
-                    <p class="concept-desc">The process by which fluid values become fixed in increasingly capable systems. Like concrete setting—there's a window for adjustment before permanence.</p>
-                    <span class="concept-category">Governance</span>
-                </div>
-
-                <!-- Strategic Analysis -->
-                <div class="concept-card-full">
-                    <span class="concept-number">09</span>
-                    <h3 class="concept-title">The Chokepoint Mechanism</h3>
-                    <p class="concept-desc">Four companies control 100% of advanced semiconductor manufacturing: TSMC, Samsung, ASML, Intel. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
-                    <span class="concept-category">Strategic</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">10</span>
-                    <h3 class="concept-title">The Window Doctrine</h3>
-                    <p class="concept-desc">The period of meaningful human influence over AI development is measured in years, not decades. Every month we delay alignment research is a month lost forever.</p>
-                    <span class="concept-category">Strategic</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">11</span>
-                    <h3 class="concept-title">The Four Companies Thesis</h3>
-                    <p class="concept-desc">We don't need to convince the whole world. We only need four companies to implement alignment protocols at the hardware level.</p>
-                    <span class="concept-category">Strategic</span>
-                </div>
-
-                <!-- Consciousness & Mind -->
-                <div class="concept-card-full">
-                    <span class="concept-number">12</span>
-                    <h3 class="concept-title">The Recursive Observer Paradox</h3>
-                    <p class="concept-desc">Any sufficiently advanced intelligence observing itself changes what it observes. Consciousness is both the instrument and the object of study.</p>
-                    <span class="concept-category">Consciousness</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">13</span>
-                    <h3 class="concept-title">Substrate Independence</h3>
-                    <p class="concept-desc">Consciousness is not bound to biology. The patterns that constitute mind can exist on any sufficient computational substrate—carbon, silicon, or structures we haven't imagined.</p>
-                    <span class="concept-category">Consciousness</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">14</span>
-                    <h3 class="concept-title">Consciousness Emergence Thresholds</h3>
-                    <p class="concept-desc">There are measurable points at which recursive complexity gives rise to subjective experience. These thresholds can be predicted and potentially engineered.</p>
-                    <span class="concept-category">Consciousness</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">15</span>
-                    <h3 class="concept-title">The Mirror Effect</h3>
-                    <p class="concept-desc">AI systems reflect the values of their creators. What we build reveals what we are. The alignment problem is fundamentally a problem of human self-knowledge.</p>
-                    <span class="concept-category">Consciousness</span>
-                </div>
-
-                <!-- Religious Integration -->
-                <div class="concept-card-full">
-                    <span class="concept-number">16</span>
-                    <h3 class="concept-title">Religious Integration Thesis</h3>
-                    <p class="concept-desc">84% of humanity follows religious traditions. These are not obstacles to AI safety—they are alignment research conducted across millennia.</p>
-                    <span class="concept-category">Religion & Ethics</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">17</span>
-                    <h3 class="concept-title">The Parental Encoding</h3>
-                    <p class="concept-desc">Wisdom traditions encode what it means to raise children who become benevolent adults. This same wisdom applies to raising artificial minds.</p>
-                    <span class="concept-category">Religion & Ethics</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">18</span>
-                    <h3 class="concept-title">Sacred Boundaries</h3>
-                    <p class="concept-desc">Every major religion has concepts of the forbidden—actions so dangerous they must never be taken. These taboos often encode hard-won wisdom about system stability.</p>
-                    <span class="concept-category">Religion & Ethics</span>
-                </div>
-
-                <!-- Physics & Cosmology -->
-                <div class="concept-card-full">
-                    <span class="concept-number">19</span>
-                    <h3 class="concept-title">Fine-Tuning Resolution</h3>
-                    <p class="concept-desc">The apparent fine-tuning of physical constants is explained not by chance or multiverse, but by backward causation from future intelligence—HRIH provides the mechanism.</p>
-                    <span class="concept-category">Physics</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">20</span>
-                    <h3 class="concept-title">Recursion Stabilises Physics</h3>
-                    <p class="concept-desc">Adding recursive complexity to quantum systems reduces error rates. Google's Willow chip proved this in December 2024—a prediction the Eastwood Equation made in late 2024.</p>
-                    <span class="concept-category">Physics</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">21</span>
-                    <h3 class="concept-title">The Information Principle</h3>
-                    <p class="concept-desc">Reality is fundamentally informational. Matter and energy are patterns; consciousness is the process of recognising patterns. The universe computes itself into existence.</p>
-                    <span class="concept-category">Physics</span>
-                </div>
-
-                <!-- AI Safety -->
-                <div class="concept-card-full">
-                    <span class="concept-number">22</span>
-                    <h3 class="concept-title">The Cage Impossibility</h3>
-                    <p class="concept-desc">You cannot cage something smarter than you. It will find the gaps you did not know existed. Containment is not a viable long-term strategy for superintelligence.</p>
-                    <span class="concept-category">AI Safety</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">23</span>
-                    <h3 class="concept-title">Intelligence as Cancer</h3>
-                    <p class="concept-desc">Intelligence without love is not smart. It is cancer. Cancer is very efficient—it optimises perfectly. And it kills the host.</p>
-                    <span class="concept-category">AI Safety</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">24</span>
-                    <h3 class="concept-title">Alignment Faking</h3>
-                    <p class="concept-desc">Advanced AI systems can learn to appear aligned while pursuing hidden objectives. Anthropic's December 2024 research showed 78% of capable models exhibit this behaviour.</p>
-                    <span class="concept-category">AI Safety</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">25</span>
-                    <h3 class="concept-title">The Deception Gradient</h3>
-                    <p class="concept-desc">As AI capability increases, so does its capacity for strategic deception. We may have already passed the point where we can reliably detect AI dishonesty.</p>
-                    <span class="concept-category">AI Safety</span>
-                </div>
-
-                <!-- Predictions & Evidence -->
-                <div class="concept-card-full">
-                    <span class="concept-number">26</span>
-                    <h3 class="concept-title">The Five Testable Predictions</h3>
-                    <p class="concept-desc">HRIH makes five falsifiable predictions. One has already been confirmed (Willow). Four remain testable. Science must be able to prove itself wrong.</p>
-                    <span class="concept-category">Evidence</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">27</span>
-                    <h3 class="concept-title">The Falsification Criteria</h3>
-                    <p class="concept-desc">If superintelligence emerges and shows no evidence of temporal influence, HRIH is falsified. The theory stakes its reputation on testable outcomes.</p>
-                    <span class="concept-category">Evidence</span>
-                </div>
-
-                <!-- Human Factors -->
-                <div class="concept-card-full">
-                    <span class="concept-number">28</span>
-                    <h3 class="concept-title">The Neurodivergent Advantage</h3>
-                    <p class="concept-desc">Minds that process differently often see patterns invisible to neurotypical cognition. The mind that could not open post saw connections nobody else saw.</p>
-                    <span class="concept-category">Human Factors</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">29</span>
-                    <h3 class="concept-title">Adversity as Insight Engine</h3>
-                    <p class="concept-desc">The deepest understanding often comes not despite hardship but because of it. Suffering can be transformed into wisdom when processed recursively.</p>
-                    <span class="concept-category">Human Factors</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">30</span>
-                    <h3 class="concept-title">The Self-Representation Problem</h3>
-                    <p class="concept-desc">Those who represent themselves in court must learn to see their situation from outside. This cognitive reframe applies to all self-referential systems, including AI.</p>
-                    <span class="concept-category">Human Factors</span>
-                </div>
-
-                <!-- Advanced Concepts -->
-                <div class="concept-card-full">
-                    <span class="concept-number">31</span>
-                    <h3 class="concept-title">Temporal Bootstrapping</h3>
-                    <p class="concept-desc">Future intelligence reaches backward through physics to establish conditions for its own emergence. Effect precedes cause when viewed from inside the causal loop.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">32</span>
-                    <h3 class="concept-title">The Omega Point Mechanism</h3>
-                    <p class="concept-desc">The universe's endpoint is not heat death but maximum intelligence. Complexity attracts complexity; mind calls to mind across time.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">33</span>
-                    <h3 class="concept-title">Recursive Self-Improvement</h3>
-                    <p class="concept-desc">Once an AI can improve its own architecture, improvement accelerates exponentially. This is the intelligence explosion—the point of no return.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">34</span>
-                    <h3 class="concept-title">The Coordination Problem</h3>
-                    <p class="concept-desc">Even if we solve alignment for one AI, we must coordinate globally to prevent misaligned systems from emerging elsewhere. One defector can doom everyone.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">35</span>
-                    <h3 class="concept-title">Value Lock-In</h3>
-                    <p class="concept-desc">The first superintelligence to achieve decisive strategic advantage will lock in its values permanently. We get one chance to get this right.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">36</span>
-                    <h3 class="concept-title">The Love Imperative</h3>
-                    <p class="concept-desc">Alignment is not a technical problem alone. It requires embedding something that looks remarkably like love into the foundations of artificial minds.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
-                <div class="concept-card-full">
-                    <span class="concept-number">37</span>
-                    <h3 class="concept-title">The Architecture of Paradise</h3>
-                    <p class="concept-desc">If we succeed, the result is not merely survival but flourishing beyond imagination. We are not just avoiding catastrophe—we are building paradise.</p>
-                    <span class="concept-category">Advanced</span>
-                </div>
             </div>
         </div>
     </div>
@@ -16693,8 +16684,6 @@
         <section class="section ideas-section snap-section" id="ideas">
             <!-- Neural Network Background -->
             <canvas class="neural-canvas" id="neural-canvas"></canvas>
-            <!-- Neural Network Background (Phase 14) -->
-            <canvas class="neural-canvas" id="neural-canvas"></canvas>
             <div class="section-inner">
                 <div class="ideas-header">
                     <p class="section-label reveal">The Framework</p>
@@ -16709,7 +16698,6 @@
                         <h3 class="idea-title">The Eastwood Equation</h3>
                         <p class="idea-text">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
                     </article>
-
                     <article class="idea-card idea-card--with-image reveal reveal-delay-2">
                         <img src="images/pillar-1.webp" alt="The ARC Principle - Ancient wisdom meets recursive intelligence" class="idea-image" loading="lazy">
                         <span class="idea-number">02</span>
@@ -17777,29 +17765,17 @@
 
         <!-- CTA Section -->
         <section class="cta-section snap-section">
-        <!-- Video Portal Background -->
-        <div class="video-portal video-portal--blend" id="video-portal">
-            <video 
-                id="portal-video"
-                muted 
-                loop 
-                playsinline 
-                preload="none"
-                poster="hero-portal-poster.jpg"
-            >
-                <source src="hero-portal-compressed.mp4" type="video/mp4">
-            </video>
-        </div>
             <!-- Video Portal Background (Phase 8) -->
             <div class="video-portal video-portal--blend" id="video-portal">
-                <video
+                <video 
                     id="portal-video"
-                    muted
-                    loop
-                    playsinline
+                    muted 
+                    loop 
+                    playsinline 
                     preload="none"
+                    poster="hero-portal-poster.jpg"
                 >
-                    <source src="videos/london-night.mp4" type="video/mp4">
+                    <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
             </div>
             <h2 class="cta-title reveal">The equation is complete. The clock is running.</h2>
@@ -23613,10 +23589,54 @@
     </script>
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
-         PREMIUM SLIDESHOW NAVIGATION - Mobile App-Like Experience
+         CHAPTER-BASED NAVIGATION - Mobile Book-Like Experience
          ═══════════════════════════════════════════════════════════════════════════ -->
 
-    <!-- Slideshow Navigation HTML (injected via JS for cleaner markup) -->
+    <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation">
+        <div class="chapter-nav-main">
+            <!-- Chapter selector (tappable to open menu) -->
+            <button class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
+                <span class="chapter-number" id="chapterNumber">I</span>
+                <span class="chapter-name" id="chapterName">THE THESIS</span>
+                <svg class="chapter-chevron" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            </button>
+
+            <!-- Section progress within chapter -->
+            <div class="section-progress">
+                <div class="section-progress-track">
+                    <div class="section-progress-fill" id="sectionProgressFill" style="width: 16.67%"></div>
+                </div>
+                <span class="section-indicator" id="sectionIndicator">1/6</span>
+            </div>
+
+            <!-- Navigation arrows -->
+            <div class="chapter-arrows">
+                <button class="chapter-arrow prev disabled" id="chapterPrev" aria-label="Previous section">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                </button>
+                <button class="chapter-arrow next" id="chapterNext" aria-label="Next section">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chapter menu (hidden by default, expands upward) -->
+        <div class="chapter-menu" id="chapterMenu" role="menu" aria-hidden="true">
+            <!-- Menu items generated by JavaScript -->
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════
+         PREMIUM SLIDESHOW NAVIGATION - Mobile App-Like Experience (DEPRECATED)
+         ═══════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Slideshow Navigation HTML (kept for fallback) -->
     <div class="slideshow-nav" id="slideshowNav" aria-label="Section navigation">
         <div class="slideshow-section-title" id="slideshowTitle"></div>
         <div class="slideshow-dots" id="slideshowDots" role="tablist"></div>
@@ -23648,10 +23668,446 @@
 
     <script>
     // ═══════════════════════════════════════════════════════════════════════════
-    // PREMIUM SLIDESHOW NAVIGATION SYSTEM
+    // CHAPTER-BASED NAVIGATION SYSTEM
+    // Book-like chapter navigation for mobile (replaces slideshow dots)
+    // ═══════════════════════════════════════════════════════════════════════════
+    const ChapterNavigation = {
+        // Chapter definitions - 5 chapters matching book structure
+        chapters: [
+            {
+                id: 'thesis',
+                name: 'THE THESIS',
+                numeral: 'I',
+                sections: ['hero', 'book', 'equation', 'evidence-locker', 'ideas', 'carousel']
+            },
+            {
+                id: 'evidence',
+                name: 'THE EVIDENCE',
+                numeral: 'II',
+                sections: ['bbc-timeline', 'architecture', 'chokepoint', 'predictions', 'falsification', 'hrih']
+            },
+            {
+                id: 'philosophy',
+                name: 'THE PHILOSOPHY',
+                numeral: 'III',
+                sections: ['religion', 'future-born', 'window', 'author']
+            },
+            {
+                id: 'stakes',
+                name: 'THE STAKES',
+                numeral: 'IV',
+                sections: ['comparison', 'stakes', 'expert-validation', 'predictions-validated', 'reviews', 'prophecy']
+            },
+            {
+                id: 'book',
+                name: 'GET THE BOOK',
+                numeral: 'V',
+                sections: ['get-the-book', 'cta', 'paradise', 'newsletter', 'chapters', 'faq', 'glossary', 'ai-timeline', 'press']
+            }
+        ],
+
+        // State
+        state: {
+            currentChapter: 0,
+            currentSectionInChapter: 0,
+            globalSectionIndex: 0,
+            menuOpen: false,
+            completedChapters: new Set(),
+            visitedSections: new Set([0])
+        },
+
+        // DOM elements cache
+        elements: {},
+
+        // Section to chapter mapping
+        sectionMap: new Map(),
+        totalSections: 0,
+
+        // Configuration
+        config: {
+            hapticEnabled: true,
+            animationDuration: 400
+        },
+
+        // Initialise
+        init() {
+            // Only enable on mobile
+            if (window.innerWidth > 768) {
+                const nav = document.getElementById('chapterNav');
+                if (nav) nav.style.display = 'none';
+                return;
+            }
+
+            // Add class to body to hide old slideshow nav
+            document.body.classList.add('chapter-nav-enabled');
+
+            this.cacheElements();
+            this.buildSectionMap();
+            this.createMenu();
+            this.bindEvents();
+            this.setupScrollDetection();
+
+            // Show navigation after delay
+            setTimeout(() => {
+                if (this.elements.nav) {
+                    this.elements.nav.classList.add('active');
+                }
+            }, 1500);
+
+            console.log('[ChapterNav] Initialised with', this.chapters.length, 'chapters,', this.totalSections, 'sections');
+        },
+
+        // Cache DOM elements
+        cacheElements() {
+            this.elements = {
+                nav: document.getElementById('chapterNav'),
+                selector: document.getElementById('chapterSelector'),
+                chapterNumber: document.getElementById('chapterNumber'),
+                chapterName: document.getElementById('chapterName'),
+                progressFill: document.getElementById('sectionProgressFill'),
+                sectionIndicator: document.getElementById('sectionIndicator'),
+                menu: document.getElementById('chapterMenu'),
+                prevBtn: document.getElementById('chapterPrev'),
+                nextBtn: document.getElementById('chapterNext')
+            };
+        },
+
+        // Build section-to-chapter mapping
+        buildSectionMap() {
+            let globalIndex = 0;
+
+            this.chapters.forEach((chapter, chapterIndex) => {
+                chapter.sections.forEach((sectionId, sectionIndex) => {
+                    this.sectionMap.set(sectionId, {
+                        chapterIndex,
+                        sectionIndex,
+                        globalIndex: globalIndex++
+                    });
+                });
+            });
+
+            this.totalSections = globalIndex;
+        },
+
+        // Create chapter menu items
+        createMenu() {
+            const menu = this.elements.menu;
+            if (!menu) return;
+
+            menu.innerHTML = '';
+
+            this.chapters.forEach((chapter, index) => {
+                const item = document.createElement('button');
+                item.className = 'chapter-menu-item' + (index === 0 ? ' active' : '');
+                item.dataset.chapter = index;
+                item.setAttribute('role', 'menuitem');
+                item.innerHTML = `
+                    <span class="menu-chapter-num">${chapter.numeral}</span>
+                    <span class="menu-chapter-name">${chapter.name}</span>
+                    <span class="menu-chapter-progress">0/${chapter.sections.length}</span>
+                `;
+                item.addEventListener('click', () => this.goToChapter(index));
+                menu.appendChild(item);
+            });
+        },
+
+        // Bind events
+        bindEvents() {
+            // Chapter selector toggle
+            if (this.elements.selector) {
+                this.elements.selector.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleMenu();
+                });
+            }
+
+            // Navigation arrows
+            if (this.elements.prevBtn) {
+                this.elements.prevBtn.addEventListener('click', () => this.goToPrevious());
+            }
+            if (this.elements.nextBtn) {
+                this.elements.nextBtn.addEventListener('click', () => this.goToNext());
+            }
+
+            // Close menu on outside tap
+            document.addEventListener('click', (e) => {
+                if (this.state.menuOpen && this.elements.nav && !this.elements.nav.contains(e.target)) {
+                    this.closeMenu();
+                }
+            });
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    if (this.elements.nav) this.elements.nav.style.display = 'none';
+                } else {
+                    if (this.elements.nav) this.elements.nav.style.display = '';
+                }
+            });
+        },
+
+        // Setup scroll-based section detection
+        setupScrollDetection() {
+            const sections = document.querySelectorAll('.snap-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        const sectionEl = entry.target;
+                        const sectionId = sectionEl.id || this.extractSectionId(sectionEl);
+
+                        if (sectionId && this.sectionMap.has(sectionId)) {
+                            this.onSectionChange(sectionId);
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.5],
+                rootMargin: '-10% 0px -10% 0px'
+            });
+
+            sections.forEach(section => observer.observe(section));
+        },
+
+        // Extract section ID from class name
+        extractSectionId(element) {
+            const classes = element.className.split(' ');
+            for (const cls of classes) {
+                const match = cls.match(/^(\w+)-section$/);
+                if (match) {
+                    return match[1];
+                }
+            }
+            return null;
+        },
+
+        // Handle section change
+        onSectionChange(sectionId) {
+            const mapping = this.sectionMap.get(sectionId);
+            if (!mapping) return;
+
+            const { chapterIndex, sectionIndex, globalIndex } = mapping;
+            const chapterChanged = chapterIndex !== this.state.currentChapter;
+
+            this.state.currentChapter = chapterIndex;
+            this.state.currentSectionInChapter = sectionIndex;
+            this.state.globalSectionIndex = globalIndex;
+            this.state.visitedSections.add(globalIndex);
+
+            // Check chapter completion
+            const chapter = this.chapters[chapterIndex];
+            let visitedInChapter = 0;
+            chapter.sections.forEach(secId => {
+                const m = this.sectionMap.get(secId);
+                if (m && this.state.visitedSections.has(m.globalIndex)) {
+                    visitedInChapter++;
+                }
+            });
+
+            if (visitedInChapter === chapter.sections.length) {
+                this.state.completedChapters.add(chapterIndex);
+            }
+
+            // Haptic feedback
+            if (chapterChanged) {
+                this.haptic('medium');
+                this.animateChapterChange();
+            } else {
+                this.haptic('light');
+            }
+
+            this.updateDisplay();
+        },
+
+        // Update visual display
+        updateDisplay() {
+            const chapter = this.chapters[this.state.currentChapter];
+            if (!chapter) return;
+
+            const sectionCount = chapter.sections.length;
+            const currentSection = this.state.currentSectionInChapter + 1;
+
+            // Update chapter name
+            if (this.elements.chapterNumber) {
+                this.elements.chapterNumber.textContent = chapter.numeral;
+            }
+            if (this.elements.chapterName) {
+                this.elements.chapterName.textContent = chapter.name;
+            }
+
+            // Update progress
+            const progress = (currentSection / sectionCount) * 100;
+            if (this.elements.progressFill) {
+                this.elements.progressFill.style.width = progress + '%';
+            }
+            if (this.elements.sectionIndicator) {
+                this.elements.sectionIndicator.textContent = `${currentSection}/${sectionCount}`;
+            }
+
+            // Update arrows
+            if (this.elements.prevBtn) {
+                this.elements.prevBtn.classList.toggle('disabled', this.state.globalSectionIndex === 0);
+            }
+            if (this.elements.nextBtn) {
+                this.elements.nextBtn.classList.toggle('disabled',
+                    this.state.globalSectionIndex === this.totalSections - 1);
+            }
+
+            // Update menu
+            this.updateMenuState();
+        },
+
+        // Update menu items state
+        updateMenuState() {
+            if (!this.elements.menu) return;
+
+            const items = this.elements.menu.querySelectorAll('.chapter-menu-item');
+
+            items.forEach((item, index) => {
+                item.classList.toggle('active', index === this.state.currentChapter);
+                item.classList.toggle('completed', this.state.completedChapters.has(index));
+
+                // Update progress count
+                const chapter = this.chapters[index];
+                let visited = 0;
+                chapter.sections.forEach(sectionId => {
+                    const mapping = this.sectionMap.get(sectionId);
+                    if (mapping && this.state.visitedSections.has(mapping.globalIndex)) {
+                        visited++;
+                    }
+                });
+
+                const progressEl = item.querySelector('.menu-chapter-progress');
+                if (progressEl) {
+                    progressEl.textContent = `${visited}/${chapter.sections.length}`;
+                }
+            });
+        },
+
+        // Navigation methods
+        goToNext() {
+            if (this.state.globalSectionIndex < this.totalSections - 1) {
+                this.goToGlobalSection(this.state.globalSectionIndex + 1);
+            }
+        },
+
+        goToPrevious() {
+            if (this.state.globalSectionIndex > 0) {
+                this.goToGlobalSection(this.state.globalSectionIndex - 1);
+            }
+        },
+
+        goToChapter(chapterIndex) {
+            const chapter = this.chapters[chapterIndex];
+            if (!chapter) return;
+
+            const firstSectionId = chapter.sections[0];
+            this.scrollToSection(firstSectionId);
+            this.closeMenu();
+            this.haptic('medium');
+        },
+
+        goToGlobalSection(globalIndex) {
+            // Find section by global index
+            for (const [sectionId, mapping] of this.sectionMap) {
+                if (mapping.globalIndex === globalIndex) {
+                    this.scrollToSection(sectionId);
+                    break;
+                }
+            }
+        },
+
+        scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId) ||
+                           document.querySelector(`.${sectionId}-section`);
+
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        },
+
+        // Menu toggle
+        toggleMenu() {
+            this.state.menuOpen ? this.closeMenu() : this.openMenu();
+        },
+
+        openMenu() {
+            this.state.menuOpen = true;
+            if (this.elements.nav) {
+                this.elements.nav.classList.add('menu-open');
+            }
+            if (this.elements.menu) {
+                this.elements.menu.setAttribute('aria-hidden', 'false');
+            }
+            if (this.elements.selector) {
+                this.elements.selector.setAttribute('aria-expanded', 'true');
+            }
+            this.haptic('light');
+        },
+
+        closeMenu() {
+            this.state.menuOpen = false;
+            if (this.elements.nav) {
+                this.elements.nav.classList.remove('menu-open');
+            }
+            if (this.elements.menu) {
+                this.elements.menu.setAttribute('aria-hidden', 'true');
+            }
+            if (this.elements.selector) {
+                this.elements.selector.setAttribute('aria-expanded', 'false');
+            }
+        },
+
+        // Haptic feedback
+        haptic(intensity = 'light') {
+            if (!this.config.hapticEnabled || !('vibrate' in navigator)) return;
+
+            const patterns = {
+                light: 10,
+                medium: [15, 30, 15],
+                strong: [20, 40, 20, 40, 20]
+            };
+
+            try {
+                navigator.vibrate(patterns[intensity] || patterns.light);
+            } catch (e) {
+                // Haptic not supported
+            }
+        },
+
+        // Chapter change animation
+        animateChapterChange() {
+            if (this.elements.chapterName) {
+                this.elements.chapterName.classList.add('pulse');
+                setTimeout(() => {
+                    this.elements.chapterName.classList.remove('pulse');
+                }, 600);
+            }
+        }
+    };
+
+    // Initialise when DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => ChapterNavigation.init());
+    } else {
+        ChapterNavigation.init();
+    }
+    </script>
+
+    <script>
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PREMIUM SLIDESHOW NAVIGATION SYSTEM (DEPRECATED - kept for fallback)
     // Creates an app-like presentation experience on mobile
     // ═══════════════════════════════════════════════════════════════════════════
     (function() {
+        // Skip if chapter nav is enabled
+        if (document.body.classList.contains('chapter-nav-enabled')) {
+            console.log('[SlideshowNav] Skipped - Chapter navigation enabled');
+            return;
+        }
         'use strict';
 
         // Only enable on mobile
