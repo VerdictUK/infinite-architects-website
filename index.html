@@ -16667,6 +16667,19 @@ img {
    ADDITIONAL FIXES
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* FORCE PARTICLES VISIBLE ON DESKTOP */
+@media (min-width: 769px) {
+    #canvas-container,
+    #canvas-container canvas,
+    .neural-canvas,
+    .particle-canvas {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: none !important;
+    }
+}
+
 /* HIDE SLIDESHOW NAV COMPLETELY - Not needed, chapter nav replaces it */
 .slideshow-nav,
 #slideshowNav,
