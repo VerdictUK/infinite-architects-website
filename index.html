@@ -12728,14 +12728,14 @@
 
             /* ═══════════════════════════════════════════════════════════════════
                TRUE SLIDESHOW MODE - Each section = exactly one screen
-               No internal scrolling, pure presentation style
+               Premium mobile presentation experience
                ═══════════════════════════════════════════════════════════════════ */
 
             html.slideshow-mode {
                 scroll-behavior: smooth;
-                scroll-snap-type: y mandatory;
+                scroll-snap-type: y mandatory !important;
                 overflow-x: hidden;
-                /* Hide scrollbar completely */
+                overflow-y: scroll !important;
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
@@ -12746,34 +12746,37 @@
 
             html.slideshow-mode body {
                 overflow-x: hidden;
+                overflow-y: visible;
             }
 
-            /* Hide duplicate navigation when slideshow mode is active */
-            html.slideshow-mode .constellation-nav {
+            /* Hide duplicate navigation elements */
+            html.slideshow-mode .constellation-nav,
+            html.slideshow-mode .mobile-cta,
+            html.slideshow-mode .nav,
+            html.slideshow-mode header.nav,
+            html.slideshow-mode .ticker {
                 display: none !important;
             }
 
-            /* Hide mobile CTA bar - slideshow nav replaces it */
-            html.slideshow-mode .mobile-cta {
-                display: none !important;
-            }
-
-            /* Position audio toggle above slideshow nav */
+            /* Position floating buttons above slideshow nav */
             html.slideshow-mode .audio-toggle {
-                bottom: calc(80px + env(safe-area-inset-bottom, 0px) + 10px) !important;
+                bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+                right: 15px !important;
             }
 
-            /* Hide motion button when slideshow nav present */
             html.slideshow-mode .motion-enable-btn {
-                bottom: calc(80px + env(safe-area-inset-bottom, 0px) + 60px) !important;
+                bottom: calc(150px + env(safe-area-inset-bottom, 0px)) !important;
             }
 
-            /* FORCE EXACT VIEWPORT HEIGHT - No exceptions */
-            html.slideshow-mode .snap-section {
-                scroll-snap-align: start;
-                scroll-snap-stop: always;
+            /* ══════════════════════════════════════════════════════════════════
+               SECTION BASE - FORCE ONE SECTION PER SCREEN
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .snap-section,
+            html.slideshow-mode section[id] {
+                scroll-snap-align: start !important;
+                scroll-snap-stop: always !important;
 
-                /* Exact viewport dimensions */
+                /* EXACT viewport fit */
                 height: 100vh !important;
                 height: 100dvh !important;
                 min-height: 100vh !important;
@@ -12781,345 +12784,337 @@
                 max-height: 100vh !important;
                 max-height: 100dvh !important;
 
-                /* No internal scrolling */
+                /* No overflow - content must fit */
                 overflow: hidden !important;
 
-                /* Center all content */
+                /* Center content vertically */
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
 
-                /* Padding for safe areas and nav */
-                padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+                /* Padding: top minimal, bottom for nav */
+                padding: 20px 16px calc(85px + env(safe-area-inset-bottom, 0px)) 16px !important;
                 box-sizing: border-box !important;
 
-                /* Smooth transitions between slides */
-                transition: opacity 0.3s ease;
+                /* Isolation */
+                position: relative !important;
+                z-index: 1 !important;
             }
 
-            /* Content containers must fit */
-            html.slideshow-mode .snap-section > * {
-                max-height: 100%;
-                overflow: hidden;
-            }
-
+            /* Content wrappers - flex centered */
+            html.slideshow-mode .snap-section > *,
             html.slideshow-mode .snap-section .section-inner,
-            html.slideshow-mode .snap-section .container,
-            html.slideshow-mode .snap-section > div:first-child {
-                max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 100px) !important;
-                max-height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 100px) !important;
+            html.slideshow-mode .snap-section .container {
+                max-height: calc(100vh - 120px) !important;
+                max-height: calc(100dvh - 120px) !important;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
                 overflow: hidden !important;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
             }
 
-            /* Compact typography for slides */
+            /* Typography - Readable but compact */
             html.slideshow-mode .section-title {
-                font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
-                margin-bottom: 0.5rem !important;
+                font-size: clamp(1.4rem, 6vw, 2rem) !important;
+                margin-bottom: 0.75rem !important;
+                text-align: center !important;
             }
 
             html.slideshow-mode .section-label {
-                font-size: 0.55rem !important;
-                margin-bottom: 0.25rem !important;
+                font-size: 0.65rem !important;
+                letter-spacing: 0.15em !important;
+                margin-bottom: 0.5rem !important;
             }
 
             html.slideshow-mode .section-subtitle,
             html.slideshow-mode .section-description {
-                font-size: clamp(0.8rem, 3vw, 1rem) !important;
-                line-height: 1.4 !important;
+                font-size: clamp(0.9rem, 3.5vw, 1.1rem) !important;
+                line-height: 1.5 !important;
+                margin-bottom: 0.75rem !important;
+                text-align: center !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 1: HERO SECTION
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .hero,
+            html.slideshow-mode #hero {
+                padding: 30px 20px calc(85px + env(safe-area-inset-bottom, 0px)) 20px !important;
+            }
+
+            html.slideshow-mode .hero-content {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 1rem !important;
+                max-height: calc(100vh - 130px) !important;
+            }
+
+            html.slideshow-mode .hero-book-container,
+            html.slideshow-mode .book-cover-container {
+                max-height: 40vh !important;
+                flex-shrink: 0 !important;
+            }
+
+            html.slideshow-mode .hero-book-container img,
+            html.slideshow-mode .book-cover-container img {
+                max-height: 38vh !important;
+                width: auto !important;
+                object-fit: contain !important;
+            }
+
+            html.slideshow-mode .hero-title {
+                font-size: clamp(1.6rem, 6vw, 2.2rem) !important;
                 margin-bottom: 0.5rem !important;
             }
 
-            /* Compact grids to fit in viewport */
+            html.slideshow-mode .hero-tagline {
+                font-size: clamp(0.85rem, 3vw, 1rem) !important;
+                line-height: 1.4 !important;
+                max-width: 90vw !important;
+                text-align: center !important;
+            }
+
+            html.slideshow-mode .hero-cta {
+                margin-top: 0.5rem !important;
+                padding: 0.8rem 2rem !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 2: QUOTE/BOOK SECTION
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .book-section,
+            html.slideshow-mode #book,
+            html.slideshow-mode .quote-section {
+                justify-content: center !important;
+            }
+
+            html.slideshow-mode .quote-text,
+            html.slideshow-mode .hero-quote {
+                font-size: clamp(1.1rem, 4.5vw, 1.5rem) !important;
+                line-height: 1.5 !important;
+                text-align: center !important;
+                padding: 0 1rem !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 3: EQUATION SECTION - U = I × R²
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .equation-section,
+            html.slideshow-mode #equation {
+                padding: 20px 16px calc(85px + env(safe-area-inset-bottom, 0px)) 16px !important;
+            }
+
+            html.slideshow-mode .equation-content,
+            html.slideshow-mode .equation-inner {
+                max-height: calc(100vh - 130px) !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
+            html.slideshow-mode .eq-term,
+            html.slideshow-mode .equation-term {
+                padding: 0.75rem 1rem !important;
+                margin: 0.25rem 0 !important;
+            }
+
+            html.slideshow-mode .eq-symbol,
+            html.slideshow-mode .equation-symbol {
+                font-size: clamp(1.5rem, 6vw, 2rem) !important;
+            }
+
+            html.slideshow-mode .eq-label,
+            html.slideshow-mode .equation-label {
+                font-size: clamp(0.75rem, 2.5vw, 0.9rem) !important;
+                line-height: 1.3 !important;
+            }
+
+            html.slideshow-mode .equation-result {
+                font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
+                margin-top: 0.5rem !important;
+                padding: 0.5rem !important;
+            }
+
+            html.slideshow-mode .equation-counters {
+                display: flex !important;
+                gap: 2rem !important;
+                margin-top: 0.5rem !important;
+            }
+
+            html.slideshow-mode .equation-counter-value {
+                font-size: clamp(1.5rem, 6vw, 2rem) !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 4: EVIDENCE LOCKER
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .evidence-locker,
+            html.slideshow-mode #evidence-locker {
+                padding: 20px 12px calc(85px + env(safe-area-inset-bottom, 0px)) 12px !important;
+            }
+
+            html.slideshow-mode .evidence-locker-inner {
+                max-height: calc(100vh - 130px) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+            }
+
+            html.slideshow-mode .evidence-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                grid-template-rows: repeat(3, auto) !important;
+                gap: 8px !important;
+                max-height: calc(100vh - 200px) !important;
+                width: 100% !important;
+                overflow: hidden !important;
+            }
+
+            /* Hide cards beyond 6 */
+            html.slideshow-mode .evidence-grid .evidence-card:nth-child(n+7) {
+                display: none !important;
+            }
+
+            html.slideshow-mode .evidence-card {
+                padding: 10px !important;
+                border-radius: 8px !important;
+                min-height: 80px !important;
+            }
+
+            html.slideshow-mode .evidence-card h4,
+            html.slideshow-mode .evidence-card .evidence-title {
+                font-size: 0.7rem !important;
+                margin-bottom: 4px !important;
+                line-height: 1.2 !important;
+            }
+
+            html.slideshow-mode .evidence-card p,
+            html.slideshow-mode .evidence-card .evidence-description {
+                font-size: 0.6rem !important;
+                line-height: 1.3 !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+            }
+
+            html.slideshow-mode .evidence-badge {
+                font-size: 0.5rem !important;
+                padding: 2px 6px !important;
+            }
+
+            /* ══════════════════════════════════════════════════════════════════
+               SLIDE 5: IDEAS GRID (37 CONCEPTS)
+               ══════════════════════════════════════════════════════════════════ */
+            html.slideshow-mode .ideas-section,
+            html.slideshow-mode #ideas {
+                padding: 20px 12px calc(85px + env(safe-area-inset-bottom, 0px)) 12px !important;
+            }
+
+            html.slideshow-mode .ideas-inner {
+                max-height: calc(100vh - 130px) !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 0.75rem !important;
+            }
+
             html.slideshow-mode .ideas-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
-                /* Show 6 items + view all button space */
-                grid-template-rows: repeat(3, 1fr) !important; 
-                gap: 0.4rem !important;
-                max-height: calc(100dvh - 220px) !important;
-                overflow: hidden !important;
+                grid-template-rows: repeat(3, auto) !important;
+                gap: 10px !important;
+                max-height: calc(100vh - 240px) !important;
                 width: 100% !important;
-                margin-bottom: 0.5rem !important;
+                overflow: hidden !important;
             }
 
-            /* Hide items beyond the 6th one in slideshow mode to prevent cut-off */
+            /* Hide cards beyond 6 */
             html.slideshow-mode .ideas-grid .idea-card:nth-child(n+7) {
                 display: none !important;
             }
 
             html.slideshow-mode .idea-card {
-                padding: 0.5rem !important;
-                min-height: 0 !important;
-                height: auto !important;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            html.slideshow-mode .idea-title {
-                font-size: 0.7rem !important;
-                margin-bottom: 0.1rem !important;
-            }
-
-            html.slideshow-mode .idea-text {
-                display: none !important; /* Hide text in grid view for cleanliness */
-            }
-
-            html.slideshow-mode .idea-image {
-                height: 40px !important;
-                width: auto !important;
-                margin-bottom: 0.2rem !important;
-            }
-            
-            html.slideshow-mode .view-all-concepts-btn {
-                margin-top: 0 !important;
-                padding: 0.6rem 1.2rem !important;
-                font-size: 0.8rem !important;
-            }
-
-            /* Hero adjustments */
-            html.slideshow-mode .hero-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                gap: 1rem;
-            }
-
-            html.slideshow-mode .hero-book-container {
-                transform: scale(0.8);
-                margin-bottom: -1rem;
-            }
-
-            /* CTA Section adjustments */
-            html.slideshow-mode .cta-content {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                gap: 1rem;
-            }
-            
-            html.slideshow-mode .cta-title {
-                font-size: 1.5rem !important;
-                line-height: 1.2 !important;
-            }
-            
-            html.slideshow-mode .cta-subtitle {
-                margin-bottom: 1rem !important;
-            }
-
-            /* Hide footer in slideshow mode or make it a clean slide */
-            html.slideshow-mode footer {
-                height: 100vh !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                scroll-snap-align: start !important;
-            }
-
-            /* ══════════════════════════════════════════════════════════════ */
-            /* CRITICAL SLIDESHOW MODE FIXES                                  */
-            /* ══════════════════════════════════════════════════════════════ */
-
-            /* 1. HIDE DUPLICATE NAVIGATION */
-            html.slideshow-mode .nav,
-            html.slideshow-mode .constellation-nav,
-            html.slideshow-mode .nav-toggle,
-            html.slideshow-mode .mobile-nav-toggle {
-                display: none !important;
-            }
-
-            /* 2. ENSURE EFFECTS ARE VISIBLE */
-            html.slideshow-mode #canvas-container,
-            html.slideshow-mode .mobile-particles,
-            html.slideshow-mode .cosmic-bg {
-                display: block !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                z-index: 0 !important;
-            }
-
-            /* 3. HERO SECTION PERFECTION */
-            html.slideshow-mode .hero {
-                padding: 0 !important;
-                height: 100vh !important;
+                padding: 12px !important;
+                border-radius: 10px !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
+                text-align: center !important;
+                min-height: 90px !important;
             }
 
-            html.slideshow-mode .hero-content {
-                transform: scale(0.9);
-                gap: 1.5rem;
+            html.slideshow-mode .idea-card h3,
+            html.slideshow-mode .idea-title {
+                font-size: 0.75rem !important;
+                margin-bottom: 4px !important;
+                line-height: 1.2 !important;
             }
 
-            /* 4. ABOUT SECTION FIX */
-            html.slideshow-mode .about-section .section-inner {
-                justify-content: center;
-            }
-            
-            html.slideshow-mode .about-content {
-                max-height: 40vh !important;
-                overflow-y: auto !important;
-                -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-                mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            html.slideshow-mode .idea-card p,
+            html.slideshow-mode .idea-text {
+                display: none !important;
             }
 
-            /* 5. CAROUSEL FIX */
-            html.slideshow-mode .carousel-section {
-                display: flex !important;
-                flex-direction: column;
-                justify-content: center;
+            html.slideshow-mode .idea-number {
+                font-size: 1.2rem !important;
+                opacity: 0.3 !important;
             }
 
-            html.slideshow-mode .quote-carousel {
-                height: auto !important;
-                max-height: 60vh !important;
+            html.slideshow-mode .view-all-concepts-btn {
+                margin-top: 0.5rem !important;
+                padding: 0.7rem 1.5rem !important;
+                font-size: 0.85rem !important;
             }
 
-            /* 6. NEWSLETTER FIX */
-            html.slideshow-mode .newsletter-section {
-                display: flex !important;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            html.slideshow-mode .newsletter-form {
-                transform: scale(0.9);
-                width: 100%;
-            }
-
-            /* 7. BBC TIMELINE FIX */
-            html.slideshow-mode .timeline-container {
-                max-height: 50vh !important;
-                overflow-y: auto !important;
-            }
-
-            /* 8. PREDICTIONS FIX */
-            html.slideshow-mode .predictions-grid {
-                display: grid !important;
-                grid-template-columns: 1fr !important;
-                max-height: 55vh !important;
-                overflow-y: auto !important;
-                gap: 1rem !important;
-            }
-
-            /* 9. BOOK COVER FIX */
-            html.slideshow-mode .book-cover-container {
-                max-height: 40vh !important;
-                margin-bottom: 1rem !important;
-            }
-            
-            html.slideshow-mode .book-cover-container img {
-                max-height: 100% !important;
-                width: auto !important;
-                object-fit: contain !important;
-            }
-
-            html.slideshow-mode .idea-card h3 {
+            /* Ideas swipe hint */
+            html.slideshow-mode .swipe-hint {
                 font-size: 0.7rem !important;
-                margin-bottom: 0.2rem !important;
             }
 
-            html.slideshow-mode .idea-card p {
-                font-size: 0.6rem !important;
-                line-height: 1.3 !important;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+            /* ══════════════════════════════════════════════════════════════════
+               OTHER SECTIONS - GENERAL FIXES
+               ══════════════════════════════════════════════════════════════════ */
+
+            /* CTA buttons */
+            html.slideshow-mode .cta-button,
+            html.slideshow-mode .buy-button,
+            html.slideshow-mode .hero-cta {
+                padding: 0.8rem 1.8rem !important;
+                font-size: 0.9rem !important;
             }
 
-            /* Evidence grid compact */
-            html.slideshow-mode .evidence-grid {
-                display: grid !important;
-                grid-template-columns: repeat(2, 1fr) !important;
-                grid-template-rows: repeat(3, 1fr) !important;
-                gap: 0.4rem !important;
-                max-height: calc(100vh - 220px) !important;
-                max-height: calc(100dvh - 220px) !important;
-                overflow: hidden !important;
-            }
-
-            html.slideshow-mode .evidence-card {
-                padding: 0.5rem !important;
-            }
-
-            html.slideshow-mode .evidence-card h4 {
-                font-size: 0.65rem !important;
-            }
-
-            html.slideshow-mode .evidence-card p {
-                font-size: 0.55rem !important;
-                -webkit-line-clamp: 2;
-            }
-
-            /* Hero section adjustments */
-            html.slideshow-mode .hero {
-                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px)) !important;
-            }
-
-            html.slideshow-mode .hero-title {
-                font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
-            }
-
-            html.slideshow-mode .hero-tagline {
-                font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
-            }
-
-            html.slideshow-mode .book-cover-container {
-                max-height: 35vh !important;
-            }
-
-            html.slideshow-mode .book-cover-container img {
-                max-height: 35vh !important;
-                width: auto !important;
-            }
-
-            /* Quote carousel compact */
-            html.slideshow-mode .quote-carousel {
-                max-height: 60vh !important;
-            }
-
-            html.slideshow-mode .quote-text {
-                font-size: clamp(1rem, 4vw, 1.4rem) !important;
-                line-height: 1.4 !important;
-            }
-
-            /* About section compact */
+            /* About section */
             html.slideshow-mode .about-content {
-                max-height: calc(100vh - 200px) !important;
+                max-height: calc(100vh - 150px) !important;
                 overflow: hidden !important;
             }
 
             html.slideshow-mode .author-bio {
                 font-size: 0.85rem !important;
                 line-height: 1.5 !important;
-                display: -webkit-box;
-                -webkit-line-clamp: 6;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 5 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
             }
 
-            /* CTA buttons compact */
-            html.slideshow-mode .cta-button,
-            html.slideshow-mode .buy-button {
-                padding: 0.75rem 1.5rem !important;
-                font-size: 0.9rem !important;
-            }
-
-            /* Reviews compact */
+            /* Reviews */
             html.slideshow-mode .reviews-grid {
-                max-height: calc(100vh - 220px) !important;
+                max-height: calc(100vh - 200px) !important;
                 overflow: hidden !important;
             }
 
@@ -13127,9 +13122,26 @@
                 padding: 0.75rem !important;
             }
 
-            html.slideshow-mode .review-text {
-                font-size: 0.75rem !important;
-                -webkit-line-clamp: 3;
+            /* Quote carousel */
+            html.slideshow-mode .carousel-section {
+                justify-content: center !important;
+            }
+
+            /* Footer as slide */
+            html.slideshow-mode footer {
+                height: 100vh !important;
+                height: 100dvh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                scroll-snap-align: start !important;
+            }
+
+            /* Ensure effects visible */
+            html.slideshow-mode .mobile-particles {
+                display: block !important;
+                opacity: 1 !important;
+                z-index: 0 !important;
             }
 
             /* Predictions/Timeline compact */
@@ -19114,48 +19126,15 @@
 
         // ═══════════════════════════════════════════════════════════════════════
         // COMPLETE WEAPON: HAPTIC EQUATION - GYROSCOPE PARALLAX
+        // Uses existing motion-enable-btn for permission (no duplicate button)
         // ═══════════════════════════════════════════════════════════════════════
         (function initHapticEquation() {
             if (window.innerWidth > 768) return;
             if (!window.DeviceOrientationEvent) return;
 
-            // Request permission on iOS 13+
-            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                const permBtn = document.createElement('button');
-                permBtn.textContent = 'Enable Motion';
-                permBtn.className = 'motion-permission-btn';
-                permBtn.style.cssText = `
-                    position: fixed;
-                    bottom: 80px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: rgba(212, 168, 75, 0.2);
-                    border: 1px solid var(--gold);
-                    color: var(--gold);
-                    padding: 8px 16px;
-                    border-radius: 20px;
-                    font-family: var(--font-mono);
-                    font-size: 0.85rem;
-                    z-index: 9998;
-                    cursor: pointer;
-                `;
-
-                permBtn.addEventListener('click', async () => {
-                    try {
-                        const permission = await DeviceOrientationEvent.requestPermission();
-                        if (permission === 'granted') {
-                            enableGyroscope();
-                            permBtn.remove();
-                        }
-                    } catch (e) {
-                        // console.log('Gyroscope permission denied');
-                        permBtn.remove();
-                    }
-                });
-
-                document.body.appendChild(permBtn);
-                setTimeout(() => permBtn.remove(), 5000);
-            } else {
+            // iOS 13+ permission is already handled by motion-enable-btn
+            // Just enable gyroscope if permission already granted or not needed
+            if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
                 enableGyroscope();
             }
 
