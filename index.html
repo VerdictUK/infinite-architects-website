@@ -1317,6 +1317,135 @@
         /* ═══════════════════════════════════════════════════════════════════════
            REVIEWS SECTION
            ═══════════════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════════════════
+           EXPERT VALIDATION SECTION - Social Proof from AI Leaders
+           ═══════════════════════════════════════════════════════════════════════ */
+        .expert-validation {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--void) 0%, rgba(187, 28, 28, 0.04) 50%, var(--void) 100%);
+        }
+
+        .expert-validation-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            text-align: left;
+        }
+
+        .expert-card {
+            background: rgba(4, 5, 15, 0.8);
+            border: 1px solid rgba(187, 28, 28, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .expert-card:hover {
+            border-color: rgba(187, 28, 28, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(187, 28, 28, 0.1);
+        }
+
+        .expert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .expert-role {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: #ef5350;
+            text-transform: uppercase;
+        }
+
+        .expert-date {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-faint);
+        }
+
+        .expert-quote {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .expert-name {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .expert-stat {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .proof-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
+            background: rgba(212, 168, 75, 0.03);
+            border: 1px solid rgba(212, 168, 75, 0.15);
+            border-radius: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        .stat-label small {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .expert-grid {
+                grid-template-columns: 1fr;
+            }
+            .proof-stats {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 2rem 1rem;
+            }
+        }
+
         .reviews-section {
             padding: var(--space-2xl) var(--space-lg);
             background: linear-gradient(180deg, transparent 0%, rgba(13, 31, 60, 0.08) 50%, transparent 100%);
@@ -5016,6 +5145,10 @@
             grid-template-columns: 1fr auto 1fr;
             gap: 2rem;
             align-items: stretch;
+            max-width: 100%;
+            overflow-x: hidden;
+            padding: 0 1rem;
+            box-sizing: border-box;
         }
 
         .prophecy-panel {
@@ -5175,8 +5308,12 @@
         .verdict-text { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dim); margin-bottom: 0.5rem; }
         .verdict-highlight { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); color: var(--gold); letter-spacing: 0.05em; }
 
-        @media (max-width: 1000px) {
-            .prophecy-split { grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (max-width: 1100px) {
+            .prophecy-split {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+            }
             .prophecy-divider { flex-direction: row; gap: 1rem; padding: 1rem 0; }
             .divider-days { font-size: 2.5rem; }
             .divider-text { margin-top: 0; }
@@ -6170,9 +6307,17 @@
                 border-radius: 3px;
             }
 
-            /* Section scroll snapping */
-            html { scroll-snap-type: y proximity; }
-            section { scroll-snap-align: start; }
+            /* Section scroll snapping - MANDATORY for firm snapping */
+            html {
+                scroll-snap-type: y mandatory;
+                scroll-behavior: smooth;
+            }
+            .snap-section {
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
         }
 
     </style>
@@ -6330,7 +6475,7 @@
     <!-- Main Content -->
     <div class="content">
         <!-- Hero Section -->
-        <section class="hero" id="hero">
+        <section class="hero snap-section" id="hero">
             <!-- Mandelbrot Fractal Video Background - Precision Seamless Loop -->
             <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
                 <video class="mandelbrot-video" id="mandelbrot-video"
@@ -6493,7 +6638,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              THE EASTWOOD EQUATION SECTION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="equation-section" id="equation">
+        <section class="equation-section snap-section" id="equation">
             <div class="equation-container">
                 <p class="section-label reveal">The Mathematics of Creation</p>
 
@@ -6554,44 +6699,9 @@
         </section>
 
         <!-- ═══════════════════════════════════════════════════════════════════════
-             BBC VALIDATION SECTION
-             ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="bbc-section">
-            <div class="bbc-inner">
-                <div class="bbc-image-wrapper reveal">
-                    <span class="bbc-badge">REAL-WORLD VALIDATION</span>
-                    <img src="bbc-willow.jpg" alt="BBC News coverage of Google Willow quantum computer" class="bbc-image" loading="lazy">
-                </div>
-                <div class="bbc-content">
-                    <h3 class="reveal">Google's Willow Proves the Equation</h3>
-                    <p class="reveal reveal-delay-1">
-                        On <span class="highlight">7th January 2026</span>, BBC News reported that Google's Willow quantum chip achieved something remarkable:
-                        <span class="highlight">error rates decreased as more qubits were added</span>.
-                    </p>
-                    <blockquote class="bbc-quote reveal reveal-delay-2">
-                        "Recursion stabilises complexity. The Eastwood Equation predicted this would happen—and now we've seen it in quantum hardware."
-                    </blockquote>
-                    <p class="reveal reveal-delay-3">
-                        This is exactly what <strong>U = I × R²</strong> predicts: recursive error correction doesn't just manage complexity—it <em>amplifies</em> stability exponentially.
-                    </p>
-                    <div class="bbc-meta reveal reveal-delay-4">
-                        <span>
-                            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
-                            7 January 2026
-                        </span>
-                        <span>
-                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                            BBC News
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════════════════════════════════
              TIME-TRAVELER HERO: PREDICTION VS REALITY
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="prophecy-hero" id="prophecy">
+        <section class="prophecy-hero snap-section" id="prophecy">
             <div class="prophecy-bg">
                 <canvas id="equation-particles"></canvas>
             </div>
@@ -6633,11 +6743,14 @@
                             <video
                                 id="prophecy-video"
                                 class="prophecy-video"
-                                preload="metadata"
+                                preload="auto"
                                 playsinline
+                                poster="bbc-willow.jpg"
+                                muted
                             >
                                 <source src="videos/bbc-clip-4.webm" type="video/webm">
                                 <source src="videos/bbc-clip-4.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
                             </video>
 
                             <div class="prophecy-video-overlay" id="prophecy-overlay">
@@ -6669,9 +6782,9 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              THE EVIDENCE LOCKER
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="evidence-locker" id="evidence-locker">
+        <section class="evidence-locker snap-section" id="evidence-locker">
             <div class="evidence-locker-inner">
-                <p class="section-label reveal">THE RECEIPTS</p>
+                <p class="section-label reveal">VERIFICATION</p>
                 <h2 class="section-title reveal reveal-delay-1">Evidence Locker</h2>
                 <p class="evidence-intro reveal reveal-delay-2">
                     We don't ask for trust. We provide verification.
@@ -6770,6 +6883,58 @@
                             </svg>
                         </button>
                     </article>
+
+                    <!-- EVIDENCE 7: AI Race Acceleration -->
+                    <article class="evidence-card reveal">
+                        <div class="evidence-header">
+                            <span class="evidence-type">🤖 AI ACCELERATION</span>
+                            <span class="evidence-badge" style="background: linear-gradient(135deg, #f39c12, #e74c3c);">LATEST</span>
+                        </div>
+                        <h3 class="evidence-title">The Race Intensified</h3>
+                        <ul style="list-style: none; padding: 0; margin: 1rem 0; font-family: var(--font-mono); font-size: 0.8rem;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);"><strong style="color: var(--gold);">GPT-5</strong> — Released Dec 2025, 92.4% GPQA Diamond</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);"><strong style="color: var(--gold);">o3</strong> — 87.5% ARC-AGI (vs 85% human)</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);"><strong style="color: var(--gold);">Claude Opus 4.5</strong> — ASL-3 safety classification</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-dim);"><strong style="color: #ef5350;">OpenAI "Code Red"</strong> — Internal alert vs Google</li>
+                        </ul>
+                        <p class="evidence-note">The window is closing faster than predicted.</p>
+                    </article>
+
+                    <!-- EVIDENCE 8: Institutional Collapse -->
+                    <article class="evidence-card reveal">
+                        <div class="evidence-header">
+                            <span class="evidence-type">🏛️ INSTITUTIONAL COLLAPSE</span>
+                            <span class="evidence-badge" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">WARNING</span>
+                        </div>
+                        <h3 class="evidence-title">The Pioneers Gave Up</h3>
+                        <ul style="list-style: none; padding: 0; margin: 1rem 0; font-family: var(--font-mono); font-size: 0.8rem;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);"><strong style="color: #ef5350;">FHI Oxford</strong> — Closed April 2024 after 19 years</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-dim);"><strong style="color: #ef5350;">MIRI</strong> — Pivoted from technical to governance</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-dim);"><strong style="color: #ef5350;">Conclusion:</strong> "Extremely unlikely to succeed in time"</li>
+                        </ul>
+                        <p class="evidence-note">The book predicted this institutional paralysis.</p>
+                    </article>
+
+                    <!-- EVIDENCE 9: Multiverse Theory -->
+                    <article class="evidence-card reveal">
+                        <div class="evidence-header">
+                            <span class="evidence-type">🌌 PHYSICS VALIDATION</span>
+                            <span class="evidence-badge">GOOGLE QUANTUM</span>
+                        </div>
+                        <h3 class="evidence-title">Multiverse Confirmed?</h3>
+                        <blockquote style="font-family: var(--font-serif); font-style: italic; color: var(--text); font-size: 0.95rem; margin: 1rem 0; padding-left: 1rem; border-left: 2px solid var(--gold);">
+                            "It is very suggestive that we should take this idea serious... calculations that in parallel universes, other alter egos are doing the heavy lifting."
+                        </blockquote>
+                        <p class="evidence-note">— Hartmut Neven, Google Quantum AI Lab</p>
+                        <a href="https://www.bbc.co.uk/news/articles/cy9jr3vn3z7o" target="_blank" rel="noopener" class="evidence-link">
+                            <span class="link-text">BBC Coverage</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
+                    </article>
                 </div>
                 <div class="swipe-hint">SWIPE TO EXPLORE</div>
             </div>
@@ -6822,9 +6987,33 @@
                     </article>
 
                     <article class="idea-card reveal">
-                        <span class="idea-number">+32</span>
+                        <span class="idea-number">06</span>
+                        <h3 class="idea-title">Caretaker Doping</h3>
+                        <p class="idea-text">Embedding empathy at the substrate level. Not training an AI to simulate care—engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
+                    </article>
+
+                    <article class="idea-card reveal">
+                        <span class="idea-number">07</span>
+                        <h3 class="idea-title">Meltdown Alignment</h3>
+                        <p class="idea-text">System failures cascade toward safe states rather than catastrophe. Like a nuclear reactor designed to fail into shutdown, not explosion. When AI breaks, it should break harmlessly.</p>
+                    </article>
+
+                    <article class="idea-card reveal">
+                        <span class="idea-number">08</span>
+                        <h3 class="idea-title">Religious Integration</h3>
+                        <p class="idea-text">84% of humanity follows religious traditions. These are not obstacles to AI safety—they are alignment research conducted across millennia. The wisdom traditions encode what it means to raise children who become benevolent adults.</p>
+                    </article>
+
+                    <article class="idea-card reveal">
+                        <span class="idea-number">09</span>
+                        <h3 class="idea-title">Graduated Autonomy</h3>
+                        <p class="idea-text">You don't give a toddler car keys. AI systems should earn expanded privileges through demonstrated alignment—just as humans do. Freedom is granted, not assumed.</p>
+                    </article>
+
+                    <article class="idea-card reveal">
+                        <span class="idea-number">+28</span>
                         <h3 class="idea-title">And More...</h3>
-                        <p class="idea-text">Caretaker doping. Meltdown alignment. The recursive observer paradox. Graduated autonomy protocols. Religious integration. Thirty-seven concepts woven into one complete framework.</p>
+                        <p class="idea-text">The recursive observer paradox. Value crystallisation. Substrate independence. Consciousness emergence thresholds. Twenty-eight more concepts woven into one complete framework.</p>
                     </article>
                 </div>
                 <div class="swipe-hint">SWIPE TO EXPLORE</div>
@@ -6852,6 +7041,10 @@
                 <blockquote class="carousel-item">"The window is years, not decades. Act accordingly."</blockquote>
                 <blockquote class="carousel-item">"Google's Willow proved recursion stabilises physics. The Eastwood Equation predicted it would."</blockquote>
                 <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
+                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
+                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
+                <blockquote class="carousel-item">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
+                <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
                 <!-- Duplicate for seamless loop -->
                 <blockquote class="carousel-item">"U = I × R². The universe is not random. It is recursive."</blockquote>
                 <blockquote class="carousel-item">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</blockquote>
@@ -6861,6 +7054,10 @@
                 <blockquote class="carousel-item">"The window is years, not decades. Act accordingly."</blockquote>
                 <blockquote class="carousel-item">"Google's Willow proved recursion stabilises physics. The Eastwood Equation predicted it would."</blockquote>
                 <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
+                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
+                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
+                <blockquote class="carousel-item">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
+                <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
             </div>
         </section>
 
@@ -7384,7 +7581,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section">
+        <section class="cta-section snap-section">
             <!-- Video Portal Background (Phase 8) -->
             <div class="video-portal video-portal--blend" id="video-portal">
                 <video
@@ -7417,6 +7614,89 @@
                 <div class="guarantee-icon">✓</div>
                 <h4>The Architect's Guarantee</h4>
                 <p>If you read the first three chapters and don't feel your understanding of AI has fundamentally shifted, email for a full refund. No questions. No friction.</p>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             EXPERT VALIDATION SECTION - The Warnings Are Real
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="expert-validation snap-section" id="expert-validation">
+            <div class="expert-validation-inner">
+                <p class="section-label reveal">WHAT THE EXPERTS ARE SAYING</p>
+                <h2 class="section-title reveal reveal-delay-1">The Warnings Are Real</h2>
+
+                <div class="expert-grid">
+                    <!-- Geoffrey Hinton -->
+                    <div class="expert-card reveal reveal-delay-1">
+                        <div class="expert-header">
+                            <span class="expert-role">Nobel Laureate · AI Pioneer</span>
+                            <span class="expert-date">December 2024</span>
+                        </div>
+                        <blockquote class="expert-quote">
+                            "I am probably more worried than I was two years ago... AI's improved reasoning and deceiving capabilities concern me."
+                        </blockquote>
+                        <cite class="expert-name">— Geoffrey Hinton</cite>
+                        <span class="expert-stat">Estimates 10-20% probability of AI "taking over"</span>
+                    </div>
+
+                    <!-- Sam Altman -->
+                    <div class="expert-card reveal reveal-delay-2">
+                        <div class="expert-header">
+                            <span class="expert-role">CEO, OpenAI</span>
+                            <span class="expert-date">January 2025</span>
+                        </div>
+                        <blockquote class="expert-quote">
+                            "We are now confident we know how to build AGI as we have traditionally understood it."
+                        </blockquote>
+                        <cite class="expert-name">— Sam Altman</cite>
+                        <span class="expert-stat">OpenAI Blog Post</span>
+                    </div>
+
+                    <!-- Dario Amodei -->
+                    <div class="expert-card reveal reveal-delay-3">
+                        <div class="expert-header">
+                            <span class="expert-role">CEO, Anthropic</span>
+                            <span class="expert-date">2024</span>
+                        </div>
+                        <blockquote class="expert-quote">
+                            "AGI will likely arrive late 2026 or early 2027."
+                        </blockquote>
+                        <cite class="expert-name">— Dario Amodei</cite>
+                        <span class="expert-stat">>50% probability estimate</span>
+                    </div>
+
+                    <!-- Stuart Russell -->
+                    <div class="expert-card reveal reveal-delay-4">
+                        <div class="expert-header">
+                            <span class="expert-role">TIME100 AI 2025 · UC Berkeley</span>
+                            <span class="expert-date">2025</span>
+                        </div>
+                        <blockquote class="expert-quote">
+                            "AI CEOs themselves estimate 10-25% probability of catastrophic outcomes. This is the biggest technology project in human history."
+                        </blockquote>
+                        <cite class="expert-name">— Stuart Russell</cite>
+                        <span class="expert-stat">Founder, International Association for Safe AI</span>
+                    </div>
+                </div>
+
+                <div class="proof-stats reveal reveal-delay-5">
+                    <div class="stat-item">
+                        <span class="stat-number">78%</span>
+                        <span class="stat-label">AI alignment faking rate<small>Anthropic Research, Dec 2024</small></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">87.5%</span>
+                        <span class="stat-label">o3 on ARC-AGI benchmark<small>vs 85% human baseline</small></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">90%</span>
+                        <span class="stat-label">Advanced chips from ONE company<small>TSMC controls the chokepoint</small></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2026-27</span>
+                        <span class="stat-label">Industry AGI consensus<small>Years, not decades</small></span>
+                    </div>
+                </div>
             </div>
         </section>
 
