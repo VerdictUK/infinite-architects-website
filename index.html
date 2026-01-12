@@ -16664,6 +16664,173 @@ img {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   ADDITIONAL FIXES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* HIDE SLIDESHOW NAV COMPLETELY - Not needed, chapter nav replaces it */
+.slideshow-nav,
+#slideshowNav,
+.slideshow-dots,
+.slideshow-swipe-hint {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* FIX: Remove ALL max-height constraints that clip content */
+.ideas-grid,
+.evidence-grid,
+.predictions-grid,
+.reviews-grid,
+.validation-grid,
+.comparison-grid,
+.tripath-grid {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* FIX: Navigation menu iOS Safari 100vh bug */
+.nav-menu {
+    height: 100dvh !important;
+    height: -webkit-fill-available !important;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0)) !important;
+}
+
+/* FIX: Carousel gradient too wide on small phones */
+.carousel-section::before,
+.carousel-section::after {
+    width: clamp(40px, 15vw, 150px) !important;
+}
+
+/* FIX: Evidence locker mobile - horizontal scroll */
+@media (max-width: 768px) {
+    .evidence-locker .evidence-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 1rem !important;
+    }
+
+    .evidence-locker .evidence-card {
+        flex: 0 0 280px !important;
+        scroll-snap-align: center !important;
+    }
+}
+
+/* FIX: Hero book landscape constraint */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-book,
+    #hero-book-3d {
+        max-height: 50vh !important;
+        width: auto !important;
+    }
+
+    .hero-section {
+        min-height: auto !important;
+        padding: 1rem !important;
+    }
+}
+
+/* AUTHOR SECTION - Fix overlapping on mobile */
+.about-section .section-inner,
+.about-section .about-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem !important;
+    padding: 2rem 1rem !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.about-section .about-visual {
+    flex-shrink: 0;
+    max-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-section .author-photo-wrapper {
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.about-section .author-photo {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.about-section .tesseract-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.about-section .about-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.about-section .about-text p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 769px) {
+    .about-section .section-inner,
+    .about-section .about-inner {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 4rem !important;
+        text-align: left;
+    }
+
+    .about-section .about-visual {
+        flex: 0 0 300px;
+        max-height: none;
+    }
+
+    .about-section .about-text {
+        flex: 1;
+        text-align: left;
+    }
+
+    .about-section .about-text p {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section .about-visual {
+        max-height: 200px;
+    }
+
+    .about-section .author-photo-wrapper {
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .about-section .about-text p {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    END EMERGENCY VISUAL FIX BLOCK
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -22000,6 +22167,15 @@ img {
                 if (!this.initialized) await this.init();
                 if (this.playing) return;
 
+                // Resume audio context if suspended
+                if (window.Tone && window.Tone.context && window.Tone.context.state === 'suspended') {
+                    await window.Tone.context.resume();
+                }
+
+                // Restore synth volumes
+                if (this.synths.pad) this.synths.pad.volume.value = -20;
+                if (this.synths.shimmer) this.synths.shimmer.volume.value = -30;
+
                 this.playing = true;
 
                 const chords = [
@@ -22035,8 +22211,18 @@ img {
 
             stop() {
                 this.playing = false;
+                // Stop all synths properly
                 if (this.synths.pad) {
                     this.synths.pad.releaseAll();
+                    this.synths.pad.volume.value = -Infinity;
+                }
+                if (this.synths.shimmer) {
+                    this.synths.shimmer.releaseAll();
+                    this.synths.shimmer.volume.value = -Infinity;
+                }
+                // Suspend audio context to fully stop
+                if (window.Tone && window.Tone.context && window.Tone.context.state === 'running') {
+                    window.Tone.context.suspend();
                 }
             },
 
@@ -25187,8 +25373,18 @@ img {
             
             stop() {
                 this.playing = false;
+                // Stop all synths properly
                 if (this.synths.pad) {
                     this.synths.pad.releaseAll();
+                    this.synths.pad.volume.value = -Infinity;
+                }
+                if (this.synths.shimmer) {
+                    this.synths.shimmer.releaseAll();
+                    this.synths.shimmer.volume.value = -Infinity;
+                }
+                // Suspend audio context to fully stop
+                if (window.Tone && window.Tone.context && window.Tone.context.state === 'running') {
+                    window.Tone.context.suspend();
                 }
             },
             
