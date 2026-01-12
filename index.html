@@ -12279,28 +12279,27 @@
             .slideshow-nav {
                 display: flex;
                 position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                bottom: 12px;
+                left: 12px;
+                right: 12px;
+                width: calc(100% - 24px);
+                margin: 0 auto;
                 z-index: 9990;
-                background: linear-gradient(to top,
-                    rgba(2, 3, 10, 0.95) 0%,
-                    rgba(2, 3, 10, 0.85) 70%,
-                    rgba(2, 3, 10, 0) 100%);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                padding: 1rem 1.25rem calc(env(safe-area-inset-bottom, 0px) + 1rem);
+                background: rgba(2, 3, 10, 0.85);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                padding: 0.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
                 flex-direction: column;
                 align-items: center;
-                gap: 0.75rem;
+                gap: 0.5rem;
                 pointer-events: none;
                 opacity: 0;
                 transform: translateY(30px);
                 transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
                             transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                /* Subtle top border glow */
-                border-top: 1px solid rgba(212, 168, 75, 0.15);
-                box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+                border: 1px solid rgba(212, 168, 75, 0.25);
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
             }
 
             .slideshow-nav.active {
@@ -12312,22 +12311,22 @@
             /* Section title toast */
             .slideshow-section-title {
                 font-family: var(--font-display, 'Cinzel', serif);
-                font-size: 0.7rem;
-                letter-spacing: 0.15em;
+                font-size: 0.6rem;
+                letter-spacing: 0.2em;
                 text-transform: uppercase;
                 color: var(--gold-primary, #d4a84b);
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(5px);
                 transition: opacity 0.3s ease, transform 0.3s ease;
                 text-align: center;
-                max-width: 80%;
+                max-width: 90%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
             .slideshow-section-title.visible {
-                opacity: 1;
+                opacity: 0.8;
                 transform: translateY(0);
             }
 
@@ -12337,16 +12336,15 @@
                 align-items: center;
                 justify-content: space-between;
                 width: 100%;
-                max-width: 320px;
-                gap: 1rem;
+                gap: 0.75rem;
             }
 
             /* Section counter */
             .slideshow-counter {
                 font-family: var(--font-mono, 'Space Mono', monospace);
-                font-size: 0.75rem;
-                color: rgba(232, 212, 160, 0.6);
-                min-width: 50px;
+                font-size: 0.65rem;
+                color: rgba(232, 212, 160, 0.5);
+                min-width: 40px;
                 text-align: left;
             }
 
@@ -12358,41 +12356,36 @@
             /* Progress bar container */
             .slideshow-progress-container {
                 flex: 1;
-                height: 3px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 3px;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 2px;
                 overflow: hidden;
                 position: relative;
             }
 
             .slideshow-progress-bar {
                 height: 100%;
-                background: linear-gradient(90deg,
-                    var(--gold-dark, #8b6914) 0%,
-                    var(--gold-primary, #d4a84b) 50%,
-                    var(--gold-bright, #f4c856) 100%);
-                border-radius: 3px;
+                background: var(--gold-primary, #d4a84b);
+                border-radius: 2px;
                 width: 0%;
                 transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                box-shadow: 0 0 10px rgba(212, 168, 75, 0.5);
+                box-shadow: 0 0 8px rgba(212, 168, 75, 0.4);
             }
 
             /* Navigation arrows - Premium style */
             .slideshow-arrows {
                 display: flex;
-                gap: 0.5rem;
-                min-width: 90px;
+                gap: 0.4rem;
+                min-width: 75px;
                 justify-content: flex-end;
             }
 
             .slideshow-arrow {
-                width: 42px;
-                height: 42px;
+                width: 34px;
+                height: 34px;
                 border-radius: 50%;
-                background: linear-gradient(135deg,
-                    rgba(212, 168, 75, 0.15) 0%,
-                    rgba(212, 168, 75, 0.05) 100%);
-                border: 1px solid rgba(212, 168, 75, 0.4);
+                background: rgba(212, 168, 75, 0.08);
+                border: 1px solid rgba(212, 168, 75, 0.3);
                 color: var(--gold-primary, #d4a84b);
                 display: flex;
                 align-items: center;
@@ -12400,35 +12393,28 @@
                 cursor: pointer;
                 transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
                 -webkit-tap-highlight-color: transparent;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
             .slideshow-arrow:active {
                 transform: scale(0.9);
-                background: linear-gradient(135deg,
-                    rgba(212, 168, 75, 0.3) 0%,
-                    rgba(212, 168, 75, 0.15) 100%);
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
-                            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                background: rgba(212, 168, 75, 0.2);
             }
 
             .slideshow-arrow.disabled {
-                opacity: 0.25;
+                opacity: 0.15;
                 pointer-events: none;
-                transform: scale(0.95);
             }
 
             .slideshow-arrow svg {
-                width: 22px;
-                height: 22px;
+                width: 18px;
+                height: 18px;
                 fill: currentColor;
-                filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
             }
 
             /* Pulse animation for next arrow to draw attention */
             .slideshow-arrow#slideshowNext:not(.disabled) {
-                animation: arrowPulse 2s ease-in-out infinite;
+                border-color: rgba(212, 168, 75, 0.5);
+                box-shadow: 0 0 10px rgba(212, 168, 75, 0.1);
             }
 
             @keyframes arrowPulse {
