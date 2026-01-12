@@ -12963,18 +12963,91 @@
             html.slideshow-mode .ideas-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
-                grid-template-rows: repeat(5, 1fr) !important;
+                /* Show 6 items + view all button space */
+                grid-template-rows: repeat(3, 1fr) !important; 
                 gap: 0.4rem !important;
-                max-height: calc(100vh - 200px) !important;
-                max-height: calc(100dvh - 200px) !important;
+                max-height: calc(100dvh - 220px) !important;
                 overflow: hidden !important;
                 width: 100% !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            /* Hide items beyond the 6th one in slideshow mode to prevent cut-off */
+            html.slideshow-mode .ideas-grid .idea-card:nth-child(n+7) {
+                display: none !important;
             }
 
             html.slideshow-mode .idea-card {
                 padding: 0.5rem !important;
                 min-height: 0 !important;
                 height: auto !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            html.slideshow-mode .idea-title {
+                font-size: 0.7rem !important;
+                margin-bottom: 0.1rem !important;
+            }
+
+            html.slideshow-mode .idea-text {
+                display: none !important; /* Hide text in grid view for cleanliness */
+            }
+
+            html.slideshow-mode .idea-image {
+                height: 40px !important;
+                width: auto !important;
+                margin-bottom: 0.2rem !important;
+            }
+            
+            html.slideshow-mode .view-all-concepts-btn {
+                margin-top: 0 !important;
+                padding: 0.6rem 1.2rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            /* Hero adjustments */
+            html.slideshow-mode .hero-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                gap: 1rem;
+            }
+
+            html.slideshow-mode .hero-book-container {
+                transform: scale(0.8);
+                margin-bottom: -1rem;
+            }
+
+            /* CTA Section adjustments */
+            html.slideshow-mode .cta-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                gap: 1rem;
+            }
+            
+            html.slideshow-mode .cta-title {
+                font-size: 1.5rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            html.slideshow-mode .cta-subtitle {
+                margin-bottom: 1rem !important;
+            }
+
+            /* Hide footer in slideshow mode or make it a clean slide */
+            html.slideshow-mode footer {
+                height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                scroll-snap-align: start !important;
             }
 
             html.slideshow-mode .idea-card h3 {
@@ -12994,7 +13067,7 @@
             /* Evidence grid compact */
             html.slideshow-mode .evidence-grid {
                 display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important;
+                grid-template-columns: repeat(2, 1fr) !important;
                 grid-template-rows: repeat(3, 1fr) !important;
                 gap: 0.4rem !important;
                 max-height: calc(100vh - 220px) !important;
