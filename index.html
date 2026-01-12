@@ -7840,35 +7840,152 @@
            APPLE-GRADE SCROLL SNAPPING - Works on all devices
            ═══════════════════════════════════════════════════════════════════════ */
         html {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: y proximity; /* proximity allows flexibility for overflowing content */
             scroll-behavior: smooth;
-            scroll-padding-top: 40px; /* Account for fixed ticker (36px + buffer) */
+            scroll-padding-top: 100px; /* Account for ticker + nav */
         }
 
         body.has-ticker {
-            scroll-padding-top: 40px;
+            scroll-padding-top: 100px;
         }
 
         .snap-section {
             scroll-snap-align: start;
-            scroll-snap-stop: always;
+            scroll-snap-stop: normal; /* normal allows scrolling through if content overflows */
             min-height: 100vh;
             min-height: 100dvh;
-        /* DISABLED:             max-height: 100vh;  */
-        /* DISABLED:             max-height: 100dvh;  */
-        /* DISABLED:             height: 100vh;  */
-        /* DISABLED:             height: 100dvh;  */
-            /* overflow: hidden; - DISABLED */
-        /* DISABLED:             display: flex;  */
-        /* DISABLED:             flex-direction: column;  */
-        /* DISABLED:             justify-content: center;  */
-        /* DISABLED:             align-items: center;  */
-        /* DISABLED:             box-sizing: border-box;  */
+            /* Flexbox centering for content */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
             /* Ensure content isn't hidden behind ticker */
             padding-top: max(5rem, calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem));
             padding-bottom: 2rem;
             padding-left: 2rem;
             padding-right: 2rem;
+        }
+
+        /* Content wrapper - scale to fit viewport */
+        .snap-section > .section-inner,
+        .snap-section > .container,
+        .snap-section > [class*="-inner"],
+        .snap-section > [class*="-content"] {
+            width: 100%;
+            max-width: 1400px;
+            /* Use viewport-relative sizing */
+            max-height: calc(100vh - 10rem);
+            max-height: calc(100dvh - 10rem);
+            overflow-y: auto;
+            overflow-x: hidden;
+            /* Smooth internal scroll if needed */
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 168, 75, 0.3) transparent;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .snap-section > .section-inner::-webkit-scrollbar,
+        .snap-section > [class*="-inner"]::-webkit-scrollbar {
+            width: 4px;
+        }
+        .snap-section > .section-inner::-webkit-scrollbar-thumb,
+        .snap-section > [class*="-inner"]::-webkit-scrollbar-thumb {
+            background: rgba(212, 168, 75, 0.3);
+            border-radius: 2px;
+        }
+
+        /* Responsive content scaling */
+        @media (max-height: 800px) {
+            .snap-section {
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem);
+                padding-bottom: 1rem;
+            }
+            .section-title {
+                font-size: clamp(1.4rem, 4vw, 2.2rem) !important;
+            }
+            .section-label {
+                font-size: 0.65rem !important;
+                margin-bottom: 0.25rem !important;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .snap-section {
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px));
+                padding-bottom: 0.5rem;
+            }
+            .section-title {
+                font-size: clamp(1.2rem, 3.5vw, 1.8rem) !important;
+            }
+        }
+
+        /* Very short screens - ultra compact */
+        @media (max-height: 600px) {
+            .snap-section {
+                padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px)) 1rem 0.5rem;
+            }
+            .section-title {
+                font-size: clamp(1rem, 3vw, 1.5rem) !important;
+                margin-bottom: 0.5rem !important;
+            }
+            .ideas-grid, .evidence-grid, .predictions-grid {
+                gap: 0.5rem !important;
+            }
+            .idea-card, .evidence-card {
+                padding: 0.75rem !important;
+            }
+            .bbc-evidence-card {
+                padding: 1rem !important;
+            }
+            .bbc-evidence-card__video {
+                max-height: 25vh !important;
+            }
+        }
+
+        /* Grids - responsive scaling for all viewport sizes */
+        .ideas-grid,
+        .evidence-grid,
+        .predictions-grid {
+            max-height: calc(100vh - 14rem);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Cards - scale typography */
+        .idea-card,
+        .evidence-card {
+            min-height: 0;
+            flex-shrink: 1;
+        }
+
+        .idea-card .idea-title,
+        .evidence-card .evidence-title {
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+        }
+
+        .idea-card .idea-text,
+        .evidence-card .evidence-desc {
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* BBC Evidence cards - responsive */
+        .bbc-evidence-card {
+            max-height: calc(100vh - 16rem);
+        }
+
+        .bbc-evidence-card__video {
+            max-height: clamp(150px, 35vh, 350px);
+        }
+
+        .bbc-evidence-card__quote {
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
         }
 
         /* Force section content to fit within viewport */
