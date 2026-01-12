@@ -13152,106 +13152,160 @@
             }
 
             /* ══════════════════════════════════════════════════════════════════
-               OTHER SECTIONS - GENERAL FIXES
+               ALL 27 SECTIONS - PREMIUM MOBILE POSITIONING
                ══════════════════════════════════════════════════════════════════ */
 
-            /* CTA buttons */
-            html.slideshow-mode .cta-button,
-            html.slideshow-mode .buy-button,
-            html.slideshow-mode .hero-cta {
-                padding: 0.8rem 1.8rem !important;
-                font-size: 0.9rem !important;
-            }
-
-            /* About section */
-            html.slideshow-mode .about-content {
-                max-height: calc(100vh - 150px) !important;
-                overflow: hidden !important;
-            }
-
-            html.slideshow-mode .author-bio {
-                font-size: 0.85rem !important;
-                line-height: 1.5 !important;
-                display: -webkit-box !important;
-                -webkit-line-clamp: 5 !important;
-                -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
-            }
-
-            /* Reviews */
-            html.slideshow-mode .reviews-grid {
-                max-height: calc(100vh - 200px) !important;
-                overflow: hidden !important;
-            }
-
-            html.slideshow-mode .review-card {
-                padding: 0.75rem !important;
-            }
-
-            /* Quote carousel */
-            html.slideshow-mode .carousel-section {
-                justify-content: center !important;
-            }
-
-            /* Footer as slide */
-            html.slideshow-mode footer {
-                height: 100vh !important;
-                height: 100dvh !important;
+            /* UNIVERSAL CONTENT CENTERING */
+            html.slideshow-mode .snap-section .section-inner,
+            html.slideshow-mode .snap-section > div:first-child:not(.mobile-particles):not(canvas) {
+                width: 100% !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
-                scroll-snap-align: start !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 0 1rem !important;
             }
 
-            /* Ensure effects visible */
-            html.slideshow-mode .mobile-particles {
-                display: block !important;
-                opacity: 1 !important;
-                z-index: 0 !important;
+            /* SLIDE 6: QUOTE CAROUSEL */
+            html.slideshow-mode .carousel-section {
+                padding: 30px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important;
             }
+            html.slideshow-mode .quote-carousel { max-height: 55vh !important; overflow: hidden !important; }
+            html.slideshow-mode .quote-text { font-size: clamp(1rem, 4vw, 1.3rem) !important; line-height: 1.5 !important; }
 
-            /* Predictions/Timeline compact */
-            html.slideshow-mode .timeline-container,
-            html.slideshow-mode .predictions-grid {
-                max-height: calc(100vh - 220px) !important;
-                overflow: hidden !important;
-            }
+            /* SLIDE 7: BBC TIMELINE */
+            html.slideshow-mode .timeline-evidence-section,
+            html.slideshow-mode #bbc-timeline { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .bbc-evidence-card { max-height: calc(100vh - 160px) !important; }
+            html.slideshow-mode .bbc-evidence-card__video { max-height: 35vh !important; border-radius: 10px !important; }
+            html.slideshow-mode .bbc-evidence-card__description { font-size: 0.85rem !important; display: -webkit-box !important; -webkit-line-clamp: 3 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
 
-            /* Video sections compact */
-            html.slideshow-mode .bbc-evidence-card {
-                max-height: calc(100vh - 180px) !important;
-            }
+            /* SLIDE 8: ARCHITECTURE */
+            html.slideshow-mode .diagram-section,
+            html.slideshow-mode #architecture { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .architecture-diagram, html.slideshow-mode .diagram-image { max-height: 50vh !important; max-width: 95vw !important; object-fit: contain !important; }
 
-            html.slideshow-mode .bbc-evidence-card__video {
-                max-height: 40vh !important;
-            }
+            /* SLIDE 9: CHOKEPOINT */
+            html.slideshow-mode .chokepoint-section,
+            html.slideshow-mode #chokepoint { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .chokepoint-grid { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; max-height: 45vh !important; }
+            html.slideshow-mode .chokepoint-card { padding: 0.75rem !important; }
+            html.slideshow-mode .chokepoint-card h4 { font-size: 0.8rem !important; }
 
-            /* Newsletter/Press compact */
-            html.slideshow-mode .newsletter-form,
-            html.slideshow-mode .press-content {
-                max-height: calc(100vh - 220px) !important;
-            }
+            /* SLIDE 10: PREDICTIONS - HORIZONTAL SWIPE */
+            html.slideshow-mode .predictions-section,
+            html.slideshow-mode #predictions { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
+            html.slideshow-mode .predictions-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; max-height: calc(100vh - 180px) !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .prediction-card { flex: 0 0 80vw !important; min-width: 80vw !important; scroll-snap-align: center !important; padding: 1rem !important; }
 
-            /* Slide transition animation */
-            html.slideshow-mode .snap-section.slide-exit {
-                opacity: 0.5;
-                transform: scale(0.98);
-            }
+            /* SLIDE 11: FALSIFICATION */
+            html.slideshow-mode .falsification-section,
+            html.slideshow-mode #falsification { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .falsification-list { font-size: 0.9rem !important; line-height: 1.6 !important; text-align: left !important; }
 
-            html.slideshow-mode .snap-section.slide-enter {
-                animation: slideEnter 0.4s ease forwards;
-            }
+            /* SLIDE 12: HRIH */
+            html.slideshow-mode .hrih-section,
+            html.slideshow-mode #hrih { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .hrih-diagram { max-height: 35vh !important; max-width: 90vw !important; }
+            html.slideshow-mode .hrih-text { font-size: 0.9rem !important; display: -webkit-box !important; -webkit-line-clamp: 4 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
 
-            @keyframes slideEnter {
-                from {
-                    opacity: 0.7;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
+            /* SLIDE 13: RELIGION */
+            html.slideshow-mode .religion-section,
+            html.slideshow-mode #religion { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .religion-stat { font-size: clamp(2rem, 10vw, 3.5rem) !important; }
+
+            /* SLIDE 14: FUTURE BORN */
+            html.slideshow-mode .future-born-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+
+            /* SLIDE 15: WINDOW */
+            html.slideshow-mode .window-section,
+            html.slideshow-mode #window { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .window-visual { max-height: 40vh !important; }
+
+            /* SLIDE 16: ABOUT/AUTHOR */
+            html.slideshow-mode .about-section,
+            html.slideshow-mode #author { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .about-content { max-height: calc(100vh - 140px) !important; gap: 0.75rem !important; overflow: hidden !important; }
+            html.slideshow-mode .about-visual { display: flex !important; justify-content: center !important; gap: 1rem !important; }
+            html.slideshow-mode .author-photo { max-width: 100px !important; max-height: 100px !important; }
+            html.slideshow-mode .tesseract-container { max-height: 120px !important; max-width: 120px !important; }
+            html.slideshow-mode .author-bio { font-size: 0.85rem !important; line-height: 1.5 !important; display: -webkit-box !important; -webkit-line-clamp: 5 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+
+            /* SLIDE 17: COMPARISON */
+            html.slideshow-mode .comparison-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .comparison-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
+
+            /* SLIDE 18: STAKES */
+            html.slideshow-mode .stakes-section,
+            html.slideshow-mode #stakes { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .stakes-image-wrapper { max-height: 40vh !important; border-radius: 12px !important; overflow: hidden !important; }
+
+            /* SLIDE 19: EXPERT VALIDATION - HORIZONTAL SWIPE */
+            html.slideshow-mode .expert-validation,
+            html.slideshow-mode #expert-validation { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
+            html.slideshow-mode .expert-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode .expert-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .expert-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; }
+
+            /* SLIDE 20: PREDICTIONS VALIDATED - HORIZONTAL SWIPE */
+            html.slideshow-mode .predictions-validated,
+            html.slideshow-mode #predictions-validated { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
+            html.slideshow-mode .validated-grid, html.slideshow-mode .predictions-validated-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode .validated-card, html.slideshow-mode .validated-prediction-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; }
+
+            /* SLIDE 21: REVIEWS - HORIZONTAL SWIPE */
+            html.slideshow-mode .reviews-section,
+            html.slideshow-mode #reviews { padding: 25px 0 calc(85px + env(safe-area-inset-bottom, 0px)) 0 !important; }
+            html.slideshow-mode .reviews-grid { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 0.5rem 1rem !important; max-height: calc(100vh - 180px) !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+            html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .review-card { flex: 0 0 85vw !important; min-width: 85vw !important; scroll-snap-align: center !important; padding: 1.25rem !important; }
+            html.slideshow-mode .review-text { font-size: 0.9rem !important; line-height: 1.5 !important; }
+
+            /* SLIDE 22: PROPHECY */
+            html.slideshow-mode .prophecy-hero,
+            html.slideshow-mode #prophecy { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .prophecy-video { max-height: 40vh !important; border-radius: 12px !important; }
+
+            /* SLIDE 23: GET THE BOOK */
+            html.slideshow-mode .tripath-section,
+            html.slideshow-mode #get-the-book { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .tripath-options, html.slideshow-mode .buy-options { display: flex !important; flex-direction: column !important; gap: 0.75rem !important; width: 100% !important; max-width: 320px !important; }
+            html.slideshow-mode .tripath-option, html.slideshow-mode .buy-option { padding: 1rem !important; }
+
+            /* SLIDE 24: CTA */
+            html.slideshow-mode .cta-section { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .cta-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+            html.slideshow-mode .cta-button, html.slideshow-mode .buy-button { padding: 1rem 2.5rem !important; font-size: 1rem !important; }
+
+            /* SLIDE 25: PARADISE */
+            html.slideshow-mode .paradise-section,
+            html.slideshow-mode #paradise { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .paradise-quote { font-size: clamp(1rem, 4vw, 1.3rem) !important; font-style: italic !important; }
+
+            /* SLIDE 26: NEWSLETTER */
+            html.slideshow-mode .newsletter-section,
+            html.slideshow-mode #newsletter { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .newsletter-form { width: 100% !important; max-width: 320px !important; }
+            html.slideshow-mode .newsletter-input { padding: 0.875rem 1rem !important; }
+            html.slideshow-mode .newsletter-button { padding: 0.875rem 1.5rem !important; }
+
+            /* SLIDE 27: PRESS */
+            html.slideshow-mode .press-section,
+            html.slideshow-mode #press { padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+            html.slideshow-mode .press-logos { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
+
+            /* FOOTER */
+            html.slideshow-mode footer { height: 100vh !important; height: 100dvh !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; scroll-snap-align: start !important; padding: 25px 1rem calc(85px + env(safe-area-inset-bottom, 0px)) 1rem !important; }
+
+            /* EFFECTS */
+            html.slideshow-mode .mobile-particles { display: block !important; opacity: 1 !important; z-index: 0 !important; }
+
+            /* TRANSITIONS */
+            html.slideshow-mode .snap-section.slide-exit { opacity: 0.5; }
+            html.slideshow-mode .snap-section.slide-enter { animation: slideEnter 0.4s ease forwards; }
+            @keyframes slideEnter { from { opacity: 0.7; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         }
 
         /* Reduce motion preference */
