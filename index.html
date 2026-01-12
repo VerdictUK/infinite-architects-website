@@ -7261,13 +7261,14 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .author-photo-wrapper {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             margin: 0 auto 2rem;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 3px solid rgba(212, 168, 75, 0.3);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--gold-alpha-10);
+            border: 3px solid var(--gold);
+            transition: all 0.6s var(--ease-out-expo);
         }
 
         .author-photo-wrapper::before {
@@ -7275,8 +7276,8 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg,
-                rgba(212, 168, 75, 0.2) 0%,
-                transparent 50%);
+                rgba(212, 168, 75, 0.3) 0%,
+                transparent 60%);
             z-index: 1;
             pointer-events: none;
         }
@@ -7285,6 +7286,17 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: 50% 20%; /* Shift focus upward to show face */
+            transition: transform 1.2s var(--ease-out-expo);
+        }
+
+        .author-photo-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 60px var(--gold-alpha-20);
+        }
+
+        .author-photo-wrapper:hover .author-photo {
+            transform: scale(1.08);
         }
 
         .about-visual-choice {
