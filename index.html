@@ -1887,16 +1887,57 @@
             margin-bottom: 0.5rem;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 300px;
-            background: linear-gradient(to bottom, transparent, var(--void));
-            pointer-events: none;
-            z-index: 2;
+        /* HERO SPLIT LAYOUT - Phase 12 */
+        @media (min-width: 1025px) {
+            .hero.snap-section {
+                flex-direction: row !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: left !important;
+                padding: 0 10% !important;
+                gap: 6rem;
+            }
+
+            .hero-book-container {
+                flex: 1;
+                display: flex;
+                justify-content: flex-end;
+                margin-bottom: 0 !important;
+            }
+
+            .hero-content-right {
+                flex: 1.2;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-title {
+                display: none; /* De-duplicate brand: Book cover + Logo are enough */
+            }
+
+            .hero-badge {
+                align-self: flex-start;
+            }
+
+            .hero-status-pill {
+                margin-left: 0;
+                margin-right: auto;
+            }
+
+            .hero-subtitle {
+                max-width: 500px;
+                margin-left: 0;
+                font-size: 1.8rem;
+            }
+
+            .hero-author {
+                margin-left: 0;
+            }
+
+            .hero-cta {
+                align-self: flex-start;
+            }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -19963,19 +20004,22 @@ button.btn-secondary:hover {
                 </div>
                 <div class="book-shadow" id="book-shadow"></div>
             </div>
-            <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
-            <p class="hero-subtitle">A framework for raising AI with care — from someone who learned to care by losing everything</p>
-            <p class="hero-author">Michael Darius Eastwood</p>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta glass-living">
-                <span class="cta-icon-wrapper">
-                    <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- Book icon -->
-                        <path class="morph-path" d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-                        <path d="M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/>
-                    </svg>
-                </span>
-                READ WHAT I FOUND
-            </a>
+            
+            <div class="hero-content-right">
+                <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
+                <p class="hero-subtitle">A framework for raising AI with care — from someone who learned to care by losing everything</p>
+                <p class="hero-author">Michael Darius Eastwood</p>
+                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta glass-living">
+                    <span class="cta-icon-wrapper">
+                        <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- Book icon -->
+                            <path class="morph-path" d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                            <path d="M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/>
+                        </svg>
+                    </span>
+                    READ WHAT I FOUND
+                </a>
+            </div>
             <div class="scroll-indicator">
                 <span>The window is years, not decades</span>
                 <div class="scroll-line"></div>
