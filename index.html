@@ -23134,6 +23134,10 @@ button.btn-secondary:hover {
         const hudProgressBar = document.getElementById('hud-progress-bar');
         const sections = document.querySelectorAll('.snap-section');
         
+        // Load saved state
+        let savedProgress = parseInt(localStorage.getItem('ia_recursion_level')) || 0;
+        if (hudCurrent) hudCurrent.textContent = savedProgress.toString().padStart(2, '0');
+        
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -23144,13 +23148,20 @@ button.btn-secondary:hover {
                     const index = Array.from(sections).indexOf(entry.target);
                     const total = sections.length;
                     const progress = ((index + 1) / total) * 37;
-                    const displayVal = Math.round(progress).toString().padStart(2, '0');
+                    const currentLevel = Math.round(progress);
+                    const displayVal = currentLevel.toString().padStart(2, '0');
                     
                     if (hudCurrent) hudCurrent.textContent = displayVal;
                     if (hudProgressBar) hudProgressBar.style.height = `${(progress/37)*100}%`;
                     
+                    // Save progress
+                    if (currentLevel > savedProgress) {
+                        savedProgress = currentLevel;
+                        localStorage.setItem('ia_recursion_level', savedProgress);
+                    }
+                    
                     // Trigger Milestone checks
-                    checkMilestones(Math.round(progress));
+                    checkMilestones(currentLevel);
                 } else {
                     if (entry.boundingClientRect.top > 0) {
                         entry.target.classList.add('entering');
@@ -27125,7 +27136,7 @@ button.btn-secondary:hover {
                             </div>
                             <span class="concept-num">20</span>
                             <h4>Counterintuitive Importance Thesis</h4>
-                            <p>Humanity's role becomes MORE important as AI capability increases—we set foundational values at origin that compound forever.</p>
+                            <p>Humanity's role becomes MORE important as AI capability increases. We set foundational values at origin that compound forever.</p>
                         </div>
                         <div class="concept-item concept-item--with-image concept-item--featured">
                             <div class="concept-image-placeholder" data-concept="21">
