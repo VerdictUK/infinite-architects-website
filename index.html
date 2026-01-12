@@ -128,49 +128,215 @@
 
     <style>
         /* ═══════════════════════════════════════════════════════════════════════
-           CSS CUSTOM PROPERTIES - Design System
+           CSS CUSTOM PROPERTIES - Enhanced Design System v2.0
+           Expert UI/UX Implementation - 22 Agent Recommendations
            ═══════════════════════════════════════════════════════════════════════ */
         :root {
-            /* Colors - Cosmic Gold Theme */
-            --gold: #d4a84b;
-            --gold-bright: #f4c856;
-            --gold-pale: #e8d4a0;
-            --gold-dark: #a67c35;
-            --gold-glow: rgba(212, 168, 75, 0.35);
-            --gold-subtle: rgba(212, 168, 75, 0.08);
-            
-            /* Cosmic Background */
+            /* ═══════════════════════════════════════════════════════════════════
+               EXTENDED GOLD SCALE - 7 Shades from Deep to Luminous
+               ═══════════════════════════════════════════════════════════════════ */
+            --gold-100: #fef5e0;
+            --gold-200: #f4e4b8;
+            --gold-300: #f4c856;
+            --gold-400: #d4a84b;
+            --gold-500: #b8922d;
+            --gold-600: #a67c35;
+            --gold-700: #6b4d1a;
+
+            /* Semantic Gold Aliases */
+            --gold: var(--gold-400);
+            --gold-bright: var(--gold-300);
+            --gold-pale: var(--gold-200);
+            --gold-dark: var(--gold-600);
+            --gold-deep: var(--gold-700);
+            --gold-light: var(--gold-100);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               GOLD OPACITY SCALE - Systematic Alpha Values
+               ═══════════════════════════════════════════════════════════════════ */
+            --gold-alpha-5: rgba(212, 168, 75, 0.05);
+            --gold-alpha-8: rgba(212, 168, 75, 0.08);
+            --gold-alpha-10: rgba(212, 168, 75, 0.10);
+            --gold-alpha-15: rgba(212, 168, 75, 0.15);
+            --gold-alpha-20: rgba(212, 168, 75, 0.20);
+            --gold-alpha-30: rgba(212, 168, 75, 0.30);
+            --gold-alpha-40: rgba(212, 168, 75, 0.40);
+            --gold-alpha-50: rgba(212, 168, 75, 0.50);
+            --gold-alpha-60: rgba(212, 168, 75, 0.60);
+
+            /* Semantic Opacity Aliases */
+            --gold-glow: var(--gold-alpha-30);
+            --gold-subtle: var(--gold-alpha-8);
+            --gold-hover: var(--gold-alpha-20);
+            --gold-focus: var(--gold-alpha-40);
+            --gold-overlay: var(--gold-alpha-15);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               VOID/BACKGROUND SCALE - Cosmic Depth Layers
+               ═══════════════════════════════════════════════════════════════════ */
+            --void-deep: #010208;
             --void: #02030a;
             --void-mid: #04050c;
+            --void-surface: #0a0c14;
+            --void-elevated: #0f1118;
+            --void-light: #161820;
+
+            /* Nebula Accents */
             --nebula-blue: #0d1f3c;
             --nebula-purple: #1a1035;
             --nebula-teal: #0d2a2a;
             --nebula-magenta: rgba(138, 43, 96, 0.15);
-            
-            /* Text */
-            --text: #f0ebe3;
-            --text-dim: rgba(240, 235, 227, 0.72); /* WCAG AA compliant - increased from 0.55 */
+            --nebula-warm: rgba(255, 150, 100, 0.08);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               TEXT COLOUR HIERARCHY - WCAG Compliant
+               ═══════════════════════════════════════════════════════════════════ */
+            --text-base: #f0ebe3;
+            --text: var(--text-base);
+            --text-primary: var(--text-base);
+            --text-secondary: rgba(240, 235, 227, 0.85);
+            --text-dim: rgba(240, 235, 227, 0.72);
+            --text-tertiary: rgba(240, 235, 227, 0.55);
+            --text-muted: rgba(240, 235, 227, 0.35);
             --text-faint: rgba(240, 235, 227, 0.25);
-            
-            /* Typography */
+            --text-ghost: rgba(240, 235, 227, 0.15);
+            --text-inverse: var(--void-deep);
+            --text-accent: var(--gold);
+            --text-accent-bright: var(--gold-bright);
+            --text-accent-pale: var(--gold-pale);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               TYPOGRAPHY
+               ═══════════════════════════════════════════════════════════════════ */
             --font-display: 'Cinzel', serif;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-mono: 'Space Mono', 'SF Mono', Monaco, monospace;
-            
-            /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 2rem;
-            --space-xl: 4rem;
-            --space-2xl: 8rem;
-            
-            /* Transitions */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+            /* Type Scale (Fluid) */
+            --font-size-display: clamp(2.25rem, 5vw + 1rem, 4rem);
+            --font-size-h1: clamp(1.75rem, 4vw + 0.5rem, 3rem);
+            --font-size-h2: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
+            --font-size-h3: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
+            --font-size-h4: clamp(1.125rem, 1.5vw + 0.5rem, 1.375rem);
+            --font-size-body-lg: clamp(1.125rem, 1vw + 0.75rem, 1.25rem);
+            --font-size-body: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+            --font-size-body-sm: clamp(0.875rem, 0.25vw + 0.75rem, 0.9375rem);
+            --font-size-caption: clamp(0.75rem, 0.25vw + 0.625rem, 0.875rem);
+
+            /* Line Heights */
+            --line-height-display: 1.1;
+            --line-height-heading: 1.25;
+            --line-height-body: 1.65;
+            --line-height-relaxed: 1.8;
+            --line-height-tight: 1.2;
+
+            /* Letter Spacing */
+            --letter-spacing-tight: -0.02em;
+            --letter-spacing-normal: 0;
+            --letter-spacing-wide: 0.03em;
+            --letter-spacing-wider: 0.1em;
+            --letter-spacing-widest: 0.2em;
+            --letter-spacing-display: 0.15em;
+
+            /* ═══════════════════════════════════════════════════════════════════
+               SPACING SCALE - 4px Base Unit
+               ═══════════════════════════════════════════════════════════════════ */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            --space-32: 8rem;
+
+            /* Semantic Spacing Aliases */
+            --space-xs: var(--space-1);
+            --space-sm: var(--space-2);
+            --space-md: var(--space-4);
+            --space-lg: var(--space-8);
+            --space-xl: var(--space-16);
+            --space-2xl: var(--space-32);
+
+            /* Component-Specific Spacing */
+            --space-section-y: var(--space-24);
+            --space-section-x: var(--space-8);
+            --space-card-padding: var(--space-6);
+            --space-card-gap: var(--space-6);
+            --space-button-y: var(--space-3);
+            --space-button-x: var(--space-6);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               ANIMATION TIMING SYSTEM
+               ═══════════════════════════════════════════════════════════════════ */
+            /* Duration Scale */
+            --duration-instant: 50ms;
+            --duration-micro: 100ms;
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-moderate: 400ms;
+            --duration-slow: 500ms;
+            --duration-expressive: 800ms;
+            --duration-epic: 1200ms;
+            --duration-cinematic: 1800ms;
+
+            /* Easing Curves */
+            --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+            --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+            --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+            --ease-expressive-out: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-            
-            /* Z-index scale - consolidated */
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-snap: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-out-expo: var(--ease-expressive-out);
+            --ease-out-quint: var(--ease-smooth-out);
+            --ease-card-hover: cubic-bezier(0.23, 1, 0.32, 1);
+
+            /* Stagger Delays */
+            --stagger-unit: 60ms;
+            --stagger-fast-unit: 40ms;
+            --stagger-slow-unit: 120ms;
+
+            /* ═══════════════════════════════════════════════════════════════════
+               FOCUS STATES
+               ═══════════════════════════════════════════════════════════════════ */
+            --focus-ring-color: var(--gold-400);
+            --focus-ring-color-bright: var(--gold-300);
+            --focus-ring-glow: var(--gold-alpha-40);
+            --focus-ring-width: 3px;
+            --focus-ring-offset: 4px;
+
+            /* ═══════════════════════════════════════════════════════════════════
+               SHADOWS
+               ═══════════════════════════════════════════════════════════════════ */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.15);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.3);
+            --shadow-gold-sm: 0 2px 8px var(--gold-alpha-15);
+            --shadow-gold-md: 0 4px 20px var(--gold-alpha-30);
+            --shadow-gold-lg: 0 8px 32px var(--gold-alpha-40);
+            --glow-sm: 0 0 10px var(--gold-alpha-30), 0 0 20px var(--gold-alpha-15);
+            --glow-md: 0 0 20px var(--gold-alpha-40), 0 0 40px var(--gold-alpha-20);
+            --glow-lg: 0 0 30px var(--gold-alpha-50), 0 0 60px var(--gold-alpha-30);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               BORDERS
+               ═══════════════════════════════════════════════════════════════════ */
+            --border-subtle: var(--gold-alpha-8);
+            --border-default: var(--gold-alpha-15);
+            --border-strong: var(--gold-alpha-30);
+            --border-focus: var(--gold);
+
+            /* ═══════════════════════════════════════════════════════════════════
+               Z-INDEX SCALE
+               ═══════════════════════════════════════════════════════════════════ */
             --z-deep: -1;
             --z-base: 0;
             --z-canvas: 0;
@@ -190,11 +356,30 @@
             --z-ticker: 1000;
             --z-max: 9999;
 
-            /* Viewport spacing */
+            /* Viewport Spacing */
             --ticker-height: 40px;
             --nav-height: 60px;
             --section-safe-padding: calc(var(--ticker-height) + var(--nav-height) + 2rem);
             --section-content-max: calc(100vh - var(--ticker-height) - var(--nav-height) - 6rem);
+        }
+
+        /* Responsive Spacing Adjustments */
+        @media (max-width: 768px) {
+            :root {
+                --space-section-y: var(--space-16);
+                --space-section-x: var(--space-4);
+                --space-card-padding: var(--space-4);
+                --space-card-gap: var(--space-4);
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-section-y: var(--space-12);
+                --space-section-x: var(--space-3);
+                --space-card-padding: var(--space-3);
+                --space-card-gap: var(--space-3);
+            }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -2984,12 +3169,14 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           REVEAL ANIMATIONS
+           REVEAL ANIMATIONS - Mobile-First Approach
+           Content visible by default (mobile), animations only on desktop
            ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Mobile-first: Content visible by default */
         .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s var(--ease-out-expo);
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .reveal.active {
@@ -2997,19 +3184,25 @@
             transform: translateY(0);
         }
 
-        /* CRITICAL FIX: Force content visibility on mobile */
-        @media (max-width: 768px) {
+        /* Desktop: Enable reveal animations only on larger screens */
+        @media (min-width: 769px) {
             .reveal {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
+                opacity: 0;
+                transform: translateY(50px);
+                transition: all 1.2s var(--ease-out-expo);
             }
-        }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .reveal-delay-1 { transition-delay: 0.1s; }
+            .reveal-delay-2 { transition-delay: 0.2s; }
+            .reveal-delay-3 { transition-delay: 0.3s; }
+            .reveal-delay-4 { transition-delay: 0.4s; }
+            .reveal-delay-5 { transition-delay: 0.5s; }
+        }
 
         /* Ripple Effect Animation */
         @keyframes rippleEffect {
@@ -9274,14 +9467,23 @@
             }
         }
 
-        /* Grids - NO SCROLL - fit viewport */
+        /* Grids - Mobile-first: visible by default, constrained on desktop */
         .ideas-grid,
         .evidence-grid,
         .predictions-grid {
-            max-height: calc(100vh - 14rem);
-            overflow: hidden !important; /* NO SCROLL - precision snap */
-            overflow-y: hidden !important;
-            overflow-x: hidden !important;
+            /* Mobile: natural overflow, no constraints */
+            overflow: visible;
+            max-height: none;
+        }
+
+        /* Desktop: constrain grids for snap sections */
+        @media (min-width: 769px) {
+            .ideas-grid,
+            .evidence-grid,
+            .predictions-grid {
+                max-height: calc(100vh - 14rem);
+                overflow: hidden;
+            }
         }
 
         /* Cards - scale typography */
@@ -15374,6 +15576,364 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           TOUCH TARGET OPTIMIZATION - WCAG 2.1 AAA Compliance
+           Minimum 44x44px touch targets, 8px minimum spacing
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (pointer: coarse), (max-width: 768px) {
+            /* Navigation toggle - expand from 24px to 44px */
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+
+            /* Nav links - ensure minimum touch area */
+            .nav-links a {
+                position: relative;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            /* CTA buttons - enhanced touch targets */
+            .hero-cta,
+            .cta-button,
+            .nav-cta,
+            .mobile-cta-button {
+                min-height: 48px;
+                min-width: 48px;
+                padding: 14px 28px;
+            }
+
+            /* Close buttons - expand to 44px */
+            .exit-popup-close,
+            .concepts-modal-close,
+            .modal-close {
+                width: 44px;
+                height: 44px;
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            /* FAQ questions - comfortable tap targets */
+            .faq-question {
+                min-height: 56px;
+                padding: 16px 20px;
+            }
+
+            /* Glossary filter buttons */
+            .glossary-filter-btn {
+                min-height: 44px;
+                padding: 12px 16px;
+            }
+
+            .glossary-filter {
+                gap: 10px;
+            }
+
+            /* Footer social icons */
+            .footer-social a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 44px;
+                min-height: 44px;
+                padding: 10px;
+            }
+
+            /* Evidence links */
+            .evidence-link {
+                min-height: 44px;
+                padding: 12px 16px;
+                display: inline-flex;
+                align-items: center;
+            }
+
+            /* Cards - ensure adequate touch area */
+            .idea-card,
+            .evidence-card,
+            .expert-card,
+            .review-card {
+                min-height: 120px;
+                padding: 20px;
+            }
+        }
+
+        /* Prevent accidental double-taps on interactive elements */
+        a, button, [role="button"],
+        .idea-card, .evidence-card, .expert-card,
+        .faq-question, .glossary-filter-btn,
+        .nav-link, .nav-toggle, .retailer-link {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(212, 168, 75, 0.2);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           COMPREHENSIVE FOCUS STATE SYSTEM - WCAG 2.1 AA Compliant
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Global focus reset */
+        *:focus {
+            outline: none;
+        }
+
+        /* Keyboard-only focus (focus-visible) */
+        *:focus-visible {
+            outline: var(--focus-ring-width) solid var(--focus-ring-color);
+            outline-offset: var(--focus-ring-offset);
+            border-radius: 4px;
+            box-shadow:
+                0 0 0 calc(var(--focus-ring-width) + var(--focus-ring-offset) + 2px) var(--focus-ring-glow),
+                0 0 20px var(--focus-ring-glow);
+            transition: outline 0.15s ease-out, box-shadow 0.15s ease-out;
+        }
+
+        /* Links */
+        a:focus-visible {
+            border-radius: 4px;
+            text-decoration: underline;
+            text-decoration-color: var(--focus-ring-color);
+            text-underline-offset: 4px;
+        }
+
+        /* Buttons - extra emphasis */
+        button:focus-visible,
+        .cta-button:focus-visible,
+        .hero-cta:focus-visible,
+        .mobile-cta-button:focus-visible {
+            outline-color: var(--focus-ring-color-bright);
+            outline-offset: 6px;
+            border-radius: 8px;
+            box-shadow:
+                0 0 0 10px var(--focus-ring-glow),
+                0 0 30px var(--gold-alpha-50);
+        }
+
+        /* Cards */
+        .idea-card:focus-visible,
+        .evidence-card:focus-visible,
+        .chapter-card:focus-visible,
+        .faq-question:focus-visible {
+            border-radius: 12px;
+            box-shadow:
+                0 0 0 10px var(--focus-ring-glow),
+                0 0 40px var(--gold-alpha-20);
+        }
+
+        /* Modal close buttons */
+        .concepts-modal-close:focus-visible,
+        .modal-close:focus-visible,
+        .exit-popup-close:focus-visible {
+            outline-offset: 2px;
+            border-radius: 50%;
+            background: var(--gold-alpha-20);
+        }
+
+        /* Form inputs */
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible,
+        .newsletter-input:focus-visible {
+            outline-offset: 0;
+            border-color: var(--focus-ring-color) !important;
+            box-shadow:
+                0 0 0 4px var(--focus-ring-glow),
+                inset 0 0 10px var(--gold-alpha-10);
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100000;
+            background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+            color: var(--void-deep);
+            padding: 1rem 2rem;
+            border-radius: 0 0 12px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            box-shadow:
+                0 4px 20px var(--gold-alpha-50),
+                0 0 40px var(--gold-alpha-30);
+            transition: top 0.3s var(--ease-expressive-out);
+        }
+
+        .skip-link:focus,
+        .skip-link:focus-visible {
+            top: 0;
+            outline: none;
+        }
+
+        /* Focus within parent highlighting */
+        .nav-links:focus-within {
+            background: var(--gold-alpha-5);
+            border-radius: 8px;
+        }
+
+        .faq-item:focus-within {
+            border-color: var(--gold-alpha-50);
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            *:focus-visible {
+                outline-width: 4px !important;
+                box-shadow:
+                    0 0 0 6px #000,
+                    0 0 0 10px var(--focus-ring-color) !important;
+            }
+        }
+
+        /* Reduced motion for focus */
+        @media (prefers-reduced-motion: reduce) {
+            *:focus-visible {
+                transition: none !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           UNIFIED CARD HOVER SYSTEM - Premium Interaction Design
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Base card transition */
+        .idea-card,
+        .evidence-card,
+        .chapter-card,
+        .concept-card,
+        .prophecy-card,
+        .expert-card,
+        .review-card {
+            transform: translateY(0) scale(1);
+            transition:
+                transform var(--duration-slow) var(--ease-card-hover),
+                box-shadow var(--duration-slow) var(--ease-standard),
+                border-color var(--duration-moderate) var(--ease-standard);
+            will-change: transform, box-shadow;
+        }
+
+        /* Gold glow pseudo-element for all cards */
+        .idea-card::after,
+        .evidence-card::after,
+        .chapter-card::after,
+        .concept-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: radial-gradient(
+                ellipse 80% 50% at 50% 0%,
+                var(--gold-alpha-15) 0%,
+                var(--gold-alpha-5) 40%,
+                transparent 70%
+            );
+            opacity: 0;
+            transition: opacity var(--duration-slow) var(--ease-standard);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Hover states - ONLY on devices with hover capability */
+        @media (hover: hover) and (pointer: fine) {
+            .idea-card:hover,
+            .evidence-card:hover,
+            .chapter-card:hover,
+            .concept-card:hover,
+            .prophecy-card:hover,
+            .expert-card:hover,
+            .review-card:hover {
+                transform: translateY(-6px) scale(1.015);
+                box-shadow:
+                    0 4px 6px rgba(0, 0, 0, 0.12),
+                    0 12px 24px rgba(0, 0, 0, 0.15),
+                    0 24px 48px rgba(0, 0, 0, 0.12),
+                    0 0 60px var(--gold-alpha-8);
+                border-color: var(--gold-alpha-30);
+            }
+
+            /* Activate gold glow on hover */
+            .idea-card:hover::after,
+            .evidence-card:hover::after,
+            .chapter-card:hover::after,
+            .concept-card:hover::after {
+                opacity: 1;
+            }
+
+            /* Evidence cards: Gold + Green glow */
+            .evidence-card:hover {
+                border-color: rgba(0, 255, 136, 0.4);
+                box-shadow:
+                    0 4px 6px rgba(0, 0, 0, 0.12),
+                    0 12px 24px rgba(0, 0, 0, 0.15),
+                    0 0 40px rgba(0, 255, 136, 0.1),
+                    0 0 60px var(--gold-alpha-8);
+            }
+        }
+
+        /* Touch device fallback - active/pressed states */
+        @media (hover: none), (pointer: coarse) {
+            .idea-card,
+            .evidence-card,
+            .chapter-card,
+            .expert-card,
+            .review-card {
+                transition:
+                    transform 0.15s var(--ease-card-hover),
+                    box-shadow 0.15s ease-out,
+                    background-color 0.15s ease-out;
+            }
+
+            .idea-card:active,
+            .evidence-card:active,
+            .chapter-card:active,
+            .expert-card:active,
+            .review-card:active {
+                transform: scale(0.98) translateY(1px);
+                box-shadow: var(--shadow-sm);
+                background-color: var(--gold-alpha-8);
+            }
+
+            /* Hide glow on touch devices */
+            .idea-card::after,
+            .evidence-card::after,
+            .chapter-card::after,
+            .concept-card::after {
+                display: none;
+            }
+        }
+
+        /* Reduce motion for cards */
+        @media (prefers-reduced-motion: reduce) {
+            .idea-card,
+            .evidence-card,
+            .chapter-card,
+            .expert-card,
+            .review-card {
+                transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            }
+
+            .idea-card:hover,
+            .evidence-card:hover,
+            .chapter-card:hover,
+            .expert-card:hover,
+            .review-card:hover {
+                transform: none;
+            }
+        }
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -15395,7 +15955,7 @@
 </head>
 <body class="has-ticker">
     <!-- Skip Link for Accessibility -->
-    <a href="#ideas" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="reading-progress">
@@ -15841,7 +16401,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="content">
+    <main class="content" id="main-content" role="main">
         <!-- Hero Section -->
         <section class="hero snap-section" id="hero">
             <!-- Mandelbrot Fractal Video Background - Precision Seamless Loop -->
@@ -17829,7 +18389,7 @@
             </div>
             <p class="footer-copy">© 2026 Michael Darius Eastwood. All rights reserved.</p>
         </footer>
-    </div>
+    </main>
 
     <!-- ═══════════════════════════════════════════════════════════════════════
          JAVASCRIPT - All functionality
@@ -18854,6 +19414,12 @@
             const nav = document.getElementById('nav');
             const navToggle = document.getElementById('nav-toggle');
             const navMenu = document.getElementById('nav-menu');
+
+            // Guard clause - exit early if critical elements missing
+            if (!nav || !navToggle || !navMenu) {
+                console.warn('Navigation elements not found');
+                return;
+            }
 
             // Scroll behavior - throttled for performance
             let lastScroll = 0;
@@ -24376,6 +24942,107 @@
             init();
         }
 
+    })();
+    </script>
+
+    <!-- Focus Trap for Modal Accessibility -->
+    <script>
+    (function() {
+        'use strict';
+
+        // Focus Trap Class for modals
+        class FocusTrap {
+            constructor(element) {
+                this.element = element;
+                this.previouslyFocused = null;
+                this.focusableSelector = [
+                    'a[href]',
+                    'button:not([disabled])',
+                    'input:not([disabled])',
+                    'textarea:not([disabled])',
+                    'select:not([disabled])',
+                    '[tabindex]:not([tabindex="-1"])',
+                    '[contenteditable]'
+                ].join(', ');
+            }
+
+            getFocusableElements() {
+                return Array.from(this.element.querySelectorAll(this.focusableSelector))
+                    .filter(el => el.offsetWidth > 0 && el.offsetHeight > 0);
+            }
+
+            activate() {
+                this.previouslyFocused = document.activeElement;
+                document.body.classList.add('modal-open');
+
+                const focusable = this.getFocusableElements();
+                if (focusable.length > 0) {
+                    const closeBtn = this.element.querySelector('[class*="close"]') || focusable[0];
+                    setTimeout(() => closeBtn.focus(), 50);
+                }
+
+                this.handleKeyDown = this.handleKeyDown.bind(this);
+                this.element.addEventListener('keydown', this.handleKeyDown);
+            }
+
+            deactivate() {
+                document.body.classList.remove('modal-open');
+                this.element.removeEventListener('keydown', this.handleKeyDown);
+
+                if (this.previouslyFocused && typeof this.previouslyFocused.focus === 'function') {
+                    setTimeout(() => this.previouslyFocused.focus(), 50);
+                }
+            }
+
+            handleKeyDown(event) {
+                if (event.key !== 'Tab') return;
+
+                const focusable = this.getFocusableElements();
+                if (focusable.length === 0) return;
+
+                const firstFocusable = focusable[0];
+                const lastFocusable = focusable[focusable.length - 1];
+
+                if (event.shiftKey) {
+                    if (document.activeElement === firstFocusable) {
+                        event.preventDefault();
+                        lastFocusable.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusable) {
+                        event.preventDefault();
+                        firstFocusable.focus();
+                    }
+                }
+            }
+        }
+
+        // Initialize focus trap for modals
+        document.addEventListener('DOMContentLoaded', function() {
+            const conceptsModal = document.getElementById('concepts-modal-overlay') ||
+                                 document.getElementById('concepts-modal');
+
+            if (conceptsModal) {
+                const focusTrap = new FocusTrap(conceptsModal);
+
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.attributeName === 'class') {
+                            if (conceptsModal.classList.contains('active')) {
+                                focusTrap.activate();
+                            } else {
+                                focusTrap.deactivate();
+                            }
+                        }
+                    });
+                });
+
+                observer.observe(conceptsModal, { attributes: true });
+            }
+        });
+
+        // Make FocusTrap available globally
+        window.FocusTrap = FocusTrap;
     })();
     </script>
 
