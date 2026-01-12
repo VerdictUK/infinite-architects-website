@@ -1159,20 +1159,20 @@
 
         .ideas-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            /* grid-template-rows: removed */
-            gap: 2rem;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1rem;
             width: 100%;
             max-width: 1400px;
-            /* DISABLED: max-height: calc(100vh - 14rem);
-            /* DISABLED: max-height: calc(100dvh - 14rem);
-            /* DISABLED: overflow: hidden; */
+            max-height: calc(100vh - 14rem);
+            max-height: calc(100dvh - 14rem);
+            overflow: hidden;
         }
 
         .idea-card {
             background: rgba(212, 168, 75, 0.02);
             border: 1px solid rgba(212, 168, 75, 0.08);
-            padding: 2.5rem;
+            padding: 1rem 1.25rem;
             position: relative;
             overflow: hidden;
             transition: all 0.6s var(--ease-out-expo);
@@ -4458,91 +4458,17 @@
         }
 
         .hrih-section.snap-section {
-            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.5rem 0.5rem;
-            justify-content: flex-start !important;
+            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 2rem 1rem;
         }
 
         .hrih-section .hrih-content {
-        /* DISABLED:             max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 2rem); */
-        /* DISABLED:             overflow: hidden; */
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            max-height: calc(100vh - 12rem);
+            overflow: hidden;
         }
 
         .hrih-theory-card {
-            padding: 1rem 1.5rem;
-            max-height: none;
-        }
-
-        /* Compact HRIH title */
-        .hrih-section .hrih-title {
-            font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .hrih-section .section-label {
-            margin-bottom: 0.25rem;
-        }
-
-        /* Compact HRIH card content */
-        .hrih-section .hrih-card {
-            padding: 1rem 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hrih-section .hrih-acronym {
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hrih-section .hrih-text {
-            font-size: clamp(0.85rem, 1.3vw, 1rem);
-            margin-bottom: 0.5rem;
-        }
-
-        .hrih-section .hrih-subtext {
-            font-size: clamp(0.75rem, 1vw, 0.85rem);
-        }
-
-        /* Compact BBC evidence card inside HRIH */
-        .hrih-section .bbc-evidence-card {
-            margin: 0.5rem auto !important;
-            padding: 0.75rem;
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 1rem;
-            max-height: clamp(180px, 28vh, 280px);
-        }
-
-        .hrih-section .bbc-evidence-card__video-wrapper {
-            max-height: clamp(120px, 20vh, 200px);
-        }
-
-        .hrih-section .bbc-evidence-card__video {
-            max-height: clamp(120px, 20vh, 200px);
-            width: 100%;
-            object-fit: contain;
-        }
-
-        .hrih-section .bbc-evidence-card__quote {
-            font-size: clamp(0.75rem, 1vw, 0.9rem);
-            line-height: 1.4;
-        }
-
-        .hrih-section .bbc-evidence-card__book-quote {
-            font-size: clamp(0.7rem, 0.9vw, 0.8rem);
-        }
-
-        .hrih-section .bbc-evidence-card__badge {
-            font-size: 0.65rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .hrih-section .bbc-evidence-card__attribution {
-            font-size: 0.7rem;
-            margin: 0.25rem 0;
+            padding: 1.5rem 2rem;
+            max-height: 50vh;
         }
 
         .hrih-visual-wrapper {
@@ -6168,8 +6094,8 @@
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
-        /* DISABLED:             max-height: calc(100vh - 12rem); */
-        /* DISABLED:             overflow: hidden; */
+            max-height: calc(100vh - 12rem);
+            overflow: hidden;
         }
 
         /* Constrain BBC video heights for viewport fit */
@@ -6245,8 +6171,8 @@
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
-        /* DISABLED:             max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 3rem); */
-        /* DISABLED:             overflow: hidden; */
+            max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 3rem);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
@@ -7846,16 +7772,16 @@
             scroll-snap-stop: always;
             min-height: 100vh;
             min-height: 100dvh;
-        /* DISABLED:             max-height: 100vh;  */
-        /* DISABLED:             max-height: 100dvh;  */
-        /* DISABLED:             height: 100vh;  */
-        /* DISABLED:             height: 100dvh;  */
-            /* overflow: hidden; - DISABLED */
-        /* DISABLED:             display: flex;  */
-        /* DISABLED:             flex-direction: column;  */
-        /* DISABLED:             justify-content: center;  */
-        /* DISABLED:             align-items: center;  */
-        /* DISABLED:             box-sizing: border-box;  */
+            max-height: 100vh;
+            max-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
             /* Ensure content isn't hidden behind ticker */
             padding-top: max(5rem, calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem));
             padding-bottom: 2rem;
@@ -7864,22 +7790,22 @@
         }
 
         /* Force section content to fit within viewport */
-        /* DISABLED NUCLEAR:         .snap-section > *:not(.neural-canvas):not(.particle-canvas):not(canvas) { */
-        /* DISABLED NUCLEAR:             max-height: calc(100vh - 10rem); */
-        /* DISABLED NUCLEAR:             max-height: calc(100dvh - 10rem); */
-        /* DISABLED NUCLEAR:             width: 100%; */
-        /* DISABLED NUCLEAR:             overflow: hidden; */
-        /* DISABLED NUCLEAR:         } */
+        .snap-section > *:not(.neural-canvas):not(.particle-canvas):not(canvas) {
+            max-height: calc(100vh - 10rem);
+            max-height: calc(100dvh - 10rem);
+            width: 100%;
+            overflow: hidden;
+        }
 
-        /* DISABLED NUCLEAR:         .snap-section .section-inner, */
-        /* DISABLED NUCLEAR:         .snap-section .container, */
-        /* DISABLED NUCLEAR:         .snap-section > div:first-child:not(canvas) { */
-        /* DISABLED NUCLEAR:             max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem); */
-        /* DISABLED NUCLEAR:             max-height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem); */
-        /* DISABLED NUCLEAR:             overflow: hidden; */
-        /* DISABLED NUCLEAR:             display: flex; */
-        /* DISABLED NUCLEAR:             flex-direction: column; */
-        /* DISABLED NUCLEAR:             justify-content: center; */
+        .snap-section .section-inner,
+        .snap-section .container,
+        .snap-section > div:first-child:not(canvas) {
+            max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem);
+            max-height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* Compact section typography */
