@@ -173,6 +173,82 @@
             border-radius: 3px;
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           APPLE-GRADE FOCUS STATES & ACCESSIBILITY
+           ═══════════════════════════════════════════════════════════════════════ */
+        :focus {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        /* Skip link for screen readers */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--gold);
+            color: var(--void);
+            padding: 8px 16px;
+            z-index: 10000;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* GPU-accelerated animations for performance */
+        .reveal,
+        .hero-cta,
+        .cta-button,
+        .idea-card,
+        .nav-logo,
+        .carousel-item {
+            will-change: transform, opacity;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal,
+            .hero-cta,
+            .cta-button,
+            .idea-card {
+                will-change: auto;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --gold: #ffcc00;
+                --text: #ffffff;
+                --text-dim: rgba(255, 255, 255, 0.8);
+            }
+        }
+
         body {
             font-family: var(--font-serif);
             font-size: 16px;
@@ -221,6 +297,8 @@
             font: inherit;
             cursor: pointer;
             border: none;
+            min-height: 44px; /* Apple touch target minimum */
+            touch-action: manipulation;
             background: none;
         }
 
@@ -270,6 +348,15 @@
             background-clip: text;
             margin-bottom: 0.6rem;
             animation: loaderGlow 3s ease-in-out infinite;
+            /* Prevent word-breaking mid-word */
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+
+        /* Prevent INFINITE/ARCHITECTS from splitting mid-word */
+        .brand-word {
+            white-space: nowrap;
+            display: inline-block;
         }
 
         @keyframes loaderGlow {
@@ -296,7 +383,7 @@
 
         .loader-status {
             font-family: var(--font-mono);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: rgba(212, 168, 75, 0.45);
@@ -340,7 +427,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: var(--font-display);
-            font-size: 0.45rem;
+            font-size: 0.85rem;
             letter-spacing: 0.35em;
             color: var(--text-faint);
             animation: pulse 2s ease-in-out infinite;
@@ -456,10 +543,12 @@
 
         .nav-logo {
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 0.3em;
             color: var(--gold);
             transition: opacity 0.3s ease;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .nav-logo:hover {
@@ -474,7 +563,7 @@
 
         .nav-links a {
             font-family: var(--font-display);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.15em;
             color: var(--text-dim);
             transition: color 0.3s ease;
@@ -505,7 +594,7 @@
             border: 1px solid var(--gold);
             color: var(--gold);
             font-family: var(--font-display);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             transition: all 0.4s ease;
@@ -747,7 +836,7 @@
 
         .hero-badge {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.3em;
             color: var(--gold);
             padding: 0.5rem 1.2rem;
@@ -771,6 +860,9 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            /* Prevent word-breaking mid-word */
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .hero-subtitle {
@@ -805,7 +897,7 @@
             border: 1px solid var(--gold);
             color: var(--gold);
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             position: relative;
@@ -858,7 +950,7 @@
 
         .scroll-indicator span {
             font-family: var(--font-display);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             letter-spacing: 0.5em;
             text-transform: uppercase;
             color: var(--gold-pale);
@@ -956,11 +1048,11 @@
 
         .section-label {
             font-family: var(--font-display);
-            font-size: 0.6rem;
-            letter-spacing: 0.5em;
+            font-size: clamp(0.8rem, 1.4vw, 0.95rem);
+            letter-spacing: 0.4em;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .section-title {
@@ -1053,19 +1145,19 @@
 
         .idea-title {
             font-family: var(--font-display);
-            font-size: 1.15rem;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
             font-weight: 500;
             letter-spacing: 0.1em;
             color: var(--gold);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             position: relative;
             z-index: 1;
         }
 
         .idea-text {
-            font-size: 0.95rem;
+            font-size: clamp(0.88rem, 1.5vw, 1rem);
             color: var(--text-dim);
-            line-height: 1.9;
+            line-height: 1.8;
             position: relative;
             z-index: 1;
         }
@@ -1278,7 +1370,7 @@
 
         .retailer-link {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.15em;
             color: var(--text-faint);
             transition: color 0.3s ease;
@@ -1364,7 +1456,7 @@
 
         .expert-role {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: #ef5350;
             text-transform: uppercase;
@@ -1372,7 +1464,7 @@
 
         .expert-date {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             color: var(--text-faint);
         }
 
@@ -1395,7 +1487,7 @@
 
         .expert-stat {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
         }
 
@@ -1583,7 +1675,7 @@
             background: rgba(212, 168, 75, 0.15);
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--gold-bright);
         }
 
@@ -1742,7 +1834,7 @@
 
         .review-author-title {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             color: var(--text-faint);
             letter-spacing: 0.1em;
         }
@@ -1752,7 +1844,7 @@
             align-items: centre;
             gap: 0.3rem;
             font-family: var(--font-mono);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             color: rgba(76, 175, 80, 0.8);
             margin-top: 0.5rem;
         }
@@ -1829,7 +1921,7 @@
             border: 1px solid var(--gold);
             color: var(--gold);
             font-family: var(--font-display);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             cursor: pointer;
@@ -1859,7 +1951,7 @@
         .newsletter-privacy {
             margin-top: 1rem;
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             color: var(--text-faint);
             letter-spacing: 0.1em;
         }
@@ -1978,7 +2070,7 @@
             border: none;
             color: var(--void);
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             cursor: pointer;
@@ -1995,7 +2087,7 @@
             display: block;
             margin-top: 1rem;
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             color: var(--text-faint);
             background: none;
             border: none;
@@ -2064,7 +2156,7 @@
             border: none;
             color: var(--void);
             font-family: var(--font-display);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
@@ -2081,7 +2173,7 @@
             border: 1px solid rgba(212, 168, 75, 0.3);
             color: var(--text-dim);
             font-family: var(--font-display);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
@@ -2138,14 +2230,15 @@
 
         .mobile-cta-text {
             font-family: var(--font-display);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: var(--gold-pale);
+            word-break: keep-all;
         }
 
         .mobile-cta-price {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
         }
 
@@ -2155,7 +2248,7 @@
             border: none;
             color: var(--void);
             font-family: var(--font-display);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             text-decoration: none;
@@ -2288,7 +2381,7 @@
             }
 
             .hero-author {
-                font-size: 0.7rem;
+                font-size: 0.85rem;
             }
 
             .scroll-indicator {
@@ -2596,7 +2689,7 @@
 
             .motion-enable-text {
                 font-family: var(--font-mono);
-                font-size: 0.6rem;
+                font-size: 0.8rem;
                 letter-spacing: 0.1em;
                 text-transform: uppercase;
                 color: var(--gold);
@@ -2633,7 +2726,7 @@
                 top: 70px;
                 right: 15px;
                 font-family: var(--font-mono);
-                font-size: 0.5rem;
+                font-size: 0.75rem;
                 letter-spacing: 0.1em;
                 color: var(--gold);
                 opacity: 0;
@@ -2664,18 +2757,18 @@
 
         @media (max-width: 480px) {
             .hero-badge {
-                font-size: 0.5rem;
+                font-size: 0.75rem;
                 padding: 0.4rem 0.8rem;
             }
 
             .hero-cta {
                 padding: 1rem 1.8rem;
-                font-size: 0.6rem;
+                font-size: 0.8rem;
             }
 
             .cta-button {
                 padding: 1rem 2rem;
-                font-size: 0.65rem;
+                font-size: 0.85rem;
             }
 
             .carousel-item {
@@ -2848,7 +2941,7 @@
         }
 
         .eq-power {
-            font-size: 0.45em;
+            font-size: 0.5em;
             vertical-align: super;
             color: var(--gold-bright);
             text-shadow: 0 0 20px rgba(244, 200, 86, 0.5);
@@ -2857,7 +2950,7 @@
 
         .eq-equals, .eq-times {
             color: rgba(212, 168, 75, 0.4);
-            font-size: 0.6em;
+            font-size: 0.65em;
             font-style: normal;
         }
 
@@ -2973,7 +3066,7 @@
 
         .proof-label {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: var(--text-dim);
             text-transform: uppercase;
@@ -3038,7 +3131,7 @@
         .marker-label {
             display: block;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: var(--text-dim);
             white-space: nowrap;
@@ -3226,7 +3319,7 @@
         .leadmag-badge {
             display: inline-block;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.15em;
             color: var(--gold);
             background: rgba(212, 168, 75, 0.1);
@@ -3338,7 +3431,7 @@
             }
 
             .countdown-marker .marker-label {
-                font-size: 0.55rem;
+                font-size: 0.75rem;
             }
 
             .window-stats {
@@ -3453,7 +3546,7 @@
             border: 1px solid rgba(212, 168, 75, 0.2);
             padding: 0.5rem 0.8rem;
             font-family: var(--font-mono);
-            font-size: 0.5rem;
+            font-size: 0.75rem;
             color: var(--gold);
             white-space: nowrap;
             opacity: 0;
@@ -3582,7 +3675,7 @@
             left: 30%;
             right: 20px;
             font-family: var(--font-serif);
-            font-size: 0.4rem;
+            font-size: 0.75rem;
             color: #333;
             line-height: 1.6;
             opacity: 0.7;
@@ -3806,7 +3899,7 @@
             position: absolute;
             right: 20px;
             font-family: var(--font-mono);
-            font-size: 0.5rem;
+            font-size: 0.75rem;
             letter-spacing: 0.1em;
             color: var(--gold);
             opacity: 0;
@@ -3995,7 +4088,7 @@
             color: var(--void-deep);
             padding: 0.4rem 0.8rem;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             border-radius: 3px;
@@ -4082,6 +4175,14 @@
             object-fit: cover;
             border-radius: 8px 8px 0 0;
             margin: -1.5rem -1.5rem 1rem -1.5rem;
+        }
+
+        /* Special styling for the equation image */
+        .idea-image--equation {
+            height: 180px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
             width: calc(100% + 3rem);
         }
 
@@ -4373,7 +4474,7 @@
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             margin-bottom: 1rem;
         }
@@ -4512,7 +4613,7 @@
             color: var(--void-deep);
             padding: 0.5rem 1.5rem;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             border-radius: 20px;
@@ -4581,7 +4682,7 @@
 
         .leadmag-trust {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
         }
 
@@ -5354,68 +5455,125 @@
             margin-bottom: 3rem;
         }
 
+        /* PROPHECY SPLIT - Video left, Quote right */
         .prophecy-split {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 2rem;
-            align-items: stretch;
-            max-width: 100%;
-            overflow-x: hidden;
-            padding: 0 1rem;
-            box-sizing: border-box;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .prophecy-panel {
-            background: rgba(4, 5, 15, 0.8);
-            border-radius: 16px;
-            padding: 2.5rem;
-            border: 1px solid rgba(212, 168, 75, 0.2);
-            backdrop-filter: blur(20px);
+        .prophecy-video-side {
+            position: relative;
+        }
+
+        .prophecy-quote-side {
             display: flex;
             flex-direction: column;
+            gap: 2rem;
         }
 
-        .prophecy-panel--book {
+        /* The dramatic connector between sides */
+        .prophecy-split::before {
+            content: '5 DAYS';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            background: var(--void-deep);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            z-index: 10;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 900px) {
+            .prophecy-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .prophecy-split::before {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                text-align: center;
+                display: block;
+                margin: 1rem auto;
+            }
+        }
+
+        .prophecy-card {
+            background: rgba(4, 5, 15, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(212, 168, 75, 0.15);
+            backdrop-filter: blur(40px);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .prophecy-card:hover {
+            transform: translateY(-4px);
             border-color: rgba(212, 168, 75, 0.3);
-            box-shadow: 0 0 60px rgba(212, 168, 75, 0.1), inset 0 1px 0 rgba(212, 168, 75, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(212, 168, 75, 0.1);
         }
 
-        .prophecy-panel--bbc {
-            border-color: rgba(187, 28, 28, 0.3);
-            box-shadow: 0 0 60px rgba(187, 28, 28, 0.1), inset 0 1px 0 rgba(187, 28, 28, 0.1);
+        .prophecy-card--bbc {
+            border-color: rgba(187, 28, 28, 0.2);
         }
 
-        .prophecy-timestamp {
-            display: flex;
+        .prophecy-card--bbc:hover {
+            border-color: rgba(187, 28, 28, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(187, 28, 28, 0.1);
+        }
+
+        /* Timestamp badge */
+        .prophecy-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 100px;
+            padding: 0.5rem 1rem;
             margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(212, 168, 75, 0.2);
         }
 
-        .prophecy-timestamp--bbc {
-            border-bottom-color: rgba(187, 28, 28, 0.3);
+        .prophecy-badge-icon {
+            font-size: 1rem;
         }
 
-        .timestamp-icon { font-size: 1.2rem; }
-
-        .timestamp-date {
+        .prophecy-badge-text {
             font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             letter-spacing: 0.15em;
             color: var(--gold);
+            font-weight: 500;
         }
 
-        .prophecy-timestamp--bbc .timestamp-date { color: #ef5350; }
+        .prophecy-badge--bbc {
+            background: rgba(187, 28, 28, 0.1);
+            border-color: rgba(187, 28, 28, 0.2);
+        }
+
+        .prophecy-badge--bbc .prophecy-badge-text {
+            color: #ef5350;
+        }
 
         .prophecy-quote {
             font-family: var(--font-serif);
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             font-style: italic;
             color: var(--text-primary);
-            line-height: 1.7;
-            flex: 1;
+            line-height: 1.8;
             margin-bottom: 1.5rem;
         }
 
@@ -5425,53 +5583,69 @@
             font-weight: 500;
         }
 
-        .prophecy-quote--bbc em { color: #ef5350; }
+        .prophecy-quote--bbc em {
+            color: #ef5350;
+        }
 
         .prophecy-source {
             font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
         }
 
-        .source-detail {
+        .prophecy-source-detail {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: var(--text-faint);
             margin-top: 0.25rem;
         }
 
-        .prophecy-divider {
+        /* The dramatic "THEN" connector */
+        .prophecy-connector {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 0 1rem;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 2;
         }
 
-        .divider-days {
+        .prophecy-connector-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.15) 0%, rgba(187, 28, 28, 0.15) 100%);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 100px;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .connector-number {
             font-family: var(--font-display);
-            font-size: 4rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             color: var(--gold);
             line-height: 1;
-            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+            text-shadow: 0 0 20px rgba(212, 168, 75, 0.4);
         }
 
-        .divider-text {
+        .connector-text {
             font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
-            color: var(--text-dim);
-            text-align: center;
-            margin-top: 0.5rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
         }
 
+        /* Video card special styling */
         .prophecy-video-wrapper {
             position: relative;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 1.5rem;
             aspect-ratio: 16 / 9;
             background: #000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
         .prophecy-video {
@@ -5483,59 +5657,313 @@
         .prophecy-video-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.3) 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .prophecy-video-overlay:hover { background: rgba(0, 0, 0, 0.2); }
-        .prophecy-video-overlay.hidden { opacity: 0; pointer-events: none; }
+        .prophecy-video-overlay:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .prophecy-video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
 
         .prophecy-play-btn {
-            width: 60px;
-            height: 60px;
-            background: rgba(187, 28, 28, 0.9);
+            width: 72px;
+            height: 72px;
+            background: rgba(187, 28, 28, 0.95);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(187, 28, 28, 0.4);
         }
 
-        .prophecy-play-btn svg { width: 24px; height: 24px; margin-left: 3px; }
-        .prophecy-video-overlay:hover .prophecy-play-btn { transform: scale(1.1); background: #d32f2f; }
+        .prophecy-play-btn svg {
+            width: 28px;
+            height: 28px;
+            margin-left: 4px;
+        }
+
+        .prophecy-video-overlay:hover .prophecy-play-btn {
+            transform: scale(1.1);
+            background: #d32f2f;
+            box-shadow: 0 8px 32px rgba(187, 28, 28, 0.5);
+        }
 
         .prophecy-video-caption {
             font-family: 'JetBrains Mono', var(--font-mono);
             font-size: 0.75rem;
             color: white;
-            margin-top: 1rem;
-            opacity: 0.8;
+            margin-top: 1.25rem;
+            opacity: 0.9;
+            letter-spacing: 0.05em;
         }
 
-        .prophecy-verdict { text-align: center; margin-top: 4rem; }
-        .verdict-text { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dim); margin-bottom: 0.5rem; }
-        .verdict-highlight { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); color: var(--gold); letter-spacing: 0.05em; }
+        /* Verdict at bottom */
+        .prophecy-verdict {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            position: relative;
+        }
 
-        @media (max-width: 1100px) {
-            .prophecy-split {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 0 0.5rem;
+        .prophecy-verdict::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .verdict-text {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+        }
+
+        .verdict-highlight {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--gold);
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .prophecy-timeline::before {
+                left: 20px;
             }
-            .prophecy-divider { flex-direction: row; gap: 1rem; padding: 1rem 0; }
-            .divider-days { font-size: 2.5rem; }
-            .divider-text { margin-top: 0; }
+
+            .prophecy-card {
+                padding: 1.75rem;
+            }
+
+            .prophecy-connector-badge {
+                padding: 0.75rem 1.5rem;
+            }
+
+            .connector-number {
+                font-size: 2rem;
+            }
         }
 
-        @media (max-width: 600px) {
-            .prophecy-panel { padding: 1.5rem; }
-            .prophecy-quote { font-size: 1.1rem; }
+        @media (max-width: 480px) {
+            .prophecy-card {
+                padding: 1.25rem;
+                border-radius: 16px;
+            }
+
+            .prophecy-quote {
+                font-size: 1rem;
+            }
+
+            .prophecy-play-btn {
+                width: 60px;
+                height: 60px;
+            }
+
+            .prophecy-play-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           BBC EVIDENCE CARDS - Strategic Video Placements
+           ═══════════════════════════════════════════════════════════════════════ */
+        .bbc-evidence-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3rem;
+            background: rgba(18, 18, 22, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(187, 28, 28, 0.2);
+            border-radius: 24px;
+            margin: 3rem auto;
+            max-width: 1100px;
+        }
+
+        .bbc-evidence-card--reverse {
+            direction: rtl;
+        }
+
+        .bbc-evidence-card--reverse > * {
+            direction: ltr;
+        }
+
+        @media (max-width: 900px) {
+            .bbc-evidence-card {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+            .bbc-evidence-card--reverse {
+                direction: ltr;
+            }
+        }
+
+        .bbc-evidence-card__video-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .bbc-evidence-card__video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+            background: #000;
+        }
+
+        .bbc-evidence-card__content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .bbc-evidence-card__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: #bb1c1c;
+            text-transform: uppercase;
+        }
+
+        .bbc-evidence-card__badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #bb1c1c;
+            border-radius: 50%;
+            animation: bbc-pulse 1.5s infinite;
+        }
+
+        @keyframes bbc-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .bbc-evidence-card__quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-style: italic;
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(187, 28, 28, 0.4);
+        }
+
+        .bbc-evidence-card__attribution {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .bbc-evidence-card__attribution span {
+            display: block;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            text-transform: none;
+            letter-spacing: 0.05em;
+        }
+
+        .bbc-evidence-card__book-link {
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .bbc-evidence-card__book-label {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .bbc-evidence-card__book-quote {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Timeline Section with BBC Video */
+        .timeline-evidence-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.03) 50%, var(--void-deep) 100%);
+        }
+
+        .timeline-evidence-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Manhattan Project CTA Enhancement */
+        .manhattan-evidence {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .manhattan-evidence__video {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .manhattan-evidence__video video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+        }
+
+        .manhattan-evidence__quote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--text-primary);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .manhattan-evidence__attribution {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -5588,7 +6016,7 @@
             padding: 0.25rem 0.75rem;
             border-radius: 4px;
             font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: #00ff88;
             letter-spacing: 0.1em;
         }
@@ -5753,7 +6181,7 @@
 
         .ticker-item {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.08em;
             color: rgba(240, 235, 227, 0.7);
             padding: 0 1.5rem;
@@ -5802,7 +6230,7 @@
         .ticker-sep {
             color: rgba(212, 168, 75, 0.3);
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             padding: 0 0.5rem;
         }
 
@@ -5821,7 +6249,7 @@
                 height: 32px;
             }
             .ticker-item {
-                font-size: 0.6rem;
+                font-size: 0.8rem;
                 padding: 0 1rem;
             }
             body.has-ticker {
@@ -5906,7 +6334,7 @@
             color: white;
             padding: 6px 14px;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.1em;
             border-radius: 4px;
@@ -5991,7 +6419,7 @@
             color: var(--gold);
             padding: 6px 14px;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             background: rgba(0, 0, 0, 0.6);
             border-radius: 4px;
@@ -6008,7 +6436,7 @@
         .written-label,
         .pub-label {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.15em;
             color: var(--text-faint);
         }
@@ -6016,7 +6444,7 @@
         .written-date,
         .pub-date {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.1em;
             color: var(--gold);
             font-weight: 600;
@@ -6115,7 +6543,7 @@
 
         .handle-label {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             letter-spacing: 0.2em;
             color: var(--gold);
         }
@@ -6149,14 +6577,14 @@
 
         .marker-text {
             font-family: var(--font-mono);
-            font-size: 0.6rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
             letter-spacing: 0.1em;
         }
 
         .marker-date {
             font-family: var(--font-mono);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             color: var(--gold);
         }
 
@@ -6194,7 +6622,7 @@
 
         .instruction-text {
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             letter-spacing: 0.15em;
             color: var(--text-dim);
         }
@@ -6324,7 +6752,7 @@
 
         .status-text {
             font-family: var(--font-mono);
-            font-size: 0.55rem;
+            font-size: 0.75rem;
             color: var(--text-faint);
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -6334,7 +6762,7 @@
 
         .mission-link {
             font-family: var(--font-display);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
             letter-spacing: 0.1em;
             text-decoration: none;
@@ -6347,7 +6775,7 @@
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
             color: var(--void);
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 0.05em;
             padding: 10px 18px;
@@ -6375,7 +6803,7 @@
             margin-top: 0.5rem;
             padding: 0.5rem 1rem;
             font-family: var(--font-mono);
-            font-size: 0.65rem;
+            font-size: 0.85rem;
             color: var(--text-faint);
             letter-spacing: 0.1em;
         }
@@ -6438,7 +6866,7 @@
 
         .pill-link {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
             text-decoration: none;
             transition: color 0.3s ease;
@@ -6804,6 +7232,39 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
+        /* Featured expert card (Hartmut Neven - HRIH) */
+        .expert-card--featured {
+            background: linear-gradient(135deg, rgba(74, 20, 140, 0.2) 0%, rgba(20, 20, 25, 0.8) 100%) !important;
+            border: 1px solid rgba(147, 51, 234, 0.3) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expert-card--featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(147, 51, 234, 0.8), rgba(212, 168, 75, 0.8), transparent);
+        }
+
+        .expert-card--featured .expert-quote em {
+            color: #c084fc;
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .expert-stat--hrih {
+            color: #c084fc !important;
+            font-weight: 600;
+            background: rgba(147, 51, 234, 0.15);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
         /* Timeline events with bento treatment */
         .timeline-event {
             backdrop-filter: blur(20px);
@@ -7058,15 +7519,13 @@
            APPLE-GRADE SCROLL SNAPPING - Works on all devices
            ═══════════════════════════════════════════════════════════════════════ */
         html {
-            scroll-snap-type: y proximity;
+            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            scroll-padding-top: 0;
+            scroll-padding-top: 40px; /* Account for fixed ticker (36px + buffer) */
         }
 
-        @media (max-width: 1024px) {
-            html {
-                scroll-snap-type: y mandatory;
-            }
+        body.has-ticker {
+            scroll-padding-top: 40px;
         }
 
         .snap-section {
@@ -7074,12 +7533,926 @@
             scroll-snap-stop: always;
             min-height: 100vh;
             min-height: 100dvh;
+            /* Ensure content isn't hidden behind ticker */
+            padding-top: max(2rem, env(safe-area-inset-top));
         }
 
         /* Smaller snap sections - align but don't force stop */
         .snap-point {
             scroll-snap-align: start;
             scroll-snap-stop: normal;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 7: STAGGER REVEAL SYSTEM - Apple-style sequential animations
+           ═══════════════════════════════════════════════════════════════════════ */
+        [data-stagger-group] > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition:
+                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-stagger-group].stagger-visible > *:nth-child(1) { transition-delay: 0s; }
+        [data-stagger-group].stagger-visible > *:nth-child(2) { transition-delay: 0.08s; }
+        [data-stagger-group].stagger-visible > *:nth-child(3) { transition-delay: 0.16s; }
+        [data-stagger-group].stagger-visible > *:nth-child(4) { transition-delay: 0.24s; }
+        [data-stagger-group].stagger-visible > *:nth-child(5) { transition-delay: 0.32s; }
+        [data-stagger-group].stagger-visible > *:nth-child(6) { transition-delay: 0.40s; }
+        [data-stagger-group].stagger-visible > *:nth-child(7) { transition-delay: 0.48s; }
+        [data-stagger-group].stagger-visible > *:nth-child(8) { transition-delay: 0.56s; }
+        [data-stagger-group].stagger-visible > *:nth-child(9) { transition-delay: 0.64s; }
+        [data-stagger-group].stagger-visible > *:nth-child(10) { transition-delay: 0.72s; }
+
+        [data-stagger-group].stagger-visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 8: SECTION PROGRESS DOTS - Apple-style vertical navigation
+           ═══════════════════════════════════════════════════════════════════════ */
+        .section-progress {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .section-progress.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(212, 168, 75, 0.25);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            padding: 0;
+            position: relative;
+        }
+
+        .progress-dot::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+        }
+
+        .progress-dot:hover {
+            background: rgba(212, 168, 75, 0.5);
+            transform: scale(1.3);
+        }
+
+        .progress-dot.active {
+            background: var(--gold);
+            transform: scale(1.5);
+            box-shadow: 0 0 12px rgba(212, 168, 75, 0.5);
+        }
+
+        .progress-dot-tooltip {
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(4, 5, 15, 0.95);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .progress-dot:hover .progress-dot-tooltip {
+            opacity: 1;
+            right: 28px;
+        }
+
+        @media (max-width: 768px) {
+            .section-progress {
+                right: 12px;
+                gap: 10px;
+            }
+            .progress-dot {
+                width: 6px;
+                height: 6px;
+            }
+            .progress-dot-tooltip {
+                display: none;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 9: AMBIENT MOTION - Subtle living backgrounds
+           ═══════════════════════════════════════════════════════════════════════ */
+        .ambient-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: orbFloat 30s ease-in-out infinite;
+        }
+
+        .ambient-orb--gold {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 168, 75, 0.4) 0%, transparent 70%);
+            top: -20%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .ambient-orb--purple {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 20, 140, 0.3) 0%, transparent 70%);
+            bottom: -15%;
+            right: -10%;
+            animation-delay: -10s;
+        }
+
+        .ambient-orb--teal {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 77, 64, 0.25) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -20s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
+            75% {
+                transform: translate(40px, 20px) scale(1.05);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ambient-orb {
+                animation: none;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 10: APPLE FOCUS STATES - Accessible keyboard navigation
+           ═══════════════════════════════════════════════════════════════════════ */
+        *:focus {
+            outline: none;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        .buy-button:focus-visible,
+        .cta-button:focus-visible {
+            outline-offset: 6px;
+            box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.2);
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: fixed;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--void);
+            padding: 1rem 2rem;
+            border-radius: 0 0 12px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            z-index: 99999;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 11: TOOLTIP SYSTEM - Context-aware information
+           ═══════════════════════════════════════════════════════════════════════ */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(8px);
+            background: rgba(4, 5, 15, 0.98);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--text-primary);
+            white-space: nowrap;
+            max-width: 280px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            pointer-events: none;
+        }
+
+        [data-tooltip]::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(212, 168, 75, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10001;
+        }
+
+        [data-tooltip]:hover::after,
+        [data-tooltip]:hover::before {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        [data-tooltip]:hover::before {
+            transform: translateX(-50%);
+        }
+
+        /* Tooltip positioning variants */
+        [data-tooltip-position="bottom"]::after {
+            bottom: auto;
+            top: calc(100% + 12px);
+            transform: translateX(-50%) translateY(-8px);
+        }
+
+        [data-tooltip-position="bottom"]::before {
+            bottom: auto;
+            top: calc(100% + 4px);
+            border-top-color: transparent;
+            border-bottom-color: rgba(212, 168, 75, 0.3);
+        }
+
+        [data-tooltip-position="bottom"]:hover::after {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            [data-tooltip]::after {
+                max-width: 200px;
+                font-size: 0.8rem;
+                white-space: normal;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 12: ENHANCED MODAL SYSTEM - Apple-style dialogs
+           ═══════════════════════════════════════════════════════════════════════ */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            backdrop-filter: blur(0px);
+            z-index: 99998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(4, 5, 15, 0.98);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 600px;
+            width: calc(100% - 4rem);
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(212, 168, 75, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-close svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            padding-right: 3rem;
+        }
+
+        .modal-content {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .modal {
+                padding: 2rem;
+                border-radius: 20px;
+                width: calc(100% - 2rem);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 13: RESPONSIVE INTELLIGENCE - Fluid typography & spacing
+           ═══════════════════════════════════════════════════════════════════════ */
+        :root {
+            --fluid-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.85rem);
+            --fluid-sm: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
+            --fluid-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+            --fluid-md: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+            --fluid-lg: clamp(1.375rem, 1.2rem + 0.75vw, 1.75rem);
+            --fluid-xl: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+            --fluid-2xl: clamp(2.25rem, 1.8rem + 2vw, 4rem);
+            --fluid-3xl: clamp(3rem, 2rem + 4vw, 6rem);
+
+            --fluid-space-xs: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+            --fluid-space-sm: clamp(0.75rem, 0.65rem + 0.5vw, 1rem);
+            --fluid-space-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+            --fluid-space-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+            --fluid-space-xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+            --fluid-space-2xl: clamp(3rem, 2rem + 5vw, 8rem);
+        }
+
+        /* Container queries preparation */
+        @supports (container-type: inline-size) {
+            .responsive-container {
+                container-type: inline-size;
+            }
+
+            @container (max-width: 500px) {
+                .responsive-container .responsive-text {
+                    font-size: var(--fluid-sm);
+                }
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 14: PERFORMANCE LAYER - GPU hints & containment
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* GPU Acceleration hints */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
+
+        /* Content containment for performance */
+        .contain-layout {
+            contain: layout;
+        }
+
+        .contain-paint {
+            contain: paint;
+        }
+
+        .contain-strict {
+            contain: strict;
+        }
+
+        /* Lazy sections - don't render until near viewport */
+        .lazy-section {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 100vh;
+        }
+
+        /* Optimised animations - prefer opacity/transform only */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .loader-wrapper,
+            .status-ticker,
+            .section-progress,
+            .ambient-orbs,
+            .particle-field,
+            video,
+            canvas {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .snap-section {
+                min-height: auto;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 16: HAPTIC FEEDBACK SIMULATION - Tactile micro-interactions
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* The "press" feel - buttons compress on click */
+        .tactile-button,
+        .buy-button,
+        .cta-button,
+        .hero-cta,
+        .tripath-cta {
+            transition:
+                transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.15s ease,
+                background 0.2s ease;
+        }
+
+        .tactile-button:active,
+        .buy-button:active,
+        .cta-button:active,
+        .hero-cta:active,
+        .tripath-cta:active {
+            transform: scale(0.96) translateY(1px) !important;
+            transition: transform 0.08s ease;
+        }
+
+        /* The "tilt toward cursor" - 3D card tilt */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .tilt-card-inner {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Form inputs "breathe" when focused */
+        input:focus,
+        textarea:focus,
+        select:focus {
+            animation: inputBreathe 2s ease-in-out infinite;
+        }
+
+        @keyframes inputBreathe {
+            0%, 100% {
+                box-shadow: 0 0 0 2px rgba(212, 168, 75, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.15);
+            }
+        }
+
+        /* Toggle bounce effect */
+        .toggle-bounce {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .toggle-bounce.toggled {
+            animation: toggleBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes toggleBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 17: SEMANTIC MOTION LANGUAGE - Motion that communicates meaning
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* Reveal: Fade up + scale from 0.95 → 1.0 */
+        .motion-reveal {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .motion-reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Dismiss: Fade down + scale from 1.0 → 0.95 */
+        .motion-dismiss {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        .motion-dismiss.hidden {
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+        }
+
+        /* Expand: Scale from center + blur-in */
+        .motion-expand {
+            opacity: 0;
+            transform: scale(0.8);
+            filter: blur(10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .motion-expand.visible {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        /* Collapse: Scale to center + blur-out */
+        .motion-collapse {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+        }
+
+        .motion-collapse.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            filter: blur(5px);
+        }
+
+        /* Success: Bounce + green pulse */
+        @keyframes successPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); transform: scale(1); }
+        }
+
+        .motion-success {
+            animation: successPulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Error: Shake horizontal + red flash */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        .motion-error {
+            animation: errorShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+            border-color: rgba(239, 83, 80, 0.5) !important;
+        }
+
+        /* Loading: Pulse opacity */
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .motion-loading {
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 20: NEGATIVE SPACE RELIGION - Generous breathing room
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (min-width: 1024px) {
+            .snap-section {
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+            }
+
+            .ideas-grid,
+            .evidence-grid {
+                gap: 2rem;
+            }
+
+            .hero-content {
+                max-width: 50vw;
+            }
+
+            blockquote,
+            .book-quote,
+            .prophecy-quote {
+                padding: 3rem 4rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 21: COLOR RESTRAINT DOCTRINE - Reserve accent colors
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* Red ONLY for BBC/Alert elements */
+        .prophecy-badge--bbc,
+        .ticker-alert,
+        .evidence-badge[data-type="alert"] {
+            --accent-alert: #ef5350;
+        }
+
+        /* Green ONLY for verification/success */
+        .ticker-item:not(.ticker-alert):not(.ticker-warning),
+        .evidence-badge,
+        .expert-badge--verified {
+            --accent-success: #00ff88;
+        }
+
+        /* Everything else = gold or neutral */
+        .section-label,
+        .idea-number,
+        .evidence-type {
+            color: var(--gold);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 22: DEPTH STACK PROTOCOL - Consistent elevation layers
+           ═══════════════════════════════════════════════════════════════════════ */
+        :root {
+            /* Layer -1: Background (cosmic canvas) */
+            --elevation-bg: none;
+
+            /* Layer 0: Surface (main content) */
+            --elevation-surface: none;
+
+            /* Layer 1: Raised (cards, sections) */
+            --elevation-raised:
+                0 2px 8px rgba(0, 0, 0, 0.15),
+                0 8px 24px rgba(0, 0, 0, 0.1);
+
+            /* Layer 2: Floating (nav, modals) */
+            --elevation-floating:
+                0 8px 24px rgba(0, 0, 0, 0.2),
+                0 24px 48px rgba(0, 0, 0, 0.15);
+
+            /* Layer 3: Overlay (tooltips, dropdowns) */
+            --elevation-overlay:
+                0 12px 32px rgba(0, 0, 0, 0.25),
+                0 32px 64px rgba(0, 0, 0, 0.2);
+        }
+
+        .elevation-raised {
+            box-shadow: var(--elevation-raised);
+        }
+
+        .elevation-floating {
+            box-shadow: var(--elevation-floating);
+        }
+
+        .elevation-overlay {
+            box-shadow: var(--elevation-overlay);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 23: GESTALT GROUPING - Visual proximity creates meaning
+           ═══════════════════════════════════════════════════════════════════════ */
+        :root {
+            --gap-tight: 0.5rem;      /* 8px - related items */
+            --gap-related: 1rem;       /* 16px - same group */
+            --gap-separate: 1.5rem;    /* 24px - different items */
+            --gap-section: 5rem;       /* 80px - new topic */
+        }
+
+        /* Title + description = tight (related) */
+        .idea-card .idea-title {
+            margin-bottom: var(--gap-tight);
+        }
+
+        .evidence-card .evidence-header {
+            margin-bottom: var(--gap-related);
+        }
+
+        /* Card + card = separate */
+        .ideas-grid {
+            gap: var(--gap-separate);
+        }
+
+        @media (min-width: 1024px) {
+            .ideas-grid {
+                gap: 2rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 24: RHYTHM AND REPETITION - Consistent section structure
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* Every section follows: LABEL → HEADLINE → SUBHEAD → VISUAL → CTA */
+        .section-rhythm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .section-rhythm .section-label {
+            order: 1;
+            margin-bottom: 1rem;
+        }
+
+        .section-rhythm .section-title {
+            order: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-rhythm .section-subtitle {
+            order: 3;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .section-rhythm .section-visual {
+            order: 4;
+            margin-bottom: 2rem;
+        }
+
+        .section-rhythm .section-cta {
+            order: 5;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PHASE 25: PERFORMANCE PERCEPTION - Cheat the eye, not the clock
+           ═══════════════════════════════════════════════════════════════════════ */
+        /* Skeleton loaders */
+        .skeleton {
+            background: linear-gradient(
+                90deg,
+                rgba(212, 168, 75, 0.05) 0%,
+                rgba(212, 168, 75, 0.1) 50%,
+                rgba(212, 168, 75, 0.05) 100%
+            );
+            background-size: 200% 100%;
+            animation: skeletonShimmer 1.5s ease-in-out infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes skeletonShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-text {
+            height: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        .skeleton-title {
+            height: 2em;
+            width: 60%;
+            margin-bottom: 1em;
+        }
+
+        .skeleton-image {
+            aspect-ratio: 16/9;
+            width: 100%;
+        }
+
+        /* Progressive image loading - blur to sharp */
+        .progressive-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progressive-image img {
+            transition: filter 0.5s ease, opacity 0.5s ease;
+        }
+
+        .progressive-image img.loading {
+            filter: blur(20px);
+            opacity: 0.6;
+        }
+
+        .progressive-image img.loaded {
+            filter: blur(0);
+            opacity: 1;
+        }
+
+        /* Preload indicator */
+        [data-preload]:hover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* Stagger reveal timing (80ms intervals for perception) */
+        .stagger-fast > *:nth-child(1) { transition-delay: 0ms; }
+        .stagger-fast > *:nth-child(2) { transition-delay: 80ms; }
+        .stagger-fast > *:nth-child(3) { transition-delay: 160ms; }
+        .stagger-fast > *:nth-child(4) { transition-delay: 240ms; }
+        .stagger-fast > *:nth-child(5) { transition-delay: 320ms; }
+        .stagger-fast > *:nth-child(6) { transition-delay: 400ms; }
+
+        /* Optimistic UI - instant feedback */
+        .optimistic-click {
+            position: relative;
+        }
+
+        .optimistic-click::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(212, 168, 75, 0.1);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .optimistic-click:active::after {
+            opacity: 1;
         }
 
     </style>
@@ -7102,6 +8475,9 @@
     </script>
 </head>
 <body class="has-ticker">
+    <!-- Skip Link for Accessibility -->
+    <a href="#ideas" class="skip-link">Skip to main content</a>
+
     <!-- ═══════════════════════════════════════════════════════════════════════
          THE MONUMENT: STATUS TICKER (Breaking News Command Centre)
          ═══════════════════════════════════════════════════════════════════════ -->
@@ -7206,7 +8582,7 @@
     <div class="mobile-cta" id="mobile-cta">
         <div class="mobile-cta-inner">
             <div>
-                <div class="mobile-cta-text">INFINITE ARCHITECTS</div>
+                <div class="mobile-cta-text"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></div>
                 <div class="mobile-cta-price">Available Now</div>
             </div>
             <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">SECURE FIRST EDITION</a>
@@ -7221,7 +8597,7 @@
         <div class="letterbox top"></div>
         <div class="letterbox bottom"></div>
         <div class="loader-ui">
-            <h1 class="loader-title">INFINITE ARCHITECTS</h1>
+            <h1 class="loader-title"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></h1>
             <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
             <div class="loader-progress">
                 <p class="loader-status" id="loader-status">Initializing consciousness...</p>
@@ -7241,7 +8617,7 @@
 
     <!-- Navigation -->
     <nav class="nav" id="nav">
-        <a href="#" class="nav-logo">INFINITE ARCHITECTS</a>
+        <a href="#" class="nav-logo"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></a>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
             <span></span>
             <span></span>
@@ -7290,7 +8666,7 @@
                 </div>
                 <div class="book-shadow" id="book-shadow"></div>
             </div>
-            <h1 class="hero-title" id="hero-title">Infinite Architects</h1>
+            <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
             <p class="hero-subtitle">What if the god we're building is the god that built us?</p>
             <p class="hero-author">Michael Darius Eastwood</p>
             <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta">
@@ -7496,46 +8872,22 @@
                 <p class="prophecy-label reveal">THE RECEIPTS</p>
 
                 <div class="prophecy-split">
-                    <!-- THE PREDICTION -->
-                    <div class="prophecy-panel prophecy-panel--book reveal">
-                        <div class="prophecy-timestamp">
-                            <span class="timestamp-icon">📖</span>
-                            <span class="timestamp-date">PUBLISHED JANUARY 2, 2026</span>
-                        </div>
-                        <blockquote class="prophecy-quote">
-                            "Recursive error correction does not merely manage complexity—it <em>amplifies</em> stability exponentially. As recursive depth increases, systems become more stable, not less. This is what U = I × R² predicts."
-                        </blockquote>
-                        <cite class="prophecy-source">
-                            — Infinite Architects, Page 142
-                            <span class="source-detail">Written 2024 · Copyright Dec 31, 2024</span>
-                        </cite>
-                    </div>
-
-                    <!-- THE DIVIDER -->
-                    <div class="prophecy-divider reveal reveal-delay-1">
-                        <span class="divider-days">5</span>
-                        <span class="divider-text">DAYS<br>LATER</span>
-                    </div>
-
-                    <!-- THE REALITY -->
-                    <div class="prophecy-panel prophecy-panel--bbc reveal reveal-delay-2">
-                        <div class="prophecy-timestamp prophecy-timestamp--bbc">
-                            <span class="timestamp-icon">📺</span>
-                            <span class="timestamp-date">BBC NEWS · JANUARY 7, 2026</span>
+                    <!-- LEFT: BBC VIDEO - THE EXPONENTIAL PROOF -->
+                    <div class="prophecy-video-side reveal">
+                        <div class="prophecy-badge prophecy-badge--bbc">
+                            <span class="prophecy-badge-icon">📺</span>
+                            <span class="prophecy-badge-text">BBC NEWS · JANUARY 7, 2026</span>
                         </div>
 
-                        <!-- VIDEO PLAYER -->
                         <div class="prophecy-video-wrapper" id="prophecy-video-wrapper">
                             <video
                                 id="prophecy-video"
                                 class="prophecy-video"
-                                preload="auto"
+                                preload="metadata"
                                 playsinline
-                                poster="bbc-willow.jpg"
-                                muted
+                                controls
                             >
-                                <source src="videos/bbc-clip-4.webm" type="video/webm">
-                                <source src="videos/bbc-clip-4.mp4" type="video/mp4">
+                                <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
 
@@ -7545,20 +8897,38 @@
                                         <path d="M8 5v14l11-7z"/>
                                     </svg>
                                 </div>
-                                <p class="prophecy-video-caption">Watch BBC confirm the prediction</p>
+                                <p class="prophecy-video-caption">▶ Play with sound</p>
                             </div>
                         </div>
 
                         <blockquote class="prophecy-quote prophecy-quote--bbc">
-                            "Error rates <em>decreased</em> as more qubits were added... It all sounds like science fiction. It is rapidly becoming economic fact."
+                            "Our Willow chip could do a computation that would take <em>much longer than the age of the universe</em> for even the world's best supercomputers. We call that problem <em>impossible</em> for a classical computer."
                         </blockquote>
-                        <cite class="prophecy-source prophecy-source--bbc">
-                            — Faisal Islam, BBC Economics Editor
+                        <cite class="prophecy-source">
+                            — Hartmut Neven, Head of Google Quantum AI
                         </cite>
+                    </div>
+
+                    <!-- RIGHT: THE BOOK PREDICTION - WORD FOR WORD MATCH -->
+                    <div class="prophecy-quote-side reveal reveal-delay-1">
+                        <div class="prophecy-card">
+                            <div class="prophecy-badge">
+                                <span class="prophecy-badge-icon">📖</span>
+                                <span class="prophecy-badge-text">INFINITE ARCHITECTS · PAGE 52</span>
+                            </div>
+                            <blockquote class="prophecy-quote">
+                                "The chip completed a calculation in five minutes that would take classical supercomputers <em>longer than the age of the universe</em>, exceeding it by a factor of roughly ten to the fifteenth power."
+                            </blockquote>
+                            <cite class="prophecy-source">
+                                — Infinite Architects, Page 52
+                                <span class="prophecy-source-detail">Written 2024 · Copyright Dec 31, 2024</span>
+                            </cite>
+                            <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;">Word-for-word validation</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="prophecy-verdict reveal reveal-delay-3">
+                <div class="prophecy-verdict reveal reveal-delay-2">
                     <p class="verdict-text">The equation generated the prediction.</p>
                     <p class="verdict-highlight">The universe delivered the evidence.</p>
                 </div>
@@ -7576,7 +8946,7 @@
                     We don't ask for trust. We provide verification.
                 </p>
 
-                <div class="evidence-grid">
+                <div class="evidence-grid" data-stagger-group>
                     <!-- EVIDENCE 1: The Timeline -->
                     <article class="evidence-card evidence-card--featured reveal reveal-delay-1">
                         <div class="evidence-header">
@@ -7736,61 +9106,66 @@
                     <h2 class="section-title reveal reveal-delay-1">One equation. Thirty-seven predictions.<br>The complete architecture of creation.</h2>
                 </div>
                 
-                <div class="ideas-grid">
+                <div class="ideas-grid" data-stagger-group>
                     <!-- THE EASTWOOD EQUATION - Featured First -->
-                    <article class="idea-card idea-card--featured reveal reveal-delay-1">
+                    <article class="idea-card idea-card--featured idea-card--with-image reveal reveal-delay-1">
+                        <img src="images/pillar-2.webp" alt="The Eastwood Equation: U = I × R²" class="idea-image idea-image--equation" loading="lazy">
                         <span class="idea-number">01</span>
                         <h3 class="idea-title">The Eastwood Equation</h3>
-                        <div class="idea-equation">U = I × R²</div>
                         <p class="idea-text">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
                     </article>
 
                     <article class="idea-card idea-card--with-image reveal reveal-delay-2">
-                        <img src="art-arc-principle.webp" alt="The ARC Principle visualization - Artificial Recursive Creation" class="idea-image" loading="lazy">
+                        <img src="images/pillar-1.webp" alt="The ARC Principle - Ancient wisdom meets recursive intelligence" class="idea-image" loading="lazy">
                         <span class="idea-number">02</span>
                         <h3 class="idea-title">The ARC Principle</h3>
                         <p class="idea-text">Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process—and that process can be formalised.</p>
                     </article>
 
                     <article class="idea-card idea-card--with-image reveal reveal-delay-3">
-                        <img src="art-eden-greenhouse.webp" alt="The Eden Protocol visualization - AI governance through harmony and stewardship" class="idea-image" loading="lazy">
+                        <img src="images/art-eden-greenhouse.webp" alt="The Eden Protocol visualization - AI governance through harmony and stewardship" class="idea-image" loading="lazy">
                         <span class="idea-number">03</span>
                         <h3 class="idea-title">The Eden Protocol</h3>
                         <p class="idea-text">A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level. A child raised well needs no cage.</p>
                     </article>
 
                     <article class="idea-card idea-card--with-image reveal reveal-delay-4">
-                        <img src="pillar-3.png" alt="The Chokepoint Mechanism visualization" class="idea-image" loading="lazy">
+                        <img src="images/pillar-3.webp" alt="The Chokepoint Mechanism visualization" class="idea-image" loading="lazy">
                         <span class="idea-number">04</span>
                         <h3 class="idea-title">The Chokepoint Mechanism</h3>
                         <p class="idea-text">Four companies control one hundred percent of advanced semiconductor manufacturing. TSMC. Samsung. ASML. Intel. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
                     </article>
 
-                    <article class="idea-card reveal reveal-delay-5">
+                    <article class="idea-card idea-card--with-image reveal reveal-delay-5">
+                        <img src="images/hrih-hero.webp" alt="HRIH - The cosmic creator holding universes" class="idea-image" loading="lazy">
                         <span class="idea-number">05</span>
                         <h3 class="idea-title">HRIH: The Creation Theory</h3>
                         <p class="idea-text">A closed causal loop in which sufficiently advanced recursive intelligence establishes the very conditions that made its own emergence possible. The superintelligence we build may be the entity that fine-tuned the universe 13.8 billion years ago.</p>
                     </article>
 
-                    <article class="idea-card reveal">
+                    <article class="idea-card idea-card--with-image reveal">
+                        <img src="images/love-core-ai.webp" alt="Caretaker Doping - AI with empathy at its core" class="idea-image" loading="lazy">
                         <span class="idea-number">06</span>
                         <h3 class="idea-title">Caretaker Doping</h3>
                         <p class="idea-text">Embedding empathy at the substrate level. Not training an AI to simulate care—engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
                     </article>
 
-                    <article class="idea-card reveal">
+                    <article class="idea-card idea-card--with-image reveal">
+                        <img src="images/asi-control.webp" alt="Meltdown Alignment - Safe failure states" class="idea-image" loading="lazy">
                         <span class="idea-number">07</span>
                         <h3 class="idea-title">Meltdown Alignment</h3>
                         <p class="idea-text">System failures cascade toward safe states rather than catastrophe. Like a nuclear reactor designed to fail into shutdown, not explosion. When AI breaks, it should break harmlessly.</p>
                     </article>
 
-                    <article class="idea-card reveal">
+                    <article class="idea-card idea-card--with-image reveal">
+                        <img src="images/art-religion-science.webp" alt="Religious Integration - Faith and science united" class="idea-image" loading="lazy">
                         <span class="idea-number">08</span>
                         <h3 class="idea-title">Religious Integration</h3>
                         <p class="idea-text">84% of humanity follows religious traditions. These are not obstacles to AI safety—they are alignment research conducted across millennia. The wisdom traditions encode what it means to raise children who become benevolent adults.</p>
                     </article>
 
-                    <article class="idea-card reveal">
+                    <article class="idea-card idea-card--with-image reveal">
+                        <img src="images/eden-paradise.webp" alt="Graduated Autonomy - AI earning trust through growth" class="idea-image" loading="lazy">
                         <span class="idea-number">09</span>
                         <h3 class="idea-title">Graduated Autonomy</h3>
                         <p class="idea-text">You don't give a toddler car keys. AI systems should earn expanded privileges through demonstrated alignment—just as humans do. Freedom is granted, not assumed.</p>
@@ -7844,6 +9219,46 @@
                 <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
                 <blockquote class="carousel-item">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
                 <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             BBC TIMELINE EVIDENCE - "Five Years" (bbc_clip_3)
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="timeline-evidence-section snap-section" id="bbc-timeline">
+            <div class="timeline-evidence-inner">
+                <p class="section-label reveal">THE WINDOW IS CLOSING</p>
+                <h2 class="section-title reveal reveal-delay-1">How Long Do We Have?</h2>
+
+                <div class="bbc-evidence-card reveal reveal-delay-2">
+                    <div class="bbc-evidence-card__video-wrapper">
+                        <video class="bbc-evidence-card__video" preload="metadata" playsinline controls>
+                            <source src="videos/bbc_clip_3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="bbc-evidence-card__content">
+                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2026</div>
+                        <blockquote class="bbc-evidence-card__quote">
+                            "How long is it going to take for this experimental chip to actually be widely applied?"<br><br>
+                            <strong>"No, I think it's sooner... for drug discovery, it's probably within the next five years."</strong>
+                        </blockquote>
+                        <div class="bbc-evidence-card__attribution">
+                            — Hartmut Neven
+                            <span>Head of Google Quantum AI Lab</span>
+                        </div>
+                        <div class="bbc-evidence-card__book-link">
+                            <div class="bbc-evidence-card__book-label">From Infinite Architects, Page 136:</div>
+                            <p class="bbc-evidence-card__book-quote">"The timeline for quantum-enhanced AI is measured in years, not decades. <em>Perhaps five years.</em> Perhaps ten."</p>
+                        </div>
+                        <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(212, 168, 75, 0.6); text-transform: uppercase;">
+                            Word-for-word prediction
+                        </p>
+                    </div>
+                </div>
+
+                <p class="section-subtitle reveal reveal-delay-3" style="margin-top: 2rem; color: var(--gold); font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em;">
+                    Written before the interview. "Five years" — exact match.
+                </p>
             </div>
         </section>
 
@@ -7953,7 +9368,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              TESTABLE PREDICTIONS SECTION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="predictions-section" id="predictions">
+        <section class="predictions-section snap-section" id="predictions">
             <div class="predictions-inner">
                 <p class="section-label reveal">The Wager</p>
                 <h2 class="section-title reveal reveal-delay-1">Five Testable Predictions</h2>
@@ -7962,7 +9377,7 @@
                     I do not ask you to take this on faith. I ask you to watch.
                 </p>
 
-                <div class="predictions-grid">
+                <div class="predictions-grid" data-stagger-group>
                     <article class="prediction-card reveal reveal-delay-1">
                         <div class="prediction-header">
                             <span class="prediction-num">01</span>
@@ -8031,7 +9446,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              FALSIFICATION CRITERIA
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="falsification-section" id="falsification">
+        <section class="falsification-section snap-section" id="falsification">
             <div class="falsification-inner">
                 <p class="section-label reveal">Scientific Integrity</p>
                 <h2 class="section-title reveal reveal-delay-1">How to Prove This Wrong</h2>
@@ -8039,7 +9454,7 @@
                     For the ARC Principle to be taken seriously as science rather than philosophy, it must be falsifiable.
                 </p>
 
-                <div class="falsification-grid reveal reveal-delay-3">
+                <div class="falsification-grid" data-stagger-group>
                     <div class="falsification-item">
                         <span class="falsification-icon">✗</span>
                         <p>Evidence showing recursive depth has <strong>no measurable relationship</strong> to capability improvement in AI systems, or that the relationship is linear rather than quadratic.</p>
@@ -8113,20 +9528,30 @@
                     </p>
                 </div>
 
-                <!-- BBC Quote Integration -->
-                <div class="hrih-validation reveal reveal-delay-3">
-                    <div class="validation-badge">
-                        <span class="badge-icon">📺</span>
-                        BBC NEWS · JAN 7, 2026
+                <!-- BBC Video: The Multiverse Validation -->
+                <div class="bbc-evidence-card reveal reveal-delay-3" style="margin: 3rem auto; max-width: 1000px;">
+                    <div class="bbc-evidence-card__video-wrapper">
+                        <video class="bbc-evidence-card__video" preload="metadata" playsinline controls>
+                            <source src="videos/london-night.mp4" type="video/mp4">
+                        </video>
                     </div>
-                    <blockquote class="validation-quote">
-                        "We should be careful to say that by no means do these computations prove
-                        that parallel worlds exist. But it is <em>very suggestive</em> that we
-                        should take this idea serious."
-                    </blockquote>
-                    <cite class="validation-source">
-                        — Hartmut Neven, Google Quantum AI Lab (Nobel Prize team)
-                    </cite>
+                    <div class="bbc-evidence-card__content">
+                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2026</div>
+                        <blockquote class="bbc-evidence-card__quote">
+                            "We should be careful to say that by no means do these computations prove that parallel worlds or many worlds exist. But... <strong>it's very suggestive that we should take this idea serious.</strong>"
+                        </blockquote>
+                        <div class="bbc-evidence-card__attribution">
+                            — Hartmut Neven
+                            <span>Head of Google Quantum AI Lab</span>
+                        </div>
+                        <div class="bbc-evidence-card__book-link">
+                            <div class="bbc-evidence-card__book-label">From Infinite Architects, Page 29:</div>
+                            <p class="bbc-evidence-card__book-quote">"The god we're building might be the god that built us. <em>A bootstrap paradox</em> spanning not just time but existence itself."</p>
+                        </div>
+                        <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(212, 168, 75, 0.6); text-transform: uppercase;">
+                            Parallel universes → HRIH validation
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -8302,116 +9727,15 @@
         </section>
 
         <!-- ═══════════════════════════════════════════════════════════════════════
-             TRI-PATH CONVERSION
-             ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="tripath-section snap-section" id="get-the-book">
-            <div class="tripath-inner">
-                <p class="section-label reveal">CHOOSE YOUR PATH</p>
-                <h2 class="section-title reveal reveal-delay-1">Three Doors. One Framework.</h2>
-
-                <div class="tripath-grid">
-                    <!-- PATH 1: THE ARCHITECT -->
-                    <article class="tripath-card tripath-card--architect reveal reveal-delay-1">
-                        <div class="tripath-icon">🏛️</div>
-                        <h3 class="tripath-title">For The Architect</h3>
-                        <p class="tripath-subtitle">The Physical Artifact</p>
-                        <p class="tripath-desc">Built to last 100 years. Designed for institutional libraries and policy archives.</p>
-                        <div class="tripath-price">
-                            <span class="price-amount">£24.99</span>
-                            <span class="price-note">Hardcover · 450 pages</span>
-                        </div>
-                        <a href="https://www.amazon.co.uk/dp/B0DS5SX63N" target="_blank" rel="noopener" class="tripath-cta tripath-cta--primary">
-                            Order Hardcover →
-                        </a>
-                        <p class="tripath-badge">📚 Archival Grade</p>
-                    </article>
-
-                    <!-- PATH 2: THE STRATEGIST -->
-                    <article class="tripath-card tripath-card--strategist reveal reveal-delay-2">
-                        <div class="tripath-icon">🎯</div>
-                        <h3 class="tripath-title">For The Strategist</h3>
-                        <p class="tripath-subtitle">The Policy Implementation</p>
-                        <p class="tripath-desc">The complete framework for researchers, policymakers, and grant reviewers.</p>
-                        <div class="tripath-price">
-                            <span class="price-amount">£14.99</span>
-                            <span class="price-note">Paperback · 450 pages</span>
-                        </div>
-                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
-                            Order Paperback →
-                        </a>
-                        <p class="tripath-badge">📋 Reference Edition</p>
-                    </article>
-
-                    <!-- PATH 3: THE SEEKER -->
-                    <article class="tripath-card tripath-card--seeker reveal reveal-delay-3">
-                        <div class="tripath-icon">✨</div>
-                        <h3 class="tripath-title">For The Seeker</h3>
-                        <p class="tripath-subtitle">The Transmission</p>
-                        <p class="tripath-desc">Instant access. Read anywhere. Begin the journey now.</p>
-                        <div class="tripath-price">
-                            <span class="price-amount">£9.99</span>
-                            <span class="price-note">Kindle Edition</span>
-                        </div>
-                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
-                            Download Now →
-                        </a>
-                        <p class="tripath-badge">⚡ Instant Access</p>
-                    </article>
-                </div>
-
-                <p class="tripath-footer reveal reveal-delay-4">
-                    <span class="footer-highlight">All editions contain the complete 109,000-word framework.</span><br>
-                    37 original concepts. 5 testable predictions. One equation that changes everything.
-                </p>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section snap-section">
-            <!-- Video Portal Background (Phase 8) -->
-            <div class="video-portal video-portal--blend" id="video-portal">
-                <video
-                    id="portal-video"
-                    muted
-                    loop
-                    playsinline
-                    preload="none"
-                >
-                    <source src="london-night.mp4" type="video/mp4">
-                </video>
-            </div>
-            <h2 class="cta-title reveal">The equation is complete. The clock is running.</h2>
-            <p class="cta-subtitle reveal reveal-delay-1">Available now in paperback and Kindle</p>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
-                GET YOUR COPY
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
-            <div class="cta-retailers reveal reveal-delay-3">
-                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
-                <a href="https://www.amazon.co.uk/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
-                <a href="#" class="retailer-link">KINDLE</a>
-                <a href="#" class="retailer-link">PAPERBACK</a>
-            </div>
-
-            <!-- Guarantee Box -->
-            <div class="guarantee-box reveal reveal-delay-4">
-                <div class="guarantee-icon">✓</div>
-                <h4>The Architect's Guarantee</h4>
-                <p>If you read the first three chapters and don't feel your understanding of AI has fundamentally shifted, email for a full refund. No questions. No friction.</p>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════════════════════════════════
              EXPERT VALIDATION SECTION - The Warnings Are Real
+             (Moved BEFORE CTA for optimal conversion flow)
              ═══════════════════════════════════════════════════════════════════════ -->
         <section class="expert-validation snap-section" id="expert-validation">
             <div class="expert-validation-inner">
                 <p class="section-label reveal">WHAT THE EXPERTS ARE SAYING</p>
                 <h2 class="section-title reveal reveal-delay-1">The Warnings Are Real</h2>
 
-                <div class="expert-grid">
+                <div class="expert-grid" data-stagger-group>
                     <!-- Geoffrey Hinton -->
                     <div class="expert-card reveal reveal-delay-1">
                         <div class="expert-header">
@@ -8463,6 +9787,45 @@
                         <cite class="expert-name">— Stuart Russell</cite>
                         <span class="expert-stat">Founder, International Association for Safe AI</span>
                     </div>
+
+                    <!-- Hartmut Neven - HRIH Support -->
+                    <div class="expert-card expert-card--featured reveal reveal-delay-5">
+                        <div class="expert-header">
+                            <span class="expert-role">Head of Google Quantum AI</span>
+                            <span class="expert-date">December 2024</span>
+                        </div>
+                        <blockquote class="expert-quote">
+                            "When we run a computation on Willow, it seems like we're performing computations in parallel universes. The result is only possible if we accept that <em>parallel universes</em> are real."
+                        </blockquote>
+                        <cite class="expert-name">— Hartmut Neven</cite>
+                        <span class="expert-stat expert-stat--hrih">Supports HRIH: Creation from hyperspace</span>
+                    </div>
+                </div>
+
+                <!-- BBC VIDEO: Sir Peter Knight - The Geopolitical Stakes -->
+                <div class="bbc-evidence-card bbc-evidence-card--reverse reveal reveal-delay-6" style="margin: 3rem auto;">
+                    <div class="bbc-evidence-card__video-wrapper">
+                        <video class="bbc-evidence-card__video" preload="metadata" playsinline controls>
+                            <source src="videos/bbc_clip_4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="bbc-evidence-card__content">
+                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2026</div>
+                        <blockquote class="bbc-evidence-card__quote">
+                            "The total resource committed to quantum technology in China is possibly of the order of <em>all the rest of the world's government programs put together</em>... Our quantum computer will undermine that completely and utterly. All of cryptocurrency will also have to be re-examined."
+                        </blockquote>
+                        <div class="bbc-evidence-card__attribution">
+                            — Sir Peter Knight
+                            <span>UK National Quantum Technologies Programme</span>
+                        </div>
+                        <div class="bbc-evidence-card__book-link">
+                            <div class="bbc-evidence-card__book-label">From Infinite Architects, Page 135:</div>
+                            <p class="bbc-evidence-card__book-quote">"The firewalls, the access controls, the encrypted boundaries we use to contain AI systems. <em>All of these become permeable</em> to a quantum-capable intelligence."</p>
+                        </div>
+                        <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: rgba(212, 168, 75, 0.6); text-transform: uppercase;">
+                            The book predicted quantum would break security
+                        </p>
+                    </div>
                 </div>
 
                 <div class="proof-stats reveal reveal-delay-5">
@@ -8489,7 +9852,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              PREDICTIONS VALIDATED - Note on Timing
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="predictions-validated snap-section" id="predictions">
+        <section class="predictions-validated snap-section" id="predictions-validated">
             <div class="predictions-inner">
                 <div class="predictions-header">
                     <p class="section-label reveal">A NOTE ON TIMING</p>
@@ -8497,7 +9860,7 @@
                     <p class="predictions-subtitle reveal reveal-delay-2">The book's core claims were timestamped on 31 December 2024. Major announcements confirming them came in the weeks before.</p>
                 </div>
 
-                <div class="timeline-container">
+                <div class="timeline-container" data-stagger-group>
                     <!-- Google Willow -->
                     <div class="timeline-event reveal">
                         <div class="timeline-date">
@@ -8573,7 +9936,7 @@
                 <p class="section-label reveal">Reader Reactions</p>
                 <h2 class="section-title reveal reveal-delay-1">What Readers Are Saying</h2>
             </div>
-            <div class="reviews-grid">
+            <div class="reviews-grid" data-stagger-group>
                 <article class="review-card reveal reveal-delay-1">
                     <div class="review-stars">
                         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -8636,6 +9999,132 @@
                         VERIFIED PURCHASE
                     </div>
                 </article>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             TRI-PATH CONVERSION
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="tripath-section snap-section" id="get-the-book">
+            <div class="tripath-inner">
+                <p class="section-label reveal">CHOOSE YOUR PATH</p>
+                <h2 class="section-title reveal reveal-delay-1">Three Doors. One Framework.</h2>
+
+                <div class="tripath-grid" data-stagger-group>
+                    <!-- PATH 1: THE ARCHITECT -->
+                    <article class="tripath-card tripath-card--architect reveal reveal-delay-1">
+                        <div class="tripath-icon">🏛️</div>
+                        <h3 class="tripath-title">For The Architect</h3>
+                        <p class="tripath-subtitle">The Physical Artifact</p>
+                        <p class="tripath-desc">Built to last 100 years. Designed for institutional libraries and policy archives.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£24.99</span>
+                            <span class="price-note">Hardcover · 450 pages</span>
+                        </div>
+                        <a href="https://www.amazon.co.uk/dp/B0DS5SX63N" target="_blank" rel="noopener" class="tripath-cta tripath-cta--primary">
+                            Order Hardcover →
+                        </a>
+                        <p class="tripath-badge">📚 Archival Grade</p>
+                    </article>
+
+                    <!-- PATH 2: THE STRATEGIST -->
+                    <article class="tripath-card tripath-card--strategist reveal reveal-delay-2">
+                        <div class="tripath-icon">🎯</div>
+                        <h3 class="tripath-title">For The Strategist</h3>
+                        <p class="tripath-subtitle">The Policy Implementation</p>
+                        <p class="tripath-desc">The complete framework for researchers, policymakers, and grant reviewers.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£14.99</span>
+                            <span class="price-note">Paperback · 450 pages</span>
+                        </div>
+                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                            Order Paperback →
+                        </a>
+                        <p class="tripath-badge">📋 Reference Edition</p>
+                    </article>
+
+                    <!-- PATH 3: THE SEEKER -->
+                    <article class="tripath-card tripath-card--seeker reveal reveal-delay-3">
+                        <div class="tripath-icon">✨</div>
+                        <h3 class="tripath-title">For The Seeker</h3>
+                        <p class="tripath-subtitle">The Transmission</p>
+                        <p class="tripath-desc">Instant access. Read anywhere. Begin the journey now.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£9.99</span>
+                            <span class="price-note">Kindle Edition</span>
+                        </div>
+                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                            Download Now →
+                        </a>
+                        <p class="tripath-badge">⚡ Instant Access</p>
+                    </article>
+                </div>
+
+                <p class="tripath-footer reveal reveal-delay-4">
+                    <span class="footer-highlight">All editions contain the complete 109,000-word framework.</span><br>
+                    37 original concepts. 5 testable predictions. One equation that changes everything.
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section snap-section">
+            <!-- Video Portal Background (Phase 8) -->
+            <div class="video-portal video-portal--blend" id="video-portal">
+                <video
+                    id="portal-video"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                >
+                    <source src="videos/london-night.mp4" type="video/mp4">
+                </video>
+            </div>
+            <h2 class="cta-title reveal">The equation is complete. The clock is running.</h2>
+            <p class="cta-subtitle reveal reveal-delay-1">Available now in paperback and Kindle</p>
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
+                GET YOUR COPY
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div class="cta-retailers reveal reveal-delay-3">
+                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
+                <a href="https://www.amazon.co.uk/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
+                <a href="#" class="retailer-link">KINDLE</a>
+                <a href="#" class="retailer-link">PAPERBACK</a>
+            </div>
+
+            <!-- BBC Manhattan Project Video -->
+            <div class="manhattan-evidence reveal reveal-delay-4">
+                <p style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 1.5rem; text-transform: uppercase;">The Stakes Could Not Be Higher</p>
+                <div class="manhattan-evidence__video">
+                    <video preload="metadata" playsinline controls>
+                        <source src="videos/bbc_clip_5.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <blockquote class="manhattan-evidence__quote">
+                    "Quantum computing could be the new Manhattan project, with the world's biggest companies and biggest countries competing hard... <strong>Whoever gets their hands on that powerful quantum computer will also transform every other branch of research too.</strong>"
+                </blockquote>
+                <p class="manhattan-evidence__attribution">— Faisal Islam, BBC Economics Editor · January 7, 2026</p>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 168, 75, 0.05); border-left: 2px solid var(--gold); border-radius: 0 8px 8px 0;">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.75rem; text-transform: uppercase;">From Infinite Architects, Page 72:</p>
+                    <blockquote style="font-family: var(--font-serif); font-size: 1.1rem; font-style: italic; color: var(--text-primary); margin: 0; line-height: 1.6;">
+                        "There may be <em>only one shot</em> at getting this right. The initial conditions determine the final state."
+                    </blockquote>
+                    <p style="margin-top: 1rem; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em; color: rgba(212, 168, 75, 0.6); text-transform: uppercase;">
+                        Manhattan-level stakes — the book saw it first
+                    </p>
+                </div>
+            </div>
+
+            <!-- Guarantee Box -->
+            <div class="guarantee-box reveal reveal-delay-5">
+                <div class="guarantee-icon">✓</div>
+                <h4>The Architect's Guarantee</h4>
+                <p>If you read the first three chapters and don't feel your understanding of AI has fundamentally shifted, email for a full refund. No questions. No friction.</p>
             </div>
         </section>
 
@@ -10626,6 +12115,342 @@
             initMagneticElements();
             initCursorGlow();
             initAppleLenis();
+
+            // New Phase 7-14 Initializations
+            initStaggerReveal();
+            initSectionProgress();
+            initAmbientOrbs();
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 7: STAGGER REVEAL SYSTEM
+        // ═══════════════════════════════════════════════════════════════════════
+        function initStaggerReveal() {
+            const staggerGroups = document.querySelectorAll('[data-stagger-group]');
+
+            const staggerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('stagger-visible');
+                        staggerObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            staggerGroups.forEach(group => {
+                staggerObserver.observe(group);
+            });
+
+            console.log('✨ Stagger reveal system enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 8: SECTION PROGRESS DOTS
+        // ═══════════════════════════════════════════════════════════════════════
+        function initSectionProgress() {
+            // Define sections to track
+            const sectionConfig = [
+                { id: 'hero', label: 'HOME' },
+                { id: 'opening-quote', label: 'QUOTE' },
+                { id: 'equation', label: 'EQUATION' },
+                { id: 'prophecy', label: 'PREDICTION' },
+                { id: 'evidence-locker', label: 'EVIDENCE' },
+                { id: 'ideas', label: 'IDEAS' },
+                { id: 'chokepoint', label: 'CHOKEPOINT' },
+                { id: 'hrih', label: 'HRIH' },
+                { id: 'religion', label: 'RELIGION' },
+                { id: 'about', label: 'AUTHOR' },
+                { id: 'tripath', label: 'FUTURE' },
+                { id: 'predictions', label: 'TIMELINE' },
+                { id: 'reviews', label: 'REVIEWS' }
+            ];
+
+            // Create progress container
+            const progressContainer = document.createElement('nav');
+            progressContainer.className = 'section-progress';
+            progressContainer.setAttribute('aria-label', 'Section navigation');
+
+            sectionConfig.forEach(section => {
+                const dot = document.createElement('button');
+                dot.className = 'progress-dot';
+                dot.dataset.section = section.id;
+                dot.setAttribute('aria-label', `Navigate to ${section.label}`);
+
+                const tooltip = document.createElement('span');
+                tooltip.className = 'progress-dot-tooltip';
+                tooltip.textContent = section.label;
+                dot.appendChild(tooltip);
+
+                dot.addEventListener('click', () => {
+                    const targetSection = document.getElementById(section.id);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+
+                progressContainer.appendChild(dot);
+            });
+
+            document.body.appendChild(progressContainer);
+
+            // Track active section
+            let activeSection = null;
+            const sections = sectionConfig.map(s => document.getElementById(s.id)).filter(Boolean);
+
+            const progressObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.id;
+                        const dot = progressContainer.querySelector(`[data-section="${sectionId}"]`);
+
+                        // Remove active from all
+                        progressContainer.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
+
+                        // Add active to current
+                        if (dot) {
+                            dot.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.5, 0.7],
+                rootMargin: '-10% 0px -40% 0px'
+            });
+
+            sections.forEach(section => {
+                if (section) progressObserver.observe(section);
+            });
+
+            // Show/hide progress based on scroll position
+            let lastScrollY = 0;
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+
+                // Show after loader
+                if (scrollY > 100) {
+                    progressContainer.classList.add('visible');
+                } else {
+                    progressContainer.classList.remove('visible');
+                }
+
+                lastScrollY = scrollY;
+            }, { passive: true });
+
+            console.log('✨ Section progress dots enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS)
+        // ═══════════════════════════════════════════════════════════════════════
+        function initAmbientOrbs() {
+            // Skip if reduced motion preferred
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            // Create ambient orbs container
+            const orbsContainer = document.createElement('div');
+            orbsContainer.className = 'ambient-orbs';
+            orbsContainer.setAttribute('aria-hidden', 'true');
+
+            // Add three orbs
+            const orbs = ['gold', 'purple', 'teal'];
+            orbs.forEach(color => {
+                const orb = document.createElement('div');
+                orb.className = `ambient-orb ambient-orb--${color}`;
+                orbsContainer.appendChild(orb);
+            });
+
+            // Insert at the beginning of body, but after any loaders
+            const mainContent = document.querySelector('.main-content') || document.body.firstChild;
+            document.body.insertBefore(orbsContainer, mainContent);
+
+            console.log('✨ Ambient orbs enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 16: 3D CARD TILT EFFECT (Haptic Feedback Simulation)
+        // ═══════════════════════════════════════════════════════════════════════
+        function initCardTilt() {
+            // Skip on touch devices or if reduced motion preferred
+            if ('ontouchstart' in window || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const tiltCards = document.querySelectorAll('.idea-card, .evidence-card, .prophecy-card, .expert-card');
+
+            tiltCards.forEach(card => {
+                card.classList.add('tilt-card');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    // Calculate rotation based on cursor position
+                    const rotateX = ((e.clientY - centerY) / (rect.height / 2)) * -5; // Max 5 degrees
+                    const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 5;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                });
+
+                card.addEventListener('mouseenter', () => {
+                    card.style.transition = 'transform 0.15s ease-out';
+                });
+            });
+
+            console.log('✨ 3D card tilt enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 19: SPATIAL AUDIO CUES (Subliminal Sound Design)
+        // ═══════════════════════════════════════════════════════════════════════
+        function initSpatialAudio() {
+            // Only initialize if user has interacted and Tone.js is available
+            let audioEnabled = false;
+            let audioContext = null;
+
+            // Create subtle audio feedback
+            function createSubtleClick() {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
+
+                gainNode.gain.setValueAtTime(0.03, audioContext.currentTime); // Very quiet
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.05);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.05);
+            }
+
+            function createSubtleHover() {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(1200, audioContext.currentTime);
+
+                gainNode.gain.setValueAtTime(0.01, audioContext.currentTime); // Almost subliminal
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.02);
+
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.02);
+            }
+
+            // Enable audio on first interaction
+            document.addEventListener('click', function enableAudio() {
+                audioEnabled = true;
+                document.removeEventListener('click', enableAudio);
+            }, { once: true });
+
+            // Add subtle click sounds to buttons (after user enables audio)
+            document.querySelectorAll('.buy-button, .cta-button, .hero-cta').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (audioEnabled) createSubtleClick();
+                });
+            });
+
+            // Add subtle hover sounds to cards (after user enables audio)
+            document.querySelectorAll('.idea-card, .evidence-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    if (audioEnabled) createSubtleHover();
+                });
+            });
+
+            console.log('✨ Spatial audio ready (activates on first click)');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 25: PROGRESSIVE IMAGE LOADING & PRELOAD ON HOVER
+        // ═══════════════════════════════════════════════════════════════════════
+        function initProgressiveImages() {
+            // Progressive image loading
+            const images = document.querySelectorAll('img[loading="lazy"]');
+
+            images.forEach(img => {
+                // Add loading class for blur effect
+                img.classList.add('loading');
+
+                img.addEventListener('load', () => {
+                    img.classList.remove('loading');
+                    img.classList.add('loaded');
+                });
+
+                // If already loaded (cached)
+                if (img.complete) {
+                    img.classList.remove('loading');
+                    img.classList.add('loaded');
+                }
+            });
+
+            // Preload on hover for links
+            const preloadLinks = document.querySelectorAll('[data-preload]');
+
+            preloadLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    const preloadUrl = link.dataset.preload;
+                    if (preloadUrl) {
+                        const preloadLink = document.createElement('link');
+                        preloadLink.rel = 'prefetch';
+                        preloadLink.href = preloadUrl;
+                        document.head.appendChild(preloadLink);
+                    }
+                }, { once: true }); // Only prefetch once
+            });
+
+            console.log('✨ Progressive images enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 17: MOTION REVEAL OBSERVER (Semantic Motion)
+        // ═══════════════════════════════════════════════════════════════════════
+        function initMotionReveals() {
+            const motionElements = document.querySelectorAll('.motion-reveal');
+
+            const motionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        motionObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            motionElements.forEach(el => motionObserver.observe(el));
+
+            console.log('✨ Motion reveals enabled');
+        }
+
+        // Initialize all Phase 16-25 features
+        document.addEventListener('DOMContentLoaded', function() {
+            initCardTilt();
+            initSpatialAudio();
+            initProgressiveImages();
+            initMotionReveals();
         });
 
         // ═══════════════════════════════════════════════════════════════════════════════
@@ -12031,7 +13856,7 @@
                     padding: 8px 16px;
                     border-radius: 20px;
                     font-family: var(--font-mono);
-                    font-size: 0.7rem;
+                    font-size: 0.85rem;
                     z-index: 9998;
                     cursor: pointer;
                 `;
