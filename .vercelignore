@@ -1,17 +1,10 @@
-# Large video files (exclude only specific large ones)
+# Large video files
 hero-portal.mp4
 *.avi
 *.mov
 bbc_all_clips.mp4
-audio_clip_4.mp3
-
-# Keep these MP4s for the website:
-# - london-night.mp4 (2.7MB) - CTA background
-# - bbc_clip_2.mp4 (0.5MB) - BBC gallery
-# - bbc_clip_3.mp4 (0.8MB) - BBC gallery
-# - bbc_clip_4.mp4 (1MB) / bbc-clip-4.webm (1MB) - Featured clip
-# - bbc_clip_5.mp4 (1MB) - BBC gallery
-# - Mandelbrot_Set_Video_Loop.mp4 (5.5MB) - Mandelbrot background
+videos/bbc_all_clips.mp4
+videos/audio_clip_4.mp3
 
 # Screenshots folder
 Mobile-and-desktop-screenshots/
@@ -20,11 +13,11 @@ Mobile-and-desktop-screenshots/
 *.backup.*
 index.html.backup.*
 
-# Development screenshots (not needed on live site)
+# Development screenshots
 Screen Shot*.jpg
 WhatsApp*.jpeg
 
-# Documentation and planning files
+# Documentation (except README)
 *.md
 !README.md
 
@@ -33,17 +26,11 @@ WhatsApp*.jpeg
 node_modules/
 *.log
 
-# Hero cosmic (not currently used, large)
+# Unused images
 hero-cosmic.png
-
-# Old/unused images
 IMG_6833.jpg
 
-# Large PNG originals (we have optimized webp versions)
-*.PNG
-*.WEBP
-
-# Old art files (now in images/ folder as webp)
+# Old duplicate files in root (we use images/ folder versions)
 art_*.webp
 grand-council.webp
 architecture-diagram.png
