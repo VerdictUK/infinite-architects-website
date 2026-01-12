@@ -12048,6 +12048,283 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════════
+           PREMIUM SLIDESHOW NAVIGATION - Mobile Only
+           Creates an app-like presentation experience
+           ═══════════════════════════════════════════════════════════════════════════ */
+
+        .slideshow-nav {
+            display: none; /* Hidden by default, shown on mobile */
+        }
+
+        @media (max-width: 768px) {
+            /* Main navigation container */
+            .slideshow-nav {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 9990;
+                background: linear-gradient(to top,
+                    rgba(2, 3, 10, 0.98) 0%,
+                    rgba(2, 3, 10, 0.95) 50%,
+                    rgba(2, 3, 10, 0) 100%);
+                padding: 0.5rem 1rem calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.4s ease, transform 0.4s ease;
+            }
+
+            .slideshow-nav.active {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            /* Section title toast */
+            .slideshow-section-title {
+                font-family: var(--font-display, 'Cinzel', serif);
+                font-size: 0.7rem;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                color: var(--gold-primary, #d4a84b);
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                text-align: center;
+                max-width: 80%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .slideshow-section-title.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Navigation controls row */
+            .slideshow-controls {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 320px;
+                gap: 1rem;
+            }
+
+            /* Section counter */
+            .slideshow-counter {
+                font-family: var(--font-mono, 'Space Mono', monospace);
+                font-size: 0.75rem;
+                color: rgba(232, 212, 160, 0.6);
+                min-width: 50px;
+                text-align: left;
+            }
+
+            .slideshow-counter .current {
+                color: var(--gold-primary, #d4a84b);
+                font-weight: 600;
+            }
+
+            /* Progress bar container */
+            .slideshow-progress-container {
+                flex: 1;
+                height: 3px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 3px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .slideshow-progress-bar {
+                height: 100%;
+                background: linear-gradient(90deg,
+                    var(--gold-dark, #8b6914) 0%,
+                    var(--gold-primary, #d4a84b) 50%,
+                    var(--gold-bright, #f4c856) 100%);
+                border-radius: 3px;
+                width: 0%;
+                transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: 0 0 10px rgba(212, 168, 75, 0.5);
+            }
+
+            /* Navigation arrows */
+            .slideshow-arrows {
+                display: flex;
+                gap: 0.25rem;
+                min-width: 50px;
+                justify-content: flex-end;
+            }
+
+            .slideshow-arrow {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: rgba(212, 168, 75, 0.1);
+                border: 1px solid rgba(212, 168, 75, 0.3);
+                color: var(--gold-primary, #d4a84b);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .slideshow-arrow:active {
+                transform: scale(0.92);
+                background: rgba(212, 168, 75, 0.2);
+            }
+
+            .slideshow-arrow.disabled {
+                opacity: 0.3;
+                pointer-events: none;
+            }
+
+            .slideshow-arrow svg {
+                width: 18px;
+                height: 18px;
+                fill: currentColor;
+            }
+
+            /* Swipe hint indicator (shown initially) */
+            .slideshow-swipe-hint {
+                position: fixed;
+                bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                opacity: 0;
+                animation: swipeHintFade 3s ease-in-out forwards;
+                animation-delay: 2s;
+                pointer-events: none;
+                z-index: 9991;
+            }
+
+            .slideshow-swipe-hint .swipe-icon {
+                width: 30px;
+                height: 50px;
+                border: 2px solid rgba(212, 168, 75, 0.4);
+                border-radius: 15px;
+                position: relative;
+            }
+
+            .slideshow-swipe-hint .swipe-dot {
+                width: 6px;
+                height: 6px;
+                background: var(--gold-primary, #d4a84b);
+                border-radius: 50%;
+                position: absolute;
+                left: 50%;
+                top: 8px;
+                transform: translateX(-50%);
+                animation: swipeDotMove 1.5s ease-in-out infinite;
+            }
+
+            .slideshow-swipe-hint .swipe-text {
+                font-family: var(--font-mono, 'Space Mono', monospace);
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: rgba(212, 168, 75, 0.6);
+            }
+
+            @keyframes swipeHintFade {
+                0% { opacity: 0; }
+                10% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { opacity: 0; display: none; }
+            }
+
+            @keyframes swipeDotMove {
+                0%, 100% { top: 8px; opacity: 1; }
+                50% { top: 34px; opacity: 0.5; }
+            }
+
+            /* Section transition effect */
+            .snap-section {
+                transition: opacity 0.3s ease;
+            }
+
+            .snap-section.transitioning {
+                opacity: 0.7;
+            }
+
+            /* Dot navigation (compact, for quick jumps) */
+            .slideshow-dots {
+                display: flex;
+                gap: 4px;
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 280px;
+                padding: 0.25rem 0;
+            }
+
+            .slideshow-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: rgba(212, 168, 75, 0.2);
+                border: 1px solid rgba(212, 168, 75, 0.3);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .slideshow-dot.active {
+                background: var(--gold-primary, #d4a84b);
+                box-shadow: 0 0 8px rgba(212, 168, 75, 0.6);
+                transform: scale(1.3);
+            }
+
+            .slideshow-dot.visited {
+                background: rgba(212, 168, 75, 0.4);
+            }
+
+            /* Hide scrollbar for cleaner slideshow feel */
+            html.slideshow-mode {
+                scroll-behavior: smooth;
+                scroll-snap-type: y mandatory;
+            }
+
+            html.slideshow-mode::-webkit-scrollbar {
+                display: none;
+            }
+
+            html.slideshow-mode {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            /* Ensure sections snap properly in slideshow mode */
+            html.slideshow-mode .snap-section {
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+            }
+        }
+
+        /* Reduce motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .slideshow-nav,
+            .slideshow-section-title,
+            .slideshow-progress-bar,
+            .slideshow-arrow,
+            .slideshow-swipe-hint,
+            .slideshow-dot {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -18693,6 +18970,422 @@
             }
         }, 1000);
     });
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════
+         PREMIUM SLIDESHOW NAVIGATION - Mobile App-Like Experience
+         ═══════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Slideshow Navigation HTML (injected via JS for cleaner markup) -->
+    <div class="slideshow-nav" id="slideshowNav" aria-label="Section navigation">
+        <div class="slideshow-section-title" id="slideshowTitle"></div>
+        <div class="slideshow-dots" id="slideshowDots" role="tablist"></div>
+        <div class="slideshow-controls">
+            <div class="slideshow-counter">
+                <span class="current" id="slideshowCurrent">1</span>/<span id="slideshowTotal">26</span>
+            </div>
+            <div class="slideshow-progress-container">
+                <div class="slideshow-progress-bar" id="slideshowProgress"></div>
+            </div>
+            <div class="slideshow-arrows">
+                <button class="slideshow-arrow" id="slideshowPrev" aria-label="Previous section">
+                    <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+                </button>
+                <button class="slideshow-arrow" id="slideshowNext" aria-label="Next section">
+                    <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Swipe hint (shown once on first visit) -->
+    <div class="slideshow-swipe-hint" id="swipeHint">
+        <div class="swipe-icon">
+            <div class="swipe-dot"></div>
+        </div>
+        <span class="swipe-text">Swipe to explore</span>
+    </div>
+
+    <script>
+    // ═══════════════════════════════════════════════════════════════════════════
+    // PREMIUM SLIDESHOW NAVIGATION SYSTEM
+    // Creates an app-like presentation experience on mobile
+    // ═══════════════════════════════════════════════════════════════════════════
+    (function() {
+        'use strict';
+
+        // Only enable on mobile
+        const isMobile = () => window.innerWidth <= 768;
+        if (!isMobile()) {
+            // Hide nav elements on desktop
+            const nav = document.getElementById('slideshowNav');
+            const hint = document.getElementById('swipeHint');
+            if (nav) nav.style.display = 'none';
+            if (hint) hint.style.display = 'none';
+            return;
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // CONFIGURATION
+        // ─────────────────────────────────────────────────────────────────────
+        const config = {
+            swipeThreshold: 50,           // Minimum swipe distance
+            swipeTimeThreshold: 300,      // Max time for a swipe (ms)
+            scrollDebounce: 100,          // Debounce scroll detection
+            titleDisplayTime: 2000,       // How long to show section title
+            hapticEnabled: true,          // Enable haptic feedback
+            animationDuration: 500        // Scroll animation duration
+        };
+
+        // ─────────────────────────────────────────────────────────────────────
+        // STATE
+        // ─────────────────────────────────────────────────────────────────────
+        let sections = [];
+        let currentIndex = 0;
+        let visitedSections = new Set([0]);
+        let isScrolling = false;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let scrollTimeout = null;
+        let titleTimeout = null;
+
+        // ─────────────────────────────────────────────────────────────────────
+        // DOM ELEMENTS
+        // ─────────────────────────────────────────────────────────────────────
+        const nav = document.getElementById('slideshowNav');
+        const titleEl = document.getElementById('slideshowTitle');
+        const dotsContainer = document.getElementById('slideshowDots');
+        const currentEl = document.getElementById('slideshowCurrent');
+        const totalEl = document.getElementById('slideshowTotal');
+        const progressBar = document.getElementById('slideshowProgress');
+        const prevBtn = document.getElementById('slideshowPrev');
+        const nextBtn = document.getElementById('slideshowNext');
+        const swipeHint = document.getElementById('swipeHint');
+
+        // ─────────────────────────────────────────────────────────────────────
+        // SECTION NAMES (for title display)
+        // ─────────────────────────────────────────────────────────────────────
+        const sectionNames = {
+            'hero': 'Welcome',
+            'book': 'The Book',
+            'equation': 'The Equation',
+            'evidence-locker': 'Evidence Locker',
+            'ideas': 'The 37 Concepts',
+            'carousel': 'Key Quotes',
+            'bbc-timeline': 'BBC Timeline',
+            'architecture': 'Architecture',
+            'chokepoint': 'The Chokepoint',
+            'predictions': 'Predictions',
+            'falsification': 'Falsification',
+            'hrih': 'HRIH Theory',
+            'religion': 'Religious Wisdom',
+            'future-born': 'Future Born',
+            'window': 'The Window',
+            'author': 'About the Author',
+            'comparison': 'Comparison',
+            'stakes': 'The Stakes',
+            'predictions-validated': 'Predictions Validated',
+            'reviews': 'Reviews',
+            'prophecy': 'The Prophecy',
+            'get-the-book': 'Get the Book',
+            'cta': 'Take Action',
+            'paradise': 'Paradise Protocol',
+            'newsletter': 'Newsletter',
+            'press': 'Press'
+        };
+
+        // ─────────────────────────────────────────────────────────────────────
+        // HAPTIC FEEDBACK
+        // ─────────────────────────────────────────────────────────────────────
+        const haptic = {
+            light: () => {
+                if (config.hapticEnabled && 'vibrate' in navigator) {
+                    navigator.vibrate(10);
+                }
+            },
+            medium: () => {
+                if (config.hapticEnabled && 'vibrate' in navigator) {
+                    navigator.vibrate(20);
+                }
+            },
+            tick: () => {
+                if (config.hapticEnabled && 'vibrate' in navigator) {
+                    navigator.vibrate([5, 5, 5]);
+                }
+            }
+        };
+
+        // ─────────────────────────────────────────────────────────────────────
+        // INITIALIZE
+        // ─────────────────────────────────────────────────────────────────────
+        function init() {
+            // Get all sections
+            sections = Array.from(document.querySelectorAll('.snap-section'));
+            if (sections.length === 0) return;
+
+            // Enable slideshow mode
+            document.documentElement.classList.add('slideshow-mode');
+
+            // Update total count
+            totalEl.textContent = sections.length;
+
+            // Create dot navigation
+            createDots();
+
+            // Show navigation after delay
+            setTimeout(() => {
+                nav.classList.add('active');
+            }, 1500);
+
+            // Hide swipe hint after interaction or timeout
+            setTimeout(() => {
+                if (swipeHint) swipeHint.style.display = 'none';
+            }, 8000);
+
+            // Set up event listeners
+            setupEventListeners();
+
+            // Initial state update
+            updateState();
+
+            console.log('✨ Slideshow Navigation Active:', sections.length, 'sections');
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // CREATE DOT NAVIGATION
+        // ─────────────────────────────────────────────────────────────────────
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            sections.forEach((section, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'slideshow-dot' + (index === 0 ? ' active visited' : '');
+                dot.setAttribute('role', 'tab');
+                dot.setAttribute('aria-label', `Go to section ${index + 1}`);
+                dot.addEventListener('click', () => goToSection(index));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // UPDATE STATE
+        // ─────────────────────────────────────────────────────────────────────
+        function updateState() {
+            // Update counter
+            currentEl.textContent = currentIndex + 1;
+
+            // Update progress bar
+            const progress = ((currentIndex + 1) / sections.length) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update dots
+            const dots = dotsContainer.querySelectorAll('.slideshow-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+                if (visitedSections.has(index)) {
+                    dot.classList.add('visited');
+                }
+            });
+
+            // Update arrow states
+            prevBtn.classList.toggle('disabled', currentIndex === 0);
+            nextBtn.classList.toggle('disabled', currentIndex === sections.length - 1);
+
+            // Show section title
+            showSectionTitle();
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // SHOW SECTION TITLE
+        // ─────────────────────────────────────────────────────────────────────
+        function showSectionTitle() {
+            const section = sections[currentIndex];
+            const id = section.id || '';
+            const name = sectionNames[id] || `Section ${currentIndex + 1}`;
+
+            titleEl.textContent = name;
+            titleEl.classList.add('visible');
+
+            // Clear existing timeout
+            if (titleTimeout) clearTimeout(titleTimeout);
+
+            // Hide after delay
+            titleTimeout = setTimeout(() => {
+                titleEl.classList.remove('visible');
+            }, config.titleDisplayTime);
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // NAVIGATE TO SECTION
+        // ─────────────────────────────────────────────────────────────────────
+        function goToSection(index, smooth = true) {
+            if (index < 0 || index >= sections.length) return;
+            if (isScrolling) return;
+
+            const previousIndex = currentIndex;
+            currentIndex = index;
+            visitedSections.add(index);
+
+            // Haptic feedback
+            if (index !== previousIndex) {
+                haptic.medium();
+            }
+
+            // Hide swipe hint on first navigation
+            if (swipeHint) swipeHint.style.display = 'none';
+
+            // Add transition class
+            sections[previousIndex]?.classList.add('transitioning');
+
+            // Scroll to section
+            isScrolling = true;
+            sections[index].scrollIntoView({
+                behavior: smooth ? 'smooth' : 'auto',
+                block: 'start'
+            });
+
+            // Update state
+            updateState();
+
+            // Reset scrolling flag
+            setTimeout(() => {
+                isScrolling = false;
+                sections[previousIndex]?.classList.remove('transitioning');
+            }, config.animationDuration);
+        }
+
+        function goToPrevious() {
+            if (currentIndex > 0) {
+                goToSection(currentIndex - 1);
+            }
+        }
+
+        function goToNext() {
+            if (currentIndex < sections.length - 1) {
+                goToSection(currentIndex + 1);
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // DETECT CURRENT SECTION FROM SCROLL
+        // ─────────────────────────────────────────────────────────────────────
+        function detectCurrentSection() {
+            const viewportHeight = window.innerHeight;
+            const scrollTop = window.scrollY;
+
+            for (let i = 0; i < sections.length; i++) {
+                const section = sections[i];
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + scrollTop;
+                const sectionHeight = rect.height;
+
+                // Section is considered "current" if it occupies majority of viewport
+                if (scrollTop >= sectionTop - viewportHeight * 0.3 &&
+                    scrollTop < sectionTop + sectionHeight - viewportHeight * 0.3) {
+                    if (currentIndex !== i) {
+                        currentIndex = i;
+                        visitedSections.add(i);
+                        haptic.tick();
+                        updateState();
+                    }
+                    break;
+                }
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // EVENT LISTENERS
+        // ─────────────────────────────────────────────────────────────────────
+        function setupEventListeners() {
+            // Arrow button clicks
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                haptic.light();
+                goToPrevious();
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                haptic.light();
+                goToNext();
+            });
+
+            // Touch swipe detection
+            document.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
+            }, { passive: true });
+
+            document.addEventListener('touchend', (e) => {
+                const touchEndY = e.changedTouches[0].clientY;
+                const touchEndTime = Date.now();
+                const deltaY = touchStartY - touchEndY;
+                const deltaTime = touchEndTime - touchStartTime;
+
+                // Check if this is a valid swipe
+                if (Math.abs(deltaY) > config.swipeThreshold && deltaTime < config.swipeTimeThreshold) {
+                    if (deltaY > 0) {
+                        // Swipe up - go to next
+                        goToNext();
+                    } else {
+                        // Swipe down - go to previous
+                        goToPrevious();
+                    }
+                }
+            }, { passive: true });
+
+            // Scroll detection (for manual scrolling)
+            window.addEventListener('scroll', () => {
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (!isScrolling) {
+                        detectCurrentSection();
+                    }
+                }, config.scrollDebounce);
+            }, { passive: true });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                    e.preventDefault();
+                    goToNext();
+                } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    goToPrevious();
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    goToSection(0);
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    goToSection(sections.length - 1);
+                }
+            });
+
+            // Handle resize (switch between mobile/desktop)
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (isMobile()) {
+                        nav.style.display = '';
+                        document.documentElement.classList.add('slideshow-mode');
+                    } else {
+                        nav.style.display = 'none';
+                        document.documentElement.classList.remove('slideshow-mode');
+                    }
+                }, 200);
+            });
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        // START
+        // ─────────────────────────────────────────────────────────────────────
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
     </script>
 
 </body>
