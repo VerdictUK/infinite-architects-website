@@ -6812,6 +6812,249 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           APPLE-GRADE ADVANCED SYSTEM - Phase 2 Enhancements
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* 1. TYPOGRAPHY BREATH SYSTEM - CSS Variables */
+        :root {
+            --breath-tight: 1.1;
+            --breath-normal: 1.5;
+            --breath-relaxed: 1.7;
+            --breath-loose: 1.9;
+            --track-tight: -0.03em;
+            --track-normal: -0.01em;
+            --track-wide: 0.1em;
+            --track-ultra: 0.2em;
+        }
+
+        /* 2. THREE-LAYER FROSTED GLASS SYSTEM */
+        .glass-deep {
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
+        }
+
+        .glass-surface {
+            background: rgba(18, 18, 22, 0.7);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-elevated {
+            background: rgba(28, 28, 32, 0.6);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* 3. BENTO SIZE VARIANTS */
+        .bento-card--wide { grid-column: span 8; }
+        .bento-card--full { grid-column: span 12; }
+        .bento-card--tall { grid-row: span 2; }
+        .bento-card--hero { grid-column: span 12; grid-row: span 2; }
+
+        /* 4. GOLD GLOW BREATHING ANIMATION */
+        @keyframes goldBreath {
+            0%, 100% {
+                box-shadow:
+                    0 0 20px rgba(212, 168, 75, 0.2),
+                    0 0 40px rgba(212, 168, 75, 0.1);
+            }
+            50% {
+                box-shadow:
+                    0 0 30px rgba(212, 168, 75, 0.3),
+                    0 0 60px rgba(212, 168, 75, 0.15);
+            }
+        }
+
+        .gold-glow {
+            animation: goldBreath 4s ease-in-out infinite;
+        }
+
+        .hero-book-3d,
+        .equation-display {
+            animation: goldBreath 4s ease-in-out infinite;
+        }
+
+        /* 5. PAGE EMERGE ANIMATION */
+        @keyframes pageEmerge {
+            from {
+                opacity: 0;
+                filter: blur(10px);
+                transform: scale(1.02);
+            }
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: scale(1);
+            }
+        }
+
+        .cinematic .content,
+        .cinematic main {
+            animation: pageEmerge 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.1s;
+        }
+
+        /* 6. MAGNETIC ELEMENT STYLING */
+        .magnetic {
+            transition: transform 0.15s ease-out;
+            will-change: transform;
+        }
+
+        /* 7. CURSOR-FOLLOWING GLOW ON CARDS */
+        .card-with-glow {
+            position: relative;
+            overflow: hidden;
+            --glow-x: 50%;
+            --glow-y: 50%;
+            --glow-color: rgba(212, 168, 75, 0.2);
+        }
+
+        .card-with-glow::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            left: var(--glow-x);
+            top: var(--glow-y);
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .card-with-glow:hover::before {
+            opacity: 1;
+        }
+
+        .card-with-glow > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Evidence cards get green glow */
+        .evidence-card.card-with-glow {
+            --glow-color: rgba(0, 255, 136, 0.15);
+        }
+
+        /* Expert cards get red glow */
+        .expert-card.card-with-glow {
+            --glow-color: rgba(187, 28, 28, 0.15);
+        }
+
+        /* 8. ENHANCED HARDWARE VIDEO FRAME */
+        .video-hardware-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 10px 20px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .video-hardware-frame:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.02);
+        }
+
+        .video-hardware-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                110deg,
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.05) 15%,
+                transparent 40%
+            );
+            pointer-events: none;
+            z-index: 10;
+            border-radius: inherit;
+        }
+
+        /* 9. COMPLETELY INVISIBLE SCROLLBAR OPTION */
+        @media (min-width: 769px) {
+            html.hide-scrollbar::-webkit-scrollbar {
+                width: 0px;
+                background: transparent;
+            }
+            html.hide-scrollbar {
+                scrollbar-width: none;
+            }
+        }
+
+        /* 10. OVERSCROLL BEHAVIOR */
+        html {
+            overscroll-behavior: none;
+        }
+
+        /* 11. STICKY REVEAL CONTAINER */
+        .sticky-reveal {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 12. ENHANCED APPLE BUTTON PHYSICS */
+        .apple-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            background: var(--gold);
+            color: var(--void);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transform: scale(1) translateY(0);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.2),
+                0 0 0 0 rgba(212, 168, 75, 0.4);
+            transition:
+                transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+        }
+
+        .apple-button:hover {
+            transform: scale(1.03) translateY(-2px);
+            box-shadow:
+                0 12px 24px rgba(0, 0, 0, 0.3),
+                0 0 0 4px rgba(212, 168, 75, 0.4);
+        }
+
+        .apple-button:active {
+            transform: scale(0.97) translateY(0);
+            transition-duration: 0.1s;
+        }
+
+        .apple-button svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .apple-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            APPLE-GRADE SCROLL SNAPPING - Works on all devices
            ═══════════════════════════════════════════════════════════════════════ */
         html {
@@ -10197,46 +10440,70 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // APPLE-GRADE EFFECTS - Scrollytelling & Parallax
+        // APPLE-GRADE EFFECTS - Complete System
         // ═══════════════════════════════════════════════════════════════════════
         function initAppleGradeEffects() {
             // Skip if reduced motion preferred
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-            // 1. SCROLLYTELLING TYPOGRAPHY - Text breathes as it enters viewport
-            const textReveals = document.querySelectorAll('h2, h3, .book-quote, .quote-text');
+            // 1. ENHANCED SCROLLYTELLING TYPOGRAPHY with blur
+            const textReveals = document.querySelectorAll('h2, h3, .book-quote, .quote-text, .apple-reveal');
 
             function updateTextReveals() {
                 const windowHeight = window.innerHeight;
 
                 textReveals.forEach(el => {
                     const rect = el.getBoundingClientRect();
+                    const elementCenter = rect.top + rect.height / 2;
 
-                    // Calculate opacity based on distance from center of viewport
-                    const distFromCenter = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
-                    const opacity = 1 - (distFromCenter / (windowHeight * 0.6));
+                    // Calculate progress (0 = below viewport, 1 = at center)
+                    let progress = 1 - (elementCenter - windowHeight / 2) / (windowHeight / 2);
+                    progress = Math.max(0, Math.min(1, progress));
 
-                    // Clamp between 0.3 and 1 (never fully invisible)
-                    const clampedOpacity = Math.max(0.3, Math.min(1, opacity));
-                    const scale = 0.96 + (Math.max(0, clampedOpacity - 0.3) * 0.057); // Scale 0.96 to 1.0
+                    // Apply easing
+                    const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
 
-                    el.style.opacity = clampedOpacity;
-                    el.style.transform = `scale(${scale})`;
+                    // Interpolate values
+                    const opacity = 0.15 + (eased * 0.85);
+                    const y = 20 - (eased * 20);
+                    const scale = 0.97 + (eased * 0.03);
+                    const blur = 3 - (eased * 3);
+
+                    el.style.opacity = opacity;
+                    el.style.transform = `translateY(${y}px) scale(${scale})`;
+                    el.style.filter = `blur(${blur}px)`;
                 });
             }
 
-            // 2. HRIH PARALLAX - Slow image movement creates 3D window effect
-            const hrihImage = document.querySelector('.hrih-visual');
+            // 2. ENHANCED PARALLAX with data attributes
+            const parallaxElements = document.querySelectorAll('[data-parallax], .hrih-visual');
 
             function updateParallax() {
-                if (hrihImage) {
-                    const scrolled = window.scrollY;
-                    const rate = scrolled * 0.08; // Subtle movement
-                    hrihImage.style.transform = `translateY(${rate}px) scale(1.05)`;
-                }
+                const scrollY = window.scrollY;
+
+                parallaxElements.forEach(el => {
+                    const speed = parseFloat(el.dataset?.parallax) || 0.08;
+                    const direction = el.dataset?.parallaxDir || 'y';
+                    const baseScale = parseFloat(el.dataset?.parallaxScale) || 1.05;
+
+                    const rect = el.getBoundingClientRect();
+                    const elementTop = rect.top + scrollY;
+                    const distanceFromTop = scrollY - elementTop + window.innerHeight;
+
+                    // Only animate when in view
+                    if (distanceFromTop > 0 && scrollY < elementTop + rect.height + window.innerHeight) {
+                        const offset = distanceFromTop * speed;
+
+                        if (direction === 'x') {
+                            el.style.transform = `translateX(${offset}px) scale(${baseScale})`;
+                        } else {
+                            el.style.transform = `translateY(${offset}px) scale(${baseScale})`;
+                        }
+                    }
+                });
             }
 
-            // 3. COMBINED SCROLL HANDLER for efficiency
+            // 3. COMBINED SCROLL HANDLER
             let ticking = false;
 
             function onScroll() {
@@ -10260,6 +10527,89 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // MAGNETIC CURSOR EFFECT
+        // ═══════════════════════════════════════════════════════════════════════
+        function initMagneticElements() {
+            const magneticElements = document.querySelectorAll('.magnetic, .hero-cta, .cta-button, .tripath-cta');
+
+            magneticElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    const deltaX = (e.clientX - centerX) * 0.15; // Magnetic strength
+                    const deltaY = (e.clientY - centerY) * 0.15;
+
+                    el.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                    el.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+                });
+
+                el.addEventListener('mouseenter', () => {
+                    el.style.transition = 'transform 0.15s ease-out';
+                });
+            });
+
+            console.log('✨ Magnetic cursor enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // CURSOR-FOLLOWING GLOW ON CARDS
+        // ═══════════════════════════════════════════════════════════════════════
+        function initCursorGlow() {
+            const glowCards = document.querySelectorAll('.idea-card, .evidence-card, .expert-card, .timeline-event');
+
+            glowCards.forEach(card => {
+                // Add the glow class
+                card.classList.add('card-with-glow');
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    card.style.setProperty('--glow-x', `${x}px`);
+                    card.style.setProperty('--glow-y', `${y}px`);
+                });
+            });
+
+            console.log('✨ Cursor glow enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // ENHANCED LENIS CONFIGURATION
+        // ═══════════════════════════════════════════════════════════════════════
+        function initAppleLenis() {
+            if (typeof Lenis === 'undefined') return;
+
+            const lenis = new Lenis({
+                duration: 1.2,           // Slower = more luxurious
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easeOutExpo
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 0.8,    // Slower wheel = more control
+                touchMultiplier: 1.5,    // Faster touch = more responsive
+                infinite: false,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+
+            // Expose for external use
+            window.lenis = lenis;
+
+            console.log('✨ Apple-grade Lenis enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
@@ -10273,6 +10623,9 @@
             initCarouselOptimization();
             initMobileWowFactor();
             initAppleGradeEffects();
+            initMagneticElements();
+            initCursorGlow();
+            initAppleLenis();
         });
 
         // ═══════════════════════════════════════════════════════════════════════════════
