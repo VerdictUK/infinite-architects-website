@@ -7537,6 +7537,19 @@
             padding-top: max(2rem, env(safe-area-inset-top));
         }
 
+        /* Image fallback styling for when images fail to load */
+        img[src*="images/"] {
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.1) 0%, rgba(18, 18, 22, 0.9) 100%);
+            min-height: 80px;
+        }
+
+        .idea-image,
+        .idea-card__image img,
+        .religion-image,
+        .hrih-visual {
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.12) 0%, rgba(18, 18, 22, 0.95) 100%);
+        }
+
         /* Smaller snap sections - align but don't force stop */
         .snap-point {
             scroll-snap-align: start;
@@ -12095,9 +12108,41 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // IMAGE ERROR HANDLER - Graceful fallbacks for broken images
+        // ═══════════════════════════════════════════════════════════════════════
+        function initImageErrorHandlers() {
+            document.querySelectorAll('img').forEach(img => {
+                // Handle images that already errored
+                if (img.complete && img.naturalHeight === 0) {
+                    handleImageError(img);
+                }
+
+                // Handle future errors
+                img.addEventListener('error', function() {
+                    handleImageError(this);
+                });
+            });
+
+            function handleImageError(img) {
+                // Hide the broken image icon
+                img.style.opacity = '0';
+                img.style.minHeight = '0';
+
+                // Add gradient fallback to parent
+                const parent = img.parentElement;
+                if (parent) {
+                    parent.style.background = 'linear-gradient(135deg, rgba(212, 168, 75, 0.12) 0%, rgba(18, 18, 22, 0.95) 100%)';
+                    parent.style.minHeight = img.classList.contains('idea-image') ? '80px' : '150px';
+                    parent.style.borderRadius = '12px';
+                }
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
+            initImageErrorHandlers();
             addRippleStyles();
             initReadingProgress();
             initNewsletter();
