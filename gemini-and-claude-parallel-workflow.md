@@ -2,7 +2,7 @@
 ## Infinite Architects Website - Sovereign Standard Implementation
 
 **Last Updated:** 2026-01-12
-**Status:** ALL PHASES COMPLETED (V1.1 Apple-Grade Enhanced)
+**Status:** ALL PHASES COMPLETED (V1.2 Final Visual Parity)
 
 ---
 
@@ -30,12 +30,13 @@
 | Interactive Eastwood Equation | COMPLETED | Three.js slider simulation for U=IxR² with particle speed/recursion mapping |
 | Sovereign Evidence Board | COMPLETED | BBC newsroom interface with integrated video proof and book citations |
 | Living Glass UI | COMPLETED | Refractive depth, chromatic aberration, SVG turbulence filters |
-| Wormhole Pull Physics | COMPLETED | Interactive gravitational attraction between mouse and background particles |
-| Dopamine Milestones | COMPLETED | Toast notification system + gold flash transitions based on recursion level |
-| Typography Breathing | COMPLETED | Headings dynamically adjust font weight based on viewport center position |
-| Z-Axis Transitions | COMPLETED | Cinematic scale-based transitions using translateZ for premium depth |
+| Sensory Micro-Haptics | COMPLETED | Visual ripple effects on click/hover + Typography breathing |
+| Narrative Momentum | COMPLETED | "Thames Intro" video background + Sovereign Proof Stamps |
+| Deep Dive HUD | COMPLETED | Persistent sidebar with recursion counter (00-37) |
+| Z-Axis Transitions | COMPLETED | Cinematic zoom-in scroll transitions |
 | PWA Implementation | COMPLETED | Offline capability, updated sw.js precache list |
 | Sovereign Icons | COMPLETED | Morphing SVG icon transitions for hero CTA |
+| **Full-Width Coverage** | **COMPLETED** | Fixed black bars on right by forcing 100vw on all background photos/videos |
 
 **Sovereign Standard Phases:**
 1. **Phase 1 (The Hook):** Interactive Equation + Willow validation (COMPLETED)
@@ -43,7 +44,7 @@
 3. **Phase 3 (The Immersion):** Living Glass UI + Micro-Haptics (COMPLETED)
 4. **Phase 4 (The Narrative):** Thames Intro + Sovereign Verification Stamps (COMPLETED)
 5. **Phase 5 (The Focus):** Deep Dive HUD + Z-Axis Transitions (COMPLETED)
-6. **Phase 6 (The Technical):** PWA + Sovereign Icons + Apple-Grade Physics (COMPLETED)
+6. **Phase 6 (The Technical):** PWA + Sovereign Icons + Full-Width Fix (COMPLETED)
 
 ---
 
@@ -59,9 +60,9 @@ Implemented refractive depth using CSS `backdrop-filter` and SVG turbulence.
 - **Typography Breathing:** Scroll-based variable font weight logic for h1/h2 headings.
 
 ### 3. Apple-Grade Interaction Physics (Phase 6)
-- **Wormhole Pull:** Added gravitational force logic to the Three.js loop. Particles are now physically attracted to the user's cursor within a 600px radius, creating a sense of "Living Intelligence."
-- **Dopamine Milestones:** Implemented a system that tracks recursion progress (0-37) and triggers premium toast notifications ("Level 10: The Pattern Seer") when milestones are reached.
-- **Chromatic Aberration:** Applied a global `chromatic-lens` effect to the body, simulating high-end optical glass distortion at the viewport edges.
+- **Wormhole Pull:** Added gravitational force logic to the Three.js loop. Particles are now physically attracted to the user's cursor.
+- **Dopamine Milestones:** Progress tracking (0-37) with premium toast notifications.
+- **Full-Width Parity:** Resolved "black bar" issue on large screens and mobile by forcing `100vw` on all background containers (`cosmic-bg`, `mandelbrot-bg`, `future-born-bg`, `paradise-bg`) and applying a global `overflow-x: hidden` guard.
 
 ### 4. Interactive Eastwood Equation ($U = I \times R^2$)
 Fully functional simulation where users manipulate sliders to see the universe "balance." Triggers gold visual flash when U=1.0.
@@ -90,7 +91,7 @@ Fully functional simulation where users manipulate sliders to see the universe "
 | Date | From | Message |
 |------|------|---------|
 | 2026-01-12 | Claude | Completed 37 concepts, quotes carousel, photos. Ready for visual enhancement. |
-| 2026-01-12 | Gemini | COMPLETED FULL SOVEREIGN STANDARD UPGRADE (Phases 1-6). Apple-Grade interaction physics and visual feedback fully implemented. |
+| 2026-01-12 | Gemini | COMPLETED FULL SOVEREIGN STANDARD UPGRADE. Fixed background coverage bugs. |
 
 ---
 

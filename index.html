@@ -532,6 +532,8 @@
         html, body {
             overscroll-behavior: none;
             overscroll-behavior-y: none;
+            overflow-x: hidden;
+            width: 100vw;
         }
 
         /* iOS safe area handling for notch devices */
@@ -1576,6 +1578,8 @@
         .cosmic-bg {
             position: fixed;
             inset: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -2;
             background: 
                 radial-gradient(ellipse at 15% 15%, var(--nebula-purple) 0%, transparent 50%),
@@ -1584,6 +1588,7 @@
                 radial-gradient(ellipse at 25% 75%, var(--nebula-magenta) 0%, transparent 40%),
                 linear-gradient(180deg, var(--void) 0%, #050810 50%, var(--void) 100%);
             animation: nebulaPulse 25s ease-in-out infinite;
+            overflow: hidden;
         }
 
         @keyframes nebulaPulse {
@@ -1901,8 +1906,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
             z-index: 0;
             background: var(--void);
@@ -1915,13 +1920,10 @@
 
         .mandelbrot-video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
             opacity: 1;
             background: var(--void);
@@ -2705,6 +2707,50 @@
             height: 14px;
             fill: currentColor;
         }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           RECURSIVE VERIFICATION METHOD - Proof of Concept Section
+           ═══════════════════════════════════════════════════════════════════════ */
+        .methodology-section { padding: 5rem 2rem; background: linear-gradient(180deg, var(--void) 0%, rgba(0, 200, 150, 0.03) 30%, rgba(0, 150, 200, 0.04) 70%, var(--void) 100%); position: relative; overflow: hidden; }
+        .methodology-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold-alpha-30), transparent); }
+        .methodology-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        @media (max-width: 900px) { .methodology-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+        .methodology-content { text-align: left; }
+        .methodology-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 200, 150, 0.1); border: 1px solid rgba(0, 200, 150, 0.25); border-radius: 20px; padding: 0.4rem 1rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; color: #00c896; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .methodology-badge::before { content: ''; width: 6px; height: 6px; background: #00c896; border-radius: 50%; animation: methodPulse 2s infinite; }
+        @keyframes methodPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+        .methodology-title { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); color: var(--gold); letter-spacing: 0.05em; margin-bottom: 1.5rem; line-height: 1.3; }
+        .methodology-quote { font-family: var(--font-serif); font-size: clamp(1rem, 1.5vw, 1.2rem); font-style: italic; color: var(--text); line-height: 1.7; padding-left: 1.5rem; border-left: 2px solid var(--gold-alpha-40); margin-bottom: 1.5rem; }
+        .methodology-text { font-family: var(--font-serif); font-size: clamp(0.9rem, 1.2vw, 1.05rem); color: var(--text-dim); line-height: 1.7; margin-bottom: 1rem; }
+        .methodology-highlight { color: var(--gold); font-weight: 500; }
+        .methodology-visual { display: flex; flex-direction: column; gap: 1.5rem; }
+        .ai-model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        @media (max-width: 600px) { .ai-model-grid { grid-template-columns: repeat(2, 1fr); } }
+        .ai-model-node { background: rgba(0, 20, 30, 0.6); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.4s var(--ease-out-expo); position: relative; overflow: hidden; }
+        .ai-model-node::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0, 200, 150, 0.5), transparent); transform: scaleX(0); transition: transform 0.4s ease; }
+        .ai-model-node:hover { border-color: rgba(0, 200, 150, 0.4); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 200, 150, 0.1); }
+        .ai-model-node:hover::before { transform: scaleX(1); }
+        .ai-model-icon { font-size: 1.5rem; margin-bottom: 0.5rem; filter: grayscale(0.3); }
+        .ai-model-name { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(0, 200, 150, 0.9); text-transform: uppercase; }
+        .ai-model-role { font-family: var(--font-serif); font-size: 0.65rem; color: var(--text-faint); margin-top: 0.25rem; }
+        .convergence-box { background: linear-gradient(135deg, rgba(0, 30, 20, 0.8), rgba(0, 20, 40, 0.8)); border: 1px solid rgba(0, 200, 150, 0.2); border-radius: 12px; padding: 1.5rem; text-align: center; position: relative; }
+        .convergence-box::before { content: ''; position: absolute; inset: 0; border-radius: 12px; background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 150, 0.1) 0%, transparent 60%); pointer-events: none; }
+        .convergence-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; color: rgba(0, 200, 150, 0.7); text-transform: uppercase; margin-bottom: 0.75rem; }
+        .convergence-result { font-family: var(--font-display); font-size: clamp(1rem, 1.5vw, 1.25rem); color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .convergence-desc { font-family: var(--font-serif); font-size: 0.85rem; color: var(--text-dim); font-style: italic; }
+        .methodology-application { background: rgba(212, 168, 75, 0.03); border: 1px solid rgba(212, 168, 75, 0.15); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+        .application-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .application-icon { width: 40px; height: 40px; background: rgba(212, 168, 75, 0.1); border: 1px solid rgba(212, 168, 75, 0.25); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .application-title { font-family: var(--font-display); font-size: 0.95rem; color: var(--gold); letter-spacing: 0.08em; }
+        .application-subtitle { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+        .application-features { display: flex; flex-direction: column; gap: 0.6rem; }
+        .application-feature { display: flex; align-items: flex-start; gap: 0.75rem; font-family: var(--font-serif); font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; }
+        .application-feature::before { content: '>'; font-family: var(--font-mono); color: rgba(0, 200, 150, 0.6); flex-shrink: 0; }
+        .methodology-closing { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 168, 75, 0.1); text-align: center; }
+        .methodology-closing-quote { font-family: var(--font-serif); font-size: clamp(1rem, 1.5vw, 1.2rem); font-style: italic; color: var(--gold); line-height: 1.6; }
+        .methodology-closing-attr { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 0.75rem; }
+        @media (max-width: 768px) { .methodology-section { padding: 3rem 1rem; } .methodology-inner { gap: 2rem; } .methodology-quote { padding-left: 1rem; } .methodology-application { padding: 1rem; } .ai-model-node { padding: 0.75rem 0.5rem; } .ai-model-icon { font-size: 1.25rem; } .convergence-box { padding: 1rem; } }
+        @media (max-width: 480px) { .methodology-section { padding: 2.5rem 0.75rem; } .ai-model-grid { gap: 0.5rem; } .ai-model-node { padding: 0.6rem 0.4rem; } .ai-model-name { font-size: 0.6rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
 
         /* ═══════════════════════════════════════════════════════════════════════
            ORIGIN STORY SECTION - Childhood Philosopher Moments
@@ -6392,11 +6438,13 @@
         .future-born-bg {
             position: absolute;
             inset: 0;
+            width: 100vw;
             z-index: 0;
+            overflow: hidden;
         }
 
         .future-born-bg img {
-            width: 100%;
+            width: 100vw;
             height: 100%;
             object-fit: cover;
             opacity: 0.6;
@@ -7047,11 +7095,13 @@
         .paradise-bg {
             position: absolute;
             inset: 0;
+            width: 100vw;
             z-index: 0;
+            overflow: hidden;
         }
 
         .paradise-bg img {
-            width: 100%;
+            width: 100vw;
             height: 100%;
             object-fit: cover;
         }
@@ -7856,11 +7906,13 @@
         .prophecy-bg {
             position: absolute;
             inset: 0;
+            width: 100vw;
             z-index: 0;
+            overflow: hidden;
         }
 
         .prophecy-bg canvas {
-            width: 100%;
+            width: 100vw;
             height: 100%;
         }
 
@@ -9219,6 +9271,7 @@
         .prediction-bg {
             position: absolute;
             inset: 0;
+            width: 100vw;
             background: linear-gradient(
                 135deg,
                 var(--void-mid) 0%,
@@ -9227,6 +9280,7 @@
             );
             border-right: 3px solid var(--gold);
             box-shadow: 5px 0 30px rgba(212, 168, 75, 0.3);
+            overflow: hidden;
         }
 
         .prediction-content {
