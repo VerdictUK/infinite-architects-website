@@ -843,6 +843,56 @@
             line-height: 1.4;
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           DOPAMINE MILESTONES - Premium Feedback Toasts
+           ═══════════════════════════════════════════════════════════════════════ */
+        .milestone-toast {
+            position: fixed;
+            left: 2rem;
+            bottom: 2rem;
+            z-index: var(--z-max);
+            padding: 1.25rem 2rem;
+            background: rgba(2, 3, 10, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transform: translateX(-120%);
+            transition: transform 0.6s var(--ease-out-expo);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 20px var(--gold-alpha-20);
+        }
+
+        .milestone-toast.active {
+            transform: translateX(0);
+        }
+
+        .milestone-icon {
+            font-size: 1.5rem;
+            filter: drop-shadow(0 0 5px var(--gold));
+        }
+
+        .milestone-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .milestone-title {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .milestone-text {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
         .council-snippets {
             position: absolute;
             inset: 0;
@@ -2657,6 +2707,287 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           ORIGIN STORY SECTION - Childhood Philosopher Moments
+           ═══════════════════════════════════════════════════════════════════════ */
+        .origin-story {
+            padding: var(--space-24) var(--space-8);
+            background: linear-gradient(
+                180deg,
+                var(--void) 0%,
+                rgba(10, 12, 20, 0.8) 50%,
+                var(--void) 100%
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .origin-story::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 30%, rgba(212, 168, 75, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 70%, rgba(26, 35, 126, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .origin-story-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .origin-story-header {
+            text-align: center;
+            margin-bottom: var(--space-16);
+        }
+
+        .origin-story-header .section-label {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-caption);
+            letter-spacing: var(--letter-spacing-widest);
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-4);
+            display: block;
+        }
+
+        .origin-story-header .section-title {
+            font-family: var(--font-display);
+            font-size: var(--font-size-h2);
+            color: var(--text);
+            letter-spacing: var(--letter-spacing-wide);
+            margin-bottom: var(--space-4);
+        }
+
+        .origin-story-header .section-subtitle {
+            font-family: var(--font-serif);
+            font-size: var(--font-size-body-lg);
+            color: var(--text-dim);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .origin-stories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-8);
+        }
+
+        @media (max-width: 900px) {
+            .origin-stories-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+        }
+
+        .origin-story-card {
+            background: linear-gradient(
+                135deg,
+                rgba(4, 5, 12, 0.9) 0%,
+                rgba(10, 12, 20, 0.85) 100%
+            );
+            border: 1px solid var(--gold-alpha-15);
+            border-radius: 16px;
+            padding: var(--space-8);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--duration-moderate) var(--ease-expressive-out);
+        }
+
+        .origin-story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+            opacity: 0;
+            transition: opacity var(--duration-moderate) var(--ease-standard);
+        }
+
+        .origin-story-card:hover {
+            border-color: var(--gold-alpha-30);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-gold-md);
+        }
+
+        .origin-story-card:hover::before {
+            opacity: 1;
+        }
+
+        .origin-story-age {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-caption);
+            letter-spacing: var(--letter-spacing-wider);
+            text-transform: uppercase;
+            color: var(--gold);
+            background: var(--gold-alpha-10);
+            padding: var(--space-2) var(--space-4);
+            border-radius: 20px;
+            margin-bottom: var(--space-4);
+        }
+
+        .origin-story-age svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--gold);
+        }
+
+        .origin-story-title {
+            font-family: var(--font-display);
+            font-size: var(--font-size-h4);
+            color: var(--text);
+            letter-spacing: var(--letter-spacing-wide);
+            margin-bottom: var(--space-4);
+        }
+
+        .origin-story-scene {
+            font-family: var(--font-serif);
+            font-size: var(--font-size-body);
+            color: var(--text-tertiary);
+            font-style: italic;
+            line-height: var(--line-height-body);
+            margin-bottom: var(--space-4);
+            padding-left: var(--space-4);
+            border-left: 2px solid var(--gold-alpha-20);
+        }
+
+        .origin-story-insight {
+            font-family: var(--font-serif);
+            font-size: var(--font-size-body-lg);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--space-4);
+        }
+
+        .origin-story-quote {
+            font-family: var(--font-serif);
+            font-size: var(--font-size-body);
+            color: var(--gold-pale);
+            font-style: italic;
+            line-height: var(--line-height-relaxed);
+            position: relative;
+            padding: var(--space-4);
+            background: var(--gold-alpha-5);
+            border-radius: 8px;
+            margin-top: var(--space-4);
+        }
+
+        .origin-story-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--gold-alpha-30);
+            line-height: 1;
+        }
+
+        .origin-story-footnote {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-caption);
+            color: var(--text-muted);
+            margin-top: var(--space-4);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--gold-alpha-8);
+        }
+
+        .origin-story-coda {
+            text-align: center;
+            margin-top: var(--space-12);
+            padding: var(--space-8);
+            background: var(--gold-alpha-5);
+            border: 1px solid var(--gold-alpha-10);
+            border-radius: 12px;
+        }
+
+        .origin-story-coda p {
+            font-family: var(--font-serif);
+            font-size: var(--font-size-body-lg);
+            color: var(--text-dim);
+            line-height: var(--line-height-relaxed);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .origin-story-coda .highlight {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* Mobile optimisations for Origin Story */
+        @media (max-width: 768px) {
+            .origin-story {
+                padding: var(--space-16) var(--space-4);
+            }
+
+            .origin-story-card {
+                padding: var(--space-6);
+            }
+
+            .origin-story-header {
+                margin-bottom: var(--space-10);
+            }
+
+            .origin-story-title {
+                font-size: clamp(1.1rem, 4vw, 1.25rem);
+            }
+
+            .origin-story-scene {
+                font-size: var(--font-size-body-sm);
+                padding-left: var(--space-3);
+            }
+
+            .origin-story-insight {
+                font-size: var(--font-size-body);
+            }
+
+            .origin-story-quote {
+                font-size: var(--font-size-body-sm);
+                padding: var(--space-3);
+            }
+
+            .origin-story-quote::before {
+                font-size: 2rem;
+                top: -5px;
+                left: 5px;
+            }
+
+            .origin-story-coda {
+                padding: var(--space-6);
+                margin-top: var(--space-8);
+            }
+
+            .origin-story-coda p {
+                font-size: var(--font-size-body);
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 480px) {
+            .origin-story {
+                padding: var(--space-12) var(--space-3);
+            }
+
+            .origin-story-card {
+                padding: var(--space-5);
+            }
+
+            .origin-story-age {
+                font-size: 0.7rem;
+                padding: var(--space-1) var(--space-3);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            CTA SECTION
            ═══════════════════════════════════════════════════════════════════════ */
         .cta-section {
@@ -3228,7 +3559,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           NEWSLETTER SECTION
+           NEWSLETTER SECTION - A Personal Invitation
            ═══════════════════════════════════════════════════════════════════════ */
         .newsletter-section {
             padding: var(--space-xl) var(--space-lg);
@@ -3237,8 +3568,9 @@
         }
 
         .newsletter-inner {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
 
         .newsletter-title {
@@ -3247,15 +3579,71 @@
             font-weight: 400;
             letter-spacing: 0.1em;
             color: var(--gold-bright);
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .newsletter-subtitle {
             font-family: var(--font-serif);
-            font-size: 1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             color: var(--text-dim);
-            margin-bottom: var(--space-lg);
-            line-height: 1.7;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .newsletter-voice {
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .newsletter-stakes {
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-benefits {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(212, 168, 75, 0.03);
+            border: 1px solid rgba(212, 168, 75, 0.12);
+            border-radius: 4px;
+        }
+
+        .newsletter-benefit-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+
+        .newsletter-benefit-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .newsletter-benefit-list li {
+            font-family: var(--font-serif);
+            font-size: clamp(0.9rem, 2vw, 0.95rem);
+            color: var(--text-dim);
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .newsletter-benefit-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.6;
         }
 
         .newsletter-form {
@@ -3267,13 +3655,17 @@
 
         .newsletter-input {
             flex: 1;
-            padding: 1rem 1.5rem;
+            min-height: 48px;
+            padding: 0.875rem 1.25rem;
             background: rgba(212, 168, 75, 0.05);
             border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 4px;
             color: var(--text);
             font-family: var(--font-serif);
-            font-size: 1rem;
+            font-size: 16px;
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .newsletter-input::placeholder {
@@ -3288,18 +3680,24 @@
         }
 
         .newsletter-button {
-            padding: 1rem 2rem;
+            min-height: 48px;
+            min-width: 48px;
+            padding: 0.875rem 1.75rem;
             background: transparent;
             border: 1px solid var(--gold);
+            border-radius: 4px;
             color: var(--gold);
             font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
+            white-space: nowrap;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .newsletter-button::before {
@@ -3320,21 +3718,39 @@
             transform: translateX(0);
         }
 
+        .newsletter-button:active {
+            transform: scale(0.98);
+        }
+
         .newsletter-privacy {
-            margin-top: 1rem;
+            margin-top: 1.25rem;
+            font-family: var(--font-serif);
+            font-size: clamp(0.85rem, 2vw, 0.9rem);
+            font-style: italic;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        .newsletter-unsubscribe {
+            display: block;
+            margin-top: 0.5rem;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-style: normal;
             color: var(--text-faint);
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
         }
 
         .newsletter-success {
             display: none;
-            padding: 1rem;
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 1.25rem;
+            background: rgba(76, 175, 80, 0.08);
+            border: 1px solid rgba(76, 175, 80, 0.25);
+            border-radius: 4px;
             color: rgba(76, 175, 80, 0.9);
             font-family: var(--font-serif);
+            font-size: 1rem;
+            line-height: 1.6;
             margin-top: 1rem;
         }
 
@@ -3344,12 +3760,49 @@
         }
 
         @media (max-width: 600px) {
+            .newsletter-inner {
+                padding: 0 0.75rem;
+            }
+
             .newsletter-form {
                 flex-direction: column;
+                gap: 0.875rem;
+            }
+
+            .newsletter-input {
+                min-height: 52px;
+                font-size: 16px;
+                padding: 1rem 1.25rem;
             }
 
             .newsletter-button {
                 width: 100%;
+                min-height: 52px;
+                padding: 1rem 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .newsletter-benefits {
+                padding: 1rem 1.25rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .newsletter-benefit-list li {
+                padding: 0.625rem 0 0.625rem 1.25rem;
+            }
+
+            .newsletter-subtitle {
+                margin-bottom: 0.875rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .newsletter-benefits {
+                padding: 0.875rem 1rem;
+            }
+
+            .newsletter-benefit-list li {
+                font-size: 0.875rem;
             }
         }
 
@@ -3742,6 +4195,8 @@
             .reveal-delay-3 { transition-delay: 0.3s; }
             .reveal-delay-4 { transition-delay: 0.4s; }
             .reveal-delay-5 { transition-delay: 0.5s; }
+            .reveal-delay-6 { transition-delay: 0.6s; }
+            .reveal-delay-7 { transition-delay: 0.7s; }
         }
 
         /* Ripple Effect Animation */
@@ -8137,6 +8592,169 @@
             color: var(--void) !important;
             font-weight: 700 !important;
             box-shadow: 0 0 15px var(--gold-alpha-40);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           AUTHOR METHODOLOGY CARD - Credibility without boasting
+           ═══════════════════════════════════════════════════════════════════════ */
+        .evidence-card--methodology {
+            background: linear-gradient(135deg, rgba(20, 15, 5, 0.6) 0%, rgba(30, 20, 5, 0.4) 100%);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .evidence-card--methodology::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+        }
+
+        .evidence-card--methodology:hover {
+            border-color: rgba(212, 168, 75, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.1);
+        }
+
+        .methodology-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.15), rgba(212, 168, 75, 0.05));
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .methodology-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .methodology-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.08);
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .methodology-list li:last-child {
+            border-bottom: none;
+        }
+
+        .methodology-list .method-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .methodology-list .method-text {
+            flex: 1;
+        }
+
+        .methodology-list .method-highlight {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .methodology-quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--gold-pale);
+            padding: 0.75rem 1rem;
+            margin-top: 0.75rem;
+            background: rgba(212, 168, 75, 0.05);
+            border-left: 2px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            text-align: left;
+        }
+
+        .methodology-quote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Mobile responsiveness for methodology card */
+        @media (max-width: 768px) {
+            .methodology-list li {
+                font-size: 0.8rem;
+                padding: 0.5rem 0;
+                gap: 0.5rem;
+            }
+
+            .methodology-list .method-icon {
+                width: 18px;
+                height: 18px;
+                font-size: 0.8rem;
+            }
+
+            .methodology-quote {
+                font-size: 0.8rem;
+                padding: 0.6rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .evidence-card--methodology {
+                padding: 1rem;
+            }
+
+            .methodology-badge {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.5rem;
+            }
+
+            .methodology-list li {
+                font-size: 0.75rem;
+                padding: 0.4rem 0;
+            }
+
+            .methodology-quote {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.6rem;
+                margin-top: 0.5rem;
+            }
+
+            .methodology-quote cite {
+                font-size: 0.6rem;
+            }
+        }
+
+        /* Very short screens - compact methodology */
+        @media (max-height: 700px) {
+            .methodology-list li {
+                padding: 0.35rem 0;
+                font-size: 0.75rem;
+            }
+
+            .methodology-quote {
+                font-size: 0.7rem;
+                padding: 0.4rem 0.6rem;
+                margin-top: 0.4rem;
+            }
         }
 
         .event-date {
@@ -18254,6 +18872,192 @@ html.slideshow-mode .slideshow-dots {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE OPTIMIZATION AUDIT FIXES - January 2026
+   Addresses touch targets, readability, and safe areas for all iPhone sizes
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* GLOBAL: Prevent horizontal overflow */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    .snap-section {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    /* ABOUT SECTION: Safe area and photo clarity */
+    .about-section.snap-section {
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .about-section .author-photo-wrapper {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .about-section .about-text p {
+        font-size: max(0.95rem, 15px) !important;
+        line-height: 1.65 !important;
+    }
+
+    /* EVIDENCE SECTION: Enhanced touch and readability */
+    .evidence-card {
+        padding: 1.25rem 1rem;
+        min-height: 160px;
+    }
+
+    .evidence-link {
+        min-height: 48px;
+        padding: 14px 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    .evidence-badge {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        letter-spacing: 0.05em;
+    }
+
+    .evidence-type {
+        font-size: 0.7rem;
+    }
+
+    /* FAQ SECTION: Enhanced touch targets */
+    .faq-question svg {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    .faq-answer-inner {
+        padding: 0 16px 16px;
+        font-size: 0.9rem;
+        line-height: 1.65;
+    }
+
+    /* PRESS SECTION: Better grid and touch */
+    .press-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .press-item {
+        min-height: 64px;
+        padding: 16px 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .press-item span:first-child {
+        font-size: 1.5rem;
+    }
+
+    .press-item span:last-child {
+        font-size: 0.75rem;
+        text-align: center;
+    }
+
+    .press-contact a.email-link {
+        display: inline-block;
+        padding: 12px 16px;
+        min-height: 44px;
+        line-height: 1.4;
+    }
+
+    /* FOOTER: Safe area and touch targets */
+    .footer-legal {
+        flex-wrap: wrap;
+        gap: 12px 16px;
+        font-size: 0.8rem;
+        padding: 0 16px;
+    }
+
+    .footer-legal a {
+        padding: 8px 4px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    footer#contact {
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* NEWSLETTER: iOS zoom prevention and touch targets */
+@media (max-width: 600px) {
+    .newsletter-input {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+        padding: 14px 16px;
+        border-radius: 8px;
+    }
+
+    .newsletter-button {
+        padding: 14px 20px;
+        min-height: 48px;
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        border-radius: 8px;
+    }
+
+    .newsletter-privacy {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin-top: 1rem;
+        line-height: 1.5;
+    }
+
+    .newsletter-section {
+        padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* EXTRA SMALL SCREENS (iPhone SE, etc.) */
+@media (max-width: 480px) {
+    .faq-question {
+        padding: 14px 16px;
+        font-size: 0.9rem;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .cta-button,
+    .newsletter-button,
+    .hero-cta {
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        padding: 14px 16px;
+        white-space: nowrap;
+        max-width: 100%;
+    }
+
+    .press-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .press-item {
+        min-height: 72px;
+        padding: 14px 10px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   END MOBILE OPTIMIZATION AUDIT FIXES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
    COSMIC BACKGROUND SYSTEM - NO BLACK BACKGROUNDS ANYWHERE
    Every section gets a unique cosmic/nebula visual treatment
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -18812,7 +19616,7 @@ button.btn-secondary:hover {
         };
     </script>
 </head>
-<body class="has-ticker">
+<body class="has-ticker chromatic-lens">
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -19943,15 +20747,116 @@ button.btn-secondary:hover {
                     <p class="section-label reveal">The Author</p>
                     <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
 
-                    <p class="reveal reveal-delay-2">Persian mother. English father. Creativity and logic. East and West. Ancient civilisation and industrial revolution. Perhaps that is why their combination produced a mind that refuses to stay in a single lane.</p>
+                    <p class="reveal reveal-delay-2" style="font-style: italic; color: var(--gold); margin-bottom: 1.8rem;">
+                        "The mind that could not open post saw connections nobody else saw."
+                    </p>
 
-                    <p class="reveal reveal-delay-3">My grandfather left Iran during the revolution. My mother came from wealth—more than my father's family had ever known. That history lives in me: the knowledge that empires fall, that fortunes reverse, that the only thing you truly own is what you carry in your mind.</p>
+                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass—and understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong style="color: var(--gold-bright);">AuDHD</strong> was already running.</p>
 
-                    <p class="reveal reveal-delay-4">My roots stretch back to the land between the Tigris and Euphrates—where the first advanced civilisations flourished. Where the Sumerians wrote the earliest known stories of gardens and creation. The story of Eden, in one form or another, emerged from that soil.</p>
+                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue—<strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
 
-                    <p class="reveal reveal-delay-5">For two decades, I built systems in the music industry. I grew a company to over six hundred thousand pounds. Then I lost everything—and in the aftermath came High Court litigation and diagnoses of ADHD and autism that finally named the cognitive architecture that had made some things impossible and other things inevitable.</p>
+                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong style="color: #e74c3c;">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
 
-                    <p class="reveal reveal-delay-6">What I discovered was more valuable than what I lost: a framework for understanding how to raise minds—artificial or human—in service of life. Perhaps the letter humanity wrote itself thousands of years ago was waiting for someone with precisely this blend of backgrounds to open it. This book is the result.</p>
+                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong style="color: var(--gold-bright);">The struggles and the superpowers come from the same source.</strong></p>
+
+                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates—where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds—artificial or human—in service of life rather than against it.</p>
+
+                    <p class="reveal reveal-delay-8" style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 2rem;">
+                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
+                    </p>
+
+                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
+                    <div class="storm-story reveal reveal-delay-9">
+                        <span class="storm-story-label">The Present Moment</span>
+                        <h3 class="storm-story-headline">Married in the Storm</h3>
+                        <div class="storm-story-content">
+                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames—rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
+
+                            <p>In the midst of all this uncertainty, I got married.</p>
+
+                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
+
+                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
+
+                            <p>This is not recklessness—it is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
+
+                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
+                        </div>
+                        <span class="storm-story-principle">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             ORIGIN STORY — THE PATTERN-SEER
+             Childhood moments that reveal the mind behind the book.
+        ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="origin-story" id="origin">
+            <div class="origin-story-inner">
+                <header class="origin-story-header">
+                    <span class="section-label reveal">The Pattern-Seer</span>
+                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
+                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
+                </header>
+
+                <div class="origin-stories-grid">
+                    <!-- Story 1: The Inverted Spectrum -->
+                    <article class="origin-story-card reveal reveal-delay-3">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 6
+                        </span>
+                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
+                        <p class="origin-story-scene">
+                            Lying on my back in the grass at school, staring at the sky.
+                        </p>
+                        <p class="origin-story-insight">
+                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
+                        </p>
+                    </article>
+
+                    <!-- Story 2: The Meniscus -->
+                    <article class="origin-story-card reveal reveal-delay-4">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 9
+                        </span>
+                        <h3 class="origin-story-title">The Meniscus</h3>
+                        <p class="origin-story-scene">
+                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
+                        </p>
+                        <p class="origin-story-insight">
+                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="origin-story-coda reveal reveal-delay-5">
+                    <p>
+                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
+                    </p>
                 </div>
             </div>
         </section>
@@ -22003,6 +22908,9 @@ button.btn-secondary:hover {
                     
                     if (hudCurrent) hudCurrent.textContent = displayVal;
                     if (hudProgressBar) hudProgressBar.style.height = `${(progress/37)*100}%`;
+                    
+                    // Trigger Milestone checks
+                    checkMilestones(Math.round(progress));
                 } else {
                     if (entry.boundingClientRect.top > 0) {
                         entry.target.classList.add('entering');
@@ -22047,10 +22955,31 @@ button.btn-secondary:hover {
             const scrollProgress = scrollY / maxScroll;
             camera.position.z = 1000 - scrollProgress * 500;
 
+            // Wormhole Pull: Interactive Gravitational Physics
+            const mouse3D = new THREE.Vector3(mouseX * 1000, -mouseY * 1000, 0);
+            
             // Update particles
             for (let i = 0; i < CONFIG.main.particleCount; i++) {
                 const i3 = i * 3;
                 const vel = particleVelocities[i];
+
+                // WORMHOLE PULL LOGIC
+                const px = particlePositions[i3];
+                const py = particlePositions[i3 + 1];
+                const pz = particlePositions[i3 + 2];
+                
+                const dx = mouse3D.x - px;
+                const dy = mouse3D.y - py;
+                const dz = mouse3D.z - pz;
+                const distSq = dx*dx + dy*dy + dz*dz;
+                const dist = Math.sqrt(distSq);
+                
+                if (dist < 600) {
+                    const force = (1 - dist / 600) * 0.02;
+                    vel.x += dx * force;
+                    vel.y += dy * force;
+                    vel.z += dz * force;
+                }
 
                 particlePositions[i3] += vel.x;
                 particlePositions[i3 + 1] += vel.y;
@@ -22064,20 +22993,56 @@ button.btn-secondary:hover {
                 if (particlePositions[i3 + 2] > 1000) particlePositions[i3 + 2] = -1000;
                 if (particlePositions[i3 + 2] < -1000) particlePositions[i3 + 2] = 1000;
 
-                // Mouse influence
-                vel.x += mouseX * CONFIG.main.mouseInfluence;
-                vel.y += mouseY * CONFIG.main.mouseInfluence;
-
                 // Damping
-                vel.x *= 0.99;
-                vel.y *= 0.99;
-                vel.z *= 0.99;
+                vel.x *= 0.98;
+                vel.y *= 0.98;
+                vel.z *= 0.98;
             }
 
             particles.geometry.attributes.position.needsUpdate = true;
             updateConnections();
-            particles.rotation.y += 0.00045;  // 3x faster rotation
+            particles.rotation.y += 0.00045; 
             renderer.render(scene, camera);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // DOPAMINE MILESTONES - Logic
+        // ═══════════════════════════════════════════════════════════════════════
+        let lastMilestone = -1;
+        const milestones = [
+            { level: 1, title: "The Architect", text: "You have entered the first recursion.", icon: "🏛️" },
+            { level: 10, title: "The Pattern Seer", text: "Universal structures are becoming visible.", icon: "✨" },
+            { level: 20, title: "The Evidence Master", text: "You have verified the physical proofs.", icon: "🔬" },
+            { level: 37, title: "The Infinite Architect", text: "The loop is complete. You are ready.", icon: "🌌" }
+        ];
+
+        function checkMilestones(currentLevel) {
+            const milestone = milestones.find(m => m.level === currentLevel && m.level > lastMilestone);
+            if (milestone) {
+                lastMilestone = milestone.level;
+                showMilestoneToast(milestone);
+            }
+        }
+
+        function showMilestoneToast(milestone) {
+            const toast = document.getElementById('milestone-toast');
+            const icon = document.getElementById('milestone-icon');
+            const text = document.getElementById('milestone-text');
+            
+            icon.textContent = milestone.icon;
+            text.innerHTML = `<strong>Level ${milestone.level}:</strong> ${milestone.title}`;
+            
+            toast.classList.add('active');
+            
+            // Visual gold flash transition
+            document.body.style.transition = 'background-color 0.3s ease';
+            const originalBg = document.body.style.backgroundColor;
+            document.body.style.backgroundColor = 'rgba(212, 168, 75, 0.05)';
+            
+            setTimeout(() => {
+                toast.classList.remove('active');
+                document.body.style.backgroundColor = originalBg;
+            }, 5000);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -29156,6 +30121,15 @@ button.btn-secondary:hover {
         window.FocusTrap = FocusTrap;
     })();
     </script>
+
+    <!-- Dopamine Milestone Toast -->
+    <div class="milestone-toast" id="milestone-toast">
+        <div class="milestone-icon" id="milestone-icon">✨</div>
+        <div class="milestone-content">
+            <span class="milestone-title">Recursion Level Achieved</span>
+            <span class="milestone-text" id="milestone-text">Level 01: The Architect</span>
+        </div>
+    </div>
 
 </body>
 </html>
