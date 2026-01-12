@@ -410,6 +410,20 @@
             .scrolling::-webkit-scrollbar-thumb {
                 background: rgba(212, 168, 75, 0.5);
             }
+
+            /* Firefox scrollbar support */
+            * {
+                scrollbar-width: thin;
+                scrollbar-color: rgba(212, 168, 75, 0.3) transparent;
+            }
+        }
+
+        /* Firefox scrollbar support - desktop */
+        @supports (scrollbar-color: auto) {
+            html {
+                scrollbar-width: thin;
+                scrollbar-color: var(--gold-dark, #8b6914) var(--void, #02030a);
+            }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -715,6 +729,13 @@
             [style*="backdrop-filter"] {
                 background-color: rgba(2, 3, 10, 0.95) !important;
             }
+        }
+
+        /* Touch-action for faster mobile tap response (removes 300ms delay) */
+        a, button, [role="button"], .nav-link, .hero-cta, .cta-primary, .cta-secondary,
+        .buy-btn, .idea-card, .evidence-card, .faq-question, .glossary-filter-btn,
+        .chapter-card, .nav-toggle, input, select, textarea {
+            touch-action: manipulation;
         }
 
         body {
@@ -16044,9 +16065,9 @@
                         </div>
                         <h3 class="evidence-title">BBC News Footage</h3>
                         <p class="evidence-desc">Original broadcast January 7, 2026. Four clips totalling 91 seconds. Unedited.</p>
-                        <button class="evidence-link" onclick="document.getElementById('prophecy').scrollIntoView({behavior:'auto', block:'start'})">
+                        <button class="evidence-link" id="scroll-to-prophecy-btn">
                             <span class="link-text">Watch the footage</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
@@ -16991,11 +17012,11 @@
             <div class="reviews-grid" data-stagger-group>
                 <article class="review-card reveal reveal-delay-1">
                     <div class="review-stars">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     </div>
                     <p class="review-text">A paradigm-shifting exploration of AI consciousness. Eastwood weaves philosophy, technology, and spirituality into a tapestry that will change how you think about artificial minds.</p>
                     <div class="review-author">
@@ -17005,18 +17026,18 @@
                         </div>
                     </div>
                     <div class="review-verified">
-                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                         VERIFIED PURCHASE
                     </div>
                 </article>
 
                 <article class="review-card reveal reveal-delay-2">
                     <div class="review-stars">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     </div>
                     <p class="review-text">Finally, someone bridges the gap between AI safety and the wisdom traditions. The Eden Protocol alone is worth the price of admission. Essential reading for our times.</p>
                     <div class="review-author">
@@ -17026,18 +17047,18 @@
                         </div>
                     </div>
                     <div class="review-verified">
-                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                         VERIFIED PURCHASE
                     </div>
                 </article>
 
                 <article class="review-card reveal reveal-delay-3">
                     <div class="review-stars">
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     </div>
                     <p class="review-text">The HRIH concept alone rewired my understanding of causality. This is not just a book about AI—it is a book about everything. Prepare to have your mind expanded.</p>
                     <div class="review-author">
@@ -17047,7 +17068,7 @@
                         </div>
                     </div>
                     <div class="review-verified">
-                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
                         VERIFIED PURCHASE
                     </div>
                 </article>
@@ -17462,7 +17483,7 @@
                     <div class="faq-item reveal">
                         <button class="faq-question">
                             <span>What is the Eastwood Equation?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17474,7 +17495,7 @@
                     <div class="faq-item reveal reveal-delay-1">
                         <button class="faq-question">
                             <span>What is HRIH?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17486,7 +17507,7 @@
                     <div class="faq-item reveal reveal-delay-2">
                         <button class="faq-question">
                             <span>Is this book scientific or philosophical?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17498,7 +17519,7 @@
                     <div class="faq-item reveal reveal-delay-3">
                         <button class="faq-question">
                             <span>What is the Chokepoint Mechanism?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17510,7 +17531,7 @@
                     <div class="faq-item reveal reveal-delay-4">
                         <button class="faq-question">
                             <span>How can religious traditions help with AI alignment?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17522,7 +17543,7 @@
                     <div class="faq-item reveal reveal-delay-5">
                         <button class="faq-question">
                             <span>Who is the author?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17534,7 +17555,7 @@
                     <div class="faq-item reveal">
                         <button class="faq-question">
                             <span>What makes this book different from other AI safety books?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17546,7 +17567,7 @@
                     <div class="faq-item reveal reveal-delay-1">
                         <button class="faq-question">
                             <span>Is this book optimistic or pessimistic about AI?</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
@@ -17912,13 +17933,32 @@
                 window.dispatchEvent(new Event('threejs-ready'));
                 return;
             }
+
             const script = document.createElement('script');
             script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+
+            // Timeout protection - 10 seconds max wait
+            const loadTimeout = setTimeout(() => {
+                script.onerror = null;
+                script.onload = null;
+                console.warn('[Three.js] Load timeout after 10s - falling back to static background');
+                window.threeJsReady = false;
+                window.dispatchEvent(new CustomEvent('threejs-failed', { detail: { reason: 'timeout' } }));
+            }, 10000);
+
             script.onload = function() {
+                clearTimeout(loadTimeout);
                 window.threeJsReady = true;
                 window.dispatchEvent(new Event('threejs-ready'));
-                // console.log('⚡ Three.js loaded');
             };
+
+            script.onerror = function() {
+                clearTimeout(loadTimeout);
+                console.error('[Three.js] Failed to load from CDN');
+                window.threeJsReady = false;
+                window.dispatchEvent(new CustomEvent('threejs-failed', { detail: { reason: 'network' } }));
+            };
+
             document.head.appendChild(script);
         }
 
@@ -21879,6 +21919,21 @@
         });
 
         // ═══════════════════════════════════════════════════════════════════════
+        // SCROLL TO PROPHECY BUTTON - Replaces inline onclick for accessibility
+        // ═══════════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', function initScrollToProphecy() {
+            const btn = document.getElementById('scroll-to-prophecy-btn');
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const target = document.getElementById('prophecy');
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    }
+                });
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
         // READING PROGRESS BAR - Shows scroll progress through page
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function initReadingProgress() {
@@ -23008,10 +23063,10 @@
             </div>
             <div class="slideshow-arrows">
                 <button class="slideshow-arrow" id="slideshowPrev" aria-label="Previous section">
-                    <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
                 </button>
                 <button class="slideshow-arrow" id="slideshowNext" aria-label="Next section">
-                    <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
                 </button>
             </div>
         </div>
