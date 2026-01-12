@@ -3752,21 +3752,9 @@
         }
 
         .hero-book-3d::after {
-            content: '';
-            position: absolute;
-            top: 5%;
-            right: -15px;
-            width: 15px;
-            height: 90%;
-            background: repeating-linear-gradient(
-                180deg,
-                #f5f0e6 0px,
-                #f5f0e6 1px,
-                #e8e3d9 1px,
-                #e8e3d9 2px
-            );
-            transform: rotateY(90deg);
-            transform-origin: left center;
+            /* DISABLED - was showing white page edges */
+            display: none !important;
+            content: none;
         }
 
         .book-light-layer {
