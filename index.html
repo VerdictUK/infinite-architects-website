@@ -6436,7 +6436,15 @@
         /* ═══════════════════════════════════════════════════════════════════════
            ULTRATHINK: CHOKEPOINT MAP
            ═══════════════════════════════════════════════════════════════════════ */
-        .chokepoint-section { padding: 6rem 2rem; background: var(--void-deep); }
+        .chokepoint-section {
+            padding: 6rem 2rem;
+            background: var(--void-deep);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
         .chokepoint-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
         .chokepoint-intro { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-dim); margin-bottom: 3rem; line-height: 1.8; }
 
