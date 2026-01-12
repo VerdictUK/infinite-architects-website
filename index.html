@@ -12925,6 +12925,106 @@
                 scroll-snap-align: start !important;
             }
 
+            /* ══════════════════════════════════════════════════════════════ */
+            /* CRITICAL SLIDESHOW MODE FIXES                                  */
+            /* ══════════════════════════════════════════════════════════════ */
+
+            /* 1. HIDE DUPLICATE NAVIGATION */
+            html.slideshow-mode .nav,
+            html.slideshow-mode .constellation-nav,
+            html.slideshow-mode .nav-toggle,
+            html.slideshow-mode .mobile-nav-toggle {
+                display: none !important;
+            }
+
+            /* 2. ENSURE EFFECTS ARE VISIBLE */
+            html.slideshow-mode #canvas-container,
+            html.slideshow-mode .mobile-particles,
+            html.slideshow-mode .cosmic-bg {
+                display: block !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                z-index: 0 !important;
+            }
+
+            /* 3. HERO SECTION PERFECTION */
+            html.slideshow-mode .hero {
+                padding: 0 !important;
+                height: 100vh !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            html.slideshow-mode .hero-content {
+                transform: scale(0.9);
+                gap: 1.5rem;
+            }
+
+            /* 4. ABOUT SECTION FIX */
+            html.slideshow-mode .about-section .section-inner {
+                justify-content: center;
+            }
+            
+            html.slideshow-mode .about-content {
+                max-height: 40vh !important;
+                overflow-y: auto !important;
+                -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+                mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            }
+
+            /* 5. CAROUSEL FIX */
+            html.slideshow-mode .carousel-section {
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            html.slideshow-mode .quote-carousel {
+                height: auto !important;
+                max-height: 60vh !important;
+            }
+
+            /* 6. NEWSLETTER FIX */
+            html.slideshow-mode .newsletter-section {
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            html.slideshow-mode .newsletter-form {
+                transform: scale(0.9);
+                width: 100%;
+            }
+
+            /* 7. BBC TIMELINE FIX */
+            html.slideshow-mode .timeline-container {
+                max-height: 50vh !important;
+                overflow-y: auto !important;
+            }
+
+            /* 8. PREDICTIONS FIX */
+            html.slideshow-mode .predictions-grid {
+                display: grid !important;
+                grid-template-columns: 1fr !important;
+                max-height: 55vh !important;
+                overflow-y: auto !important;
+                gap: 1rem !important;
+            }
+
+            /* 9. BOOK COVER FIX */
+            html.slideshow-mode .book-cover-container {
+                max-height: 40vh !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            html.slideshow-mode .book-cover-container img {
+                max-height: 100% !important;
+                width: auto !important;
+                object-fit: contain !important;
+            }
+
             html.slideshow-mode .idea-card h3 {
                 font-size: 0.7rem !important;
                 margin-bottom: 0.2rem !important;
