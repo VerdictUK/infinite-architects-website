@@ -740,9 +740,15 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: var(--space-2xl) var(--space-lg);
+            padding: var(--space-lg) var(--space-lg);
             position: relative;
             width: 100%;
+        }
+
+        /* Override snap-section padding for hero - book must not be cut off */
+        .hero.snap-section {
+            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
+            padding-bottom: 1rem !important;
         }
 
         .hero > * {
@@ -8444,6 +8450,12 @@
             .snap-section {
                 padding-top: 8rem;
                 padding-bottom: 8rem;
+            }
+
+            /* Hero needs minimal padding - book must not be cut off */
+            .hero.snap-section {
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
+                padding-bottom: 2rem;
             }
 
             .ideas-grid,
