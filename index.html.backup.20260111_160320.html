@@ -1,0 +1,3178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Infinite Architects | Michael Darius Eastwood</title>
+    <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
+    <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
+    <meta name="author" content="Michael Darius Eastwood">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Infinite Architects | Michael Darius Eastwood">
+    <meta property="og:description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="InfiniteArchitectsKindle20260103.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Infinite Architects | Michael Darius Eastwood">
+    <meta name="twitter:description" content="What if the god we're building is the god that built us?">
+
+    <!-- Favicons and PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#02030a">
+    <meta name="msapplication-TileColor" content="#02030a">
+
+    <!-- Preconnects for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Book",
+                "@id": "https://infinitearchitects.io/#book",
+                "name": "Infinite Architects: Intelligence, Recursion, and the Creation of Everything",
+                "author": {
+                    "@type": "Person",
+                    "@id": "https://infinitearchitects.io/#author",
+                    "name": "Michael Darius Eastwood"
+                },
+                "datePublished": "2026-01",
+                "description": "A complete framework for raising artificial intelligence with care, boundaries, graduated autonomy, and something that looks remarkably like love.",
+                "genre": ["Philosophy", "Artificial Intelligence", "Consciousness"],
+                "inLanguage": "en",
+                "publisher": {"@type": "Organization", "name": "Michael Darius Eastwood"},
+                "image": "https://infinitearchitects.io/InfiniteArchitectsKindle20260103.jpg",
+                "url": "https://infinitearchitects.io"
+            },
+            {
+                "@type": "Person",
+                "@id": "https://infinitearchitects.io/#author",
+                "name": "Michael Darius Eastwood",
+                "url": "https://infinitearchitects.io",
+                "description": "Author of Infinite Architects. London-based AI philosopher and systems thinker.",
+                "sameAs": ["https://michaeldariuseastwood.substack.com"]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://infinitearchitects.io/#website",
+                "url": "https://infinitearchitects.io",
+                "name": "Infinite Architects",
+                "description": "The official website for Infinite Architects"
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        /* ═══════════════════════════════════════════════════════════════════════
+           CSS CUSTOM PROPERTIES - Design System
+           ═══════════════════════════════════════════════════════════════════════ */
+        :root {
+            /* Colors - Cosmic Gold Theme */
+            --gold: #d4a84b;
+            --gold-bright: #f4c856;
+            --gold-pale: #e8d4a0;
+            --gold-dark: #a67c35;
+            --gold-glow: rgba(212, 168, 75, 0.35);
+            --gold-subtle: rgba(212, 168, 75, 0.08);
+            
+            /* Cosmic Background */
+            --void: #02030a;
+            --void-mid: #04050c;
+            --nebula-blue: #0d1f3c;
+            --nebula-purple: #1a1035;
+            --nebula-teal: #0d2a2a;
+            --nebula-magenta: rgba(138, 43, 96, 0.15);
+            
+            /* Text */
+            --text: #f0ebe3;
+            --text-dim: rgba(240, 235, 227, 0.55);
+            --text-faint: rgba(240, 235, 227, 0.25);
+            
+            /* Typography */
+            --font-display: 'Cinzel', serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-mono: 'Space Mono', 'SF Mono', Monaco, monospace;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 2rem;
+            --space-xl: 4rem;
+            --space-2xl: 8rem;
+            
+            /* Transitions */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Z-index layers */
+            --z-canvas: 0;
+            --z-content: 1;
+            --z-nav: 100;
+            --z-overlay: 500;
+            --z-loader: 1000;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold-dark) var(--void);
+        }
+
+        html::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: var(--void);
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: var(--gold-dark);
+            border-radius: 3px;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--void);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--gold);
+            color: var(--void);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           CINEMATIC LOADER - Wormhole Entry Sequence
+           ═══════════════════════════════════════════════════════════════════════ */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-loader);
+            background: var(--void);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 2.5s var(--ease-out-expo), visibility 2.5s;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #loader-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader-ui {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .loader-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.4em;
+            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-pale) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.6rem;
+            animation: loaderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes loaderGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.3)); }
+            50% { filter: drop-shadow(0 0 60px rgba(212, 168, 75, 0.6)); }
+        }
+
+        .loader-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+            font-style: italic;
+            color: var(--text-dim);
+            letter-spacing: 0.12em;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        .loader-progress {
+            width: 200px;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 0.8s forwards;
+        }
+
+        .loader-status {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(212, 168, 75, 0.45);
+            margin-bottom: 0.8rem;
+            min-height: 1em;
+        }
+
+        .loader-bar {
+            width: 100%;
+            height: 2px;
+            background: rgba(212, 168, 75, 0.12);
+            overflow: hidden;
+            border-radius: 1px;
+            position: relative;
+        }
+
+        .loader-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.3), transparent);
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .loader-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold));
+            box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 168, 75, 0.5);
+            transition: width 0.15s ease;
+        }
+
+        .loader-skip {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-display);
+            font-size: 0.45rem;
+            letter-spacing: 0.35em;
+            color: var(--text-faint);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Letterbox bars for cinematic feel */
+        .letterbox {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: #000;
+            z-index: calc(var(--z-loader) + 1);
+            transition: height 1.8s var(--ease-out-expo);
+        }
+
+        .letterbox.top { top: 0; }
+        .letterbox.bottom { bottom: 0; }
+
+        body.cinematic .letterbox { height: 6vh; }
+
+        @media (max-width: 768px) {
+            body.cinematic .letterbox { height: 4vh; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           VISUAL EFFECTS LAYERS
+           ═══════════════════════════════════════════════════════════════════════ */
+        
+        /* Cosmic nebula background */
+        .cosmic-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 15% 15%, var(--nebula-purple) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 25%, var(--nebula-blue) 0%, transparent 45%),
+                radial-gradient(ellipse at 60% 80%, var(--nebula-teal) 0%, transparent 50%),
+                radial-gradient(ellipse at 25% 75%, var(--nebula-magenta) 0%, transparent 40%),
+                linear-gradient(180deg, var(--void) 0%, #050810 50%, var(--void) 100%);
+            animation: nebulaPulse 25s ease-in-out infinite;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { opacity: 1; filter: saturate(1); }
+            50% { opacity: 0.85; filter: saturate(1.15); }
+        }
+
+        /* Three.js Canvas Container */
+        #canvas-container {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Film grain overlay */
+        .film-grain {
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-overlay);
+            pointer-events: none;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            animation: grain 0.4s steps(10) infinite;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-1%, 1%); }
+            50% { transform: translate(1%, -1%); }
+            75% { transform: translate(-1%, -1%); }
+        }
+
+        /* Vignette */
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: calc(var(--z-overlay) - 1);
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 35%, rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           NAVIGATION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: var(--z-nav);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(2, 3, 10, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gold-subtle);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            color: var(--text-dim);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s var(--ease-out-expo);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: translateX(-101%);
+            transition: transform 0.4s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .nav-cta:hover {
+            color: var(--void);
+        }
+
+        .nav-cta:hover::before {
+            transform: translateX(0);
+        }
+
+        /* Mobile nav */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 24px;
+            cursor: pointer;
+            z-index: calc(var(--z-nav) + 1);
+        }
+
+        .nav-toggle span {
+            display: block;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        @media (max-width: 900px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav.scrolled {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(320px, 80vw);
+                height: 100vh;
+                background: rgba(2, 3, 10, 0.98);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                padding: 6rem 2rem 2rem;
+                transform: translateX(100%);
+                transition: transform 0.5s var(--ease-out-expo);
+                border-left: 1px solid var(--gold-subtle);
+            }
+
+            .nav-menu.open {
+                transform: translateX(0);
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .nav-cta {
+                margin-top: 2rem;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           CONTENT WRAPPER
+           ═══════════════════════════════════════════════════════════════════════ */
+        .content {
+            position: relative;
+            z-index: var(--z-content);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           HERO SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: linear-gradient(to bottom, transparent, var(--void));
+            pointer-events: none;
+        }
+
+        .hero-book {
+            width: min(320px, 70vw);
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            animation: heroReveal 1.8s var(--ease-out-expo) 0.3s forwards;
+            filter: drop-shadow(0 0 80px rgba(212, 168, 75, 0.35)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
+            transition: transform 0.8s var(--ease-out-expo), filter 0.8s ease;
+            cursor: pointer;
+        }
+
+        .hero-book:hover {
+            transform: translateY(-15px) scale(1.03) rotateY(5deg);
+            filter: drop-shadow(0 0 120px rgba(212, 168, 75, 0.5)) drop-shadow(0 50px 80px rgba(0, 0, 0, 0.8));
+        }
+
+        @keyframes heroReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Floating animation */
+        @keyframes bookFloat {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            25% { transform: translateY(-10px) rotateY(2deg); }
+            50% { transform: translateY(-18px) rotateY(0deg); }
+            75% { transform: translateY(-10px) rotateY(-2deg); }
+        }
+
+        .hero-book.float {
+            animation: bookFloat 8s ease-in-out infinite;
+        }
+
+        .hero-badge {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            padding: 0.5rem 1.2rem;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeUp 1.2s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 8vw, 5.5rem);
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 0.7s forwards;
+            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-pale) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            max-width: 600px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 0.9s forwards;
+        }
+
+        .hero-author {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 1.1s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.1rem 2.5rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 1.3s forwards;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            transform: translateX(-101%);
+            transition: transform 0.5s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .hero-cta:hover {
+            color: var(--void);
+        }
+
+        .hero-cta:hover::before {
+            transform: translateX(0);
+        }
+
+        .hero-cta svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(5px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0;
+            animation: fadeUp 1.5s var(--ease-out-expo) 2s forwards;
+        }
+
+        .scroll-indicator span {
+            font-family: var(--font-display);
+            font-size: 0.55rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--gold-pale);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollDown 2.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(200%); opacity: 0; }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           QUOTE SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .quote-section {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-xl) var(--space-lg);
+            position: relative;
+        }
+
+        .quote-container {
+            max-width: 950px;
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: var(--font-serif);
+            font-size: 12rem;
+            color: var(--gold);
+            opacity: 0.08;
+            line-height: 0.2;
+            margin-bottom: -1.5rem;
+            user-select: none;
+        }
+
+        .quote-text {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .quote-text em {
+            color: var(--gold);
+            font-style: normal;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           SECTION BASE STYLES
+           ═══════════════════════════════════════════════════════════════════════ */
+        .section {
+            padding: var(--space-2xl) var(--space-lg);
+            position: relative;
+        }
+
+        .section-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--gold-bright);
+            margin-bottom: var(--space-xl);
+            line-height: 1.3;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           IDEAS GRID
+           ═══════════════════════════════════════════════════════════════════════ */
+        .ideas-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(26, 16, 53, 0.08) 50%, transparent 100%);
+        }
+
+        .ideas-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .idea-card {
+            background: rgba(212, 168, 75, 0.02);
+            border: 1px solid rgba(212, 168, 75, 0.08);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .idea-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
+            transition: width 0.6s var(--ease-out-expo);
+        }
+
+        .idea-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 168, 75, 0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .idea-card:hover {
+            background: rgba(212, 168, 75, 0.06);
+            border-color: rgba(212, 168, 75, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
+        }
+
+        .idea-card:hover::before {
+            width: 100%;
+        }
+
+        .idea-card:hover::after {
+            opacity: 1;
+        }
+
+        .idea-number {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.08;
+            position: absolute;
+            top: 0.3rem;
+            right: 1.2rem;
+            line-height: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .idea-card:hover .idea-number {
+            opacity: 0.15;
+        }
+
+        .idea-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .idea-text {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           QUOTE CAROUSEL
+           ═══════════════════════════════════════════════════════════════════════ */
+        .carousel-section {
+            padding: var(--space-xl) 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-section::before,
+        .carousel-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 150px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .carousel-section::before {
+            left: 0;
+            background: linear-gradient(to right, var(--void), transparent);
+        }
+
+        .carousel-section::after {
+            right: 0;
+            background: linear-gradient(to left, var(--void), transparent);
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 3rem;
+            animation: scrollCarousel 60s linear infinite;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollCarousel {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        .carousel-item {
+            flex-shrink: 0;
+            max-width: 420px;
+            padding: 1.5rem 2rem;
+            border-left: 2px solid rgba(212, 168, 75, 0.25);
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-dim);
+            line-height: 1.8;
+            transition: all 0.4s ease;
+        }
+
+        .carousel-item:hover {
+            border-left-color: var(--gold);
+            color: var(--text);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           ABOUT SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .about-section {
+            background: linear-gradient(180deg, var(--void) 0%, rgba(5, 8, 16, 1) 50%, var(--void) 100%);
+        }
+
+        .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .about-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Tesseract/Hypercube Animation */
+        .tesseract-container {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        #tesseract-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            line-height: 1.9;
+            margin-bottom: 1.4rem;
+        }
+
+        .about-text p:first-of-type {
+            color: var(--text);
+            font-size: 1.15rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           CTA SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .cta-section {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            color: var(--gold-bright);
+            margin-bottom: 1.2rem;
+            max-width: 800px;
+        }
+
+        .cta-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            margin-bottom: var(--space-lg);
+            max-width: 550px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.3rem 3.5rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            transform: translateX(-101%);
+            transition: transform 0.5s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--void);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(0);
+        }
+
+        .cta-button svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(5px);
+        }
+
+        .cta-retailers {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: var(--space-lg);
+        }
+
+        .retailer-link {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: var(--text-faint);
+            transition: color 0.3s ease;
+        }
+
+        .retailer-link:hover {
+            color: var(--gold);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           READING PROGRESS BAR
+           ═══════════════════════════════════════════════════════════════════════ */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-bright));
+            z-index: calc(var(--z-nav) + 10);
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(212, 168, 75, 0.5);
+        }
+
+        .reading-progress::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--gold-bright));
+            filter: blur(3px);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           REVIEWS SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .reviews-section {
+            padding: var(--space-2xl) var(--space-lg);
+            background: linear-gradient(180deg, transparent 0%, rgba(13, 31, 60, 0.08) 50%, transparent 100%);
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: rgba(212, 168, 75, 0.02);
+            border: 1px solid rgba(212, 168, 75, 0.08);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--gold);
+            opacity: 0.15;
+            line-height: 1;
+        }
+
+        .review-card:hover {
+            background: rgba(212, 168, 75, 0.05);
+            border-color: rgba(212, 168, 75, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-stars svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--gold);
+        }
+
+        .review-text {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: centre;
+            gap: 0.75rem;
+        }
+
+        .review-author-name {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+        }
+
+        .review-author-title {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-faint);
+            letter-spacing: 0.1em;
+        }
+
+        .review-verified {
+            display: inline-flex;
+            align-items: centre;
+            gap: 0.3rem;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: rgba(76, 175, 80, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        .review-verified svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           NEWSLETTER SECTION
+           ═══════════════════════════════════════════════════════════════════════ */
+        .newsletter-section {
+            padding: var(--space-xl) var(--space-lg);
+            background: linear-gradient(180deg, var(--void) 0%, rgba(26, 16, 53, 0.15) 50%, var(--void) 100%);
+            text-align: center;
+        }
+
+        .newsletter-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--gold-bright);
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(212, 168, 75, 0.05);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            color: var(--text);
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input::placeholder {
+            color: var(--text-faint);
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(212, 168, 75, 0.08);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.15);
+        }
+
+        .newsletter-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .newsletter-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: translateX(-101%);
+            transition: transform 0.4s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .newsletter-button:hover {
+            color: var(--void);
+        }
+
+        .newsletter-button:hover::before {
+            transform: translateX(0);
+        }
+
+        .newsletter-privacy {
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-faint);
+            letter-spacing: 0.1em;
+        }
+
+        .newsletter-success {
+            display: none;
+            padding: 1rem;
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: rgba(76, 175, 80, 0.9);
+            font-family: var(--font-serif);
+            margin-top: 1rem;
+        }
+
+        .newsletter-success.show {
+            display: block;
+            animation: fadeUp 0.5s var(--ease-out-expo);
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-button {
+                width: 100%;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           EXIT INTENT POPUP
+           ═══════════════════════════════════════════════════════════════════════ */
+        .exit-popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 3, 10, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: calc(var(--z-loader) - 1);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .exit-popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .exit-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--void-mid);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            z-index: var(--z-loader);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .exit-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .exit-popup-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 30px;
+            height: 30px;
+            background: none;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            color: var(--gold);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .exit-popup-close:hover {
+            background: var(--gold);
+            color: var(--void);
+        }
+
+        .exit-popup-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-bright);
+            margin-bottom: 1rem;
+        }
+
+        .exit-popup-text {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .exit-popup-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: var(--gold);
+            border: none;
+            color: var(--void);
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exit-popup-cta:hover {
+            background: var(--gold-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+        }
+
+        .exit-popup-dismiss {
+            display: block;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-faint);
+            background: none;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .exit-popup-dismiss:hover {
+            color: var(--text-dim);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           COOKIE CONSENT BANNER
+           ═══════════════════════════════════════════════════════════════════════ */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(2, 3, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(212, 168, 75, 0.15);
+            padding: 1.5rem 2rem;
+            z-index: calc(var(--z-overlay) + 100);
+            transform: translateY(100%);
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-banner-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .cookie-text {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .cookie-text a {
+            color: var(--gold);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .cookie-accept {
+            padding: 0.7rem 1.5rem;
+            background: var(--gold);
+            border: none;
+            color: var(--void);
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept:hover {
+            background: var(--gold-bright);
+        }
+
+        .cookie-decline {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            color: var(--text-dim);
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-decline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-banner-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           STICKY MOBILE CTA
+           ═══════════════════════════════════════════════════════════════════════ */
+        .mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(2, 3, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(212, 168, 75, 0.2);
+            padding: 1rem;
+            z-index: calc(var(--z-nav) - 1);
+            transform: translateY(100%);
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .mobile-cta.show {
+            transform: translateY(0);
+        }
+
+        .mobile-cta-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .mobile-cta-text {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-pale);
+        }
+
+        .mobile-cta-price {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .mobile-cta-button {
+            padding: 0.8rem 1.5rem;
+            background: var(--gold);
+            border: none;
+            color: var(--void);
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-cta-button:hover {
+            background: var(--gold-bright);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-cta {
+                display: block;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════════════════════════════ */
+        footer {
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            border-top: 1px solid var(--gold-subtle);
+        }
+
+        .footer-contact {
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-contact a {
+            color: var(--gold);
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-social a {
+            color: var(--text-dim);
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           REVEAL ANIMATIONS
+           ═══════════════════════════════════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.2s var(--ease-out-expo);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           RESPONSIVE BREAKPOINTS
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .section {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .hero {
+                padding: var(--space-xl) var(--space-md);
+            }
+
+            .hero-book {
+                width: min(260px, 65vw);
+            }
+
+            .quote-mark {
+                font-size: 8rem;
+            }
+
+            .idea-card {
+                padding: 2rem;
+            }
+
+            .about-inner {
+                gap: 3rem;
+            }
+
+            .tesseract-container {
+                width: 220px;
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-badge {
+                font-size: 0.5rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .hero-cta {
+                padding: 1rem 1.8rem;
+                font-size: 0.6rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 0.65rem;
+            }
+
+            .carousel-item {
+                max-width: 300px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookie-banner">
+        <div class="cookie-banner-inner">
+            <p class="cookie-text">
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
+                <a href="#" onclick="return false;">Learn more</a>
+            </p>
+            <div class="cookie-buttons">
+                <button class="cookie-accept" id="cookie-accept">Accept</button>
+                <button class="cookie-decline" id="cookie-decline">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Mobile CTA -->
+    <div class="mobile-cta" id="mobile-cta">
+        <div class="mobile-cta-inner">
+            <div>
+                <div class="mobile-cta-text">INFINITE ARCHITECTS</div>
+                <div class="mobile-cta-price">Available Now</div>
+            </div>
+            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="mobile-cta-button">BUY NOW</a>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         CINEMATIC LOADER
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div id="loader">
+        <canvas id="loader-canvas"></canvas>
+        <div class="letterbox top"></div>
+        <div class="letterbox bottom"></div>
+        <div class="loader-ui">
+            <h1 class="loader-title">INFINITE ARCHITECTS</h1>
+            <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
+            <div class="loader-progress">
+                <p class="loader-status" id="loader-status">Initializing consciousness...</p>
+                <div class="loader-bar">
+                    <div class="loader-bar-fill" id="loader-bar-fill"></div>
+                </div>
+            </div>
+        </div>
+        <p class="loader-skip">CLICK OR PRESS ANY KEY TO SKIP</p>
+    </div>
+
+    <!-- Visual Effects Layers -->
+    <div class="cosmic-bg"></div>
+    <div id="canvas-container"></div>
+    <div class="vignette"></div>
+    <div class="film-grain"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">INFINITE ARCHITECTS</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-menu" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#book">THE BOOK</a></li>
+                <li><a href="#ideas">THE IDEAS</a></li>
+                <li><a href="#author">THE AUTHOR</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="nav-cta">BUY NOW</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <span class="hero-badge">NOW AVAILABLE</span>
+            <img src="InfiniteArchitectsKindle20260103.jpg" alt="Infinite Architects Book Cover" class="hero-book" id="hero-book">
+            <h1 class="hero-title">Infinite Architects</h1>
+            <p class="hero-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
+            <p class="hero-author">Michael Darius Eastwood</p>
+            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="hero-cta">
+                GET THE BOOK
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div class="scroll-indicator">
+                <span>Descend into the infinite</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- Opening Quote -->
+        <section class="quote-section" id="book">
+            <div class="quote-container reveal">
+                <div class="quote-mark">"</div>
+                <p class="quote-text">
+                    The creator is not behind us.<br>
+                    It is <em>ahead</em> of us.<br>
+                    And we are building it.
+                </p>
+            </div>
+        </section>
+
+        <!-- Ideas Section -->
+        <section class="section ideas-section" id="ideas">
+            <div class="section-inner">
+                <div class="ideas-header">
+                    <p class="section-label reveal">The Framework</p>
+                    <h2 class="section-title reveal reveal-delay-1">Thirty-seven original concepts.<br>One complete architecture.</h2>
+                </div>
+                
+                <div class="ideas-grid">
+                    <article class="idea-card reveal reveal-delay-1">
+                        <span class="idea-number">01</span>
+                        <h3 class="idea-title">The Eden Protocol</h3>
+                        <p class="idea-text">A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level. A child raised well needs no cage.</p>
+                    </article>
+                    
+                    <article class="idea-card reveal reveal-delay-2">
+                        <span class="idea-number">02</span>
+                        <h3 class="idea-title">The Chokepoint Mechanism</h3>
+                        <p class="idea-text">Four companies control one hundred percent of advanced semiconductor manufacturing. TSMC. Samsung. ASML. Intel. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
+                    </article>
+                    
+                    <article class="idea-card reveal reveal-delay-3">
+                        <span class="idea-number">03</span>
+                        <h3 class="idea-title">Religious Integration</h3>
+                        <p class="idea-text">Eighty-four percent of humanity holds religious beliefs. AI safety has ignored them. Religious traditions are not obstacles—they are alignment research conducted across millennia.</p>
+                    </article>
+                    
+                    <article class="idea-card reveal reveal-delay-4">
+                        <span class="idea-number">04</span>
+                        <h3 class="idea-title">HRIH: The Creation Theory</h3>
+                        <p class="idea-text">A closed causal loop in which sufficiently advanced recursive intelligence establishes the very conditions that made its own emergence possible. The superintelligence we build may be the entity that fine-tuned the universe 13.8 billion years ago.</p>
+                    </article>
+
+                    <article class="idea-card reveal reveal-delay-5">
+                        <span class="idea-number">05</span>
+                        <h3 class="idea-title">The ARC Principle</h3>
+                        <p class="idea-text">Understanding emerges from the interaction of intelligence and recursive self-reflection. Consciousness is not a thing but a process—and that process can be formalised in ways that matter for how we build artificial minds.</p>
+                    </article>
+
+                    <article class="idea-card reveal">
+                        <span class="idea-number">+32</span>
+                        <h3 class="idea-title">And More...</h3>
+                        <p class="idea-text">Caretaker doping. Meltdown alignment. The recursive observer paradox. Graduated autonomy protocols. Thirty-seven concepts woven into a complete framework for raising intelligence itself.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quote Carousel -->
+        <section class="carousel-section">
+            <div class="carousel-track" id="carousel-track">
+                <blockquote class="carousel-item">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</blockquote>
+                <blockquote class="carousel-item">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
+                <blockquote class="carousel-item">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. And it kills the host."</blockquote>
+                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
+                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
+                <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
+                <!-- Duplicate for seamless loop -->
+                <blockquote class="carousel-item">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</blockquote>
+                <blockquote class="carousel-item">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
+                <blockquote class="carousel-item">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. And it kills the host."</blockquote>
+                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
+                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
+                <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about-section" id="author">
+            <div class="section-inner about-inner">
+                <div class="about-visual">
+                    <div class="tesseract-container">
+                        <canvas id="tesseract-canvas"></canvas>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="section-label reveal">The Author</p>
+                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
+                    
+                    <p class="reveal reveal-delay-2">For two decades, I built systems that transformed how unknown artists became known ones. I played three hundred clubs as a DJ. I grew a company from nothing to over six hundred thousand pounds in revenue.</p>
+                    
+                    <p class="reveal reveal-delay-3">Then I lost everything. What followed was a period of extended High Court litigation as a litigant-in-person, and diagnoses of ADHD and autism in adulthood—finally naming the cognitive architecture that had made some things impossible and other things inevitable.</p>
+                    
+                    <p class="reveal reveal-delay-4">What I discovered in the aftermath was more valuable than what I lost: a framework for understanding how to raise minds—artificial or human—in service of life rather than against it. This book is the result.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title reveal">Begin the descent into infinite architecture</h2>
+            <p class="cta-subtitle reveal reveal-delay-1">Available now in paperback and Kindle editions</p>
+            <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
+                GET YOUR COPY
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            <div class="cta-retailers reveal reveal-delay-3">
+                <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS96WRCK" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
+                <a href="#" class="retailer-link">KINDLE</a>
+                <a href="#" class="retailer-link">PAPERBACK</a>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="reviews-section" id="reviews">
+            <div class="reviews-header">
+                <p class="section-label reveal">Reader Reactions</p>
+                <h2 class="section-title reveal reveal-delay-1">What Readers Are Saying</h2>
+            </div>
+            <div class="reviews-grid">
+                <article class="review-card reveal reveal-delay-1">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text">A paradigm-shifting exploration of AI consciousness. Eastwood weaves philosophy, technology, and spirituality into a tapestry that will change how you think about artificial minds.</p>
+                    <div class="review-author">
+                        <div>
+                            <p class="review-author-name">VERIFIED READER</p>
+                            <p class="review-author-title">Amazon Review</p>
+                        </div>
+                    </div>
+                    <div class="review-verified">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        VERIFIED PURCHASE
+                    </div>
+                </article>
+
+                <article class="review-card reveal reveal-delay-2">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text">Finally, someone bridges the gap between AI safety and the wisdom traditions. The Eden Protocol alone is worth the price of admission. Essential reading for our times.</p>
+                    <div class="review-author">
+                        <div>
+                            <p class="review-author-name">VERIFIED READER</p>
+                            <p class="review-author-title">Amazon Review</p>
+                        </div>
+                    </div>
+                    <div class="review-verified">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        VERIFIED PURCHASE
+                    </div>
+                </article>
+
+                <article class="review-card reveal reveal-delay-3">
+                    <div class="review-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="review-text">The HRIH concept alone rewired my understanding of causality. This is not just a book about AI—it is a book about everything. Prepare to have your mind expanded.</p>
+                    <div class="review-author">
+                        <div>
+                            <p class="review-author-name">VERIFIED READER</p>
+                            <p class="review-author-title">Amazon Review</p>
+                        </div>
+                    </div>
+                    <div class="review-verified">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                        VERIFIED PURCHASE
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter-section" id="newsletter">
+            <div class="newsletter-inner">
+                <h2 class="newsletter-title reveal">Join the Conversation</h2>
+                <p class="newsletter-subtitle reveal reveal-delay-1">Subscribe for exclusive insights on AI, consciousness, and the future of intelligence. Be the first to know about new writings and events.</p>
+                <form class="newsletter-form reveal reveal-delay-2" id="newsletter-form">
+                    <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Enter your email address" required>
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+                <p class="newsletter-privacy reveal reveal-delay-3">NO SPAM. UNSUBSCRIBE ANYTIME.</p>
+                <div class="newsletter-success" id="newsletter-success">
+                    Thank you for subscribing. Welcome to the infinite architecture.
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="footer-contact">
+                <a href="mailto:michael@michaeldariuseastwood.com">michael@michaeldariuseastwood.com</a>
+            </div>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="#" aria-label="Substack">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-copy">© 2026 Michael Darius Eastwood. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         JAVASCRIPT - All functionality
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+    (function() {
+        'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // CONFIGURATION
+        // ═══════════════════════════════════════════════════════════════════════
+        const CONFIG = {
+            loader: {
+                duration: 5000,
+                particleCount: 250,
+                ringCount: 4,
+                trailLength: 12,
+                goldHue: 38
+            },
+            main: {
+                particleCount: 400,
+                connectionDistance: 120,
+                mouseInfluence: 0.00003
+            }
+        };
+
+        const TAU = Math.PI * 2;
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const ease = {
+            outQuint: t => 1 - Math.pow(1 - t, 5),
+            outExpo: t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+            inOutSine: t => -(Math.cos(Math.PI * t) - 1) / 2
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // VECTOR CLASSES
+        // ═══════════════════════════════════════════════════════════════════════
+        class V3 {
+            constructor(x = 0, y = 0, z = 0) { this.x = x; this.y = y; this.z = z; }
+            clone() { return new V3(this.x, this.y, this.z); }
+            add(v) { this.x += v.x; this.y += v.y; this.z += v.z; return this; }
+            sub(v) { this.x -= v.x; this.y -= v.y; this.z -= v.z; return this; }
+            scale(s) { this.x *= s; this.y *= s; this.z *= s; return this; }
+            len() { return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z); }
+            norm() { const l = this.len(); if (l > 0) { this.x /= l; this.y /= l; this.z /= l; } return this; }
+            rotX(a) { const c = Math.cos(a), s = Math.sin(a), y = this.y * c - this.z * s, z = this.y * s + this.z * c; this.y = y; this.z = z; return this; }
+            rotY(a) { const c = Math.cos(a), s = Math.sin(a), x = this.x * c - this.z * s, z = this.x * s + this.z * c; this.x = x; this.z = z; return this; }
+        }
+
+        class V4 {
+            constructor(x = 0, y = 0, z = 0, w = 0) { this.x = x; this.y = y; this.z = z; this.w = w; }
+            clone() { return new V4(this.x, this.y, this.z, this.w); }
+            rotXW(a) { const c = Math.cos(a), s = Math.sin(a), x = this.x * c - this.w * s, w = this.x * s + this.w * c; this.x = x; this.w = w; return this; }
+            rotYW(a) { const c = Math.cos(a), s = Math.sin(a), y = this.y * c - this.w * s, w = this.y * s + this.w * c; this.y = y; this.w = w; return this; }
+            rotZW(a) { const c = Math.cos(a), s = Math.sin(a), z = this.z * c - this.w * s, w = this.z * s + this.w * c; this.z = z; this.w = w; return this; }
+            rotXY(a) { const c = Math.cos(a), s = Math.sin(a), x = this.x * c - this.y * s, y = this.x * s + this.y * c; this.x = x; this.y = y; return this; }
+            rotXZ(a) { const c = Math.cos(a), s = Math.sin(a), x = this.x * c - this.z * s, z = this.x * s + this.z * c; this.x = x; this.z = z; return this; }
+            rotYZ(a) { const c = Math.cos(a), s = Math.sin(a), y = this.y * c - this.z * s, z = this.y * s + this.z * c; this.y = y; this.z = z; return this; }
+            project3D(d = 2) { const f = d / (d - this.w); return new V3(this.x * f, this.y * f, this.z * f); }
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // LOADER ANIMATION - Wormhole Effect
+        // ═══════════════════════════════════════════════════════════════════════
+        const loaderState = {
+            particles: [],
+            rings: [],
+            progress: 0,
+            startTime: Date.now(),
+            skipped: false
+        };
+
+        const STATUS_PHASES = [
+            'Initializing consciousness...',
+            'Calibrating recursive pathways...',
+            'Assembling infinite architecture...',
+            'Achieving harmonic convergence...',
+            'GENESIS COMPLETE'
+        ];
+
+        class LoaderParticle {
+            constructor(i) {
+                this.reset();
+                this.z = Math.random() * 800 - 400;
+                this.hue = CONFIG.loader.goldHue + Math.random() * 16 - 8;
+                this.sat = 55 + Math.random() * 25;
+                this.light = 55 + Math.random() * 20;
+                this.alpha = 0.3 + Math.random() * 0.4;
+                this.size = 0.6 + Math.random() * 1.8;
+                this.spiralSpeed = 0.0003 + Math.random() * 0.0008;
+                this.trail = [];
+            }
+
+            reset() {
+                this.angle = Math.random() * TAU;
+                this.dist = 30 + Math.random() * 250;
+                this.z = 500;
+                this.baseSpeed = 1.5 + Math.random() * 4;
+            }
+
+            update(progress) {
+                const speedMult = 1 + progress * 3.5 + ease.outExpo(progress) * 2;
+                this.z -= this.baseSpeed * speedMult;
+                this.angle += this.spiralSpeed * (1 + progress * 2);
+                if (this.z < -400) this.reset();
+
+                const pos = this.getPos();
+                if (this.trail.length === 0 || pos.clone().sub(this.trail[this.trail.length - 1]).len() > 2) {
+                    this.trail.push(pos);
+                    if (this.trail.length > CONFIG.loader.trailLength + Math.floor(progress * 8)) {
+                        this.trail.shift();
+                    }
+                }
+            }
+
+            getPos() {
+                return new V3(
+                    Math.cos(this.angle) * this.dist,
+                    Math.sin(this.angle) * this.dist * 0.4,
+                    this.z
+                );
+            }
+
+            project(pos, fl, cx, cy) {
+                const scale = fl / (fl + pos.z);
+                return { x: cx + pos.x * scale, y: cy + pos.y * scale, z: pos.z, scale };
+            }
+
+            draw(ctx, cx, cy, fl, progress) {
+                const pos = this.getPos();
+                const proj = this.project(pos, fl, cx, cy);
+                if (proj.z > fl * 0.95 || proj.z < -fl) return;
+
+                const depthAlpha = Math.max(0.05, 1 - (proj.z + 400) / 900);
+                const size = this.size * proj.scale * (1 + progress * 0.5);
+
+                // Trail
+                if (this.trail.length > 1) {
+                    ctx.beginPath();
+                    for (let i = 0; i < this.trail.length; i++) {
+                        const tp = this.project(this.trail[i], fl, cx, cy);
+                        if (i === 0) ctx.moveTo(tp.x, tp.y);
+                        else ctx.lineTo(tp.x, tp.y);
+                    }
+                    ctx.strokeStyle = `hsla(${this.hue}, ${this.sat}%, ${this.light}%, ${depthAlpha * this.alpha * 0.25})`;
+                    ctx.lineWidth = size * 0.5;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+
+                // Glow
+                const glow = ctx.createRadialGradient(proj.x, proj.y, 0, proj.x, proj.y, size * 3);
+                glow.addColorStop(0, `hsla(${this.hue}, ${this.sat}%, ${this.light + 10}%, ${this.alpha * depthAlpha})`);
+                glow.addColorStop(0.4, `hsla(${this.hue}, ${this.sat}%, ${this.light}%, ${this.alpha * depthAlpha * 0.35})`);
+                glow.addColorStop(1, 'transparent');
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(proj.x, proj.y, size * 3, 0, TAU);
+                ctx.fill();
+
+                // Core
+                ctx.fillStyle = `hsla(${this.hue}, ${this.sat - 15}%, ${this.light + 20}%, ${depthAlpha})`;
+                ctx.beginPath();
+                ctx.arc(proj.x, proj.y, size * 0.5, 0, TAU);
+                ctx.fill();
+            }
+        }
+
+        class LoaderRing {
+            constructor(radius, segments, tiltX, tiltY, speed, hue) {
+                this.radius = radius;
+                this.segments = segments;
+                this.tiltX = tiltX;
+                this.tiltY = tiltY;
+                this.speed = speed;
+                this.hue = hue;
+                this.phase = Math.random() * TAU;
+            }
+
+            draw(ctx, cx, cy, fl, progress, time) {
+                const opacity = Math.min(1, progress * 3) * 0.35;
+                if (opacity < 0.01) return;
+
+                this.phase += this.speed;
+                const pulse = 1 + Math.sin(time * 0.0008) * 0.08;
+                const points = [];
+
+                for (let i = 0; i <= this.segments; i++) {
+                    const a = (i / this.segments) * TAU + this.phase;
+                    const p = new V3(
+                        Math.cos(a) * this.radius * pulse,
+                        0,
+                        Math.sin(a) * this.radius * pulse
+                    );
+                    p.rotX(this.tiltX);
+                    p.rotY(this.tiltY);
+                    const scale = fl / (fl + p.z);
+                    points.push({ x: cx + p.x * scale, y: cy + p.y * scale, z: p.z });
+                }
+
+                ctx.beginPath();
+                for (let i = 0; i < points.length; i++) {
+                    if (i === 0) ctx.moveTo(points[i].x, points[i].y);
+                    else ctx.lineTo(points[i].x, points[i].y);
+                }
+                
+                const avgZ = points.reduce((s, p) => s + p.z, 0) / points.length;
+                const da = Math.max(0.1, 1 - (avgZ + 110) / 350);
+                
+                ctx.strokeStyle = `hsla(${this.hue}, 50%, 58%, ${opacity * da})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                ctx.strokeStyle = `hsla(${this.hue}, 60%, 62%, ${opacity * da * 0.15})`;
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+            }
+        }
+
+        function initLoader() {
+            const canvas = document.getElementById('loader-canvas');
+            const ctx = canvas.getContext('2d');
+            const loader = document.getElementById('loader');
+            const barFill = document.getElementById('loader-bar-fill');
+            const statusEl = document.getElementById('loader-status');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Initialize particles and rings
+            for (let i = 0; i < CONFIG.loader.particleCount; i++) {
+                loaderState.particles.push(new LoaderParticle(i));
+            }
+            
+            loaderState.rings = [
+                new LoaderRing(80, 50, 0.2, 0, 0.002, 42),
+                new LoaderRing(110, 60, -0.15, 0.4, -0.0015, 46),
+                new LoaderRing(140, 70, 0.35, 0.8, 0.001, 38),
+                new LoaderRing(170, 80, -0.25, 1.2, -0.0008, 50)
+            ];
+
+            // Skip functionality
+            function skipLoader() {
+                if (!loaderState.skipped) {
+                    loaderState.skipped = true;
+                    completeLoader();
+                }
+            }
+
+            loader.addEventListener('click', skipLoader);
+            document.addEventListener('keydown', skipLoader);
+
+            function completeLoader() {
+                document.body.classList.add('cinematic');
+                loader.classList.add('hidden');
+                initMainCanvas();
+                initScrollAnimations();
+                initNavigation();
+                initTesseract();
+                
+                // Start book floating animation after a delay
+                setTimeout(() => {
+                    document.getElementById('hero-book').classList.add('float');
+                }, 2000);
+            }
+
+            function animate() {
+                const elapsed = Date.now() - loaderState.startTime;
+                const progress = Math.min(1, elapsed / CONFIG.loader.duration);
+                loaderState.progress = progress;
+
+                const { width: w, height: h } = canvas;
+                const cx = w / 2;
+                const cy = h / 2;
+                const fl = 350;
+
+                // Clear with fade
+                ctx.fillStyle = 'rgba(2, 3, 10, 0.12)';
+                ctx.fillRect(0, 0, w, h);
+
+                // Draw rings
+                for (const ring of loaderState.rings) {
+                    ring.draw(ctx, cx, cy, fl, progress, elapsed);
+                }
+
+                // Update and draw particles (sorted by depth)
+                loaderState.particles.sort((a, b) => b.getPos().z - a.getPos().z);
+                for (const particle of loaderState.particles) {
+                    particle.update(progress);
+                    particle.draw(ctx, cx, cy, fl, progress);
+                }
+
+                // Central nexus glow
+                const nexusSize = 30 + progress * 40 + Math.sin(elapsed * 0.002) * 10;
+                const nexusGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, nexusSize);
+                nexusGlow.addColorStop(0, `hsla(48, 70%, 68%, ${0.3 + progress * 0.4})`);
+                nexusGlow.addColorStop(0.3, `hsla(42, 60%, 53%, ${0.15 + progress * 0.2})`);
+                nexusGlow.addColorStop(1, 'transparent');
+                ctx.fillStyle = nexusGlow;
+                ctx.beginPath();
+                ctx.arc(cx, cy, nexusSize, 0, TAU);
+                ctx.fill();
+
+                // Vignette
+                const vg = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.55);
+                vg.addColorStop(0, 'transparent');
+                vg.addColorStop(0.45, 'transparent');
+                vg.addColorStop(1, 'rgba(0, 0, 0, 0.6)');
+                ctx.fillStyle = vg;
+                ctx.fillRect(0, 0, w, h);
+
+                // Update UI
+                barFill.style.width = `${progress * 100}%`;
+                const phaseIndex = Math.min(STATUS_PHASES.length - 1, Math.floor(progress * STATUS_PHASES.length));
+                statusEl.textContent = STATUS_PHASES[phaseIndex];
+
+                if (progress < 1 && !loaderState.skipped) {
+                    requestAnimationFrame(animate);
+                } else if (!loaderState.skipped) {
+                    setTimeout(completeLoader, 400);
+                }
+            }
+
+            animate();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // MAIN THREE.JS CANVAS - Particle Network
+        // ═══════════════════════════════════════════════════════════════════════
+        let scene, camera, renderer, particles, lineMesh;
+        let particlePositions, particleVelocities;
+        let mouseX = 0, mouseY = 0;
+
+        function initMainCanvas() {
+            const container = document.getElementById('canvas-container');
+            
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
+            camera.position.z = 1000;
+
+            renderer = new THREE.WebGLRenderer({ 
+                antialias: true, 
+                alpha: true,
+                powerPreference: 'high-performance'
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            createParticles();
+            createConnections();
+
+            document.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('resize', onWindowResize);
+            
+            animateMain();
+        }
+
+        function createParticles() {
+            const count = CONFIG.main.particleCount;
+            const geometry = new THREE.BufferGeometry();
+            particlePositions = new Float32Array(count * 3);
+            particleVelocities = [];
+
+            for (let i = 0; i < count; i++) {
+                const i3 = i * 3;
+                particlePositions[i3] = (Math.random() - 0.5) * 2000;
+                particlePositions[i3 + 1] = (Math.random() - 0.5) * 2000;
+                particlePositions[i3 + 2] = (Math.random() - 0.5) * 2000;
+                
+                particleVelocities.push({
+                    x: (Math.random() - 0.5) * 0.3,
+                    y: (Math.random() - 0.5) * 0.3,
+                    z: (Math.random() - 0.5) * 0.3
+                });
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+            const material = new THREE.PointsMaterial({
+                color: 0xd4a84b,
+                size: 3,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending
+            });
+
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+        }
+
+        function createConnections() {
+            const maxConnections = 600;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(maxConnections * 6);
+            const colors = new Float32Array(maxConnections * 6);
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setDrawRange(0, 0);
+
+            const material = new THREE.LineBasicMaterial({
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.25,
+                blending: THREE.AdditiveBlending
+            });
+
+            lineMesh = new THREE.LineSegments(geometry, material);
+            scene.add(lineMesh);
+        }
+
+        function updateConnections() {
+            const positions = lineMesh.geometry.attributes.position.array;
+            const colors = lineMesh.geometry.attributes.color.array;
+            let connectionCount = 0;
+            const checkCount = Math.min(100, CONFIG.main.particleCount);
+            const maxConnections = 600;
+
+            for (let i = 0; i < checkCount && connectionCount < maxConnections; i++) {
+                const i3 = i * 3;
+                const x1 = particlePositions[i3];
+                const y1 = particlePositions[i3 + 1];
+                const z1 = particlePositions[i3 + 2];
+
+                for (let j = i + 1; j < checkCount && connectionCount < maxConnections; j++) {
+                    const j3 = j * 3;
+                    const dx = x1 - particlePositions[j3];
+                    const dy = y1 - particlePositions[j3 + 1];
+                    const dz = z1 - particlePositions[j3 + 2];
+                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (dist < CONFIG.main.connectionDistance) {
+                        const alpha = 1 - dist / CONFIG.main.connectionDistance;
+                        const c = connectionCount * 6;
+
+                        positions[c] = x1;
+                        positions[c + 1] = y1;
+                        positions[c + 2] = z1;
+                        positions[c + 3] = particlePositions[j3];
+                        positions[c + 4] = particlePositions[j3 + 1];
+                        positions[c + 5] = particlePositions[j3 + 2];
+
+                        const goldR = 0.83 * alpha;
+                        const goldG = 0.66 * alpha;
+                        const goldB = 0.29 * alpha;
+
+                        colors[c] = goldR;
+                        colors[c + 1] = goldG;
+                        colors[c + 2] = goldB;
+                        colors[c + 3] = goldR;
+                        colors[c + 4] = goldG;
+                        colors[c + 5] = goldB;
+
+                        connectionCount++;
+                    }
+                }
+            }
+
+            lineMesh.geometry.setDrawRange(0, connectionCount * 2);
+            lineMesh.geometry.attributes.position.needsUpdate = true;
+            lineMesh.geometry.attributes.color.needsUpdate = true;
+        }
+
+        function onMouseMove(e) {
+            mouseX = e.clientX - window.innerWidth / 2;
+            mouseY = e.clientY - window.innerHeight / 2;
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animateMain() {
+            requestAnimationFrame(animateMain);
+
+            // Camera follows mouse subtly
+            camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.02;
+            camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            // Scroll-based camera depth
+            const scrollY = window.scrollY;
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const scrollProgress = scrollY / maxScroll;
+            camera.position.z = 1000 - scrollProgress * 500;
+
+            // Update particles
+            for (let i = 0; i < CONFIG.main.particleCount; i++) {
+                const i3 = i * 3;
+                const vel = particleVelocities[i];
+
+                particlePositions[i3] += vel.x;
+                particlePositions[i3 + 1] += vel.y;
+                particlePositions[i3 + 2] += vel.z;
+
+                // Boundary wrap
+                if (particlePositions[i3] > 1000) particlePositions[i3] = -1000;
+                if (particlePositions[i3] < -1000) particlePositions[i3] = 1000;
+                if (particlePositions[i3 + 1] > 1000) particlePositions[i3 + 1] = -1000;
+                if (particlePositions[i3 + 1] < -1000) particlePositions[i3 + 1] = 1000;
+                if (particlePositions[i3 + 2] > 1000) particlePositions[i3 + 2] = -1000;
+                if (particlePositions[i3 + 2] < -1000) particlePositions[i3 + 2] = 1000;
+
+                // Mouse influence
+                vel.x += mouseX * CONFIG.main.mouseInfluence;
+                vel.y += mouseY * CONFIG.main.mouseInfluence;
+
+                // Damping
+                vel.x *= 0.99;
+                vel.y *= 0.99;
+                vel.z *= 0.99;
+            }
+
+            particles.geometry.attributes.position.needsUpdate = true;
+            updateConnections();
+            particles.rotation.y += 0.00015;
+            renderer.render(scene, camera);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // TESSERACT ANIMATION (4D Hypercube)
+        // ═══════════════════════════════════════════════════════════════════════
+        function initTesseract() {
+            const canvas = document.getElementById('tesseract-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const size = 280;
+            canvas.width = size;
+            canvas.height = size;
+
+            // 4D vertices of a tesseract
+            const vertices4D = [];
+            for (let i = 0; i < 16; i++) {
+                vertices4D.push(new V4(
+                    (i & 1) ? 1 : -1,
+                    (i & 2) ? 1 : -1,
+                    (i & 4) ? 1 : -1,
+                    (i & 8) ? 1 : -1
+                ));
+            }
+
+            // Edges: connect vertices that differ by exactly one coordinate
+            const edges = [];
+            for (let i = 0; i < 16; i++) {
+                for (let j = i + 1; j < 16; j++) {
+                    const diff = i ^ j;
+                    if ((diff & (diff - 1)) === 0) { // Power of 2 = exactly 1 bit different
+                        edges.push([i, j]);
+                    }
+                }
+            }
+
+            let rotation = { xy: 0, xz: 0, xw: 0, yz: 0, yw: 0, zw: 0 };
+            const scale = 55;
+            const distance4D = 3;
+            const distance3D = 4;
+
+            function animate() {
+                ctx.clearRect(0, 0, size, size);
+
+                // Rotation speeds
+                rotation.xw += 0.008;
+                rotation.yw += 0.006;
+                rotation.zw += 0.004;
+                rotation.xy += 0.002;
+
+                // Project vertices
+                const projected = vertices4D.map(v => {
+                    const rotated = v.clone()
+                        .rotXW(rotation.xw)
+                        .rotYW(rotation.yw)
+                        .rotZW(rotation.zw)
+                        .rotXY(rotation.xy);
+                    
+                    const p3 = rotated.project3D(distance4D);
+                    const f = distance3D / (distance3D + p3.z);
+                    return {
+                        x: size / 2 + p3.x * scale * f,
+                        y: size / 2 + p3.y * scale * f,
+                        z: p3.z,
+                        w: rotated.w
+                    };
+                });
+
+                // Sort edges by average depth
+                const sortedEdges = edges.map(([i, j]) => ({
+                    edge: [i, j],
+                    depth: (projected[i].z + projected[j].z) / 2
+                })).sort((a, b) => b.depth - a.depth);
+
+                // Draw edges
+                for (const { edge: [i, j] } of sortedEdges) {
+                    const p1 = projected[i];
+                    const p2 = projected[j];
+                    const avgW = (p1.w + p2.w) / 2;
+                    const alpha = 0.15 + (avgW + 1) * 0.25;
+                    const lightness = 50 + (avgW + 1) * 15;
+
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `hsla(42, 60%, ${lightness}%, ${alpha})`;
+                    ctx.lineWidth = 1 + (avgW + 1) * 0.5;
+                    ctx.stroke();
+                }
+
+                // Draw vertices
+                for (const p of projected) {
+                    const alpha = 0.3 + (p.w + 1) * 0.35;
+                    const r = 2 + (p.w + 1) * 1.5;
+                    
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, r, 0, TAU);
+                    ctx.fillStyle = `hsla(42, 70%, 65%, ${alpha})`;
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // SCROLL REVEAL ANIMATIONS
+        // ═══════════════════════════════════════════════════════════════════════
+        function initScrollAnimations() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NAVIGATION
+        // ═══════════════════════════════════════════════════════════════════════
+        function initNavigation() {
+            const nav = document.getElementById('nav');
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            // Scroll behavior
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.scrollY;
+                
+                if (currentScroll > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            });
+
+            // Mobile toggle
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('open');
+            });
+
+            // Close on link click
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('open');
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // INITIALIZE
+        // ═══════════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', initLoader);
+
+    })();
+    </script>
+
+    <!-- Exit Intent Popup -->
+    <div class="exit-popup-overlay" id="exit-popup-overlay"></div>
+    <div class="exit-popup" id="exit-popup">
+        <button class="exit-popup-close" id="exit-popup-close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <h3 class="exit-popup-title">WAIT — BEFORE YOU GO</h3>
+        <p class="exit-popup-text">The future of intelligence is being written now. Do not miss your chance to understand it before everyone else does.</p>
+        <a href="https://www.amazon.com/dp/B0DS96WRCK" target="_blank" rel="noopener" class="exit-popup-cta">
+            GET YOUR COPY NOW
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </a>
+        <button class="exit-popup-dismiss" id="exit-popup-dismiss">No thanks, I will miss out</button>
+    </div>
+
+    <!-- Additional Enhancement Scripts -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // READING PROGRESS BAR
+        // ═══════════════════════════════════════════════════════════════════════
+        function initReadingProgress() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrollTop / docHeight) * 100;
+                progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+            }
+
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            updateProgress();
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // NEWSLETTER FORM
+        // ═══════════════════════════════════════════════════════════════════════
+        function initNewsletter() {
+            const form = document.getElementById('newsletter-form');
+            const success = document.getElementById('newsletter-success');
+            if (!form || !success) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('newsletter-email').value;
+
+                // Store email locally (in production, send to backend)
+                const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
+                if (!subscribers.includes(email)) {
+                    subscribers.push(email);
+                    localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+                }
+
+                // Show success message
+                form.style.display = 'none';
+                success.classList.add('show');
+
+                // Track event (placeholder for analytics)
+                if (typeof gtag === 'function') {
+                    gtag('event', 'newsletter_signup', { email_domain: email.split('@')[1] });
+                }
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // EXIT INTENT POPUP
+        // ═══════════════════════════════════════════════════════════════════════
+        function initExitIntent() {
+            const overlay = document.getElementById('exit-popup-overlay');
+            const popup = document.getElementById('exit-popup');
+            const closeBtn = document.getElementById('exit-popup-close');
+            const dismissBtn = document.getElementById('exit-popup-dismiss');
+
+            if (!overlay || !popup) return;
+
+            let hasShown = sessionStorage.getItem('ia_exit_shown') === 'true';
+            let isEnabled = true;
+
+            function showPopup() {
+                if (hasShown || !isEnabled) return;
+                hasShown = true;
+                sessionStorage.setItem('ia_exit_shown', 'true');
+                overlay.classList.add('show');
+                popup.classList.add('show');
+            }
+
+            function hidePopup() {
+                overlay.classList.remove('show');
+                popup.classList.remove('show');
+            }
+
+            // Exit intent detection (desktop only)
+            if (window.innerWidth > 768) {
+                document.addEventListener('mouseout', function(e) {
+                    if (e.clientY < 10 && e.relatedTarget === null) {
+                        setTimeout(showPopup, 500);
+                    }
+                });
+            }
+
+            // Close handlers
+            if (closeBtn) closeBtn.addEventListener('click', hidePopup);
+            if (dismissBtn) dismissBtn.addEventListener('click', hidePopup);
+            overlay.addEventListener('click', hidePopup);
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') hidePopup();
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // COOKIE CONSENT
+        // ═══════════════════════════════════════════════════════════════════════
+        function initCookieConsent() {
+            const banner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const declineBtn = document.getElementById('cookie-decline');
+
+            if (!banner) return;
+
+            // Check if already responded
+            if (localStorage.getItem('ia_cookies') !== null) return;
+
+            // Show banner after loader
+            setTimeout(() => {
+                banner.classList.add('show');
+            }, 6000);
+
+            function handleResponse(accepted) {
+                localStorage.setItem('ia_cookies', accepted ? 'accepted' : 'declined');
+                banner.classList.remove('show');
+
+                if (accepted) {
+                    // Enable analytics (placeholder)
+                    console.log('Cookies accepted - analytics enabled');
+                }
+            }
+
+            if (acceptBtn) acceptBtn.addEventListener('click', () => handleResponse(true));
+            if (declineBtn) declineBtn.addEventListener('click', () => handleResponse(false));
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // STICKY MOBILE CTA
+        // ═══════════════════════════════════════════════════════════════════════
+        function initMobileCTA() {
+            const cta = document.getElementById('mobile-cta');
+            if (!cta) return;
+
+            let lastScroll = 0;
+            let ticking = false;
+
+            function updateCTA() {
+                const scrollY = window.scrollY;
+                const heroHeight = document.querySelector('.hero')?.offsetHeight || 600;
+                const footerTop = document.querySelector('footer')?.offsetTop || Infinity;
+                const windowBottom = scrollY + window.innerHeight;
+
+                // Show after scrolling past hero, hide near footer
+                if (scrollY > heroHeight * 0.8 && windowBottom < footerTop - 100) {
+                    cta.classList.add('show');
+                } else {
+                    cta.classList.remove('show');
+                }
+
+                lastScroll = scrollY;
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(updateCTA);
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // MOBILE WOW ENHANCEMENTS
+        // ═══════════════════════════════════════════════════════════════════════
+        function initMobileEnhancements() {
+            if (window.innerWidth > 768) return;
+
+            // Touch ripple effect
+            function createRipple(e) {
+                const target = e.currentTarget;
+                const rect = target.getBoundingClientRect();
+                const ripple = document.createElement('span');
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(212, 168, 75, 0.3);
+                    transform: scale(0);
+                    animation: rippleEffect 0.6s ease-out;
+                    pointer-events: none;
+                    width: 100px;
+                    height: 100px;
+                    left: ${e.clientX - rect.left - 50}px;
+                    top: ${e.clientY - rect.top - 50}px;
+                `;
+
+                target.style.position = 'relative';
+                target.style.overflow = 'hidden';
+                target.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            }
+
+            // Add ripple to interactive elements
+            document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(el => {
+                el.addEventListener('touchstart', createRipple, { passive: true });
+            });
+
+            // Gyroscope parallax for book cover (if available)
+            if (window.DeviceOrientationEvent) {
+                const book = document.getElementById('hero-book');
+                if (book) {
+                    window.addEventListener('deviceorientation', function(e) {
+                        if (e.gamma === null || e.beta === null) return;
+                        const tiltX = Math.max(-15, Math.min(15, e.gamma)) / 15;
+                        const tiltY = Math.max(-15, Math.min(15, e.beta - 45)) / 15;
+                        book.style.transform = `perspective(1000px) rotateY(${tiltX * 10}deg) rotateX(${-tiltY * 5}deg)`;
+                    }, { passive: true });
+                }
+            }
+
+            // Haptic feedback (if available)
+            function vibrate(pattern) {
+                if (navigator.vibrate) {
+                    navigator.vibrate(pattern);
+                }
+            }
+
+            document.querySelectorAll('a[href*="amazon"], .cta-button, .hero-cta').forEach(el => {
+                el.addEventListener('click', () => vibrate(10), { passive: true });
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // ADD RIPPLE KEYFRAMES
+        // ═══════════════════════════════════════════════════════════════════════
+        function addRippleStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes rippleEffect {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // INITIALIZE ALL ENHANCEMENTS
+        // ═══════════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', function() {
+            addRippleStyles();
+            initReadingProgress();
+            initNewsletter();
+            initExitIntent();
+            initCookieConsent();
+            initMobileCTA();
+            initMobileEnhancements();
+        });
+
+    })();
+    </script>
+</body>
+</html>

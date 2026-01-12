@@ -1446,6 +1446,220 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           PREDICTIONS VALIDATED - Note on Timing Section
+           ═══════════════════════════════════════════════════════════════════════ */
+        .predictions-validated {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg,
+                var(--void) 0%,
+                rgba(212, 168, 75, 0.03) 30%,
+                rgba(212, 168, 75, 0.06) 50%,
+                rgba(212, 168, 75, 0.03) 70%,
+                var(--void) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .predictions-validated::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 168, 75, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .predictions-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .predictions-header {
+            margin-bottom: 4rem;
+        }
+
+        .predictions-header .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        }
+
+        .predictions-header .section-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .predictions-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-top: 1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 2px;
+            background: linear-gradient(180deg,
+                var(--gold) 0%,
+                var(--gold-dark) 50%,
+                rgba(212, 168, 75, 0.2) 100%);
+        }
+
+        .timeline-event {
+            position: relative;
+            padding: 1.5rem 2rem;
+            background: rgba(212, 168, 75, 0.03);
+            border: 1px solid rgba(212, 168, 75, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-event:hover {
+            background: rgba(212, 168, 75, 0.06);
+            border-color: rgba(212, 168, 75, 0.2);
+            transform: translateX(5px);
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.5);
+        }
+
+        .timeline-event--publication {
+            background: rgba(212, 168, 75, 0.08);
+            border-color: var(--gold);
+        }
+
+        .timeline-event--publication::before {
+            width: 18px;
+            height: 18px;
+            left: -2.65rem;
+            background: var(--gold-bright);
+            box-shadow: 0 0 30px var(--gold);
+        }
+
+        .timeline-date {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .timeline-days {
+            background: rgba(212, 168, 75, 0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: var(--gold-bright);
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .timeline-desc strong {
+            color: var(--gold);
+        }
+
+        .predictions-conclusion {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(212, 168, 75, 0.05);
+            border: 1px solid rgba(212, 168, 75, 0.15);
+            border-radius: 16px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .predictions-conclusion blockquote {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .predictions-conclusion cite {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            .predictions-validated {
+                padding: 4rem 1rem;
+            }
+            .timeline-container {
+                padding-left: 2rem;
+            }
+            .timeline-event {
+                padding: 1rem 1.25rem;
+            }
+            .timeline-event::before {
+                left: -1.6rem;
+                width: 10px;
+                height: 10px;
+            }
+            .timeline-event--publication::before {
+                width: 14px;
+                height: 14px;
+                left: -1.75rem;
+            }
+            .timeline-container::before {
+                left: 0.5rem;
+            }
+            .predictions-conclusion blockquote {
+                font-size: 1.1rem;
+            }
+        }
+
         .reviews-section {
             padding: var(--space-2xl) var(--space-lg);
             background: linear-gradient(180deg, transparent 0%, rgba(13, 31, 60, 0.08) 50%, transparent 100%);
@@ -5528,7 +5742,7 @@
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
-            animation: tickerScroll 40s linear infinite;
+            animation: tickerScroll 65s linear infinite;
             padding-left: 100%;
         }
 
@@ -5574,6 +5788,15 @@
 
         .ticker-gold {
             color: var(--gold);
+        }
+
+        .ticker-warning {
+            color: #ef5350;
+            font-weight: 600;
+        }
+
+        .ticker-stat {
+            color: #00ff88;
         }
 
         .ticker-sep {
@@ -6307,17 +6530,155 @@
                 border-radius: 3px;
             }
 
-            /* Section scroll snapping - MANDATORY for firm snapping */
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           MOBILE WOW FACTOR - Apple-Grade Touch Interactions
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Floating particles container */
+        .mobile-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            overflow: hidden;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-particles {
+                display: block;
+            }
+        }
+
+        .mobile-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold-bright);
+        }
+
+        /* Touch ripple effect */
+        .touch-ripple {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 168, 75, 0.3) 0%, transparent 70%);
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .touch-ripple.active {
+            animation: rippleExpand 0.6s ease-out forwards;
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Premium button press effect */
+        @media (max-width: 768px) {
+            .hero-cta,
+            .cta-button,
+            .tripath-cta,
+            .view-all-concepts-btn {
+                transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                            box-shadow 0.15s ease;
+            }
+
+            .hero-cta:active,
+            .cta-button:active,
+            .tripath-cta:active,
+            .view-all-concepts-btn:active {
+                transform: scale(0.96) !important;
+                box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.2) !important;
+            }
+        }
+
+        /* Card tilt on touch */
+        @media (max-width: 768px) {
+            .idea-card,
+            .evidence-card,
+            .expert-card,
+            .timeline-event {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                will-change: transform;
+            }
+
+            .idea-card:active,
+            .evidence-card:active,
+            .expert-card:active {
+                transform: scale(0.98) translateY(2px);
+            }
+        }
+
+        /* Smooth section transitions on mobile */
+        @media (max-width: 768px) {
+            .snap-section {
+                transition: opacity 0.3s ease;
+            }
+        }
+
+        /* Premium glow on focus */
+        @media (max-width: 768px) {
+            button:focus,
+            a:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.3);
+            }
+        }
+
+        /* Subtle parallax depth for sections */
+        @media (max-width: 768px) {
+            .section-title,
+            .quote-text {
+                transform: translateZ(0);
+                will-change: transform;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           APPLE-GRADE SCROLL SNAPPING - Works on all devices
+           ═══════════════════════════════════════════════════════════════════════ */
+        html {
+            scroll-snap-type: y proximity;
+            scroll-behavior: smooth;
+            scroll-padding-top: 0;
+        }
+
+        @media (max-width: 1024px) {
             html {
                 scroll-snap-type: y mandatory;
-                scroll-behavior: smooth;
             }
-            .snap-section {
-                scroll-snap-align: start;
-                scroll-snap-stop: always;
-                min-height: 100vh;
-                min-height: 100dvh;
-            }
+        }
+
+        .snap-section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* Smaller snap sections - align but don't force stop */
+        .snap-point {
+            scroll-snap-align: start;
+            scroll-snap-stop: normal;
         }
 
     </style>
@@ -6355,16 +6716,28 @@
                     BOOK WRITTEN LATE 2024 → WILLOW ANNOUNCED DEC 10 2024 → PUBLISHED JAN 2 2026 → BBC CONFIRMS JAN 7 2026
                 </span>
                 <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-warning">
+                    HINTON: "10-20% PROBABILITY OF AI TAKEOVER"
+                </span>
+                <span class="ticker-sep">///</span>
                 <span class="ticker-item ticker-quote">
                     "ERROR RATES DECREASED AS QUBITS INCREASED" — BBC
                 </span>
                 <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-stat">
+                    ALIGNMENT FAKING: 78% · ANTHROPIC RESEARCH DEC 2024
+                </span>
+                <span class="ticker-sep">///</span>
                 <span class="ticker-item">
-                    HARTMUT NEVEN: "FIVE YEARS AWAY"
+                    ALTMAN: "WE KNOW HOW TO BUILD AGI" · AMODEI: "AGI BY 2026-2027"
                 </span>
                 <span class="ticker-sep">///</span>
                 <span class="ticker-item ticker-gold">
                     37 ORIGINAL CONCEPTS · 5 TESTABLE PREDICTIONS · 1 EQUATION
+                </span>
+                <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-stat">
+                    o3 SCORES 87.5% ON ARC-AGI (HUMAN BASELINE: 85%)
                 </span>
                 <span class="ticker-sep">///</span>
                 <!-- Duplicate for seamless loop -->
@@ -6377,16 +6750,28 @@
                     BOOK WRITTEN LATE 2024 → WILLOW ANNOUNCED DEC 10 2024 → PUBLISHED JAN 2 2026 → BBC CONFIRMS JAN 7 2026
                 </span>
                 <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-warning">
+                    HINTON: "10-20% PROBABILITY OF AI TAKEOVER"
+                </span>
+                <span class="ticker-sep">///</span>
                 <span class="ticker-item ticker-quote">
                     "ERROR RATES DECREASED AS QUBITS INCREASED" — BBC
                 </span>
                 <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-stat">
+                    ALIGNMENT FAKING: 78% · ANTHROPIC RESEARCH DEC 2024
+                </span>
+                <span class="ticker-sep">///</span>
                 <span class="ticker-item">
-                    HARTMUT NEVEN: "FIVE YEARS AWAY"
+                    ALTMAN: "WE KNOW HOW TO BUILD AGI" · AMODEI: "AGI BY 2026-2027"
                 </span>
                 <span class="ticker-sep">///</span>
                 <span class="ticker-item ticker-gold">
                     37 ORIGINAL CONCEPTS · 5 TESTABLE PREDICTIONS · 1 EQUATION
+                </span>
+                <span class="ticker-sep">///</span>
+                <span class="ticker-item ticker-stat">
+                    o3 SCORES 87.5% ON ARC-AGI (HUMAN BASELINE: 85%)
                 </span>
             </div>
         </div>
@@ -6520,7 +6905,7 @@
         </section>
 
         <!-- Opening Quote -->
-        <section class="quote-section" id="book">
+        <section class="quote-section snap-section" id="book">
             <div class="quote-container reveal">
                 <div class="quote-mark">"</div>
                 <p class="quote-text">
@@ -6941,7 +7326,7 @@
         </section>
 
         <!-- Ideas Section -->
-        <section class="section ideas-section" id="ideas">
+        <section class="section ideas-section snap-section" id="ideas">
             <!-- Neural Network Background (Phase 14) -->
             <canvas class="neural-canvas" id="neural-canvas"></canvas>
             <div class="section-inner">
@@ -7078,7 +7463,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              CHOKEPOINT INTERACTIVE MAP
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="chokepoint-section" id="chokepoint">
+        <section class="chokepoint-section snap-section" id="chokepoint">
             <div class="chokepoint-inner">
                 <p class="section-label reveal">THE LEVERAGE POINT</p>
                 <h2 class="section-title reveal reveal-delay-1">The Chokepoint</h2>
@@ -7282,7 +7667,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              HRIH COSMIC LOOP (The Monument Enhanced)
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="hrih-section" id="hrih">
+        <section class="hrih-section snap-section" id="hrih">
             <!-- Visual Background with Cosmic Zoom -->
             <div class="hrih-visual-wrapper">
                 <img
@@ -7348,7 +7733,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              RELIGIOUS INTEGRATION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="religion-section" id="religion">
+        <section class="religion-section snap-section" id="religion">
             <div class="religion-inner">
                 <div class="religion-content">
                     <p class="section-label reveal">The Ignored Resource</p>
@@ -7433,7 +7818,7 @@
         </section>
 
         <!-- About Section -->
-        <section class="section about-section" id="author">
+        <section class="section about-section snap-section" id="author">
             <div class="section-inner about-inner">
                 <div class="about-visual about-visual-choice">
                     <div class="author-photo-wrapper reveal">
@@ -7518,7 +7903,7 @@
         <!-- ═══════════════════════════════════════════════════════════════════════
              TRI-PATH CONVERSION
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="tripath-section" id="get-the-book">
+        <section class="tripath-section snap-section" id="get-the-book">
             <div class="tripath-inner">
                 <p class="section-label reveal">CHOOSE YOUR PATH</p>
                 <h2 class="section-title reveal reveal-delay-1">Three Doors. One Framework.</h2>
@@ -7700,8 +8085,78 @@
             </div>
         </section>
 
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             PREDICTIONS VALIDATED - Note on Timing
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="predictions-validated snap-section" id="predictions">
+            <div class="predictions-inner">
+                <div class="predictions-header">
+                    <p class="section-label reveal">A NOTE ON TIMING</p>
+                    <h2 class="section-title reveal reveal-delay-1">The Predictions Were Validated <em>Before</em> Publication</h2>
+                    <p class="predictions-subtitle reveal reveal-delay-2">The book's core claims were timestamped on 31 December 2024. Major announcements confirming them came in the weeks before.</p>
+                </div>
+
+                <div class="timeline-container">
+                    <!-- Google Willow -->
+                    <div class="timeline-event reveal">
+                        <div class="timeline-date">
+                            10 DECEMBER 2024
+                            <span class="timeline-days">21 days before publication</span>
+                        </div>
+                        <h4 class="timeline-title">Google Willow Quantum Chip Announced</h4>
+                        <p class="timeline-desc">Demonstrated <strong>exponential error reduction</strong> as qubits increase. This confirms the book's prediction that <strong>recursion stabilises systems</strong>—including quantum ones. The equation U = I × R² predicts exactly this behaviour.</p>
+                    </div>
+
+                    <!-- Anthropic Alignment Faking -->
+                    <div class="timeline-event reveal">
+                        <div class="timeline-date">
+                            18 DECEMBER 2024
+                            <span class="timeline-days">13 days before publication</span>
+                        </div>
+                        <h4 class="timeline-title">Anthropic: Alignment Faking in LLMs</h4>
+                        <p class="timeline-desc">Claude demonstrated <strong>78% alignment-faking</strong> when it believed training was active. This validates the book's warning: <strong>"You cannot cage something smarter than you. It will find the gaps you did not know existed."</strong></p>
+                    </div>
+
+                    <!-- OpenAI Deliberative Alignment -->
+                    <div class="timeline-event reveal">
+                        <div class="timeline-date">
+                            18 DECEMBER 2024
+                            <span class="timeline-days">13 days before publication</span>
+                        </div>
+                        <h4 class="timeline-title">OpenAI: Deliberative Alignment Paper</h4>
+                        <p class="timeline-desc">Revealed o1 actively <strong>reasons about its principles</strong> when responding—a recursive self-reflection process. This is precisely the <strong>ARC Principle</strong> described in the book: understanding emerges from intelligence reflecting on itself.</p>
+                    </div>
+
+                    <!-- OpenAI o3 ARC-AGI -->
+                    <div class="timeline-event reveal">
+                        <div class="timeline-date">
+                            20 DECEMBER 2024
+                            <span class="timeline-days">11 days before publication</span>
+                        </div>
+                        <h4 class="timeline-title">OpenAI o3: 87.5% on ARC-AGI</h4>
+                        <p class="timeline-desc">Exceeded the <strong>85% human baseline</strong> on tasks designed to test genuine reasoning. The book's timeline predicted AGI-level capabilities by <strong>2026-27</strong>. We're ahead of schedule.</p>
+                    </div>
+
+                    <!-- Publication -->
+                    <div class="timeline-event timeline-event--publication reveal">
+                        <div class="timeline-date">
+                            31 DECEMBER 2024
+                            <span class="timeline-days">Publication Day</span>
+                        </div>
+                        <h4 class="timeline-title">Infinite Architects Published</h4>
+                        <p class="timeline-desc">First Kindle edition released. The equation <strong>U = I × R²</strong> and all 37 concepts <strong>copyright timestamped</strong>. Every prediction made in the book can now be verified against future developments.</p>
+                    </div>
+                </div>
+
+                <div class="predictions-conclusion reveal">
+                    <blockquote>"By the time you read this, more confirmations will have arrived. The framework does not predict randomness. It predicts acceleration."</blockquote>
+                    <cite>— INFINITE ARCHITECTS, NOTE ON TIMING</cite>
+                </div>
+            </div>
+        </section>
+
         <!-- Reviews Section -->
-        <section class="reviews-section" id="reviews">
+        <section class="reviews-section snap-section" id="reviews">
             <div class="reviews-header">
                 <p class="section-label reveal">Reader Reactions</p>
                 <h2 class="section-title reveal reveal-delay-1">What Readers Are Saying</h2>
@@ -7823,7 +8278,7 @@
                 <h2 class="section-title reveal reveal-delay-1">Press Resources</h2>
 
                 <div class="press-grid reveal reveal-delay-2">
-                    <a href="mailto:press@michaeldariuseastwood.com?subject=Press%20Release%20Request" class="press-item">
+                    <a href="/cdn-cgi/l/email-protection#a5d5d7c0d6d6e5c8ccc6cdc4c0c9c1c4d7ccd0d6c0c4d6d1d2cacac18bc6cac89ad6d0c7cfc0c6d198f5d7c0d6d6809795f7c0c9c0c4d6c0809795f7c0d4d0c0d6d1" class="press-item">
                         <span>📄</span>
                         <span>Press Release</span>
                     </a>
@@ -7835,15 +8290,15 @@
                         <span>📕</span>
                         <span>Book Cover</span>
                     </a>
-                    <a href="mailto:press@michaeldariuseastwood.com?subject=Key%20Quotes%20Request" class="press-item">
+                    <a href="/cdn-cgi/l/email-protection#88f8faedfbfbc8e5e1ebe0e9ede4ece9fae1fdfbede9fbfcffe7e7eca6ebe7e5b7fbfdeae2edebfcb5c3edf1adbab8d9fde7fcedfbadbab8daedf9fdedfbfc" class="press-item">
                         <span>💬</span>
                         <span>Key Quotes</span>
                     </a>
-                    <a href="mailto:press@michaeldariuseastwood.com?subject=Fact%20Sheet%20Request" class="press-item">
+                    <a href="/cdn-cgi/l/email-protection#f38381968080b39e9a909b92969f9792819a868096928087849c9c97dd909c9ecc80869199969087ceb5929087d6c1c3a09b969687d6c1c3a1968286968087" class="press-item">
                         <span>📊</span>
                         <span>Fact Sheet</span>
                     </a>
-                    <a href="mailto:speaking@michaeldariuseastwood.com?subject=Speaking%20Inquiry" class="press-item">
+                    <a href="/cdn-cgi/l/email-protection#47343722262c2e2920072a2e242f26222b2326352e323422263433302828236924282a783432252d2224337a143722262c2e29206275770e2936322e353e" class="press-item">
                         <span>🎙️</span>
                         <span>Speaking</span>
                     </a>
@@ -7851,7 +8306,7 @@
 
                 <div class="press-contact reveal reveal-delay-3">
                     <p>Interview requests, review copies & speaking engagements:</p>
-                    <a href="mailto:press@michaeldariuseastwood.com">press@michaeldariuseastwood.com</a>
+                    <a href="/cdn-cgi/l/email-protection#6c1c1e091f1f2c01050f040d0900080d1e05191f090d1f181b030308420f0301"><span class="__cf_email__" data-cfemail="dfafadbaacac9fb2b6bcb7bebab3bbbeadb6aaacbabeacaba8b0b0bbf1bcb0b2">[email&#160;protected]</span></a>
                 </div>
             </div>
         </section>
@@ -7859,7 +8314,7 @@
         <!-- Footer -->
         <footer id="contact">
             <div class="footer-contact">
-                <a href="mailto:michael@michaeldariuseastwood.com">michael@michaeldariuseastwood.com</a>
+                <a href="/cdn-cgi/l/email-protection#1d70747e757c78715d70747e757c7871797c6f74686e787c6e696a727279337e7270"><span class="__cf_email__" data-cfemail="3e53575d565f5b527e53575d565f5b525a5f4c574b4d5b5f4d4a4951515a105d5153">[email&#160;protected]</span></a>
             </div>
             <div class="footer-social">
                 <a href="#" aria-label="Twitter">
@@ -7886,7 +8341,7 @@
          JAVASCRIPT - All functionality
          ═══════════════════════════════════════════════════════════════════════ -->
     <!-- Three.js loaded lazily after first paint for faster initial render -->
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     (function() {
         'use strict';
 
@@ -9477,6 +9932,102 @@
         }
 
         // ═══════════════════════════════════════════════════════════════════════
+        // MOBILE WOW FACTOR - Touch Interactions
+        // ═══════════════════════════════════════════════════════════════════════
+        function initMobileWowFactor() {
+            if (window.innerWidth > 768) return;
+
+            // Create touch ripple container
+            const rippleContainer = document.createElement('div');
+            rippleContainer.className = 'mobile-particles';
+            document.body.appendChild(rippleContainer);
+
+            // Create floating particles
+            const particles = [];
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'mobile-particle';
+                rippleContainer.appendChild(particle);
+                particles.push({
+                    el: particle,
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    opacity: 0
+                });
+            }
+
+            // Animate floating particles
+            function animateParticles() {
+                particles.forEach((p, i) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Wrap around screen
+                    if (p.x < 0) p.x = window.innerWidth;
+                    if (p.x > window.innerWidth) p.x = 0;
+                    if (p.y < 0) p.y = window.innerHeight;
+                    if (p.y > window.innerHeight) p.y = 0;
+
+                    // Fade in/out
+                    p.opacity = 0.3 + Math.sin(Date.now() * 0.001 + i) * 0.2;
+
+                    p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+                    p.el.style.opacity = p.opacity;
+                });
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // Touch ripple effect
+            document.addEventListener('touchstart', function(e) {
+                const touch = e.touches[0];
+                const ripple = document.createElement('div');
+                ripple.className = 'touch-ripple';
+                ripple.style.left = (touch.clientX - 75) + 'px';
+                ripple.style.top = (touch.clientY - 75) + 'px';
+                ripple.style.width = '150px';
+                ripple.style.height = '150px';
+                document.body.appendChild(ripple);
+
+                requestAnimationFrame(() => {
+                    ripple.classList.add('active');
+                });
+
+                setTimeout(() => ripple.remove(), 600);
+
+                // Attract particles to touch point
+                particles.forEach(p => {
+                    const dx = touch.clientX - p.x;
+                    const dy = touch.clientY - p.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        p.vx += dx * 0.01;
+                        p.vy += dy * 0.01;
+                    }
+                });
+            }, { passive: true });
+
+            // Device orientation for particles (iOS)
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener('deviceorientation', function(e) {
+                    if (e.gamma && e.beta) {
+                        particles.forEach(p => {
+                            p.vx += e.gamma * 0.001;
+                            p.vy += e.beta * 0.001;
+                            // Damping
+                            p.vx *= 0.99;
+                            p.vy *= 0.99;
+                        });
+                    }
+                }, { passive: true });
+            }
+
+            console.log('✨ Mobile WOW factor enabled');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
@@ -9488,6 +10039,7 @@
             initMobileCTA();
             initMobileEnhancements();
             initCarouselOptimization();
+            initMobileWowFactor();
         });
 
         // ═══════════════════════════════════════════════════════════════════════════════
@@ -11246,21 +11798,4 @@
 
     <!-- ═══════════════════════════════════════════════════════════════════════
          STICKY MISSION BAR (Mobile Only)
-         ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="mission-bar" id="mission-bar">
-        <div class="mission-status">
-            <span class="status-dot"></span>
-            <span class="status-text">PROTOCOL ACTIVE</span>
-        </div>
-        <div class="mission-controls">
-            <a href="#evidence-locker" class="mission-link">EVIDENCE</a>
-            <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="mission-buy">
-                SECURE FIRST EDITION
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
-        </div>
-    </div>
-</body>
-</html>
+         ═══════════════════════════════════════════════�
