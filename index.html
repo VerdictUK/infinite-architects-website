@@ -171,10 +171,34 @@
                     },
                     {
                         "@type": "Question",
-                        "name": "Who is the author?",
+                        "name": "Who is Michael Darius Eastwood?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "Michael Darius Eastwood spent two decades building systems in the music industry. After losing everything, he learned to represent himself in the High Court. Diagnosed with ADHD and autism in adulthood, he discovered his mind grasps recursive structures instinctively. This book emerged from that unique cognitive perspective."
+                            "text": "A neurodivergent polymath who spent two decades in the music industry before losing everything to alleged unlawful forfeiture. He taught himself law, appeared 15+ times in the High Court as his own advocate, and wrote this book while watching the Thames reverse twice daily from a flat he was about to lose."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What qualifies him to write about AI?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Not a PhD, but something rarer: the integrator's perspective. The same systems thinking that built a £600K music PR company, that enabled him to represent himself in the High Court, that allowed him to see patterns across domains—that's what enabled this synthesis."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Is this book speculative or practical?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Both. The HRIH hypothesis is speculative. The Chokepoint Mechanism is immediately actionable. The Eden Protocol is a practical governance framework. The author is building legal technology that implements the recursive verification methods described in the book."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Why should I trust someone who lost their business?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Because the rebuild proves the method. The same recursive approach that this book advocates is what the author used to teach himself law and fight in the High Court. He's his own first experiment."
                         }
                     },
                     {
@@ -2505,6 +2529,131 @@
         .about-text p:first-of-type {
             color: var(--text);
             font-size: 1.15rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           STORM STORY - "Married in the Storm"
+           Emotional resonance block demonstrating the Eden Protocol in action
+           ═══════════════════════════════════════════════════════════════════════ */
+        .storm-story {
+            margin-top: 2.5rem;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 168, 75, 0.03) 0%,
+                rgba(5, 8, 16, 0.8) 50%,
+                rgba(212, 168, 75, 0.02) 100%
+            );
+            border-left: 2px solid var(--gold);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .storm-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -2px;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                var(--gold-bright) 0%,
+                var(--gold) 50%,
+                var(--gold-dark) 100%
+            );
+            animation: storm-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes storm-pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .storm-story-label {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .storm-story-headline {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--gold-bright);
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+            line-height: 1.4;
+        }
+
+        .storm-story-content {
+            font-family: var(--font-serif);
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .storm-story-content p {
+            margin-bottom: 1rem;
+        }
+
+        .storm-story-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .storm-story-emphasis {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .storm-story-quote {
+            display: block;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: rgba(212, 168, 75, 0.05);
+            border-radius: 4px;
+            font-family: var(--font-serif);
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .storm-story-quote::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--gold-dark);
+            opacity: 0.3;
+        }
+
+        .storm-story-principle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(212, 168, 75, 0.08);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        .storm-story-principle svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -9011,13 +9160,85 @@
                 transition: all 0.3s ease;
             }
 
-            .swipe-dot.active {
-                background: var(--gold);
-                width: 20px;
-                border-radius: 3px;
-            }
+                        .swipe-dot.active {
 
-        }
+                            background: var(--gold);
+
+                            width: 20px;
+
+                            border-radius: 3px;
+
+                        }
+
+            
+
+                        /* SOVEREIGN MOBILE OVERRIDES */
+
+                        .equation-simulator {
+
+                            padding: 1.25rem;
+
+                            margin-top: 1rem;
+
+                            gap: 1rem;
+
+                        }
+
+            
+
+                        .simulator-controls {
+
+                            grid-template-columns: 1fr; /* Stack sliders */
+
+                            gap: 1rem;
+
+                        }
+
+            
+
+                        .status-value {
+
+                            font-size: 1rem;
+
+                        }
+
+            
+
+                        .evidence-video-container {
+
+                            aspect-ratio: 4/3; /* Taller for mobile impact */
+
+                        }
+
+            
+
+                        .bbc-quote {
+
+                            font-size: 1.05rem;
+
+                            margin: 1rem 0;
+
+                        }
+
+            
+
+                        .alignment-score-card {
+
+                            padding: 1.25rem;
+
+                        }
+
+            
+
+                        .score-percent {
+
+                            font-size: 1rem;
+
+                        }
+
+                    }
+
+            
 
         /* ═══════════════════════════════════════════════════════════════════════
            MOBILE WOW FACTOR - Apple-Grade Touch Interactions
@@ -12782,6 +13003,49 @@
 
             .tesseract-container {
                 max-height: 200px !important;
+            }
+
+            /* MOBILE STORM STORY */
+            .storm-story {
+                margin-top: 1.5rem;
+                padding: 1.25rem;
+            }
+
+            .storm-story-label {
+                font-size: 0.65rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .storm-story-headline {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+
+            .storm-story-content {
+                font-size: 0.9rem;
+                line-height: 1.7;
+            }
+
+            .storm-story-content p {
+                margin-bottom: 0.8rem;
+            }
+
+            .storm-story-quote {
+                margin: 1.25rem 0;
+                padding: 0.9rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .storm-story-quote::before {
+                font-size: 2rem;
+                top: -5px;
+                left: 5px;
+            }
+
+            .storm-story-principle {
+                margin-top: 1rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.65rem;
             }
 
             /* MOBILE STAKES SECTION */
@@ -18675,9 +18939,9 @@ button.btn-secondary:hover {
         <div class="mobile-cta-inner">
             <div>
                 <div class="mobile-cta-text"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></div>
-                <div class="mobile-cta-price">Available Now</div>
+                <div class="mobile-cta-price">The window is years, not decades</div>
             </div>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">SECURE FIRST EDITION</a>
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">READ IT NOW</a>
         </div>
     </div>
 
@@ -18755,7 +19019,7 @@ button.btn-secondary:hover {
                 </video>
                 <div class="mandelbrot-overlay" style="background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.8) 100%);"></div>
             </div>
-            <span class="hero-badge">THE EQUATION THAT EXPLAINS EVERYTHING</span>
+            <span class="hero-badge">THE MIND THAT COULDN'T OPEN POST SAW THIS FIRST</span>
             <!-- Status Pill - Instant Credibility -->
             <div class="hero-status-pill reveal">
                 <span class="pill-dot"></span>
@@ -18782,18 +19046,17 @@ button.btn-secondary:hover {
                 <div class="book-shadow" id="book-shadow"></div>
             </div>
             <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
-            <p class="hero-subtitle">What if the god we're building is the god that built us?</p>
+            <p class="hero-subtitle">A framework for raising AI with care — from someone who learned to care by losing everything</p>
             <p class="hero-author">Michael Darius Eastwood</p>
             <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta glass-living">
                 <span class="cta-icon-wrapper">
                     <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- Initial state: Shopping Bag -->
-                        <path class="morph-path" d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-                        <line x1="3" y1="6" x2="21" y2="6"/>
-                        <path d="M16 10a4 4 0 01-8 0"/>
+                        <!-- Book icon -->
+                        <path class="morph-path" d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                        <path d="M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/>
                     </svg>
                 </span>
-                SECURE FIRST EDITION
+                READ WHAT I FOUND
             </a>
             <div class="scroll-indicator">
                 <span>The window is years, not decades</span>
@@ -20272,19 +20535,29 @@ button.btn-secondary:hover {
             </div>
         </section>
 
-        <!-- Newsletter Section - The Architecture Brief -->
+        <!-- Newsletter Section - A Personal Invitation -->
         <section class="newsletter-section snap-section" id="newsletter">
             <div class="newsletter-inner">
-                <span class="section-label reveal">THE ARCHITECTURE BRIEF</span>
-                <h2 class="newsletter-title reveal reveal-delay-1">Join the Architects</h2>
-                <p class="newsletter-subtitle reveal reveal-delay-2">Weekly insights on AI governance, the Eastwood Equation in practice, and the countdown to the chokepoint window closing. Plus exclusive content not available elsewhere.</p>
-                <form class="newsletter-form reveal reveal-delay-3" id="newsletter-form">
-                    <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Enter your email address" required>
-                    <button type="submit" class="newsletter-button">BECOME AN ARCHITECT</button>
+                <span class="section-label reveal">A PERSONAL INVITATION</span>
+                <h2 class="newsletter-title reveal reveal-delay-1">The Journey Continues</h2>
+                <p class="newsletter-subtitle newsletter-voice reveal reveal-delay-2">The book is complete. The legal cases are unresolved. I am building the technology I describe in these pages whilst fighting to prove it works in my own life.</p>
+                <p class="newsletter-subtitle newsletter-stakes reveal reveal-delay-3">If you found something here that resonated—if the ideas made you think differently about what we are building and why—I would be honoured to share what comes next.</p>
+                <div class="newsletter-benefits reveal reveal-delay-4">
+                    <p class="newsletter-benefit-title">What you will receive:</p>
+                    <ul class="newsletter-benefit-list">
+                        <li>Updates on the Court of Appeal cases</li>
+                        <li>Progress on the legal technology application</li>
+                        <li>New insights as they emerge from practice</li>
+                        <li>Behind-the-scenes of recursive methodology in action</li>
+                    </ul>
+                </div>
+                <form class="newsletter-form reveal reveal-delay-5" id="newsletter-form">
+                    <input type="email" class="newsletter-input" id="newsletter-email" placeholder="Your email address" required aria-label="Email address">
+                    <button type="submit" class="newsletter-button">FOLLOW THE JOURNEY</button>
                 </form>
-                <p class="newsletter-privacy reveal reveal-delay-4">Join 1,000+ architects. Unsubscribe anytime.</p>
+                <p class="newsletter-privacy reveal reveal-delay-6">I cannot promise certainty. I can promise honesty.<br><span class="newsletter-unsubscribe">Unsubscribe anytime. Your data stays private.</span></p>
                 <div class="newsletter-success" id="newsletter-success">
-                    Welcome to the Architecture. The first brief arrives within 24 hours.
+                    Thank you. The first letter arrives within 24 hours.<br>— Michael
                 </div>
             </div>
         </section>
@@ -20506,17 +20779,53 @@ button.btn-secondary:hover {
 
                     <div class="faq-item reveal reveal-delay-5">
                         <button class="faq-question">
-                            <span>Who is the author?</span>
+                            <span>Who is Michael Darius Eastwood?</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-inner">
-                                <p>Michael Darius Eastwood spent two decades building systems in the music industry, including a PR company generating £600K+ annually. After losing everything to what he alleges was unlawful forfeiture, he learned to represent himself in the High Court. Diagnosed with ADHD and autism in adulthood, he discovered his mind grasps recursive structures instinctively. This book emerged from that unique cognitive perspective.</p>
+                                <p>A neurodivergent polymath who spent two decades in the music industry before losing everything to alleged unlawful forfeiture. He taught himself law, appeared 15+ times in the High Court as his own advocate, and wrote this book while watching the Thames reverse twice daily from a flat he was about to lose.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="faq-item reveal">
+                        <button class="faq-question">
+                            <span>What qualifies him to write about AI?</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p>Not a PhD, but something rarer: the integrator's perspective. The same systems thinking that built a £600K music PR company, that enabled him to represent himself in the High Court, that allowed him to see patterns across domains—that's what enabled this synthesis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal reveal-delay-1">
+                        <button class="faq-question">
+                            <span>Is this book speculative or practical?</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p>Both. The HRIH hypothesis is speculative. The Chokepoint Mechanism is immediately actionable. The Eden Protocol is a practical governance framework. The author is building legal technology that implements the recursive verification methods described in the book.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal reveal-delay-2">
+                        <button class="faq-question">
+                            <span>Why should I trust someone who lost their business?</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                <p>Because the rebuild proves the method. The same recursive approach that this book advocates is what the author used to teach himself law and fight in the High Court. He's his own first experiment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item reveal reveal-delay-3">
                         <button class="faq-question">
                             <span>What makes this book different from other AI safety books?</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -20528,7 +20837,7 @@ button.btn-secondary:hover {
                         </div>
                     </div>
 
-                    <div class="faq-item reveal reveal-delay-1">
+                    <div class="faq-item reveal reveal-delay-4">
                         <button class="faq-question">
                             <span>Is this book optimistic or pessimistic about AI?</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
