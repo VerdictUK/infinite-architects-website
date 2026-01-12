@@ -749,11 +749,33 @@
         .hero.snap-section {
             padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
             padding-bottom: 1rem !important;
+            /* Ensure content is vertically distributed within available space */
+            justify-content: center !important;
+            gap: 0.5rem;
         }
 
         .hero > * {
             margin-left: auto;
             margin-right: auto;
+            flex-shrink: 1; /* Allow all hero children to shrink */
+        }
+
+        /* UNIVERSAL HERO FIT - All content must fit within viewport */
+        .hero .hero-badge,
+        .hero .prediction-bar {
+            margin-bottom: 0.25rem;
+        }
+
+        .hero .hero-title {
+            margin-bottom: 0.25rem;
+        }
+
+        .hero .hero-subtitle {
+            margin-bottom: 0.25rem;
+        }
+
+        .hero .hero-author {
+            margin-bottom: 0.5rem;
         }
 
         .hero::after {
@@ -850,14 +872,19 @@
         }
 
         .hero-book {
-            width: min(320px, 70vw);
-            margin-bottom: var(--space-lg);
+            /* Universal viewport-responsive sizing - NEVER cut off */
+            width: clamp(180px, 25vw, 280px);
+            max-height: clamp(250px, 35vh, 400px);
+            height: auto;
+            object-fit: contain;
+            margin-bottom: var(--space-md);
             opacity: 0;
             transform: translateY(60px) scale(0.95);
             animation: heroReveal 1.8s var(--ease-out-expo) 0.3s forwards;
             filter: drop-shadow(0 0 80px rgba(212, 168, 75, 0.35)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
             transition: transform 0.8s var(--ease-out-expo), filter 0.8s ease;
             cursor: pointer;
+            flex-shrink: 1; /* Allow book to shrink if needed */
         }
 
         .hero-book:hover {
@@ -901,7 +928,7 @@
 
         .hero-title {
             font-family: var(--font-display);
-            font-size: clamp(2.2rem, 8vw, 5.5rem);
+            font-size: clamp(1.8rem, 6vw, 4rem);
             font-weight: 400;
             letter-spacing: 0.2em;
             text-transform: uppercase;
@@ -2511,7 +2538,8 @@
             }
 
             .hero-book {
-                width: min(260px, 65vw);
+                width: clamp(140px, 45vw, 220px);
+                max-height: clamp(200px, 30vh, 320px);
             }
 
             /* QUOTE - Reduce Height */
@@ -3694,6 +3722,9 @@
             align-items: center;
             flex-direction: column;
             margin: 0 auto;
+            /* Constrain to viewport - never overflow */
+            max-height: clamp(280px, 40vh, 450px);
+            flex-shrink: 1;
         }
 
         .hero-book-3d {
@@ -8454,8 +8485,19 @@
 
             /* Hero needs minimal padding - book must not be cut off */
             .hero.snap-section {
-                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
-                padding-bottom: 2rem;
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
+                padding-bottom: 1.5rem !important;
+                gap: 0.75rem;
+            }
+
+            /* Slightly larger book on desktop but still constrained */
+            .hero-book {
+                width: clamp(200px, 22vw, 300px);
+                max-height: clamp(280px, 38vh, 430px);
+            }
+
+            .hero-book-container {
+                max-height: clamp(300px, 42vh, 480px);
             }
 
             .ideas-grid,
