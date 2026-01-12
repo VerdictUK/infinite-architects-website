@@ -4858,12 +4858,52 @@
             padding-bottom: 1rem !important;
         }
 
-        .equation-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.25rem;
+        /* Side-by-Side Dashboard Layout for Large Screens */
+        @media (min-width: 1025px) {
+            .equation-container {
+                flex-direction: row !important;
+                align-items: center;
+                justify-content: space-between;
+                gap: 4rem;
+                max-width: 1400px;
+                text-align: left;
+            }
+
+            .equation-left {
+                flex: 1.2;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .equation-right {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .equation-display {
+                margin: 1rem 0 2rem;
+                justify-content: flex-start;
+            }
+
+            .equation-explanation {
+                margin-left: 0;
+                margin-right: 0;
+                max-width: none;
+                width: 100%;
+            }
+
+            .equation-simulator {
+                margin-top: 0;
+                max-width: none;
+            }
+
+            .equation-proof-bar {
+                width: 100%;
+                justify-content: flex-start;
+            }
         }
 
         /* Compact equation elements to fit viewport */
@@ -18354,11 +18394,19 @@ a {
 }
 
 /* Evidence grid - desktop */
-.evidence-grid,
-.evidence-locker .evidence-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 1rem !important;
+@media (min-width: 1025px) {
+    .evidence-grid,
+    .evidence-locker .evidence-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-template-rows: auto auto !important;
+        gap: 1.5rem !important;
+    }
+
+    .evidence-card--featured {
+        grid-column: span 2 !important;
+        grid-row: span 2 !important;
+    }
 }
 
 /* Predictions grid */
@@ -19939,76 +19987,80 @@ button.btn-secondary:hover {
              ═══════════════════════════════════════════════════════════════════════ -->
         <section class="equation-section snap-section" id="equation">
             <div class="equation-container">
-                <p class="section-label reveal">The Mathematics of Creation</p>
+                <div class="equation-left">
+                    <p class="section-label reveal">The Mathematics of Creation</p>
 
-                <!-- The Equation - Large, Animated, Iconic -->
-                <div class="equation-display reveal reveal-delay-1">
-                    <span class="eq-term eq-u">U</span>
-                    <span class="eq-equals">=</span>
-                    <span class="eq-term eq-i">I</span>
-                    <span class="eq-times">×</span>
-                    <span class="eq-term eq-r">R</span><span class="eq-power">²</span>
-                </div>
-
-                <h2 class="equation-name reveal reveal-delay-2">THE EASTWOOD EQUATION</h2>
-
-                <!-- Variable Definitions -->
-                <div class="equation-explanation reveal reveal-delay-3">
-                    <div class="eq-def">
-                        <span class="eq-letter">U</span>
-                        <span class="eq-meaning">Universe — the total integrated complexity of existence</span>
+                    <!-- The Equation - Large, Animated, Iconic -->
+                    <div class="equation-display reveal reveal-delay-1">
+                        <span class="eq-term eq-u">U</span>
+                        <span class="eq-equals">=</span>
+                        <span class="eq-term eq-i">I</span>
+                        <span class="eq-times">×</span>
+                        <span class="eq-term eq-r">R</span><span class="eq-power">²</span>
                     </div>
-                    <div class="eq-def">
-                        <span class="eq-letter">I</span>
-                        <span class="eq-meaning">Intelligence — the capacity to model, predict, and compress</span>
-                    </div>
-                    <div class="eq-def">
-                        <span class="eq-letter">R²</span>
-                        <span class="eq-meaning">Recursion Squared — self-reference amplifying exponentially</span>
-                    </div>
-                </div>
 
-                <p class="equation-tagline reveal reveal-delay-4">
-                    Why compound interest builds empires.<br>
-                    Why evolution accelerates.<br>
-                    Why the cosmos appears fine-tuned to absurd precision.<br>
-                    <strong>One equation. All of creation.</strong>
-                </p>
+                    <h2 class="equation-name reveal reveal-delay-2">THE EASTWOOD EQUATION</h2>
 
-                <!-- Interactive Equation Simulator -->
-                <div class="equation-simulator reveal reveal-delay-5">
-                    <div class="simulator-controls">
-                        <div class="control-group">
-                            <label for="slider-i">Intelligence (I)</label>
-                            <input type="range" id="slider-i" min="0.1" max="5" step="0.1" value="1">
+                    <!-- Variable Definitions -->
+                    <div class="equation-explanation reveal reveal-delay-3">
+                        <div class="eq-def">
+                            <span class="eq-letter">U</span>
+                            <span class="eq-meaning">Universe — the total integrated complexity of existence</span>
                         </div>
-                        <div class="control-group">
-                            <label for="slider-r">Recursion (R)</label>
-                            <input type="range" id="slider-r" min="0.1" max="5" step="0.1" value="1">
+                        <div class="eq-def">
+                            <span class="eq-letter">I</span>
+                            <span class="eq-meaning">Intelligence — the capacity to model, predict, and compress</span>
+                        </div>
+                        <div class="eq-def">
+                            <span class="eq-letter">R²</span>
+                            <span class="eq-meaning">Recursion Squared — self-reference amplifying exponentially</span>
                         </div>
                     </div>
-                    <div class="simulator-status">
-                        <span class="status-label">Universal Balance:</span>
-                        <span class="status-value" id="universe-value">1.00</span>
-                    </div>
-                    <div class="balance-indicator" id="balance-indicator"></div>
                 </div>
 
-                <!-- Social Proof - Integrated into equation section -->
-                <div class="equation-proof-bar reveal reveal-delay-5">
-                    <div class="proof-metric">
-                        <span class="proof-number">37</span>
-                        <span class="proof-label">Original Concepts</span>
+                <div class="equation-right">
+                    <p class="equation-tagline reveal reveal-delay-4">
+                        Why compound interest builds empires.<br>
+                        Why evolution accelerates.<br>
+                        Why the cosmos appears fine-tuned to absurd precision.<br>
+                        <strong>One equation. All of creation.</strong>
+                    </p>
+
+                    <!-- Interactive Equation Simulator -->
+                    <div class="equation-simulator reveal reveal-delay-5">
+                        <div class="simulator-controls">
+                            <div class="control-group">
+                                <label for="slider-i">Intelligence (I)</label>
+                                <input type="range" id="slider-i" min="0.1" max="5" step="0.1" value="1">
+                            </div>
+                            <div class="control-group">
+                                <label for="slider-r">Recursion (R)</label>
+                                <input type="range" id="slider-r" min="0.1" max="5" step="0.1" value="1">
+                            </div>
+                        </div>
+                        <div class="simulator-status">
+                            <span class="status-label">Universal Balance:</span>
+                            <span class="status-value" id="universe-value">1.00</span>
+                        </div>
+                        <div class="balance-indicator" id="balance-indicator"></div>
                     </div>
-                    <div class="proof-divider"></div>
-                    <div class="proof-metric">
-                        <span class="proof-number">4.8</span>
-                        <span class="proof-label">Amazon Rating</span>
-                    </div>
-                    <div class="proof-divider"></div>
-                    <div class="proof-metric">
-                        <span class="proof-number">1</span>
-                        <span class="proof-label">Complete Framework</span>
+
+                    <!-- Social Proof - Integrated into equation section -->
+                    <div class="equation-proof-bar reveal reveal-delay-5">
+                        <div class="proof-metric">
+                            <span class="proof-number">37</span>
+                            <span class="proof-label">Original Concepts</span>
+                        </div>
+                        <div class="proof-divider"></div>
+                        <div class="proof-metric">
+                            <span class="proof-number">4.8</span>
+                            <span class="proof-label">Amazon Rating</span>
+                        </div>
+                        <div class="proof-divider"></div>
+                        <div class="proof-metric">
+                            <span class="proof-number">1</span>
+                            <span class="proof-label">Complete Framework</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -20912,6 +20964,56 @@ button.btn-secondary:hover {
                         These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
                     </p>
                 </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             RECURSIVE VERIFICATION METHOD - The Author Tests His Own Ideas
+             6 AI Models, Zero Trust, Maximum Truth
+        ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="methodology-section" id="methodology">
+            <div class="methodology-inner">
+                <div class="methodology-content">
+                    <div class="methodology-badge reveal">Proof of Concept</div>
+                    <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
+                    <blockquote class="methodology-quote reveal reveal-delay-2">"I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not."</blockquote>
+                    <p class="methodology-text reveal reveal-delay-3">Each model has blind spots, biases, and tendencies toward confident fabrication. By running the same questions through multiple systems and comparing outputs, I <span class="methodology-highlight">triangulate toward truth</span>.</p>
+                    <p class="methodology-text reveal reveal-delay-4">Where they agree, I have more confidence. Where they diverge, I investigate further. Where one hallucinates a citation that does not exist, another catches the error.</p>
+                    <div class="methodology-application reveal reveal-delay-5">
+                        <div class="application-header">
+                            <div class="application-icon">&#9878;</div>
+                            <div>
+                                <div class="application-title">Legal Technology Application</div>
+                                <div class="application-subtitle">Currently in Development</div>
+                            </div>
+                        </div>
+                        <div class="application-features">
+                            <div class="application-feature">Catches hallucinated citations before they reach the courtroom</div>
+                            <div class="application-feature">Preserves critical arguments that AI tends to strip out</div>
+                            <div class="application-feature">Compiles statistical patterns across proceedings</div>
+                            <div class="application-feature">Born from necessity: "It exists because I needed it to survive"</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="methodology-visual">
+                    <div class="ai-model-grid reveal reveal-delay-2">
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Claude</div><div class="ai-model-role">Nuance</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">GPT-4</div><div class="ai-model-role">Breadth</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Gemini</div><div class="ai-model-role">Synthesis</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Perplexity</div><div class="ai-model-role">Citations</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Llama</div><div class="ai-model-role">Verification</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Mistral</div><div class="ai-model-role">Challenge</div></div>
+                    </div>
+                    <div class="convergence-box reveal reveal-delay-3">
+                        <div class="convergence-label">Triangulated Output</div>
+                        <div class="convergence-result">Truth Emerges from Disagreement</div>
+                        <div class="convergence-desc">"The cycling problem" - when AI strips critical nuance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="methodology-closing">
+                <p class="methodology-closing-quote reveal reveal-delay-4">"I am my own first experiment. The results have surprised even me."</p>
+                <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
             </div>
         </section>
 
