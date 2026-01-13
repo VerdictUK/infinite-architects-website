@@ -2158,6 +2158,26 @@
             visibility: visible !important;
         }
 
+        /* Video Book Cover Styles */
+        .book-cover-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            border-radius: 4px;
+            pointer-events: none; /* Allow hover effects on container */
+        }
+
+        /* Reduced motion: show static poster instead */
+        @media (prefers-reduced-motion: reduce) {
+            .book-cover-video {
+                display: none;
+            }
+            .hero-book img {
+                display: block !important;
+            }
+        }
+
         .hero-badge {
             font-family: var(--font-mono);
             font-size: 0.8rem;
@@ -20465,7 +20485,9 @@ html body #deep-dive-hud {
         height: auto !important;
     }
 
-    html body .hero .hero-book img {
+    html body .hero .hero-book img,
+    html body .hero .hero-book video,
+    html body .hero .hero-book .book-cover-video {
         width: 100% !important;
         height: auto !important;
     }
@@ -21028,6 +21050,209 @@ html body .evidence-locker {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SOVEREIGN MOBILE FIXES - iPhone 15 Pro Max & All Mobile Devices
+   PRIORITY: MAXIMUM - Fixes identified from screenshot review 2026-01-13
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. NUCLEAR HIDE GOLD PROGRESS DOTS ON MOBILE - They appear in EVERY screenshot */
+@media (max-width: 1023px) {
+    html body .section-progress,
+    html body nav.section-progress,
+    html body .section-progress.visible,
+    html body .progress-dot,
+    html body .section-progress *,
+    .section-progress,
+    .section-progress.visible,
+    .progress-dot {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        left: -99999px !important;
+        top: -99999px !important;
+        z-index: -9999 !important;
+    }
+}
+
+/* 2. FIX BLANK SECTIONS - Remove excessive min-height causing empty screens */
+@media (max-width: 1023px) {
+    html body .snap-section {
+        min-height: auto !important;
+        height: auto !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    /* Hero section needs full height */
+    html body .hero.snap-section {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        padding-top: 80px !important;
+        padding-bottom: 100px !important;
+    }
+
+    /* Prevent sections from having massive gaps */
+    html body section,
+    html body .section {
+        min-height: auto !important;
+    }
+
+    /* Fix carousel sections */
+    html body .concepts-carousel-section,
+    html body .ideas-section {
+        min-height: auto !important;
+        padding: 3rem 0 !important;
+    }
+}
+
+/* 3. FIX TEXT BLEEDING - Ensure proper containment */
+@media (max-width: 1023px) {
+    html body .snap-section,
+    html body section {
+        overflow-x: hidden !important;
+        contain: paint !important;
+    }
+
+    /* Hide any elements that might be bleeding through */
+    html body .chapter-sidebar,
+    html body .slideshow-nav,
+    html body .chapter-nav-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* 4. FIX COMPARISON TABLE - Ensure columns fit on mobile */
+@media (max-width: 767px) {
+    html body .comparison-table {
+        font-size: 0.75rem !important;
+        overflow-x: auto !important;
+        display: block !important;
+    }
+
+    html body .comparison-table th,
+    html body .comparison-table td {
+        padding: 0.4rem 0.25rem !important;
+        word-break: break-word !important;
+        hyphens: auto !important;
+    }
+
+    html body .comparison-table th:last-child,
+    html body .comparison-table td:last-child {
+        min-width: 90px !important;
+    }
+}
+
+/* 5. MOBILE TYPOGRAPHY SCALING */
+@media (max-width: 767px) {
+    html body .section-title,
+    html body h2 {
+        font-size: clamp(1.5rem, 6vw, 2rem) !important;
+        padding: 0 1rem !important;
+    }
+
+    html body .section-label {
+        font-size: 0.7rem !important;
+        letter-spacing: 0.15em !important;
+    }
+}
+
+/* 6. MOBILE CARD SIZING */
+@media (max-width: 767px) {
+    html body .concept-card,
+    html body .idea-card,
+    html body .evidence-card {
+        margin: 0 1rem !important;
+        max-width: calc(100vw - 2rem) !important;
+    }
+
+    html body .expert-quote-card,
+    html body .bbc-evidence-card {
+        margin: 1rem !important;
+        padding: 1.5rem !important;
+    }
+}
+
+/* 7. FIX BOTTOM NAV SPACING */
+@media (max-width: 1023px) {
+    html body {
+        padding-bottom: 80px !important;
+    }
+
+    html body .chapter-nav {
+        z-index: 9999 !important;
+    }
+
+    /* Ensure footer has space above bottom nav */
+    html body footer,
+    html body .footer {
+        margin-bottom: 80px !important;
+    }
+}
+
+/* 8. FIX VIDEO CONTAINERS ON MOBILE */
+@media (max-width: 767px) {
+    html body .video-wrapper,
+    html body .bbc-evidence-card__video-wrapper,
+    html body video {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 16/9 !important;
+    }
+}
+
+/* 9. ENSURE IMAGES ARE RESPONSIVE */
+@media (max-width: 767px) {
+    html body img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    html body .hero-book {
+        max-width: 250px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* 10. FIX PURCHASE CARDS ON MOBILE */
+@media (max-width: 767px) {
+    html body .purchase-card,
+    html body .door-card {
+        width: calc(100vw - 2rem) !important;
+        max-width: 350px !important;
+        margin: 1rem auto !important;
+        padding: 2rem 1.5rem !important;
+    }
+
+    html body .purchase-price {
+        font-size: 2rem !important;
+    }
+}
+
+/* 11. REDUCE DECORATIVE ELEMENTS ON SMALL SCREENS */
+@media (max-width: 480px) {
+    html body .decorative-orb,
+    html body .ambient-glow,
+    html body .particle-layer {
+        opacity: 0.3 !important;
+    }
+}
+
+/* 12. FIX SWIPE INDICATORS */
+@media (max-width: 1023px) {
+    html body .swipe-indicator,
+    html body .carousel-dots {
+        position: relative !important;
+        z-index: 10 !important;
+        margin: 1rem 0 !important;
+    }
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -21284,14 +21509,27 @@ html body .evidence-locker {
             <!-- Holographic Book Container (Phase 11) -->
             <div class="hero-book-container">
                 <div class="hero-book" id="hero-book">
-                    <img 
-                        src="InfiniteArchitectsKindle20260103.jpg" 
-                        alt="Infinite Architects by Michael Darius Eastwood: The definitive AI safety framework featuring the Eastwood Equation (U=IxR²) and the Eden Protocol. A successor to Bostrom's Superintelligence and Harari's Sapiens."
-                        loading="eager"
-                        decoding="async"
-                        fetchpriority="high"
-                        width="320" height="480"
+                    <!-- Animated Video Book Cover -->
+                    <video
+                        class="book-cover-video"
+                        autoplay
+                        loop
+                        muted
+                        playsinline
+                        poster="InfiniteArchitectsKindle20260103.jpg"
+                        aria-label="Infinite Architects by Michael Darius Eastwood: The definitive AI safety framework featuring the Eastwood Equation (U=IxR²) and the Eden Protocol."
                     >
+                        <!-- High quality for desktop, low quality for mobile -->
+                        <source src="book-cover-video-hq.mp4" type="video/mp4" media="(min-width: 769px)">
+                        <source src="book-cover-video.mp4" type="video/mp4">
+                        <!-- Fallback static image -->
+                        <img
+                            src="InfiniteArchitectsKindle20260103.jpg"
+                            alt="Infinite Architects by Michael Darius Eastwood"
+                            loading="eager"
+                            width="320" height="480"
+                        >
+                    </video>
                     <div class="book-light-layer"></div>
                     <div class="book-page-peek">
                         <p class="book-page-peek-text">
