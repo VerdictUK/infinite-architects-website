@@ -4399,8 +4399,8 @@
         @media (min-width: 769px) {
             .reveal {
                 opacity: 0;
-                transform: translateY(50px);
-                transition: all 1.2s var(--ease-out-expo);
+                transform: translateY(30px);
+                transition: all 0.8s var(--ease-out-expo);
             }
 
             .reveal.active {
@@ -4408,13 +4408,14 @@
                 transform: translateY(0);
             }
 
-            .reveal-delay-1 { transition-delay: 0.1s; }
-            .reveal-delay-2 { transition-delay: 0.2s; }
-            .reveal-delay-3 { transition-delay: 0.3s; }
-            .reveal-delay-4 { transition-delay: 0.4s; }
-            .reveal-delay-5 { transition-delay: 0.5s; }
-            .reveal-delay-6 { transition-delay: 0.6s; }
-            .reveal-delay-7 { transition-delay: 0.7s; }
+            /* Tighter stagger delays - Apple-grade timing */
+            .reveal-delay-1 { transition-delay: 0.05s; }
+            .reveal-delay-2 { transition-delay: 0.1s; }
+            .reveal-delay-3 { transition-delay: 0.15s; }
+            .reveal-delay-4 { transition-delay: 0.2s; }
+            .reveal-delay-5 { transition-delay: 0.25s; }
+            .reveal-delay-6 { transition-delay: 0.3s; }
+            .reveal-delay-7 { transition-delay: 0.35s; }
         }
 
         /* Ripple Effect Animation */
@@ -12231,16 +12232,17 @@
                 transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Tighter stagger timing - 60ms increments for snappier reveals */
         [data-stagger-group].stagger-visible > *:nth-child(1) { transition-delay: 0s; }
-        [data-stagger-group].stagger-visible > *:nth-child(2) { transition-delay: 0.08s; }
-        [data-stagger-group].stagger-visible > *:nth-child(3) { transition-delay: 0.16s; }
-        [data-stagger-group].stagger-visible > *:nth-child(4) { transition-delay: 0.24s; }
-        [data-stagger-group].stagger-visible > *:nth-child(5) { transition-delay: 0.32s; }
-        [data-stagger-group].stagger-visible > *:nth-child(6) { transition-delay: 0.40s; }
-        [data-stagger-group].stagger-visible > *:nth-child(7) { transition-delay: 0.48s; }
-        [data-stagger-group].stagger-visible > *:nth-child(8) { transition-delay: 0.56s; }
-        [data-stagger-group].stagger-visible > *:nth-child(9) { transition-delay: 0.64s; }
-        [data-stagger-group].stagger-visible > *:nth-child(10) { transition-delay: 0.72s; }
+        [data-stagger-group].stagger-visible > *:nth-child(2) { transition-delay: 0.06s; }
+        [data-stagger-group].stagger-visible > *:nth-child(3) { transition-delay: 0.12s; }
+        [data-stagger-group].stagger-visible > *:nth-child(4) { transition-delay: 0.18s; }
+        [data-stagger-group].stagger-visible > *:nth-child(5) { transition-delay: 0.24s; }
+        [data-stagger-group].stagger-visible > *:nth-child(6) { transition-delay: 0.30s; }
+        [data-stagger-group].stagger-visible > *:nth-child(7) { transition-delay: 0.36s; }
+        [data-stagger-group].stagger-visible > *:nth-child(8) { transition-delay: 0.42s; }
+        [data-stagger-group].stagger-visible > *:nth-child(9) { transition-delay: 0.48s; }
+        [data-stagger-group].stagger-visible > *:nth-child(10) { transition-delay: 0.54s; }
 
         [data-stagger-group].stagger-visible > * {
             opacity: 1;
@@ -13132,13 +13134,13 @@
             pointer-events: none;
         }
 
-        /* Stagger reveal timing (80ms intervals for perception) */
+        /* Stagger reveal timing (60ms intervals - Apple-grade snappy) */
         .stagger-fast > *:nth-child(1) { transition-delay: 0ms; }
-        .stagger-fast > *:nth-child(2) { transition-delay: 80ms; }
-        .stagger-fast > *:nth-child(3) { transition-delay: 160ms; }
-        .stagger-fast > *:nth-child(4) { transition-delay: 240ms; }
-        .stagger-fast > *:nth-child(5) { transition-delay: 320ms; }
-        .stagger-fast > *:nth-child(6) { transition-delay: 400ms; }
+        .stagger-fast > *:nth-child(2) { transition-delay: 60ms; }
+        .stagger-fast > *:nth-child(3) { transition-delay: 120ms; }
+        .stagger-fast > *:nth-child(4) { transition-delay: 180ms; }
+        .stagger-fast > *:nth-child(5) { transition-delay: 240ms; }
+        .stagger-fast > *:nth-child(6) { transition-delay: 300ms; }
 
         /* Optimistic UI - instant feedback */
         .optimistic-click {
@@ -13667,18 +13669,18 @@
             -webkit-backdrop-filter: saturate(180%) blur(20px);
         }
 
-        /* 13. HERO ENTRANCE - Staggered premium reveal */
+        /* 13. HERO ENTRANCE - Staggered premium reveal (Apple-grade timing) */
         .hero-content > * {
             opacity: 0;
-            transform: translateY(30px);
-            animation: heroReveal 1s var(--ease-apple) forwards;
+            transform: translateY(25px);
+            animation: heroReveal 0.7s var(--ease-apple) forwards;
         }
 
-        .hero-content > *:nth-child(1) { animation-delay: 0.3s; }
-        .hero-content > *:nth-child(2) { animation-delay: 0.4s; }
-        .hero-content > *:nth-child(3) { animation-delay: 0.5s; }
-        .hero-content > *:nth-child(4) { animation-delay: 0.6s; }
-        .hero-content > *:nth-child(5) { animation-delay: 0.7s; }
+        .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.18s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.26s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.34s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.42s; }
 
         @keyframes heroReveal {
             to {
@@ -20412,6 +20414,130 @@ html body #deep-dive-hud {
         min-height: 44px !important;
         min-width: 44px !important;
     }
+
+    /* === HERO SECTION MOBILE OPTIMIZATION === */
+    html body .hero,
+    html body .hero.snap-section,
+    html body #hero {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 4rem 1.25rem 3rem !important;
+        min-height: auto !important;
+        height: auto !important;
+        text-align: center !important;
+        gap: 1.5rem !important;
+    }
+
+    /* Hero Badge - Top */
+    html body .hero .hero-badge {
+        order: 1 !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.1em !important;
+        margin-bottom: 0.5rem !important;
+        text-align: center !important;
+    }
+
+    /* Status Pill - Below Badge */
+    html body .hero .hero-status-pill {
+        order: 2 !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.75rem !important;
+        text-align: center !important;
+    }
+
+    /* Book - Centered, Full Width */
+    html body .hero .hero-book-container {
+        order: 3 !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    html body .hero .hero-book {
+        width: 100% !important;
+        max-width: 260px !important;
+        height: auto !important;
+    }
+
+    html body .hero .hero-book img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Content Right - Below Book, Centered */
+    html body .hero .hero-content-right {
+        order: 4 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+
+    html body .hero .hero-title {
+        font-size: 1.75rem !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+        margin: 0 !important;
+    }
+
+    html body .hero .hero-subtitle {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        text-align: center !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+        opacity: 0.9 !important;
+    }
+
+    html body .hero .hero-author {
+        font-size: 0.9rem !important;
+        text-align: center !important;
+        margin: 0 !important;
+        opacity: 0.7 !important;
+    }
+
+    html body .hero .hero-cta {
+        margin-top: 1rem !important;
+        width: auto !important;
+        max-width: 280px !important;
+        padding: 1rem 2rem !important;
+    }
+
+    /* Scroll Indicator - Hidden on Mobile */
+    html body .hero .scroll-indicator {
+        display: none !important;
+    }
+
+    /* Background Video - Cover */
+    html body .hero .mandelbrot-bg,
+    html body .hero #thames-bg {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 0 !important;
+    }
+
+    html body .hero .mandelbrot-video {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* Ensure hero content above background */
+    html body .hero > *:not(.mandelbrot-bg):not(#thames-bg) {
+        position: relative !important;
+        z-index: 10 !important;
+    }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -23410,7 +23536,7 @@ html body .evidence-locker {
         // ═══════════════════════════════════════════════════════════════════════
         const CONFIG = {
             loader: {
-                duration: PERF.isSlowConnection ? 3000 : 5000,
+                duration: PERF.isSlowConnection ? 2500 : 3500,
                 particleCount: Math.floor(250 * PERF.multiplier) || 50,
                 ringCount: PERF.isSlowConnection ? 2 : 4,
                 trailLength: PERF.isSlowConnection ? 6 : 12,
