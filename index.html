@@ -33997,74 +33997,35 @@ html body section#methodology .methodology-closing {
             }
         }
 
-        // Show typing indicator & Trigger Oracle Visuals
-        function showTyping() {
-            const typing = document.createElement('div');
-            typing.className = 'ask-book-typing';
-            typing.id = 'ask-book-typing';
-            typing.innerHTML = '<span></span><span></span><span></span>';
-            messages.appendChild(typing);
-            messages.scrollTop = messages.scrollHeight;
+        // ═══════════════════════════════════════════════════════════════════════════════════
+        // BRAND GUARDIAN v1.0 (Ported from Legal OS)
+        // Enforces narrative consistency and British English
+        // ═══════════════════════════════════════════════════════════════════════════════════
+        const BrandGuardian = {
+            sanitise: function(text) {
+                let safeText = text;
 
-            // ORACLE VISUAL STATE: Speed up particles while "thinking"
-            if (window.CONFIG && window.CONFIG.main) {
-                window._originalParticleSpeed = window.CONFIG.main.particleSpeed;
-                window.CONFIG.main.particleSpeed = 1.2; // High energy state
+                // RULE 1: THE POLYMATH DISTINCTION
+                // Replaces "is a polymath" with "uses the polymathic method" to match Author's Note humility
+                safeText = safeText.replace(/\bis a polymath\b/gi, 'utilises the polymathic method');
+                safeText = safeText.replace(/\bhe is a polymath\b/gi, 'he applies a polymathic lens');
+
+                // RULE 2: BRITISH ENGLISH ENFORCEMENT
+                // Ensures US spellings don't slip in from LLM training data
+                const ukSpellings = [
+                    ['color', 'colour'], ['behavior', 'behaviour'], ['honor', 'honour'],
+                    ['realize', 'realise'], ['analyze', 'analyse'], ['center', 'centre'],
+                    ['defense', 'defence'], ['program', 'programme']
+                ];
                 
-                // If Three.js scene exists, add gold glow
-                if (window.renderer && window.scene) {
-                    const canvas = document.querySelector('#canvas-container canvas');
-                    if (canvas) {
-                        canvas.style.transition = 'filter 0.5s ease';
-                        canvas.style.filter = 'drop-shadow(0 0 15px rgba(212, 168, 75, 0.3))';
-                    }
-                }
-            }
-            
-            // DYNAMIC THINKING MESSAGES
-            const thinking thoughts = [
-                "Accessing the Archives...",
-                "Triangulating concepts...",
-                "Verifying against Chapter 4...",
-                "Scanning for recursion...",
-                "Consulting the Eden Protocol..."
-            ];
-            
-            // Add a small text element below the dots
-            const statusText = document.createElement('div');
-            statusText.className = 'ask-book-thinking-text';
-            statusText.style.cssText = 'font-size: 0.7rem; color: var(--gold-pale); margin-left: 10px; opacity: 0.7; font-style: italic;';
-            statusText.innerText = thoughts[0];
-            typing.appendChild(statusText);
-            
-            // Cycle through thoughts
-            let thoughtIndex = 0;
-            const thoughtInterval = setInterval(() => {
-                thoughtIndex = (thoughtIndex + 1) % thoughts.length;
-                statusText.innerText = thoughts[thoughtIndex];
-            }, 800);
-            
-            typing.dataset.interval = thoughtInterval;
-        }
+                ukSpellings.forEach(([us, uk]) => {
+                    const regex = new RegExp(`\\b${us}\\b`, 'gi');
+                    safeText = safeText.replace(regex, uk);
+                });
 
-        // Hide typing indicator & Reset Visuals
-        function hideTyping() {
-            const typing = document.getElementById('ask-book-typing');
-            if (typing) {
-                clearInterval(Number(typing.dataset.interval));
-                typing.remove();
+                return safeText;
             }
-
-            // RESET VISUAL STATE
-            if (window.CONFIG && window.CONFIG.main && window._originalParticleSpeed !== undefined) {
-                window.CONFIG.main.particleSpeed = window._originalParticleSpeed;
-                
-                const canvas = document.querySelector('#canvas-container canvas');
-                if (canvas) {
-                    canvas.style.filter = '';
-                }
-            }
-        }
+        };
 
         // Send message
         let lastMessageTime = 0;
@@ -34132,7 +34093,10 @@ html body section#methodology .methodology-closing {
                             action = { text: 'Dive Deeper in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
                         }
 
-                        addMessage(localResult.answer, 'assistant', localResult.sources, 'The Book (Local)', true, action);
+                        // APPLY BRAND GUARDIAN
+                        const safeAnswer = BrandGuardian.sanitise(localResult.answer);
+
+                        addMessage(safeAnswer, 'assistant', localResult.sources, 'The Book (Local)', true, action);
                         
                         // CONTEXTUAL FOLLOW-UP logic
                         if (localResult.related) {
@@ -34163,7 +34127,10 @@ html body section#methodology .methodology-closing {
                         // Always add a "Buy" CTA on fallback to convert curiosity
                         const fallbackAction = { text: 'Find the Answer in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
                         
-                        addMessage(randomFallback, 'assistant', [], 'The Architect', true, fallbackAction);
+                        // APPLY BRAND GUARDIAN
+                        const safeFallback = BrandGuardian.sanitise(randomFallback);
+                        
+                        addMessage(safeFallback, 'assistant', [], 'The Architect', true, fallbackAction);
                     }
                 }
 
@@ -34206,8 +34173,19 @@ html body section#methodology .methodology-closing {
             },
             {
                 keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio'],
-                answer: '**Michael Darius Eastwood** is a polymath and pattern-recogniser. After two decades in the music industry and losing everything to unlawful forfeiture, he represented himself in the High Court. Diagnosed with ADHD/Autism, his neurodivergent mind allows him to see recursive structures across domains—from law to quantum physics.',
-                sources: [{ name: 'About the Author' }]
+                answer: '**Michael Darius Eastwood** applies a **polymathic method** to complex systems. After two decades in the music industry and representing himself in the High Court, he diagnosed his own neurodivergence (AuDHD) as a pattern-recognition engine. He wrote *Infinite Architects* while facing personal crisis, seeing recursive structures across law, music, and quantum physics.',
+                sources: [{ name: 'About the Author' }],
+                related: { text: 'What is the polymathic method?', query: 'What is the polymathic method?' }
+            },
+            {
+                keywords: ['polymath', 'method', 'approach', 'style', 'thinking'],
+                answer: 'The **Polymathic Method**, as described in the Author\'s Note, is not a claim of genius but a specific cognitive strategy: diving deeply into one domain until its fundamental patterns emerge, then carrying those patterns into the next domain. It is about trusting connections that specialists often miss.',
+                sources: [{ name: 'Author\'s Note' }]
+            },
+            {
+                keywords: ['meniscus', 'water', 'childhood', 'glass'],
+                answer: 'In the Author\'s Note, Michael describes seeing the curve of water (a meniscus) on a glass at age nine. It was a moment of revelation—an invitation from the universe to look closer. This obsession with hidden structure (recursion) drives the entire book.',
+                sources: [{ name: 'Author\'s Note' }]
             },
             {
                 keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle', 'paperback', 'copy', 'book'],
