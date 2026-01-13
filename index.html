@@ -35464,18 +35464,282 @@ main.content,
          Smart Sticky CTA & Contextual Exit Intent
          ═══════════════════════════════════════════════════════════════════════ -->
 
-    <!-- Smart Sticky CTA -->
-    <div id="sticky-cta" class="sticky-cta">
-        <div class="sticky-cta-content">
-            <span class="sticky-cta-text" id="sticky-cta-text">The Architecture of Tomorrow</span>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="sticky-cta-btn">
-                Get the Book
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
-        </div>
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PHASE 6: DEEP DIVE NAVIGATION
+         Toasts, HUD, and Section Indicators
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Top Center Section Indicator -->
+    <div id="section-indicator" class="section-indicator">
+        <span class="indicator-label">CURRENT CHAPTER</span>
+        <span class="indicator-title" id="indicator-title">00: THE ARCHITECT</span>
     </div>
+
+    <!-- Right Side Deep Dive HUD -->
+    <nav class="deep-dive-hud">
+        <div class="hud-inner">
+            <div class="hud-label">DEEP DIVE</div>
+            <div class="hud-progress">
+                <div class="hud-progress-bar" id="hud-progress-bar"></div>
+            </div>
+            <div class="hud-counter">
+                <span id="hud-current">00</span>
+                <span class="hud-sep">/</span>
+                <span class="hud-total">05</span>
+            </div>
+        </div>
+        <!-- Dot Navigation -->
+        <div class="hud-dots">
+            <button class="hud-dot active" data-target="hero" aria-label="The Architect"></button>
+            <button class="hud-dot" data-target="equation" aria-label="The Equation"></button>
+            <button class="hud-dot" data-target="evidence" aria-label="The Evidence"></button>
+            <button class="hud-dot" data-target="author" aria-label="The Author"></button>
+            <button class="hud-dot" data-target="risk" aria-label="The Risk"></button>
+        </div>
+    </nav>
+
+    <style>
+        /* Section Indicator (Top Center) */
+        .section-indicator {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(10, 12, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 168, 75, 0.15);
+            padding: 8px 24px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 9980;
+            transition: transform 0.4s var(--ease-out-expo), opacity 0.4s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .section-indicator.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .indicator-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--gold-pale);
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        .indicator-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-bright);
+            text-transform: uppercase;
+        }
+
+        /* Updated Deep Dive HUD (Right Side) */
+        .deep-dive-hud {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 9980;
+        }
+
+        .hud-inner {
+            display: flex; /* Keep existing styles */
+        }
+
+        .hud-dots {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .hud-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .hud-dot:hover {
+            background: var(--gold-alpha-50);
+            border-color: var(--gold);
+            transform: scale(1.2);
+        }
+
+        .hud-dot.active {
+            background: var(--gold);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 10px var(--gold-alpha-50);
+            transform: scale(1.2);
+        }
+
+        /* Tooltip on hover */
+        .hud-dot::after {
+            content: attr(aria-label);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) translateX(10px);
+            background: rgba(2, 3, 10, 0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            font-family: var(--font-mono);
+            border: 1px solid var(--gold-alpha-30);
+        }
+
+        .hud-dot:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        @media (max-width: 1024px) {
+            .deep-dive-hud { display: none; }
+            .section-indicator { top: 10px; padding: 6px 16px; }
+            .indicator-title { font-size: 0.8rem; }
+        }
+    </style>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 6 LOGIC: DEEP DIVE NAVIGATION
+        // ═══════════════════════════════════════════════════════════════════════
+
+        const sections = [
+            { id: 'hero', title: '00: THE ARCHITECT', icon: '✨' },
+            { id: 'equation', title: '01: THE EQUATION', icon: '📐' },
+            { id: 'evidence', title: '02: THE EVIDENCE', icon: '⚖️' },
+            { id: 'author', title: '03: THE AUTHOR', icon: '🖋️' },
+            { id: 'risk', title: '04: THE RISK', icon: '⚠️' },
+            { id: 'cta', title: '05: THE CHOICE', icon: '🚪' }
+        ];
+
+        const indicator = document.getElementById('section-indicator');
+        const indicatorTitle = document.getElementById('indicator-title');
+        const hudCurrent = document.getElementById('hud-current');
+        const hudBar = document.getElementById('hud-progress-bar');
+        const dots = document.querySelectorAll('.hud-dot');
+        const toast = document.getElementById('milestone-toast');
+        const toastTitle = toast.querySelector('.milestone-title');
+        const toastText = toast.querySelector('.milestone-text');
+        const toastIcon = toast.querySelector('.milestone-icon');
+
+        let currentSectionIndex = 0;
+        let lastScrollTop = 0;
+        let isToastActive = false;
+
+        // Intersection Observer for Sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const index = sections.findIndex(s => s.id === sectionId || (sectionId.includes(s.id)));
+                    
+                    if (index !== -1 && index !== currentSectionIndex) {
+                        updateSection(index);
+                    }
+                }
+            });
+        }, { threshold: 0.3 }); // Trigger when 30% visible
+
+        // Observe main sections
+        sections.forEach(s => {
+            const el = document.getElementById(s.id) || document.querySelector(`.${s.id}-section`);
+            if (el) observer.observe(el);
+        });
+
+        // Update UI State
+        function updateSection(index) {
+            currentSectionIndex = index;
+            const section = sections[index];
+
+            // 1. Update Top Indicator
+            indicatorTitle.textContent = section.title;
+            
+            // 2. Update HUD
+            if (hudCurrent) hudCurrent.textContent = String(index).padStart(2, '0');
+            if (hudBar) hudBar.style.height = `${(index / (sections.length - 1)) * 100}%`;
+            
+            // Update Dots
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // 3. Trigger Milestone Toast (The Dopamine Hit)
+            showToast(section);
+        }
+
+        // Show Toast Logic
+        function showToast(section) {
+            if (isToastActive) return; // Prevent spam
+            isToastActive = true;
+
+            toastIcon.textContent = section.icon;
+            toastText.textContent = section.title;
+            toast.classList.add('active');
+
+            // Play haptic click
+            if (window.BrandGuardian) {
+                // Optional: trigger haptic if available
+            }
+
+            setTimeout(() => {
+                toast.classList.remove('active');
+                isToastActive = false;
+            }, 4000);
+        }
+
+        // Scroll Direction Logic for Top Indicator
+        window.addEventListener('scroll', () => {
+            const st = window.scrollY;
+            
+            // Show indicator when scrolling UP or stopped near top
+            if (st < lastScrollTop || st < 100) {
+                indicator.classList.add('visible');
+            } else {
+                indicator.classList.remove('visible');
+            }
+            
+            lastScrollTop = st;
+        }, { passive: true });
+
+        // Dot Click Handling
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const targetId = dot.dataset.target;
+                const target = document.getElementById(targetId) || document.querySelector(`.${targetId}-section`);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        console.log('[PHASE 6] Deep Dive Navigation Active');
+    })();
+    </script>
 
     <!-- Contextual Exit Intent Modal -->
     <div id="exit-intent-overlay" class="exit-intent-overlay">
