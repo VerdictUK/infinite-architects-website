@@ -24330,12 +24330,12 @@ html body section#methodology .methodology-closing {
         overflow: hidden !important;
     }
 
-    /* === CANVAS AND PARTICLE CONTAINERS - Collapse on mobile === */
+    /* === CANVAS AND PARTICLE CONTAINERS - Collapse on mobile (EXEMPT LOADER) === */
     html body #canvas-container,
     html body .neural-canvas,
     html body .particle-canvas,
     html body .particle-field,
-    html body canvas:not(#tesseract-canvas):not(.ask-book-canvas) {
+    html body canvas:not(#tesseract-canvas):not(#loader-canvas):not(.ask-book-canvas) {
         height: 0 !important;
         min-height: 0 !important;
         max-height: 0 !important;
@@ -24487,10 +24487,10 @@ html body section#methodology .methodology-closing {
 
 @media screen and (max-width: 768px) {
     /* KILL ALL EXCESSIVE PADDING - Target by ID for max specificity */
-    html body main#main-content section,
-    html body main.content section,
+    html body main#main-content:not(.content) section,
+    html body main.content:not(#main-content) section,
     html body #main-content > section,
-    html body main > section {
+    html body main:not(.content) > section {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
         padding-left: 1rem !important;
