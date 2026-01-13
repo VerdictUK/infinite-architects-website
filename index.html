@@ -2247,18 +2247,11 @@
         }
 
         @keyframes impactShake {
-            0% { transform: translate(0, 0) scale(1); }
-            5% { transform: translate(-15px, -20px) scale(1.03); }
-            15% { transform: translate(15px, 20px) scale(0.97); }
-            25% { transform: translate(-12px, -15px) scale(1.02); }
-            35% { transform: translate(12px, 15px) scale(0.98); }
-            45% { transform: translate(-8px, -10px) scale(1.01); }
-            55% { transform: translate(8px, 10px) scale(0.99); }
-            65% { transform: translate(-5px, -6px) scale(1.005); }
-            75% { transform: translate(5px, 6px) scale(0.995); }
-            85% { transform: translate(-2px, -3px) scale(1.002); }
-            95% { transform: translate(1px, 1px) scale(1); }
-            100% { transform: none; } /* CRITICAL: none, not translate(0,0) */
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, -1px); }
+            50% { transform: translate(2px, 1px); }
+            75% { transform: translate(-1px, 0); }
+            100% { transform: none; }
         }
 
         /* Fix Blank Flash: Ensure Loader covers content until the drop */
@@ -28780,7 +28773,17 @@ main.content, #main-content {
 
         function initLoader() {
             const canvas = document.getElementById('loader-canvas');
+            if (!canvas) {
+                console.error('[Loader] Canvas element not found');
+                return;
+            }
+
             const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error('[Loader] Could not get 2D context');
+                return;
+            }
+
             const loader = document.getElementById('loader');
             const barFill = document.getElementById('loader-bar-fill');
             const statusEl = document.getElementById('loader-status');
@@ -28797,9 +28800,24 @@ main.content, #main-content {
             let equationRevealed = false;
             let uiRevealed = false;
 
+            // Device pixel ratio for crisp mobile rendering
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+
             function resize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                // Set canvas size accounting for device pixel ratio
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+
+                // Set display size (CSS)
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+
+                // Set actual size in memory (scaled for DPR)
+                canvas.width = Math.floor(w * dpr);
+                canvas.height = Math.floor(h * dpr);
+
+                // Scale context to match DPR
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             }
             resize();
             window.addEventListener('resize', resize);
