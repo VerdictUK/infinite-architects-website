@@ -1987,6 +1987,15 @@
            ═══════════════════════════════════════════════════════════════════════════ */
         
         /* Initial State: Content hovering above viewport */
+        html {
+            overflow-y: auto; /* Ensure scrollbar exists */
+            overflow-x: hidden;
+        }
+        
+        body:not(.cinematic) {
+            overflow: hidden; /* Only lock body during load */
+        }
+
         body:not(.cinematic) .content {
             transform: translateY(-120vh);
             opacity: 1; /* Keep opacity 1 so no blank flash */
