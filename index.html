@@ -27035,14 +27035,14 @@ html body section#methodology .methodology-closing {
                     initTesseract();
                 }, 1000);
 
-                // Start book floating animation after hero reveal completes
+                // Start book floating animation after hero is fully visible
                 setTimeout(() => {
                     const book = document.getElementById('hero-book');
                     if (book) {
                         book.style.opacity = '1';
                         book.classList.add('float');
                     }
-                }, 3000);
+                }, 4000);
             }
 
             function animate() {
@@ -34190,8 +34190,8 @@ html body section#methodology .methodology-closing {
         let isLoading = false;
 
         // ═══════════════════════════════════════════════════════════════════════════════════
-        // BRAND GUARDIAN v1.0 (Ported from Legal OS)
-        // Enforces narrative consistency and British English
+        // BRAND GUARDIAN v1.1 (Ported from Legal OS)
+        // Enforces narrative consistency, British English, and The Eastwood Equation
         // ═══════════════════════════════════════════════════════════════════════════════════
         const BrandGuardian = {
             sanitise: function(text) {
@@ -34202,7 +34202,18 @@ html body section#methodology .methodology-closing {
                 safeText = safeText.replace(/\bis a polymath\b/gi, 'utilises the polymathic method');
                 safeText = safeText.replace(/\bhe is a polymath\b/gi, 'he applies a polymathic lens');
 
-                // RULE 2: BRITISH ENGLISH ENFORCEMENT
+                // RULE 2: THE EASTWOOD EQUATION MANDATE
+                // Enforces that U = I x R² is always referred to as the Eastwood Equation
+                // 1. Correct "ARC Equation" or generic references
+                safeText = safeText.replace(/\bARC Equation\b/gi, 'Eastwood Equation');
+                safeText = safeText.replace(/\bequation U\s*=\s*I\b/gi, 'Eastwood Equation (U = I');
+                
+                // 2. Ensure U = I x R² is labeled if it appears alone
+                if (safeText.includes('U = I × R²') && !safeText.includes('Eastwood Equation')) {
+                    safeText = safeText.replace('U = I × R²', 'Eastwood Equation (U = I × R²)');
+                }
+
+                // RULE 3: BRITISH ENGLISH ENFORCEMENT
                 // Ensures US spellings don't slip in from LLM training data
                 const ukSpellings = [
                     ['color', 'colour'], ['behavior', 'behaviour'], ['honor', 'honour'],
@@ -34497,8 +34508,8 @@ html body section#methodology .methodology-closing {
         // KNOWLEDGE BASE (Expanded with concepts.json)
         const KNOWLEDGE_BASE = [
             {
-                keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i'],
-                answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
+                keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i', 'eastwood'],
+                answer: 'The **ARC Principle**, centred on the **Eastwood Equation** (U = I × R²), proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
                 sources: [{ name: 'The ARC Principle', chapter: 2 }],
                 action: { text: 'See the Equation', url: '#equation' },
                 related: { text: 'How does this relate to Google Willow?', query: 'What is the Willow validation?' }
