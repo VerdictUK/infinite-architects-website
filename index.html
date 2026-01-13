@@ -1561,6 +1561,8 @@
 
         html body #loader.fully-hidden {
             display: none !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
         }
 
         #loader-canvas {
@@ -25472,6 +25474,60 @@ main.content,
     footer {
         padding-bottom: 100px !important;
     }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   NUCLEAR OVERRIDE: ASK THE BOOK BUTTON - ALWAYS VISIBLE
+   This rule has maximum specificity and must appear last
+   ═══════════════════════════════════════════════════════════════════════════════ */
+html body button#ask-book-toggle.ask-book-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 64px !important;
+    height: 64px !important;
+    z-index: 2147483647 !important; /* Maximum possible z-index */
+    pointer-events: auto !important;
+    background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
+    border: 2px solid #f4c856 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 8px 32px rgba(212, 168, 75, 0.5), 0 0 40px rgba(212, 168, 75, 0.3) !important;
+    transform: none !important;
+    clip: auto !important;
+    clip-path: none !important;
+}
+
+html body button#ask-book-toggle.ask-book-toggle svg {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 28px !important;
+    height: 28px !important;
+    fill: #02030a !important;
+}
+
+@media (max-width: 768px) {
+    html body button#ask-book-toggle.ask-book-toggle {
+        bottom: 90px !important;
+        right: 16px !important;
+        width: 56px !important;
+        height: 56px !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 2147483647 !important;
+    }
+}
+
+/* FINAL VISIBILITY GUARANTEE */
+html body #ask-book-toggle, 
+html body .ask-book-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
     </style>
 
