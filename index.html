@@ -1529,14 +1529,19 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 2.5s var(--ease-out-expo), visibility 2.5s;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
         }
 
         #loader.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            display: none !important; /* Completely remove from DOM rendering */
+            /* Smooth fade - delay display:none for seamless transition */
+        }
+
+        /* After fade animation completes, fully remove */
+        #loader.fully-hidden {
+            display: none !important;
         }
 
         #loader-canvas {
@@ -2746,11 +2751,15 @@
             margin-bottom: 0.5rem;
             opacity: 0;
             transform: translateY(60px) scale(0.95);
-            animation: heroReveal 1.8s var(--ease-out-expo) 0.3s forwards;
             filter: drop-shadow(0 0 80px rgba(212, 168, 75, 0.35)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
             transition: transform 0.8s var(--ease-out-expo), filter 0.8s ease;
             cursor: pointer;
             flex-shrink: 1; /* Allow book to shrink if needed */
+        }
+
+        /* Book animates only after loader is gone */
+        body.hero-ready .hero-book {
+            animation: bookReveal 1.5s var(--ease-out-expo) 0.2s forwards;
         }
 
         .hero-book:hover {
@@ -2758,8 +2767,12 @@
             filter: drop-shadow(0 0 120px rgba(212, 168, 75, 0.5)) drop-shadow(0 50px 80px rgba(0, 0, 0, 0.8));
         }
 
-        @keyframes heroReveal {
-            to {
+        @keyframes bookReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
@@ -14624,20 +14637,29 @@
         }
 
         /* 13. HERO ENTRANCE - Staggered premium reveal (Apple-grade timing) */
+        /* Initial state: hidden until loader completes */
         .hero-content > * {
             opacity: 0;
             transform: translateY(25px);
-            animation: heroReveal 0.7s var(--ease-apple) forwards;
         }
 
-        .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
-        .hero-content > *:nth-child(2) { animation-delay: 0.18s; }
-        .hero-content > *:nth-child(3) { animation-delay: 0.26s; }
-        .hero-content > *:nth-child(4) { animation-delay: 0.34s; }
-        .hero-content > *:nth-child(5) { animation-delay: 0.42s; }
+        /* Only animate AFTER loader is fully hidden */
+        body.hero-ready .hero-content > * {
+            animation: heroReveal 0.8s var(--ease-apple) forwards;
+        }
+
+        body.hero-ready .hero-content > *:nth-child(1) { animation-delay: 0.05s; }
+        body.hero-ready .hero-content > *:nth-child(2) { animation-delay: 0.15s; }
+        body.hero-ready .hero-content > *:nth-child(3) { animation-delay: 0.25s; }
+        body.hero-ready .hero-content > *:nth-child(4) { animation-delay: 0.35s; }
+        body.hero-ready .hero-content > *:nth-child(5) { animation-delay: 0.45s; }
 
         @keyframes heroReveal {
-            to {
+            0% {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            100% {
                 opacity: 1;
                 transform: translateY(0);
             }
@@ -23927,6 +23949,125 @@ html body section#methodology .methodology-closing {
    END ULTIMATE NUCLEAR FIX
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   ███████  FINAL OVERRIDE: MOBILE BLANK SPACE KILLER  ███████
+   Maximum specificity - uses IDs and chained selectors
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 768px) {
+    /* KILL ALL EXCESSIVE PADDING - Target by ID for max specificity */
+    html body main#main-content section,
+    html body main.content section,
+    html body #main-content > section,
+    html body main > section {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* Override the problematic snap-section padding */
+    html body main#main-content .snap-section,
+    html body main.content .snap-section,
+    html body #main-content .snap-section,
+    html body .snap-section[class] {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+        min-height: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+    }
+
+    /* Hero exception - needs space for nav */
+    html body main#main-content section.hero,
+    html body main#main-content #hero,
+    html body .hero.snap-section#hero {
+        padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+    }
+
+    /* KILL section pseudo-elements */
+    html body main#main-content section::before,
+    html body main#main-content section::after,
+    html body main.content section::before,
+    html body main.content section::after {
+        display: none !important;
+        content: none !important;
+        height: 0 !important;
+    }
+
+    /* KILL chapter dividers taking space */
+    html body .chapter-title-divider,
+    html body [class*="chapter-title"],
+    html body .chapter-start[class]::before,
+    html body .chapter-start[class]::after {
+        margin: 0 !important;
+        padding: 0.5rem 0 !important;
+    }
+
+    /* COMPACT section inner containers */
+    html body main#main-content section .section-inner,
+    html body main#main-content section [class*="-inner"],
+    html body main#main-content section [class*="-content"]:not(.hrih-content) {
+        padding: 0 !important;
+        margin: 0 auto !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* KILL visual wrapper heights */
+    html body .hrih-visual-wrapper,
+    html body [class*="-visual-wrapper"],
+    html body [class*="-bg-wrapper"] {
+        position: absolute !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: 100% !important;
+    }
+
+    /* Specific sections that had blank space */
+    html body #evidence-locker,
+    html body #hrih,
+    html body #religion,
+    html body #chokepoint,
+    html body #predictions,
+    html body #falsification,
+    html body #predictions-validated,
+    html body #window,
+    html body #architecture,
+    html body #stakes,
+    html body #reviews,
+    html body #chapters,
+    html body #comparison,
+    html body #newsletter,
+    html body #get-the-book,
+    html body #paradise,
+    html body #faq,
+    html body #glossary,
+    html body #ai-timeline,
+    html body #press {
+        padding: 1rem !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* ENSURE sections stack without gaps */
+    html body main#main-content > *,
+    html body main.content > * {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   END FINAL OVERRIDE
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -26859,36 +27000,49 @@ html body section#methodology .methodology-closing {
             document.addEventListener('keydown', skipLoader);
 
             function completeLoader() {
-                document.body.classList.add('cinematic');
-                loader.classList.add('hidden');
-
                 // Ensure page is at top when loader completes
                 window.scrollTo(0, 0);
 
-                // Initialize Three.js canvas only when library is ready
-                if (window.THREE) {
-                    initMainCanvas();
-                } else if (window.threeJsReady === false) {
-                    // Wait for lazy-loaded Three.js
-                    window.addEventListener('threejs-ready', initMainCanvas, { once: true });
-                }
+                // Start fade out
+                loader.classList.add('hidden');
 
-                initScrollAnimations();
-                initNavigation();
+                // After fade animation completes (1.2s), fully remove and trigger hero
+                setTimeout(() => {
+                    loader.classList.add('fully-hidden');
+                    document.body.classList.add('cinematic');
+
+                    // Trigger hero animations now that loader is gone
+                    document.body.classList.add('hero-ready');
+                }, 1200);
+
+                // Initialize Three.js canvas during fade
+                setTimeout(() => {
+                    if (window.THREE) {
+                        initMainCanvas();
+                    } else if (window.threeJsReady === false) {
+                        window.addEventListener('threejs-ready', initMainCanvas, { once: true });
+                    }
+                }, 500);
+
+                // Initialize other systems after a brief delay
+                setTimeout(() => {
+                    initScrollAnimations();
+                    initNavigation();
+                }, 800);
 
                 // Delay tesseract init to ensure DOM is laid out
                 setTimeout(() => {
                     initTesseract();
-                }, 100);
+                }, 1000);
 
-                // Start book floating animation after heroReveal completes (1.8s + 0.3s delay + buffer)
+                // Start book floating animation after hero reveal completes
                 setTimeout(() => {
                     const book = document.getElementById('hero-book');
                     if (book) {
-                        book.style.opacity = '1'; // Force opacity before adding float
+                        book.style.opacity = '1';
                         book.classList.add('float');
                     }
-                }, 2500);
+                }, 3000);
             }
 
             function animate() {
