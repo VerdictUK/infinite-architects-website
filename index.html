@@ -1996,12 +1996,13 @@
            PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
            ═══════════════════════════════════════════════════════════════════════════ */
         
-        /* Initial state: content hidden above */
+        /* Initial state: content hidden above viewport */
         html body:not(.cinematic) .content,
         html body:not(.cinematic) #main-content {
-            transform: translateY(-100vh) !important;
+            transform: translateY(-100dvh) !important;
             opacity: 0 !important;
             visibility: hidden !important;
+            will-change: transform;
         }
 
         /* Active state: The slam */
@@ -2010,11 +2011,10 @@
             animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
-            will-change: transform;
         }
 
         @keyframes titanDrop {
-            0% { transform: translateY(-100vh); opacity: 0; }
+            0% { transform: translateY(-100dvh); opacity: 0; }
             20% { opacity: 1; }
             60% { transform: translateY(0); }
             75% { transform: translateY(-30px); }
@@ -22709,6 +22709,18 @@ html body #author .storm-story-principle svg {
    PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* DESKTOP: Disable scroll-snap to allow free scrolling */
+@media (min-width: 1024px) {
+    html, body {
+        scroll-snap-type: none !important;
+    }
+
+    .snap-section {
+        scroll-snap-align: none !important;
+        scroll-snap-stop: normal !important;
+    }
+}
+
 /* DESKTOP HERO - Full viewport, 3-row layout with banner on top */
 @media (min-width: 1024px) {
     html body section.hero.snap-section#hero {
@@ -28086,8 +28098,8 @@ main.content,
             // Performance multiplier: 1.0 = full, 0.5 = half, 0.25 = quarter
             get multiplier() {
                 if (this.reducedMotion) return 0.1;
-                if (this.isSlowConnection && this.isMobile) return 0.25;
-                if (this.isSlowConnection || this.isMobile) return 0.5;
+                if (this.isSlowConnection && this.isMobile) return 0.4; // Increased from 0.25
+                if (this.isSlowConnection || this.isMobile) return 0.7; // Increased from 0.5
                 return 1.0;
             }
         };
@@ -28099,10 +28111,10 @@ main.content,
         // ═══════════════════════════════════════════════════════════════════════
         const CONFIG = {
             loader: {
-                duration: PERF.isSlowConnection ? 2500 : 3500,
-                particleCount: Math.floor(250 * PERF.multiplier) || 50,
-                ringCount: PERF.isSlowConnection ? 2 : 4,
-                trailLength: PERF.isSlowConnection ? 6 : 12,
+                duration: PERF.isSlowConnection ? 3000 : 4000, // Slower for higher-res feel
+                particleCount: Math.floor(350 * PERF.multiplier) || 150, // Increased base
+                ringCount: 4, // Always show all rings
+                trailLength: PERF.isSlowConnection ? 8 : 15,
                 goldHue: 38
             },
             main: {
