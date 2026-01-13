@@ -902,6 +902,178 @@
             transform: translateX(0);
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           CHAPTER GATEWAY - Cinematic Chapter Transition Overlay
+           Appears briefly when entering a new chapter - like a film scene card
+           ═══════════════════════════════════════════════════════════════════════ */
+        .chapter-gateway {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 99998; /* Below chat, above everything else */
+            width: 90vw;
+            max-width: 600px;
+            padding: 2.5rem 3rem;
+            background: rgba(2, 3, 10, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 16px;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                        0 0 40px rgba(212, 168, 75, 0.15),
+                        inset 0 1px 0 rgba(212, 168, 75, 0.1);
+        }
+
+        .chapter-gateway.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+            animation: gatewayPulse 3s ease-in-out;
+        }
+
+        @keyframes gatewayPulse {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 rgba(212, 168, 75, 0);
+            }
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 168, 75, 0.4);
+            }
+            80% {
+                opacity: 1;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 168, 75, 0.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.02);
+            }
+        }
+
+        /* Golden line that draws across */
+        .chapter-gateway::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            transform: translateX(-50%);
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        .chapter-gateway.active::before {
+            width: 80%;
+        }
+
+        .chapter-gateway-numeral {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold-primary, #d4a84b);
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-gateway-title {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            letter-spacing: 0.35em;
+            color: rgba(232, 212, 160, 0.9);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .chapter-gateway-subtitle {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-style: italic;
+            color: rgba(232, 212, 160, 0.6);
+            line-height: 1.5;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .chapter-gateway {
+                width: 85vw;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .chapter-gateway {
+                animation: none;
+            }
+            .chapter-gateway.active {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           CHAPTER DIVIDERS - Visual separation between chapters
+           Elegant gold lines with chapter numeral
+           ═══════════════════════════════════════════════════════════════════════ */
+        .chapter-divider {
+            position: relative;
+            width: 100%;
+            padding: 3rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .chapter-divider::before,
+        .chapter-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.4), transparent);
+            max-width: 200px;
+        }
+
+        .chapter-divider-numeral {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--gold-primary, #d4a84b);
+            letter-spacing: 0.2em;
+            padding: 0.5rem 1.5rem;
+            margin: 0 1rem;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 4px;
+            background: rgba(2, 3, 10, 0.6);
+            text-shadow: 0 0 10px rgba(212, 168, 75, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-divider {
+                padding: 2rem 0;
+            }
+            .chapter-divider::before,
+            .chapter-divider::after {
+                max-width: 80px;
+            }
+            .chapter-divider-numeral {
+                font-size: 0.75rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+
         .milestone-icon {
             font-size: 1.5rem;
             filter: drop-shadow(0 0 5px var(--gold));
@@ -2025,7 +2197,7 @@
         /* Active state: The slam - SWOOSH DOWN effect */
         html body.cinematic .content,
         html body.cinematic #main-content {
-            animation: titanDrop 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+            animation: titanDrop 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
         }
@@ -2041,30 +2213,21 @@
 
         @keyframes titanDrop {
             0% {
-                transform: translateY(-100vh) scale(0.9);
-                opacity: 0.5;
-                filter: brightness(2) blur(10px);
+                transform: translateY(-100vh);
+                opacity: 0.8;
             }
-            15% {
+            60% {
+                transform: translateY(0);
                 opacity: 1;
-                filter: brightness(1.5) blur(5px);
             }
-            45% {
-                transform: translateY(40px) scale(1.04); /* Deeper overshoot */
-                filter: brightness(1.2) blur(0);
+            75% {
+                transform: translateY(-6px); /* Subtle bounce */
             }
-            65% {
-                transform: translateY(-25px) scale(0.98); /* More bounce back */
-                filter: brightness(1);
-            }
-            82% {
-                transform: translateY(12px) scale(1.02);
-            }
-            92% {
-                transform: translateY(-5px);
+            90% {
+                transform: translateY(2px);
             }
             100% {
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
                 opacity: 1;
             }
         }
@@ -2080,20 +2243,21 @@
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
-            animation: impactShake 0.7s cubic-bezier(.36,.07,.19,.97) 1.2s forwards;
+            animation: impactShake 0.3s ease-out 1.1s forwards;
         }
 
         @keyframes impactShake {
             0% { transform: translate(0, 0) scale(1); }
-            10% { transform: translate(-10px, -14px) scale(1.02); }
-            20% { transform: translate(10px, 14px) scale(0.98); }
-            30% { transform: translate(-8px, -10px) scale(1.01); }
-            40% { transform: translate(8px, 10px) scale(0.99); }
-            50% { transform: translate(-5px, -6px) scale(1.005); }
-            60% { transform: translate(5px, 6px) scale(0.995); }
-            70% { transform: translate(-3px, -3px) scale(1.002); }
-            80% { transform: translate(3px, 3px) scale(0.998); }
-            90% { transform: translate(-1px, -1px) scale(1); }
+            5% { transform: translate(-15px, -20px) scale(1.03); }
+            15% { transform: translate(15px, 20px) scale(0.97); }
+            25% { transform: translate(-12px, -15px) scale(1.02); }
+            35% { transform: translate(12px, 15px) scale(0.98); }
+            45% { transform: translate(-8px, -10px) scale(1.01); }
+            55% { transform: translate(8px, 10px) scale(0.99); }
+            65% { transform: translate(-5px, -6px) scale(1.005); }
+            75% { transform: translate(5px, 6px) scale(0.995); }
+            85% { transform: translate(-2px, -3px) scale(1.002); }
+            95% { transform: translate(1px, 1px) scale(1); }
             100% { transform: none; } /* CRITICAL: none, not translate(0,0) */
         }
 
@@ -25883,6 +26047,22 @@ main.content, #main-content {
         <span class="chapter-indicator__name" id="chapter-name">THE THESIS</span>
     </div>
 
+    <!-- Chapter Gateway - Cinematic chapter transition overlay -->
+    <div class="chapter-gateway" id="chapter-gateway" role="alert" aria-live="assertive">
+        <div class="chapter-gateway-numeral" id="gateway-numeral">I</div>
+        <div class="chapter-gateway-title" id="gateway-title">THE THESIS</div>
+        <div class="chapter-gateway-subtitle" id="gateway-subtitle">The journey into recursive intelligence begins.</div>
+    </div>
+
+    <!-- Milestone Toast - Chapter transition notification (bottom-left) -->
+    <div class="milestone-toast" id="milestone-toast" role="status" aria-live="polite">
+        <span class="milestone-icon" id="milestone-icon">🏛️</span>
+        <div class="milestone-content">
+            <span class="milestone-title">CHAPTER UNLOCKED</span>
+            <span class="milestone-text" id="milestone-text">Chapter I: THE THESIS</span>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="content" id="main-content" role="main">
         <!-- Hero Section -->
@@ -26347,6 +26527,12 @@ main.content, #main-content {
                 <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
             </div>
         </section>
+
+        <!-- ═══════════════ CHAPTER II: THE EVIDENCE ═══════════════ -->
+        <div class="chapter-divider" aria-hidden="true">
+            <span class="chapter-divider-numeral">II</span>
+        </div>
+
         <section class="evidence-locker snap-section glass-living chapter-start" id="evidence-locker">
             <div class="evidence-locker-inner">
                 <p class="section-label reveal">VERIFICATION BOARD</p>
@@ -26806,6 +26992,12 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
+
+        <!-- ═══════════════ CHAPTER III: THE PHILOSOPHY ═══════════════ -->
+        <div class="chapter-divider" aria-hidden="true">
+            <span class="chapter-divider-numeral">III</span>
+        </div>
+
         <section class="hrih-section snap-section chapter-start" id="hrih">
             <!-- Visual Background with Cosmic Zoom -->
             <div class="hrih-visual-wrapper">
@@ -27173,6 +27365,12 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
+
+        <!-- ═══════════════ CHAPTER IV: THE STAKES ═══════════════ -->
+        <div class="chapter-divider" aria-hidden="true">
+            <span class="chapter-divider-numeral">IV</span>
+        </div>
+
         <section id="future-born" class="future-born-section snap-section chapter-start">
             <div class="future-born-bg">
                 <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" >
@@ -27540,6 +27738,12 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
+
+        <!-- ═══════════════ CHAPTER V: GET THE BOOK ═══════════════ -->
+        <div class="chapter-divider" aria-hidden="true">
+            <span class="chapter-divider-numeral">V</span>
+        </div>
+
         <section class="tripath-section snap-section chapter-start" id="get-the-book">
             <!-- Chapter V Title -->
             <div class="chapter-title-divider">
@@ -28695,9 +28899,9 @@ main.content, #main-content {
                         console.log('[LOADER COMPLETE] Ask Book button shown');
                     }
 
-                }, 2600);
+                }, 2000); // Matches 1.8s titanDrop animation
 
-                // SAFETY UNLOCK: Force scroll ability after 4s in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic');
                     document.documentElement.classList.add('cinematic-ready');
@@ -28706,7 +28910,7 @@ main.content, #main-content {
                     document.body.style.height = 'auto';
                     document.documentElement.style.overflow = 'auto';
                     document.documentElement.style.overflowY = 'auto';
-                }, 4000);
+                }, 3000);
             }
 
             function animate() {
@@ -28762,10 +28966,10 @@ main.content, #main-content {
                 // No overlaps - each element has its moment
                 // ═══════════════════════════════════════════════════════════════
 
-                // Phase 1: Quote Sequence (0-35%)
+                // Phase 1: Quote Sequence (0-45%)
                 // Each quote gets dedicated time, centered on screen
-                if (progress < 0.35 && quotes.length > 0) {
-                    const quotePhase = progress / 0.35; // 0 to 1 within quote phase
+                if (progress < 0.45 && quotes.length > 0) {
+                    const quotePhase = progress / 0.45; // 0 to 1 within quote phase
                     const targetQuote = Math.min(Math.floor(quotePhase * quotes.length), quotes.length - 1);
 
                     if (targetQuote !== currentQuoteIndex) {
@@ -28781,8 +28985,8 @@ main.content, #main-content {
                     }
                 }
 
-                // Phase 2: Hide quotes completely, reveal equation (35-45%)
-                if (progress >= 0.35 && progress < 0.45 && !equationRevealed) {
+                // Phase 2: Hide quotes completely, reveal equation (45-55%)
+                if (progress >= 0.45 && progress < 0.55 && !equationRevealed) {
                     equationRevealed = true;
                     // Fade out all quotes completely
                     quotes.forEach(q => q.classList.remove('active'));
@@ -28796,9 +29000,9 @@ main.content, #main-content {
                     }
                 }
 
-                // Phase 3: Reveal equation characters one by one (45-65%)
-                if (progress >= 0.45 && progress < 0.65 && equationChars.length > 0) {
-                    const charProgress = (progress - 0.45) / 0.20; // 0 to 1 within this phase
+                // Phase 3: Reveal equation characters one by one (55-75%)
+                if (progress >= 0.55 && progress < 0.75 && equationChars.length > 0) {
+                    const charProgress = (progress - 0.55) / 0.20; // 0 to 1 within this phase
                     const charsToShow = Math.floor(charProgress * (equationChars.length + 1));
                     equationChars.forEach((char, i) => {
                         if (i < charsToShow) {
@@ -28807,8 +29011,8 @@ main.content, #main-content {
                     });
                 }
 
-                // Phase 4: Move equation up, reveal title (65-75%)
-                if (progress >= 0.65 && !uiRevealed) {
+                // Phase 4: Move equation up, reveal title (75-85%)
+                if (progress >= 0.75 && !uiRevealed) {
                     uiRevealed = true;
                     // Complete equation reveal
                     equationChars.forEach(char => char.classList.add('visible'));
@@ -28823,27 +29027,27 @@ main.content, #main-content {
                     }
                 }
 
-                // Phase 5: Reveal subtitle and author (75-85%)
-                if (progress >= 0.75) {
+                // Phase 5: Reveal subtitle and author (85-95%)
+                if (progress >= 0.85) {
                     const subtitle = loaderUI?.querySelector('.loader-subtitle');
                     const author = loaderUI?.querySelector('.loader-author');
                     if (subtitle) subtitle.classList.add('reveal');
-                    if (progress >= 0.80 && author) author.classList.add('reveal');
+                    if (progress >= 0.90 && author) author.classList.add('reveal');
                 }
 
                 // Update status message based on cinematic phase
                 let statusMessage;
-                if (progress < 0.12) {
+                if (progress < 0.15) {
                     statusMessage = 'Awakening consciousness...';
-                } else if (progress < 0.25) {
+                } else if (progress < 0.30) {
                     statusMessage = 'Perceiving the infinite...';
-                } else if (progress < 0.35) {
-                    statusMessage = 'Glimpsing what comes next...';
                 } else if (progress < 0.45) {
+                    statusMessage = 'Glimpsing what comes next...';
+                } else if (progress < 0.55) {
                     statusMessage = 'Channelling the equation...';
-                } else if (progress < 0.65) {
+                } else if (progress < 0.75) {
                     statusMessage = 'U = I × R² manifesting...';
-                } else if (progress < 0.85) {
+                } else if (progress < 0.90) {
                     statusMessage = 'The architecture reveals itself...';
                 } else {
                     statusMessage = 'GENESIS COMPLETE';
@@ -29296,24 +29500,51 @@ main.content, #main-content {
             const icon = document.getElementById('milestone-icon');
             const text = document.getElementById('milestone-text');
 
-            if (!toast || !icon || !text) return;
+            // Chapter Gateway elements
+            const gateway = document.getElementById('chapter-gateway');
+            const gatewayNumeral = document.getElementById('gateway-numeral');
+            const gatewayTitle = document.getElementById('gateway-title');
+            const gatewaySubtitle = document.getElementById('gateway-subtitle');
 
-            icon.textContent = milestone.icon;
-            text.innerHTML = `<strong>Chapter ${milestone.numeral}:</strong> ${milestone.title}`;
+            // Show cinematic Chapter Gateway (the main visual moment)
+            if (gateway && gatewayNumeral && gatewayTitle && gatewaySubtitle) {
+                gatewayNumeral.textContent = milestone.numeral;
+                gatewayTitle.textContent = milestone.title;
+                gatewaySubtitle.textContent = milestone.subtitle;
 
-            toast.classList.add('active');
+                gateway.classList.add('active');
+
+                // Gateway auto-hides after animation (3s)
+                setTimeout(() => {
+                    gateway.classList.remove('active');
+                }, 3000);
+            }
+
+            // Show milestone toast (secondary, bottom-left notification)
+            if (toast && icon && text) {
+                icon.textContent = milestone.icon;
+                text.innerHTML = `<strong>Chapter ${milestone.numeral}:</strong> ${milestone.title}`;
+
+                // Delay toast slightly so gateway gets full attention
+                setTimeout(() => {
+                    toast.classList.add('active');
+                }, 500);
+
+                // Hide toast after 6 seconds
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 6500);
+            }
+
             localStorage.setItem('ia_chapter_milestone', milestone.chapter);
 
-            // Visual gold flash transition
+            // Subtle gold flash on body
             document.body.style.transition = 'background-color 0.3s ease';
             const originalBg = document.body.style.backgroundColor;
-            document.body.style.backgroundColor = 'rgba(212, 168, 75, 0.05)';
-
-            // Longer duration: 8 seconds for better readability
+            document.body.style.backgroundColor = 'rgba(212, 168, 75, 0.03)';
             setTimeout(() => {
-                toast.classList.remove('active');
                 document.body.style.backgroundColor = originalBg;
-            }, 8000);
+            }, 1000);
         }
 
         // Legacy function - now handled by chapter-based system
@@ -36761,12 +36992,12 @@ main.content, #main-content {
             console.log('[SCROLL] Forced enabled via setProperty');
         }
 
-        // Let the loader animation play first (9 seconds + 2.5s titan drop)
+        // Let the loader animation play first (15 seconds + 2.5s titan drop)
         // Then ensure button is visible and scroll works
 
         // Safety fallback: Run after loader should be complete
-        setTimeout(forceButtonAndScroll, 12000);  // 12 seconds - after loader completes
-        setTimeout(forceButtonAndScroll, 15000); // 15 seconds - extra safety
+        setTimeout(forceButtonAndScroll, 18000);  // 18 seconds - after loader completes
+        setTimeout(forceButtonAndScroll, 22000); // 22 seconds - extra safety
 
         // Periodic check every 3 seconds AFTER initial delay
         setTimeout(function() {
@@ -36792,7 +37023,7 @@ main.content, #main-content {
                     }
                 }
             }, 3000);
-        }, 13000); // Start interval checks after 13 seconds (loader + titan drop)
+        }, 20000); // Start interval checks after 20 seconds (loader + titan drop)
 
         // Handle orientation change / resize - update button position
         let resizeTimeout;
