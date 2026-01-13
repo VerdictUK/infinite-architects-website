@@ -1520,35 +1520,40 @@
         /* ═══════════════════════════════════════════════════════════════════════
            CINEMATIC LOADER - Wormhole Entry Sequence
            ═══════════════════════════════════════════════════════════════════════ */
-        #loader {
-            position: fixed;
-            inset: 0;
-            z-index: var(--z-loader);
-            background: var(--void);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+        /* ═══════════════════════════════════════════════════════════════════════
+           CINEMATIC LOADER - Supreme Priority
+           ═══════════════════════════════════════════════════════════════════════ */
+        html body #loader {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 100000 !important; /* Above everything */
+            background: #02030a !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), 
+                        opacity 0.5s ease-out 0.8s !important;
         }
 
-        #loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            /* Smooth fade - delay display:none for seamless transition */
+        html body #loader.hidden {
+            transform: translateY(-100%) !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
 
-        /* After fade animation completes, fully remove */
-        #loader.fully-hidden {
+        html body #loader.fully-hidden {
             display: none !important;
         }
 
         #loader-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 1 !important;
         }
 
         .loader-ui {
@@ -1685,16 +1690,17 @@
 
         /* Video Background - Recursion visualised */
         .loader-video-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%) scale(1.2);
-            object-fit: cover;
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            min-width: 100% !important;
+            min-height: 100% !important;
+            width: auto !important;
+            height: auto !important;
+            transform: translate(-50%, -50%) scale(1.2) !important;
+            object-fit: cover !important;
             opacity: 0;
+            z-index: 0 !important;
             animation: loaderVideoFadeIn 3s ease-out 0.5s forwards,
                        loaderVideoZoom 12s ease-in-out 3s infinite;
         }
@@ -1986,43 +1992,38 @@
            Transition from Loader to Site with physical weight
            ═══════════════════════════════════════════════════════════════════════════ */
         
-        /* Initial State: Content hovering above viewport */
-        html {
-            overflow-y: auto; /* Ensure scrollbar exists */
-            overflow-x: hidden;
-        }
+        /* ═══════════════════════════════════════════════════════════════════════════
+           PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
+           ═══════════════════════════════════════════════════════════════════════════ */
         
-        body:not(.cinematic) {
-            overflow: hidden; /* Only lock body during load */
-        }
-
+        /* Initial state: content hidden above */
         html body:not(.cinematic) .content,
         html body:not(.cinematic) #main-content {
-            transform: translateY(-120vh) !important;
-            opacity: 1 !important;
-            will-change: transform;
-            position: relative;
-            z-index: 1;
+            transform: translateY(-100vh) !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
         }
 
-        /* Active State: The Slam */
+        /* Active state: The slam */
         html body.cinematic .content,
         html body.cinematic #main-content {
             animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
+            will-change: transform;
         }
 
         @keyframes titanDrop {
-            0% { transform: translateY(-120vh); }
+            0% { transform: translateY(-100vh); opacity: 0; }
+            20% { opacity: 1; }
             60% { transform: translateY(0); }
-            75% { transform: translateY(-40px); } /* Bounce up */
-            100% { transform: translateY(0); } /* Land solid */
+            75% { transform: translateY(-30px); }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
         /* Camera Shake on Impact */
-        body.cinematic {
-            animation: impactShake 0.5s linear 0.7s forwards; /* Timing matches the 'land' at 60% of 1.2s */
+        html body.cinematic {
+            animation: impactShake 0.5s linear 0.7s forwards !important;
         }
 
         @keyframes impactShake {
@@ -28422,8 +28423,9 @@ main.content,
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // Trigger the Titan Drop
+                // Trigger the Titan Drop & Loader Exit
                 document.body.classList.add('cinematic');
+                loader.classList.add('hidden'); // Trigger the slide-up
                 
                 // Allow scroll after drop finishes
                 setTimeout(() => {
