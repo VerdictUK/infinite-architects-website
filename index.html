@@ -2022,16 +2022,16 @@
             will-change: transform;
         }
 
-        /* Active state: The slam */
+        /* Active state: The slam - SWOOSH DOWN effect */
         html body.cinematic .content,
         html body.cinematic #main-content {
-            animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
+            animation: titanDrop 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
         }
 
         /* Ensure scroll is unlocked when cinematic is active */
-        html.cinematic-ready, 
+        html.cinematic-ready,
         html.cinematic-ready body,
         body.cinematic {
             overflow-y: auto !important;
@@ -2040,26 +2040,61 @@
         }
 
         @keyframes titanDrop {
-            0% { transform: translateY(-100vh); opacity: 1; }
-            60% { transform: translateY(0); }
-            75% { transform: translateY(-20px); }
-            100% { transform: translateY(0); opacity: 1; }
+            0% {
+                transform: translateY(-100vh) scale(0.9);
+                opacity: 0.5;
+                filter: brightness(2) blur(10px);
+            }
+            15% {
+                opacity: 1;
+                filter: brightness(1.5) blur(5px);
+            }
+            45% {
+                transform: translateY(40px) scale(1.04); /* Deeper overshoot */
+                filter: brightness(1.2) blur(0);
+            }
+            65% {
+                transform: translateY(-25px) scale(0.98); /* More bounce back */
+                filter: brightness(1);
+            }
+            82% {
+                transform: translateY(12px) scale(1.02);
+            }
+            92% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
-        /* Camera Shake on Impact - Nuclear targeting */
+        /* Body cinematic state - NO TRANSFORM on body to preserve position:fixed */
         html body.cinematic {
-            animation: impactShake 0.5s linear 0.7s forwards !important;
             overflow-x: clip !important;
         }
 
+        /* Camera Shake on Impact - Applied to CONTENT wrapper, not body */
+        /* This preserves position:fixed elements (chat button, nav, etc) */
+        /* Delay matches titanDrop landing (around 50% of 2.5s = 1.25s) */
+        body.cinematic #main-content,
+        body.cinematic .content,
+        body.cinematic main {
+            animation: impactShake 0.7s cubic-bezier(.36,.07,.19,.97) 1.2s forwards;
+        }
+
         @keyframes impactShake {
-            0% { transform: translate(0, 0); }
-            10% { transform: translate(-5px, -5px); }
-            30% { transform: translate(5px, 5px); }
-            50% { transform: translate(-3px, 3px); }
-            70% { transform: translate(3px, -3px); }
-            90% { transform: translate(-1px, 1px); }
-            100% { transform: translate(0, 0); }
+            0% { transform: translate(0, 0) scale(1); }
+            10% { transform: translate(-10px, -14px) scale(1.02); }
+            20% { transform: translate(10px, 14px) scale(0.98); }
+            30% { transform: translate(-8px, -10px) scale(1.01); }
+            40% { transform: translate(8px, 10px) scale(0.99); }
+            50% { transform: translate(-5px, -6px) scale(1.005); }
+            60% { transform: translate(5px, 6px) scale(0.995); }
+            70% { transform: translate(-3px, -3px) scale(1.002); }
+            80% { transform: translate(3px, 3px) scale(0.998); }
+            90% { transform: translate(-1px, -1px) scale(1); }
+            100% { transform: none; } /* CRITICAL: none, not translate(0,0) */
         }
 
         /* Fix Blank Flash: Ensure Loader covers content until the drop */
@@ -9618,7 +9653,7 @@
 
         /* Evidence video specific poster background */
         .evidence-video {
-            background: #000 url('bbc-willow.jpg') center/cover no-repeat;
+            background: #000 url('bbc-willow.webp') center/cover no-repeat;
             object-fit: cover;
         }
 
@@ -15801,8 +15836,7 @@
             display: none;
             position: fixed;
             left: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 140px; /* Below header - doesn't overlap logo */
             z-index: 9990;
             background: rgba(2, 3, 10, 0.75);
             backdrop-filter: blur(16px);
@@ -15811,14 +15845,14 @@
             border-radius: 0 10px 10px 0;
             padding: 12px 8px;
             opacity: 0;
-            transform: translateY(-50%) translateX(-100%);
+            transform: translateX(-100%);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
         }
 
         .chapter-sidebar.active {
             opacity: 1;
-            transform: translateY(-50%) translateX(0);
+            transform: translateX(0);
         }
 
         .chapter-sidebar-list {
@@ -26339,7 +26373,7 @@ main.content, #main-content {
                             </span>
                         </div>
                                             <div class="evidence-video-container">
-                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.jpg" preload="metadata" style="background: url('bbc-willow.jpg') center/cover no-repeat;" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
+                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.webp" preload="metadata" style="background: url('bbc-willow.webp') center/cover no-repeat;" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
                                                     <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                                 </video>
                         
@@ -28261,7 +28295,7 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         const CONFIG = {
             loader: {
-                duration: PERF.isSlowConnection ? 3000 : 4000, // Slower for higher-res feel
+                duration: PERF.isSlowConnection ? 10000 : 15000, // Extended for cinematic pacing - readable quotes
                 particleCount: Math.floor(350 * PERF.multiplier) || 150, // Increased base
                 ringCount: 4, // Always show all rings
                 trailLength: PERF.isSlowConnection ? 8 : 15,
@@ -28598,7 +28632,7 @@ main.content, #main-content {
                 document.documentElement.classList.add('cinematic-ready');
                 loader.classList.add('hidden'); // Trigger the slide-up
 
-                // Allow scroll after drop finishes
+                // Allow scroll after drop finishes (matches 2.5s titanDrop animation)
                 setTimeout(() => {
                     // FORCE UNLOCK SCROLL - Multiple approaches for maximum compatibility
                     document.body.classList.add('cinematic'); // Ensure class is present
@@ -28615,30 +28649,55 @@ main.content, #main-content {
 
                     // Cleanup loader
                     loader.classList.add('fully-hidden');
-                    
+
                     // Initialize Three.js canvas only when library is ready
                     if (window.THREE) {
                         initMainCanvas();
                     } else if (window.threeJsReady === false) {
                         window.addEventListener('threejs-ready', initMainCanvas, { once: true });
                     }
-                    
+
                     initScrollAnimations();
                     initNavigation();
-                    
+
                     // Trigger Tesseract
                     initTesseract();
-                    
+
                     // Trigger Book Float
                     const book = document.getElementById('hero-book');
                     if (book) {
                         book.style.opacity = '1';
                         book.classList.add('float');
                     }
-                    
-                }, 1200);
-                
-                // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
+
+                    // Force Ask Book button visible on both mobile and desktop
+                    const askBtn = document.getElementById('ask-book-toggle');
+                    if (askBtn) {
+                        askBtn.style.setProperty('display', 'flex', 'important');
+                        askBtn.style.setProperty('visibility', 'visible', 'important');
+                        askBtn.style.setProperty('opacity', '1', 'important');
+                        askBtn.style.setProperty('position', 'fixed', 'important');
+                        askBtn.style.setProperty('z-index', '2147483647', 'important');
+                        askBtn.style.setProperty('pointer-events', 'auto', 'important');
+
+                        // Mobile vs Desktop positioning
+                        if (window.innerWidth <= 768) {
+                            askBtn.style.setProperty('bottom', '100px', 'important');
+                            askBtn.style.setProperty('right', '16px', 'important');
+                            askBtn.style.setProperty('width', '60px', 'important');
+                            askBtn.style.setProperty('height', '60px', 'important');
+                        } else {
+                            askBtn.style.setProperty('bottom', '24px', 'important');
+                            askBtn.style.setProperty('right', '24px', 'important');
+                            askBtn.style.setProperty('width', '64px', 'important');
+                            askBtn.style.setProperty('height', '64px', 'important');
+                        }
+                        console.log('[LOADER COMPLETE] Ask Book button shown');
+                    }
+
+                }, 2600);
+
+                // SAFETY UNLOCK: Force scroll ability after 4s in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic');
                     document.documentElement.classList.add('cinematic-ready');
@@ -28647,7 +28706,7 @@ main.content, #main-content {
                     document.body.style.height = 'auto';
                     document.documentElement.style.overflow = 'auto';
                     document.documentElement.style.overflowY = 'auto';
-                }, 3000);
+                }, 4000);
             }
 
             function animate() {
@@ -28703,10 +28762,10 @@ main.content, #main-content {
                 // No overlaps - each element has its moment
                 // ═══════════════════════════════════════════════════════════════
 
-                // Phase 1: Quote Sequence (0-40%)
+                // Phase 1: Quote Sequence (0-35%)
                 // Each quote gets dedicated time, centered on screen
-                if (progress < 0.40 && quotes.length > 0) {
-                    const quotePhase = progress / 0.40; // 0 to 1 within quote phase
+                if (progress < 0.35 && quotes.length > 0) {
+                    const quotePhase = progress / 0.35; // 0 to 1 within quote phase
                     const targetQuote = Math.min(Math.floor(quotePhase * quotes.length), quotes.length - 1);
 
                     if (targetQuote !== currentQuoteIndex) {
@@ -28722,8 +28781,8 @@ main.content, #main-content {
                     }
                 }
 
-                // Phase 2: Hide quotes completely, reveal equation (40-50%)
-                if (progress >= 0.40 && progress < 0.50 && !equationRevealed) {
+                // Phase 2: Hide quotes completely, reveal equation (35-45%)
+                if (progress >= 0.35 && progress < 0.45 && !equationRevealed) {
                     equationRevealed = true;
                     // Fade out all quotes completely
                     quotes.forEach(q => q.classList.remove('active'));
@@ -28737,9 +28796,9 @@ main.content, #main-content {
                     }
                 }
 
-                // Phase 3: Reveal equation characters one by one (50-65%)
-                if (progress >= 0.50 && progress < 0.65 && equationChars.length > 0) {
-                    const charProgress = (progress - 0.50) / 0.15; // 0 to 1 within this phase
+                // Phase 3: Reveal equation characters one by one (45-65%)
+                if (progress >= 0.45 && progress < 0.65 && equationChars.length > 0) {
+                    const charProgress = (progress - 0.45) / 0.20; // 0 to 1 within this phase
                     const charsToShow = Math.floor(charProgress * (equationChars.length + 1));
                     equationChars.forEach((char, i) => {
                         if (i < charsToShow) {
@@ -28774,17 +28833,17 @@ main.content, #main-content {
 
                 // Update status message based on cinematic phase
                 let statusMessage;
-                if (progress < 0.15) {
+                if (progress < 0.12) {
                     statusMessage = 'Awakening consciousness...';
-                } else if (progress < 0.30) {
+                } else if (progress < 0.25) {
                     statusMessage = 'Perceiving the infinite...';
-                } else if (progress < 0.45) {
+                } else if (progress < 0.35) {
                     statusMessage = 'Glimpsing what comes next...';
-                } else if (progress < 0.50) {
+                } else if (progress < 0.45) {
                     statusMessage = 'Channelling the equation...';
-                } else if (progress < 0.75) {
+                } else if (progress < 0.65) {
                     statusMessage = 'U = I × R² manifesting...';
-                } else if (progress < 0.95) {
+                } else if (progress < 0.85) {
                     statusMessage = 'The architecture reveals itself...';
                 } else {
                     statusMessage = 'GENESIS COMPLETE';
@@ -36566,25 +36625,67 @@ main.content, #main-content {
         </svg>
     </button>
 
-    <!-- Force Ask Book Button Visibility on Mobile -->
+    <!-- Force Ask Book Button Visibility on Mobile and Desktop -->
     <style id="ask-book-force-visible">
         /* MAXIMUM PRIORITY - Always show Ask Book button */
-        #ask-book-toggle {
+        #ask-book-toggle,
+        html body #ask-book-toggle,
+        html body button#ask-book-toggle {
             display: flex !important;
             visibility: visible !important;
             opacity: 1 !important;
             position: fixed !important;
-            bottom: 24px !important;
-            right: 24px !important;
             z-index: 2147483647 !important;
             pointer-events: auto !important;
+            background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
+            border: 2px solid #f4c856 !important;
+            border-radius: 50% !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            box-shadow: 0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important;
+            /* Desktop default */
+            bottom: 24px !important;
+            right: 24px !important;
+            width: 64px !important;
+            height: 64px !important;
         }
+
+        #ask-book-toggle svg,
+        html body #ask-book-toggle svg {
+            display: block !important;
+            visibility: visible !important;
+            width: 28px !important;
+            height: 28px !important;
+            fill: #02030a !important;
+        }
+
+        /* Mobile positioning - higher above bottom nav */
         @media (max-width: 768px) {
-            #ask-book-toggle {
+            #ask-book-toggle,
+            html body #ask-book-toggle,
+            html body button#ask-book-toggle {
                 bottom: 100px !important;
                 right: 16px !important;
-                width: 56px !important;
-                height: 56px !important;
+                width: 60px !important;
+                height: 60px !important;
+            }
+
+            #ask-book-toggle svg,
+            html body #ask-book-toggle svg {
+                width: 26px !important;
+                height: 26px !important;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 480px) {
+            #ask-book-toggle,
+            html body #ask-book-toggle {
+                bottom: 90px !important;
+                right: 12px !important;
+                width: 54px !important;
+                height: 54px !important;
             }
         }
     </style>
@@ -36595,75 +36696,135 @@ main.content, #main-content {
         'use strict';
 
         function forceButtonAndScroll() {
-            // Force Ask Book button visible
+            // Force Ask Book button visible using setProperty for !important
             const btn = document.getElementById('ask-book-toggle');
             if (btn) {
-                btn.style.cssText = 'display:flex !important; visibility:visible !important; opacity:1 !important; position:fixed !important; bottom:24px !important; right:24px !important; width:64px !important; height:64px !important; z-index:2147483647 !important; background:linear-gradient(145deg, #d4a84b, #a67c35) !important; border:2px solid #f4c856 !important; border-radius:50% !important; align-items:center !important; justify-content:center !important; pointer-events:auto !important; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important; cursor:pointer !important;';
+                btn.style.setProperty('display', 'flex', 'important');
+                btn.style.setProperty('visibility', 'visible', 'important');
+                btn.style.setProperty('opacity', '1', 'important');
+                btn.style.setProperty('position', 'fixed', 'important');
+                btn.style.setProperty('z-index', '2147483647', 'important');
+                btn.style.setProperty('pointer-events', 'auto', 'important');
+                btn.style.setProperty('background', 'linear-gradient(145deg, #d4a84b, #a67c35)', 'important');
+                btn.style.setProperty('border', '2px solid #f4c856', 'important');
+                btn.style.setProperty('border-radius', '50%', 'important');
+                btn.style.setProperty('align-items', 'center', 'important');
+                btn.style.setProperty('justify-content', 'center', 'important');
+                btn.style.setProperty('cursor', 'pointer', 'important');
+                btn.style.setProperty('box-shadow', '0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3)', 'important');
 
-                // Mobile adjustment
+                // Position based on screen size
                 if (window.innerWidth <= 768) {
-                    btn.style.bottom = '100px';
-                    btn.style.right = '16px';
-                    btn.style.width = '56px';
-                    btn.style.height = '56px';
+                    btn.style.setProperty('bottom', '100px', 'important');
+                    btn.style.setProperty('right', '16px', 'important');
+                    btn.style.setProperty('width', '56px', 'important');
+                    btn.style.setProperty('height', '56px', 'important');
+                } else {
+                    btn.style.setProperty('bottom', '24px', 'important');
+                    btn.style.setProperty('right', '24px', 'important');
+                    btn.style.setProperty('width', '64px', 'important');
+                    btn.style.setProperty('height', '64px', 'important');
                 }
 
-                console.log('[ASK BOOK] Button forced visible');
+                // Force SVG visible too
+                const svg = btn.querySelector('svg');
+                if (svg) {
+                    svg.style.setProperty('display', 'block', 'important');
+                    svg.style.setProperty('visibility', 'visible', 'important');
+                    svg.style.setProperty('width', '28px', 'important');
+                    svg.style.setProperty('height', '28px', 'important');
+                    svg.style.setProperty('fill', '#02030a', 'important');
+                }
+
+                console.log('[ASK BOOK] Button forced visible via setProperty');
+            } else {
+                console.log('[ASK BOOK] Button not found in DOM!');
             }
 
-            // Force scroll enabled
-            document.body.style.overflow = 'auto';
-            document.body.style.overflowY = 'auto';
-            document.body.style.overflowX = 'hidden';
-            document.body.style.height = 'auto';
-            document.documentElement.style.overflow = 'auto';
-            document.documentElement.style.overflowY = 'auto';
-            document.documentElement.style.overflowX = 'hidden';
+            // Force scroll enabled using setProperty
+            document.body.style.setProperty('overflow', 'auto', 'important');
+            document.body.style.setProperty('overflow-y', 'auto', 'important');
+            document.body.style.setProperty('overflow-x', 'hidden', 'important');
+            document.body.style.setProperty('height', 'auto', 'important');
+            document.documentElement.style.setProperty('overflow', 'auto', 'important');
+            document.documentElement.style.setProperty('overflow-y', 'auto', 'important');
+            document.documentElement.style.setProperty('overflow-x', 'hidden', 'important');
 
-            // Add cinematic class if not present
-            if (!document.body.classList.contains('cinematic')) {
+            // Add cinematic class if not present (but don't force it immediately - let loader run)
+            // Only force cinematic if loader already completed
+            const loader = document.getElementById('loader');
+            if (!loader || loader.classList.contains('fully-hidden') || loader.classList.contains('hidden')) {
                 document.body.classList.add('cinematic');
-            }
-            if (!document.documentElement.classList.contains('cinematic-ready')) {
                 document.documentElement.classList.add('cinematic-ready');
             }
 
-            console.log('[SCROLL] Forced enabled');
+            console.log('[SCROLL] Forced enabled via setProperty');
         }
 
-        // Run after DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', forceButtonAndScroll);
-        } else {
-            forceButtonAndScroll();
-        }
+        // Let the loader animation play first (9 seconds + 2.5s titan drop)
+        // Then ensure button is visible and scroll works
 
-        // Also run after full load
-        window.addEventListener('load', forceButtonAndScroll);
+        // Safety fallback: Run after loader should be complete
+        setTimeout(forceButtonAndScroll, 12000);  // 12 seconds - after loader completes
+        setTimeout(forceButtonAndScroll, 15000); // 15 seconds - extra safety
 
-        // Safety: Run again after 2 seconds and 5 seconds
-        setTimeout(forceButtonAndScroll, 2000);
-        setTimeout(forceButtonAndScroll, 5000);
-
-        // Periodic check every 3 seconds to maintain visibility
-        setInterval(function() {
-            const btn = document.getElementById('ask-book-toggle');
-            if (btn) {
-                const computed = window.getComputedStyle(btn);
-                if (computed.display === 'none' || computed.visibility === 'hidden' || computed.opacity === '0') {
-                    console.log('[ASK BOOK] Button was hidden, forcing visible again');
-                    forceButtonAndScroll();
+        // Periodic check every 3 seconds AFTER initial delay
+        setTimeout(function() {
+            setInterval(function() {
+                const btn = document.getElementById('ask-book-toggle');
+                if (btn) {
+                    const computed = window.getComputedStyle(btn);
+                    if (computed.display === 'none' || computed.visibility === 'hidden' || parseFloat(computed.opacity) < 0.5) {
+                        console.log('[ASK BOOK] Button was hidden, forcing visible again');
+                        forceButtonAndScroll();
+                    }
                 }
-            }
 
-            // Also check scroll
-            const bodyOverflow = window.getComputedStyle(document.body).overflow;
-            if (bodyOverflow === 'hidden' && !document.querySelector('.ask-book-widget.active') && !document.querySelector('.concepts-modal-overlay.active')) {
-                console.log('[SCROLL] Was locked, forcing enabled');
-                document.body.style.overflow = 'auto';
-                document.body.style.overflowY = 'auto';
-            }
-        }, 3000);
+                // Also check scroll - but only if loader is done
+                const loader = document.getElementById('loader');
+                const loaderDone = !loader || loader.classList.contains('fully-hidden') || loader.classList.contains('hidden');
+
+                if (loaderDone) {
+                    const bodyOverflow = window.getComputedStyle(document.body).overflow;
+                    if (bodyOverflow === 'hidden' && !document.querySelector('.ask-book-widget.active') && !document.querySelector('.concepts-modal-overlay.active')) {
+                        console.log('[SCROLL] Was locked, forcing enabled');
+                        forceButtonAndScroll();
+                    }
+                }
+            }, 3000);
+        }, 13000); // Start interval checks after 13 seconds (loader + titan drop)
+
+        // Handle orientation change / resize - update button position
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function() {
+                const btn = document.getElementById('ask-book-toggle');
+                if (btn) {
+                    if (window.innerWidth <= 480) {
+                        btn.style.setProperty('bottom', '90px', 'important');
+                        btn.style.setProperty('right', '12px', 'important');
+                        btn.style.setProperty('width', '54px', 'important');
+                        btn.style.setProperty('height', '54px', 'important');
+                    } else if (window.innerWidth <= 768) {
+                        btn.style.setProperty('bottom', '100px', 'important');
+                        btn.style.setProperty('right', '16px', 'important');
+                        btn.style.setProperty('width', '60px', 'important');
+                        btn.style.setProperty('height', '60px', 'important');
+                    } else {
+                        btn.style.setProperty('bottom', '24px', 'important');
+                        btn.style.setProperty('right', '24px', 'important');
+                        btn.style.setProperty('width', '64px', 'important');
+                        btn.style.setProperty('height', '64px', 'important');
+                    }
+                }
+            }, 100);
+        });
+
+        // Also listen for orientation change specifically
+        window.addEventListener('orientationchange', function() {
+            setTimeout(forceButtonAndScroll, 300);
+        });
     })();
     </script>
 

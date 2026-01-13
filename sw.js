@@ -5,34 +5,18 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'ia-v1.0.4';
+const CACHE_VERSION = 'ia-v1.0.6';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 
-// Critical resources to pre-cache immediately
+// Critical resources to pre-cache immediately (minimal list to avoid install failures)
 const PRECACHE_ASSETS = [
     '/',
     '/index.html',
-    '/offline.html',
     '/InfiniteArchitectsKindle20260103.jpg',
     '/site.webmanifest',
-    '/favicon.ico',
-    '/favicon-32x32.png',
-    '/favicon-16x16.png',
-    '/apple-touch-icon.png',
-    '/android-chrome-192x192.png',
-    '/android-chrome-512x512.png',
-    '/bbc-willow.jpg',
-    '/author-photo.jpg',
-    '/london-night.mp4',
-    '/images/pillar-1.webp',
-    '/images/pillar-2.webp',
-    '/images/pillar-3.webp',
-    '/images/hrih-hero.webp',
-    '/images/love-core-ai.webp',
-    '/images/art-eden-greenhouse.webp',
-    '/images/hero-background.webp'
+    '/favicon.ico'
 ];
 
 // External resources to cache on first use
@@ -108,6 +92,21 @@ self.addEventListener('fetch', (event) => {
     // Skip chrome-extension and other non-http(s) requests
     if (!url.protocol.startsWith('http')) return;
 
+    // CRITICAL: Let external CDN requests pass through directly (don't intercept)
+    // This avoids CSP issues with service worker context
+    if (
+        url.hostname === 'fonts.googleapis.com' ||
+        url.hostname === 'fonts.gstatic.com' ||
+        url.hostname === 'cdnjs.cloudflare.com' ||
+        url.hostname === 'unpkg.com' ||
+        url.hostname === 'www.googletagmanager.com' ||
+        url.hostname === 'www.google-analytics.com' ||
+        url.hostname === 'analytics.google.com'
+    ) {
+        // Don't intercept - let browser handle directly
+        return;
+    }
+
     // Strategy selection based on request type
     if (request.destination === 'document' || request.mode === 'navigate') {
         // HTML: Network-first with offline fallback
@@ -115,14 +114,6 @@ self.addEventListener('fetch', (event) => {
     } else if (request.destination === 'image' || request.destination === 'video') {
         // Images & Videos: Cache-first with network fallback
         event.respondWith(cacheFirstWithNetworkFallback(request, IMAGE_CACHE));
-    } else if (
-        url.hostname === 'fonts.googleapis.com' ||
-        url.hostname === 'fonts.gstatic.com' ||
-        url.hostname === 'cdnjs.cloudflare.com' ||
-        url.hostname === 'unpkg.com'
-    ) {
-        // External resources: Cache-first (they don't change often)
-        event.respondWith(cacheFirstWithNetworkFallback(request, STATIC_CACHE));
     } else if (
         request.destination === 'script' ||
         request.destination === 'style' ||
