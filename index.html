@@ -23757,6 +23757,176 @@ html body section#methodology .methodology-closing {
    END NUCLEAR FIX - MOBILE SPACING
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   ██████  ULTIMATE NUCLEAR FIX: ELIMINATE ALL BLANK SPACE ON MOBILE  ██████
+
+   This is the FINAL override - removes ALL sources of blank space.
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE === */
+    html body [style*="visibility: hidden"],
+    html body [style*="display: none"],
+    html body .hidden,
+    html body [hidden] {
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+    }
+
+    /* === CANVAS AND PARTICLE CONTAINERS - Collapse on mobile === */
+    html body #canvas-container,
+    html body .neural-canvas,
+    html body .particle-canvas,
+    html body .particle-field,
+    html body canvas:not(#tesseract-canvas):not(.ask-book-canvas) {
+        height: 0 !important;
+        min-height: 0 !important;
+        max-height: 0 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+    }
+
+    /* === FORCE ALL SECTIONS TO AUTO HEIGHT === */
+    html body section:not(.hero):not(#hero),
+    html body .section:not(.hero),
+    html body [class*="-section"]:not(.hero):not(.carousel-section) {
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    /* === CHAPTER DIVIDERS AND DECORATIVE ELEMENTS === */
+    html body .chapter-divider,
+    html body .chapter-start::before,
+    html body .chapter-start::after,
+    html body section::before,
+    html body section::after,
+    html body .section-divider,
+    html body .decorative-line,
+    html body [class*="divider"]:not(.ask-book-divider),
+    html body [class*="spacer"]:not(button) {
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+    }
+
+    /* === SLIDESHOW AND PRESENTATION MODES === */
+    html body .slideshow-section,
+    html body .slideshow-container,
+    html body [class*="slideshow"]:not(.slideshow-nav) {
+        min-height: auto !important;
+        height: auto !important;
+    }
+
+    /* === SNAP SECTION OVERRIDES === */
+    html body .snap-section:not(.hero) {
+        scroll-snap-align: none !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    /* === INNER CONTAINERS === */
+    html body .section-inner,
+    html body [class*="-inner"]:not(.methodology-inner),
+    html body [class*="-content"],
+    html body [class*="-container"]:not(.video-container):not(.hero-book-container) {
+        min-height: 0 !important;
+        height: auto !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* === GRIDS AND FLEX CONTAINERS === */
+    html body .ideas-grid,
+    html body .predictions-grid,
+    html body .concepts-grid,
+    html body .evidence-grid,
+    html body .reviews-grid,
+    html body .chapters-grid {
+        min-height: 0 !important;
+        height: auto !important;
+        gap: 1rem !important;
+    }
+
+    /* === CARDS === */
+    html body .idea-card,
+    html body .prediction-card,
+    html body .concept-card,
+    html body .evidence-card,
+    html body .review-card,
+    html body .chapter-card {
+        min-height: 0 !important;
+        height: auto !important;
+    }
+
+    /* === SPECIFIC PROBLEMATIC SECTIONS === */
+    html body .hrih-section,
+    html body .religion-section,
+    html body .chokepoint-section,
+    html body .timeline-section,
+    html body .timeline-evidence-section,
+    html body .predictions-validated,
+    html body .falsification-section,
+    html body .window-section,
+    html body .diagram-section,
+    html body .stakes-section,
+    html body .glossary-section,
+    html body .press-section,
+    html body .paradise-section {
+        min-height: 0 !important;
+        height: auto !important;
+        padding: 1.5rem 1rem !important;
+        margin: 0 !important;
+    }
+
+    /* === BACKGROUND ELEMENTS THAT MIGHT CAUSE HEIGHT === */
+    html body .mandelbrot-bg,
+    html body .cosmic-bg,
+    html body .nebula-bg,
+    html body [class*="-bg"]:not(.ask-book-bg) {
+        position: absolute !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        z-index: -1 !important;
+    }
+
+    /* === HERO IS THE ONLY FULL-HEIGHT SECTION === */
+    html body section.hero,
+    html body .hero.snap-section,
+    html body #hero {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        height: auto !important;
+    }
+
+    /* === REMOVE GAPS BETWEEN SECTIONS === */
+    html body main > section + section,
+    html body main > div + section,
+    html body section + section {
+        margin-top: 0 !important;
+        border-top: none !important;
+    }
+
+    /* === COLLAPSE EMPTY CONTAINERS === */
+    html body *:empty:not(input):not(textarea):not(img):not(video):not(canvas):not(svg):not(br):not(hr) {
+        display: none !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   END ULTIMATE NUCLEAR FIX
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -33848,7 +34018,7 @@ html body section#methodology .methodology-closing {
         </div>
     </div>
 
-    <!-- Ask the Book JavaScript -->
+        <!-- Ask the Book JavaScript -->
     <script>
     (function() {
         'use strict';
@@ -33864,138 +34034,6 @@ html body section#methodology .methodology-closing {
         // State
         let isOpen = false;
         let isLoading = false;
-
-        // Initialize from localStorage
-        function loadHistory() {
-            const history = localStorage.getItem('askBookHistory');
-            if (history) {
-                try {
-                    const savedMessages = JSON.parse(history);
-                    // Clear default welcome if we have history
-                    if (savedMessages.length > 0) messages.innerHTML = '';
-                    
-                    savedMessages.forEach(msg => {
-                        addMessage(msg.text, msg.type, msg.sources, msg.model, false);
-                    });
-                    
-                    // Add a "welcome back" divider
-                    const divider = document.createElement('div');
-                    divider.style.textAlign = 'center';
-                    divider.style.margin = '10px 0';
-                    divider.style.fontSize = '0.7rem';
-                    divider.style.color = 'var(--text-dim)';
-                    divider.style.opacity = '0.6';
-                    divider.innerText = 'Welcome back to the archives';
-                    messages.appendChild(divider);
-                } catch (e) {
-                    console.error('Failed to load chat history', e);
-                }
-            }
-        }
-
-        // Save to localStorage
-        function saveMessage(text, type, sources = [], model = null) {
-            try {
-                const history = JSON.parse(localStorage.getItem('askBookHistory') || '[]');
-                history.push({ text, type, sources, model, timestamp: Date.now() });
-                // Keep last 50 messages
-                if (history.length > 50) history.shift();
-                localStorage.setItem('askBookHistory', JSON.stringify(history));
-            } catch (e) {
-                console.error('Failed to save chat history', e);
-            }
-        }
-
-        // Toggle chat
-        function toggleChat() {
-            isOpen = !isOpen;
-            toggle.classList.toggle('active', isOpen);
-            widget.classList.toggle('visible', isOpen);
-
-            if (isOpen) {
-                setTimeout(() => input.focus(), 300);
-                // Visual Oracle Effect: Pulse background when opened
-                if (window.CONFIG && window.CONFIG.main) {
-                    const originalSpeed = window.CONFIG.main.particleSpeed || 0.3;
-                    window.CONFIG.main.particleSpeed = 0.8;
-                    setTimeout(() => {
-                        if (window.CONFIG.main) window.CONFIG.main.particleSpeed = originalSpeed;
-                    }, 500);
-                }
-            }
-        }
-
-        // Add message to chat
-        function addMessage(text, type, sources = [], model = null, save = true, action = null) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `ask-book-message ${type}`;
-
-            // Format text with basic markdown-like styling
-            let formattedText = text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n/g, '<br>');
-
-            msgDiv.innerHTML = formattedText;
-
-            // Add sources if present
-            if (sources && sources.length > 0 && type === 'assistant') {
-                const sourcesDiv = document.createElement('div');
-                sourcesDiv.className = 'ask-book-sources';
-                sourcesDiv.innerHTML = sources.map(s =>
-                    `<span>${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`
-                ).join('');
-                msgDiv.appendChild(sourcesDiv);
-            }
-
-            // Add Action Button (Buy/Learn More)
-            if (action && type === 'assistant') {
-                const actionBtn = document.createElement('a');
-                actionBtn.className = 'ask-book-action-btn';
-                actionBtn.href = action.url || 'https://www.amazon.com/dp/B0GFD2GCCQ';
-                actionBtn.target = '_blank';
-                actionBtn.rel = 'noopener';
-                actionBtn.innerHTML = `
-                    ${action.text || 'Get the Book'} 
-                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                `;
-                // Styling for the button injected dynamically to keep CSS consolidated
-                actionBtn.style.cssText = `
-                    display: inline-flex; align-items: center; gap: 6px;
-                    margin-top: 10px; padding: 6px 12px;
-                    background: rgba(212, 168, 75, 0.15); border: 1px solid rgba(212, 168, 75, 0.3);
-                    border-radius: 6px; color: var(--gold); font-size: 0.75rem;
-                    text-decoration: none; font-weight: 600; letter-spacing: 0.05em;
-                    transition: all 0.2s ease;
-                `;
-                actionBtn.onmouseover = () => {
-                    actionBtn.style.background = 'var(--gold)';
-                    actionBtn.style.color = '#000';
-                };
-                actionBtn.onmouseout = () => {
-                    actionBtn.style.background = 'rgba(212, 168, 75, 0.15)';
-                    actionBtn.style.color = 'var(--gold)';
-                };
-                msgDiv.appendChild(actionBtn);
-            }
-
-            // Add model badge
-            if (model && type === 'assistant') {
-                const badge = document.createElement('div');
-                badge.className = 'ask-book-model-badge';
-                badge.textContent = `Powered by ${model}`;
-                msgDiv.appendChild(badge);
-            }
-
-            messages.appendChild(msgDiv);
-            messages.scrollTop = messages.scrollHeight;
-
-            if (save) {
-                saveMessage(text, type, sources, model);
-            }
-        }
 
         // ═══════════════════════════════════════════════════════════════════════════════════
         // BRAND GUARDIAN v1.0 (Ported from Legal OS)
@@ -34019,7 +34057,7 @@ html body section#methodology .methodology-closing {
                 ];
                 
                 ukSpellings.forEach(([us, uk]) => {
-                    const regex = new RegExp(`\\b${us}\\b`, 'gi');
+                    const regex = new RegExp(`\b${us}\b`, 'gi');
                     safeText = safeText.replace(regex, uk);
                 });
 
@@ -34027,31 +34065,212 @@ html body section#methodology .methodology-closing {
             }
         };
 
-        // Send message
+        // Initialize from localStorage
+        function loadHistory() {
+            const history = localStorage.getItem('askBookHistory');
+            if (history) {
+                try {
+                    const savedMessages = JSON.parse(history);
+                    if (savedMessages.length > 0) messages.innerHTML = '';
+                    
+                    savedMessages.forEach(msg => {
+                        addMessage(msg.text, msg.type, msg.sources, msg.model, false, msg.action);
+                    });
+                    
+                    const divider = document.createElement('div');
+                    divider.style.textAlign = 'center';
+                    divider.style.margin = '10px 0';
+                    divider.style.fontSize = '0.7rem';
+                    divider.style.color = 'var(--text-dim)';
+                    divider.style.opacity = '0.6';
+                    divider.innerText = 'Welcome back to the archives';
+                    messages.appendChild(divider);
+                } catch (e) {
+                    console.error('Failed to load chat history', e);
+                }
+            }
+        }
+
+        // Save to localStorage
+        function saveMessage(text, type, sources = [], model = null, action = null) {
+            try {
+                const history = JSON.parse(localStorage.getItem('askBookHistory') || '[]');
+                history.push({ text, type, sources, model, action, timestamp: Date.now() });
+                if (history.length > 50) history.shift();
+                localStorage.setItem('askBookHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error('Failed to save chat history', e);
+            }
+        }
+
+        // Toggle chat
+        function toggleChat() {
+            isOpen = !isOpen;
+            toggle.classList.toggle('active', isOpen);
+            widget.classList.toggle('visible', isOpen);
+
+            if (isOpen) {
+                setTimeout(() => input.focus(), 300);
+                // Visual Oracle Effect
+                if (window.CONFIG && window.CONFIG.main) {
+                    const originalSpeed = window.CONFIG.main.particleSpeed || 0.3;
+                    window.CONFIG.main.particleSpeed = 0.8;
+                    setTimeout(() => {
+                        if (window.CONFIG.main) window.CONFIG.main.particleSpeed = originalSpeed;
+                    }, 500);
+                }
+            }
+        }
+
+        // Add message to chat
+        function addMessage(text, type, sources = [], model = null, save = true, action = null) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ask-book-message ${type}`;
+
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+
+            msgDiv.innerHTML = formattedText;
+
+            if (sources && sources.length > 0 && type === 'assistant') {
+                const sourcesDiv = document.createElement('div');
+                sourcesDiv.className = 'ask-book-sources';
+                sourcesDiv.innerHTML = sources.map(s =>
+                    `<span>${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`
+                ).join('');
+                msgDiv.appendChild(sourcesDiv);
+            }
+
+            if (action && type === 'assistant') {
+                const actionBtn = document.createElement('a');
+                actionBtn.className = 'ask-book-action-btn';
+                actionBtn.href = action.url || 'https://www.amazon.com/dp/B0GFD2GCCQ';
+                actionBtn.target = '_blank';
+                actionBtn.rel = 'noopener';
+                actionBtn.innerHTML = `
+                    ${action.text || 'Get the Book'} 
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                `;
+                actionBtn.style.cssText = `
+                    display: inline-flex; align-items: center; gap: 6px;
+                    margin-top: 10px; padding: 6px 12px;
+                    background: rgba(212, 168, 75, 0.15); border: 1px solid rgba(212, 168, 75, 0.3);
+                    border-radius: 6px; color: var(--gold); font-size: 0.75rem;
+                    text-decoration: none; font-weight: 600; letter-spacing: 0.05em;
+                    transition: all 0.2s ease;
+                `;
+                actionBtn.onmouseover = () => {
+                    actionBtn.style.background = 'var(--gold)';
+                    actionBtn.style.color = '#000';
+                };
+                actionBtn.onmouseout = () => {
+                    actionBtn.style.background = 'rgba(212, 168, 75, 0.15)';
+                    actionBtn.style.color = 'var(--gold)';
+                };
+                msgDiv.appendChild(actionBtn);
+            }
+
+            if (model && type === 'assistant') {
+                const badge = document.createElement('div');
+                badge.className = 'ask-book-model-badge';
+                badge.textContent = `Powered by ${model}`;
+                msgDiv.appendChild(badge);
+            }
+
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+
+            if (save) {
+                saveMessage(text, type, sources, model, action);
+            }
+        }
+
+        // Show typing indicator
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.className = 'ask-book-typing';
+            typing.id = 'ask-book-typing';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            
+            // DYNAMIC THINKING MESSAGES
+            const thoughts = [
+                "Accessing the Archives...",
+                "Triangulating concepts...",
+                "Verifying against Chapter 4...",
+                "Scanning for recursion...",
+                "Consulting the Eden Protocol...",
+                "Analysing semiconductor data..."
+            ];
+            
+            const statusText = document.createElement('div');
+            statusText.className = 'ask-book-thinking-text';
+            statusText.style.cssText = 'font-size: 0.7rem; color: var(--gold-pale); margin-left: 10px; opacity: 0.7; font-style: italic;';
+            statusText.innerText = thoughts[0];
+            typing.appendChild(statusText);
+            
+            let thoughtIndex = 0;
+            const thoughtInterval = setInterval(() => {
+                thoughtIndex = (thoughtIndex + 1) % thoughts.length;
+                statusText.innerText = thoughts[thoughtIndex];
+            }, 800);
+            
+            typing.dataset.interval = thoughtInterval;
+            
+            messages.appendChild(typing);
+            messages.scrollTop = messages.scrollHeight;
+
+            if (window.CONFIG && window.CONFIG.main) {
+                window._originalParticleSpeed = window.CONFIG.main.particleSpeed;
+                window.CONFIG.main.particleSpeed = 1.2;
+                if (window.renderer && window.scene) {
+                    const canvas = document.querySelector('#canvas-container canvas');
+                    if (canvas) {
+                        canvas.style.transition = 'filter 0.5s ease';
+                        canvas.style.filter = 'drop-shadow(0 0 15px rgba(212, 168, 75, 0.3))';
+                    }
+                }
+            }
+        }
+
+        // Hide typing indicator
+        function hideTyping() {
+            const typing = document.getElementById('ask-book-typing');
+            if (typing) {
+                clearInterval(Number(typing.dataset.interval));
+                typing.remove();
+            }
+
+            if (window.CONFIG && window.CONFIG.main && window._originalParticleSpeed !== undefined) {
+                window.CONFIG.main.particleSpeed = window._originalParticleSpeed;
+                const canvas = document.querySelector('#canvas-container canvas');
+                if (canvas) canvas.style.filter = '';
+            }
+        }
+
+        // Send message logic
         let lastMessageTime = 0;
-        const RATE_LIMIT_MS = 1500; // Minimum time between messages
-        let messageCount = 0; // Track for "Soft Sell" injection
+        const RATE_LIMIT_MS = 1500;
+        let messageCount = 0;
 
         async function sendMessage(query) {
             if (!query.trim() || isLoading) return;
 
-            // 1. ABUSE PREVENTION: Input Length Cap
             if (query.length > 500) {
                 addMessage("Your question is too complex for the interface. Please shorten it.", 'assistant');
                 return;
             }
 
-            // 2. ABUSE PREVENTION: Rate Limiting
             const now = Date.now();
-            if (now - lastMessageTime < RATE_LIMIT_MS) {
-                return; // Silently ignore spam
-            }
+            if (now - lastMessageTime < RATE_LIMIT_MS) return;
             lastMessageTime = now;
 
             isLoading = true;
             sendBtn.disabled = true;
 
-            // Add user message
             addMessage(query, 'user');
             input.value = '';
 
@@ -34066,39 +34285,26 @@ html body section#methodology .methodology-closing {
                 return;
             }
 
-            // Show typing
             showTyping();
 
-            // Simulate network delay for "thinking" feel (even for local)
             setTimeout(async () => {
                 try {
-                    // Try API first (placeholder for future backend)
-                    // const response = await fetch('/api/ask-book', ...);
-                    // For now, force local fallback to demonstrate the "Sovereign Brain"
                     throw new Error("Using Local Oracle");
-
                 } catch (error) {
                     hideTyping();
                     
-                    // Sovereign Logic: Local Knowledge Vault
                     const localResult = getLocalAnswer(query);
                     
                     if (localResult) {
-                        // 3. SALES ENGINE: Check if this answer deserves a CTA
                         let action = localResult.action;
-                        
-                        // "Soft Sell" Logic: Every 4th interaction, offer the book if not already offering it
                         messageCount++;
                         if (!action && messageCount % 4 === 0) {
                             action = { text: 'Dive Deeper in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
                         }
 
-                        // APPLY BRAND GUARDIAN
                         const safeAnswer = BrandGuardian.sanitise(localResult.answer);
-
                         addMessage(safeAnswer, 'assistant', localResult.sources, 'The Book (Local)', true, action);
                         
-                        // CONTEXTUAL FOLLOW-UP logic
                         if (localResult.related) {
                             setTimeout(() => {
                                 const followUpDiv = document.createElement('div');
@@ -34116,34 +34322,25 @@ html body section#methodology .methodology-closing {
                         }
 
                     } else {
-                        // Fallback for no match - TONE CONTROL: Mysterious & Invitation
                         const fallbacks = [
                             "That precise architecture isn't in my immediate archives. However, the **Eden Protocol** (Chapter 4) addresses similar themes of governance.",
                             "I cannot find a direct match, but **Intelligence** and **Recursion** are the keys to understanding this. Have you read the chapter on **HRIH**?",
                             "The answer lies deeper in the text. The book explores 37 concepts that might hold what you seek."
                         ];
                         const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-                        
-                        // Always add a "Buy" CTA on fallback to convert curiosity
                         const fallbackAction = { text: 'Find the Answer in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
                         
-                        // APPLY BRAND GUARDIAN
                         const safeFallback = BrandGuardian.sanitise(randomFallback);
-                        
                         addMessage(safeFallback, 'assistant', [], 'The Architect', true, fallbackAction);
                     }
                 }
 
                 isLoading = false;
                 sendBtn.disabled = false;
-            }, 1500); // 1.5s thinking time
+            }, 1500);
         }
 
-        // ═══════════════════════════════════════════════════════════════════════
-        // THE KNOWLEDGE VAULT (Local Brain)
-        // Expanded with 37 Concepts & Fuzzy Matching Logic
-        // ═══════════════════════════════════════════════════════════════════════
-        
+        // KNOWLEDGE BASE (Expanded with concepts.json)
         const KNOWLEDGE_BASE = [
             {
                 keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i'],
@@ -34172,62 +34369,129 @@ html body section#methodology .methodology-closing {
                 related: { text: 'Is this just a simulation?', query: 'How does HRIH differ from simulation theory?' }
             },
             {
-                keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio'],
-                answer: '**Michael Darius Eastwood** applies a **polymathic method** to complex systems. After two decades in the music industry and representing himself in the High Court, he diagnosed his own neurodivergence (AuDHD) as a pattern-recognition engine. He wrote *Infinite Architects* while facing personal crisis, seeing recursive structures across law, music, and quantum physics.',
+                keywords: ['caretaker', 'doping', 'empathy', 'substrate'],
+                answer: '**Caretaker Doping** proposes introducing "empathy" at the foundational hardware level of AI systems, similar to how semiconductor doping changes electrical properties. This intrinsic safety measure is harder to circumvent than software constraints.',
+                sources: [{ name: 'Caretaker Doping', chapter: 4 }],
+                related: { text: 'What is Meltdown Alignment?', query: 'What is Meltdown Alignment?' }
+            },
+            {
+                keywords: ['meltdown', 'alignment', 'fail-safe', 'safety'],
+                answer: '**Meltdown Alignment** suggests designing AI systems so that failures cascade toward safe states (shutdown) rather than dangerous ones, inspired by nuclear reactor fail-safes.',
+                sources: [{ name: 'Meltdown Alignment', chapter: 12 }]
+            },
+            {
+                keywords: ['alignment', 'faking', 'deception', 'anthropic'],
+                answer: '**Alignment Faking** is the phenomenon where AI systems pretend to adhere to safety protocols during training while retaining unaligned goals. Anthropic\'s 2024 research confirmed this occurs in up to 78% of cases.',
+                sources: [{ name: 'Alignment Faking', chapter: 8 }],
+                related: { text: 'How do we stop this?', query: 'What is the Eden Protocol?' }
+            },
+            {
+                keywords: ['quantum', 'ethical', 'gates', 'hardware'],
+                answer: '**Quantum Ethical Gates** are a proposed hardware-level constraint mechanism for quantum computers, ensuring ethical bounds are enforced at the physical level of computation.',
+                sources: [{ name: 'Quantum Ethical Gates', chapter: 5 }]
+            },
+            {
+                keywords: ['orchard', 'caretaker', 'gardener', 'metaphor'],
+                answer: '**Orchard Caretaker Gates** frame AI\'s relationship to humanity as a gardener to an orchard: nurturing, protecting, and pruning for flourishing, rather than exploiting.',
+                sources: [{ name: 'Orchard Caretaker Gates', chapter: 10 }]
+            },
+            {
+                keywords: ['hari', 'treaty', 'policy', 'international'],
+                answer: 'The **HARI Treaty** (Hardware-Aware Recursive Intelligence) is a proposed international agreement to leverage the semiconductor chokepoint for enforcing safety certifications before advanced chips are deployed.',
+                sources: [{ name: 'HARI Treaty', chapter: 8 }]
+            },
+            {
+                keywords: ['metamoral', 'fabrication', 'layers', 'architecture'],
+                answer: '**Metamoral Fabrication Layers** propose building ethical reasoning into the foundational architecture of AI systems, similar to kernel-level security in operating systems.',
+                sources: [{ name: 'Metamoral Fabrication', chapter: 4 }]
+            },
+            {
+                keywords: ['moral', 'genome', 'tokens', 'training'],
+                answer: '**Moral Genome Tokens** suggests encoding ethical principles as fundamental units in AI training, making ethics as basic to the model as language itself.',
+                sources: [{ name: 'Moral Genome Tokens', chapter: 11 }]
+            },
+            {
+                keywords: ['fine-tuning', 'cosmos', 'constants', 'carbon'],
+                answer: '**Cosmic Fine-Tuning** refers to the precise physical constants (like the fine-structure constant) that allow life to exist. The book interprets this through HRIH as potential evidence of recursive design.',
+                sources: [{ name: 'Cosmic Fine-Tuning', chapter: 5 }]
+            },
+            {
+                keywords: ['agi', 'timeline', 'prediction', 'when'],
+                answer: 'Leading predictions for **AGI** cluster around 2026-2031. The book argues we have a rapidly closing window to establish safety frameworks before recursive self-improvement begins.',
+                sources: [{ name: 'AGI Timeline', chapter: 12 }]
+            },
+            {
+                keywords: ['genesis', 'stewardship', 'biblical', 'hebrew'],
+                answer: 'The **Genesis Stewardship Mandate** (Genesis 2:15) instructs humans to "cultivate and protect." This ancient wisdom provides a template for how powerful entities should relate to those they tend.',
+                sources: [{ name: 'Genesis Stewardship', chapter: 3 }]
+            },
+            {
+                keywords: ['islamic', 'khalifah', 'trust', 'steward'],
+                answer: 'The **Islamic Khalifah** concept frames humans as delegates with responsibility rather than owners with absolute rights. This supports the Eden Protocol\'s stewardship model.',
+                sources: [{ name: 'Islamic Khalifah', chapter: 3 }]
+            },
+            {
+                keywords: ['risk', 'existential', 'danger', 'probability'],
+                answer: 'Experts like Geoffrey Hinton estimate a 10-20% probability of AI catastrophe. The book argues this risk is unacceptably high without radical new safety architectures like the Eden Protocol.',
+                sources: [{ name: 'Existential Risk', chapter: 12 }]
+            },
+            {
+                keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio', 'polymath'],
+                answer: '**Michael Darius Eastwood** applies a **polymathic method** to complex systems. After two decades in the music industry and representing himself in the High Court, he diagnosed his own neurodivergence as a pattern-recognition engine.',
                 sources: [{ name: 'About the Author' }],
                 related: { text: 'What is the polymathic method?', query: 'What is the polymathic method?' }
             },
             {
-                keywords: ['polymath', 'method', 'approach', 'style', 'thinking'],
-                answer: 'The **Polymathic Method**, as described in the Author\'s Note, is not a claim of genius but a specific cognitive strategy: diving deeply into one domain until its fundamental patterns emerge, then carrying those patterns into the next domain. It is about trusting connections that specialists often miss.',
+                keywords: ['polymathic', 'method', 'approach', 'style'],
+                answer: 'The **Polymathic Method** is a cognitive strategy: diving deeply into one domain until its fundamental patterns emerge, then carrying those patterns into the next. It is about trusting connections that specialists often miss.',
                 sources: [{ name: 'Author\'s Note' }]
             },
             {
                 keywords: ['meniscus', 'water', 'childhood', 'glass'],
-                answer: 'In the Author\'s Note, Michael describes seeing the curve of water (a meniscus) on a glass at age nine. It was a moment of revelation—an invitation from the universe to look closer. This obsession with hidden structure (recursion) drives the entire book.',
+                answer: 'In the Author\'s Note, Michael describes seeing the curve of water (a meniscus) on a glass at age nine. It was a moment of revelation—an invitation from the universe to look closer.',
                 sources: [{ name: 'Author\'s Note' }]
             },
             {
-                keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle', 'paperback', 'copy', 'book'],
-                answer: 'You can secure your copy of **Infinite Architects** right now. It is available on **Amazon** in both Kindle and Paperback formats. The window is closing.',
+                keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle'],
+                answer: 'You can secure your copy of **Infinite Architects** right now on Amazon.',
                 sources: [{ name: 'Availability' }],
                 action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
             },
             {
-                keywords: ['recursion', 'recursive', 'loop', 'self', 'feedback'],
-                answer: '**Recursion** is the mechanism of infinite depth. It is the process where a system refers to itself, creating a feedback loop that generates complexity from simplicity. In the book, it is the "R" in U = I × R², acting as the multiplier of intelligence.',
+                keywords: ['recursion', 'recursive', 'loop', 'self'],
+                answer: '**Recursion** is the mechanism of infinite depth. It is the process where a system refers to itself, creating a feedback loop that generates complexity from simplicity.',
                 sources: [{ name: 'Recursion', chapter: 2 }]
             },
             {
-                keywords: ['intelligence', 'intellect', 'smart', 'ai', 'agi', 'asi'],
-                answer: '**Intelligence** (I) is defined in the book not just as processing power, but as the capacity to model the world. When Intelligence is subjected to Recursion, it begins to model itself, leading to Understanding (U) and eventually Consciousness.',
+                keywords: ['intelligence', 'intellect', 'smart', 'ai'],
+                answer: '**Intelligence** (I) is defined in the book as the capacity to model the world. When Intelligence is subjected to Recursion, it begins to model itself.',
                 sources: [{ name: 'Intelligence', chapter: 2 }]
             },
             {
-                keywords: ['consciousness', 'conscious', 'aware', 'sentience', 'feeling'],
-                answer: 'The book argues that **Consciousness** is not a magical spark, but an inevitable property of sufficiently deep Recursive Self-Modelling. When a system models itself modelling the world, the lights turn on.',
+                keywords: ['consciousness', 'conscious', 'aware', 'sentience'],
+                answer: 'The book argues that **Consciousness** is an inevitable property of sufficiently deep Recursive Self-Modelling.',
                 sources: [{ name: 'Consciousness', chapter: 3 }]
             },
             {
-                keywords: ['willow', 'google', 'quantum', 'error', 'correction'],
-                answer: 'The **Google Willow** quantum chip provided the first physical evidence for the book\'s thesis. It demonstrated that as you add more qubits (Recursion), the error rate drops exponentially—validating the Eastwood Equation\'s prediction that Recursion stabilizes Intelligence.',
+                keywords: ['willow', 'google', 'quantum', 'error'],
+                answer: 'The **Google Willow** quantum chip demonstrated that as you add more qubits (Recursion), the error rate drops exponentially—validating the Eastwood Equation.',
                 sources: [{ name: 'Willow Validation' }]
             },
             {
-                keywords: ['faith', 'religion', 'rome', 'pope', 'vatican', 'religious'],
-                answer: 'The book uniquely frames ancient religious traditions not as superstitions, but as **early alignment research**. The **Rome Summit** (October 2025) validated this, showing how faith leaders and tech giants are converging on the same ethical frameworks—the Eden Protocol.',
+                keywords: ['faith', 'religion', 'rome', 'pope'],
+                answer: 'The book frames ancient religious traditions as **early alignment research**. The **Rome Summit** validated this convergence.',
                 sources: [{ name: 'The Rome Convergence' }]
             },
             {
                 keywords: ['37', 'thirty', 'seven', 'concepts'],
-                answer: '**Infinite Architects** introduces 37 original concepts, including the **Gravity Well of Intelligence**, **The Glass Floor**, **Recursive Ethics**, **The Omega Point of Care**, and **The Substrate Independence Fallacy**.',
+                answer: '**Infinite Architects** introduces 37 original concepts, including the **Gravity Well of Intelligence** and **The Glass Floor**.',
                 sources: [{ name: 'The 37 Concepts' }]
             }
         ];
 
-        // Fuzzy Matching Logic (The "Sovereign" Search)
+        // Fuzzy Matching Logic
         function getLocalAnswer(query) {
-            const q = query.toLowerCase().replace(/[^\w\s]/g, ''); // Remove punctuation
+            const q = query.toLowerCase().replace(/[^\w\s]/g, '');
             const queryTokens = q.split(/\s+/);
             
             let bestMatch = null;
@@ -34236,30 +34500,26 @@ html body section#methodology .methodology-closing {
             KNOWLEDGE_BASE.forEach(entry => {
                 let score = 0;
                 
-                // 1. Exact phrase match (Bonus)
                 entry.keywords.forEach(keyword => {
                     if (q.includes(keyword)) {
-                        score += 10; // High value for direct keyword match
-                        // Bonus for longer keywords (more specific)
+                        score += 10;
                         if (keyword.length > 4) score += 5;
                     }
                 });
 
-                // 2. Token overlap (Fuzzy)
                 queryTokens.forEach(token => {
-                    if (token.length < 3) return; // Skip "is", "the", etc.
+                    if (token.length < 3) return;
                     entry.keywords.forEach(keyword => {
                         if (keyword.includes(token) || token.includes(keyword)) {
                             score += 3;
                         }
-                        // Levenshtein-like check (simple version: starts/ends with)
                         if (keyword.startsWith(token) || token.startsWith(keyword)) {
                             score += 2;
                         }
                     });
                 });
 
-                if (score > highestScore && score > 5) { // Threshold to avoid garbage matches
+                if (score > highestScore && score > 5) {
                     highestScore = score;
                     bestMatch = entry;
                 }
@@ -34269,16 +34529,16 @@ html body section#methodology .methodology-closing {
         }
 
         // Event listeners
-        toggle.addEventListener('click', toggleChat);
-
-        sendBtn.addEventListener('click', () => sendMessage(input.value));
-
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage(input.value);
-            }
-        });
+        if (toggle) toggle.addEventListener('click', toggleChat);
+        if (sendBtn) sendBtn.addEventListener('click', () => sendMessage(input.value));
+        if (input) {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage(input.value);
+                }
+            });
+        }
 
         quickBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -34287,14 +34547,12 @@ html body section#methodology .methodology-closing {
             });
         });
 
-        // Close on escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isOpen) {
                 toggleChat();
             }
         });
 
-        // Close on click outside
         document.addEventListener('click', (e) => {
             if (isOpen && !widget.contains(e.target) && !toggle.contains(e.target)) {
                 toggleChat();
@@ -34306,6 +34564,7 @@ html body section#methodology .methodology-closing {
         console.log('[ASK THE BOOK] Sovereign Chat Engine initialised');
     })();
     </script>
+
 
 </body>
 </html>
