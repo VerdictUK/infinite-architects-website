@@ -1797,21 +1797,44 @@
         /* The Eastwood Equation - Dramatic Formation */
         .loader-equation {
             position: absolute;
-            top: 38%;
+            top: 28%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 3;
             font-family: var(--font-display);
-            font-size: clamp(2rem, 8vw, 5rem);
             letter-spacing: 0.15em;
             opacity: 0;
             display: flex;
-            align-items: baseline;
-            gap: 0.1em;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
         }
 
         .loader-equation.reveal {
             opacity: 1;
+        }
+
+        .eq-formula {
+            display: flex;
+            align-items: baseline;
+            gap: 0.1em;
+            font-size: clamp(2rem, 8vw, 5rem);
+        }
+
+        .eq-label {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: clamp(0.6rem, 2vw, 0.9rem);
+            letter-spacing: 0.25em;
+            color: rgba(212, 168, 75, 0.7);
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+        }
+
+        .loader-equation.reveal .eq-label {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .eq-char {
@@ -1959,25 +1982,59 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════════
-           LOADER MASTERPIECE V2 - SMOOTH CINEMATIC PERFECTION
-           PRIORITY: SUPREME - Transform-only animations, viewport-safe positioning
+           PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
+           Transition from Loader to Site with physical weight
            ═══════════════════════════════════════════════════════════════════════════ */
-
-        /* Cinematic easing function */
-        :root {
-            --ease-cinematic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --ease-dramatic: cubic-bezier(0.19, 1, 0.22, 1);
-            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        
+        /* Initial State: Content hovering above viewport */
+        body:not(.cinematic) .content {
+            transform: translateY(-120vh);
+            opacity: 1; /* Keep opacity 1 so no blank flash */
+            will-change: transform;
+            position: relative;
+            z-index: 1;
         }
 
-        /* RESET: Loader container */
+        /* Active State: The Slam */
+        body.cinematic .content {
+            animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        @keyframes titanDrop {
+            0% { transform: translateY(-120vh); }
+            60% { transform: translateY(0); }
+            75% { transform: translateY(-40px); } /* Bounce up */
+            100% { transform: translateY(0); } /* Land solid */
+        }
+
+        /* Camera Shake on Impact */
+        body.cinematic {
+            animation: impactShake 0.5s linear 0.7s forwards; /* Timing matches the 'land' at 60% of 1.2s */
+        }
+
+        @keyframes impactShake {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(-5px, -5px); }
+            30% { transform: translate(5px, 5px); }
+            50% { transform: translate(-3px, 3px); }
+            70% { transform: translate(3px, -3px); }
+            90% { transform: translate(-1px, 1px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* Fix Blank Flash: Ensure Loader covers content until the drop */
         #loader {
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-            overflow: hidden !important;
+            transition: transform 0.8s ease-in, opacity 0.5s ease-out 0.8s; /* Slide up, then fade */
+            z-index: 99999;
+            background: var(--void);
         }
+
+        /* Loader exits by flying UP as content flies DOWN */
+        body.cinematic #loader {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
 
         /* QUOTES: Centered using transform only (GPU accelerated) */
         .loader-quotes {
@@ -9507,7 +9564,19 @@
             width: 100%;
             aspect-ratio: 16/9;
             display: block;
-            background: #000;
+            background: #000 url('images/bbc-willow.webp') center/cover no-repeat;
+            object-fit: cover;
+        }
+
+        /* Ensure video posters display on all devices */
+        video[poster] {
+            object-fit: cover;
+        }
+
+        /* Evidence video specific poster background */
+        .evidence-video {
+            background: #000 url('bbc-willow.jpg') center/cover no-repeat;
+            object-fit: cover;
         }
 
         .bbc-evidence-card__content {
@@ -25324,7 +25393,7 @@ main.content,
          ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loader">
         <!-- Mandelbrot Video Background - Recursion Made Visible -->
-        <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="auto">
+        <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="auto" style="background: #02030a;">
             <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
         </video>
         <div class="loader-video-overlay"></div>
@@ -25348,12 +25417,15 @@ main.content,
 
         <!-- The Eastwood Equation - Dramatic Formation -->
         <div class="loader-equation" id="loader-equation">
-            <span class="eq-char" data-delay="0">U</span>
-            <span class="eq-char eq-equals" data-delay="100">=</span>
-            <span class="eq-char" data-delay="200">I</span>
-            <span class="eq-char eq-operator" data-delay="300">×</span>
-            <span class="eq-char" data-delay="400">R</span>
-            <sup class="eq-char eq-super" data-delay="500">²</sup>
+            <div class="eq-formula">
+                <span class="eq-char" data-delay="0">U</span>
+                <span class="eq-char eq-equals" data-delay="100">=</span>
+                <span class="eq-char" data-delay="200">I</span>
+                <span class="eq-char eq-operator" data-delay="300">×</span>
+                <span class="eq-char" data-delay="400">R</span>
+                <sup class="eq-char eq-super" data-delay="500">²</sup>
+            </div>
+            <div class="eq-label" id="eq-label">THE EASTWOOD EQUATION</div>
         </div>
 
         <!-- Main UI -->
@@ -25919,7 +25991,7 @@ main.content,
                             </span>
                         </div>
                                             <div class="evidence-video-container">
-                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.jpg" preload="none" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
+                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.jpg" preload="metadata" style="background: url('bbc-willow.jpg') center/cover no-repeat;" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
                                                     <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                                 </video>
                         
@@ -26085,8 +26157,8 @@ main.content,
         <section class="timeline-evidence-section snap-section" id="bbc-timeline">
             <!-- Cosmic Portal Background for Evidence Section -->
             <div class="section-video-bg" aria-hidden="true">
-                <video class="section-video-bg__video" muted playsinline autoplay loop preload="none"
-                       style="opacity: 0.15;">
+                <video class="section-video-bg__video" muted playsinline autoplay loop preload="metadata"
+                       style="opacity: 0.15; background: #02030a;">
                     <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
             </div>
@@ -27156,13 +27228,14 @@ main.content,
         <section id="cta" class="cta-section snap-section">
             <!-- Video Portal Background (Phase 8) -->
             <div class="video-portal video-portal--blend" id="video-portal">
-                <video 
+                <video
                     id="portal-video"
-                    muted 
-                    loop 
-                    playsinline 
-                    preload="none"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
                     poster="hero-portal-poster.jpg"
+                    style="background: #02030a;"
                 >
                     <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
