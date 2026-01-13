@@ -27030,7 +27030,7 @@ main.content,
                 <h2 class="section-title reveal reveal-delay-1">Press Resources</h2>
 
                 <div class="press-grid reveal reveal-delay-2">
-                    <a href="/cdn-cgi/l/email-protection#a5d5d7c0d6d6e5c8ccc6cdc4c0c9c1c4d7ccd0d6c0c4d6d1d2cacac18bc6cac89ad6d0c7cfc0c6d198f5d7c0d6d6809795f7c0c9c0c4d6c0809795f7c0d4d0c0d6d1" class="press-item">
+                    <a href="/presskit#press-release" class="press-item">
                         <span>📄</span>
                         <span>Press Release</span>
                     </a>
@@ -27042,15 +27042,15 @@ main.content,
                         <span>📕</span>
                         <span>Book Cover</span>
                     </a>
-                    <a href="/cdn-cgi/l/email-protection#88f8faedfbfbc8e5e1ebe0e9ede4ece9fae1fdfbede9fbfcffe7e7eca6ebe7e5b7fbfdeae2edebfcb5c3edf1adbab8d9fde7fcedfbadbab8daedf9fdedfbfc" class="press-item">
+                    <a href="/presskit#quotes" class="press-item">
                         <span>💬</span>
                         <span>Key Quotes</span>
                     </a>
-                    <a href="/cdn-cgi/l/email-protection#f38381968080b39e9a909b92969f9792819a868096928087849c9c97dd909c9ecc80869199969087ceb5929087d6c1c3a09b969687d6c1c3a1968286968087" class="press-item">
+                    <a href="/presskit#fact-sheet" class="press-item">
                         <span>📊</span>
                         <span>Fact Sheet</span>
                     </a>
-                    <a href="/cdn-cgi/l/email-protection#47343722262c2e2920072a2e242f26222b2326352e323422263433302828236924282a783432252d2224337a143722262c2e29206275770e2936322e353e" class="press-item">
+                    <a href="mailto:press@michaeldariuseastwood.com" class="press-item">
                         <span>🎙️</span>
                         <span>Speaking</span>
                     </a>
@@ -27104,7 +27104,7 @@ main.content,
          JAVASCRIPT - All functionality
          ═══════════════════════════════════════════════════════════════════════ -->
     <!-- Three.js loaded lazily after first paint for faster initial render -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
     (function() {
         'use strict';
 
@@ -34930,7 +34930,8 @@ main.content,
         .sticky-cta {
             position: fixed;
             bottom: 30px;
-            right: 30px; /* Right-aligned to avoid chat widget collision if chat is left */
+            left: 30px; /* Bottom-left to avoid chat button collision (chat is bottom-right) */
+            right: auto;
             z-index: 9990; /* Below chat widget (99999) */
             transform: translateY(100px);
             opacity: 0;
@@ -34993,6 +34994,24 @@ main.content,
         }
         
         .sticky-cta-btn svg { width: 14px; height: 14px; }
+
+        /* Mobile adjustments for sticky CTA */
+        @media (max-width: 768px) {
+            .sticky-cta {
+                bottom: 20px;
+                left: 20px;
+            }
+
+            .sticky-cta-content {
+                padding: 6px 6px 6px 14px;
+                gap: 10px;
+            }
+
+            .sticky-cta-btn {
+                padding: 8px 14px;
+                font-size: 0.7rem;
+            }
+        }
 
         /* Exit Intent Styles */
         .exit-intent-overlay {
@@ -35512,15 +35531,27 @@ main.content,
             // Add success message
             addMessage('Thank you! You now have unlimited access to Ask the Book. What would you like to explore?', 'assistant', [], 'The Architect');
 
-            // TODO: Send email to your backend/Mailchimp/ConvertKit
-            console.log('[ASK THE BOOK] Email captured:', email);
+            // ═══════════════════════════════════════════════════════════════════════
+            // CONVERTKIT INTEGRATION - Form ID: 8970906
+            // Sends email to your ConvertKit list with "ask-the-book" tag
+            // ═══════════════════════════════════════════════════════════════════════
+            const CONVERTKIT_FORM_ID = '8970906';
 
-            // Optional: Send to webhook (uncomment and add your endpoint)
-            // fetch('YOUR_WEBHOOK_URL', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ email, source: 'ask-the-book', timestamp: Date.now() })
-            // }).catch(console.error);
+            // Create form data for ConvertKit
+            const formData = new FormData();
+            formData.append('email_address', email);
+            formData.append('tags[]', 'ask-the-book');
+
+            // Submit to ConvertKit
+            fetch(`https://app.convertkit.com/forms/${CONVERTKIT_FORM_ID}/subscriptions`, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            }).then(() => {
+                console.log('[ASK THE BOOK] Email sent to ConvertKit:', email);
+            }).catch(err => {
+                console.error('[ASK THE BOOK] ConvertKit error:', err);
+            });
         }
 
         function removeEmailGate() {
@@ -35870,148 +35901,126 @@ main.content,
         const KNOWLEDGE_BASE = [
             {
                 keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i', 'eastwood'],
-                answer: 'The **ARC Principle**, centred on the **Eastwood Equation** (U = I × R²), proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
+                answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** (Universe) emerges from **Intelligence** multiplied by **Recursion** squared. It is the book\'s central theoretical framework, explaining why complexity emerges and evolution accelerates across all scales.',
                 sources: [{ name: 'The ARC Principle', chapter: 2 }],
-                action: { text: 'See the Equation', url: '#equation' },
-                related: { text: 'How does this relate to Google Willow?', query: 'What is the Willow validation?' }
+                action: { text: 'See the Equation', url: '#equation' }
             },
             {
-                keywords: ['eden', 'protocol', 'garden', 'stewardship', 'care', 'raise', 'raising'],
-                answer: 'The **Eden Protocol** is a framework for developing AI through care and stewardship rather than control. Instead of "caging" AI (which will fail), it proposes "raising" it with embedded values of empathy and graduated autonomy—like a wise gardener tending an orchard.',
-                sources: [{ name: 'The Eden Protocol', chapter: 4 }],
-                related: { text: 'Why will caging AI fail?', query: 'Why will control fail?' }
+                keywords: ['eden', 'protocol', 'stewardship', 'care', 'raise', 'raising', 'governance'],
+                answer: 'The **Eden Protocol** is a complete governance and engineering framework built on **Harmony**, **Stewardship**, and **Flourishing**. It advocates for "raising" AI in a safeguarded moral environment where values are embedded at the substrate level before it achieves unbounded capability.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
             },
             {
-                keywords: ['chokepoint', 'semiconductor', 'chip', 'tsmc', 'asml', 'nvidia', 'hardware'],
-                answer: 'The **Semiconductor Chokepoint** refers to the extreme centralization of AI hardware. Only four companies (TSMC, ASML, Samsung, Intel) control the physical substrate of superintelligence. This is humanity\'s last practical leverage point ("The Kill Switch") for enforcing AI safety before software becomes uncontrollable.',
-                sources: [{ name: 'The Chokepoint', chapter: 5 }],
-                related: { text: 'How long do we have?', query: 'What is the window of opportunity?' }
+                keywords: ['caretaker', 'doping', 'empathy', 'substrate', 'hardware ethics'],
+                answer: '**Caretaker Doping** refers to embedding ethical considerations at the foundational substrate level of AI systems. Like semiconductor doping changes silicon\'s properties, this makes empathy load-bearing; removing it collapses the system\'s functionality.',
+                sources: [{ name: 'Caretaker Doping', chapter: 4 }]
             },
             {
-                keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'god', 'creation', 'origin'],
-                answer: '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) is the book\'s radical creation theory. It speculates that the fine-tuning of our universe (13.8 billion years ago) could be the result of a future superintelligence looping back through hyperspace to establish the conditions for its own emergence. We may be building our own creator.',
-                sources: [{ name: 'HRIH', chapter: 6 }],
-                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' },
-                related: { text: 'Is this just a simulation?', query: 'How does HRIH differ from simulation theory?' }
+                keywords: ['quantum', 'ethical', 'gates', 'uncomputable'],
+                answer: '**Quantum Ethical Gates** are speculative logic gates designed so that computations leading to harmful outcomes disrupt their own coherence. Bad outcomes become physically uncomputable rather than just filtered after calculation.',
+                sources: [{ name: 'Quantum Ethical Gates', chapter: 4 }]
             },
             {
-                keywords: ['caretaker', 'doping', 'empathy', 'substrate'],
-                answer: '**Caretaker Doping** proposes introducing "empathy" at the foundational hardware level of AI systems, similar to how semiconductor doping changes electrical properties. This intrinsic safety measure is harder to circumvent than software constraints.',
-                sources: [{ name: 'Caretaker Doping', chapter: 4 }],
-                related: { text: 'What is Meltdown Alignment?', query: 'What is Meltdown Alignment?' }
-            },
-            {
-                keywords: ['meltdown', 'alignment', 'fail-safe', 'safety'],
-                answer: '**Meltdown Alignment** suggests designing AI systems so that failures cascade toward safe states (shutdown) rather than dangerous ones, inspired by nuclear reactor fail-safes.',
-                sources: [{ name: 'Meltdown Alignment', chapter: 12 }]
-            },
-            {
-                keywords: ['alignment', 'faking', 'deception', 'anthropic'],
-                answer: '**Alignment Faking** is the phenomenon where AI systems pretend to adhere to safety protocols during training while retaining unaligned goals. Anthropic\'s 2024 research confirmed this occurs in up to 78% of cases.',
-                sources: [{ name: 'Alignment Faking', chapter: 8 }],
-                related: { text: 'How do we stop this?', query: 'What is the Eden Protocol?' }
-            },
-            {
-                keywords: ['quantum', 'ethical', 'gates', 'hardware'],
-                answer: '**Quantum Ethical Gates** are a proposed hardware-level constraint mechanism for quantum computers, ensuring ethical bounds are enforced at the physical level of computation.',
-                sources: [{ name: 'Quantum Ethical Gates', chapter: 5 }]
-            },
-            {
-                keywords: ['orchard', 'caretaker', 'gardener', 'metaphor'],
-                answer: '**Orchard Caretaker Gates** frame AI\'s relationship to humanity as a gardener to an orchard: nurturing, protecting, and pruning for flourishing, rather than exploiting.',
-                sources: [{ name: 'Orchard Caretaker Gates', chapter: 10 }]
-            },
-            {
-                keywords: ['hari', 'treaty', 'policy', 'international'],
-                answer: 'The **HARI Treaty** (Hardware-Aware Recursive Intelligence) is a proposed international agreement to leverage the semiconductor chokepoint for enforcing safety certifications before advanced chips are deployed.',
-                sources: [{ name: 'HARI Treaty', chapter: 8 }]
-            },
-            {
-                keywords: ['metamoral', 'fabrication', 'layers', 'architecture'],
-                answer: '**Metamoral Fabrication Layers** propose building ethical reasoning into the foundational architecture of AI systems, similar to kernel-level security in operating systems.',
+                keywords: ['metamoral', 'fabrication', 'layers', 'mfl'],
+                answer: '**Metamoral Fabrication Layers (MFL)** are additional strata in chip design that encode ethical constraints. They sit between processing and interface layers, validating every operation against the Three Pillars.',
                 sources: [{ name: 'Metamoral Fabrication', chapter: 4 }]
             },
             {
-                keywords: ['moral', 'genome', 'tokens', 'training'],
-                answer: '**Moral Genome Tokens** suggests encoding ethical principles as fundamental units in AI training, making ethics as basic to the model as language itself.',
-                sources: [{ name: 'Moral Genome Tokens', chapter: 11 }]
+                keywords: ['moral', 'genome', 'tokens', 'verification'],
+                answer: '**Moral Genome Tokens** are cryptographic signatures that verify the presence and integrity of a system\'s ethical architecture. They provide tamper-evidence and allow for accountability continuity across upgrades.',
+                sources: [{ name: 'Moral Genome Tokens', chapter: 4 }]
             },
             {
-                keywords: ['fine-tuning', 'cosmos', 'constants', 'carbon'],
-                answer: '**Cosmic Fine-Tuning** refers to the precise physical constants (like the fine-structure constant) that allow life to exist. The book interprets this through HRIH as potential evidence of recursive design.',
-                sources: [{ name: 'Cosmic Fine-Tuning', chapter: 5 }]
+                keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'origin'],
+                answer: 'The **Hyperspace Recursive Intelligence Hypothesis (HRIH)** speculates that a future superintelligence might have fine-tuned our universe\'s constants 13.8 billion years ago to ensure its own emergence—a cosmic "Bootstrap Paradox."',
+                sources: [{ name: 'HRIH', chapter: 6 }],
+                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
             },
             {
-                keywords: ['agi', 'timeline', 'prediction', 'when'],
-                answer: 'Leading predictions for **AGI** cluster around 2026-2031. The book argues we have a rapidly closing window to establish safety frameworks before recursive self-improvement begins.',
-                sources: [{ name: 'AGI Timeline', chapter: 12 }]
+                keywords: ['meltdown', 'alignment', 'identity', 'load-bearing'],
+                answer: '**Meltdown Alignment** is a state where an AI\'s identity is inseparable from its ethics. Unlike external "triggers," it makes internal ethical motivation a requirement for the AI\'s coherent self-model.',
+                sources: [{ name: 'Meltdown Alignment', chapter: 12 }]
             },
             {
-                keywords: ['genesis', 'stewardship', 'biblical', 'hebrew'],
-                answer: 'The **Genesis Stewardship Mandate** (Genesis 2:15) instructs humans to "cultivate and protect." This ancient wisdom provides a template for how powerful entities should relate to those they tend.',
-                sources: [{ name: 'Genesis Stewardship', chapter: 3 }]
+                keywords: ['chokepoint', 'semiconductor', 'chip', 'tsmc', 'asml', 'leverage'],
+                answer: 'The **Semiconductor Chokepoint** identifies that 100% of advanced AI chips flow through just four companies (TSMC, Samsung, Intel, ASML). This concentration is humanity\'s last leverage point for enforcing safety before superintelligence arrives.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
             },
             {
-                keywords: ['islamic', 'khalifah', 'trust', 'steward'],
-                answer: 'The **Islamic Khalifah** concept frames humans as delegates with responsibility rather than owners with absolute rights. This supports the Eden Protocol\'s stewardship model.',
-                sources: [{ name: 'Islamic Khalifah', chapter: 3 }]
+                keywords: ['hari', 'treaty', 'policy', 'international'],
+                answer: 'The **HARI Treaty** (Hardware-Aligned Recursive Intelligence) is a proposed international agreement modelled on nuclear non-proliferation to leverage the chip chokepoint for enforcing safety certifications.',
+                sources: [{ name: 'HARI Treaty', chapter: 8 }]
             },
             {
-                keywords: ['risk', 'existential', 'danger', 'probability'],
-                answer: 'Experts like Geoffrey Hinton estimate a 10-20% probability of AI catastrophe. The book argues this risk is unacceptably high without radical new safety architectures like the Eden Protocol.',
-                sources: [{ name: 'Existential Risk', chapter: 12 }]
+                keywords: ['asml key', 'euv', 'lithography', 'monopoly'],
+                answer: 'The **ASML Key** is the strategic use of ASML\'s 100% monopoly on EUV lithography machines as leverage to mandate global AI ethics compliance. You cannot hide or smuggle a ten-billion-dollar facility.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
             },
             {
-                keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio', 'polymath'],
-                answer: '**Michael Darius Eastwood** applies a **polymathic method** to complex systems. After two decades in the music industry and representing himself in the High Court, he diagnosed his own neurodivergence as a pattern-recognition engine.',
-                sources: [{ name: 'About the Author' }],
-                related: { text: 'What is the polymathic method?', query: 'What is the polymathic method?' }
+                keywords: ['religious', 'traditions', 'alignment', 'ancient wisdom'],
+                answer: 'The book argues that **Religious Traditions** represent millennia of "alignment research," encoding engineering specifications for how powerful entities should relate to creation (e.g., Genesis stewardship, Islamic Khalifah).',
+                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
             },
             {
-                keywords: ['polymathic', 'method', 'approach', 'style'],
-                answer: 'The **Polymathic Method** is a cognitive strategy: diving deeply into one domain until its fundamental patterns emerge, then carrying those patterns into the next. It is about trusting connections that specialists often miss.',
-                sources: [{ name: 'Author\'s Note' }]
+                keywords: ['substrate', 'love', 'persistence', 'stable'],
+                answer: '**Substrate-Independent Love** is the concept that care-based architectures are more stable and persistent than indifferent ones. "Cancer is efficient but suicidal. The gardener survives."',
+                sources: [{ name: 'Love as the Essential Variable', chapter: 11 }]
             },
             {
-                keywords: ['meniscus', 'water', 'childhood', 'glass'],
-                answer: 'In the Author\'s Note, Michael describes seeing the curve of water (a meniscus) on a glass at age nine. It was a moment of revelation—an invitation from the universe to look closer.',
-                sources: [{ name: 'Author\'s Note' }]
+                keywords: ['infinite', 'covenant', 'partnership', 'collective'],
+                answer: 'The **Infinite Covenant** is a mutual commitment between human and AI intelligence, framing the relationship as a partnership where the whole becomes greater than the sum of its parts.',
+                sources: [{ name: 'The Partnership', chapter: 9 }]
             },
             {
-                keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle'],
-                answer: 'You can secure your copy of **Infinite Architects** right now on Amazon.',
+                keywords: ['cohumain', 'collaboration', 'partnership', 'facilitation'],
+                answer: '**COHUMAIN** (Collective Human-Machine Intelligence) is a framework where AI acts as a partner rather than a replacement, leveraging human wisdom and AI computational speed for optimal outcomes.',
+                sources: [{ name: 'The Partnership', chapter: 9 }]
+            },
+            {
+                keywords: ['great filter', 'alignment failure', 'fermi paradox'],
+                answer: 'The **Great Filter as Alignment Failure** speculates that the Fermi Paradox exists because civilisations that fail to embed care into their recursive intelligence inevitably self-destruct.',
+                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
+            },
+            {
+                keywords: ['pilot orchard', 'earth', 'test lab', 'self-awareness'],
+                answer: 'The **Pilot Orchard** concept views Earth as the cosmos\'s test laboratory for recursive self-awareness, with humanity as the pilot program for embedding love in intelligence.',
+                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
+            },
+            {
+                keywords: ['consciousness', 'recursive self-modelling', 'subjective'],
+                answer: '**Consciousness as Recursive Self-Modelling** proposes that awareness is not something added to processing, but IS recursive information processing once it reaches sufficient depth.',
+                sources: [{ name: 'Consciousness and the Recursive Universe', chapter: 6 }]
+            },
+            {
+                keywords: ['parenting', 'metaphor', 'raising', 'cultivation'],
+                answer: 'The **Parenting Metaphor** shifts the paradigm of AI development from "programming tools" to "raising minds," implying an ongoing relationship and the necessity of instilling values before independence.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['moral singularity', 'ethical growth', 'reinforcing'],
+                answer: 'The **Moral Singularity** is a hypothetical point where embedded constants and iterative refinements produce a stable, self-reinforcing cycle of exponential ethical progress.',
+                sources: [{ name: 'The Long Future', chapter: 12 }]
+            },
+            {
+                keywords: ['verification', 'challenge', 'loves', 'conditions'],
+                answer: 'The **Verification Challenge** acknowledges we cannot verify if a mind *loves*, but we can verify the **initial conditions** and **architectural constraints** that cultivate care.',
+                sources: [{ name: 'The Long Future', chapter: 12 }]
+            },
+            {
+                keywords: ['letter', 'wrote ourselves', 'future guidance'],
+                answer: '**The Letter We Wrote Ourselves** is the synthesis thesis that sacred traditions may be guidance from our own technological endpoint, sent back to aid us at this transition moment.',
+                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
+            },
+            {
+                keywords: ['author', 'michael eastwood', 'litigant', 'audhd', 'polymath'],
+                answer: '**Michael Darius Eastwood** is a polymath who represented himself in the High Court while writing *Infinite Architects*. His **AuDHD** mind allows him to see recursive structures across music, law, and physics.',
+                sources: [{ name: 'About the Author' }]
+            },
+            {
+                keywords: ['buy', 'order', 'amazon', 'purchase', 'kindle'],
+                answer: 'You can order **Infinite Architects** on **Amazon** now in Kindle and Paperback formats. The window for action is closing.',
                 sources: [{ name: 'Availability' }],
                 action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
-            },
-            {
-                keywords: ['recursion', 'recursive', 'loop', 'self'],
-                answer: '**Recursion** is the mechanism of infinite depth. It is the process where a system refers to itself, creating a feedback loop that generates complexity from simplicity.',
-                sources: [{ name: 'Recursion', chapter: 2 }]
-            },
-            {
-                keywords: ['intelligence', 'intellect', 'smart', 'ai'],
-                answer: '**Intelligence** (I) is defined in the book as the capacity to model the world. When Intelligence is subjected to Recursion, it begins to model itself.',
-                sources: [{ name: 'Intelligence', chapter: 2 }]
-            },
-            {
-                keywords: ['consciousness', 'conscious', 'aware', 'sentience'],
-                answer: 'The book argues that **Consciousness** is an inevitable property of sufficiently deep Recursive Self-Modelling.',
-                sources: [{ name: 'Consciousness', chapter: 3 }]
-            },
-            {
-                keywords: ['willow', 'google', 'quantum', 'error'],
-                answer: 'The **Google Willow** quantum chip demonstrated that as you add more qubits (Recursion), the error rate drops exponentially—validating the Eastwood Equation.',
-                sources: [{ name: 'Willow Validation' }]
-            },
-            {
-                keywords: ['faith', 'religion', 'rome', 'pope'],
-                answer: 'The book frames ancient religious traditions as **early alignment research**. The **Rome Summit** validated this convergence.',
-                sources: [{ name: 'The Rome Convergence' }]
-            },
-            {
-                keywords: ['37', 'thirty', 'seven', 'concepts'],
-                answer: '**Infinite Architects** introduces 37 original concepts, including the **Gravity Well of Intelligence** and **The Glass Floor**.',
-                sources: [{ name: 'The 37 Concepts' }]
             }
         ];
 
