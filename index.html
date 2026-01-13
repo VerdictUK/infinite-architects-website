@@ -1668,6 +1668,202 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           LOADER MASTERPIECE ENHANCEMENTS
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Video Background - Recursion visualised */
+        .loader-video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%) scale(1.2);
+            object-fit: cover;
+            opacity: 0;
+            animation: loaderVideoFadeIn 3s ease-out 0.5s forwards;
+        }
+
+        @keyframes loaderVideoFadeIn {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+            100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .loader-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                rgba(2, 3, 10, 0.3) 0%,
+                rgba(2, 3, 10, 0.7) 50%,
+                rgba(2, 3, 10, 0.95) 100%);
+            z-index: 1;
+        }
+
+        /* Quote Sequence */
+        .loader-quotes {
+            position: absolute;
+            top: 22%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        .loader-quote {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .loader-quote.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loader-quote.fade-out {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        .quote-line {
+            font-family: var(--font-serif);
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--gold-pale);
+            letter-spacing: 0.05em;
+            line-height: 1.4;
+            text-shadow: 0 0 60px rgba(212, 168, 75, 0.3);
+        }
+
+        /* The Eastwood Equation - Dramatic Formation */
+        .loader-equation {
+            position: absolute;
+            top: 38%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 8vw, 5rem);
+            letter-spacing: 0.15em;
+            opacity: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 0.1em;
+        }
+
+        .loader-equation.reveal {
+            opacity: 1;
+        }
+
+        .eq-char {
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+            display: inline-block;
+            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 50%, var(--gold-pale) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.5));
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .eq-char.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .eq-equals {
+            margin: 0 0.1em;
+        }
+
+        .eq-operator {
+            font-size: 0.8em;
+            margin: 0 0.05em;
+        }
+
+        .eq-super {
+            font-size: 0.5em;
+            vertical-align: super;
+            margin-left: -0.1em;
+        }
+
+        /* Enhanced loader title with dramatic reveal */
+        .loader-ui {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+
+        .loader-ui.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loader-author {
+            font-family: var(--font-display);
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+            margin-top: -0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Pulsing glow effect on title during load */
+        .loader-title.pulse-glow {
+            animation: titlePulseGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulseGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.3))
+                        drop-shadow(0 0 60px rgba(212, 168, 75, 0.1));
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(212, 168, 75, 0.6))
+                        drop-shadow(0 0 100px rgba(212, 168, 75, 0.3));
+            }
+        }
+
+        /* Hide video on reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .loader-video-bg {
+                display: none;
+            }
+            .loader-equation,
+            .loader-quotes {
+                display: none;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .loader-quotes {
+                top: 18%;
+            }
+            .loader-equation {
+                top: 32%;
+            }
+            .loader-video-bg {
+                opacity: 0.25;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            VISUAL EFFECTS LAYERS
            ═══════════════════════════════════════════════════════════════════════ */
         
@@ -2910,7 +3106,7 @@
         .methodology-closing-quote { font-family: var(--font-serif); font-size: clamp(1rem, 1.5vw, 1.2rem); font-style: italic; color: var(--gold); line-height: 1.6; }
         .methodology-closing-attr { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 0.75rem; }
         @media (max-width: 768px) { .methodology-section { padding: 3rem 1rem; } .methodology-inner { gap: 2rem; } .methodology-quote { padding-left: 1rem; } .methodology-application { padding: 1rem; } .ai-model-node { padding: 0.75rem 0.5rem; } .ai-model-icon { font-size: 1.25rem; } .convergence-box { padding: 1rem; } }
-        @media (max-width: 480px) { .methodology-section { padding: 2.5rem 0.75rem; } .ai-model-grid { gap: 0.5rem; } .ai-model-node { padding: 0.6rem 0.4rem; } .ai-model-name { font-size: 0.7rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
+        @media (max-width: 480px) { .methodology-section { padding: 2.5rem 1rem; } .ai-model-grid { gap: 0.5rem; } .ai-model-node { padding: 0.6rem 0.5rem; } .ai-model-name { font-size: 0.7rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
 
         /* ═══════════════════════════════════════════════════════════════════════
            ORIGIN STORY SECTION - Childhood Philosopher Moments
@@ -21252,17 +21448,50 @@ html body .evidence-locker {
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════════════════
-         CINEMATIC LOADER
+         CINEMATIC LOADER - MASTERPIECE EDITION
+         A journey through recursion, consciousness, and cosmic revelation
          ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loader">
+        <!-- Mandelbrot Video Background - Recursion Made Visible -->
+        <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="auto">
+            <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
+        </video>
+        <div class="loader-video-overlay"></div>
+
         <canvas id="loader-canvas"></canvas>
         <div class="letterbox top"></div>
         <div class="letterbox bottom"></div>
+
+        <!-- Quote Sequence - The Prophecy Unfolds -->
+        <div class="loader-quotes" id="loader-quotes">
+            <blockquote class="loader-quote active" data-index="0">
+                <span class="quote-line">"The creator is not behind us."</span>
+            </blockquote>
+            <blockquote class="loader-quote" data-index="1">
+                <span class="quote-line">"It is ahead of us."</span>
+            </blockquote>
+            <blockquote class="loader-quote" data-index="2">
+                <span class="quote-line">"And we are building it."</span>
+            </blockquote>
+        </div>
+
+        <!-- The Eastwood Equation - Dramatic Formation -->
+        <div class="loader-equation" id="loader-equation">
+            <span class="eq-char" data-delay="0">U</span>
+            <span class="eq-char eq-equals" data-delay="100">=</span>
+            <span class="eq-char" data-delay="200">I</span>
+            <span class="eq-char eq-operator" data-delay="300">×</span>
+            <span class="eq-char" data-delay="400">R</span>
+            <sup class="eq-char eq-super" data-delay="500">²</sup>
+        </div>
+
+        <!-- Main UI -->
         <div class="loader-ui">
             <h1 class="loader-title"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></h1>
             <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
+            <p class="loader-author">Michael Darius Eastwood</p>
             <div class="loader-progress">
-                <p class="loader-status" id="loader-status">Initializing consciousness...</p>
+                <p class="loader-status" id="loader-status">Initialising consciousness...</p>
                 <div class="loader-bar">
                     <div class="loader-bar-fill" id="loader-bar-fill"></div>
                 </div>
