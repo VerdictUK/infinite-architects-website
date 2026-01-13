@@ -34829,9 +34829,347 @@ html body section#methodology .methodology-closing {
     </script>
 
     <!-- ═══════════════════════════════════════════════════════════════════════
-         ASK THE BOOK - AI Chat Widget
-         Multi-model intelligence grounded in book knowledge
+         PHASE 4: THE CONVERSION ENGINE
+         Smart Sticky CTA & Contextual Exit Intent
          ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Smart Sticky CTA -->
+    <div id="sticky-cta" class="sticky-cta">
+        <div class="sticky-cta-content">
+            <span class="sticky-cta-text" id="sticky-cta-text">The Architecture of Tomorrow</span>
+            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="sticky-cta-btn">
+                Get the Book
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contextual Exit Intent Modal -->
+    <div id="exit-intent-overlay" class="exit-intent-overlay">
+        <div class="exit-intent-modal glass-living">
+            <button class="exit-intent-close" aria-label="Close">×</button>
+            <div class="exit-intent-content">
+                <div class="exit-intent-icon">✨</div>
+                <h3 class="exit-intent-title" id="exit-title">Wait — Before You Return to the Void</h3>
+                <p class="exit-intent-desc" id="exit-desc">The answers you are looking for are waiting in the architecture.</p>
+                <div class="exit-intent-actions">
+                    <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="exit-intent-btn primary">
+                        Get Infinite Architects
+                    </a>
+                    <button class="exit-intent-btn secondary" id="exit-stay-btn">
+                        Keep Exploring
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Smart Sticky CTA Styles */
+        .sticky-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px; /* Right-aligned to avoid chat widget collision if chat is left */
+            z-index: 9990; /* Below chat widget (99999) */
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+        
+        .sticky-cta.visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .sticky-cta-content {
+            background: rgba(10, 12, 20, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 50px;
+            padding: 8px 8px 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .sticky-cta-text {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--gold-pale);
+            letter-spacing: 0.05em;
+            display: none; /* Hidden on small screens */
+        }
+        
+        @media (min-width: 768px) {
+            .sticky-cta-text { display: block; }
+        }
+        
+        .sticky-cta-btn {
+            background: var(--gold);
+            color: var(--void);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-cta-btn:hover {
+            background: var(--gold-bright);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.4);
+        }
+        
+        .sticky-cta-btn svg { width: 14px; height: 14px; }
+
+        /* Exit Intent Styles */
+        .exit-intent-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 3, 10, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100000; /* Topmost layer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .exit-intent-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .exit-intent-modal {
+            width: 90%;
+            max-width: 500px;
+            padding: 40px;
+            text-align: center;
+            border-radius: 20px;
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .exit-intent-overlay.active .exit-intent-modal {
+            transform: scale(1) translateY(0);
+        }
+        
+        .exit-intent-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+        
+        .exit-intent-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .exit-intent-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--gold-bright);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .exit-intent-desc {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .exit-intent-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .exit-intent-btn {
+            padding: 14px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .exit-intent-btn.primary {
+            background: var(--gold);
+            color: var(--void);
+            font-weight: 600;
+        }
+        
+        .exit-intent-btn.primary:hover {
+            background: var(--gold-bright);
+            box-shadow: 0 0 25px rgba(212, 168, 75, 0.4);
+        }
+        
+        .exit-intent-btn.secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-dim);
+        }
+        
+        .exit-intent-btn.secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+    </style>
+
+    <script>
+    (function() {
+        'use strict';
+        
+        // ═══════════════════════════════════════════════════════════════════════
+        // PHASE 4 LOGIC: CONVERSION INTELLIGENCE
+        // ═══════════════════════════════════════════════════════════════════════
+
+        // 1. INTEREST PROFILING ENGINE
+        // Tracks time spent in sections to determine user intent
+        const interests = {
+            equation: 0,
+            evidence: 0,
+            author: 0,
+            risk: 0
+        };
+        
+        let currentSection = null;
+        let sectionTimer = null;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Stop tracking previous section
+                    if (sectionTimer) clearInterval(sectionTimer);
+                    
+                    // Identify new section
+                    const id = entry.target.id;
+                    if (id.includes('equation')) currentSection = 'equation';
+                    else if (id.includes('evidence')) currentSection = 'evidence';
+                    else if (id.includes('author')) currentSection = 'author';
+                    else if (id.includes('risk') || id.includes('cta')) currentSection = 'risk';
+                    
+                    // Start tracking new section
+                    if (currentSection) {
+                        sectionTimer = setInterval(() => {
+                            interests[currentSection]++;
+                            updateStickyCTA(); // Update CTA text based on current interest
+                        }, 1000);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // 2. SMART STICKY CTA
+        const stickyCTA = document.getElementById('sticky-cta');
+        const stickyText = document.getElementById('sticky-cta-text');
+        
+        function updateStickyCTA() {
+            if (!stickyText) return;
+            
+            // Dynamic text based on active section
+            if (currentSection === 'equation') stickyText.textContent = "Master the Formula";
+            else if (currentSection === 'evidence') stickyText.textContent = "See the Proof";
+            else if (currentSection === 'author') stickyText.textContent = "Read Michael's Story";
+            else if (currentSection === 'risk') stickyText.textContent = "Secure the Future";
+            else stickyText.textContent = "The Architecture of Tomorrow";
+        }
+        
+        window.addEventListener('scroll', () => {
+            // Show only after scrolling past hero (approx 800px)
+            if (window.scrollY > 800) {
+                stickyCTA.classList.add('visible');
+            } else {
+                stickyCTA.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        // 3. CONTEXTUAL EXIT INTENT
+        const exitOverlay = document.getElementById('exit-intent-overlay');
+        const exitTitle = document.getElementById('exit-title');
+        const exitDesc = document.getElementById('exit-desc');
+        const closeBtn = document.querySelector('.exit-intent-close');
+        const stayBtn = document.getElementById('exit-stay-btn');
+        
+        let hasTriggeredExit = false; // Only show once per session
+        
+        function triggerExitIntent() {
+            if (hasTriggeredExit) return;
+            // Don't trigger if user hasn't engaged (scrolled)
+            if (window.scrollY < 500) return;
+            
+            hasTriggeredExit = true;
+            
+            // Determine dominant interest
+            const dominantInterest = Object.keys(interests).reduce((a, b) => interests[a] > interests[b] ? a : b);
+            
+            // Contextual Messaging
+            if (dominantInterest === 'equation' && interests.equation > 5) {
+                exitTitle.textContent = "Don't Leave the Formula Behind";
+                exitDesc.textContent = "You spent time analysing U = I × R². The book reveals how to apply it to your own future.";
+            } else if (dominantInterest === 'evidence' && interests.evidence > 5) {
+                exitTitle.textContent = "The Evidence is Irrefutable";
+                exitDesc.textContent = "Google Willow proved the theory. The Rome Summit confirmed the ethics. Don't miss the full picture.";
+            } else if (dominantInterest === 'author' && interests.author > 5) {
+                exitTitle.textContent = "Read the Full Story";
+                exitDesc.textContent = "15 High Court appearances. A 99% collapse. And the breakthrough that followed. Get the whole narrative.";
+            }
+            
+            exitOverlay.classList.add('active');
+        }
+        
+        // Trigger on mouse leaving top of viewport (Desktop)
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0) triggerExitIntent();
+        });
+        
+        // Close handlers
+        function closeExit() {
+            exitOverlay.classList.remove('active');
+        }
+        
+        if (closeBtn) closeBtn.addEventListener('click', closeExit);
+        if (stayBtn) stayBtn.addEventListener('click', closeExit);
+        if (exitOverlay) {
+            exitOverlay.addEventListener('click', (e) => {
+                if (e.target === exitOverlay) closeExit();
+            });
+        }
+        
+        console.log('[PHASE 4] Conversion Engine Active');
+    })();
+    </script>
+
 
     <!-- Chat Toggle Button -->
     <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book">
