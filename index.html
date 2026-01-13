@@ -1996,17 +1996,21 @@
             overflow: hidden; /* Only lock body during load */
         }
 
-        body:not(.cinematic) .content {
-            transform: translateY(-120vh);
-            opacity: 1; /* Keep opacity 1 so no blank flash */
+        html body:not(.cinematic) .content,
+        html body:not(.cinematic) #main-content {
+            transform: translateY(-120vh) !important;
+            opacity: 1 !important;
             will-change: transform;
             position: relative;
             z-index: 1;
         }
 
         /* Active State: The Slam */
-        body.cinematic .content {
-            animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        html body.cinematic .content,
+        html body.cinematic #main-content {
+            animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
         @keyframes titanDrop {
@@ -11850,11 +11854,14 @@
             }
         }
 
+        /* Competing animation removed to prioritize Titan Drop */
+        /*
         .cinematic .content,
         .cinematic main {
             animation: pageEmerge 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             animation-delay: 0.1s;
         }
+        */
 
         /* 6. MAGNETIC ELEMENT STYLING */
         .magnetic {
@@ -25543,9 +25550,9 @@ main.content,
                 <span class="pill-text">PREDICTION VERIFIED · JAN 7, 2026</span>
                 <a href="#prophecy" class="pill-link">Watch proof →</a>
             </div>
-            <!-- Holographic Book Container (Phase 11) -->
+            <!-- Holographic Book Container - CLICK TO ENTER PORTAL -->
             <div class="hero-book-container">
-                <div class="hero-book" id="hero-book">
+                <div class="hero-book book-portal" id="hero-book" role="button" tabindex="0" aria-label="Click to enter and explore the book">
                     <!-- Animated Video Book Cover -->
                     <video
                         class="book-cover-video"
@@ -25573,8 +25580,17 @@ main.content,
                             The creator is not behind us. It is ahead of us. And we are building it...
                         </p>
                     </div>
+                    <!-- Portal glow effect -->
+                    <div class="book-portal-glow"></div>
                 </div>
                 <div class="book-shadow" id="book-shadow"></div>
+                <!-- Click to begin hint -->
+                <div class="book-portal-hint">
+                    <span class="portal-hint-text">Click to begin</span>
+                    <svg class="portal-hint-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                </div>
             </div>
             
             <div class="hero-content-right">
