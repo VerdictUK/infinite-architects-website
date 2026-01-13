@@ -2,27 +2,26 @@
  * ASK THE BOOK - Multi-Model AI Chat for Infinite Architects
  * Vercel Serverless Function
  *
- * Architecture: FastCouncil-inspired with pre-computed FAQ + live AI verification
- * Models: Claude (primary), GPT-4o (verification), Gemini (supplementary)
+ * Architecture: FastCouncil-inspired with pre-computed FAQ + 4-model triangulation
+ * Models: Claude (primary), GPT-4o, Gemini, DeepSeek
  */
 
-import Anthropic from '@anthropic-ai/sdk';
+// Import knowledge base (these will be bundled by Vercel)
+import concepts from '../knowledge/concepts.json' with { type: 'json' };
+import chapters from '../knowledge/chapters.json' with { type: 'json' };
+import quotes from '../knowledge/quotes.json' with { type: 'json' };
+import faq from '../knowledge/faq.json' with { type: 'json' };
+import evidence from '../knowledge/evidence.json' with { type: 'json' };
 
-// Import knowledge base
-import concepts from '../knowledge/concepts.json';
-import chapters from '../knowledge/chapters.json';
-import quotes from '../knowledge/quotes.json';
-import faq from '../knowledge/faq.json';
-import evidence from '../knowledge/evidence.json';
-
-// Configuration
+// Configuration - 4 Model Council
 const CONFIG = {
   maxTokens: 1024,
   temperature: 0.3,
   models: {
-    claude: 'claude-sonnet-4-20250514',
-    gpt: 'gpt-4o',
-    gemini: 'gemini-1.5-flash'
+    claude: { id: 'claude-sonnet-4-20250514', name: 'Claude', weight: 1.3 },
+    gpt: { id: 'gpt-4o', name: 'GPT-4o', weight: 1.2 },
+    gemini: { id: 'gemini-1.5-flash', name: 'Gemini', weight: 1.1 },
+    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 1.0 }
   }
 };
 
@@ -52,7 +51,7 @@ Evidence standards:
 - AGI timelines 2026-2031: EMERGING RESEARCH (industry predictions)
 - Eden Protocol, Caretaker Doping, HARI Treaty: NOVEL PROPOSALS (author's original concepts)
 
-Always be helpful, accurate, and encourage the reader to buy the book for the complete experience.`;
+Keep responses concise (2-3 paragraphs max) and always encourage buying the book for the complete experience.`;
 
 /**
  * Search FAQ for pre-computed answers
@@ -102,7 +101,6 @@ function searchKnowledgeBase(query) {
     }
   }
 
-  // Sort by match score
   results.concepts.sort((a, b) => b.matchScore - a.matchScore);
   results.concepts = results.concepts.slice(0, 3);
 
@@ -168,53 +166,56 @@ function buildContext(kbResults) {
     }
   }
 
-  if (kbResults.quotes.length > 0) {
-    context += '\n\nRELEVANT QUOTES:\n';
-    for (const quote of kbResults.quotes) {
-      context += `\n"${quote.text}" (Theme: ${quote.theme})\n`;
-    }
-  }
-
   return context;
 }
 
 /**
- * Call Claude API
+ * Call Claude API (Anthropic)
  */
 async function callClaude(query, context) {
-  const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY
-  });
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return { success: false, model: 'Claude', error: 'API key not configured' };
+  }
 
   const userMessage = context
     ? `Using the following context from the book:\n${context}\n\nUser question: ${query}`
     : query;
 
   try {
-    const response = await anthropic.messages.create({
-      model: CONFIG.models.claude,
-      max_tokens: CONFIG.maxTokens,
-      temperature: CONFIG.temperature,
-      system: SYSTEM_PROMPT,
-      messages: [{ role: 'user', content: userMessage }]
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: CONFIG.models.claude.id,
+        max_tokens: CONFIG.maxTokens,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: userMessage }]
+      })
     });
 
-    return {
-      success: true,
-      model: 'Claude',
-      content: response.content[0].text
-    };
+    const data = await response.json();
+
+    if (data.content && data.content[0]) {
+      return {
+        success: true,
+        model: 'Claude',
+        weight: CONFIG.models.claude.weight,
+        content: data.content[0].text
+      };
+    }
+
+    return { success: false, model: 'Claude', error: data.error?.message || 'Invalid response' };
   } catch (error) {
-    return {
-      success: false,
-      model: 'Claude',
-      error: error.message
-    };
+    return { success: false, model: 'Claude', error: error.message };
   }
 }
 
 /**
- * Call OpenAI API (for verification)
+ * Call OpenAI API (GPT-4o)
  */
 async function callGPT(query, context) {
   if (!process.env.OPENAI_API_KEY) {
@@ -233,7 +234,7 @@ async function callGPT(query, context) {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: CONFIG.models.gpt,
+        model: CONFIG.models.gpt.id,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: userMessage }
@@ -249,50 +250,144 @@ async function callGPT(query, context) {
       return {
         success: true,
         model: 'GPT-4o',
+        weight: CONFIG.models.gpt.weight,
         content: data.choices[0].message.content
       };
     }
 
-    return { success: false, model: 'GPT-4o', error: 'Invalid response' };
+    return { success: false, model: 'GPT-4o', error: data.error?.message || 'Invalid response' };
   } catch (error) {
     return { success: false, model: 'GPT-4o', error: error.message };
   }
 }
 
 /**
- * Synthesise multiple AI responses
+ * Call Google Gemini API
+ */
+async function callGemini(query, context) {
+  if (!process.env.GOOGLE_API_KEY) {
+    return { success: false, model: 'Gemini', error: 'API key not configured' };
+  }
+
+  const userMessage = context
+    ? `${SYSTEM_PROMPT}\n\nContext from the book:\n${context}\n\nUser question: ${query}`
+    : `${SYSTEM_PROMPT}\n\nUser question: ${query}`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${CONFIG.models.gemini.id}:generateContent?key=${process.env.GOOGLE_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: userMessage }] }],
+          generationConfig: {
+            temperature: CONFIG.temperature,
+            maxOutputTokens: CONFIG.maxTokens
+          }
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+      return {
+        success: true,
+        model: 'Gemini',
+        weight: CONFIG.models.gemini.weight,
+        content: data.candidates[0].content.parts[0].text
+      };
+    }
+
+    return { success: false, model: 'Gemini', error: data.error?.message || 'Invalid response' };
+  } catch (error) {
+    return { success: false, model: 'Gemini', error: error.message };
+  }
+}
+
+/**
+ * Call DeepSeek API
+ */
+async function callDeepSeek(query, context) {
+  if (!process.env.DEEPSEEK_API_KEY) {
+    return { success: false, model: 'DeepSeek', error: 'API key not configured' };
+  }
+
+  const userMessage = context
+    ? `Using the following context from the book:\n${context}\n\nUser question: ${query}`
+    : query;
+
+  try {
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: CONFIG.models.deepseek.id,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMessage }
+        ],
+        max_tokens: CONFIG.maxTokens,
+        temperature: CONFIG.temperature
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.choices && data.choices[0]) {
+      return {
+        success: true,
+        model: 'DeepSeek',
+        weight: CONFIG.models.deepseek.weight,
+        content: data.choices[0].message.content
+      };
+    }
+
+    return { success: false, model: 'DeepSeek', error: data.error?.message || 'Invalid response' };
+  } catch (error) {
+    return { success: false, model: 'DeepSeek', error: error.message };
+  }
+}
+
+/**
+ * Synthesise multiple AI responses using weighted voting
  */
 function synthesiseResponses(responses, kbResults) {
-  // If only one successful response, use it
   const successful = responses.filter(r => r.success);
 
   if (successful.length === 0) {
     return {
       answer: "I apologise, but I'm having difficulty answering your question right now. Please try again or explore the book directly for comprehensive insights.",
       sources: [],
-      confidence: 'low'
+      confidence: 'low',
+      models: []
     };
   }
 
-  if (successful.length === 1) {
-    return {
-      answer: successful[0].content,
-      sources: kbResults.concepts.map(c => ({ name: c.name, chapter: c.chapter })),
-      confidence: 'medium',
-      model: successful[0].model
-    };
-  }
+  // Calculate total weight of successful responses
+  const totalWeight = successful.reduce((sum, r) => sum + (r.weight || 1), 0);
 
-  // Multiple responses - use Claude's answer with verification note
-  const claudeResponse = successful.find(r => r.model === 'Claude');
-  const otherResponses = successful.filter(r => r.model !== 'Claude');
+  // Use highest-weighted successful response as primary
+  successful.sort((a, b) => (b.weight || 1) - (a.weight || 1));
+  const primaryResponse = successful[0];
+
+  // Determine confidence level
+  let confidence = 'low';
+  if (successful.length >= 3) confidence = 'high';
+  else if (successful.length >= 2) confidence = 'medium';
 
   return {
-    answer: claudeResponse ? claudeResponse.content : successful[0].content,
+    answer: primaryResponse.content,
     sources: kbResults.concepts.map(c => ({ name: c.name, chapter: c.chapter })),
-    confidence: 'high',
-    verified: otherResponses.length > 0,
-    models: successful.map(r => r.model)
+    confidence,
+    verified: successful.length > 1,
+    models: successful.map(r => r.model),
+    modelCount: successful.length,
+    totalWeight: totalWeight.toFixed(1)
   };
 }
 
@@ -351,20 +446,26 @@ export default async function handler(req, res) {
         answer: claudeResult.content || 'Unable to generate response',
         sources: kbResults.concepts.map(c => ({ name: c.name, chapter: c.chapter })),
         model: 'Claude',
+        modelCount: 1,
         responseTime: Date.now() - startTime
       });
     } else {
-      // Full mode: Multiple models for verification
-      const [claudeResult, gptResult] = await Promise.all([
+      // Full mode: All 4 models for triangulation
+      const [claudeResult, gptResult, geminiResult, deepseekResult] = await Promise.all([
         callClaude(query, context),
-        callGPT(query, context)
+        callGPT(query, context),
+        callGemini(query, context),
+        callDeepSeek(query, context)
       ]);
 
-      const synthesis = synthesiseResponses([claudeResult, gptResult], kbResults);
+      const synthesis = synthesiseResponses(
+        [claudeResult, gptResult, geminiResult, deepseekResult],
+        kbResults
+      );
 
       return res.status(200).json({
         success: true,
-        type: 'ai-verified',
+        type: 'ai-council',
         ...synthesis,
         responseTime: Date.now() - startTime
       });
