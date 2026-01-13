@@ -7044,9 +7044,9 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .hrih-section {
             position: relative;
-            min-height: 100vh;
-            max-height: 100vh;
-            height: 100vh;
+            min-height: auto;
+            max-height: none;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -11110,9 +11110,9 @@
             scroll-snap-align: start;
             scroll-snap-stop: normal; /* Allow skipping */
 
-            /* Flexible height - content determines size */
-            min-height: 100vh;
-            min-height: 100dvh;
+            /* FIXED: Remove forced 100vh - content determines size */
+            min-height: auto;
+            height: auto;
             /* NO max-height - content can exceed viewport */
             /* NO fixed height - let content flow */
 
@@ -11123,7 +11123,7 @@
             /* Content layout */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             box-sizing: border-box;
 
@@ -11451,7 +11451,7 @@
         /* PARADISE SECTION - Garden/landscape with full background */
         .paradise-section.snap-section {
             justify-content: center !important;
-            min-height: 100vh !important;
+            min-height: auto !important;
             height: auto !important;
             overflow: hidden !important;
         }
@@ -12050,14 +12050,14 @@
             }
         }
 
-        /* Universal section background - cover full viewport */
+        /* Universal section background */
         .snap-section {
             background-size: cover !important;
             background-position: center center !important;
             background-repeat: no-repeat !important;
             background-attachment: scroll !important;
-            min-height: 100vh !important;
-            min-height: 100dvh !important;
+            min-height: auto !important;
+            height: auto !important;
             position: relative !important;
             overflow: hidden !important;
         }
@@ -12222,7 +12222,7 @@
 
         /* CAROUSEL SECTION - Fix marquee visibility */
         .carousel-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
             background: var(--void-deep) !important;
@@ -12230,7 +12230,7 @@
 
         /* DIAGRAM/ARCHITECTURE SECTION */
         .diagram-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
             background:
@@ -12240,7 +12240,7 @@
 
         /* FUTURE-BORN SECTION */
         .future-born-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
             background: var(--void-deep) !important;
@@ -12248,7 +12248,7 @@
 
         /* WINDOW SECTION */
         .window-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
             background:
@@ -12258,7 +12258,7 @@
 
         /* COMPARISON SECTION */
         .comparison-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
             background: var(--void-deep) !important;
@@ -12266,7 +12266,7 @@
 
         /* STAKES SECTION - Eden/Babylon image */
         .stakes-section.snap-section {
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
         }
@@ -12274,8 +12274,8 @@
         .stakes-image-wrapper {
             position: relative;
             width: 100%;
-            height: 100vh;
-            min-height: 100vh;
+            height: auto;
+            min-height: auto;
         }
 
         .stakes-image {
@@ -12294,7 +12294,7 @@
                 radial-gradient(ellipse at 50% 50%, rgba(74, 20, 140, 0.12) 0%, transparent 50%),
                 radial-gradient(ellipse at 20% 80%, rgba(212, 168, 75, 0.06) 0%, transparent 40%),
                 var(--void-deep, #02030a) !important;
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
         }
@@ -12305,7 +12305,7 @@
                 radial-gradient(ellipse at 70% 30%, rgba(212, 168, 75, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 30% 70%, rgba(26, 35, 126, 0.1) 0%, transparent 50%),
                 var(--void-deep, #02030a) !important;
-            min-height: 100vh;
+            min-height: auto !important;
             height: auto !important;
             overflow: visible !important;
         }
@@ -21420,6 +21420,81 @@ html body .evidence-locker {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   NUCLEAR OVERRIDE: ELIMINATE ALL BLANK SPACE
+   This block MUST be last to override all previous rules
+   ═══════════════════════════════════════════════════════════════════════════ */
+html body section,
+html body .snap-section,
+html body [class*="-section"] {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Exception: Hero needs minimum height for above-fold presence */
+html body .hero.snap-section {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+}
+
+/* All other sections - content determines height */
+html body .quote-section,
+html body .equation-section,
+html body .ideas-section,
+html body .carousel-section,
+html body .about-section,
+html body .origin-story,
+html body .methodology-section,
+html body .evidence-locker,
+html body .timeline-evidence-section,
+html body .predictions-section,
+html body .falsification-section,
+html body .predictions-validated,
+html body .hrih-section,
+html body .religion-section,
+html body .chokepoint-section,
+html body .window-section,
+html body .diagram-section,
+html body .future-born-section,
+html body .stakes-section,
+html body .reviews-section,
+html body .chapters-section,
+html body .comparison-section,
+html body .tripath-section,
+html body .cta-section,
+html body .newsletter-section,
+html body .paradise-section,
+html body .faq-section,
+html body .glossary-section,
+html body .timeline-section,
+html body .press-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+/* Remove excessive padding from compact sections */
+html body .carousel-section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+html body .quote-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+}
+
+html body .future-born-section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
+html body .paradise-section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -21977,6 +22052,173 @@ html body .evidence-locker {
                 <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
                 <blockquote class="carousel-item">"We're weaving Eden logic into the circuits themselves."</blockquote>
                 <blockquote class="carousel-item">"Unstoppable intelligence matched by unstoppable care."</blockquote>
+            </div>
+        </section>
+        <section class="section about-section snap-section" id="author">
+            <div class="section-inner about-inner">
+                <div class="about-visual about-visual-choice">
+                    <div class="author-photo-wrapper reveal">
+                        <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo">
+                    </div>
+                    <div class="tesseract-container">
+                        <canvas id="tesseract-canvas"></canvas>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="section-label reveal">The Author</p>
+                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
+
+                    <p class="reveal reveal-delay-2" style="font-style: italic; color: var(--gold); margin-bottom: 1.8rem;">
+                        "The mind that could not open post saw connections nobody else saw."
+                    </p>
+
+                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong style="color: var(--gold-bright);">AuDHD</strong> was already running.</p>
+
+                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
+
+                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong style="color: #e74c3c;">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
+
+                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong style="color: var(--gold-bright);">The struggles and the superpowers come from the same source.</strong></p>
+
+                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates, where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds, artificial or human, in service of life rather than against it.</p>
+
+                    <p class="reveal reveal-delay-8" style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 2rem;">
+                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
+                    </p>
+
+                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
+                    <div class="storm-story reveal reveal-delay-9">
+                        <span class="storm-story-label">The Present Moment</span>
+                        <h3 class="storm-story-headline">Married in the Storm</h3>
+                        <div class="storm-story-content">
+                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
+
+                            <p>In the midst of all this uncertainty, I got married.</p>
+
+                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
+
+                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
+
+                            <p>This is not recklessness. It is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
+
+                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
+                        </div>
+                        <span class="storm-story-principle">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="origin-story" id="origin">
+            <div class="origin-story-inner">
+                <header class="origin-story-header">
+                    <span class="section-label reveal">The Pattern-Seer</span>
+                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
+                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
+                </header>
+
+                <div class="origin-stories-grid">
+                    <!-- Story 1: The Inverted Spectrum -->
+                    <article class="origin-story-card reveal reveal-delay-3">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 6
+                        </span>
+                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
+                        <p class="origin-story-scene">
+                            Lying on my back in the grass at school, staring at the sky.
+                        </p>
+                        <p class="origin-story-insight">
+                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
+                        </p>
+                    </article>
+
+                    <!-- Story 2: The Meniscus -->
+                    <article class="origin-story-card reveal reveal-delay-4">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 9
+                        </span>
+                        <h3 class="origin-story-title">The Meniscus</h3>
+                        <p class="origin-story-scene">
+                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
+                        </p>
+                        <p class="origin-story-insight">
+                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="origin-story-coda reveal reveal-delay-5">
+                    <p>
+                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="methodology-section" id="methodology">
+            <div class="methodology-inner">
+                <div class="methodology-content">
+                    <div class="methodology-badge reveal">Proof of Concept</div>
+                    <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
+                    <blockquote class="methodology-quote reveal reveal-delay-2">"I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not."</blockquote>
+                    <p class="methodology-text reveal reveal-delay-3">Each model has blind spots, biases, and tendencies toward confident fabrication. By running the same questions through multiple systems and comparing outputs, I <span class="methodology-highlight">triangulate toward truth</span>.</p>
+                    <p class="methodology-text reveal reveal-delay-4">Where they agree, I have more confidence. Where they diverge, I investigate further. Where one hallucinates a citation that does not exist, another catches the error.</p>
+                    <div class="methodology-application reveal reveal-delay-5">
+                        <div class="application-header">
+                            <div class="application-icon">&#9878;</div>
+                            <div>
+                                <div class="application-title">Legal Technology Application</div>
+                                <div class="application-subtitle">Currently in Development</div>
+                            </div>
+                        </div>
+                        <div class="application-features">
+                            <div class="application-feature">Catches hallucinated citations before they reach the courtroom</div>
+                            <div class="application-feature">Preserves critical arguments that AI tends to strip out</div>
+                            <div class="application-feature">Compiles statistical patterns across proceedings</div>
+                            <div class="application-feature">Born from necessity: "It exists because I needed it to survive"</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="methodology-visual">
+                    <div class="ai-model-grid reveal reveal-delay-2">
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Claude</div><div class="ai-model-role">Nuance</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">GPT-4</div><div class="ai-model-role">Breadth</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Gemini</div><div class="ai-model-role">Synthesis</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Perplexity</div><div class="ai-model-role">Citations</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Llama</div><div class="ai-model-role">Verification</div></div>
+                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Mistral</div><div class="ai-model-role">Challenge</div></div>
+                    </div>
+                    <div class="convergence-box reveal reveal-delay-3">
+                        <div class="convergence-label">Triangulated Output</div>
+                        <div class="convergence-result">Truth Emerges from Disagreement</div>
+                        <div class="convergence-desc">"The cycling problem" - when AI strips critical nuance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="methodology-closing">
+                <p class="methodology-closing-quote reveal reveal-delay-4">"I am my own first experiment. The results have surprised even me."</p>
+                <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
             </div>
         </section>
         <section class="evidence-locker snap-section glass-living chapter-start" id="evidence-locker">
@@ -22698,174 +22940,7 @@ html body .evidence-locker {
                 <p class="diagram-caption reveal reveal-delay-3">The Eastwood Equation integrates recursion, governance, and consciousness into a unified framework.</p>
             </div>
         </section>
-        <section class="section about-section snap-section chapter-start" id="author">
-            <div class="section-inner about-inner">
-                <div class="about-visual about-visual-choice">
-                    <div class="author-photo-wrapper reveal">
-                        <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo">
-                    </div>
-                    <div class="tesseract-container">
-                        <canvas id="tesseract-canvas"></canvas>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <p class="section-label reveal">The Author</p>
-                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
-
-                    <p class="reveal reveal-delay-2" style="font-style: italic; color: var(--gold); margin-bottom: 1.8rem;">
-                        "The mind that could not open post saw connections nobody else saw."
-                    </p>
-
-                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong style="color: var(--gold-bright);">AuDHD</strong> was already running.</p>
-
-                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
-
-                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong style="color: #e74c3c;">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
-
-                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong style="color: var(--gold-bright);">The struggles and the superpowers come from the same source.</strong></p>
-
-                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates, where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds, artificial or human, in service of life rather than against it.</p>
-
-                    <p class="reveal reveal-delay-8" style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 2rem;">
-                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
-                    </p>
-
-                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
-                    <div class="storm-story reveal reveal-delay-9">
-                        <span class="storm-story-label">The Present Moment</span>
-                        <h3 class="storm-story-headline">Married in the Storm</h3>
-                        <div class="storm-story-content">
-                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
-
-                            <p>In the midst of all this uncertainty, I got married.</p>
-
-                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
-
-                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
-
-                            <p>This is not recklessness. It is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
-
-                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
-                        </div>
-                        <span class="storm-story-principle">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="origin-story" id="origin">
-            <div class="origin-story-inner">
-                <header class="origin-story-header">
-                    <span class="section-label reveal">The Pattern-Seer</span>
-                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
-                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
-                </header>
-
-                <div class="origin-stories-grid">
-                    <!-- Story 1: The Inverted Spectrum -->
-                    <article class="origin-story-card reveal reveal-delay-3">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            Age 6
-                        </span>
-                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
-                        <p class="origin-story-scene">
-                            Lying on my back in the grass at school, staring at the sky.
-                        </p>
-                        <p class="origin-story-insight">
-                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
-                        </p>
-                        <blockquote class="origin-story-quote">
-                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
-                        </p>
-                    </article>
-
-                    <!-- Story 2: The Meniscus -->
-                    <article class="origin-story-card reveal reveal-delay-4">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            Age 9
-                        </span>
-                        <h3 class="origin-story-title">The Meniscus</h3>
-                        <p class="origin-story-scene">
-                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
-                        </p>
-                        <p class="origin-story-insight">
-                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
-                        </p>
-                        <blockquote class="origin-story-quote">
-                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
-                        </p>
-                    </article>
-                </div>
-
-                <div class="origin-story-coda reveal reveal-delay-5">
-                    <p>
-                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
-                    </p>
-                </div>
-            </div>
-        </section>
-        <section class="methodology-section" id="methodology">
-            <div class="methodology-inner">
-                <div class="methodology-content">
-                    <div class="methodology-badge reveal">Proof of Concept</div>
-                    <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
-                    <blockquote class="methodology-quote reveal reveal-delay-2">"I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not."</blockquote>
-                    <p class="methodology-text reveal reveal-delay-3">Each model has blind spots, biases, and tendencies toward confident fabrication. By running the same questions through multiple systems and comparing outputs, I <span class="methodology-highlight">triangulate toward truth</span>.</p>
-                    <p class="methodology-text reveal reveal-delay-4">Where they agree, I have more confidence. Where they diverge, I investigate further. Where one hallucinates a citation that does not exist, another catches the error.</p>
-                    <div class="methodology-application reveal reveal-delay-5">
-                        <div class="application-header">
-                            <div class="application-icon">&#9878;</div>
-                            <div>
-                                <div class="application-title">Legal Technology Application</div>
-                                <div class="application-subtitle">Currently in Development</div>
-                            </div>
-                        </div>
-                        <div class="application-features">
-                            <div class="application-feature">Catches hallucinated citations before they reach the courtroom</div>
-                            <div class="application-feature">Preserves critical arguments that AI tends to strip out</div>
-                            <div class="application-feature">Compiles statistical patterns across proceedings</div>
-                            <div class="application-feature">Born from necessity: "It exists because I needed it to survive"</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="methodology-visual">
-                    <div class="ai-model-grid reveal reveal-delay-2">
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Claude</div><div class="ai-model-role">Nuance</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">GPT-4</div><div class="ai-model-role">Breadth</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Gemini</div><div class="ai-model-role">Synthesis</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Perplexity</div><div class="ai-model-role">Citations</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Llama</div><div class="ai-model-role">Verification</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Mistral</div><div class="ai-model-role">Challenge</div></div>
-                    </div>
-                    <div class="convergence-box reveal reveal-delay-3">
-                        <div class="convergence-label">Triangulated Output</div>
-                        <div class="convergence-result">Truth Emerges from Disagreement</div>
-                        <div class="convergence-desc">"The cycling problem" - when AI strips critical nuance</div>
-                    </div>
-                </div>
-            </div>
-            <div class="methodology-closing">
-                <p class="methodology-closing-quote reveal reveal-delay-4">"I am my own first experiment. The results have surprised even me."</p>
-                <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
-            </div>
-        </section>
-        <section id="future-born" class="future-born-section snap-section">
+        <section id="future-born" class="future-born-section snap-section chapter-start">
             <div class="future-born-bg">
                 <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" >
             </div>
@@ -24798,8 +24873,9 @@ html body .evidence-locker {
                         localStorage.setItem('ia_recursion_level', savedProgress);
                     }
                     
-                    // Trigger Milestone checks
-                    checkMilestones(currentLevel);
+                    // Trigger Chapter-Based Milestone checks
+                    const sectionId = entry.target.id;
+                    if (sectionId) checkChapterMilestone(sectionId);
                 } else {
                     if (entry.boundingClientRect.top > 0) {
                         entry.target.classList.add('entering');
@@ -24895,44 +24971,55 @@ html body .evidence-locker {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // DOPAMINE MILESTONES - Logic
+        // DOPAMINE MILESTONES - Chapter-Based Logic (Triggers on Chapters Only)
         // ═══════════════════════════════════════════════════════════════════════
-        let lastMilestone = parseInt(localStorage.getItem('ia_last_milestone')) || -1;
-        const milestones = [
-            { level: 1, title: "The Architect", text: "You have entered the first recursion.", icon: "🏛️" },
-            { level: 10, title: "The Pattern Seer", text: "Universal structures are becoming visible.", icon: "✨" },
-            { level: 20, title: "The Evidence Master", text: "You have verified the physical proofs.", icon: "🔬" },
-            { level: 37, title: "The Infinite Architect", text: "The loop is complete. You are ready.", icon: "🌌" }
-        ];
+        let lastChapterMilestone = parseInt(localStorage.getItem('ia_chapter_milestone')) || 0;
 
-        function checkMilestones(currentLevel) {
-            const milestone = milestones.find(m => m.level === currentLevel && m.level > lastMilestone);
-            if (milestone) {
-                lastMilestone = milestone.level;
-                showMilestoneToast(milestone);
+        // Chapter milestone definitions - triggers on first section of each chapter
+        const chapterMilestones = {
+            'hero': { chapter: 1, numeral: 'I', title: "THE THESIS", subtitle: "The journey into recursive intelligence begins.", icon: "🏛️" },
+            'evidence-locker': { chapter: 2, numeral: 'II', title: "THE EVIDENCE", subtitle: "Physical proofs and validated predictions.", icon: "🔬" },
+            'hrih': { chapter: 3, numeral: 'III', title: "THE PHILOSOPHY", subtitle: "Deep concepts of consciousness and time.", icon: "✨" },
+            'future-born': { chapter: 4, numeral: 'IV', title: "THE STAKES", subtitle: "Why this matters for humanity's future.", icon: "⚡" },
+            'get-the-book': { chapter: 5, numeral: 'V', title: "GET THE BOOK", subtitle: "The loop is complete. You are ready.", icon: "🌌" }
+        };
+
+        function checkChapterMilestone(sectionId) {
+            const milestone = chapterMilestones[sectionId];
+            if (milestone && milestone.chapter > lastChapterMilestone) {
+                lastChapterMilestone = milestone.chapter;
+                showChapterToast(milestone);
             }
         }
 
-        function showMilestoneToast(milestone) {
+        function showChapterToast(milestone) {
             const toast = document.getElementById('milestone-toast');
             const icon = document.getElementById('milestone-icon');
             const text = document.getElementById('milestone-text');
-            
+
+            if (!toast || !icon || !text) return;
+
             icon.textContent = milestone.icon;
-            text.innerHTML = `<strong>Level ${milestone.level}:</strong> ${milestone.title}`;
-            
+            text.innerHTML = `<strong>Chapter ${milestone.numeral}:</strong> ${milestone.title}`;
+
             toast.classList.add('active');
-            localStorage.setItem('ia_last_milestone', milestone.level);
-            
+            localStorage.setItem('ia_chapter_milestone', milestone.chapter);
+
             // Visual gold flash transition
             document.body.style.transition = 'background-color 0.3s ease';
             const originalBg = document.body.style.backgroundColor;
             document.body.style.backgroundColor = 'rgba(212, 168, 75, 0.05)';
-            
+
+            // Longer duration: 8 seconds for better readability
             setTimeout(() => {
                 toast.classList.remove('active');
                 document.body.style.backgroundColor = originalBg;
-            }, 5000);
+            }, 8000);
+        }
+
+        // Legacy function - now handled by chapter-based system
+        function checkMilestones(currentLevel) {
+            // Deprecated - milestones now trigger on chapter transitions only
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -29189,14 +29276,15 @@ html body .evidence-locker {
     // Book-like chapter navigation for mobile (replaces slideshow dots)
     // ═══════════════════════════════════════════════════════════════════════════
     const ChapterNavigation = {
-        // Chapter definitions - 5 chapters matching book structure (RESTRUCTURED 2026-01-13)
-        // Order: Thesis → Evidence → Philosophy → Stakes → Purchase
+        // Chapter definitions - 5 chapters (RESTRUCTURED 2026-01-13)
+        // Order: Thesis+Author → Evidence → Philosophy → Stakes → Purchase
+        // Author in Chapter I for early trust building
         chapters: [
             {
                 id: 'thesis',
                 name: 'THE THESIS',
                 numeral: 'I',
-                sections: ['hero', 'book', 'equation', 'ideas', 'carousel']
+                sections: ['hero', 'book', 'equation', 'ideas', 'carousel', 'author', 'origin', 'methodology']
             },
             {
                 id: 'evidence',
@@ -29214,7 +29302,7 @@ html body .evidence-locker {
                 id: 'stakes',
                 name: 'THE STAKES',
                 numeral: 'IV',
-                sections: ['author', 'origin', 'methodology', 'future-born', 'stakes', 'expert-validation', 'reviews', 'chapters', 'comparison']
+                sections: ['future-born', 'stakes', 'expert-validation', 'reviews', 'chapters', 'comparison']
             },
             {
                 id: 'book',
