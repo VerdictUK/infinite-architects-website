@@ -936,7 +936,8 @@
             opacity: 1;
             visibility: visible;
             transform: translate(-50%, -50%) scale(1);
-            animation: gatewayPulse 3s ease-in-out;
+            animation: gatewayPulse 3s ease-in-out forwards;
+            pointer-events: none !important; /* NEVER block scrolling */
         }
 
         @keyframes gatewayPulse {
@@ -1648,24 +1649,48 @@
         }
 
         /* Prevent scroll during loader - keeps page at top */
-        body:not(.cinematic) {
-            overflow: hidden;
-            height: 100vh;
+        body:not(.cinematic-ready) {
+            overflow: hidden !important;
+            height: 100vh !important;
+            position: fixed;
+            width: 100%;
         }
 
-        /* ENABLE SCROLL after loader completes - CRITICAL */
-        body.cinematic {
+        /* ENABLE SCROLL after drop completes - CRITICAL */
+        body.cinematic-ready {
             overflow: auto !important;
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
             min-height: 100vh !important;
+            position: relative;
         }
 
         html.cinematic-ready {
             overflow: auto !important;
             overflow-y: auto !important;
             overflow-x: hidden !important;
+        }
+
+        /* Impact Flash Overlay */
+        .impact-flash {
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            z-index: 200000;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        body.cinematic .impact-flash {
+            animation: impactFlash 1.5s cubic-bezier(0.23, 1, 0.32, 1) 1.1s forwards;
+        }
+
+        @keyframes impactFlash {
+            0% { opacity: 0; transform: scale(0.8); }
+            5% { opacity: 1; transform: scale(1); filter: blur(20px); }
+            100% { opacity: 0; transform: scale(1.5); filter: blur(0); }
         }
 
         /* Reduced motion */
@@ -2197,7 +2222,7 @@
         /* Active state: The slam - SWOOSH DOWN effect */
         html body.cinematic .content,
         html body.cinematic #main-content {
-            animation: titanDrop 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: titanDrop 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
         }
@@ -2205,7 +2230,7 @@
         /* Ensure scroll is unlocked when cinematic is active */
         html.cinematic-ready,
         html.cinematic-ready body,
-        body.cinematic {
+        body.cinematic-ready {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
@@ -2213,21 +2238,33 @@
 
         @keyframes titanDrop {
             0% {
-                transform: translateY(-100vh);
-                opacity: 0.8;
+                transform: translateY(-100vh) scale(0.9);
+                opacity: 0.5;
+                filter: brightness(2) blur(10px);
             }
-            60% {
-                transform: translateY(0);
+            15% {
                 opacity: 1;
+                filter: brightness(1.5) blur(5px);
             }
-            75% {
-                transform: translateY(-6px); /* Subtle bounce */
+            45% {
+                transform: translateY(45px) scale(1.05); /* Deeper overshoot */
+                filter: brightness(4) contrast(1.5) saturate(0); /* DRAMATIC WHITE-OUT SPIKE ON IMPACT */
             }
-            90% {
-                transform: translateY(2px);
+            50% {
+                filter: brightness(1.5) contrast(1.2) saturate(0.5);
+            }
+            65% {
+                transform: translateY(-30px) scale(0.97); /* More bounce back */
+                filter: brightness(1) contrast(1) saturate(1);
+            }
+            82% {
+                transform: translateY(15px) scale(1.02);
+            }
+            92% {
+                transform: translateY(-5px);
             }
             100% {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
@@ -2239,19 +2276,26 @@
 
         /* Camera Shake on Impact - Applied to CONTENT wrapper, not body */
         /* This preserves position:fixed elements (chat button, nav, etc) */
-        /* Delay matches titanDrop landing (around 50% of 2.5s = 1.25s) */
+        /* Delay matches titanDrop landing (around 45% of 2.5s = 1.125s) */
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
-            animation: impactShake 0.3s ease-out 1.1s forwards;
+            animation: impactShake 0.8s cubic-bezier(.36,.07,.19,.97) 1.1s forwards;
         }
 
         @keyframes impactShake {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(-2px, -1px); }
-            50% { transform: translate(2px, 1px); }
-            75% { transform: translate(-1px, 0); }
-            100% { transform: none; }
+            0% { transform: translate(0, 0) scale(1); }
+            5% { transform: translate(-15px, -20px) scale(1.03); }
+            15% { transform: translate(15px, 20px) scale(0.97); }
+            25% { transform: translate(-12px, -15px) scale(1.02); }
+            35% { transform: translate(12px, 15px) scale(0.98); }
+            45% { transform: translate(-8px, -10px) scale(1.01); }
+            55% { transform: translate(8px, 10px) scale(0.99); }
+            65% { transform: translate(-5px, -6px) scale(1.005); }
+            75% { transform: translate(5px, 6px) scale(0.995); }
+            85% { transform: translate(-2px, -3px) scale(1.002); }
+            95% { transform: translate(1px, 1px) scale(1); }
+            100% { transform: none; } /* CRITICAL: none, not translate(0,0) */
         }
 
         /* Fix Blank Flash: Ensure Loader covers content until the drop */
@@ -25922,6 +25966,7 @@ main.content, #main-content {
          A journey through recursion, consciousness, and cosmic revelation
          ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loader">
+        <div class="impact-flash" id="impact-flash"></div>
         <!-- Mandelbrot Video Background - Recursion Made Visible -->
         <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="auto" style="background: #02030a;">
             <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
@@ -28621,7 +28666,8 @@ main.content, #main-content {
             rings: [],
             progress: 0,
             startTime: Date.now(),
-            skipped: false
+            skipped: false,
+            completed: false
         };
 
         const STATUS_PHASES = [
@@ -28846,18 +28892,29 @@ main.content, #main-content {
             document.addEventListener('keydown', skipLoader);
 
             function completeLoader() {
+                if (loaderState.completed) return;
+                loaderState.completed = true;
+
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // Trigger the Titan Drop & Loader Exit
-                document.body.classList.add('cinematic');
-                document.documentElement.classList.add('cinematic-ready');
-                loader.classList.add('hidden'); // Trigger the slide-up
+                // Phase 1: Subtle shimmer before exit
+                const loaderUI = loader.querySelector('.loader-ui');
+                if (loaderUI) {
+                    loaderUI.style.transition = 'filter 0.5s ease, opacity 0.5s ease';
+                    loaderUI.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
+                }
 
-                // Allow scroll after drop finishes (matches 2.5s titanDrop animation)
+                // Phase 2: Trigger the Titan Drop & Loader Exit
                 setTimeout(() => {
-                    // FORCE UNLOCK SCROLL - Multiple approaches for maximum compatibility
-                    document.body.classList.add('cinematic'); // Ensure class is present
+                    document.body.classList.add('cinematic');
+                    loader.classList.add('hidden'); // Trigger the slide-up
+                }, 400);
+
+                // Phase 3: Allow scroll after drop finishes (matches 2.5s titanDrop animation)
+                setTimeout(() => {
+                    // FORCE UNLOCK SCROLL
+                    document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
 
                     // Inline styles as backup
@@ -28868,6 +28925,13 @@ main.content, #main-content {
                     document.documentElement.style.overflow = 'auto';
                     document.documentElement.style.overflowY = 'auto';
                     document.documentElement.style.overflowX = 'hidden';
+                    document.body.style.position = 'relative';
+
+                    // CRITICAL: Resize Lenis to recalculate scroll bounds after unlock
+                    if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
+                        window.lenisInstance.resize();
+                        console.log('[LENIS] Resize called after scroll unlock');
+                    }
 
                     // Cleanup loader
                     loader.classList.add('fully-hidden');
@@ -28892,43 +28956,44 @@ main.content, #main-content {
                         book.classList.add('float');
                     }
 
-                    // Force Ask Book button visible on both mobile and desktop
-                    const askBtn = document.getElementById('ask-book-toggle');
-                    if (askBtn) {
-                        askBtn.style.setProperty('display', 'flex', 'important');
-                        askBtn.style.setProperty('visibility', 'visible', 'important');
-                        askBtn.style.setProperty('opacity', '1', 'important');
-                        askBtn.style.setProperty('position', 'fixed', 'important');
-                        askBtn.style.setProperty('z-index', '2147483647', 'important');
-                        askBtn.style.setProperty('pointer-events', 'auto', 'important');
+                    // Phase 4: Cinematic entrance for Ask Book button (after impact)
+                    setTimeout(() => {
+                        const askBtn = document.getElementById('ask-book-toggle');
+                        if (askBtn) {
+                            askBtn.style.setProperty('display', 'flex', 'important');
+                            askBtn.style.setProperty('visibility', 'visible', 'important');
+                            askBtn.style.setProperty('opacity', '0', 'important'); // Start hidden
+                            askBtn.style.setProperty('transform', 'scale(0.5) translateY(50px)', 'important');
+                            askBtn.style.setProperty('transition', 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)', 'important');
+                            
+                            // Force reflow
+                            void askBtn.offsetWidth;
+                            
+                            askBtn.style.setProperty('opacity', '1', 'important');
+                            askBtn.style.setProperty('transform', 'scale(1) translateY(0)', 'important');
+                            askBtn.style.setProperty('z-index', '2147483647', 'important');
+                            askBtn.style.setProperty('pointer-events', 'auto', 'important');
 
-                        // Mobile vs Desktop positioning
-                        if (window.innerWidth <= 768) {
-                            askBtn.style.setProperty('bottom', '100px', 'important');
-                            askBtn.style.setProperty('right', '16px', 'important');
-                            askBtn.style.setProperty('width', '60px', 'important');
-                            askBtn.style.setProperty('height', '60px', 'important');
-                        } else {
-                            askBtn.style.setProperty('bottom', '24px', 'important');
-                            askBtn.style.setProperty('right', '24px', 'important');
-                            askBtn.style.setProperty('width', '64px', 'important');
-                            askBtn.style.setProperty('height', '64px', 'important');
+                            console.log('[LOADER COMPLETE] Ask Book button cinematic entry');
                         }
-                        console.log('[LOADER COMPLETE] Ask Book button shown');
-                    }
+                    }, 1000); // 1s after site becomes ready
 
-                }, 2000); // Matches 1.8s titanDrop animation
+                }, 3000); // 400ms delay + 2.5s animation + buffer
 
-                // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability after 5s in case of any animation hang
                 setTimeout(() => {
-                    document.body.classList.add('cinematic');
+                    document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
                     document.body.style.overflow = 'auto';
                     document.body.style.overflowY = 'auto';
                     document.body.style.height = 'auto';
-                    document.documentElement.style.overflow = 'auto';
-                    document.documentElement.style.overflowY = 'auto';
-                }, 3000);
+                    document.body.style.position = 'relative';
+
+                    // Safety resize for Lenis
+                    if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
+                        window.lenisInstance.resize();
+                    }
+                }, 5000);
             }
 
             function animate() {
@@ -28936,7 +29001,9 @@ main.content, #main-content {
                 const progress = Math.min(1, elapsed / CONFIG.loader.duration);
                 loaderState.progress = progress;
 
-                const { width: w, height: h } = canvas;
+                // Use CSS dimensions (not DPR-scaled canvas dimensions) for coordinate calculations
+                const w = window.innerWidth;
+                const h = window.innerHeight;
                 const cx = w / 2;
                 const cy = h / 2;
                 const fl = 350;
@@ -34325,13 +34392,14 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         // PHASE 9: LIQUID REALITY SCROLL
         // ═══════════════════════════════════════════════════════════════════════
-        let lenis = null;
-        
+        // Expose globally so completeLoader can call resize() after cinematic unlock
+        window.lenisInstance = null;
+
         // Only enable smooth scroll on capable devices
-        const enableLiquidScroll = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
-        if (enableLiquidScroll && typeof Lenis !== 'undefined') {
-            lenis = new Lenis({
+        const enableLenisScroll = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (enableLenisScroll && typeof Lenis !== 'undefined') {
+            window.lenisInstance = new Lenis({
                 duration: 1.4,                    // Scroll duration (higher = smoother)
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease
                 orientation: 'vertical',
@@ -34345,19 +34413,19 @@ main.content, #main-content {
 
             // Animation frame loop
             function lenisRaf(time) {
-                lenis.raf(time);
+                window.lenisInstance.raf(time);
                 requestAnimationFrame(lenisRaf);
             }
             requestAnimationFrame(lenisRaf);
 
             // Expose scroll position for other effects
-            lenis.on('scroll', ({ scroll, progress }) => {
+            window.lenisInstance.on('scroll', ({ scroll, progress }) => {
                 document.documentElement.style.setProperty('--scroll-y', scroll);
                 document.documentElement.style.setProperty('--scroll-progress', progress);
             });
 
             // Parallax effect for elements with data-parallax
-            lenis.on('scroll', ({ scroll }) => {
+            window.lenisInstance.on('scroll', ({ scroll }) => {
                 document.querySelectorAll('[data-parallax]').forEach(el => {
                     const speed = parseFloat(el.dataset.parallax) || 0.5;
                     const rect = el.getBoundingClientRect();
@@ -34452,8 +34520,8 @@ main.content, #main-content {
                 playChord();
                 
                 // Modulate filter based on scroll
-                if (lenis) {
-                    lenis.on('scroll', ({ progress }) => {
+                if (window.lenisInstance) {
+                    window.lenisInstance.on('scroll', ({ progress }) => {
                         const freq = 400 + (progress * 1200);
                         this.filter.frequency.rampTo(freq, 0.5);
                     });
