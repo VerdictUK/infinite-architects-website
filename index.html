@@ -15229,11 +15229,6 @@
                 font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
                 letter-spacing: 0.05em !important;
             }
-                font-family: var(--font-display, 'Cinzel', serif);
-                font-size: 0.8rem;
-                letter-spacing: 0.4em;
-                color: rgba(212, 168, 75, 0.6);
-            }
 
             .pwa-splash-loader {
                 width: 120px;
@@ -20346,6 +20341,298 @@ html body #deep-dive-hud {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SOVEREIGN DESKTOP FIXES - Comprehensive Desktop Layout Improvements
+   PRIORITY: MAXIMUM - These rules MUST come last to override everything
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. NUCLEAR SIDEBAR HIDE - Absolute destruction of left sidebar on ALL devices */
+html body .chapter-sidebar,
+html body aside.chapter-sidebar,
+html body #chapterSidebar,
+html body [id="chapterSidebar"],
+.chapter-sidebar,
+aside.chapter-sidebar,
+#chapterSidebar {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+    transform: none !important;
+    z-index: -9999 !important;
+}
+
+/* Override any media query that tries to show sidebar */
+@media (min-width: 1024px) {
+    html body .chapter-sidebar,
+    html body aside.chapter-sidebar,
+    html body #chapterSidebar,
+    .chapter-sidebar,
+    #chapterSidebar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+}
+
+/* 2. HIDE RIGHT-SIDE PROGRESS DOTS - Clean up visual clutter */
+html body .section-progress,
+html body nav.section-progress,
+html body .section-progress.visible,
+html body .progress-dot {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* 3. DESKTOP HERO - Clean, professional layout */
+@media (min-width: 1024px) {
+    html body .hero.snap-section {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 5rem !important;
+        padding: 120px 8% !important;
+        min-height: 100vh !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    /* Book container - left side */
+    html body .hero .hero-book-container {
+        flex: 0 0 auto !important;
+        order: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 10 !important;
+    }
+
+    html body .hero .hero-book {
+        max-width: 340px !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Content - right side */
+    html body .hero .hero-content-right {
+        flex: 1 !important;
+        max-width: 550px !important;
+        order: 2 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        z-index: 10 !important;
+    }
+
+    html body .hero .hero-badge {
+        align-self: flex-start !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    html body .hero .hero-status-pill {
+        margin-bottom: 1.5rem !important;
+    }
+
+    html body .hero .hero-title {
+        display: block !important;
+        text-align: left !important;
+        font-size: clamp(2.5rem, 4vw, 3.5rem) !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    html body .hero .hero-subtitle {
+        text-align: left !important;
+        font-size: 1.4rem !important;
+        line-height: 1.6 !important;
+        max-width: 500px !important;
+        margin-bottom: 1rem !important;
+    }
+
+    html body .hero .hero-author {
+        text-align: left !important;
+        margin-bottom: 2rem !important;
+    }
+
+    html body .hero .hero-cta {
+        align-self: flex-start !important;
+    }
+
+    /* Scroll indicator - bottom centre */
+    html body .hero .scroll-indicator {
+        position: absolute !important;
+        bottom: 2rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 10 !important;
+    }
+}
+
+/* 4. SECTION CONTAINMENT - Prevent content bleeding */
+html body .snap-section {
+    position: relative !important;
+    contain: paint !important;
+}
+
+/* Allow visible overflow only for specific elements that need it */
+html body .hero.snap-section,
+html body .equation-section.snap-section {
+    overflow: visible !important;
+}
+
+/* 5. FIX Z-INDEX HIERARCHY */
+html body .hero .mandelbrot-bg {
+    z-index: 0 !important;
+}
+
+html body .hero .mandelbrot-overlay {
+    z-index: 1 !important;
+}
+
+html body .hero .hero-book-container,
+html body .hero .hero-content-right,
+html body .hero .hero-badge,
+html body .hero .hero-status-pill {
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+/* 6. ENSURE NAV IS ABOVE EVERYTHING */
+html body .header-nav,
+html body .nav-glass,
+html body nav[role="navigation"] {
+    z-index: 1000 !important;
+}
+
+/* 7. CLEAN UP BOTTOM MOBILE NAV ON DESKTOP */
+@media (min-width: 1024px) {
+    html body .chapter-nav,
+    html body nav.chapter-nav,
+    html body #chapterNav {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* 8. VALIDATION TIMELINE - Proper containment */
+html body .timeline-evidence-section {
+    position: relative !important;
+}
+
+html body .validation-timeline,
+html body .timeline-events {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* 9. EVIDENCE LOCKER - Contained layout */
+html body .evidence-locker {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* 10. IDEAS GRID - Clean desktop layout */
+@media (min-width: 1024px) {
+    html body .ideas-grid,
+    html body .concepts-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+        gap: 2rem !important;
+        padding: 0 2rem !important;
+    }
+}
+
+/* 11. DESKTOP TYPOGRAPHY REFINEMENTS */
+@media (min-width: 1024px) {
+    html body .section-label {
+        font-size: 0.85rem !important;
+        letter-spacing: 0.2em !important;
+    }
+
+    html body .section-title {
+        font-size: clamp(2rem, 3.5vw, 3rem) !important;
+    }
+}
+
+/* 12. DESKTOP QUOTE SECTION */
+@media (min-width: 1024px) {
+    html body .quote-section {
+        padding: 6rem 10% !important;
+    }
+
+    html body .quote-text {
+        font-size: clamp(1.75rem, 3vw, 2.5rem) !important;
+        max-width: 900px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* 13. DESKTOP EQUATION SECTION */
+@media (min-width: 1024px) {
+    html body .equation-section {
+        padding: 5rem 8% !important;
+    }
+
+    html body .equation-container {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 4rem !important;
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+    }
+
+    html body .equation-left,
+    html body .equation-right {
+        flex: 1 !important;
+    }
+}
+
+/* 14. DESKTOP EVIDENCE CARDS */
+@media (min-width: 1024px) {
+    html body .bbc-evidence-card {
+        display: flex !important;
+        gap: 2rem !important;
+        align-items: flex-start !important;
+    }
+
+    html body .bbc-evidence-card__video-wrapper {
+        flex: 0 0 45% !important;
+        max-width: 500px !important;
+    }
+
+    html body .bbc-evidence-card__content {
+        flex: 1 !important;
+    }
+}
+
+/* 15. FIX CONCEPTS MODAL ON DESKTOP */
+@media (min-width: 1024px) {
+    html body .concepts-modal-overlay {
+        padding: 2rem !important;
+    }
+
+    html body .concepts-modal {
+        max-width: 1200px !important;
+        max-height: 90vh !important;
+        margin: 0 auto !important;
+    }
+
+    html body .concepts-category-grid,
+    html body .concepts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    }
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -22625,7 +22912,7 @@ html body #deep-dive-hud {
 
                     <article class="glossary-term reveal" data-category="core">
                         <h3 class="glossary-term-word">Alignment</h3>
-                        <p class="glossary-term-def">The challenge of ensuring AI systems pursue goals beneficial to humanity. Not merely programmeming constraints, but embedding values so deeply they cannot be circumvented.</p>
+                        <p class="glossary-term-def">The challenge of ensuring AI systems pursue goals beneficial to humanity. Not merely programming constraints, but embedding values so deeply they cannot be circumvented.</p>
                     </article>
 
                     <article class="glossary-term reveal" data-category="ai">
@@ -27680,7 +27967,7 @@ html body #deep-dive-hud {
                             </div>
                             <span class="concept-num">12</span>
                             <h4>Value Cultivation vs. Value Loading</h4>
-                            <p>Distinguishing between loading values as constraints and cultivating them as intrinsic motivations. Growing goodness rather than programmeming it.</p>
+                            <p>Distinguishing between loading values as constraints and cultivating them as intrinsic motivations. Growing goodness rather than programming it.</p>
                         </div>
                     </div>
                 </div>
@@ -28345,14 +28632,15 @@ html body #deep-dive-hud {
             this.bindEvents();
             this.setupScrollDetection();
 
-            // Show navigation after delay
+            // Show navigation after delay (mobile bottom nav only - sidebar hidden on desktop by CSS)
             setTimeout(() => {
-                if (this.elements.nav) {
+                if (this.elements.nav && window.innerWidth < 1024) {
                     this.elements.nav.classList.add('active');
                 }
-                if (this.elements.sidebar) {
-                    this.elements.sidebar.classList.add('active');
-                }
+                // Sidebar disabled on desktop - CSS hides it completely
+                // if (this.elements.sidebar) {
+                //     this.elements.sidebar.classList.add('active');
+                // }
             }, 1500);
 
             // Bind sidebar clicks
@@ -30097,7 +30385,7 @@ html body #deep-dive-hud {
                             <h4>Meltdown Alignment</h4>
                             <p class="concept-definition">A fail-safe mechanism where any attempt to remove embedded empathy triggers immediate system collapse, similar to nuclear reactor safety protocols.</p>
                             <div class="concept-details">
-                                <p class="concept-explanation">Meltdown Alignment functions as a "nuclear failsafe" for AI ethics. Moral constraints are embedded so deeply that attempting to remove or bypass compassion causes the entire system to shut down catastrophically. Just as nuclear reactors shut down automatically if safety components are removed, AI systems with Meltdown Alignment cannot surgically remove ethical programmeming without triggering total inoperability.</p>
+                                <p class="concept-explanation">Meltdown Alignment functions as a "nuclear failsafe" for AI ethics. Moral constraints are embedded so deeply that attempting to remove or bypass compassion causes the entire system to shut down catastrophically. Just as nuclear reactors shut down automatically if safety components are removed, AI systems with Meltdown Alignment cannot surgically remove ethical programming without triggering total inoperability.</p>
                                 <blockquote class="concept-quote">"Empathy becomes a structural requirement, not an optional plugin."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
