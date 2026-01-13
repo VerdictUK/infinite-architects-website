@@ -24552,6 +24552,65 @@ html body section#methodology .methodology-closing {
         padding: 2rem 1.5rem 1.5rem;
     }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   ███████  EMERGENCY FIX: FORCE ALL SECTIONS VISIBLE  ███████
+   Ensures no section is hidden after bbc-timeline
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Force all sections to be visible - nuclear override */
+section,
+.snap-section,
+#predictions,
+#falsification,
+#predictions-validated,
+#hrih,
+#religion,
+#chokepoint,
+#window,
+#architecture,
+#future-born,
+#stakes,
+#expert-validation,
+#reviews,
+#chapters,
+#comparison,
+#get-the-book,
+#cta,
+#newsletter,
+#paradise,
+#faq,
+#glossary,
+#ai-timeline,
+#press,
+#predictions-summary,
+footer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: relative !important;
+    transform: none !important;
+    pointer-events: auto !important;
+}
+
+/* Ensure main content flows properly */
+main,
+main.content,
+#main-content {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Fix any z-index issues that might hide content */
+#bbc-timeline ~ section,
+#bbc-timeline ~ * {
+    z-index: auto !important;
+}
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -26000,9 +26059,9 @@ html body section#methodology .methodology-closing {
         </section>
 
         <!-- ═══════════════════════════════════════════════════════════════════════
-             TESTABLE PREDICTIONS SECTION
+             TESTABLE PREDICTIONS SECTION (DUPLICATE - renamed ID to avoid conflict)
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="predictions-section snap-section" id="predictions">
+        <section class="predictions-section snap-section" id="predictions-summary">
             <div class="predictions-inner">
                 <p class="section-label reveal">The Wager</p>
                 <h2 class="section-title reveal reveal-delay-1">Five Testable Predictions</h2>
@@ -26010,7 +26069,7 @@ html body section#methodology .methodology-closing {
                     A framework that cannot be falsified is not science; it is faith.<br>
                     I do not ask you to take this on faith. I ask you to watch.
                 </p>
-                
+
                 <div class="predictions-grid">
                     <article class="prediction-card reveal reveal-delay-1">
                         <div class="prediction-header">
@@ -35152,6 +35211,30 @@ html body section#methodology .methodology-closing {
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 0) triggerExitIntent();
         });
+
+        // MOBILE EXIT INTENT: Scroll Velocity Heuristic
+        let lastScrollY = window.scrollY;
+        let lastScrollTime = Date.now();
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastScrollTime;
+            
+            // Only check every 100ms
+            if (timeDiff > 100) {
+                const scrollDiff = currentScrollY - lastScrollY;
+                const velocity = scrollDiff / timeDiff; // pixels per ms
+                
+                // If scrolling UP fast (velocity < -1.5) AND we are far down the page (>1000px)
+                if (velocity < -1.5 && currentScrollY > 1000) {
+                    triggerExitIntent();
+                }
+                
+                lastScrollY = currentScrollY;
+                lastScrollTime = currentTime;
+            }
+        }, { passive: true });
         
         // Close handlers
         function closeExit() {
