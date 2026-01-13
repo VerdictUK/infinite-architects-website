@@ -7328,7 +7328,7 @@
         /* Mobile */
         @media (max-width: 768px) {
             .hrih-section {
-                min-height: 100vh;
+                min-height: auto;
             }
 
             .hrih-card {
@@ -11841,7 +11841,7 @@
             .snap-section {
                 scroll-snap-align: start;
                 scroll-snap-stop: normal; /* Allow scrolling past sections */
-                min-height: 100vh;
+                min-height: auto;
                 height: auto; /* Allow content to determine height */
                 overflow: visible;
                 padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 0.5rem;
@@ -11875,7 +11875,7 @@
             .snap-section {
                 scroll-snap-align: start;
                 scroll-snap-stop: normal;
-                min-height: 100vh;
+                min-height: auto;
                 height: auto;
                 overflow: visible;
             }
@@ -11903,7 +11903,7 @@
             .snap-section {
                 scroll-snap-align: start;
                 scroll-snap-stop: normal;
-                min-height: 100vh;
+                min-height: auto;
                 height: auto;
                 overflow: visible;
             }
@@ -11987,7 +11987,7 @@
            ALL IMAGES STRETCH TO COVER - NO MATTER VIEWPORT SIZE
            ═══════════════════════════════════════════════════════════════════════ */
 
-        /* NUCLEAR: Force all visual wrappers to cover full viewport */
+        /* Force all visual wrappers to cover their parent section */
         .hrih-visual-wrapper,
         .hero-visual-wrapper,
         .section-visual-wrapper,
@@ -12000,9 +12000,6 @@
             bottom: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            min-width: 100vw !important;
-            min-height: 100vh !important;
-            min-height: 100dvh !important;
             overflow: hidden !important;
             z-index: 0 !important;
         }
@@ -12126,7 +12123,7 @@
             .section-visual,
             [class*="-visual"]:not([class*="-wrapper"]) {
                 min-width: 150vw !important;
-                min-height: 100vh !important;
+                min-height: 100% !important;
             }
         }
 
@@ -12136,7 +12133,7 @@
             .section-visual,
             [class*="-visual"]:not([class*="-wrapper"]) {
                 min-width: 200vw !important;
-                min-height: 100vh !important;
+                min-height: 100% !important;
             }
         }
 
@@ -12147,7 +12144,7 @@
             .section-visual,
             [class*="-visual"]:not([class*="-wrapper"]) {
                 min-width: 100vw !important;
-                min-height: 200vh !important;
+                min-height: 100% !important;
             }
         }
 
@@ -18710,10 +18707,10 @@
     max-height: none !important;
 }
 
-/* Sections should be at LEAST viewport height, but can expand */
+/* Sections expand to fit content - no forced viewport height */
 .snap-section {
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
+    min-height: auto !important;
+    height: auto !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -21329,6 +21326,274 @@ html body .evidence-locker {
     html body .concepts-category-grid,
     html body .concepts-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   AUTHOR SECTION - APPLE-GRADE COMPLETE REWRITE
+   PRIORITY: NUCLEAR - Fixes tesseract overlap, layout, and visual hierarchy
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Reset all conflicting author styles */
+html body #author,
+html body .about-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 4rem 2rem !important;
+    overflow: visible !important;
+}
+
+html body #author .section-inner,
+html body #author .about-inner {
+    display: grid !important;
+    grid-template-columns: 280px 1fr !important;
+    gap: 4rem !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    align-items: start !important;
+    padding: 0 !important;
+}
+
+/* Visual container - author photo + tesseract */
+html body #author .about-visual {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 1rem !important;
+    width: 280px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Author photo - prominent */
+html body #author .author-photo-wrapper {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 220px !important;
+    height: 220px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    border: 3px solid var(--gold) !important;
+    box-shadow: 0 0 40px rgba(212, 168, 75, 0.3) !important;
+}
+
+html body #author .author-photo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* Tesseract - BEHIND the photo as decoration, NOT overlapping content */
+html body #author .tesseract-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 320px !important;
+    height: 320px !important;
+    z-index: 1 !important;
+    opacity: 0.4 !important;
+    pointer-events: none !important;
+}
+
+html body #author #tesseract-canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Text content - clean typography */
+html body #author .about-text {
+    position: relative !important;
+    z-index: 3 !important;
+    text-align: left !important;
+}
+
+html body #author .about-text .section-label {
+    font-family: var(--font-mono) !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.25em !important;
+    color: var(--gold) !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.5rem !important;
+}
+
+html body #author .about-text .section-title {
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.2 !important;
+}
+
+html body #author .about-text p {
+    font-family: var(--font-serif) !important;
+    font-size: 1rem !important;
+    line-height: 1.8 !important;
+    color: var(--text-secondary) !important;
+    margin-bottom: 1.25rem !important;
+    max-width: none !important;
+}
+
+html body #author .about-text p:first-of-type {
+    color: var(--gold) !important;
+    font-style: italic !important;
+    font-size: 1.1rem !important;
+}
+
+/* Career progression bar - prominent and clear */
+html body #author .about-text p[style*="font-family: var(--font-mono)"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 0.5rem 1rem !important;
+    font-size: 0.75rem !important;
+    color: var(--gold) !important;
+    padding: 1.5rem 0 !important;
+    margin: 1.5rem 0 !important;
+    border-top: 1px solid rgba(212, 168, 75, 0.2) !important;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.2) !important;
+    letter-spacing: 0.15em !important;
+}
+
+/* Storm Story section - clearly separated */
+html body #author .storm-story {
+    margin-top: 2rem !important;
+    padding: 2rem !important;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
+    border-left: 3px solid var(--gold) !important;
+    border-radius: 0 12px 12px 0 !important;
+}
+
+html body #author .storm-story-label {
+    display: block !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.25em !important;
+    color: var(--gold) !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.5rem !important;
+}
+
+html body #author .storm-story-headline {
+    font-family: var(--font-display) !important;
+    font-size: 1.5rem !important;
+    color: var(--gold-bright) !important;
+    margin-bottom: 1rem !important;
+}
+
+html body #author .storm-story-content p {
+    font-size: 0.95rem !important;
+    margin-bottom: 1rem !important;
+}
+
+html body #author .storm-story-quote {
+    font-style: italic !important;
+    color: var(--gold) !important;
+    padding: 1rem !important;
+    border-left: 2px solid var(--gold-dark) !important;
+    margin: 1.5rem 0 !important;
+    background: rgba(212, 168, 75, 0.05) !important;
+}
+
+html body #author .storm-story-principle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.15em !important;
+    color: var(--gold) !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid rgba(212, 168, 75, 0.2) !important;
+}
+
+html body #author .storm-story-principle svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: var(--gold) !important;
+}
+
+/* TABLET - Slightly smaller layout */
+@media (max-width: 1024px) {
+    html body #author .section-inner,
+    html body #author .about-inner {
+        grid-template-columns: 220px 1fr !important;
+        gap: 3rem !important;
+    }
+
+    html body #author .about-visual {
+        width: 220px !important;
+    }
+
+    html body #author .author-photo-wrapper {
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    html body #author .tesseract-container {
+        width: 260px !important;
+        height: 260px !important;
+    }
+}
+
+/* MOBILE - Stacked layout, clean and readable */
+@media (max-width: 768px) {
+    html body #author,
+    html body .about-section {
+        padding: 3rem 1.5rem !important;
+    }
+
+    html body #author .section-inner,
+    html body #author .about-inner {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        text-align: center !important;
+    }
+
+    html body #author .about-visual {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    html body #author .author-photo-wrapper {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    html body #author .tesseract-container {
+        width: 200px !important;
+        height: 200px !important;
+        opacity: 0.3 !important;
+    }
+
+    html body #author .about-text {
+        text-align: center !important;
+    }
+
+    html body #author .about-text .section-title {
+        font-size: 1.6rem !important;
+    }
+
+    html body #author .about-text p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    html body #author .about-text p[style*="font-family: var(--font-mono)"] {
+        justify-content: center !important;
+        font-size: 0.65rem !important;
+    }
+
+    html body #author .storm-story {
+        padding: 1.5rem !important;
+        text-align: left !important;
+    }
+
+    html body #author .storm-story-headline {
+        font-size: 1.25rem !important;
     }
 }
 
