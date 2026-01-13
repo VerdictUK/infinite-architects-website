@@ -19888,15 +19888,37 @@ button.btn-secondary:hover {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* 1. HIDE LEFT SIDEBAR NAVIGATION - Overlaps content */
-.chapter-sidebar {
+.chapter-sidebar,
+.chapter-sidebar * {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* 2. HIDE RIGHT SIDE HUD AND BEADS - Overlaps content */
 .deep-dive-hud,
+.deep-dive-hud *,
+#deep-dive-hud,
 .section-indicator,
-.ambient-orbs {
+.section-indicator *,
+#sectionIndicator,
+.section-indicator-dot,
+.ambient-orbs,
+.ambient-orbs *,
+.ambient-orb,
+.hud-inner,
+.hud-label,
+.hud-counter,
+.hud-progress {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
 }
 
 /* 3. FIX HERO SECTION TEXT LAYOUT */
@@ -19991,6 +20013,17 @@ button.btn-secondary:hover {
     height: auto !important;
     opacity: 1 !important;
     visibility: visible !important;
+}
+
+/* Fix concept image placeholders to show numbers clearly */
+.concept-image-placeholder {
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.15) 0%, rgba(10, 12, 20, 0.9) 100%) !important;
+    border: 1px solid rgba(212, 168, 75, 0.3) !important;
+}
+
+.concept-image-placeholder::before {
+    color: rgba(212, 168, 75, 0.5) !important;
+    font-size: 2.5rem !important;
 }
 
 /* 5. FIX EXCESSIVE BLANK SECTIONS */
