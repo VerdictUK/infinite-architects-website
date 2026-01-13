@@ -14779,7 +14779,6 @@
             body.chapter-nav-enabled .social-proof-badge {
                 display: none !important;
             }
-        }
 
         /* ═══════════════════════════════════════════════════════════════════════════
            PREMIUM SLIDESHOW NAVIGATION - Mobile Only (DEPRECATED - kept for fallback)
@@ -28007,8 +28006,9 @@ html body #deep-dive-hud {
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
          DESKTOP CHAPTER SIDEBAR - Left side vertical navigation (1024px+)
+         DISABLED: Was overlapping content
          ═══════════════════════════════════════════════════════════════════════════ -->
-    <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation">
+    <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
         <ul class="chapter-sidebar-list" role="navigation">
             <li class="chapter-sidebar-item active" data-chapter="0">
                 <span class="chapter-sidebar-num">I</span>
@@ -28035,9 +28035,10 @@ html body #deep-dive-hud {
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
          CHAPTER-BASED NAVIGATION - Mobile/Tablet Bottom Bar (<1024px)
+         DISABLED: Was overlapping content and causing confusion
          ═══════════════════════════════════════════════════════════════════════════ -->
 
-    <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation">
+    <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
         <div class="chapter-nav-main">
             <!-- Chapter selector (tappable to open menu) -->
             <button class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
@@ -28079,10 +28080,11 @@ html body #deep-dive-hud {
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
          PREMIUM SLIDESHOW NAVIGATION - Mobile App-Like Experience (DEPRECATED)
+         DISABLED: Was causing visual issues
          ═══════════════════════════════════════════════════════════════════════════ -->
 
-    <!-- Slideshow Navigation HTML (kept for fallback) -->
-    <div class="slideshow-nav" id="slideshowNav" aria-label="Section navigation">
+    <!-- Slideshow Navigation HTML - DISABLED -->
+    <div class="slideshow-nav" id="slideshowNav" aria-label="Section navigation" style="display:none !important; visibility:hidden !important;">
         <div class="slideshow-section-title" id="slideshowTitle"></div>
         <div class="slideshow-dots" id="slideshowDots" role="tablist"></div>
         <div class="slideshow-controls">
