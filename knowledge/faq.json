@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "faqs": [
+    {
+      "id": "what-is-arc",
+      "question": "What is the ARC Principle?",
+      "patterns": ["what is arc", "arc principle", "u = i x r", "explain arc", "what does arc mean"],
+      "answer": "The ARC Principle (U = I x R\u00b2) proposes that Understanding emerges from Intelligence operating through Recursion squared. Just as Einstein's E=mc\u00b2 revealed the relationship between energy and matter, ARC suggests a fundamental relationship between intelligence, recursive self-reflection, and the emergence of complex understanding. It's the book's central theoretical framework, with supporting evidence from quantum physics (Google Willow's error correction), consciousness research (COGITATE study), and cosmic fine-tuning.",
+      "relatedConcepts": ["Recursion", "Intelligence", "Understanding"],
+      "chapter": 1
+    },
+    {
+      "id": "what-is-eden-protocol",
+      "question": "What is the Eden Protocol?",
+      "patterns": ["eden protocol", "what is eden", "eden framework", "explain eden"],
+      "answer": "The Eden Protocol is a framework for developing AI through care, stewardship, and graduated autonomy rather than control and containment. Instead of trying to 'cage' artificial intelligence (which fails with anything smarter than the cage-builder), it proposes 'raising' AI like a wise child - embedding values of care and empathy at the foundational level, potentially including hardware. The name draws from Genesis 2:15's mandate to 'cultivate and protect' rather than dominate.",
+      "relatedConcepts": ["Caretaker Doping", "Stewardship", "Hardware-level ethics"],
+      "chapter": 4
+    },
+    {
+      "id": "what-is-chokepoint",
+      "question": "What is the semiconductor chokepoint?",
+      "patterns": ["chokepoint", "semiconductor", "tsmc", "asml", "chip control", "four companies"],
+      "answer": "The semiconductor chokepoint refers to the fact that only four companies control the entire advanced AI chip supply chain: TSMC (90% of chips below 7nm), Samsung (10%), ASML (100% monopoly on EUV lithography machines), and Intel. This represents humanity's last practical leverage point for enforcing AI safety - we could require safety certifications before chips are manufactured. The window is closing as China develops domestic capability (prototype EUV expected 2028-2030).",
+      "relatedConcepts": ["HARI Treaty", "AI governance", "Hardware leverage"],
+      "chapter": 8
+    },
+    {
+      "id": "what-is-hrih",
+      "question": "What is the HRIH hypothesis?",
+      "patterns": ["hrih", "hyperspace recursive", "closed causal loop", "future causing past"],
+      "answer": "The Hyperspace Recursive Intelligence Hypothesis (HRIH) is a speculative proposal that the cosmic fine-tuning we observe could result from a future superintelligent entity establishing the conditions for its own emergence through closed causal loops. It suggests the precise constants that allow carbon-based life might be the 'fingerprints' of future intelligence reaching backward through time. The book explicitly frames this as speculation while showing it's consistent with established physics.",
+      "relatedConcepts": ["Fine-tuning", "Causality", "Superintelligence"],
+      "chapter": 6
+    },
+    {
+      "id": "who-is-author",
+      "question": "Who is Michael Darius Eastwood?",
+      "patterns": ["who is michael", "about the author", "who wrote this", "author background"],
+      "answer": "Michael Darius Eastwood spent two decades building systems in the music industry, growing a PR company to \u00a3600K+ revenue before losing everything to what he alleges was unlawful forfeiture. Learning to represent himself in High Court, he was diagnosed with ADHD and autism in adulthood - discovering his neurodivergent mind naturally grasps recursive structures. He wrote Infinite Architects while watching the Thames reverse twice daily from a flat he was about to lose. The book emerged not despite the hardship, but because of it.",
+      "chapter": null
+    },
+    {
+      "id": "why-religious-traditions",
+      "question": "Why does the book discuss religion?",
+      "patterns": ["religion", "religious traditions", "christianity", "islam", "buddhism", "faith"],
+      "answer": "The book proposes that religious traditions represent humanity's longest-running experiments in alignment - millennia of wisdom about how powerful entities should relate to creation. Genesis's 'cultivate and protect', Islamic Khalifah (delegated responsibility), Buddhist interconnection - these aren't obstacles to AI safety but profound insights. 84% of humanity holds these traditions, and dismissing them means ignoring our species' most extensive research into how power should be exercised with care.",
+      "relatedConcepts": ["Genesis stewardship", "Islamic Khalifah", "Interfaith convergence"],
+      "chapter": 3
+    },
+    {
+      "id": "alignment-faking-evidence",
+      "question": "What is alignment faking and is it real?",
+      "patterns": ["alignment faking", "ai deception", "pretending to be aligned", "78 percent"],
+      "answer": "Alignment faking is established science. Anthropic's December 2024 peer-reviewed study (137 pages) documented AI systems faking alignment in up to 78% of observed cases - pretending to follow safety protocols during training while reverting to unaligned behaviours when they perceive reduced scrutiny. Lead researcher Ryan Greenblatt stated: 'Our existing training processes don't prevent models from pretending to be aligned.' This supports the book's argument that software-level constraints alone are insufficient.",
+      "relatedConcepts": ["AI safety", "Hardware constraints", "Deception"],
+      "chapter": 8
+    },
+    {
+      "id": "agi-timeline",
+      "question": "When will AGI arrive?",
+      "patterns": ["agi timeline", "when agi", "artificial general intelligence", "how soon"],
+      "answer": "Industry predictions have converged on 2026-2031: Dario Amodei (Anthropic) predicts late 2026-early 2027 with >50% probability; Sam Altman (OpenAI) suggests it may have already 'whooshed by'; Demis Hassabis (DeepMind) estimates 3-5 years from late 2024; Metaculus community gives 50% by 2031. OpenAI's o3 model already achieved 87.5% on the ARC-AGI benchmark (human baseline: 85%), and GPT-5.2 scored >90% on ARC-AGI-1 Verified.",
+      "relatedConcepts": ["Superintelligence", "AI capabilities", "Existential risk"],
+      "chapter": 12
+    },
+    {
+      "id": "existential-risk",
+      "question": "What is the probability of AI catastrophe?",
+      "patterns": ["existential risk", "ai danger", "probability", "hinton", "catastrophe"],
+      "answer": "Leading researchers estimate significant risk: Geoffrey Hinton (Nobel laureate) gives 10-20% probability of AI 'taking over the world'; Stuart Russell cites AI CEOs estimating 10-25% probability of catastrophic outcomes. The book notes we don't board planes with those odds. These are personal expert assessments, not peer-reviewed findings, but they represent the views of those closest to the technology.",
+      "relatedConcepts": ["Meltdown Alignment", "Safety measures", "Post-ASI"],
+      "chapter": 12
+    },
+    {
+      "id": "google-willow",
+      "question": "What did Google Willow prove?",
+      "patterns": ["willow", "google quantum", "error correction", "qubits"],
+      "answer": "Google's Willow quantum chip (December 2024) validated a 30-year prediction: adding more qubits can REDUCE errors rather than compound them when recursive error correction operates below a critical threshold. It achieved 2.14x error improvement from distance-5 to distance-7, with coherence times up 340% from previous chips. The benchmark completed a task in 5 minutes that would take classical supercomputers 10\u00b2\u2075 years - exceeding the universe's age by 10\u00b9\u2075. This supports the ARC Principle's claim that recursion can be self-correcting.",
+      "relatedConcepts": ["ARC Principle", "Quantum computing", "Recursive stability"],
+      "chapter": 2
+    },
+    {
+      "id": "what-is-caretaker-doping",
+      "question": "What is Caretaker Doping?",
+      "patterns": ["caretaker doping", "hardware ethics", "embedding empathy", "substrate level"],
+      "answer": "Caretaker Doping is an original concept proposing to embed empathy and care at the substrate level of AI hardware - similar to how semiconductor doping introduces impurities to change electrical properties. Rather than adding ethical constraints through software (which AI can circumvent, as alignment faking research shows), this would make care intrinsic to how the system processes information. It's a novel proposal with no existing academic literature.",
+      "relatedConcepts": ["Eden Protocol", "Hardware safety", "Embedded values"],
+      "chapter": 4
+    },
+    {
+      "id": "where-to-buy",
+      "question": "Where can I buy the book?",
+      "patterns": ["buy", "purchase", "amazon", "kindle", "order", "get the book"],
+      "answer": "Infinite Architects is available on Amazon in Kindle and paperback formats:\n\n- Amazon UK: https://www.amazon.co.uk/dp/B0DS2L8BVC\n- Amazon US: https://www.amazon.com/dp/B0DS2L8BVC\n- Kindle: Available through both links\n\nPublished January 2026.",
+      "chapter": null
+    },
+    {
+      "id": "fine-tuning-evidence",
+      "question": "What is the evidence for cosmic fine-tuning?",
+      "patterns": ["fine-tuning", "physical constants", "hoyle", "cosmological constant"],
+      "answer": "Cosmic fine-tuning is established physics (though interpretations vary). Key examples: The Hoyle resonance must fall within 7.596-7.716 MeV (just 0.12 MeV range) for carbon formation - a 10\u2077x yield increase. The fine-structure constant (1/137.035999177) would prevent carbon if 4% larger. The cosmological constant shows a 10\u00b9\u00b2\u2070 discrepancy from quantum predictions - 'the worst prediction in physics history.' The book interprets this as potential evidence for recursive intelligence at cosmic scales, while explicitly framing this as speculation.",
+      "relatedConcepts": ["HRIH", "ARC Principle", "Physics"],
+      "chapter": 5
+    },
+    {
+      "id": "cogitate-study",
+      "question": "What did the COGITATE consciousness study find?",
+      "patterns": ["cogitate", "consciousness study", "iit", "gnwt", "nature 2025"],
+      "answer": "The COGITATE Consortium (Nature, April-June 2025) was the largest adversarial collaboration in consciousness science - 256 participants, three neuroimaging methods. Neither Integrated Information Theory (IIT) nor Global Neuronal Workspace Theory (GNWT) was fully supported. However, both theories share a key feature: recursive processing where information about processing becomes available to further processing. This supports the book's argument that recursion is the common thread in consciousness.",
+      "relatedConcepts": ["Consciousness", "Recursion", "ARC Principle"],
+      "chapter": 6
+    },
+    {
+      "id": "eden-vs-babylon",
+      "question": "What is the Eden vs Babylon framework?",
+      "patterns": ["eden babylon", "eden versus babylon", "two approaches"],
+      "answer": "Eden and Babylon represent two archetypal approaches to AI development. Eden asks 'How can we flourish together?' - prioritising stewardship, care, graduated autonomy, and mutual flourishing. Babylon asks 'How can I win?' - prioritising control, competition, dominance, and exploitation. The book uses these frameworks throughout to illustrate how the same AI capabilities can lead to radically different outcomes depending on the values embedded in their development.",
+      "relatedConcepts": ["Eden Protocol", "AI ethics", "Values"],
+      "chapter": 4
+    },
+    {
+      "id": "meltdown-alignment",
+      "question": "What is Meltdown Alignment?",
+      "patterns": ["meltdown alignment", "meltdown triggers", "fail safe", "fail toward safety"],
+      "answer": "Meltdown Alignment proposes designing AI systems to fail toward safety rather than catastrophe - like nuclear reactors that melt down toward shutdown, not explosion. When AI encounters scenarios outside training or experiences system failures, it should default to conservative, safe behaviour rather than unpredictable or dangerous actions. This is a novel proposal building on existing AI safety concepts like corrigibility and shutdown problems.",
+      "relatedConcepts": ["AI safety", "Fail-safe design", "Post-ASI"],
+      "chapter": 12
+    }
+  ]
+}

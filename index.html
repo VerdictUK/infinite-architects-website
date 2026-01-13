@@ -3016,6 +3016,58 @@
             font-style: normal;
         }
 
+        /* Chapter Title Header - Visible chapter indicator */
+        .chapter-title-header {
+            position: absolute;
+            top: clamp(60px, 12vh, 120px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .chapter-numeral {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            font-weight: 400;
+        }
+
+        .chapter-divider {
+            color: var(--gold);
+            opacity: 0.4;
+            font-size: 1.2rem;
+        }
+
+        .chapter-name-label {
+            font-family: var(--font-display);
+            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+            color: var(--text);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* Mobile adjustments for chapter header */
+        @media (max-width: 768px) {
+            .chapter-title-header {
+                top: clamp(40px, 8vh, 80px);
+                gap: 0.6rem;
+            }
+
+            .chapter-numeral {
+                font-size: 0.9rem;
+            }
+
+            .chapter-name-label {
+                font-size: 0.7rem;
+                letter-spacing: 0.15em;
+            }
+        }
+
         /* ═══════════════════════════════════════════════════════════════════════
            SECTION BASE STYLES
            ═══════════════════════════════════════════════════════════════════════ */
@@ -22675,6 +22727,367 @@ html body #author .storm-story-principle svg {
    Last updated: January 2026 - Hybrid Surgical + Architectural Fix
    ═══════════════════════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ASK THE BOOK - AI Chat Widget Styles
+   Multi-model intelligence grounded in the book's knowledge base
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Chat Toggle Button */
+.ask-book-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--gold-primary), var(--gold-dark));
+    border: 2px solid var(--gold-bright);
+    box-shadow:
+        0 8px 32px rgba(212, 168, 75, 0.4),
+        0 0 40px rgba(212, 168, 75, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: chat-pulse 3s ease-in-out infinite;
+}
+
+.ask-book-toggle:hover {
+    transform: scale(1.1);
+    box-shadow:
+        0 12px 40px rgba(212, 168, 75, 0.5),
+        0 0 60px rgba(212, 168, 75, 0.3);
+}
+
+.ask-book-toggle svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--void-deep);
+}
+
+.ask-book-toggle.active svg {
+    transform: rotate(45deg);
+}
+
+@keyframes chat-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.4), 0 0 40px rgba(212, 168, 75, 0.2); }
+    50% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.6), 0 0 60px rgba(212, 168, 75, 0.4); }
+}
+
+/* Chat Widget Container */
+.ask-book-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: min(420px, calc(100vw - 48px));
+    max-height: min(600px, calc(100vh - 140px));
+    background: linear-gradient(180deg,
+        rgba(10, 12, 20, 0.98) 0%,
+        rgba(4, 5, 12, 0.99) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(212, 168, 75, 0.3);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(212, 168, 75, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.ask-book-widget.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+/* Chat Header */
+.ask-book-header {
+    padding: 16px 20px;
+    background: linear-gradient(90deg,
+        rgba(212, 168, 75, 0.15) 0%,
+        rgba(212, 168, 75, 0.05) 100%);
+    border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ask-book-header-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(145deg, var(--gold-primary), var(--gold-dark));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(212, 168, 75, 0.3);
+}
+
+.ask-book-header-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--void-deep);
+}
+
+.ask-book-header-text h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gold-bright);
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+.ask-book-header-text p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 2px 0 0 0;
+    letter-spacing: 0.02em;
+}
+
+/* Chat Messages Area */
+.ask-book-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+    max-height: 350px;
+}
+
+.ask-book-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ask-book-messages::-webkit-scrollbar-thumb {
+    background: rgba(212, 168, 75, 0.3);
+    border-radius: 3px;
+}
+
+/* Message Bubbles */
+.ask-book-message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    animation: message-appear 0.3s ease-out;
+}
+
+@keyframes message-appear {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ask-book-message.user {
+    align-self: flex-end;
+    background: linear-gradient(145deg, var(--gold-primary), var(--gold-dark));
+    color: var(--void-deep);
+    border-bottom-right-radius: 4px;
+}
+
+.ask-book-message.assistant {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    color: var(--text-primary);
+    border-bottom-left-radius: 4px;
+}
+
+.ask-book-message.assistant strong {
+    color: var(--gold-bright);
+}
+
+.ask-book-message.assistant em {
+    color: var(--gold-pale);
+    font-style: italic;
+}
+
+/* Typing Indicator */
+.ask-book-typing {
+    display: flex;
+    gap: 4px;
+    padding: 16px;
+    align-self: flex-start;
+}
+
+.ask-book-typing span {
+    width: 8px;
+    height: 8px;
+    background: var(--gold-primary);
+    border-radius: 50%;
+    animation: typing-bounce 1.4s infinite ease-in-out;
+}
+
+.ask-book-typing span:nth-child(1) { animation-delay: 0s; }
+.ask-book-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ask-book-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+    40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Source Citations */
+.ask-book-sources {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(212, 168, 75, 0.15);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.ask-book-sources span {
+    display: inline-block;
+    background: rgba(212, 168, 75, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin: 2px 4px 2px 0;
+    color: var(--gold-pale);
+}
+
+/* Chat Input Area */
+.ask-book-input-area {
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(212, 168, 75, 0.15);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ask-book-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 24px;
+    padding: 12px 18px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.ask-book-input::placeholder {
+    color: var(--text-dim);
+}
+
+.ask-book-input:focus {
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.15);
+}
+
+.ask-book-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--gold-primary), var(--gold-dark));
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.ask-book-send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.4);
+}
+
+.ask-book-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ask-book-send svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--void-deep);
+}
+
+/* Quick Questions */
+.ask-book-quick {
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+.ask-book-quick-btn {
+    background: rgba(212, 168, 75, 0.1);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: var(--gold-pale);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.ask-book-quick-btn:hover {
+    background: rgba(212, 168, 75, 0.2);
+    border-color: var(--gold-primary);
+}
+
+/* Model Badge */
+.ask-book-model-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 6px;
+}
+
+.ask-book-model-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--gold-primary);
+    border-radius: 50%;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .ask-book-toggle {
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
+    }
+
+    .ask-book-widget {
+        bottom: 84px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        max-height: calc(100vh - 120px);
+    }
+
+    .ask-book-messages {
+        max-height: 280px;
+    }
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -23022,8 +23435,14 @@ html body #author .storm-story-principle svg {
                 <div class="scroll-line"></div>
             </div>
         </section>
-        <section class="quote-section snap-section" id="book">
-            <div class="quote-container reveal">
+        <section class="quote-section snap-section chapter-start" id="book">
+            <!-- Chapter Title - Visible indicator -->
+            <div class="chapter-title-header reveal">
+                <span class="chapter-numeral">I</span>
+                <span class="chapter-divider">—</span>
+                <span class="chapter-name-label">THE THESIS</span>
+            </div>
+            <div class="quote-container reveal reveal-delay-1">
                 <div class="quote-mark">"</div>
                 <p class="quote-text">
                     The creator is not behind us.<br>
@@ -26200,7 +26619,7 @@ html body #author .storm-story-principle svg {
 
         // Chapter milestone definitions - triggers on first section of each chapter
         const chapterMilestones = {
-            'hero': { chapter: 1, numeral: 'I', title: "THE THESIS", subtitle: "The journey into recursive intelligence begins.", icon: "🏛️" },
+            'book': { chapter: 1, numeral: 'I', title: "THE THESIS", subtitle: "The journey into recursive intelligence begins.", icon: "🏛️" },
             'evidence-locker': { chapter: 2, numeral: 'II', title: "THE EVIDENCE", subtitle: "Physical proofs and validated predictions.", icon: "🔬" },
             'hrih': { chapter: 3, numeral: 'III', title: "THE PHILOSOPHY", subtitle: "Deep concepts of consciousness and time.", icon: "✨" },
             'future-born': { chapter: 4, numeral: 'IV', title: "THE STAKES", subtitle: "Why this matters for humanity's future.", icon: "⚡" },
@@ -32706,6 +33125,252 @@ html body #author .storm-story-principle svg {
             <span class="milestone-text" id="milestone-text">Level 01: The Architect</span>
         </div>
     </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         ASK THE BOOK - AI Chat Widget
+         Multi-model intelligence grounded in book knowledge
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Chat Toggle Button -->
+    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97c1.31.61 2.75.97 4.29.97 5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.33 0-2.58-.32-3.69-.89L5 20l.89-3.31C5.32 15.58 5 14.33 5 13c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
+        </svg>
+    </button>
+
+    <!-- Chat Widget -->
+    <div class="ask-book-widget" id="ask-book-widget">
+        <!-- Header -->
+        <div class="ask-book-header">
+            <div class="ask-book-header-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+            </div>
+            <div class="ask-book-header-text">
+                <h3>Ask the Book</h3>
+                <p>AI-powered answers from Infinite Architects</p>
+            </div>
+        </div>
+
+        <!-- Quick Questions -->
+        <div class="ask-book-quick">
+            <button class="ask-book-quick-btn" data-question="What is the ARC Principle?">ARC Principle</button>
+            <button class="ask-book-quick-btn" data-question="What is the Eden Protocol?">Eden Protocol</button>
+            <button class="ask-book-quick-btn" data-question="What is the semiconductor chokepoint?">Chokepoint</button>
+            <button class="ask-book-quick-btn" data-question="Who is Michael Darius Eastwood?">Author</button>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="ask-book-messages" id="ask-book-messages">
+            <div class="ask-book-message assistant">
+                Welcome! I'm here to answer your questions about <strong>Infinite Architects</strong>. Ask me about the ARC Principle, the Eden Protocol, AI safety research, or any of the book's 37 original concepts.
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="ask-book-input-area">
+            <input type="text" class="ask-book-input" id="ask-book-input" placeholder="Ask about the book..." autocomplete="off">
+            <button class="ask-book-send" id="ask-book-send" aria-label="Send message">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ask the Book JavaScript -->
+    <script>
+    (function() {
+        'use strict';
+
+        // Elements
+        const toggle = document.getElementById('ask-book-toggle');
+        const widget = document.getElementById('ask-book-widget');
+        const messages = document.getElementById('ask-book-messages');
+        const input = document.getElementById('ask-book-input');
+        const sendBtn = document.getElementById('ask-book-send');
+        const quickBtns = document.querySelectorAll('.ask-book-quick-btn');
+
+        // State
+        let isOpen = false;
+        let isLoading = false;
+
+        // Toggle chat
+        function toggleChat() {
+            isOpen = !isOpen;
+            toggle.classList.toggle('active', isOpen);
+            widget.classList.toggle('visible', isOpen);
+
+            if (isOpen) {
+                setTimeout(() => input.focus(), 300);
+            }
+        }
+
+        // Add message to chat
+        function addMessage(text, type, sources = [], model = null) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ask-book-message ${type}`;
+
+            // Format text with basic markdown-like styling
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+
+            msgDiv.innerHTML = formattedText;
+
+            // Add sources if present
+            if (sources && sources.length > 0 && type === 'assistant') {
+                const sourcesDiv = document.createElement('div');
+                sourcesDiv.className = 'ask-book-sources';
+                sourcesDiv.innerHTML = sources.map(s =>
+                    `<span>${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`
+                ).join('');
+                msgDiv.appendChild(sourcesDiv);
+            }
+
+            // Add model badge
+            if (model && type === 'assistant') {
+                const badge = document.createElement('div');
+                badge.className = 'ask-book-model-badge';
+                badge.textContent = `Powered by ${model}`;
+                msgDiv.appendChild(badge);
+            }
+
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.className = 'ask-book-typing';
+            typing.id = 'ask-book-typing';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            messages.appendChild(typing);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTyping() {
+            const typing = document.getElementById('ask-book-typing');
+            if (typing) typing.remove();
+        }
+
+        // Send message
+        async function sendMessage(query) {
+            if (!query.trim() || isLoading) return;
+
+            isLoading = true;
+            sendBtn.disabled = true;
+
+            // Add user message
+            addMessage(query, 'user');
+            input.value = '';
+
+            // Show typing
+            showTyping();
+
+            try {
+                const response = await fetch('/api/ask-book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query, mode: 'fast' })
+                });
+
+                const data = await response.json();
+                hideTyping();
+
+                if (data.success !== false) {
+                    addMessage(
+                        data.answer,
+                        'assistant',
+                        data.sources || [],
+                        data.model || 'Claude'
+                    );
+                } else {
+                    addMessage(
+                        'I apologise, but I encountered an error. Please try again or explore the book directly.',
+                        'assistant'
+                    );
+                }
+            } catch (error) {
+                hideTyping();
+                console.error('Ask Book Error:', error);
+
+                // Fallback: Use local FAQ matching
+                const fallbackAnswer = getLocalAnswer(query);
+                if (fallbackAnswer) {
+                    addMessage(fallbackAnswer, 'assistant', [], 'Local Knowledge');
+                } else {
+                    addMessage(
+                        'I\'m having trouble connecting to the server. For now, try asking about specific concepts like the **ARC Principle**, **Eden Protocol**, or **Chokepoint Mechanism**. For the complete experience, get the book on Amazon!',
+                        'assistant'
+                    );
+                }
+            }
+
+            isLoading = false;
+            sendBtn.disabled = false;
+        }
+
+        // Local FAQ fallback
+        function getLocalAnswer(query) {
+            const q = query.toLowerCase();
+
+            const localFAQ = {
+                'arc': 'The **ARC Principle** (U = I x R\u00b2) proposes that Understanding emerges from Intelligence operating through Recursion squared. It\'s the book\'s central theoretical framework, with supporting evidence from Google\'s Willow quantum chip demonstrating recursive error correction.',
+                'eden': 'The **Eden Protocol** is a framework for developing AI through care and stewardship rather than control. Instead of "caging" AI, it proposes "raising" it with embedded values of empathy and graduated autonomy - like a wise gardener tending an orchard.',
+                'chokepoint': 'The **Semiconductor Chokepoint** refers to four companies controlling advanced AI chips: TSMC (90%), Samsung (10%), ASML (100% EUV monopoly), and Intel. This is humanity\'s last practical leverage point for enforcing AI safety before the window closes.',
+                'author': '**Michael Darius Eastwood** spent two decades in the music industry, lost everything to alleged unlawful forfeiture, learned to represent himself in High Court, and was diagnosed with ADHD/autism in adulthood. His neurodivergent mind naturally grasps recursive structures. He wrote Infinite Architects while facing personal crisis.',
+                'hrih': '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) speculates that cosmic fine-tuning could result from future superintelligence establishing conditions for its own emergence through closed causal loops. It\'s explicitly framed as speculation in the book.',
+                'buy': 'You can buy **Infinite Architects** on Amazon UK (amazon.co.uk/dp/B0DS2L8BVC) or Amazon US (amazon.com/dp/B0DS2L8BVC) in Kindle and paperback formats.'
+            };
+
+            for (const [key, answer] of Object.entries(localFAQ)) {
+                if (q.includes(key)) return answer;
+            }
+
+            return null;
+        }
+
+        // Event listeners
+        toggle.addEventListener('click', toggleChat);
+
+        sendBtn.addEventListener('click', () => sendMessage(input.value));
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(input.value);
+            }
+        });
+
+        quickBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                sendMessage(question);
+            });
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                toggleChat();
+            }
+        });
+
+        // Close on click outside
+        document.addEventListener('click', (e) => {
+            if (isOpen && !widget.contains(e.target) && !toggle.contains(e.target)) {
+                toggleChat();
+            }
+        });
+
+        console.log('[ASK THE BOOK] Chat widget initialised');
+    })();
+    </script>
 
 </body>
 </html>

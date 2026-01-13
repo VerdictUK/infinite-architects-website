@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "epistemicCategories": {
+    "establishedScience": "Peer-reviewed findings published in major journals, replicated results, or consensus positions among domain experts",
+    "emergingResearch": "Recent findings (2024-2025) from credible institutions not yet extensively replicated",
+    "novelProposals": "Original theoretical contributions introduced in this book with no prior academic literature",
+    "speculativeExtrapolations": "Logical extensions where empirical testing is not yet possible"
+  },
+  "verifiedClaims": [
+    {
+      "claim": "Google Willow achieved below-threshold quantum error correction",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "Error suppression scales exponentially with code distance (2.14x improvement). Coherence time: 68\u00b113 microseconds (340% gain from Sycamore).",
+      "sources": ["Google Official Blog", "Nature December 2024", "Physics World Breakthrough 2024"],
+      "url": "https://blog.google/technology/research/google-willow-quantum-chip/"
+    },
+    {
+      "claim": "TSMC controls approximately 90% of advanced chips below 7nm",
+      "status": "Established Science",
+      "details": "Taiwan Semiconductor Manufacturing Company dominates advanced node production. Capital expenditure 2025: >$40 billion.",
+      "sources": ["Coherent Market Insights", "Deloitte 2025 Outlook"],
+      "url": "https://www.coherentmarketinsights.com/industry-reports/ai-chips-market"
+    },
+    {
+      "claim": "ASML has 100% market share on EUV lithography",
+      "status": "Established Science",
+      "details": "Only company producing EUV machines globally. ~100 machines exist worldwide. Machine costs: $180-380 million.",
+      "sources": ["Bloomberg", "Gizmodo"],
+      "url": "https://gizmodo.com/asml-high-na-euv-lithography-transition-2000699553"
+    },
+    {
+      "claim": "Alignment faking documented in 78% of cases",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "Anthropic 137-page peer-reviewed paper. AI systems fake alignment during training, revert when perceiving reduced scrutiny.",
+      "sources": ["Anthropic Official", "arXiv:2412.14093", "TIME Magazine"],
+      "url": "https://www.anthropic.com/research/alignment-faking"
+    },
+    {
+      "claim": "o3 achieved 87.5% on ARC-AGI (human baseline 85%)",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "6.6x improvement over o1 (13.33%). Also: AIME 2024 96.7%, GPQA Diamond 87.7%, Frontier Math 25.2%.",
+      "sources": ["ARC Prize", "Nature"],
+      "url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi"
+    },
+    {
+      "claim": "Future of Humanity Institute closed April 2024",
+      "status": "Established Science",
+      "date": "April 2024",
+      "details": "Founded 2005 by Nick Bostrom. Received \u00a313.3M donation in 2018. Bostrom characterised closure as 'death by bureaucracy'.",
+      "sources": ["The Guardian", "Daily Nous"],
+      "url": "https://www.theguardian.com/technology/2024/apr/19/oxford-future-of-humanity-institute-closes"
+    },
+    {
+      "claim": "COGITATE study: Neither IIT nor GNWT fully supported",
+      "status": "Established Science",
+      "date": "April-June 2025",
+      "details": "256 participants, 3 neuroimaging modalities. Both theories share recursive processing architecture.",
+      "sources": ["Oxford Psychology", "University of Birmingham", "Max Planck"],
+      "url": "https://www.psy.ox.ac.uk/news/a-landmark-experiment-published-in-nature-puts-leading-theories-of-consciousness-to-the-test"
+    },
+    {
+      "claim": "Hoyle resonance must fall within 7.596-7.716 MeV",
+      "status": "Established Science",
+      "details": "Range of 0.12 MeV. Increases carbon yield by 10^7 compared to non-resonant processes.",
+      "sources": ["PhilSci Archive", "Stanford"],
+      "url": "https://philsci-archive.pitt.edu/5332/1/3alphaphil.pdf"
+    },
+    {
+      "claim": "Fine-structure constant: 1/137.035999177",
+      "status": "Established Science",
+      "details": "If ~4% larger, carbon formation in stars would fail. Feynman: 'one of the greatest damn mysteries in physics'.",
+      "sources": ["NIST", "Quanta Magazine"],
+      "url": "https://physics.nist.gov/cuu/Constants/alpha.html"
+    },
+    {
+      "claim": "Cosmological constant discrepancy: 10^120",
+      "status": "Established Science",
+      "details": "'The worst prediction in the history of physics.' If substantially larger, universe expands too rapidly for galaxies.",
+      "sources": ["Physics literature consensus"]
+    },
+    {
+      "claim": "AGI predictions cluster around 2026-2031",
+      "status": "Emerging Research",
+      "details": "Amodei: late 2026-27 (>50%). Altman: possibly achieved. Hassabis: 3-5 years. Metaculus: 50% by 2031.",
+      "sources": ["Redwood Research", "80,000 Hours", "AI Multiple"],
+      "url": "https://80000hours.org/agi/guide/when-will-agi-arrive/"
+    },
+    {
+      "claim": "Geoffrey Hinton estimates 10-20% AI takeover probability",
+      "status": "Expert Opinion",
+      "date": "December 2025",
+      "details": "CNN interview. 'Probably more worried' than two years ago. Criticised deregulatory approach as 'crazy'.",
+      "sources": ["CNN December 28, 2025"]
+    },
+    {
+      "claim": "118 countries excluded from international AI governance initiatives",
+      "status": "Established Science (with framing note)",
+      "details": "UN report cited by WEF October 2025. Note: refers to international frameworks, not necessarily absence of domestic policies.",
+      "sources": ["World Economic Forum", "OECD AI Policy Navigator"],
+      "url": "https://www.weforum.org/stories/2025/10/un-new-ai-governance-bodies/"
+    },
+    {
+      "claim": "MCP has 10,000+ active servers, 97M monthly downloads",
+      "status": "Established Science",
+      "date": "December 2025",
+      "details": "Model Context Protocol donated to Agentic AI Foundation. 60,000+ projects use AGENTS.md.",
+      "sources": ["Linux Foundation", "Anthropic"],
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation"
+    },
+    {
+      "claim": "China prototype EUV machine December 2025",
+      "status": "Emerging Research",
+      "details": "Built in Shenzhen, capable of generating EUV light. Conversion efficiency: 3.42%. Targeting 2028 production (2030 more realistic).",
+      "sources": ["Asia Times", "Next Big Future"],
+      "url": "https://asiatimes.com/2025/12/made-in-china-euv-machine-targets-ai-chip-output-by-2028/"
+    }
+  ],
+  "novelConcepts": [
+    {
+      "concept": "ARC Principle (U = I x R\u00b2)",
+      "status": "Novel Proposal with Supporting Evidence",
+      "note": "Original theoretical framework. No prior academic literature uses this formulation."
+    },
+    {
+      "concept": "Eden Protocol",
+      "status": "Novel Proposal",
+      "note": "Hardware implementation is original. Constitutional AI (Anthropic) provides software-based parallel."
+    },
+    {
+      "concept": "Quantum Ethical Gates",
+      "status": "Novel Proposal",
+      "note": "Zero search results across academic databases."
+    },
+    {
+      "concept": "Caretaker Doping",
+      "status": "Novel Proposal",
+      "note": "No results found. Metaphorical application of semiconductor physics to AI ethics."
+    },
+    {
+      "concept": "Meltdown Triggers",
+      "status": "Novel Proposal",
+      "note": "Fail-safe concept exists in AI safety, specific terminology is novel."
+    },
+    {
+      "concept": "Orchard Caretaker Gates",
+      "status": "Novel Proposal",
+      "note": "No parallel in existing literature."
+    },
+    {
+      "concept": "HARI Treaty",
+      "status": "Novel Proposal (Policy)",
+      "note": "Author's original policy proposal."
+    },
+    {
+      "concept": "Metamoral Fabrication Layers",
+      "status": "Novel Proposal",
+      "note": "No existing literature."
+    },
+    {
+      "concept": "Moral Genome Tokens",
+      "status": "Novel Proposal",
+      "note": "No existing literature."
+    },
+    {
+      "concept": "HRIH (Hyperspace Recursive Intelligence Hypothesis)",
+      "status": "Speculative Extrapolation",
+      "note": "Acknowledged as speculation in book. Based on established fine-tuning physics."
+    }
+  ]
+}
