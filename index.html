@@ -8641,6 +8641,43 @@
         .timeline-evidence-section {
             padding: 6rem 2rem;
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.03) 50%, var(--void-deep) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Section Video Background */
+        .section-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .section-video-bg__video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .timeline-evidence-section > *:not(.section-video-bg) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hide section video bg on mobile for performance */
+        @media (max-width: 768px) {
+            .section-video-bg {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .section-video-bg {
+                display: none;
+            }
         }
 
         .timeline-evidence-section.snap-section {
@@ -12270,97 +12307,6 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           PHASE 8: SECTION PROGRESS DOTS - Apple-style vertical navigation
-           ═══════════════════════════════════════════════════════════════════════ */
-        .section-progress {
-            position: fixed;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-
-        .section-progress.visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .progress-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(212, 168, 75, 0.25);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            border: none;
-            padding: 0;
-            position: relative;
-        }
-
-        .progress-dot::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-        }
-
-        .progress-dot:hover {
-            background: rgba(212, 168, 75, 0.5);
-            transform: scale(1.3);
-        }
-
-        .progress-dot.active {
-            background: var(--gold);
-            transform: scale(1.5);
-            box-shadow: 0 0 12px rgba(212, 168, 75, 0.5);
-        }
-
-        .progress-dot-tooltip {
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(4, 5, 15, 0.95);
-            border: 1px solid rgba(212, 168, 75, 0.3);
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            color: var(--gold);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(20px);
-        }
-
-        .progress-dot:hover .progress-dot-tooltip {
-            opacity: 1;
-            right: 28px;
-        }
-
-        @media (max-width: 768px) {
-            .section-progress {
-                right: 12px;
-                gap: 10px;
-            }
-            .progress-dot {
-                width: 6px;
-                height: 6px;
-            }
-            .progress-dot-tooltip {
-                display: none;
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
            PHASE 9: AMBIENT MOTION - Subtle living backgrounds
            ═══════════════════════════════════════════════════════════════════════ */
         .ambient-orbs {
@@ -12733,7 +12679,6 @@
         @media print {
             .loader-wrapper,
             .status-ticker,
-            .section-progress,
             .ambient-orbs,
             .particle-field,
             video,
@@ -14420,45 +14365,6 @@
             transform: rotate(180deg);
         }
 
-        /* Section progress bar */
-        .section-progress {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            max-width: 100px;
-            min-width: 60px;
-        }
-
-        .section-progress-track {
-            flex: 1;
-            height: 3px;
-            background: rgba(212, 168, 75, 0.15);
-            border-radius: 2px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-progress-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            background: var(--gold-primary, #d4a84b);
-            border-radius: 2px;
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 6px rgba(212, 168, 75, 0.4);
-        }
-
-        .section-indicator {
-            font-family: var(--font-mono, 'Space Mono', monospace);
-            font-size: 0.7rem;
-            color: rgba(232, 212, 160, 0.6);
-            min-width: 24px;
-            text-align: right;
-            flex-shrink: 0;
-        }
-
         /* Navigation arrows */
         .chapter-arrows {
             display: flex;
@@ -14712,14 +14618,6 @@
             .chapter-name {
                 font-size: 0.7rem;
                 max-width: 180px;
-            }
-
-            .section-progress {
-                max-width: 200px;
-            }
-
-            .section-indicator {
-                font-size: 0.7rem;
             }
 
             .chapter-menu {
@@ -15676,7 +15574,7 @@
             }
 
             html.slideshow-mode .evidence-terminal .terminal-line {
-                padding: 0.15rem 0 !important;
+                padding: 0.35rem 0 !important;
             }
 
             html.slideshow-mode .evidence-link {
@@ -20097,40 +19995,18 @@ main {
    These rules have MAXIMUM specificity and MUST be last in the stylesheet
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* KILL the gold progress dots - they overlap content on ALL devices */
-html body .section-progress,
-html body .section-progress *,
-html body .progress-dot,
-html body .progress-dot *,
-html body .section-progress.visible,
-html body nav.section-progress,
-html body div.section-progress {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
-    left: -99999px !important;
-    top: -99999px !important;
-}
-
-/* KILL the ambient orbs - they distract on mobile */
-html body .ambient-orbs,
-html body .ambient-orbs *,
-html body .ambient-orb,
-html body div.ambient-orbs,
-html body div.ambient-orb {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
-    left: -99999px !important;
-    animation: none !important;
+/* HIDE ambient orbs on MOBILE ONLY - they distract on small screens */
+@media (max-width: 1023px) {
+    html body .ambient-orbs,
+    html body .ambient-orbs *,
+    html body .ambient-orb,
+    html body div.ambient-orbs,
+    html body div.ambient-orb {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
 }
 
 /* KILL the deep-dive HUD */
@@ -20212,8 +20088,6 @@ html body #deep-dive-hud {
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     /* === CRITICAL: Remove ALL fixed/overlapping UI elements === */
-    html body .section-progress,
-    html body .progress-dot,
     html body .ambient-orbs,
     html body .ambient-orb,
     html body .deep-dive-hud,
@@ -20221,7 +20095,6 @@ html body #deep-dive-hud {
     html body .chapter-nav,
     html body .slideshow-nav,
     html body .slideshow-dots,
-    html body [class*="section-indicator"],
     html body [class*="scroll-indicator"] {
         display: none !important;
         visibility: hidden !important;
@@ -20346,12 +20219,10 @@ html body #deep-dive-hud {
         scroll-snap-align: center !important;
     }
 
-    /* === NUCLEAR: Hide ALL Sticky Elements === */
+    /* === NUCLEAR: Hide Sticky Navigation Elements (but NOT the buy bar) === */
     html body .mobile-sticky-cta,
     html body .sticky-cta-bar,
-    html body .mobile-buy-bar,
     html body [class*="sticky-footer"],
-    html body [class*="mobile-cta"],
     html body [class*="floating-cta"],
     html body footer[class*="sticky"],
     html body .chapter-nav,
@@ -20799,17 +20670,6 @@ aside.chapter-sidebar,
     }
 }
 
-/* 2. HIDE RIGHT-SIDE PROGRESS DOTS - Clean up visual clutter */
-html body .section-progress,
-html body nav.section-progress,
-html body .section-progress.visible,
-html body .progress-dot {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
 /* 3. DESKTOP HERO - Clean, professional layout */
 @media (min-width: 1024px) {
     html body .hero.snap-section {
@@ -20981,6 +20841,15 @@ html body .evidence-locker {
     }
 }
 
+/* HIDE MOBILE BUY BAR ON DESKTOP - Not needed on large screens */
+@media (min-width: 1024px) {
+    html body .mobile-buy-bar,
+    html body #mobile-buy-bar {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
 /* 12. DESKTOP QUOTE SECTION */
 @media (min-width: 1024px) {
     html body .quote-section {
@@ -21054,29 +20923,6 @@ html body .evidence-locker {
    SOVEREIGN MOBILE FIXES - iPhone 15 Pro Max & All Mobile Devices
    PRIORITY: MAXIMUM - Fixes identified from screenshot review 2026-01-13
    ═══════════════════════════════════════════════════════════════════════════ */
-
-/* 1. NUCLEAR HIDE GOLD PROGRESS DOTS ON MOBILE - They appear in EVERY screenshot */
-@media (max-width: 1023px) {
-    html body .section-progress,
-    html body nav.section-progress,
-    html body .section-progress.visible,
-    html body .progress-dot,
-    html body .section-progress *,
-    .section-progress,
-    .section-progress.visible,
-    .progress-dot {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        position: absolute !important;
-        left: -99999px !important;
-        top: -99999px !important;
-        z-index: -9999 !important;
-    }
-}
 
 /* 2. FIX BLANK SECTIONS - Remove excessive min-height causing empty screens */
 @media (max-width: 1023px) {
@@ -21489,15 +21335,15 @@ html body .evidence-locker {
     <main class="content" id="main-content" role="main">
         <!-- Hero Section -->
         <section class="hero snap-section chromatic-lens" id="hero">
-            <!-- Thames Intro: Cinematic Grounding - The reversing Thames at night -->
+            <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg" id="thames-bg" aria-hidden="true">
                 <video class="mandelbrot-video" id="thames-video"
                        muted playsinline preload="auto" autoplay loop
                        poster="hero-portal-poster.jpg"
-                       style="background: #02030a; opacity: 0.4;">
-                    <source src="hero-portal-compressed.mp4" type="video/mp4">
+                       style="background: #02030a; opacity: 0.5;">
+                    <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
                 </video>
-                <div class="mandelbrot-overlay" style="background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.8) 100%);"></div>
+                <div class="mandelbrot-overlay" style="background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.7) 100%);"></div>
             </div>
             <span class="hero-badge">THE MIND THAT COULDN'T OPEN POST SAW THIS FIRST</span>
             <!-- Status Pill - Instant Credibility -->
@@ -21987,6 +21833,13 @@ html body .evidence-locker {
              BBC TIMELINE EVIDENCE - "Five Years" (bbc_clip_3)
              ═══════════════════════════════════════════════════════════════════════ -->
         <section class="timeline-evidence-section snap-section chapter-start" id="bbc-timeline">
+            <!-- Cosmic Portal Background for Evidence Section -->
+            <div class="section-video-bg" aria-hidden="true">
+                <video class="section-video-bg__video" muted playsinline autoplay loop preload="none"
+                       style="opacity: 0.15;">
+                    <source src="hero-portal-compressed.mp4" type="video/mp4">
+                </video>
+            </div>
             <!-- Chapter II Title -->
             <div class="chapter-title-divider">
                 <span class="chapter-title-divider__numeral">II</span>
@@ -26577,7 +26430,6 @@ html body .evidence-locker {
 
             // New Phase 7-14 Initializations
             initStaggerReveal();
-            initSectionProgress();
             initAmbientOrbs();
         });
 
@@ -26607,114 +26459,12 @@ html body .evidence-locker {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 8: SECTION PROGRESS DOTS - DISABLED: was overlapping content on right side
-        // ═══════════════════════════════════════════════════════════════════════
-        function initSectionProgress() {
-            // DISABLED - dots were overlapping content and causing visual issues
-            return;
-
-            /* Original code commented out:
-            // Define sections to track
-            const sectionConfig = [
-                { id: 'hero', label: 'HOME' },
-                { id: 'opening-quote', label: 'QUOTE' },
-                { id: 'equation', label: 'EQUATION' },
-                { id: 'prophecy', label: 'PREDICTION' },
-                { id: 'evidence-locker', label: 'EVIDENCE' },
-                { id: 'ideas', label: 'IDEAS' },
-                { id: 'chokepoint', label: 'CHOKEPOINT' },
-                { id: 'hrih', label: 'HRIH' },
-                { id: 'religion', label: 'RELIGION' },
-                { id: 'about', label: 'AUTHOR' },
-                { id: 'tripath', label: 'FUTURE' },
-                { id: 'predictions', label: 'TIMELINE' },
-                { id: 'reviews', label: 'REVIEWS' }
-            ];
-
-            // Create progress container
-            const progressContainer = document.createElement('nav');
-            progressContainer.className = 'section-progress';
-            progressContainer.setAttribute('aria-label', 'Section navigation');
-
-            sectionConfig.forEach(section => {
-                const dot = document.createElement('button');
-                dot.className = 'progress-dot';
-                dot.dataset.section = section.id;
-                dot.setAttribute('aria-label', `Navigate to ${section.label}`);
-
-                const tooltip = document.createElement('span');
-                tooltip.className = 'progress-dot-tooltip';
-                tooltip.textContent = section.label;
-                dot.appendChild(tooltip);
-
-                dot.addEventListener('click', () => {
-                    const targetSection = document.getElementById(section.id);
-                    if (targetSection) {
-                        // Precision snap - instant lock to section top
-                        targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
-                    }
-                });
-
-                progressContainer.appendChild(dot);
-            });
-
-            document.body.appendChild(progressContainer);
-
-            // Track active section
-            let activeSection = null;
-            const sections = sectionConfig.map(s => document.getElementById(s.id)).filter(Boolean);
-
-            const progressObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-                        const sectionId = entry.target.id;
-                        const dot = progressContainer.querySelector(`[data-section="${sectionId}"]`);
-
-                        // Remove active from all
-                        progressContainer.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
-
-                        // Add active to current
-                        if (dot) {
-                            dot.classList.add('active');
-                        }
-                    }
-                });
-            }, {
-                threshold: [0.3, 0.5, 0.7],
-                rootMargin: '-10% 0px -40% 0px'
-            });
-
-            sections.forEach(section => {
-                if (section) progressObserver.observe(section);
-            });
-
-            // Show/hide progress based on scroll position
-            let lastScrollY = 0;
-            window.addEventListener('scroll', () => {
-                const scrollY = window.scrollY;
-
-                // Show after loader
-                if (scrollY > 100) {
-                    progressContainer.classList.add('visible');
-                } else {
-                    progressContainer.classList.remove('visible');
-                }
-
-                lastScrollY = scrollY;
-            }, { passive: true });
-
-            // console.log('✨ Section progress dots enabled');
-            */
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS) - DISABLED: was overlapping content
+        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS) - Desktop only
         // ═══════════════════════════════════════════════════════════════════════
         function initAmbientOrbs() {
-            // DISABLED - orbs were overlapping content and causing visual issues
-            return;
+            // Skip on mobile devices (hidden via CSS anyway)
+            if (window.innerWidth < 1024) return;
 
-            /* Original code commented out:
             // Skip if reduced motion preferred
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -26734,9 +26484,6 @@ html body .evidence-locker {
             // Insert at the beginning of body, but after any loaders
             const mainContent = document.querySelector('.main-content') || document.body.firstChild;
             document.body.insertBefore(orbsContainer, mainContent);
-
-            // console.log('✨ Ambient orbs enabled');
-            */
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -28844,7 +28591,7 @@ html body .evidence-locker {
     <!-- ═══════════════════════════════════════════════════════════════════════
          MOBILE STICKY BUY BAR - Always-visible purchase option
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="mobile-buy-bar" id="mobile-buy-bar" style="display:none !important; visibility:hidden !important; height:0 !important; opacity:0 !important;">
+    <div class="mobile-buy-bar" id="mobile-buy-bar">
         <div class="mobile-buy-bar-inner">
             <div>
                 <div class="mobile-buy-bar-text">Infinite Architects</div>
@@ -29125,14 +28872,6 @@ html body .evidence-locker {
                     <path d="M7 10l5 5 5-5z"/>
                 </svg>
             </button>
-
-            <!-- Section progress within chapter -->
-            <div class="section-progress">
-                <div class="section-progress-track">
-                    <div class="section-progress-fill" id="sectionProgressFill" style="width: 16.67%"></div>
-                </div>
-                <span class="section-indicator" id="sectionIndicator">1/6</span>
-            </div>
 
             <!-- Navigation arrows -->
             <div class="chapter-arrows">
