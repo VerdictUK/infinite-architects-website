@@ -1481,6 +1481,21 @@
             height: 100vh;
         }
 
+        /* ENABLE SCROLL after loader completes - CRITICAL */
+        body.cinematic {
+            overflow: auto !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+
+        html.cinematic-ready {
+            overflow: auto !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -2011,6 +2026,15 @@
             animation: titanDrop 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
+        }
+
+        /* Ensure scroll is unlocked when cinematic is active */
+        html.cinematic-ready, 
+        html.cinematic-ready body,
+        body.cinematic {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
         }
 
         @keyframes titanDrop {
@@ -22709,11 +22733,11 @@ html body #author .storm-story-principle svg {
    PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* DESKTOP: Nuclear scroll fix - ensure free scrolling works */
+/* DESKTOP: Nuclear scroll fix - ensure free scrolling works WITH Lenis */
 @media (min-width: 1024px) {
     html {
         scroll-snap-type: none !important;
-        overflow-y: scroll !important;
+        overflow-y: auto !important;
         overflow-x: hidden !important;
         height: auto !important;
         min-height: 100% !important;
@@ -22721,7 +22745,7 @@ html body #author .storm-story-principle svg {
 
     body {
         scroll-snap-type: none !important;
-        overflow-y: visible !important;
+        overflow-y: auto !important; /* CRITICAL: auto (not visible) for Lenis smooth scroll */
         overflow-x: hidden !important;
         height: auto !important;
         min-height: 100% !important;
@@ -28470,17 +28494,24 @@ main.content,
 
                 // Trigger the Titan Drop & Loader Exit
                 document.body.classList.add('cinematic');
+                document.documentElement.classList.add('cinematic-ready');
                 loader.classList.add('hidden'); // Trigger the slide-up
-                
+
                 // Allow scroll after drop finishes
                 setTimeout(() => {
-                    // FORCE UNLOCK SCROLL
+                    // FORCE UNLOCK SCROLL - Multiple approaches for maximum compatibility
+                    document.body.classList.add('cinematic'); // Ensure class is present
+                    document.documentElement.classList.add('cinematic-ready');
+
+                    // Inline styles as backup
                     document.body.style.overflow = 'auto';
-                    document.body.style.overflowX = 'hidden'; // Keep X hidden
+                    document.body.style.overflowY = 'auto';
+                    document.body.style.overflowX = 'hidden';
                     document.body.style.height = 'auto';
                     document.documentElement.style.overflow = 'auto';
+                    document.documentElement.style.overflowY = 'auto';
                     document.documentElement.style.overflowX = 'hidden';
-                    
+
                     // Cleanup loader
                     loader.classList.add('fully-hidden');
                     
@@ -28508,8 +28539,13 @@ main.content,
                 
                 // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
                 setTimeout(() => {
+                    document.body.classList.add('cinematic');
+                    document.documentElement.classList.add('cinematic-ready');
                     document.body.style.overflow = 'auto';
+                    document.body.style.overflowY = 'auto';
+                    document.body.style.height = 'auto';
                     document.documentElement.style.overflow = 'auto';
+                    document.documentElement.style.overflowY = 'auto';
                 }, 3000);
             }
 
