@@ -11052,6 +11052,163 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           PREMIUM HERO SPACING - Elite First Impression
+           Tightens all hero elements for professional, polished look
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* 1. Hero container - tighter gaps */
+        .hero.snap-section {
+            gap: 0.15rem !important;
+        }
+
+        /* 2. Badge (THE MIND THAT...) - minimal top margin */
+        .hero-badge {
+            margin-top: 0 !important;
+            margin-bottom: 0.35rem !important;
+            padding: 0.4rem 1rem !important;
+            font-size: 0.7rem !important;
+        }
+
+        /* 3. Status Pill (PREDICTION VERIFIED) - tighter */
+        .hero-status-pill {
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
+            padding: 0.35rem 0.8rem !important;
+        }
+
+        /* 4. Hero Title - tighter below */
+        .hero-title {
+            margin-top: 0 !important;
+            margin-bottom: 0.25rem !important;
+        }
+
+        /* 5. Hero Subtitle - tighter */
+        .hero-subtitle {
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        /* 6. Hero Author - tighter */
+        .hero-author {
+            margin-top: 0 !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        /* 7. Book - minimal bottom margin */
+        .hero-book {
+            margin-bottom: 0.25rem !important;
+        }
+
+        /* 8. Hero CTA Button */
+        .hero-cta {
+            margin-top: 0 !important;
+        }
+
+        /* MOBILE-SPECIFIC premium tightening */
+        @media (max-width: 768px) {
+            .hero.snap-section {
+                gap: 0.1rem !important;
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.25rem) !important;
+            }
+
+            .hero-badge {
+                font-size: 0.55rem !important;
+                padding: 0.3rem 0.7rem !important;
+                margin-bottom: 0.2rem !important;
+                letter-spacing: 0.15em !important;
+            }
+
+            .hero-status-pill {
+                padding: 0.25rem 0.6rem !important;
+                margin-bottom: 0.3rem !important;
+                gap: 4px !important;
+            }
+
+            .pill-text {
+                font-size: 0.6rem !important;
+            }
+
+            .pill-link {
+                font-size: 0.6rem !important;
+            }
+
+            .hero-book {
+                margin-bottom: 0.15rem !important;
+            }
+
+            .hero-title {
+                margin-bottom: 0.15rem !important;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 0.3rem !important;
+            }
+
+            .hero-author {
+                margin-bottom: 0.3rem !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           LOADER FORMULA MOBILE FIX - Prevent text overlap
+           ═══════════════════════════════════════════════════════════════════════ */
+        @media (max-width: 480px) {
+            .loader-equation {
+                top: 45% !important;
+            }
+
+            .loader-equation.move-up {
+                transform: translate(-50%, -280%) scale(0.65) !important;
+            }
+
+            .eq-char {
+                font-size: clamp(1.4rem, 8vw, 2rem) !important;
+            }
+
+            .loader-ui {
+                transform: translate(-50%, -20%) scale(0.9) !important;
+            }
+
+            .loader-ui.reveal {
+                transform: translate(-50%, -20%) scale(1) !important;
+            }
+
+            .loader-title {
+                font-size: clamp(0.8rem, 4.5vw, 1.2rem) !important;
+                letter-spacing: 0.1em !important;
+            }
+
+            .loader-subtitle {
+                font-size: clamp(0.6rem, 2.5vw, 0.8rem) !important;
+            }
+
+            .loader-progress {
+                bottom: min(50px, 7vh) !important;
+                width: min(120px, 45vw) !important;
+            }
+
+            .loader-status {
+                font-size: 0.5rem !important;
+                letter-spacing: 0.1em !important;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 380px) {
+            .loader-equation.move-up {
+                transform: translate(-50%, -300%) scale(0.55) !important;
+            }
+
+            .eq-char {
+                font-size: clamp(1.2rem, 7vw, 1.6rem) !important;
+            }
+
+            .loader-ui {
+                transform: translate(-50%, -15%) scale(0.85) !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            MOBILE SWIPE DECKS - Ideas and Predictions (horizontal scroll)
            NOTE: Evidence grid uses vertical stack - see line 22479+
            ═══════════════════════════════════════════════════════════════════════ */
@@ -19952,6 +20109,69 @@ img {
     opacity: 0.3;
 }
 
+/* Chapter Toast Animation - Fires when entering new chapter */
+.chapter-indicator.toast-active {
+    animation: chapterToast 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes chapterToast {
+    0% {
+        transform: translateX(-50%) scale(0.8);
+        opacity: 0;
+        box-shadow: 0 0 0 rgba(212, 168, 75, 0);
+    }
+    15% {
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+        box-shadow: 0 0 30px rgba(212, 168, 75, 0.5), 0 0 60px rgba(212, 168, 75, 0.3);
+    }
+    30% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 0 20px rgba(212, 168, 75, 0.4), 0 0 40px rgba(212, 168, 75, 0.2);
+    }
+    80% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(212, 168, 75, 0.2);
+    }
+    100% {
+        opacity: 0.85;
+        transform: translateX(-50%) scale(1);
+        box-shadow: none;
+    }
+}
+
+/* Desktop toast - from left */
+@media (min-width: 769px) {
+    .chapter-indicator.toast-active {
+        animation: chapterToastDesktop 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes chapterToastDesktop {
+        0% {
+            transform: translateX(-30px) scale(0.8);
+            opacity: 0;
+            box-shadow: 0 0 0 rgba(212, 168, 75, 0);
+        }
+        15% {
+            transform: translateX(5px) scale(1.1);
+            opacity: 1;
+            box-shadow: 0 0 30px rgba(212, 168, 75, 0.5), 0 0 60px rgba(212, 168, 75, 0.3);
+        }
+        30% {
+            transform: translateX(0) scale(1);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.4);
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0.85;
+            transform: translateX(0) scale(1);
+            box-shadow: none;
+        }
+    }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    ADDITIONAL FIXES
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -20914,14 +21134,9 @@ button.btn-secondary:hover {
    EMERGENCY LAYOUT FIXES - Resolves overlapping navigation and broken layouts
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* 1. HIDE LEFT SIDEBAR NAVIGATION - Overlaps content */
-.chapter-sidebar,
-.chapter-sidebar * {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
+/* 1. CHAPTER SIDEBAR - Visible on desktop (1024px+), hidden on mobile/tablet */
+/* Desktop sidebar is shown via JS adding .active class */
+/* Default hidden state is controlled in the original .chapter-sidebar CSS */
 
 /* 2. HIDE RIGHT SIDE HUD - Overlaps content */
 .deep-dive-hud,
@@ -21199,11 +21414,11 @@ html body #deep-dive-hud {
         min-width: 85vw !important;
     }
 
-    /* Hide chapter sidebar on mobile completely */
-    html body .chapter-sidebar,
-    html body .chapter-nav {
+    /* Hide chapter sidebar on mobile (chapter-nav handles mobile navigation) */
+    html body .chapter-sidebar {
         display: none !important;
     }
+    /* chapter-nav is shown on mobile via JS - don't hide it */
 
     /* Ensure content doesn't get cut off */
     html body .content-container,
@@ -21218,12 +21433,11 @@ html body #deep-dive-hud {
    Fixes all mobile issues identified from 49 screenshot analysis
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-    /* === CRITICAL: Remove ALL fixed/overlapping UI elements === */
+    /* === CRITICAL: Remove fixed/overlapping UI elements (except chapter-nav for mobile navigation) === */
     html body .ambient-orbs,
     html body .ambient-orb,
     html body .deep-dive-hud,
     html body .chapter-sidebar,
-    html body .chapter-nav,
     html body .slideshow-nav,
     html body .slideshow-dots,
     html body [class*="scroll-indicator"] {
@@ -21236,6 +21450,21 @@ html body #deep-dive-hud {
         width: 0 !important;
         height: 0 !important;
         pointer-events: none !important;
+    }
+
+    /* chapter-nav (mobile bottom bar) - ENABLED on mobile for chapter navigation */
+    html body .chapter-nav {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: fixed !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        top: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        pointer-events: auto !important;
+        z-index: 9999 !important;
     }
 
     /* === FIX: Quote Carousel Visibility === */
@@ -21816,41 +22045,8 @@ html body #deep-dive-hud {
    PRIORITY: MAXIMUM - These rules MUST come last to override everything
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* 1. NUCLEAR SIDEBAR HIDE - Absolute destruction of left sidebar on ALL devices */
-html body .chapter-sidebar,
-html body aside.chapter-sidebar,
-html body #chapterSidebar,
-html body [id="chapterSidebar"],
-.chapter-sidebar,
-aside.chapter-sidebar,
-#chapterSidebar {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: absolute !important;
-    left: -99999px !important;
-    top: -99999px !important;
-    transform: none !important;
-    z-index: -9999 !important;
-}
-
-/* Override any media query that tries to show sidebar */
-@media (min-width: 1024px) {
-    html body .chapter-sidebar,
-    html body aside.chapter-sidebar,
-    html body #chapterSidebar,
-    .chapter-sidebar,
-    #chapterSidebar {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-}
+/* 1. CHAPTER SIDEBAR - Enabled on desktop (1024px+) */
+/* Sidebar shows on desktop via default CSS in .chapter-sidebar media queries */
 
 /* 3. DESKTOP HERO - Clean, professional layout */
 @media (min-width: 1024px) {
@@ -22689,10 +22885,14 @@ html body #author .storm-story-principle svg {
         contain: paint !important;
     }
 
-    /* Hide any elements that might be bleeding through */
-    html body .chapter-sidebar,
-    html body .slideshow-nav,
-    html body .chapter-nav-sidebar {
+    /* Sidebar hidden on tablet/mobile (chapter-nav shows instead) */
+    html body .chapter-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Slideshow nav deprecated - keep hidden */
+    html body .slideshow-nav {
         display: none !important;
         visibility: hidden !important;
     }
@@ -24618,14 +24818,24 @@ main.content,
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
 @media screen and (max-width: 768px) {
-    /* 1. HIDE CHAPTER INDICATOR ON MOBILE - It overlaps content badly */
+    /* 1. CHAPTER INDICATOR ON MOBILE - Position above nav bars */
     .chapter-indicator,
     #chapter-indicator,
     [id="chapter-indicator"] {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
+        /* Enabled on mobile - positioned center-bottom above mobile nav */
+        bottom: 140px !important; /* Above chapter-nav (70px) + mobile-buy-bar (60px) + gap */
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+        transform: translateX(-50%) !important;
+        z-index: 9980 !important;
+    }
+
+    .chapter-indicator.visible {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: translateX(-50%) translateY(0) !important;
     }
 
     /* 2. HIDE STICKY CTA ON MOBILE - We already have mobile-buy-bar */
@@ -24638,21 +24848,64 @@ main.content,
         pointer-events: none !important;
     }
 
-    /* 3. FIX PROOF STATS OVERLAP - The 78%, 87.5%, 40K, 90% numbers */
+    /* 3. FIX EXPERT-VALIDATION SECTION - Remove height constraints causing overlap */
+    .expert-validation,
+    #expert-validation {
+        min-height: auto !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 2rem 1rem !important;
+    }
+
+    .expert-validation-inner {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .expert-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .expert-card {
+        padding: 1rem !important;
+        max-height: none !important;
+    }
+
+    /* FIX BBC EVIDENCE CARD IN EXPERT SECTION */
+    .expert-validation .bbc-evidence-card,
+    .bbc-evidence-card--reverse {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        margin: 1.5rem 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* 4. FIX PROOF STATS - Ensure they appear BELOW content, not overlapping */
     .proof-stats {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
         gap: 0.75rem !important;
         margin: 1.5rem 0 !important;
-        padding: 0 !important;
+        padding: 1rem !important;
         position: relative !important;
-        z-index: 10 !important;
+        z-index: 1 !important;
         clear: both !important;
+        background: rgba(2, 3, 10, 0.95) !important;
+        border: 1px solid rgba(212, 168, 75, 0.2) !important;
+        border-radius: 12px !important;
     }
 
     .proof-stats .stat-item {
-        background: rgba(2, 3, 10, 0.9) !important;
-        border: 1px solid rgba(212, 168, 75, 0.3) !important;
+        background: rgba(212, 168, 75, 0.08) !important;
+        border: 1px solid rgba(212, 168, 75, 0.2) !important;
         border-radius: 8px !important;
         padding: 0.75rem !important;
         text-align: center !important;
@@ -24660,8 +24913,6 @@ main.content,
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        position: relative !important;
-        z-index: 10 !important;
     }
 
     .proof-stats .stat-number {
@@ -28605,6 +28856,17 @@ main.content,
                             currentChapter = chapter.numeral;
                             numeralEl.textContent = chapter.numeral;
                             nameEl.textContent = chapter.name;
+
+                            // Trigger toast animation on chapter change
+                            indicator.classList.remove('toast-active');
+                            // Force reflow to restart animation
+                            void indicator.offsetWidth;
+                            indicator.classList.add('toast-active');
+
+                            // Remove toast-active after animation completes
+                            setTimeout(() => {
+                                indicator.classList.remove('toast-active');
+                            }, 2500);
                         }
                     }
                 });
@@ -32156,9 +32418,8 @@ main.content,
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
          DESKTOP CHAPTER SIDEBAR - Left side vertical navigation (1024px+)
-         DISABLED: Was overlapping content
          ═══════════════════════════════════════════════════════════════════════════ -->
-    <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
+    <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation">
         <ul class="chapter-sidebar-list" role="list">
             <li class="chapter-sidebar-item active" data-chapter="0">
                 <span class="chapter-sidebar-num">I</span>
@@ -32185,10 +32446,9 @@ main.content,
 
     <!-- ═══════════════════════════════════════════════════════════════════════════
          CHAPTER-BASED NAVIGATION - Mobile/Tablet Bottom Bar (<1024px)
-         DISABLED: Was overlapping content and causing confusion
          ═══════════════════════════════════════════════════════════════════════════ -->
 
-    <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
+    <nav class="chapter-nav" id="chapterNav" aria-label="Chapter navigation">
         <div class="chapter-nav-main">
             <!-- Chapter selector (tappable to open menu) -->
             <button class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
@@ -32332,15 +32592,16 @@ main.content,
             this.bindEvents();
             this.setupScrollDetection();
 
-            // Show navigation after delay (mobile bottom nav only - sidebar hidden on desktop by CSS)
+            // Show navigation after delay
             setTimeout(() => {
+                // Mobile/tablet: show bottom chapter-nav
                 if (this.elements.nav && window.innerWidth < 1024) {
                     this.elements.nav.classList.add('active');
                 }
-                // Sidebar disabled on desktop - CSS hides it completely
-                // if (this.elements.sidebar) {
-                //     this.elements.sidebar.classList.add('active');
-                // }
+                // Desktop: show sidebar
+                if (this.elements.sidebar && window.innerWidth >= 1024) {
+                    this.elements.sidebar.classList.add('active');
+                }
             }, 1500);
 
             // Bind sidebar clicks
@@ -35188,90 +35449,95 @@ main.content,
     </div>
 
     <style>
-        /* Smart Sticky CTA Styles */
+        /* Smart Sticky CTA Styles - Positioned ABOVE chat button (bottom-right) */
         .sticky-cta {
             position: fixed;
-            bottom: 30px;
-            left: 30px; /* Bottom-left to avoid chat button collision (chat is bottom-right) */
-            right: auto;
+            bottom: 100px; /* Above chat button (64px + 24px gap + 12px buffer) */
+            right: 24px; /* Aligned with chat button */
+            left: auto;
             z-index: 9990; /* Below chat widget (99999) */
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
         }
-        
+
         .sticky-cta.visible {
             transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
         }
-        
+
         .sticky-cta-content {
-            background: rgba(10, 12, 20, 0.85);
+            background: rgba(10, 12, 20, 0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 168, 75, 0.2);
+            border: 1px solid rgba(212, 168, 75, 0.25);
             border-radius: 50px;
-            padding: 8px 8px 8px 20px;
+            padding: 6px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            gap: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            max-width: 52px; /* Collapsed - just the button */
         }
-        
+
+        .sticky-cta-content:hover {
+            max-width: 320px; /* Expanded */
+            gap: 12px;
+            padding: 6px 6px 6px 18px;
+        }
+
         .sticky-cta-text {
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gold-pale);
-            letter-spacing: 0.05em;
-            display: none; /* Hidden on small screens */
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            opacity: 0;
+            max-width: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        @media (min-width: 768px) {
-            .sticky-cta-text { display: block; }
+
+        .sticky-cta-content:hover .sticky-cta-text {
+            opacity: 1;
+            max-width: 200px;
         }
-        
+
         .sticky-cta-btn {
             background: var(--gold);
             color: var(--void);
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 10px 14px;
             border-radius: 40px;
             font-family: var(--font-display);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 6px;
             transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: 40px;
         }
-        
+
         .sticky-cta-btn:hover {
             background: var(--gold-bright);
-            transform: scale(1.05);
             box-shadow: 0 0 20px rgba(212, 168, 75, 0.4);
         }
-        
-        .sticky-cta-btn svg { width: 14px; height: 14px; }
 
-        /* Mobile adjustments for sticky CTA */
+        .sticky-cta-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        /* Mobile - Hidden (mobile-buy-bar handles purchase CTA) */
         @media (max-width: 768px) {
             .sticky-cta {
-                bottom: 20px;
-                left: 20px;
-            }
-
-            .sticky-cta-content {
-                padding: 6px 6px 6px 14px;
-                gap: 10px;
-            }
-
-            .sticky-cta-btn {
-                padding: 8px 14px;
-                font-size: 0.7rem;
+                display: none !important;
             }
         }
 
