@@ -22943,6 +22943,137 @@ html body #author .storm-story-principle svg {
         0%, 100% { opacity: 0.4; height: 30px; }
         50% { opacity: 1; height: 40px; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       BOOK PORTAL - Click to Enter (Apple-style)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Make book clickable */
+    html body .hero .book-portal {
+        cursor: pointer !important;
+        position: relative !important;
+        transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    filter 0.5s ease !important;
+    }
+
+    html body .hero .book-portal:hover {
+        transform: scale(1.05) translateY(-8px) !important;
+        filter: drop-shadow(0 30px 60px rgba(212, 168, 75, 0.4))
+                drop-shadow(0 0 40px rgba(212, 168, 75, 0.2)) !important;
+    }
+
+    html body .hero .book-portal:active {
+        transform: scale(0.98) !important;
+    }
+
+    /* Portal glow effect */
+    html body .hero .book-portal-glow {
+        position: absolute !important;
+        inset: -20px !important;
+        background: radial-gradient(ellipse at center,
+            rgba(212, 168, 75, 0.15) 0%,
+            transparent 70%) !important;
+        opacity: 0 !important;
+        transition: opacity 0.5s ease !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+
+    html body .hero .book-portal:hover .book-portal-glow {
+        opacity: 1 !important;
+        animation: portal-pulse 2s ease-in-out infinite !important;
+    }
+
+    @keyframes portal-pulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* Click to begin hint */
+    html body .hero .book-portal-hint {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        margin-top: 1.5rem !important;
+        opacity: 0.6 !important;
+        transition: opacity 0.3s ease, transform 0.3s ease !important;
+        animation: hint-float 3s ease-in-out infinite !important;
+    }
+
+    html body .hero .hero-book-container:hover .book-portal-hint {
+        opacity: 1 !important;
+    }
+
+    html body .hero .portal-hint-text {
+        font-family: var(--font-mono) !important;
+        font-size: 0.7rem !important;
+        letter-spacing: 0.2em !important;
+        text-transform: uppercase !important;
+        color: var(--gold) !important;
+    }
+
+    html body .hero .portal-hint-arrow {
+        width: 20px !important;
+        height: 20px !important;
+        stroke: var(--gold) !important;
+        animation: arrow-bounce 2s ease-in-out infinite !important;
+    }
+
+    @keyframes hint-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    @keyframes arrow-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(5px); }
+    }
+}
+
+/* MOBILE BOOK PORTAL - Click to Enter */
+@media (max-width: 1023px) {
+    .hero .book-portal {
+        cursor: pointer !important;
+        transition: transform 0.3s ease, filter 0.3s ease !important;
+    }
+
+    .hero .book-portal:active {
+        transform: scale(0.95) !important;
+    }
+
+    .hero .book-portal-glow {
+        display: none !important; /* Simpler on mobile */
+    }
+
+    .hero .book-portal-hint {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.4rem !important;
+        margin-top: 1rem !important;
+        opacity: 0.8 !important;
+    }
+
+    .hero .portal-hint-text {
+        font-family: var(--font-mono) !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.15em !important;
+        text-transform: uppercase !important;
+        color: var(--gold) !important;
+    }
+
+    .hero .portal-hint-arrow {
+        width: 18px !important;
+        height: 18px !important;
+        stroke: var(--gold) !important;
+        animation: arrow-bounce-mobile 2s ease-in-out infinite !important;
+    }
+
+    @keyframes arrow-bounce-mobile {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(4px); }
+    }
 }
 
 /* EXTRA LARGE SCREENS - Maintain proportions */
@@ -29778,6 +29909,62 @@ main.content,
         // Keep pageVisible synced on window
         document.addEventListener('visibilitychange', () => {
             window.pageVisible = !document.hidden;
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // BOOK PORTAL - Click to Enter (Apple-style)
+        // ═══════════════════════════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookPortal = document.getElementById('hero-book');
+            const nextSection = document.getElementById('book'); // The quote section after hero
+
+            if (bookPortal && nextSection) {
+                // Click handler
+                bookPortal.addEventListener('click', () => {
+                    // Ensure scrolling is enabled
+                    document.body.style.overflow = 'auto';
+                    document.body.style.overflowX = 'hidden';
+                    document.documentElement.style.overflow = 'auto';
+
+                    // Add a brief "opening" animation
+                    bookPortal.style.transform = 'scale(1.1)';
+                    bookPortal.style.filter = 'drop-shadow(0 0 80px rgba(212, 168, 75, 0.8))';
+
+                    // Smooth scroll to next section after brief delay
+                    setTimeout(() => {
+                        nextSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 200);
+
+                    // Reset book after animation
+                    setTimeout(() => {
+                        bookPortal.style.transform = '';
+                        bookPortal.style.filter = '';
+                    }, 800);
+                });
+
+                // Keyboard accessibility - Enter/Space to activate
+                bookPortal.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        bookPortal.click();
+                    }
+                });
+            }
+
+            // Also make scroll indicator clickable
+            const scrollIndicator = document.querySelector('.hero .scroll-indicator');
+            if (scrollIndicator && nextSection) {
+                scrollIndicator.style.cursor = 'pointer';
+                scrollIndicator.addEventListener('click', () => {
+                    document.body.style.overflow = 'auto';
+                    document.body.style.overflowX = 'hidden';
+                    document.documentElement.style.overflow = 'auto';
+                    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
         });
 
     })();
