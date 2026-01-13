@@ -20479,10 +20479,20 @@ button.btn-secondary:hover {
 @media (max-width: 1023px) {
     .ambient-orbs,
     .ambient-orbs *,
-    .ambient-orb {
+    .ambient-orb,
+    html body .ambient-orbs,
+    html body .ambient-orb,
+    html body div.ambient-orbs,
+    html body div.ambient-orb,
+    html body [class*="ambient-orb"] {
         display: none !important;
         visibility: hidden !important;
         opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
     }
 }
 
@@ -20778,9 +20788,13 @@ html body #deep-dive-hud {
         color: var(--gold-pale, #e8d4a0) !important;
         opacity: 1 !important;
         visibility: visible !important;
-        font-size: 1rem !important;
-        padding: 0 1rem !important;
-        white-space: nowrap !important;
+        font-size: 0.95rem !important;
+        padding: 0.75rem 1.25rem !important;
+        white-space: normal !important;
+        max-width: 320px !important;
+        min-width: 280px !important;
+        line-height: 1.5 !important;
+        border-left: 2px solid rgba(212, 168, 75, 0.3) !important;
     }
 
     /* === FIX: Remove all min-height: 100vh creating blank screens === */
@@ -21012,6 +21026,27 @@ html body #deep-dive-hud {
     html body .hero .hero-book .book-cover-video {
         width: 100% !important;
         height: auto !important;
+        background: transparent !important;
+    }
+
+    /* === FIX: Book cover black padding - remove any backgrounds === */
+    html body .hero .hero-book,
+    html body .hero .hero-book-container,
+    html body .hero .hero-book-3d {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+
+    /* === FIX: Hide 3D book effects on mobile === */
+    html body .hero .hero-book::before,
+    html body .hero .hero-book::after,
+    html body .hero .hero-book-3d::before,
+    html body .hero .hero-book-3d::after,
+    html body .hero .book-light-layer,
+    html body .hero .book-page-peek,
+    html body .hero .book-shadow {
+        display: none !important;
+        content: none !important;
     }
 
     /* Content Right - Below Book, Centered */
@@ -22291,6 +22326,123 @@ html body #author .storm-story-principle svg {
         position: relative !important;
         z-index: 10 !important;
         margin: 1rem 0 !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE EVIDENCE BOARD - Clean, Apple-grade layout
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* Evidence section - clean container */
+    html body .evidence-locker {
+        padding: 1.5rem 1rem !important;
+    }
+
+    /* Evidence grid - vertical stack, not horizontal scroll */
+    html body .evidence-locker .evidence-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        overflow: visible !important;
+    }
+
+    /* Evidence cards - full width, clean */
+    html body .evidence-locker .evidence-card {
+        width: 100% !important;
+        flex: none !important;
+        background: rgba(10, 12, 20, 0.6) !important;
+        border: 1px solid rgba(212, 168, 75, 0.12) !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+    }
+
+    /* Featured card same as others on mobile */
+    html body .evidence-card--featured {
+        grid-column: span 1 !important;
+    }
+
+    /* Evidence header - wrap properly */
+    html body .evidence-header {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    /* Evidence type label */
+    html body .evidence-type {
+        font-size: 0.65rem !important;
+        color: var(--gold) !important;
+    }
+
+    /* Evidence badge - small and subtle */
+    html body .evidence-badge {
+        font-size: 0.55rem !important;
+        padding: 0.15rem 0.4rem !important;
+        background: rgba(212, 168, 75, 0.1) !important;
+        border: 1px solid rgba(212, 168, 75, 0.2) !important;
+        color: var(--gold) !important;
+    }
+
+    /* Sovereign proof badge - NO gold gradient, subtle */
+    html body .sovereign-proof-badge {
+        background: rgba(212, 168, 75, 0.1) !important;
+        border: 1px solid rgba(212, 168, 75, 0.25) !important;
+        color: var(--gold) !important;
+        box-shadow: none !important;
+    }
+
+    /* Timeline card - ensure visibility */
+    html body .willow-timeline {
+        padding: 0.5rem 0 !important;
+    }
+
+    html body .willow-timeline .timeline-event {
+        padding: 0.5rem 0 0.5rem 1.5rem !important;
+        border-left: 2px solid rgba(212, 168, 75, 0.2) !important;
+        margin-left: 4px !important;
+    }
+
+    html body .event-date {
+        font-size: 0.7rem !important;
+        color: var(--gold) !important;
+    }
+
+    html body .event-desc {
+        font-size: 0.85rem !important;
+        color: var(--text-primary) !important;
+        margin-top: 0.2rem !important;
+    }
+
+    /* Live indicator - subtle */
+    html body .live-indicator {
+        font-size: 0.6rem !important;
+        padding: 0.25rem 0.5rem !important;
+        background: rgba(212, 168, 75, 0.06) !important;
+        border: 1px solid rgba(212, 168, 75, 0.15) !important;
+        color: var(--gold) !important;
+    }
+
+    html body .pulse-dot {
+        width: 5px !important;
+        height: 5px !important;
+        background: var(--gold) !important;
+    }
+
+    /* Video container - proper aspect ratio */
+    html body .evidence-video-container {
+        aspect-ratio: 16/9 !important;
+        border-radius: 6px !important;
+        overflow: hidden !important;
+    }
+
+    /* Section title - readable */
+    html body .evidence-locker .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    html body .evidence-locker .section-label {
+        font-size: 0.65rem !important;
     }
 }
 
@@ -29490,7 +29642,7 @@ html body #author .storm-story-principle svg {
          DISABLED: Was overlapping content
          ═══════════════════════════════════════════════════════════════════════════ -->
     <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
-        <ul class="chapter-sidebar-list" role="navigation">
+        <ul class="chapter-sidebar-list" role="list">
             <li class="chapter-sidebar-item active" data-chapter="0">
                 <span class="chapter-sidebar-num">I</span>
                 <span class="chapter-sidebar-name">THE THESIS</span>
