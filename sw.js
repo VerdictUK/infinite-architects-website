@@ -5,7 +5,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'ia-v1.0.0';
+const CACHE_VERSION = 'ia-v1.0.4';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -137,52 +137,54 @@ self.addEventListener('fetch', (event) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// CACHING STRATEGIES
+// CACHING STRATEGIES - ROBUSIFIED
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
+ * Helper to safely cache responses
+ */
+async function safeCachePut(request, response, cacheName) {
+    // Never cache partial content, errors, or opaque responses that might be partial
+    if (!response || !response.ok || response.status === 206) {
+        return;
+    }
+    
+    try {
+        const cache = await caches.open(cacheName);
+        await cache.put(request, response.clone());
+    } catch (error) {
+        // Ignore cache errors (quota exceeded, etc) so the app keeps running
+        console.warn('[SW] Cache put failed:', error);
+    }
+}
+
+/**
  * Network-first with offline fallback (for HTML)
- * Try network, fall back to cache, then offline page
  */
 async function networkFirstWithOfflineFallback(request) {
     try {
         const networkResponse = await fetch(request);
-        // Cache successful responses
-        if (networkResponse.ok) {
-            const cache = await caches.open(DYNAMIC_CACHE);
-            cache.put(request, networkResponse.clone());
-        }
+        await safeCachePut(request, networkResponse, DYNAMIC_CACHE);
         return networkResponse;
     } catch (error) {
-        // Network failed, try cache
         const cachedResponse = await caches.match(request);
-        if (cachedResponse) {
-            return cachedResponse;
-        }
-        // No cache, return offline page
+        if (cachedResponse) return cachedResponse;
         return caches.match('/offline.html');
     }
 }
 
 /**
  * Cache-first with network fallback (for images, fonts)
- * Try cache first, fall back to network
  */
 async function cacheFirstWithNetworkFallback(request, cacheName) {
     const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-        return cachedResponse;
-    }
+    if (cachedResponse) return cachedResponse;
 
     try {
         const networkResponse = await fetch(request);
-        if (networkResponse.ok) {
-            const cache = await caches.open(cacheName);
-            cache.put(request, networkResponse.clone());
-        }
+        await safeCachePut(request, networkResponse, cacheName);
         return networkResponse;
     } catch (error) {
-        // Return placeholder for images if offline
         if (request.destination === 'image') {
             return new Response(
                 '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="#1a1a2e" width="100" height="100"/><text fill="#d4a84b" x="50" y="50" text-anchor="middle" dy=".3em" font-size="12">Offline</text></svg>',
@@ -194,44 +196,34 @@ async function cacheFirstWithNetworkFallback(request, cacheName) {
 }
 
 /**
- * Network-first with cache fallback (for API calls, dynamic content)
+ * Network-first with cache fallback (for API calls)
  */
 async function networkFirstWithCacheFallback(request, cacheName) {
     try {
         const networkResponse = await fetch(request);
-        if (networkResponse.ok) {
-            const cache = await caches.open(cacheName);
-            cache.put(request, networkResponse.clone());
-        }
+        await safeCachePut(request, networkResponse, cacheName);
         return networkResponse;
     } catch (error) {
         const cachedResponse = await caches.match(request);
-        if (cachedResponse) {
-            return cachedResponse;
-        }
+        if (cachedResponse) return cachedResponse;
         throw error;
     }
 }
 
 /**
  * Stale-while-revalidate (for static assets)
- * Return cached immediately, update cache in background
  */
 async function staleWhileRevalidate(request, cacheName) {
     const cache = await caches.open(cacheName);
     const cachedResponse = await cache.match(request);
 
-    // Fetch fresh version in background
     const fetchPromise = fetch(request)
-        .then((networkResponse) => {
-            if (networkResponse.ok) {
-                cache.put(request, networkResponse.clone());
-            }
+        .then(async (networkResponse) => {
+            await safeCachePut(request, networkResponse, cacheName);
             return networkResponse;
         })
         .catch(() => cachedResponse);
 
-    // Return cached version immediately if available
     return cachedResponse || fetchPromise;
 }
 
