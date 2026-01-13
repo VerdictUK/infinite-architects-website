@@ -20189,6 +20189,163 @@ html body #deep-dive-hud {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   APPLE-GRADE MOBILE EXPERIENCE - Comprehensive Overhaul
+   Fixes all mobile issues identified from 49 screenshot analysis
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* === CRITICAL: Remove ALL fixed/overlapping UI elements === */
+    html body .section-progress,
+    html body .progress-dot,
+    html body .ambient-orbs,
+    html body .ambient-orb,
+    html body .deep-dive-hud,
+    html body .chapter-sidebar,
+    html body .chapter-nav,
+    html body .slideshow-nav,
+    html body .slideshow-dots,
+    html body [class*="section-indicator"],
+    html body [class*="scroll-indicator"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: fixed !important;
+        left: -99999px !important;
+        top: -99999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* === FIX: Quote Carousel Visibility === */
+    html body .carousel-section {
+        min-height: 120px !important;
+        height: auto !important;
+        padding: 2rem 1rem !important;
+        overflow: visible !important;
+        background: var(--void-deep, #02030a) !important;
+    }
+
+    html body .carousel-track {
+        display: flex !important;
+        animation: scrollCarousel 45s linear infinite !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    html body .carousel-item {
+        color: var(--gold-pale, #e8d4a0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        font-size: 1rem !important;
+        padding: 0 1rem !important;
+        white-space: nowrap !important;
+    }
+
+    /* === FIX: Remove all min-height: 100vh creating blank screens === */
+    html body .snap-section,
+    html body section,
+    html body [class*="section"] {
+        min-height: auto !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    /* === FIX: Text Overflow (IMG_6922) === */
+    html body .prediction-card,
+    html body .evidence-card,
+    html body [class*="card"] {
+        overflow: visible !important;
+        max-width: 100% !important;
+    }
+
+    html body .prediction-card *,
+    html body [class*="timeline"] * {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+
+    /* === FIX: Comparison Table Cutoff (IMG_6954) === */
+    html body .comparison-table,
+    html body table {
+        font-size: 0.8rem !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+
+    html body .comparison-table th,
+    html body .comparison-table td,
+    html body table th,
+    html body table td {
+        padding: 0.5rem !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    /* === SIMPLIFY: Mobile Sticky Footer === */
+    html body .mobile-sticky-cta,
+    html body .sticky-cta-bar,
+    html body .mobile-buy-bar {
+        display: none !important;
+    }
+
+    /* === CLEAN: Consistent Typography === */
+    html body h1 { font-size: 1.75rem !important; line-height: 1.2 !important; }
+    html body h2 { font-size: 1.5rem !important; line-height: 1.3 !important; }
+    html body h3 { font-size: 1.25rem !important; line-height: 1.3 !important; }
+    html body p { font-size: 1rem !important; line-height: 1.6 !important; }
+
+    /* === CLEAN: Consistent Spacing === */
+    html body section {
+        padding: 2.5rem 1.25rem !important;
+        margin: 0 !important;
+    }
+
+    /* === ENSURE: All Content Visible === */
+    html body * {
+        max-height: none !important;
+    }
+
+    html body .reveal,
+    html body [class*="reveal"] {
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    /* === FIX: Video containers don't overflow === */
+    html body video,
+    html body iframe,
+    html body .video-wrapper,
+    html body [class*="video"] {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* === REMOVE: Decorative pseudo-elements that may cause issues === */
+    html body .carousel-section::before,
+    html body .carousel-section::after {
+        display: none !important;
+    }
+
+    /* === FIX: Ensure body has no fixed positioning issues === */
+    html body {
+        position: relative !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* === ACCESSIBILITY: Ensure tap targets are large enough === */
+    html body button,
+    html body a,
+    html body [role="button"] {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
