@@ -903,123 +903,6 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           CHAPTER GATEWAY - Cinematic Chapter Transition Overlay
-           Appears briefly when entering a new chapter - like a film scene card
-           ═══════════════════════════════════════════════════════════════════════ */
-        .chapter-gateway {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9990; /* Below chat and modals */
-            width: 90vw;
-            max-width: 600px;
-            padding: 2.5rem 3rem;
-            background: rgba(2, 3, 10, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(212, 168, 75, 0.3);
-            border-radius: 16px;
-            text-align: center;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none !important; /* NEVER block scrolling */
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
-                        0 0 40px rgba(212, 168, 75, 0.15),
-                        inset 0 1px 0 rgba(212, 168, 75, 0.1);
-        }
-
-        .chapter-gateway.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: none !important; /* NEVER block scrolling */
-            animation: gatewayPulse 2.5s ease-in-out forwards;
-        }
-
-        @keyframes gatewayPulse {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.92);
-            }
-            12% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            75% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        /* Golden line that draws across */
-        .chapter-gateway::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-            transform: translateX(-50%);
-            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
-        }
-
-        .chapter-gateway.active::before {
-            width: 80%;
-        }
-
-        .chapter-gateway-numeral {
-            font-family: var(--font-display, 'Cinzel', serif);
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 700;
-            color: var(--gold-primary, #d4a84b);
-            letter-spacing: 0.15em;
-            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
-            margin-bottom: 0.5rem;
-        }
-
-        .chapter-gateway-title {
-            font-family: var(--font-mono, 'Space Mono', monospace);
-            font-size: clamp(0.7rem, 2vw, 0.9rem);
-            letter-spacing: 0.35em;
-            color: rgba(232, 212, 160, 0.9);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .chapter-gateway-subtitle {
-            font-family: var(--font-serif, 'Cormorant Garamond', serif);
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            font-style: italic;
-            color: rgba(232, 212, 160, 0.6);
-            line-height: 1.5;
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            .chapter-gateway {
-                width: 85vw;
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        /* Reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            .chapter-gateway {
-                animation: none;
-            }
-            .chapter-gateway.active {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
            CHAPTER DIVIDERS - Visual separation between chapters
            Elegant gold lines with chapter numeral
            ═══════════════════════════════════════════════════════════════════════ */
@@ -26061,13 +25944,6 @@ main.content, #main-content {
         <span class="chapter-indicator__name" id="chapter-name">THE THESIS</span>
     </div>
 
-    <!-- Chapter Gateway - Cinematic chapter transition overlay -->
-    <div class="chapter-gateway" id="chapter-gateway" role="alert" aria-live="assertive">
-        <div class="chapter-gateway-numeral" id="gateway-numeral">I</div>
-        <div class="chapter-gateway-title" id="gateway-title">THE THESIS</div>
-        <div class="chapter-gateway-subtitle" id="gateway-subtitle">The journey into recursive intelligence begins.</div>
-    </div>
-
     <!-- Milestone Toast - Chapter transition notification (bottom-left) -->
     <div class="milestone-toast" id="milestone-toast" role="status" aria-live="polite">
         <span class="milestone-icon" id="milestone-icon">🏛️</span>
@@ -29561,40 +29437,17 @@ main.content, #main-content {
             const icon = document.getElementById('milestone-icon');
             const text = document.getElementById('milestone-text');
 
-            // Chapter Gateway elements
-            const gateway = document.getElementById('chapter-gateway');
-            const gatewayNumeral = document.getElementById('gateway-numeral');
-            const gatewayTitle = document.getElementById('gateway-title');
-            const gatewaySubtitle = document.getElementById('gateway-subtitle');
-
-            // Show cinematic Chapter Gateway (the main visual moment)
-            if (gateway && gatewayNumeral && gatewayTitle && gatewaySubtitle) {
-                gatewayNumeral.textContent = milestone.numeral;
-                gatewayTitle.textContent = milestone.title;
-                gatewaySubtitle.textContent = milestone.subtitle;
-
-                gateway.classList.add('active');
-
-                // Gateway auto-hides after animation (2.5s)
-                setTimeout(() => {
-                    gateway.classList.remove('active');
-                }, 2500);
-            }
-
-            // Show milestone toast (secondary, bottom-left notification)
+            // Show milestone toast (bottom-left notification)
             if (toast && icon && text) {
                 icon.textContent = milestone.icon;
                 text.innerHTML = `<strong>Chapter ${milestone.numeral}:</strong> ${milestone.title}`;
 
-                // Delay toast slightly so gateway gets full attention
-                setTimeout(() => {
-                    toast.classList.add('active');
-                }, 500);
+                toast.classList.add('active');
 
-                // Hide toast after 6 seconds
+                // Hide toast after 8 seconds
                 setTimeout(() => {
                     toast.classList.remove('active');
-                }, 6500);
+                }, 8000);
             }
 
             localStorage.setItem('ia_chapter_milestone', milestone.chapter);
