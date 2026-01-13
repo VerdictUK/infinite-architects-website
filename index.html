@@ -484,6 +484,12 @@
             --section-content-max: calc(100vh - var(--ticker-height) - var(--nav-height) - 6rem);
         }
 
+        /* ═══════════════════════════════════════════════════════════════════
+           RESPONSIVE DESIGN SYSTEM - Single Source of Truth
+           Change values here, they apply everywhere.
+           Breakpoints: 1023px (tablet), 768px (mobile), 480px (small phone)
+           ═══════════════════════════════════════════════════════════════════ */
+
         /* Responsive Spacing Adjustments */
         @media (max-width: 768px) {
             :root {
@@ -491,6 +497,19 @@
                 --space-section-x: var(--space-4);
                 --space-card-padding: var(--space-4);
                 --space-card-gap: var(--space-4);
+
+                /* Mobile Typography */
+                --heading-hero: clamp(1.8rem, 8vw, 2.5rem);
+                --heading-section: clamp(1.5rem, 6vw, 2rem);
+                --text-body: 1rem;
+                --text-small: 0.85rem;
+                --text-badge: 0.65rem;
+
+                /* Mobile Component Sizing */
+                --card-min-width: 85vw;
+                --book-max-width: 220px;
+                --nav-height: 56px;
+                --ticker-height: 32px;
             }
         }
 
@@ -500,6 +519,29 @@
                 --space-section-x: var(--space-3);
                 --space-card-padding: var(--space-3);
                 --space-card-gap: var(--space-3);
+
+                /* Small Phone Typography */
+                --heading-hero: clamp(1.5rem, 7vw, 2rem);
+                --heading-section: clamp(1.3rem, 5vw, 1.6rem);
+                --text-body: 0.95rem;
+                --text-small: 0.8rem;
+                --text-badge: 0.6rem;
+
+                /* Small Phone Component Sizing */
+                --card-min-width: 90vw;
+                --book-max-width: 180px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            :root {
+                /* Ultra-small phones (iPhone SE landscape, etc.) */
+                --heading-hero: 1.4rem;
+                --heading-section: 1.2rem;
+                --text-body: 0.9rem;
+                --text-badge: 0.55rem;
+                --card-min-width: 95vw;
+                --book-max-width: 160px;
             }
         }
 
@@ -1198,7 +1240,7 @@
 
         .pwa-install-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .pwa-install-dismiss {
@@ -2530,7 +2572,7 @@
             padding-bottom: 1rem !important;
             /* Ensure content is vertically distributed within available space */
             justify-content: center !important;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .hero > * {
@@ -2554,7 +2596,7 @@
         }
 
         .hero .hero-author {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.35rem;
         }
 
         /* HERO SPLIT LAYOUT - Phase 12 */
@@ -2624,9 +2666,16 @@
             background: var(--void);
         }
 
-        /* Global video dark background fallback */
+        /* Global video dark background fallback - for background videos only */
         video {
             background: var(--void) !important;
+        }
+
+        /* EXCEPTION: Book cover video - NO black background */
+        .book-cover-video,
+        .hero-book video {
+            background: transparent !important;
+            background-color: transparent !important;
         }
 
         .mandelbrot-video {
@@ -3044,7 +3093,7 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             grid-template-rows: repeat(2, 1fr);
-            gap: 0.5rem;
+            gap: 0.35rem;
             width: 100%;
             max-width: 1400px;
             flex: 1;
@@ -3442,7 +3491,7 @@
         .storm-story-principle {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             margin-top: 1.5rem;
             padding: 0.6rem 1rem;
             background: rgba(212, 168, 75, 0.08);
@@ -3468,7 +3517,7 @@
         .methodology-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         @media (max-width: 900px) { .methodology-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
         .methodology-content { text-align: left; }
-        .methodology-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 200, 150, 0.1); border: 1px solid rgba(0, 200, 150, 0.25); border-radius: 20px; padding: 0.4rem 1rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; color: #00c896; text-transform: uppercase; margin-bottom: 1.5rem; }
+        .methodology-badge { display: inline-flex; align-items: center; gap: 0.35rem; background: rgba(0, 200, 150, 0.1); border: 1px solid rgba(0, 200, 150, 0.25); border-radius: 20px; padding: 0.4rem 1rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.15em; color: #00c896; text-transform: uppercase; margin-bottom: 1.5rem; }
         .methodology-badge::before { content: ''; width: 6px; height: 6px; background: #00c896; border-radius: 50%; animation: methodPulse 2s infinite; }
         @keyframes methodPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
         .methodology-title { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); color: var(--gold); letter-spacing: 0.05em; margin-bottom: 1.5rem; line-height: 1.3; }
@@ -3522,7 +3571,7 @@
             .methodology-closing { margin-top: 3rem; padding-top: 2rem; }
         }
         @media (max-width: 768px) { .methodology-section { padding: 2rem 1rem; } .methodology-inner { gap: 1.25rem; } .methodology-quote { padding-left: 1rem; } .methodology-application { padding: 1rem; } .ai-model-node { padding: 0.75rem 0.5rem; backdrop-filter: blur(4px); } .ai-model-icon { width: 36px; height: 36px; margin-bottom: 0.5rem; border-radius: 10px; } .ai-model-icon svg { width: 18px; height: 18px; } .convergence-box { padding: 1rem; } }
-        @media (max-width: 480px) { .methodology-section { padding: 2.5rem 1rem; } .ai-model-grid { gap: 0.5rem; } .ai-model-node { padding: 0.6rem 0.5rem; } .ai-model-name { font-size: 0.7rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
+        @media (max-width: 480px) { .methodology-section { padding: 2.5rem 1rem; } .ai-model-grid { gap: 0.35rem; } .ai-model-node { padding: 0.6rem 0.5rem; } .ai-model-name { font-size: 0.7rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
 
         /* ═══════════════════════════════════════════════════════════════════════
            ORIGIN STORY SECTION - Childhood Philosopher Moments
@@ -4247,7 +4296,7 @@
 
         @media (max-width: 768px) {
             .predictions-validated {
-                padding: 4rem 1rem;
+                padding: 2rem 1rem;
             }
             .timeline-container {
                 padding-left: 2rem;
@@ -5065,10 +5114,10 @@
                 padding: var(--space-lg) var(--space-md);
             }
 
-            /* HERO - Force Visibility */
+            /* HERO - Force Visibility - Compact Mobile */
             .hero {
                 min-height: 100svh;
-                padding: 70px var(--space-md) 60px;
+                padding: 65px var(--space-md) 35px;
             }
 
             .hero-badge,
@@ -5082,12 +5131,14 @@
             }
 
             .hero-title {
-                font-size: clamp(1.8rem, 10vw, 3rem);
-                letter-spacing: 0.15em;
+                font-size: clamp(1.6rem, 9vw, 2.8rem);
+                letter-spacing: 0.12em;
+                margin-bottom: 0.1rem;
             }
 
             .hero-subtitle {
-                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+                font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+                margin-bottom: 0.1rem;
             }
 
             .hero-author {
@@ -5099,8 +5150,9 @@
             }
 
             .hero-book {
-                width: clamp(140px, 45vw, 220px);
-                max-height: clamp(200px, 30vh, 320px);
+                width: clamp(130px, 40vw, 200px);
+                max-height: clamp(180px, 28vh, 280px);
+                margin-bottom: 0.35rem;
             }
 
             /* QUOTE - Reduce Height */
@@ -5779,7 +5831,7 @@
         .control-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.35rem;
             text-align: left;
         }
 
@@ -6242,7 +6294,7 @@
         @media (max-width: 768px) {
             .equation-section {
                 min-height: auto;
-                padding: 4rem 1.5rem;
+                padding: 2rem 1.5rem;
             }
 
             .equation-display {
@@ -6253,7 +6305,7 @@
             .eq-def {
                 flex-direction: column;
                 text-align: center;
-                gap: 0.5rem;
+                gap: 0.35rem;
                 padding: 1rem;
             }
 
@@ -7154,7 +7206,7 @@
         .bbc-meta span {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .bbc-meta svg {
@@ -7170,7 +7222,7 @@
             }
 
             .bbc-section {
-                padding: 3rem 1.5rem;
+                padding: 2rem 1.5rem;
             }
         }
 
@@ -7346,7 +7398,7 @@
         /* DISABLED:             overflow: hidden; */
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .hrih-theory-card {
@@ -7574,7 +7626,7 @@
         .validation-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             background: rgba(239, 83, 80, 0.2);
             color: #ef5350;
             padding: 0.4rem 1rem;
@@ -8345,7 +8397,7 @@
         .concepts-cta {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-display);
             font-size: 0.9rem;
             letter-spacing: 0.1em;
@@ -8426,7 +8478,7 @@
         .concept-expand-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             background: none;
             border: none;
             color: var(--gold);
@@ -9168,7 +9220,7 @@
         .bbc-evidence-card__badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-mono);
             font-size: 0.85rem;
             letter-spacing: 0.15em;
@@ -9369,7 +9421,7 @@
         .live-indicator {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-mono);
             font-size: 0.65rem;
             letter-spacing: 0.12em;
@@ -9562,7 +9614,7 @@
         .evidence-card--methodology .methodology-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             background: linear-gradient(135deg, rgba(212, 168, 75, 0.15), rgba(212, 168, 75, 0.05));
             border: 1px solid rgba(212, 168, 75, 0.3);
             padding: 0.25rem 0.75rem;
@@ -9642,7 +9694,7 @@
             .evidence-card--methodology .methodology-list li {
                 font-size: 0.8rem;
                 padding: 0.5rem 0;
-                gap: 0.5rem;
+                gap: 0.35rem;
             }
 
             .evidence-card--methodology .methodology-list .method-icon {
@@ -9777,7 +9829,7 @@
             align-items: flex-start;
             margin-bottom: 0.75rem;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .evidence-type {
@@ -9856,7 +9908,7 @@
         .evidence-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             color: var(--gold);
@@ -10013,7 +10065,7 @@
             padding: 0 1.5rem;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .ticker-alert {
@@ -10155,7 +10207,7 @@
         .reality-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             background: #b91c1c;
             color: white;
             padding: 6px 14px;
@@ -10257,7 +10309,7 @@
         .prediction-written {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             margin-bottom: 1.5rem;
         }
 
@@ -10305,7 +10357,7 @@
         .prediction-published {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         /* SLIDER HANDLE */
@@ -10627,7 +10679,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             margin-top: 0.5rem;
             padding: 0.5rem 1rem;
             font-family: var(--font-mono);
@@ -10714,13 +10766,13 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           COMPLETE WEAPON: MOBILE SWIPE DECKS
+           MOBILE SWIPE DECKS - Ideas and Predictions (horizontal scroll)
+           NOTE: Evidence grid uses vertical stack - see line 22479+
            ═══════════════════════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
-            /* Convert grids to horizontal scroll */
+            /* Convert grids to horizontal scroll (NOT evidence-grid) */
             .ideas-grid,
-            .predictions-grid,
-            .evidence-grid {
+            .predictions-grid {
                 display: flex !important;
                 flex-wrap: nowrap !important;
                 overflow-x: auto;
@@ -10735,8 +10787,7 @@
 
             /* Card sizing - show peek of next card */
             .idea-card,
-            .prediction-card,
-            .evidence-card {
+            .prediction-card {
                 min-width: 85vw;
                 max-width: 85vw;
                 flex-shrink: 0;
@@ -10745,8 +10796,7 @@
             }
 
             /* Featured cards same size on mobile */
-            .idea-card--featured,
-            .evidence-card--featured {
+            .idea-card--featured {
                 grid-column: unset;
                 min-width: 85vw;
                 max-width: 85vw;
@@ -10754,41 +10804,48 @@
 
             /* Hide scrollbars but keep functionality */
             .ideas-grid::-webkit-scrollbar,
-            .predictions-grid::-webkit-scrollbar,
-            .evidence-grid::-webkit-scrollbar { display: none; }
+            .predictions-grid::-webkit-scrollbar { display: none; }
 
             .ideas-grid,
-            .predictions-grid,
-            .evidence-grid {
+            .predictions-grid {
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
 
-            /* Scroll indicator dots */
+            /* Scroll indicator dots - visible and clear */
             .swipe-indicator {
                 display: flex;
                 justify-content: center;
-                gap: 6px;
-                margin-top: 1rem;
+                align-items: center;
+                gap: 8px;
+                margin-top: 1.25rem;
+                padding: 0.5rem 0;
             }
 
             .swipe-dot {
-                width: 6px;
-                height: 6px;
-                background: var(--text-faint);
+                width: 8px;
+                height: 8px;
+                background: rgba(212, 168, 75, 0.25);
                 border-radius: 50%;
                 transition: all 0.3s ease;
             }
 
-                        .swipe-dot.active {
+            .swipe-dot.active {
+                background: var(--gold);
+                width: 24px;
+                border-radius: 4px;
+            }
 
-                            background: var(--gold);
-
-                            width: 20px;
-
-                            border-radius: 3px;
-
-                        }
+            /* Scroll hint for first-time users */
+            .scroll-hint {
+                font-size: 0.7rem;
+                color: var(--text-faint);
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                text-align: center;
+                opacity: 0.6;
+            }
 
             
 
@@ -11374,7 +11431,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             padding: 1rem 2rem;
             font-family: var(--font-display);
             font-size: 0.9rem;
@@ -11489,7 +11546,7 @@
                 min-height: auto;
                 height: auto;
                 overflow: visible;
-                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1.5rem);
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
                 padding-bottom: 2rem;
             }
         }
@@ -11544,7 +11601,7 @@
         /* HERO SECTION - Book + content must fit */
         .hero.snap-section {
             justify-content: center !important;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         /* QUOTE SECTION - Centreed quote */
@@ -11839,7 +11896,7 @@
         }
         .press-section .press-grid {
             display: flex !important;
-            gap: 1rem !important;
+            gap: 0.5rem !important;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -12070,7 +12127,7 @@
                 flex-direction: row !important;
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding-bottom: 1rem !important;
                 -webkit-overflow-scrolling: touch;
             }
@@ -12105,7 +12162,7 @@
             /* BBC Evidence mobile */
             .bbc-evidence-card {
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .bbc-evidence-card__video {
@@ -12146,7 +12203,7 @@
                 flex-direction: row !important;
                 overflow-x: auto !important;
                 overflow-y: hidden !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 -webkit-overflow-scrolling: touch;
             }
 
@@ -12251,7 +12308,7 @@
             .ideas-grid {
                 grid-template-columns: repeat(5, 1fr) !important;
                 grid-template-rows: repeat(2, 1fr) !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .evidence-grid {
@@ -12799,7 +12856,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
         .about-section .author-photo {
             width: 180px !important;
@@ -12922,7 +12979,7 @@
         }
         .press-section .press-grid {
             display: flex !important;
-            gap: 1rem !important;
+            gap: 0.5rem !important;
             flex-wrap: wrap !important;
             justify-content: center !important;
         }
@@ -13555,7 +13612,7 @@
 
             /* Evidence grid needs tighter gap to fit 3x3 */
             .evidence-locker .evidence-grid {
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .hero-content {
@@ -13988,7 +14045,7 @@
         .social-proof {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             font-family: var(--font-mono);
             font-size: 0.7rem;
             color: var(--text-dim);
@@ -14054,7 +14111,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
             opacity: 0.6;
             animation: hintBounce 2s ease-in-out infinite;
         }
@@ -14459,7 +14516,7 @@
             .ideas-grid {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 1rem !important;
                 max-height: none !important;
                 overflow: visible !important;
@@ -14481,14 +14538,14 @@
 
             /* 4. MOBILE HERO - Full impact */
             .hero {
-                padding: 2rem 1.25rem 1.5rem !important;
+                padding: 1.75rem 1.25rem 1rem !important;
                 text-align: center;
                 min-height: auto !important;
                 height: auto !important;
             }
 
             .hero-content {
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -14496,8 +14553,8 @@
 
             .hero-image,
             .book-cover {
-                max-width: 200px !important;
-                width: 60% !important;
+                max-width: 180px !important;
+                width: 55% !important;
                 margin: 0 auto 0.5rem;
             }
 
@@ -14597,7 +14654,7 @@
             .comparison-grid {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .comp-card {
@@ -14608,7 +14665,7 @@
             .proof-stats {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 1.5rem 1rem !important;
             }
 
@@ -14710,7 +14767,7 @@
                 display: flex !important;
                 align-items: center;
                 justify-content: center;
-                gap: 0.5rem;
+                gap: 0.35rem;
                 font-family: var(--font-mono);
                 font-size: 0.7rem;
                 color: var(--text-dim);
@@ -14745,7 +14802,7 @@
                 padding: 5rem 1.5rem 2rem !important;
                 flex-direction: column !important;
                 align-items: flex-start !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 transform: translateX(100%) !important;
                 transition: transform 0.3s ease !important;
                 z-index: 9998 !important;
@@ -14778,7 +14835,7 @@
             .evidence-grid {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 1rem !important;
                 overflow: visible !important;
             }
@@ -14792,7 +14849,7 @@
             .expert-grid {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .expert-card {
@@ -14803,7 +14860,7 @@
             .tripath-grid {
                 display: grid !important;
                 grid-template-columns: 1fr !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .tripath-card {
@@ -14815,7 +14872,7 @@
             .bbc-evidence-card {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             .bbc-evidence-card__video-wrapper {
@@ -15389,7 +15446,7 @@
                 padding: 0.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
                 flex-direction: column;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 0.35rem;
                 pointer-events: none;
                 opacity: 0;
                 transform: translateY(30px);
@@ -15529,7 +15586,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 0.5rem;
+                gap: 0.35rem;
                 opacity: 0;
                 animation: swipeHintFade 3s ease-in-out forwards;
                 animation-delay: 2s;
@@ -16567,7 +16624,7 @@
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 0.5rem 1rem 1rem 1rem !important;
                 max-height: calc(100dvh - 180px) !important;
                 -webkit-overflow-scrolling: touch !important;
@@ -16787,7 +16844,7 @@
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
             }
 
             html.slideshow-mode .author-photo {
@@ -16918,7 +16975,7 @@
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 0.5rem 1rem 1rem 1rem !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
@@ -16978,7 +17035,7 @@
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 0.5rem 1rem 1rem 1rem !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: none !important;
@@ -17030,7 +17087,7 @@
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
                 scroll-snap-type: x mandatory !important;
-                gap: 1rem !important;
+                gap: 0.5rem !important;
                 padding: 0.5rem 1rem 1rem 1rem !important;
                 max-height: calc(100dvh - 180px) !important;
                 -webkit-overflow-scrolling: touch !important;
@@ -17718,7 +17775,7 @@
         .glossary-filter {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.35rem;
             justify-content: center;
             margin: 2rem 0;
         }
@@ -18010,7 +18067,7 @@
         .chapter-concepts {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .chapter-concept-tag {
@@ -18130,7 +18187,7 @@
 
             .glossary-filter {
                 flex-wrap: wrap;
-                gap: 0.5rem;
+                gap: 0.35rem;
             }
 
             .glossary-filter-btn {
@@ -18924,7 +18981,7 @@
 
 .quote-share-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.35rem;
     margin-top: 1rem;
     opacity: 0;
     transform: translateY(8px);
@@ -18997,7 +19054,7 @@
 .view-all-concepts-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.35rem;
     margin-top: 1.5rem;
     padding: 0.75rem 1.5rem;
     background: transparent;
@@ -19149,7 +19206,7 @@ a {
 .ideas-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-    gap: 1rem !important;
+    gap: 0.5rem !important;
     width: 100% !important;
     max-width: 1400px !important;
 }
@@ -19185,7 +19242,7 @@ a {
 .predictions-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-    gap: 1rem !important;
+    gap: 0.5rem !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -19255,7 +19312,7 @@ a {
 .bbc-evidence-card__content {
     display: flex !important;
     flex-direction: column !important;
-    gap: 1rem !important;
+    gap: 0.5rem !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -19321,7 +19378,7 @@ a {
         overflow-y: hidden !important;
         -webkit-overflow-scrolling: touch !important;
         scroll-snap-type: x mandatory !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
         padding: 0.5rem 0 1.5rem !important;
     }
 
@@ -19353,7 +19410,7 @@ a {
     .religion-section .religion-content,
     .religion-section .section-inner {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+        gap: 1.25rem !important;
     }
 
     /* Smaller typography */
@@ -19708,7 +19765,7 @@ html.slideshow-mode .slideshow-dots {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
         scroll-snap-type: x mandatory !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
     }
 
     .evidence-locker .evidence-card {
@@ -20511,7 +20568,7 @@ button.btn-secondary:hover {
 
 @media (max-width: 768px) {
     .snap-section {
-        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 1rem 5rem !important;
+        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 1rem 2rem !important;
     }
 }
 
@@ -20544,7 +20601,7 @@ button.btn-secondary:hover {
 .reviews-grid,
 .chapters-grid,
 .comparison-grid {
-    gap: 1rem !important;
+    gap: 0.5rem !important;
 }
 
 @media (max-width: 768px) {
@@ -20935,7 +20992,7 @@ html body #deep-dive-hud {
         overflow-y: hidden !important;
         scroll-snap-type: x mandatory !important;
         -webkit-overflow-scrolling: touch !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
         padding: 1rem !important;
         margin: 0 -1rem !important;
     }
@@ -20990,7 +21047,7 @@ html body #deep-dive-hud {
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
         -webkit-overflow-scrolling: touch !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
         padding: 1rem !important;
     }
 
@@ -21042,7 +21099,7 @@ html body #deep-dive-hud {
 
     /* === CLEAN: Consistent Spacing === */
     html body section {
-        padding: 2.5rem 1.25rem !important;
+        padding: 2rem 1.25rem !important;
         margin: 0 !important;
     }
 
@@ -21090,6 +21147,7 @@ html body #deep-dive-hud {
     }
 
     /* === HERO SECTION MOBILE OPTIMIZATION === */
+    /* MASTERPIECE QUALITY: Tight spacing, clear hierarchy, no black boxes */
     html body .hero,
     html body .hero.snap-section,
     html body #hero {
@@ -21097,65 +21155,78 @@ html body #deep-dive-hud {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: flex-start !important;
-        padding: 2rem 1.25rem 1.5rem !important;
+        /* Account for ticker + nav, then minimal padding */
+        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 1rem !important;
         min-height: auto !important;
         height: auto !important;
         text-align: center !important;
-        gap: 1.5rem !important;
+        gap: 0.5rem !important; /* Tight elegant spacing */
     }
 
-    /* Hero Badge - Top */
+    /* Hero Badge - Compact, subtle intro */
     html body .hero .hero-badge {
         order: 1 !important;
-        font-size: 0.75rem !important;
-        letter-spacing: 0.1em !important;
-        margin-bottom: 0.5rem !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.08em !important;
+        margin-bottom: 0 !important;
         text-align: center !important;
+        padding: 0.3rem 0.6rem !important;
+        opacity: 0.75 !important;
     }
 
-    /* Status Pill - Below Badge */
+    /* Status Pill - Inline row for space efficiency */
     html body .hero .hero-status-pill {
         order: 2 !important;
-        flex-direction: column !important;
-        gap: 0.5rem !important;
-        padding: 0.5rem 0.75rem !important;
-        font-size: 0.75rem !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.25rem !important;
+        padding: 0.3rem 0.5rem !important;
+        font-size: 0.7rem !important;
         text-align: center !important;
     }
 
-    /* Book - Centered, Full Width */
+    /* Book - Prominent, clean presentation */
     html body .hero .hero-book-container {
         order: 3 !important;
         width: 100% !important;
-        max-width: 280px !important;
-        margin: 0 auto !important;
+        max-width: 220px !important;
+        margin: 0.1rem auto !important;
         display: flex !important;
         justify-content: center !important;
+        background: transparent !important;
     }
 
     html body .hero .hero-book {
         width: 100% !important;
-        max-width: 260px !important;
+        max-width: var(--book-max-width, 220px) !important;
         height: auto !important;
+        background: transparent !important;
     }
 
+    /* === NUCLEAR: Eliminate ALL black boxes behind video/images === */
     html body .hero .hero-book img,
     html body .hero .hero-book video,
     html body .hero .hero-book .book-cover-video {
         width: 100% !important;
         height: auto !important;
         background: transparent !important;
+        background-color: transparent !important;
+        border-radius: 3px !important;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(212, 168, 75, 0.06) !important;
     }
 
-    /* === FIX: Book cover black padding - remove any backgrounds === */
+    /* === FIX: Recursively remove all backgrounds from book elements === */
     html body .hero .hero-book,
     html body .hero .hero-book-container,
-    html body .hero .hero-book-3d {
+    html body .hero .hero-book-3d,
+    html body .hero .hero-book *,
+    html body .hero .hero-book-container * {
         background: transparent !important;
         background-color: transparent !important;
     }
 
-    /* === FIX: Hide 3D book effects on mobile === */
+    /* === FIX: Hide 3D effects for clean mobile presentation === */
     html body .hero .hero-book::before,
     html body .hero .hero-book::after,
     html body .hero .hero-book-3d::before,
@@ -21165,9 +21236,10 @@ html body #deep-dive-hud {
     html body .hero .book-shadow {
         display: none !important;
         content: none !important;
+        visibility: hidden !important;
     }
 
-    /* Content Right - Below Book, Centered */
+    /* Content Right - Clear typography hierarchy */
     html body .hero .hero-content-right {
         order: 4 !important;
         width: 100% !important;
@@ -21176,37 +21248,48 @@ html body #deep-dive-hud {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 0.75rem !important;
+        gap: 0.35rem !important; /* Tight, elegant */
+        margin-top: 0.1rem !important;
     }
 
+    /* Title - Strong, commanding presence */
     html body .hero .hero-title {
-        font-size: 1.75rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.5rem !important;
+        line-height: 1.12 !important;
         text-align: center !important;
         margin: 0 !important;
+        padding: 0 !important;
+        letter-spacing: 0.03em !important;
     }
 
+    /* Subtitle - Supporting, secondary */
     html body .hero .hero-subtitle {
-        font-size: 1rem !important;
-        line-height: 1.5 !important;
+        font-size: 0.88rem !important;
+        line-height: 1.35 !important;
         text-align: center !important;
-        max-width: 320px !important;
+        max-width: 280px !important;
         margin: 0 auto !important;
-        opacity: 0.9 !important;
+        opacity: 0.82 !important;
+        color: var(--text-secondary, rgba(232, 212, 160, 0.8)) !important;
     }
 
+    /* Author - Subtle, tertiary */
     html body .hero .hero-author {
-        font-size: 0.9rem !important;
+        font-size: 0.72rem !important;
         text-align: center !important;
         margin: 0 !important;
-        opacity: 0.7 !important;
+        opacity: 0.58 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
     }
 
+    /* CTA - Clear action, appropriately sized */
     html body .hero .hero-cta {
-        margin-top: 1rem !important;
+        margin-top: 0.35rem !important;
         width: auto !important;
-        max-width: 280px !important;
-        padding: 1rem 2rem !important;
+        max-width: 230px !important;
+        padding: 0.7rem 1.4rem !important;
+        font-size: 0.72rem !important;
     }
 
     /* Scroll Indicator - Hidden on Mobile */
@@ -21266,7 +21349,7 @@ html body #deep-dive-hud {
 
     html body .equation-container {
         flex-direction: column !important;
-        gap: 2rem !important;
+        gap: 1.25rem !important;
     }
 
     html body .equation-display {
@@ -21319,7 +21402,7 @@ html body #deep-dive-hud {
 
     html body .about-inner {
         flex-direction: column !important;
-        gap: 2rem !important;
+        gap: 1.25rem !important;
         text-align: center !important;
     }
 
@@ -21359,19 +21442,19 @@ html body #deep-dive-hud {
     html body footer,
     html body .footer-section,
     html body #footer {
-        padding: 2.5rem 1.25rem 3rem !important;
+        padding: 2rem 1.25rem 2rem !important;
         text-align: center !important;
     }
 
     html body .footer-content {
         flex-direction: column !important;
-        gap: 2rem !important;
+        gap: 1.5rem !important;
         text-align: center !important;
     }
 
     html body .footer-links {
         flex-direction: column !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
     }
 
     /* === STORM STORY MOBILE === */
@@ -21393,7 +21476,7 @@ html body #deep-dive-hud {
     /* === TIMELINE SECTION MOBILE === */
     html body .timeline-evidence-section,
     html body #bbc-timeline {
-        padding: 2.5rem 1rem !important;
+        padding: 2rem 1rem !important;
     }
 
     html body .timeline-event {
@@ -21403,7 +21486,7 @@ html body #deep-dive-hud {
     /* === CHOKEPOINT SECTION MOBILE === */
     html body .chokepoint-section,
     html body #chokepoint {
-        padding: 2.5rem 1rem !important;
+        padding: 2rem 1rem !important;
     }
 
     html body .chokepoint-visual {
@@ -21413,13 +21496,13 @@ html body #deep-dive-hud {
 
     /* === NEWSLETTER SECTION MOBILE === */
     html body .newsletter-section {
-        padding: 2.5rem 1.25rem !important;
+        padding: 2rem 1.25rem !important;
         text-align: center !important;
     }
 
     html body .newsletter-form {
         flex-direction: column !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
         max-width: 300px !important;
         margin: 0 auto !important;
     }
@@ -21485,7 +21568,7 @@ aside.chapter-sidebar,
         padding: 120px 8% !important;
         min-height: 100vh !important;
         position: relative !important;
-        overflow: hidden !important;
+        overflow: visible !important; /* FIXED: Allow scroll-indicator and book-shadow to render */
     }
 
     /* Book container - left side */
@@ -21757,7 +21840,7 @@ html body #author .about-visual {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    gap: 1rem !important;
+    gap: 0.5rem !important;
     width: 280px !important;
     flex-shrink: 0 !important;
     overflow: visible !important; /* Allow tesseract to extend beyond container */
@@ -21946,7 +22029,7 @@ html body #author .storm-story-principle svg {
     html body #author .section-inner,
     html body #author .about-inner {
         grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+        gap: 1.25rem !important;
         text-align: center !important;
     }
 
@@ -22321,7 +22404,7 @@ html body #author .storm-story-principle svg {
 }
 
 /* 4. FIX COMPARISON TABLE - Ensure columns fit on mobile */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body .comparison-table {
         font-size: 0.75rem !important;
         overflow-x: auto !important;
@@ -22342,7 +22425,7 @@ html body #author .storm-story-principle svg {
 }
 
 /* 5. MOBILE TYPOGRAPHY SCALING */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body .section-title,
     html body h2 {
         font-size: clamp(1.5rem, 6vw, 2rem) !important;
@@ -22356,7 +22439,7 @@ html body #author .storm-story-principle svg {
 }
 
 /* 6. MOBILE CARD SIZING */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body .concept-card,
     html body .idea-card,
     html body .evidence-card {
@@ -22389,7 +22472,7 @@ html body #author .storm-story-principle svg {
 }
 
 /* 8. FIX VIDEO CONTAINERS ON MOBILE */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body .video-wrapper,
     html body .bbc-evidence-card__video-wrapper,
     html body video {
@@ -22401,20 +22484,17 @@ html body #author .storm-story-principle svg {
 }
 
 /* 9. ENSURE IMAGES ARE RESPONSIVE */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body img {
         max-width: 100% !important;
         height: auto !important;
     }
 
-    html body .hero-book {
-        max-width: 250px !important;
-        margin: 0 auto !important;
-    }
+    /* Book sizing handled in comprehensive mobile hero block above */
 }
 
 /* 10. FIX PURCHASE CARDS ON MOBILE */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     html body .purchase-card,
     html body .door-card {
         width: calc(100vw - 2rem) !important;
@@ -22460,7 +22540,7 @@ html body #author .storm-story-principle svg {
     html body .evidence-locker .evidence-grid {
         display: flex !important;
         flex-direction: column !important;
-        gap: 1rem !important;
+        gap: 0.5rem !important;
         overflow: visible !important;
     }
 
@@ -22492,10 +22572,10 @@ html body #author .storm-story-principle svg {
         color: var(--gold) !important;
     }
 
-    /* Evidence badge - small and subtle */
+    /* Evidence badge - readable but subtle */
     html body .evidence-badge {
-        font-size: 0.55rem !important;
-        padding: 0.15rem 0.4rem !important;
+        font-size: var(--text-badge, 0.65rem) !important;
+        padding: 0.2rem 0.5rem !important;
         background: rgba(212, 168, 75, 0.1) !important;
         border: 1px solid rgba(212, 168, 75, 0.2) !important;
         color: var(--gold) !important;
@@ -22563,6 +22643,37 @@ html body #author .storm-story-principle svg {
         font-size: 0.65rem !important;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN CONSOLIDATION ZONE
+   ═══════════════════════════════════════════════════════════════════════════════
+
+   ARCHITECTURE NOTES (for future developers):
+
+   1. BREAKPOINT STRATEGY (Standardised):
+      - max-width: 1023px  → Large tablets and below (touch-first)
+      - max-width: 768px   → Tablets and mobile phones
+      - max-width: 480px   → Small phones (iPhone SE, etc.)
+      - max-width: 320px   → Ultra-small screens
+
+   2. CSS VARIABLES:
+      Responsive values are defined in :root (see line ~487).
+      Change values there, they apply everywhere.
+      Variables: --heading-hero, --heading-section, --text-badge, --book-max-width, etc.
+
+   3. SPECIFICITY:
+      Mobile overrides use `html body .selector` pattern for maximum specificity.
+      This ensures our rules win over scattered legacy rules.
+
+   4. DO NOT ADD @media RULES ABOVE THIS SECTION:
+      All new responsive rules should go here to prevent future CSS fragmentation.
+      Legacy rules above are being consolidated over time.
+
+   5. GOLDEN RULE:
+      If you need to style something for mobile, add it HERE, not near the component.
+
+   Last updated: January 2026 - Hybrid Surgical + Architectural Fix
+   ═══════════════════════════════════════════════════════════════════════════════ */
 
     </style>
 
