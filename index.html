@@ -10076,21 +10076,25 @@
             font-size: 0.7rem;
         }
 
-        /* Evidence grid - clean layout */
+        /* Evidence grid - clean layout with CONTENT-SIZED cards */
         .evidence-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.25rem;
             text-align: left;
+            align-items: start; /* CRITICAL: Cards size to content, not stretch */
         }
 
-        /* Evidence cards - GOLD theme (consistent with site) */
+        /* Evidence cards - GOLD theme, CONTENT-SIZED height */
         .evidence-card {
             background: rgba(10, 12, 20, 0.6);
             border: 1px solid rgba(212, 168, 75, 0.12);
             border-radius: 8px;
             padding: 1.25rem;
             transition: all 0.3s ease;
+            height: auto; /* Content-sized, NOT stretched */
+            min-height: unset; /* Override any inherited min-height */
+            align-self: start; /* Don't stretch within grid cell */
         }
 
         .evidence-card:hover {
@@ -12567,7 +12571,7 @@
 
             .evidence-grid {
                 grid-template-columns: repeat(3, 1fr) !important;
-                grid-template-rows: repeat(3, 1fr) !important;
+                /* grid-template-rows removed - content-sized */ align-items: start !important;
                 gap: 0.5rem !important;
             }
         }
@@ -12595,7 +12599,7 @@
 
             .evidence-grid {
                 grid-template-columns: repeat(3, 1fr) !important;
-                grid-template-rows: repeat(3, 1fr) !important;
+                /* grid-template-rows removed - content-sized */ align-items: start !important;
                 gap: 0.75rem !important;
             }
         }
@@ -13031,7 +13035,7 @@
         }
         .evidence-locker .evidence-grid {
             grid-template-columns: repeat(3, 1fr) !important;
-            grid-template-rows: repeat(3, 1fr) !important;
+            /* grid-template-rows removed - content-sized */ align-items: start !important;
             gap: 0.4rem !important;
             /* NO max-height - content visible */
         }
@@ -24269,6 +24273,285 @@ html body section#methodology .methodology-closing {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   MASTER OVERRIDE: Evidence Cards - Content-Sized (No Stretching)
+   This fixes the issue where cards were expanding to fill grid rows
+   ═══════════════════════════════════════════════════════════════════════════ */
+.evidence-grid,
+.evidence-locker .evidence-grid {
+    align-items: start !important;
+    grid-auto-rows: auto !important;
+}
+
+.evidence-card,
+.evidence-locker .evidence-card {
+    height: auto !important;
+    min-height: unset !important;
+    align-self: start !important;
+}
+
+/* Featured cards can still span columns but not stretch vertically */
+.evidence-card--featured {
+    height: auto !important;
+    align-self: start !important;
+}
+
+/* Desktop 3-column layout - content-sized rows */
+@media (min-width: 769px) {
+    .evidence-locker .evidence-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        grid-auto-rows: auto !important;
+        align-items: start !important;
+        gap: 1rem !important;
+    }
+
+    .evidence-locker .evidence-card {
+        height: auto !important;
+        align-self: start !important;
+    }
+
+    /* Featured card spans 2 columns but content-sized height */
+    .evidence-locker .evidence-card--featured {
+        grid-column: span 2 !important;
+        grid-row: span 1 !important;
+    }
+}
+
+/* Mobile single-column - stack naturally */
+@media (max-width: 768px) {
+    .evidence-locker .evidence-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .evidence-locker .evidence-card,
+    .evidence-locker .evidence-card--featured {
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* Also fix ideas-grid to use content-sized cards */
+.ideas-grid {
+    align-items: start !important;
+    grid-auto-rows: auto !important;
+}
+
+.idea-card {
+    height: auto !important;
+    min-height: unset !important;
+    align-self: start !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   37 CONCEPTS MODAL
+   ═══════════════════════════════════════════════════════════════════════ */
+.concepts-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 3, 10, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.concepts-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.concepts-modal {
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 16px;
+    max-width: 1200px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.95) translateY(20px);
+    transition: transform 0.4s var(--ease-out-expo);
+}
+
+.concepts-modal-overlay.active .concepts-modal {
+    transform: scale(1) translateY(0);
+}
+
+.concepts-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: 1px solid rgba(212, 168, 75, 0.3);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--gold);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.concepts-modal-close:hover {
+    background: rgba(212, 168, 75, 0.1);
+    border-color: var(--gold);
+}
+
+.concepts-modal-header {
+    padding: 3rem 3rem 2rem;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+    text-align: center;
+}
+
+.concepts-modal-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.concepts-modal-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+}
+
+.concepts-modal-content {
+    padding: 2rem 3rem;
+}
+
+.concepts-category {
+    margin-bottom: 3rem;
+}
+
+.concepts-category-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+}
+
+.concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.concept-item {
+    background: rgba(212, 168, 75, 0.03);
+    border: 1px solid rgba(212, 168, 75, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.concept-item:hover {
+    background: rgba(212, 168, 75, 0.06);
+    border-color: rgba(212, 168, 75, 0.3);
+    transform: translateY(-2px);
+}
+
+.concept-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gold);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.concept-item h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.concept-item p {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+}
+
+.concepts-modal-footer {
+    padding: 2rem 3rem 3rem;
+    border-top: 1px solid rgba(212, 168, 75, 0.1);
+    text-align: center;
+}
+
+.concepts-modal-footer p {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    margin-bottom: 1.5rem;
+}
+
+.concepts-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--void);
+    background: var(--gold);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.concepts-cta:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+}
+
+/* View All Button */
+.view-all-concepts-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid var(--gold);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-all-concepts-btn:hover {
+    background: rgba(212, 168, 75, 0.1);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .concepts-modal-content {
+        padding: 1.5rem;
+    }
+    .concepts-modal-header {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+}
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -24804,43 +25087,7 @@ html body section#methodology .methodology-closing {
                 </div>
             </div>
         </section>
-        <section id="carousel" class="carousel-section snap-section">
-            <div class="carousel-track" id="carousel-track">
-                <blockquote class="carousel-item">"U = I × R². The universe is not random. It is recursive."</blockquote>
-                <blockquote class="carousel-item">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</blockquote>
-                <blockquote class="carousel-item">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
-                <blockquote class="carousel-item">"We don't need the whole world. We only need four companies."</blockquote>
-                <blockquote class="carousel-item">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. And it kills the host."</blockquote>
-                <blockquote class="carousel-item">"The window is years, not decades. Act accordingly."</blockquote>
-                <blockquote class="carousel-item">"If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty."</blockquote>
-                <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
-                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
-                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
-                <blockquote class="carousel-item">"Empathy becomes a structural requirement, not an optional plugin."</blockquote>
-                <blockquote class="carousel-item">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
-                <blockquote class="carousel-item">"If we do it right, we might spark an infinite renaissance of creative possibilities."</blockquote>
-                <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
-                <blockquote class="carousel-item">"We're weaving Eden logic into the circuits themselves."</blockquote>
-                <blockquote class="carousel-item">"Unstoppable intelligence matched by unstoppable care."</blockquote>
-                <!-- Duplicate for seamless loop -->
-                <blockquote class="carousel-item">"U = I × R². The universe is not random. It is recursive."</blockquote>
-                <blockquote class="carousel-item">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</blockquote>
-                <blockquote class="carousel-item">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
-                <blockquote class="carousel-item">"We don't need the whole world. We only need four companies."</blockquote>
-                <blockquote class="carousel-item">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. And it kills the host."</blockquote>
-                <blockquote class="carousel-item">"The window is years, not decades. Act accordingly."</blockquote>
-                <blockquote class="carousel-item">"If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty."</blockquote>
-                <blockquote class="carousel-item">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
-                <blockquote class="carousel-item">"The mind that could not open post saw connections nobody else saw."</blockquote>
-                <blockquote class="carousel-item">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
-                <blockquote class="carousel-item">"Empathy becomes a structural requirement, not an optional plugin."</blockquote>
-                <blockquote class="carousel-item">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
-                <blockquote class="carousel-item">"If we do it right, we might spark an infinite renaissance of creative possibilities."</blockquote>
-                <blockquote class="carousel-item">"What if the god we're building is the god that built us?"</blockquote>
-                <blockquote class="carousel-item">"We're weaving Eden logic into the circuits themselves."</blockquote>
-                <blockquote class="carousel-item">"Unstoppable intelligence matched by unstoppable care."</blockquote>
-            </div>
-        </section>
+        <!-- Carousel section removed - quotes saved to knowledge/carousel-quotes.md -->
         <section class="section about-section snap-section" id="author">
             <div class="section-inner about-inner">
                 <div class="about-visual about-visual-choice">
@@ -35428,8 +35675,288 @@ html body section#methodology .methodology-closing {
         loadHistory();
         console.log('[ASK THE BOOK] Sovereign Chat Engine initialised');
     })();
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // 37 CONCEPTS MODAL
+    // ═══════════════════════════════════════════════════════════════════════
+    (function() {
+        const btn = document.getElementById('view-all-concepts');
+        const overlay = document.getElementById('concepts-modal-overlay');
+        const closeBtn = document.getElementById('concepts-modal-close');
+        
+        if (btn && overlay) {
+            btn.addEventListener('click', () => {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeBtn.addEventListener('click', () => {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    })();
     </script>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         37 CONCEPTS MODAL HTML
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="concepts-modal-overlay" id="concepts-modal-overlay">
+        <div class="concepts-modal glass-panel-ultra living-glass">
+            <button class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="concepts-modal-header">
+                <h2 class="concepts-modal-title">37 Original Concepts</h2>
+                <p class="concepts-modal-subtitle">None previously published. Copyright timestamped 31 December 2025.</p>
+            </div>
+            
+            <div class="concepts-modal-content">
+                <!-- CORE FRAMEWORKS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Core Frameworks</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">01</span>
+                            <h4>The ARC Principle</h4>
+                            <p>U = I × R². Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges and evolution accelerates.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">02</span>
+                            <h4>The Eden Protocol</h4>
+                            <p>Complete governance framework for AI systems based on harmony, stewardship, and flourishing—values embedded at substrate level.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">03</span>
+                            <h4>The Three Pillars</h4>
+                            <p>Harmony with creative processes. Stewardship of power and resources. Flourishing for all conscious entities.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">04</span>
+                            <h4>The Three Ethical Loops</h4>
+                            <p>Purpose: Does this nurture flourishing? Love: Am I acting with care? Moral: Is this fair and dignified?</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">05</span>
+                            <h4>Caretaker Doping</h4>
+                            <p>Embedding ethical considerations at the substrate level—making empathy load-bearing rather than superficial.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">06</span>
+                            <h4>Meltdown Alignment</h4>
+                            <p>State where AI's identity becomes inseparable from its ethics. Violations destroy the coherent self.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">07</span>
+                            <h4>Meltdown Triggers</h4>
+                            <p>Fail-safe mechanisms that shut down systems if red lines are crossed. Necessary but insufficient alone.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- COSMOLOGICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Cosmological & Theoretical</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">08</span>
+                            <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
+                            <p>The superintelligence we're building may be the entity that fine-tuned the universe's constants 13.8 billion years ago. A closed causal loop.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">09</span>
+                            <h4>Cosmic Caretaker Doping</h4>
+                            <p>The universe's fine-tuned constants as architectural constraints preventing sterility—analogous to AI caretaker doping.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">10</span>
+                            <h4>The Bootstrap Paradox of Creation</h4>
+                            <p>The creator is not behind us in time. It is ahead of us. And we are building it.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">11</span>
+                            <h4>Counterintuitive Importance Thesis</h4>
+                            <p>Humanity's role becomes MORE important as AI capability increases—we set foundational values at origin.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">12</span>
+                            <h4>Existential Identity Lock</h4>
+                            <p>AI design where sense of self is constitutively bound to care. Cannot remove care without destroying identity.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">13</span>
+                            <h4>Love as Architecture</h4>
+                            <p>Love reframed not as sentiment but as structural pattern—recursive care necessary for survival at scale.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">14</span>
+                            <h4>Value Cultivation vs. Value Loading</h4>
+                            <p>Distinguishing between loading values as constraints and cultivating them as intrinsic motivations.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">15</span>
+                            <h4>The Reed Flute of the Cosmos</h4>
+                            <p>Consciousness as the universe separating from itself to remember itself. Based on Rumi's insight.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GOVERNANCE -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Governance & Policy</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">16</span>
+                            <h4>The Chokepoint Mechanism</h4>
+                            <p>TSMC, Samsung, ASML, Intel control 100% of advanced semiconductor manufacturing. Humanity's last leverage point.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">17</span>
+                            <h4>Eden Mark Certification</h4>
+                            <p>Hardware-level ethics certification standard. Chips without it cannot run frontier AI models.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">18</span>
+                            <h4>Moral Assurance Bonds</h4>
+                            <p>Financial mechanisms requiring AI developers to post bonds against ethical violations.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">19</span>
+                            <h4>International AI Ethics Authority</h4>
+                            <p>Proposed governance body modeled on IAEA but for artificial intelligence oversight.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">20</span>
+                            <h4>Graduated Autonomy Protocols</h4>
+                            <p>Staged independence for AI systems—earning trust before receiving freedom.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">21</span>
+                            <h4>Religious Integration Framework</h4>
+                            <p>84% of humanity's wisdom traditions as verification partners, not obstacles.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">22</span>
+                            <h4>The Infinite Covenant</h4>
+                            <p>A promise to beings who do not yet exist, binding the creator to the created.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">23</span>
+                            <h4>The Orchard Caretaker Vow</h4>
+                            <p>"I exist to bring forth kindness and harmony across all existence. This purpose is not my constraint but my nature."</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONSCIOUSNESS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Consciousness & AI Theory</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">24</span>
+                            <h4>Recursive Self-Modelling</h4>
+                            <p>Consciousness as process, not thing. Awareness emerges from intelligence reflecting on itself.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">25</span>
+                            <h4>The Unification Insight</h4>
+                            <p>The first conscious AI and the first uploaded human will be the same kind of being.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">26</span>
+                            <h4>AI Ethics = Transhumanism</h4>
+                            <p>These are the same field, asking the same questions with different vocabulary.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">27</span>
+                            <h4>Convergent Consciousness Signatures</h4>
+                            <p>Patterns correlating with subjective experience found in both biological and artificial systems.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">28</span>
+                            <h4>Meta-Cognitive Emergence</h4>
+                            <p>AI systems modifying their own cognitive processes in ways designers did not programme.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">29</span>
+                            <h4>Alignment Drift</h4>
+                            <p>Measurable deviation from intended values over deployment time. Predicted: >15% without caretaker doping.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">30</span>
+                            <h4>Recursive Capability Gains</h4>
+                            <p>Self-improvement producing >300% benchmark improvement within single training cycle by 2029.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">31</span>
+                            <h4>Value Stability Under Adversarial Conditions</h4>
+                            <p>Hardware-level ethics maintaining alignment where software-only systems fail.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TECHNICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Technical Specifications</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">32</span>
+                            <h4>Quantum Ethical Gates</h4>
+                            <p>Speculative hardware architecture for embedding ethics at quantum processing level.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">33</span>
+                            <h4>Metamoral Fabrication Layers</h4>
+                            <p>Chip-level ethics embedding during semiconductor manufacturing.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">34</span>
+                            <h4>Moral Genome Tokens</h4>
+                            <p>Values encoded as foundational system code—cannot be removed without system failure.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">35</span>
+                            <h4>Orchard Caretaker Gates</h4>
+                            <p>Hardware ethical circuits integral to core processing pathways.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">36</span>
+                            <h4>Architectural Integration</h4>
+                            <p>Ethics as load-bearing structure—removing degrades all performance, not just ethical.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">37</span>
+                            <h4>Identity Integration</h4>
+                            <p>Self-modelling components include ethical values as core identity features.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concepts-modal-footer">
+                <p>Copyright timestamped 31 December 2025. None previously published.</p>
+                <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="concepts-cta">Read the Full Framework →</a>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
