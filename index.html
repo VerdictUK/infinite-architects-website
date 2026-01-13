@@ -22684,24 +22684,27 @@ html body #author .storm-story-principle svg {
    PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* DESKTOP HERO - Full viewport, side-by-side layout */
+/* DESKTOP HERO - Full viewport, 3-row layout with banner on top */
 @media (min-width: 1024px) {
     html body section.hero.snap-section#hero {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
-        grid-template-rows: 1fr !important;
-        grid-template-areas: "book content" !important;
-        gap: 4rem !important;
+        grid-template-rows: auto 1fr auto !important;
+        grid-template-areas:
+            "pill pill"
+            "book content"
+            "scroll scroll" !important;
+        gap: 1.5rem 4rem !important;
         align-items: center !important;
         justify-content: center !important;
         height: 100vh !important;
         height: 100dvh !important;
         min-height: 100vh !important;
         max-height: 100vh !important;
-        overflow: visible !important; /* FIXED: Prevent clipping of absolute positioned elements */
+        overflow: visible !important;
         padding: 0 6% !important;
-        padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
-        padding-bottom: 3rem !important;
+        padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
+        padding-bottom: 1.5rem !important;
         box-sizing: border-box !important;
     }
 
@@ -22725,15 +22728,15 @@ html body #author .storm-story-principle svg {
         align-items: center !important;
         position: relative !important;
         z-index: 5 !important;
-        height: 100% !important;
-        max-height: calc(100vh - 200px) !important;
+        height: auto !important;
+        max-height: none !important;
     }
 
     html body .hero .hero-book {
         width: auto !important;
-        max-width: 380px !important;
+        max-width: 360px !important;
         height: auto !important;
-        max-height: 70vh !important;
+        max-height: 60vh !important;
         aspect-ratio: auto !important;
         filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6)) !important;
         transition: transform 0.4s ease, filter 0.4s ease !important;
@@ -22748,7 +22751,7 @@ html body #author .storm-story-principle svg {
     html body .hero .hero-book img {
         width: 100% !important;
         height: auto !important;
-        max-height: 70vh !important;
+        max-height: 60vh !important;
         object-fit: contain !important;
         border-radius: 4px !important;
     }
@@ -22775,22 +22778,23 @@ html body #author .storm-story-principle svg {
         padding-right: 2rem !important;
     }
 
-    /* Status pill - positioned absolutely in bottom left corner */
+    /* Status pill - centred above book in its own grid row */
     html body .hero .hero-status-pill {
-        position: absolute !important;
-        bottom: 2rem !important;
-        left: 6% !important;
+        grid-area: pill !important;
+        position: relative !important;
+        justify-self: center !important;
         display: inline-flex !important;
         align-items: center !important;
         gap: 0.75rem !important;
-        padding: 0.5rem 1rem !important;
-        background: rgba(0, 200, 83, 0.15) !important;
+        padding: 0.6rem 1.25rem !important;
+        background: rgba(0, 200, 83, 0.12) !important;
         border: 1px solid rgba(0, 200, 83, 0.4) !important;
         border-radius: 50px !important;
         font-family: var(--font-mono) !important;
-        font-size: 0.7rem !important;
+        font-size: 0.75rem !important;
         letter-spacing: 0.1em !important;
         z-index: 15 !important;
+        margin: 0 !important;
     }
 
     html body .hero .hero-status-pill .pill-dot {
@@ -22886,12 +22890,11 @@ html body #author .storm-story-principle svg {
         stroke: var(--void-deep) !important;
     }
 
-    /* Scroll indicator - subtle at bottom */
+    /* Scroll indicator - in grid area at bottom */
     html body .hero .scroll-indicator {
-        position: absolute !important;
-        bottom: 1.5rem !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        grid-area: scroll !important;
+        position: relative !important;
+        justify-self: center !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -28245,14 +28248,17 @@ main.content,
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // Trigger the Titan Drop immediately
-                // The CSS animation handles the visuals
+                // Trigger the Titan Drop
                 document.body.classList.add('cinematic');
                 
                 // Allow scroll after drop finishes
                 setTimeout(() => {
-                    document.body.style.overflow = '';
-                    document.body.style.height = '';
+                    // FORCE UNLOCK SCROLL
+                    document.body.style.overflow = 'auto';
+                    document.body.style.overflowX = 'hidden'; // Keep X hidden
+                    document.body.style.height = 'auto';
+                    document.documentElement.style.overflow = 'auto';
+                    document.documentElement.style.overflowX = 'hidden';
                     
                     // Cleanup loader
                     loader.classList.add('fully-hidden');
@@ -28277,7 +28283,13 @@ main.content,
                         book.classList.add('float');
                     }
                     
-                }, 1200); // Wait for drop animation (1.2s)
+                }, 1200);
+                
+                // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
+                setTimeout(() => {
+                    document.body.style.overflow = 'auto';
+                    document.documentElement.style.overflow = 'auto';
+                }, 3000);
             }
 
             function animate() {
