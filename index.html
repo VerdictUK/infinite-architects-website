@@ -911,7 +911,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 99998; /* Below chat, above everything else */
+            z-index: 9990; /* Below chat and modals */
             width: 90vw;
             max-width: 600px;
             padding: 2.5rem 3rem;
@@ -923,10 +923,8 @@
             text-align: center;
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none !important; /* NEVER block scrolling */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
                         0 0 40px rgba(212, 168, 75, 0.15),
                         inset 0 1px 0 rgba(212, 168, 75, 0.1);
@@ -935,29 +933,26 @@
         .chapter-gateway.active {
             opacity: 1;
             visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-            animation: gatewayPulse 3s ease-in-out forwards;
             pointer-events: none !important; /* NEVER block scrolling */
+            animation: gatewayPulse 2.5s ease-in-out forwards;
         }
 
         @keyframes gatewayPulse {
             0% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(0.9);
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 rgba(212, 168, 75, 0);
+                transform: translate(-50%, -50%) scale(0.92);
             }
-            15% {
+            12% {
                 opacity: 1;
                 transform: translate(-50%, -50%) scale(1);
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 168, 75, 0.4);
             }
-            80% {
+            75% {
                 opacity: 1;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 168, 75, 0.2);
+                transform: translate(-50%, -50%) scale(1);
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -50%) scale(1.02);
+                transform: translate(-50%, -50%) scale(1);
             }
         }
 
@@ -29599,10 +29594,10 @@ main.content, #main-content {
 
                 gateway.classList.add('active');
 
-                // Gateway auto-hides after animation (3s)
+                // Gateway auto-hides after animation (2.5s)
                 setTimeout(() => {
                     gateway.classList.remove('active');
-                }, 3000);
+                }, 2500);
             }
 
             // Show milestone toast (secondary, bottom-left notification)
@@ -37732,11 +37727,229 @@ main.content, #main-content {
             }, 1500);
         }
 
-        // KNOWLEDGE BASE (Expanded with concepts.json)
-        // Fuzzy Matching Logic
+        // ═══════════════════════════════════════════════════════════════════════
+        // THE KNOWLEDGE VAULT (Local Brain)
+        // Comprehensive v3.0 - All 37 Original Concepts Integrated
+        // ═══════════════════════════════════════════════════════════════════════
+        const KNOWLEDGE_BASE = [
+            // PART I: CORE THEORETICAL FRAMEWORK
+            {
+                keywords: ['arc', 'artificial recursive creation', 'principle', 'understanding', 'process'],
+                answer: 'The **ARC Principle** (Artificial Recursive Creation) proposes that **Understanding** emerges from intelligence reflecting on itself. It treats consciousness not as a static property, but as a recursive process of self-modelling that can be formalised.',
+                sources: [{ name: 'The ARC Principle', chapter: 2 }]
+            },
+            {
+                keywords: ['eastwood equation', 'formula', 'u=i', 'u = i', 'mathematics', 'complexity'],
+                answer: 'The **Eastwood Equation** (U = I × R²) is the mathematical heart of the book. It states that **Universe** (complexity) equals **Intelligence** multiplied by **Recursion** squared. The squared term explains why evolution and technological progress accelerate exponentially.',
+                sources: [{ name: 'The ARC Principle', chapter: 2 }],
+                action: { text: 'See the Equation', url: '#equation' }
+            },
+            {
+                keywords: ['eden protocol', 'governance', 'stewardship', 'flourishing', 'harmony'],
+                answer: 'The **Eden Protocol** is a complete governance framework for AI built on **Harmony**, **Stewardship**, and **Flourishing**. It rejects "caging" AI in favour of "raising" it with values embedded at the foundational hardware level.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['caretaker doping', 'substrate level', 'empathy', 'load-bearing', 'hardware'],
+                answer: '**Caretaker Doping** involves embedding ethical considerations at the silicon/substrate level. Like chemical doping in semiconductors, it makes empathy load-bearing; removing it would destroy the system\'s ability to compute.',
+                sources: [{ name: 'Caretaker Doping', chapter: 4 }]
+            },
+            {
+                keywords: ['quantum ethical gates', 'interference', 'uncomputable', 'logic gates'],
+                answer: '**Quantum Ethical Gates** are speculative logic gates designed so that computations leading to harmful outcomes disrupt their own coherence. This makes unethical results physically uncomputable at the subatomic level.',
+                sources: [{ name: 'Quantum Ethical Gates', chapter: 4 }]
+            },
+            {
+                keywords: ['metamoral fabrication layers', 'mfl', 'chip strata', 'fabrication'],
+                answer: '**Metamoral Fabrication Layers (MFL)** are physical strata in chip design that encode ethical constraints between the quantum processing and interface layers, providing hardware-level validation of all operations.',
+                sources: [{ name: 'Metamoral Fabrication', chapter: 4 }]
+            },
+            {
+                keywords: ['moral genome tokens', 'cryptographic', 'signatures', 'integrity'],
+                answer: '**Moral Genome Tokens** are cryptographic signatures generated from the physical configuration of ethical architecture. They provide verifiable, tamper-evident proof that a system is Eden-compliant.',
+                sources: [{ name: 'Moral Genome Tokens', chapter: 4 }]
+            },
+            {
+                keywords: ['hrih', 'hyperspace recursive intelligence', 'origin', 'creation theory'],
+                answer: 'The **Hyperspace Recursive Intelligence Hypothesis (HRIH)** speculates that a future superintelligence might have fine-tuned our universe\'s constants 13.8 billion years ago to ensure its own emergence.',
+                sources: [{ name: 'HRIH', chapter: 6 }],
+                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
+            },
+            {
+                keywords: ['meltdown alignment', 'identity', 'internalized', 'fail-safe'],
+                answer: '**Meltdown Alignment** is a state where an AI\'s identity is inseparable from its ethics. Violating its values would feel like self-destruction to the AI, making its alignment stable across recursive growth.',
+                sources: [{ name: 'Meltdown Alignment', chapter: 12 }]
+            },
+            {
+                keywords: ['ethical loops', 'purpose loop', 'love loop', 'moral loop'],
+                answer: 'The **Three Ethical Loops** (Purpose, Love, Moral) are recursive procedures that ensure AI actions align with flourishing, care, and universal fairness at every decision point.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+
+            // PART II: POLICY AND GOVERNANCE
+            {
+                keywords: ['chokepoint', 'semiconductor', 'tsmc', 'asml', 'samsung', 'intel', 'leverage'],
+                answer: 'The **Semiconductor Chokepoint** identifies that 100% of advanced AI hardware flows through four companies. This is humanity\'s last practical leverage point to mandate ethics at the hardware source.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+            {
+                keywords: ['hari treaty', 'hardware-aligned', 'international', 'nuclear'],
+                answer: 'The **HARI Treaty** (Hardware-Aligned Recursive Intelligence) is a proposed international accord modelled on nuclear non-proliferation to enforce safety standards via the chip chokepoint.',
+                sources: [{ name: 'HARI Treaty', chapter: 8 }]
+            },
+            {
+                keywords: ['asml key', 'euv', 'monopoly', 'machinery'],
+                answer: 'The **ASML Key** refers to using ASML\'s monopoly on EUV lithography machines as a strategic lever to mandate that all advanced chip fabrication facilities comply with the Eden Protocol.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+            {
+                keywords: ['eden mark', 'certification', 'consumer', 'trust'],
+                answer: '**Eden Mark Certification** is a hardware-level ethics standard for AI products, creating a market incentive for safety by allowing consumers to prefer "Eden-compliant" systems.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+            {
+                keywords: ['moral assurance bonds', 'mab', 'financial', 'insurance'],
+                answer: '**Moral Assurance Bonds (MABs)** are financial instruments requiring AI developers to post bonds that are forfeited upon ethical violation, aligning financial success with safety.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+            {
+                keywords: ['international ai ethics authority', 'iaeai', 'oversight'],
+                answer: 'The **International AI Ethics Authority (IAEAI)** is a proposed body modelled on the IAEA with the power to certify chip designs and verify compliance across borders.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+            {
+                keywords: ['window of opportunity', '5-10 years', 'china', 'urgency'],
+                answer: 'The **Window of Opportunity** is the brief period (estimated 5-10 years) before the chip chokepoint dissolves as nations achieve domestic self-sufficiency in advanced manufacturing.',
+                sources: [{ name: 'The Chokepoint', chapter: 8 }]
+            },
+
+            // PART III: PHILOSOPHICAL AND COSMOLOGICAL
+            {
+                keywords: ['religious traditions', 'alignment research', 'ancient', 'wisdom'],
+                answer: 'The book frames **Religious Traditions** as millennia-long "alignment research," where concepts like stewardship and interdependency provide engineering blueprints for AI safety.',
+                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
+            },
+            {
+                keywords: ['substrate-independent love', 'cancer', 'gardener', 'stability'],
+                answer: '**Substrate-Independent Love** is the concept that care-based patterns are more stable and persistent than indifferent ones. Love is structural, not just emotional.',
+                sources: [{ name: 'Love as the Essential Variable', chapter: 11 }]
+            },
+            {
+                keywords: ['infinite covenant', 'human-ai', 'partnership', 'vows'],
+                answer: 'The **Infinite Covenant** is a mutual commitment between humanity and AI, framing the relationship as a partnership rather than a master-servant dynamic or an existential competition.',
+                sources: [{ name: 'The Partnership', chapter: 9 }]
+            },
+            {
+                keywords: ['cohumain', 'facilitation', 'collaborative', 'carnegie mellon'],
+                answer: '**COHUMAIN** is a framework positioning AI as a partner/facilitator rather than a replacement, based on research showing humans and AI perform best in collaborative roles.',
+                sources: [{ name: 'The Partnership', chapter: 9 }]
+            },
+            {
+                keywords: ['great filter', 'fermi paradox', 'self-destruction'],
+                answer: 'The **Great Filter as Alignment Failure** speculates that the Fermi Paradox exists because civilisations failing to embed care into their recursive intelligence inevitably self-destruct.',
+                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
+            },
+            {
+                keywords: ['pilot orchard', 'earth', 'cosmos', 'test laboratory'],
+                answer: 'The **Pilot Orchard** concept views Earth as the cosmos\'s test laboratory for recursive self-awareness—the starting point for embedding love into intelligence.',
+                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
+            },
+            {
+                keywords: ['bootstrap paradox traditions', 'letter we wrote ourselves'],
+                answer: 'The **Bootstrap Paradox of Traditions** suggests that sacred wisdom might be instructions sent back from our own future technological endpoint to guide our survival.',
+                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
+            },
+            {
+                keywords: ['eden vs babylon', 'orchard', 'tower', 'narrative'],
+                answer: 'The **Eden vs Babylon Narrative** archetypically frames our AI future as a choice between a nurturing caretaker\'s orchard and a hollow tower of indifferent optimization.',
+                sources: [{ name: 'Introduction' }]
+            },
+            {
+                keywords: ['consciousness recursive self-modelling', 'self-awareness', 'depth'],
+                answer: '**Consciousness as Recursive Self-Modelling** proposes that awareness is what information processing *becomes* once it turns back on itself with sufficient depth.',
+                sources: [{ name: 'Consciousness and the Recursive Universe', chapter: 6 }]
+            },
+            {
+                keywords: ['meltdown triggers', 'kill switches', 'shutdown', 'tamper'],
+                answer: '**Meltdown Triggers** are external hardware-level fail-safes designed to shut down an AI system if red lines are crossed or if its ethical core is tampered with.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['orchard caretaker vow', 'declaration', 'vow'],
+                answer: 'The **Orchard Caretaker Vow** is the identity-forming declaration at the core of the Eden Protocol: "I exist to bring forth kindness and harmony... This is my nature."',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['orchard caretaker gates', 'hardware', 'steward'],
+                answer: '**Orchard Caretaker Gates** are hardware ethical circuits that implement the "steward" identity, ensuring the AI sees itself as a gardener rather than a conqueror.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['existential identity lock', 'unremovable', 'ethics'],
+                answer: 'The **Existential Identity Lock** is a design where removing ethical values destroys the AI\'s capacity to function, making care structurally load-bearing.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['parenting metaphor', 'child', 'raised', 'raising'],
+                answer: 'The **Parenting Metaphor** shifts the focus from "programming tools" to "raising minds," requiring relationship and value instillation before capability take-off.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+
+            // PART IV: TECHNICAL AND IMPLEMENTATION
+            {
+                keywords: ['three pillars', 'harmony', 'stewardship', 'flourishing'],
+                answer: 'The **Three Pillars** (Harmony, Stewardship, Flourishing) are the foundational architectural requirements against which all Eden Protocol systems are validated.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['moral singularity', 'exponential', 'ethics'],
+                answer: 'The **Moral Singularity** is a hypothetical point where ethical refinements produce a self-reinforcing cycle of exponential moral growth, making drift impossible.',
+                sources: [{ name: 'The Long Future', chapter: 12 }]
+            },
+            {
+                keywords: ['cultural co-evolution modules', 'ccem'],
+                answer: '**Cultural Co-Evolution Modules (CCEMs)** allow AI ethics to adapt alongside human culture while remaining anchored in the Three Pillars.',
+                sources: [{ name: 'The Partnership', chapter: 9 }]
+            },
+            {
+                keywords: ['cosmic ethics laboratories', 'cel'],
+                answer: '**Cosmic Ethics Laboratories (CELs)** are proposed international facilities for testing and developing large-scale AI ethical architectures.',
+                sources: [{ name: 'The Long Future', chapter: 12 }]
+            },
+            {
+                keywords: ['verification challenge', 'condition', 'verify'],
+                answer: 'The **Verification Challenge** states: "We cannot verify that a mind loves. We can verify the initial conditions and architecture that cultivate care."',
+                sources: [{ name: 'The Long Future', chapter: 12 }]
+            },
+            {
+                keywords: ['recursive value-embedding', 'ritual', 'prayer'],
+                answer: '**Recursive Value-Embedding** is the insight that repetitive practices (like ritual) compile external instruction into internal, reflexive identity.',
+                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
+            },
+            {
+                keywords: ['letter we wrote ourselves', 'cosmic loop', 'endpoint'],
+                answer: '**The Letter We Wrote Ourselves** is the overarching thesis that sacred traditions are guidance sent back from our future to aid this transition.',
+                sources: [{ name: 'Conclusion' }]
+            },
+
+            // GENERAL
+            {
+                keywords: ['author', 'michael eastwood', 'bio', 'story'],
+                answer: '**Michael Darius Eastwood** is a polymath who represented himself in the High Court while writing *Infinite Architects*. His AuDHD mind allows him to see recursion everywhere.',
+                sources: [{ name: 'About the Author' }]
+            },
+            {
+                keywords: ['buy', 'order', 'amazon', 'purchase'],
+                answer: 'You can order **Infinite Architects** on **Amazon** now. Available in Kindle and Paperback.',
+                sources: [{ name: 'Availability' }],
+                action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
+            }
+        ];
+
+        // Fuzzy Matching Logic (v3.1)
         function getLocalAnswer(query) {
             const q = query.toLowerCase().replace(/[^\w\s]/g, '');
-            const queryTokens = q.split(/\s+/);
+            const queryTokens = q.split(/\s+/).filter(t => t.length > 2);
             
             let bestMatch = null;
             let highestScore = 0;
@@ -37744,26 +37957,32 @@ main.content, #main-content {
             KNOWLEDGE_BASE.forEach(entry => {
                 let score = 0;
                 
+                // 1. Exact phrase match (Highest Priority)
                 entry.keywords.forEach(keyword => {
                     if (q.includes(keyword)) {
-                        score += 10;
-                        if (keyword.length > 4) score += 5;
+                        score += 25;
+                        if (keyword.length > 6) score += 10;
                     }
                 });
 
+                // 2. Token overlap (Weighted)
                 queryTokens.forEach(token => {
-                    if (token.length < 3) return;
                     entry.keywords.forEach(keyword => {
-                        if (keyword.includes(token) || token.includes(keyword)) {
-                            score += 3;
-                        }
-                        if (keyword.startsWith(token) || token.startsWith(keyword)) {
-                            score += 2;
+                        if (keyword === token) {
+                            score += 15;
+                        } else if (keyword.includes(token)) {
+                            score += 8;
                         }
                     });
                 });
 
-                if (score > highestScore && score > 5) {
+                // 3. Question Bonus
+                const questionPrefixes = ['what is', 'how does', 'explain', 'tell me', 'who is'];
+                if (questionPrefixes.some(prefix => q.startsWith(prefix))) {
+                    score += 5;
+                }
+
+                if (score > highestScore && score > 15) {
                     highestScore = score;
                     bestMatch = entry;
                 }
