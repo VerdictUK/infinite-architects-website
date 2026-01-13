@@ -1912,20 +1912,27 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════════
-           LOADER MASTERPIECE - HOLLYWOOD BLOCKBUSTER REWRITE
-           PRIORITY: SUPREME - No overlapping, proper sequencing, cinematic perfection
+           LOADER MASTERPIECE V2 - SMOOTH CINEMATIC PERFECTION
+           PRIORITY: SUPREME - Transform-only animations, viewport-safe positioning
            ═══════════════════════════════════════════════════════════════════════════ */
 
-        /* RESET: Loader container - pure flexbox centering */
+        /* Cinematic easing function */
+        :root {
+            --ease-cinematic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --ease-dramatic: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* RESET: Loader container */
         #loader {
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
             align-items: center !important;
-            gap: 0 !important;
+            overflow: hidden !important;
         }
 
-        /* QUOTES: Centered, one at a time, proper spacing */
+        /* QUOTES: Centered using transform only (GPU accelerated) */
         .loader-quotes {
             position: absolute !important;
             top: 50% !important;
@@ -1934,170 +1941,292 @@
             z-index: 10 !important;
             text-align: center !important;
             width: 90% !important;
-            max-width: 900px !important;
+            max-width: 800px !important;
+            will-change: opacity !important;
         }
 
         .loader-quote {
             position: absolute !important;
             top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) translateY(30px) !important;
+            left: 0 !important;
             width: 100% !important;
             opacity: 0 !important;
-            transition: opacity 1s ease, transform 1s ease !important;
+            transform: translateY(20px) scale(0.97) !important;
+            transition: opacity 1.2s var(--ease-cinematic),
+                        transform 1.2s var(--ease-dramatic) !important;
+            will-change: opacity, transform !important;
         }
 
         .loader-quote.active {
             opacity: 1 !important;
-            transform: translateX(-50%) translateY(0) !important;
+            transform: translateY(0) scale(1) !important;
         }
 
         .quote-line {
             font-family: var(--font-serif) !important;
-            font-size: clamp(1.6rem, 4vw, 3rem) !important;
+            font-size: clamp(1.5rem, 3.5vw, 2.8rem) !important;
             font-style: italic !important;
             font-weight: 300 !important;
             color: var(--gold-pale) !important;
-            text-shadow: 0 0 60px rgba(212, 168, 75, 0.5) !important;
+            text-shadow: 0 0 80px rgba(212, 168, 75, 0.6),
+                         0 0 40px rgba(212, 168, 75, 0.3) !important;
+            line-height: 1.4 !important;
         }
 
-        /* EQUATION: Centered, starts hidden */
+        /* EQUATION: Fixed center, moves via transform only (no top changes!) */
         .loader-equation {
             position: absolute !important;
             top: 50% !important;
             left: 50% !important;
-            transform: translate(-50%, -50%) !important;
+            transform: translate(-50%, -50%) scale(0.95) !important;
             z-index: 10 !important;
             opacity: 0 !important;
-            transition: opacity 0.8s ease, transform 0.8s ease !important;
+            transition: opacity 1s var(--ease-cinematic),
+                        transform 1.2s var(--ease-dramatic) !important;
+            will-change: opacity, transform !important;
         }
 
         .loader-equation.reveal {
             opacity: 1 !important;
+            transform: translate(-50%, -50%) scale(1) !important;
         }
 
-        /* When equation moves up to make room for title */
+        /* Equation moves UP using transform only - NO top change = smooth */
         .loader-equation.move-up {
-            top: 38% !important;
-            transform: translate(-50%, -50%) !important;
+            transform: translate(-50%, calc(-50% - 12vh)) scale(0.9) !important;
         }
 
         .eq-char {
-            font-size: clamp(2.5rem, 7vw, 5rem) !important;
+            font-size: clamp(2.2rem, 6vw, 4.5rem) !important;
+            transition: opacity 0.6s var(--ease-cinematic),
+                        transform 0.6s var(--ease-dramatic),
+                        filter 0.6s ease !important;
         }
 
-        /* LOADER UI: Completely hidden initially, appears below equation */
+        .eq-char.visible {
+            animation: charReveal 0.8s var(--ease-dramatic) forwards !important;
+        }
+
+        @keyframes charReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.7) rotateX(30deg);
+                filter: blur(4px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.05) rotateX(-5deg);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0);
+                filter: blur(0);
+            }
+        }
+
+        /* LOADER UI: Below equation, appears via transform */
         .loader-ui {
             position: absolute !important;
-            top: 55% !important;
+            top: 50% !important;
             left: 50% !important;
-            transform: translateX(-50%) !important;
+            transform: translate(-50%, calc(-50% + 15vh)) scale(0.95) !important;
             z-index: 10 !important;
             text-align: center !important;
             opacity: 0 !important;
             pointer-events: none !important;
-            transition: opacity 1s ease, transform 1s ease !important;
+            transition: opacity 1.2s var(--ease-cinematic),
+                        transform 1.2s var(--ease-dramatic) !important;
+            will-change: opacity, transform !important;
+            width: 90% !important;
+            max-width: 600px !important;
         }
 
         .loader-ui.reveal {
             opacity: 1 !important;
+            transform: translate(-50%, calc(-50% + 15vh)) scale(1) !important;
         }
 
         .loader-title {
-            font-size: clamp(1.4rem, 4vw, 2.8rem) !important;
-            letter-spacing: 0.35em !important;
-            margin-bottom: 0.8rem !important;
+            font-size: clamp(1.3rem, 3.5vw, 2.5rem) !important;
+            letter-spacing: 0.3em !important;
+            margin-bottom: 1rem !important;
+            animation: none !important;
         }
 
         .loader-subtitle {
-            font-size: clamp(0.75rem, 1.5vw, 1rem) !important;
+            font-size: clamp(0.7rem, 1.3vw, 0.95rem) !important;
             opacity: 0 !important;
+            transform: translateY(10px) !important;
             animation: none !important;
-            margin-bottom: 1rem !important;
+            margin-bottom: 0.8rem !important;
+            transition: opacity 0.8s var(--ease-cinematic),
+                        transform 0.8s var(--ease-dramatic) !important;
         }
 
         .loader-subtitle.reveal {
             opacity: 0.7 !important;
+            transform: translateY(0) !important;
         }
 
         .loader-author {
-            font-size: clamp(0.6rem, 1.2vw, 0.8rem) !important;
-            letter-spacing: 0.3em !important;
+            font-size: clamp(0.55rem, 1vw, 0.75rem) !important;
+            letter-spacing: 0.25em !important;
             opacity: 0 !important;
+            transform: translateY(10px) !important;
             margin-bottom: 1.5rem !important;
+            transition: opacity 0.8s var(--ease-cinematic) 0.2s,
+                        transform 0.8s var(--ease-dramatic) 0.2s !important;
         }
 
         .loader-author.reveal {
-            opacity: 0.7 !important;
+            opacity: 0.6 !important;
+            transform: translateY(0) !important;
         }
 
-        /* Progress section - at the very bottom */
+        /* Progress section - fixed at bottom */
         .loader-progress {
             position: absolute !important;
-            bottom: 80px !important;
+            bottom: min(80px, 10vh) !important;
             left: 50% !important;
             transform: translateX(-50%) !important;
-            width: 180px !important;
-            opacity: 0.6 !important;
+            width: min(180px, 40vw) !important;
+            opacity: 0.5 !important;
             animation: none !important;
             z-index: 10 !important;
         }
 
         .loader-status {
-            font-size: 0.65rem !important;
-            letter-spacing: 0.2em !important;
-            color: rgba(212, 168, 75, 0.5) !important;
+            font-size: clamp(0.55rem, 1vw, 0.65rem) !important;
+            letter-spacing: 0.15em !important;
+            color: rgba(212, 168, 75, 0.45) !important;
         }
 
         /* Skip button - very bottom */
         .loader-skip {
             position: absolute !important;
-            bottom: 25px !important;
+            bottom: min(25px, 4vh) !important;
             left: 50% !important;
             transform: translateX(-50%) !important;
             z-index: 10 !important;
-            font-size: 0.7rem !important;
-            letter-spacing: 0.25em !important;
+            font-size: clamp(0.55rem, 1vw, 0.7rem) !important;
+            letter-spacing: 0.2em !important;
         }
 
-        /* Mobile adjustments for masterpiece */
+        /* Completion flash effect */
+        .loader-flash {
+            position: absolute !important;
+            inset: 0 !important;
+            background: radial-gradient(ellipse at center,
+                rgba(212, 168, 75, 0.3) 0%,
+                transparent 70%) !important;
+            opacity: 0 !important;
+            z-index: 5 !important;
+            pointer-events: none !important;
+            transition: opacity 0.5s ease !important;
+        }
+
+        .loader-flash.active {
+            animation: completionFlash 1.5s var(--ease-cinematic) forwards !important;
+        }
+
+        @keyframes completionFlash {
+            0% { opacity: 0; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════════
+           RESPONSIVE: All screen sizes handled via vh/vw units
+           ═══════════════════════════════════════════════════════════════════════════ */
+
+        /* Small screens / Mobile */
         @media (max-width: 768px) {
             .loader-quotes {
-                width: 85% !important;
+                width: 88% !important;
             }
 
             .quote-line {
-                font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
-            }
-
-            .loader-equation {
-                top: 45% !important;
+                font-size: clamp(1.1rem, 5vw, 1.6rem) !important;
             }
 
             .loader-equation.move-up {
-                top: 35% !important;
+                transform: translate(-50%, calc(-50% - 10vh)) scale(0.85) !important;
             }
 
             .eq-char {
-                font-size: clamp(1.8rem, 10vw, 3rem) !important;
+                font-size: clamp(1.6rem, 9vw, 2.5rem) !important;
             }
 
             .loader-ui {
-                top: 55% !important;
+                transform: translate(-50%, calc(-50% + 12vh)) scale(0.95) !important;
+            }
+
+            .loader-ui.reveal {
+                transform: translate(-50%, calc(-50% + 12vh)) scale(1) !important;
             }
 
             .loader-title {
-                font-size: clamp(1rem, 5vw, 1.6rem) !important;
-                letter-spacing: 0.2em !important;
-            }
-
-            .loader-subtitle {
-                font-size: clamp(0.7rem, 2.5vw, 0.9rem) !important;
+                font-size: clamp(0.9rem, 5vw, 1.4rem) !important;
+                letter-spacing: 0.15em !important;
             }
 
             .loader-progress {
-                bottom: 60px !important;
-                width: 150px !important;
+                bottom: min(60px, 8vh) !important;
+                width: min(150px, 50vw) !important;
+            }
+        }
+
+        /* Short screens (landscape mobile, small laptops) */
+        @media (max-height: 600px) {
+            .loader-equation.move-up {
+                transform: translate(-50%, calc(-50% - 8vh)) scale(0.8) !important;
+            }
+
+            .loader-ui {
+                transform: translate(-50%, calc(-50% + 10vh)) scale(0.9) !important;
+            }
+
+            .loader-ui.reveal {
+                transform: translate(-50%, calc(-50% + 10vh)) scale(1) !important;
+            }
+
+            .loader-progress {
+                bottom: min(40px, 6vh) !important;
+            }
+
+            .loader-skip {
+                bottom: min(15px, 3vh) !important;
+            }
+        }
+
+        /* Very tall screens */
+        @media (min-height: 900px) and (min-width: 769px) {
+            .loader-equation.move-up {
+                transform: translate(-50%, calc(-50% - 15vh)) scale(0.92) !important;
+            }
+
+            .loader-ui {
+                transform: translate(-50%, calc(-50% + 18vh)) scale(0.95) !important;
+            }
+
+            .loader-ui.reveal {
+                transform: translate(-50%, calc(-50% + 18vh)) scale(1) !important;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1800px) {
+            .quote-line {
+                font-size: 3rem !important;
+            }
+
+            .eq-char {
+                font-size: 5rem !important;
+            }
+
+            .loader-title {
+                font-size: 2.8rem !important;
             }
         }
 
