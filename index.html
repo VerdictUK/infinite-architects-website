@@ -7273,38 +7273,55 @@
         /* ═══════════════════════════════════════════════════════════════════════
            PHASE 16: SENTIENT CURSOR
            ═══════════════════════════════════════════════════════════════════════ */
+        /* SENTIENT CURSOR - Only hide native cursor when custom cursor is ready */
         @media (pointer: fine) {
-            body {
+            /* Only hide cursor when JS has initialized the custom cursor */
+            body.cursor-ready {
                 cursor: none !important;
             }
 
-            a, button, .hero-cta, .cta-primary, .cta-secondary, .buy-btn, .concept-card, .quote-card {
+            body.cursor-ready a,
+            body.cursor-ready button,
+            body.cursor-ready .hero-cta,
+            body.cursor-ready .cta-primary,
+            body.cursor-ready .cta-secondary,
+            body.cursor-ready .buy-btn,
+            body.cursor-ready .concept-card,
+            body.cursor-ready .quote-card {
                 cursor: none !important;
             }
 
             .cursor-dot {
                 position: fixed;
+                left: -100px;
+                top: -100px;
                 width: 8px;
                 height: 8px;
                 background: var(--gold);
                 border-radius: 50%;
                 pointer-events: none;
-                z-index: 99999;
+                z-index: 999999;
                 transform: translate(-50%, -50%);
                 transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
                 mix-blend-mode: difference;
+                opacity: 1;
+                visibility: visible;
             }
 
             .cursor-ring {
                 position: fixed;
+                left: -100px;
+                top: -100px;
                 width: 40px;
                 height: 40px;
                 border: 1px solid rgba(212, 168, 75, 0.5);
                 border-radius: 50%;
                 pointer-events: none;
-                z-index: 99998;
+                z-index: 999998;
                 transform: translate(-50%, -50%);
                 transition: all 0.15s ease;
+                opacity: 1;
+                visibility: visible;
             }
 
             .cursor-dot.hover-link {
@@ -15662,7 +15679,8 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════════
-           DESKTOP CHAPTER SIDEBAR - Left side vertical navigation
+           DESKTOP CHAPTER SIDEBAR - Minimalist collapsed design
+           Shows only Roman numerals by default, expands on hover
            ═══════════════════════════════════════════════════════════════════════════ */
         .chapter-sidebar {
             display: none;
@@ -15671,15 +15689,16 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 9990;
-            background: rgba(2, 3, 10, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(212, 168, 75, 0.15);
-            border-radius: 0 12px 12px 0;
-            padding: 20px 12px;
+            background: rgba(2, 3, 10, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(212, 168, 75, 0.12);
+            border-radius: 0 10px 10px 0;
+            padding: 12px 8px;
             opacity: 0;
             transform: translateY(-50%) translateX(-100%);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
         }
 
         .chapter-sidebar.active {
@@ -15693,46 +15712,69 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .chapter-sidebar-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
+            gap: 0;
+            padding: 8px 10px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: transparent;
             border: 1px solid transparent;
+            overflow: hidden;
         }
 
         .chapter-sidebar-item:hover {
-            background: rgba(212, 168, 75, 0.08);
+            background: rgba(212, 168, 75, 0.1);
             border-color: rgba(212, 168, 75, 0.2);
+            gap: 10px;
         }
 
         .chapter-sidebar-item.active {
-            background: rgba(212, 168, 75, 0.12);
+            background: rgba(212, 168, 75, 0.15);
             border-color: rgba(212, 168, 75, 0.3);
         }
 
         .chapter-sidebar-num {
             font-family: var(--font-display, 'Cinzel', serif);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--gold-primary, #d4a84b);
-            min-width: 24px;
+            min-width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-sidebar-item:not(.active) .chapter-sidebar-num {
+            color: rgba(212, 168, 75, 0.6);
         }
 
         .chapter-sidebar-name {
             font-family: var(--font-mono, 'Space Mono', monospace);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: rgba(232, 212, 160, 0.7);
+            letter-spacing: 0.06em;
+            color: rgba(232, 212, 160, 0.6);
             white-space: nowrap;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Expand names on sidebar hover */
+        .chapter-sidebar:hover .chapter-sidebar-name {
+            max-width: 120px;
+            opacity: 1;
+        }
+
+        .chapter-sidebar:hover .chapter-sidebar-item {
+            gap: 10px;
         }
 
         .chapter-sidebar-item.active .chapter-sidebar-name {
@@ -31562,8 +31604,9 @@ main.content,
         const cursorRing = document.getElementById('cursor-ring');
 
         if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
-            let mouseX = 0, mouseY = 0;
-            let ringX = 0, ringY = 0;
+            let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+            let ringX = mouseX, ringY = mouseY;
+            let cursorInitialized = false;
 
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
@@ -31571,6 +31614,13 @@ main.content,
 
                 cursorDot.style.left = mouseX + 'px';
                 cursorDot.style.top = mouseY + 'px';
+
+                // Enable custom cursor on first mouse move
+                if (!cursorInitialized) {
+                    cursorInitialized = true;
+                    document.body.classList.add('cursor-ready');
+                    console.log('[CURSOR] Sentient cursor activated');
+                }
             });
 
             function animateRing() {
@@ -33994,96 +34044,8 @@ main.content,
             }
         }
 
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 16: SENTIENT CURSOR
-        // ═══════════════════════════════════════════════════════════════════════
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorRing = document.getElementById('cursor-ring');
-        
-        if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
-            let mouseX = 0, mouseY = 0;
-            let ringX = 0, ringY = 0;
-            
-            // Track mouse position
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                // Dot follows immediately
-                cursorDot.style.left = mouseX + 'px';
-                cursorDot.style.top = mouseY + 'px';
-            });
-            
-            // Ring follows with lag
-            function animateRing() {
-                ringX += (mouseX - ringX) * 0.15;
-                ringY += (mouseY - ringY) * 0.15;
-                
-                cursorRing.style.left = ringX + 'px';
-                cursorRing.style.top = ringY + 'px';
-                
-                requestAnimationFrame(animateRing);
-            }
-            animateRing();
-            
-            // Context-aware cursor states
-            const hoverTargets = {
-                link: 'a, .nav-link',
-                button: 'button, .hero-cta, .cta-primary, .cta-secondary, .buy-btn',
-                text: 'p, h1, h2, h3, h4, h5, h6, span, .quote-text'
-            };
-            
-            Object.entries(hoverTargets).forEach(([type, selector]) => {
-                document.querySelectorAll(selector).forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        cursorDot.classList.add(`hover-${type}`);
-                        cursorRing.classList.add(`hover-${type}`);
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        cursorDot.classList.remove(`hover-${type}`);
-                        cursorRing.classList.remove(`hover-${type}`);
-                    });
-                });
-            });
-            
-            // Hide cursor when leaving window
-            document.addEventListener('mouseleave', () => {
-                cursorDot.style.opacity = '0';
-                cursorRing.style.opacity = '0';
-            });
-            
-            document.addEventListener('mouseenter', () => {
-                cursorDot.style.opacity = '1';
-                cursorRing.style.opacity = '1';
-            });
-
-            // ─────────────────────────────────────────────────────────────
-            // GOLDEN TRAIL EFFECT (Phase 16 Extension)
-            // ─────────────────────────────────────────────────────────────
-            const trailCount = 12;
-            const trails = [];
-            
-            for (let i = 0; i < trailCount; i++) {
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                document.body.appendChild(trail);
-                trails.push(trail);
-            }
-            
-            let trailIndex = 0;
-            document.addEventListener('mousemove', (e) => {
-                const trail = trails[trailIndex % trailCount];
-                trail.style.left = e.clientX + 'px';
-                trail.style.top = e.clientY + 'px';
-                trail.style.opacity = '0.5';
-                
-                setTimeout(() => {
-                    trail.style.opacity = '0';
-                }, 150);
-                
-                trailIndex++;
-            }, { passive: true });
-        }
+        // NOTE: Sentient Cursor code moved to main cursor block at line ~31575
+        // This duplicate was removed to prevent conflicts
 
         // ═══════════════════════════════════════════════════════════════════════
         // PHASE 17: QUANTUM ENTANGLEMENT PARTICLES
