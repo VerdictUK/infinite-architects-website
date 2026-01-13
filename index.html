@@ -24341,11 +24341,11 @@ html body section#methodology .methodology-closing {
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-    /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE === */
-    html body [style*="visibility: hidden"],
-    html body [style*="display: none"],
-    html body .hidden,
-    html body [hidden] {
+    /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE (EXEMPT ASK-BOOK) === */
+    html body [style*="visibility: hidden"]:not(.ask-book-toggle):not(.ask-book-widget),
+    html body [style*="display: none"]:not(.ask-book-toggle):not(.ask-book-widget),
+    html body .hidden:not(.ask-book-toggle):not(.ask-book-widget),
+    html body [hidden]:not(.ask-book-toggle):not(.ask-book-widget) {
         height: 0 !important;
         min-height: 0 !important;
         max-height: 0 !important;
