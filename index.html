@@ -2013,12 +2013,12 @@
            PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
            ═══════════════════════════════════════════════════════════════════════════ */
         
-        /* Initial state: content hidden above viewport */
+        /* Initial state: content ready behind loader but translated up */
         html body:not(.cinematic) .content,
         html body:not(.cinematic) #main-content {
-            transform: translateY(-100dvh) !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
+            transform: translateY(-100vh) !important;
+            opacity: 1 !important; /* Ready but hidden by loader */
+            visibility: visible !important;
             will-change: transform;
         }
 
@@ -2040,16 +2040,16 @@
         }
 
         @keyframes titanDrop {
-            0% { transform: translateY(-100dvh); opacity: 0; }
-            20% { opacity: 1; }
+            0% { transform: translateY(-100vh); opacity: 1; }
             60% { transform: translateY(0); }
-            75% { transform: translateY(-30px); }
+            75% { transform: translateY(-20px); }
             100% { transform: translateY(0); opacity: 1; }
         }
 
-        /* Camera Shake on Impact */
+        /* Camera Shake on Impact - Nuclear targeting */
         html body.cinematic {
             animation: impactShake 0.5s linear 0.7s forwards !important;
+            overflow-x: clip !important;
         }
 
         @keyframes impactShake {
@@ -2064,15 +2064,18 @@
 
         /* Fix Blank Flash: Ensure Loader covers content until the drop */
         #loader {
-            transition: transform 0.8s ease-in, opacity 0.5s ease-out 0.8s; /* Slide up, then fade */
-            z-index: 99999;
-            background: var(--void);
+            transition: transform 0.8s ease-in, opacity 0.5s ease-out 0.8s !important;
+            z-index: 100000 !important;
+            background: #02030a !important;
         }
 
-        /* Loader exits by flying UP as content flies DOWN */
+        /* Loader exits by flying UP - Pushed to back immediately to avoid masking */
         body.cinematic #loader {
-            transform: translateY(-100%);
-            pointer-events: none;
+            transform: translateY(-100%) !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -1 !important; 
+            transition: transform 0.8s ease-in, opacity 0.5s ease-out, z-index 0.1s 0.5s !important;
         }
 
 
@@ -25530,6 +25533,47 @@ html body .ask-book-toggle {
     visibility: visible !important;
     opacity: 1 !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════════
+   SOVEREIGN FRAMING GUARD - Universal Clipping & Alignment
+   ═══════════════════════════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
+html, body {
+    width: 100% !important;
+    overflow-x: clip !important; /* Prevents all side-scrolling/black bars */
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+main.content, #main-content {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: clip !important;
+}
+
+/* Ensure all immersive visuals are framed inside the screen */
+.tesseract-container, 
+#tesseract-canvas,
+.evidence-video-container,
+.evidence-card,
+.idea-card {
+    max-width: 100% !important;
+}
+
+/* Fixed Margins for UI Elements */
+.milestone-toast { left: 20px !important; }
+.section-indicator { width: calc(100% - 40px) !important; max-width: 400px !important; }
+
+@media (max-width: 768px) {
+    .milestone-toast { 
+        left: 10px !important; 
+        right: 10px !important; 
+        width: calc(100% - 20px) !important; 
+    }
+}
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -30055,6 +30099,46 @@ html body .ask-book-toggle {
             setTimeout(() => {
                 window.scrollTo(0, 0);
             }, 0);
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // DESKTOP SCROLL GUARANTEE - Forces scroll to work on desktop
+        // ═══════════════════════════════════════════════════════════════════════════
+        function guaranteeDesktopScroll() {
+            if (window.innerWidth > 768) {
+                // Ensure cinematic class is present (unlocks scroll in CSS)
+                document.body.classList.add('cinematic');
+                document.documentElement.classList.add('cinematic-ready');
+
+                // Force-enable scroll on desktop via inline styles
+                document.documentElement.style.overflow = 'auto';
+                document.documentElement.style.overflowY = 'auto';
+                document.documentElement.style.overflowX = 'hidden';
+                document.documentElement.style.height = 'auto';
+                document.documentElement.style.scrollSnapType = 'none';
+
+                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
+                document.body.style.overflowX = 'hidden';
+                document.body.style.height = 'auto';
+                document.body.style.scrollSnapType = 'none';
+
+                // Remove any slideshow-mode that might have been added
+                document.documentElement.classList.remove('slideshow-mode');
+
+                console.log('[Scroll] Desktop scroll guarantee applied');
+            }
+        }
+
+        // Run on load
+        window.addEventListener('load', () => {
+            setTimeout(guaranteeDesktopScroll, 500);
+            setTimeout(guaranteeDesktopScroll, 1500); // Safety backup
+        });
+
+        // Run on resize (in case browser window changes size)
+        window.addEventListener('resize', () => {
+            guaranteeDesktopScroll();
         });
 
         document.addEventListener('DOMContentLoaded', initLoader);
@@ -36504,6 +36588,84 @@ html body .ask-book-toggle {
             }
         }
     </style>
+
+    <!-- NUCLEAR FIX: Force button visibility and scroll after load -->
+    <script>
+    (function() {
+        'use strict';
+
+        function forceButtonAndScroll() {
+            // Force Ask Book button visible
+            const btn = document.getElementById('ask-book-toggle');
+            if (btn) {
+                btn.style.cssText = 'display:flex !important; visibility:visible !important; opacity:1 !important; position:fixed !important; bottom:24px !important; right:24px !important; width:64px !important; height:64px !important; z-index:2147483647 !important; background:linear-gradient(145deg, #d4a84b, #a67c35) !important; border:2px solid #f4c856 !important; border-radius:50% !important; align-items:center !important; justify-content:center !important; pointer-events:auto !important; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important; cursor:pointer !important;';
+
+                // Mobile adjustment
+                if (window.innerWidth <= 768) {
+                    btn.style.bottom = '100px';
+                    btn.style.right = '16px';
+                    btn.style.width = '56px';
+                    btn.style.height = '56px';
+                }
+
+                console.log('[ASK BOOK] Button forced visible');
+            }
+
+            // Force scroll enabled
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowY = 'auto';
+            document.body.style.overflowX = 'hidden';
+            document.body.style.height = 'auto';
+            document.documentElement.style.overflow = 'auto';
+            document.documentElement.style.overflowY = 'auto';
+            document.documentElement.style.overflowX = 'hidden';
+
+            // Add cinematic class if not present
+            if (!document.body.classList.contains('cinematic')) {
+                document.body.classList.add('cinematic');
+            }
+            if (!document.documentElement.classList.contains('cinematic-ready')) {
+                document.documentElement.classList.add('cinematic-ready');
+            }
+
+            console.log('[SCROLL] Forced enabled');
+        }
+
+        // Run after DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', forceButtonAndScroll);
+        } else {
+            forceButtonAndScroll();
+        }
+
+        // Also run after full load
+        window.addEventListener('load', forceButtonAndScroll);
+
+        // Safety: Run again after 2 seconds and 5 seconds
+        setTimeout(forceButtonAndScroll, 2000);
+        setTimeout(forceButtonAndScroll, 5000);
+
+        // Periodic check every 3 seconds to maintain visibility
+        setInterval(function() {
+            const btn = document.getElementById('ask-book-toggle');
+            if (btn) {
+                const computed = window.getComputedStyle(btn);
+                if (computed.display === 'none' || computed.visibility === 'hidden' || computed.opacity === '0') {
+                    console.log('[ASK BOOK] Button was hidden, forcing visible again');
+                    forceButtonAndScroll();
+                }
+            }
+
+            // Also check scroll
+            const bodyOverflow = window.getComputedStyle(document.body).overflow;
+            if (bodyOverflow === 'hidden' && !document.querySelector('.ask-book-widget.active') && !document.querySelector('.concepts-modal-overlay.active')) {
+                console.log('[SCROLL] Was locked, forcing enabled');
+                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
+            }
+        }, 3000);
+    })();
+    </script>
 
     <!-- Chat Widget -->
     <div class="ask-book-widget" id="ask-book-widget">
