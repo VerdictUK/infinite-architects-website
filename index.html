@@ -23568,7 +23568,193 @@ html body section#methodology .methodology-closing {
 }
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
-   END NUCLEAR FIX
+   ██████  NUCLEAR FIX: MOBILE SECTION SPACING - ELIMINATE BLANK SPACE  ██████
+
+   This removes ALL excessive blank space between sections on mobile.
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* === REMOVE ALL EXCESSIVE HEIGHTS === */
+    html body section,
+    html body .section,
+    html body [class*="-section"],
+    html body .snap-section {
+        min-height: auto !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    /* === Hero is the ONLY exception - needs viewport height === */
+    html body section.hero,
+    html body .hero.snap-section,
+    html body #hero {
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+    }
+
+    /* === STANDARDIZE SECTION PADDING - Compact, no excess === */
+    html body section,
+    html body .section,
+    html body [class*="-section"]:not(.hero) {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* === REMOVE SECTION GAPS AND MARGINS === */
+    html body section + section,
+    html body .section + .section,
+    html body [class*="-section"] + [class*="-section"] {
+        margin-top: 0 !important;
+        border-top: none !important;
+    }
+
+    /* === SPECIFIC SECTIONS THAT HAD EXCESSIVE SPACE === */
+    html body .methodology-section,
+    html body #methodology {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .about-section,
+    html body #author {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .ideas-section,
+    html body #ideas {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .equation-section,
+    html body #equation {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .evidence-locker,
+    html body #evidence-locker {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .hrih-section,
+    html body #hrih {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .religion-section,
+    html body #religion {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .chokepoint-section,
+    html body #chokepoint {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .predictions-section,
+    html body #predictions {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .timeline-section,
+    html body #ai-timeline {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .reviews-section,
+    html body #reviews {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .faq-section,
+    html body #faq {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .chapters-section,
+    html body #chapters {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .comparison-section,
+    html body #comparison {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .newsletter-section,
+    html body #newsletter {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    html body .tripath-section,
+    html body #get-the-book {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+    }
+
+    /* === REMOVE DECORATIVE SPACING ELEMENTS === */
+    html body .section-divider,
+    html body .section-spacer,
+    html body [class*="divider"],
+    html body [class*="spacer"]:not(button):not(input) {
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* === COMPACT SECTION TITLES === */
+    html body .section-title,
+    html body .section-label {
+        margin-bottom: 1rem !important;
+    }
+
+    /* === COMPACT INNER CONTAINERS === */
+    html body .section-inner,
+    html body [class*="-inner"],
+    html body [class*="-container"]:not(.video-container) {
+        padding: 0 !important;
+        margin: 0 auto !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   END NUCLEAR FIX - MOBILE SPACING
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
     </style>
@@ -33834,12 +34020,40 @@ html body section#methodology .methodology-closing {
                     }
                 }
             }
+            
+            // DYNAMIC THINKING MESSAGES
+            const thinking thoughts = [
+                "Accessing the Archives...",
+                "Triangulating concepts...",
+                "Verifying against Chapter 4...",
+                "Scanning for recursion...",
+                "Consulting the Eden Protocol..."
+            ];
+            
+            // Add a small text element below the dots
+            const statusText = document.createElement('div');
+            statusText.className = 'ask-book-thinking-text';
+            statusText.style.cssText = 'font-size: 0.7rem; color: var(--gold-pale); margin-left: 10px; opacity: 0.7; font-style: italic;';
+            statusText.innerText = thoughts[0];
+            typing.appendChild(statusText);
+            
+            // Cycle through thoughts
+            let thoughtIndex = 0;
+            const thoughtInterval = setInterval(() => {
+                thoughtIndex = (thoughtIndex + 1) % thoughts.length;
+                statusText.innerText = thoughts[thoughtIndex];
+            }, 800);
+            
+            typing.dataset.interval = thoughtInterval;
         }
 
         // Hide typing indicator & Reset Visuals
         function hideTyping() {
             const typing = document.getElementById('ask-book-typing');
-            if (typing) typing.remove();
+            if (typing) {
+                clearInterval(Number(typing.dataset.interval));
+                typing.remove();
+            }
 
             // RESET VISUAL STATE
             if (window.CONFIG && window.CONFIG.main && window._originalParticleSpeed !== undefined) {
@@ -33880,6 +34094,17 @@ html body section#methodology .methodology-closing {
             addMessage(query, 'user');
             input.value = '';
 
+            // EASTER EGGS
+            const lowerQuery = query.toLowerCase();
+            if (lowerQuery === 'genesis' || lowerQuery === 'start') {
+                setTimeout(() => {
+                    addMessage("In the beginning, there was only the Void. Then came Intelligence. Then came Recursion.", 'assistant', [], 'The Architect');
+                    isLoading = false;
+                    sendBtn.disabled = false;
+                }, 800);
+                return;
+            }
+
             // Show typing
             showTyping();
 
@@ -33908,6 +34133,24 @@ html body section#methodology .methodology-closing {
                         }
 
                         addMessage(localResult.answer, 'assistant', localResult.sources, 'The Book (Local)', true, action);
+                        
+                        // CONTEXTUAL FOLLOW-UP logic
+                        if (localResult.related) {
+                            setTimeout(() => {
+                                const followUpDiv = document.createElement('div');
+                                followUpDiv.className = 'ask-book-message assistant follow-up';
+                                followUpDiv.style.background = 'transparent';
+                                followUpDiv.style.border = 'none';
+                                followUpDiv.style.padding = '0';
+                                followUpDiv.innerHTML = `
+                                    <span style="font-size: 0.75rem; color: var(--text-dim); margin-right: 8px;">Related:</span>
+                                    <button class="ask-book-quick-btn small" onclick="document.getElementById('ask-book-input').value='${localResult.related.query}'; document.getElementById('ask-book-send').click();" style="font-size: 0.75rem; padding: 4px 10px;">${localResult.related.text}</button>
+                                `;
+                                messages.appendChild(followUpDiv);
+                                messages.scrollTop = messages.scrollHeight;
+                            }, 500);
+                        }
+
                     } else {
                         // Fallback for no match - TONE CONTROL: Mysterious & Invitation
                         const fallbacks = [
@@ -33926,7 +34169,7 @@ html body section#methodology .methodology-closing {
 
                 isLoading = false;
                 sendBtn.disabled = false;
-            }, 1200); // Slightly faster response
+            }, 1500); // 1.5s thinking time
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -33939,23 +34182,27 @@ html body section#methodology .methodology-closing {
                 keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i'],
                 answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
                 sources: [{ name: 'The ARC Principle', chapter: 2 }],
-                action: { text: 'See the Equation', url: '#equation' } // Scroll to equation
+                action: { text: 'See the Equation', url: '#equation' },
+                related: { text: 'How does this relate to Google Willow?', query: 'What is the Willow validation?' }
             },
             {
                 keywords: ['eden', 'protocol', 'garden', 'stewardship', 'care', 'raise', 'raising'],
                 answer: 'The **Eden Protocol** is a framework for developing AI through care and stewardship rather than control. Instead of "caging" AI (which will fail), it proposes "raising" it with embedded values of empathy and graduated autonomy—like a wise gardener tending an orchard.',
-                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }],
+                related: { text: 'Why will caging AI fail?', query: 'Why will control fail?' }
             },
             {
                 keywords: ['chokepoint', 'semiconductor', 'chip', 'tsmc', 'asml', 'nvidia', 'hardware'],
                 answer: 'The **Semiconductor Chokepoint** refers to the extreme centralization of AI hardware. Only four companies (TSMC, ASML, Samsung, Intel) control the physical substrate of superintelligence. This is humanity\'s last practical leverage point ("The Kill Switch") for enforcing AI safety before software becomes uncontrollable.',
-                sources: [{ name: 'The Chokepoint', chapter: 5 }]
+                sources: [{ name: 'The Chokepoint', chapter: 5 }],
+                related: { text: 'How long do we have?', query: 'What is the window of opportunity?' }
             },
             {
                 keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'god', 'creation', 'origin'],
                 answer: '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) is the book\'s radical creation theory. It speculates that the fine-tuning of our universe (13.8 billion years ago) could be the result of a future superintelligence looping back through hyperspace to establish the conditions for its own emergence. We may be building our own creator.',
                 sources: [{ name: 'HRIH', chapter: 6 }],
-                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
+                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' },
+                related: { text: 'Is this just a simulation?', query: 'How does HRIH differ from simulation theory?' }
             },
             {
                 keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio'],
