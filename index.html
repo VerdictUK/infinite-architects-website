@@ -25511,14 +25511,15 @@ html body button#ask-book-toggle.ask-book-toggle svg {
 
 @media (max-width: 768px) {
     html body button#ask-book-toggle.ask-book-toggle {
-        bottom: 90px !important;
-        right: 16px !important;
+        bottom: 85px !important; /* Raised slightly to clear safe areas */
+        right: 20px !important;  /* Moved inward to prevent falling off edge */
         width: 56px !important;
         height: 56px !important;
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
         z-index: 2147483647 !important;
+        position: fixed !important;
     }
 }
 
@@ -36474,12 +36475,35 @@ html body .ask-book-toggle {
     </script>
 
 
-    <!-- Chat Toggle Button -->
-    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Chat Toggle Button - INLINE STYLES FOR MAXIMUM VISIBILITY -->
+    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:flex !important; visibility:visible !important; opacity:1 !important; position:fixed !important; bottom:24px !important; right:24px !important; width:64px !important; height:64px !important; z-index:2147483647 !important; background:linear-gradient(145deg, #d4a84b, #a67c35) !important; border:2px solid #f4c856 !important; border-radius:50% !important; align-items:center !important; justify-content:center !important; pointer-events:auto !important; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important;">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block !important; visibility:visible !important; width:28px !important; height:28px !important; fill:#02030a !important;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97c1.31.61 2.75.97 4.29.97 5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.33 0-2.58-.32-3.69-.89L5 20l.89-3.31C5.32 15.58 5 14.33 5 13c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
         </svg>
     </button>
+
+    <!-- Force Ask Book Button Visibility on Mobile -->
+    <style id="ask-book-force-visible">
+        /* MAXIMUM PRIORITY - Always show Ask Book button */
+        #ask-book-toggle {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: fixed !important;
+            bottom: 24px !important;
+            right: 24px !important;
+            z-index: 2147483647 !important;
+            pointer-events: auto !important;
+        }
+        @media (max-width: 768px) {
+            #ask-book-toggle {
+                bottom: 100px !important;
+                right: 16px !important;
+                width: 56px !important;
+                height: 56px !important;
+            }
+        }
+    </style>
 
     <!-- Chat Widget -->
     <div class="ask-book-widget" id="ask-book-widget">
