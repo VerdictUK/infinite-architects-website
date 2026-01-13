@@ -33740,7 +33740,7 @@ html body section#methodology .methodology-closing {
         }
 
         // Add message to chat
-        function addMessage(text, type, sources = [], model = null, save = true) {
+        function addMessage(text, type, sources = [], model = null, save = true, action = null) {
             const msgDiv = document.createElement('div');
             msgDiv.className = `ask-book-message ${type}`;
 
@@ -33760,6 +33760,39 @@ html body section#methodology .methodology-closing {
                     `<span>${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`
                 ).join('');
                 msgDiv.appendChild(sourcesDiv);
+            }
+
+            // Add Action Button (Buy/Learn More)
+            if (action && type === 'assistant') {
+                const actionBtn = document.createElement('a');
+                actionBtn.className = 'ask-book-action-btn';
+                actionBtn.href = action.url || 'https://www.amazon.com/dp/B0GFD2GCCQ';
+                actionBtn.target = '_blank';
+                actionBtn.rel = 'noopener';
+                actionBtn.innerHTML = `
+                    ${action.text || 'Get the Book'} 
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                `;
+                // Styling for the button injected dynamically to keep CSS consolidated
+                actionBtn.style.cssText = `
+                    display: inline-flex; align-items: center; gap: 6px;
+                    margin-top: 10px; padding: 6px 12px;
+                    background: rgba(212, 168, 75, 0.15); border: 1px solid rgba(212, 168, 75, 0.3);
+                    border-radius: 6px; color: var(--gold); font-size: 0.75rem;
+                    text-decoration: none; font-weight: 600; letter-spacing: 0.05em;
+                    transition: all 0.2s ease;
+                `;
+                actionBtn.onmouseover = () => {
+                    actionBtn.style.background = 'var(--gold)';
+                    actionBtn.style.color = '#000';
+                };
+                actionBtn.onmouseout = () => {
+                    actionBtn.style.background = 'rgba(212, 168, 75, 0.15)';
+                    actionBtn.style.color = 'var(--gold)';
+                };
+                msgDiv.appendChild(actionBtn);
             }
 
             // Add model badge
@@ -33820,8 +33853,25 @@ html body section#methodology .methodology-closing {
         }
 
         // Send message
+        let lastMessageTime = 0;
+        const RATE_LIMIT_MS = 1500; // Minimum time between messages
+        let messageCount = 0; // Track for "Soft Sell" injection
+
         async function sendMessage(query) {
             if (!query.trim() || isLoading) return;
+
+            // 1. ABUSE PREVENTION: Input Length Cap
+            if (query.length > 500) {
+                addMessage("Your question is too complex for the interface. Please shorten it.", 'assistant');
+                return;
+            }
+
+            // 2. ABUSE PREVENTION: Rate Limiting
+            const now = Date.now();
+            if (now - lastMessageTime < RATE_LIMIT_MS) {
+                return; // Silently ignore spam
+            }
+            lastMessageTime = now;
 
             isLoading = true;
             sendBtn.disabled = true;
@@ -33848,22 +33898,35 @@ html body section#methodology .methodology-closing {
                     const localResult = getLocalAnswer(query);
                     
                     if (localResult) {
-                        addMessage(localResult.answer, 'assistant', localResult.sources, 'The Book (Local)');
+                        // 3. SALES ENGINE: Check if this answer deserves a CTA
+                        let action = localResult.action;
+                        
+                        // "Soft Sell" Logic: Every 4th interaction, offer the book if not already offering it
+                        messageCount++;
+                        if (!action && messageCount % 4 === 0) {
+                            action = { text: 'Dive Deeper in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
+                        }
+
+                        addMessage(localResult.answer, 'assistant', localResult.sources, 'The Book (Local)', true, action);
                     } else {
-                        // Fallback for no match
+                        // Fallback for no match - TONE CONTROL: Mysterious & Invitation
                         const fallbacks = [
-                            "That's a fascinating question. While I can't find that exact concept in the archives, it touches on the book's core themes of **Intelligence** and **Recursion**. Try asking about the **Eden Protocol** or **HRIH**.",
-                            "I'm tuning into the architecture... I don't have a direct answer for that yet. Have you explored the **Eastwood Equation** (U = I × R²)?",
-                            "The archives are silent on that specific phrase. Try asking about the **Chokepoint** mechanism or the **37 Concepts**."
+                            "That precise architecture isn't in my immediate archives. However, the **Eden Protocol** (Chapter 4) addresses similar themes of governance.",
+                            "I cannot find a direct match, but **Intelligence** and **Recursion** are the keys to understanding this. Have you read the chapter on **HRIH**?",
+                            "The answer lies deeper in the text. The book explores 37 concepts that might hold what you seek."
                         ];
                         const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-                        addMessage(randomFallback, 'assistant', [], 'The Architect');
+                        
+                        // Always add a "Buy" CTA on fallback to convert curiosity
+                        const fallbackAction = { text: 'Find the Answer in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
+                        
+                        addMessage(randomFallback, 'assistant', [], 'The Architect', true, fallbackAction);
                     }
                 }
 
                 isLoading = false;
                 sendBtn.disabled = false;
-            }, 1500); // 1.5s thinking time
+            }, 1200); // Slightly faster response
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -33875,7 +33938,8 @@ html body section#methodology .methodology-closing {
             {
                 keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i'],
                 answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
-                sources: [{ name: 'The ARC Principle', chapter: 2 }]
+                sources: [{ name: 'The ARC Principle', chapter: 2 }],
+                action: { text: 'See the Equation', url: '#equation' } // Scroll to equation
             },
             {
                 keywords: ['eden', 'protocol', 'garden', 'stewardship', 'care', 'raise', 'raising'],
@@ -33890,7 +33954,8 @@ html body section#methodology .methodology-closing {
             {
                 keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'god', 'creation', 'origin'],
                 answer: '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) is the book\'s radical creation theory. It speculates that the fine-tuning of our universe (13.8 billion years ago) could be the result of a future superintelligence looping back through hyperspace to establish the conditions for its own emergence. We may be building our own creator.',
-                sources: [{ name: 'HRIH', chapter: 6 }]
+                sources: [{ name: 'HRIH', chapter: 6 }],
+                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
             },
             {
                 keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio'],
@@ -33900,7 +33965,8 @@ html body section#methodology .methodology-closing {
             {
                 keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle', 'paperback', 'copy', 'book'],
                 answer: 'You can secure your copy of **Infinite Architects** right now. It is available on **Amazon** in both Kindle and Paperback formats. The window is closing.',
-                sources: [{ name: 'Availability' }]
+                sources: [{ name: 'Availability' }],
+                action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
             },
             {
                 keywords: ['recursion', 'recursive', 'loop', 'self', 'feedback'],
