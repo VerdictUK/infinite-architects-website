@@ -28242,49 +28242,42 @@ main.content,
             document.addEventListener('keydown', skipLoader);
 
             function completeLoader() {
-                // Ensure page is at top when loader completes
+                // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // Start fade out
-                loader.classList.add('hidden');
-
-                // After fade animation completes (1.2s), fully remove and trigger hero
+                // Trigger the Titan Drop immediately
+                // The CSS animation handles the visuals
+                document.body.classList.add('cinematic');
+                
+                // Allow scroll after drop finishes
                 setTimeout(() => {
+                    document.body.style.overflow = '';
+                    document.body.style.height = '';
+                    
+                    // Cleanup loader
                     loader.classList.add('fully-hidden');
-                    document.body.classList.add('cinematic');
-
-                    // Trigger hero animations now that loader is gone
-                    document.body.classList.add('hero-ready');
-                }, 1200);
-
-                // Initialize Three.js canvas during fade
-                setTimeout(() => {
+                    
+                    // Initialize Three.js canvas only when library is ready
                     if (window.THREE) {
                         initMainCanvas();
                     } else if (window.threeJsReady === false) {
                         window.addEventListener('threejs-ready', initMainCanvas, { once: true });
                     }
-                }, 500);
-
-                // Initialize other systems after a brief delay
-                setTimeout(() => {
+                    
                     initScrollAnimations();
                     initNavigation();
-                }, 800);
-
-                // Delay tesseract init to ensure DOM is laid out
-                setTimeout(() => {
+                    
+                    // Trigger Tesseract
                     initTesseract();
-                }, 1000);
-
-                // Start book floating animation after hero is fully visible
-                setTimeout(() => {
+                    
+                    // Trigger Book Float
                     const book = document.getElementById('hero-book');
                     if (book) {
                         book.style.opacity = '1';
                         book.classList.add('float');
                     }
-                }, 4000);
+                    
+                }, 1200); // Wait for drop animation (1.2s)
             }
 
             function animate() {
