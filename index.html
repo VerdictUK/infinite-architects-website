@@ -22709,15 +22709,40 @@ html body #author .storm-story-principle svg {
    PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* DESKTOP: Disable scroll-snap to allow free scrolling */
+/* DESKTOP: Nuclear scroll fix - ensure free scrolling works */
 @media (min-width: 1024px) {
-    html, body {
+    html {
         scroll-snap-type: none !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100% !important;
+    }
+
+    body {
+        scroll-snap-type: none !important;
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100% !important;
+    }
+
+    main, .content, #main-content {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: auto !important;
     }
 
     .snap-section {
         scroll-snap-align: none !important;
         scroll-snap-stop: normal !important;
+        overflow: visible !important;
+    }
+
+    /* Ensure sections after hero can scroll past */
+    .snap-section:not(.hero) {
+        min-height: auto !important;
+        height: auto !important;
     }
 }
 
