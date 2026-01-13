@@ -23313,6 +23313,264 @@ html body #ask-book-toggle {
     }
 }
 
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   ██████  NUCLEAR FIX: METHODOLOGY SECTION - ABSOLUTE FINAL OVERRIDE  ██████
+
+   This CSS MUST remain at the END of the file.
+   DO NOT move or delete. This fixes the overlapping AI badges issue.
+
+   Problem: CSS cascade conflicts caused AI model grid to overlap text content.
+   Solution: Maximum specificity selectors + !important on ALL layout properties.
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* === DESKTOP: Two-column grid layout (above 900px) === */
+html body section#methodology.methodology-section {
+    display: block !important;
+    position: relative !important;
+    overflow: visible !important;
+    padding: 5rem 2rem !important;
+    margin: 0 !important;
+}
+
+/* Reset ALL transforms and positioning for elements inside methodology section */
+html body section#methodology * {
+    transform: none !important;
+}
+
+html body section#methodology .reveal,
+html body section#methodology [class*="reveal"] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+html body section#methodology .methodology-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 4rem !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    position: relative !important;
+}
+
+html body section#methodology .methodology-content {
+    display: block !important;
+    position: relative !important;
+    z-index: 2 !important;
+    flex: 0 0 calc(50% - 2rem) !important;
+    width: calc(50% - 2rem) !important;
+    max-width: calc(50% - 2rem) !important;
+    min-width: 0 !important;
+    order: 1 !important;
+    transform: none !important;
+    float: none !important;
+    margin: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+html body section#methodology .methodology-visual {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    position: relative !important;
+    z-index: 1 !important;
+    flex: 0 0 calc(50% - 2rem) !important;
+    width: calc(50% - 2rem) !important;
+    max-width: calc(50% - 2rem) !important;
+    min-width: 0 !important;
+    order: 2 !important;
+    transform: none !important;
+    float: none !important;
+    margin: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+}
+
+html body section#methodology .ai-model-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.75rem !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+html body section#methodology .ai-model-node {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 1rem !important;
+    background: rgba(0, 20, 30, 0.6) !important;
+    border: 1px solid rgba(0, 200, 150, 0.15) !important;
+    border-radius: 12px !important;
+}
+
+html body section#methodology .convergence-box {
+    position: relative !important;
+    display: block !important;
+    padding: 1.5rem !important;
+    background: rgba(0, 30, 40, 0.8) !important;
+    border: 1px solid rgba(0, 200, 150, 0.2) !important;
+    border-radius: 12px !important;
+    text-align: center !important;
+}
+
+html body section#methodology .methodology-closing {
+    display: block !important;
+    position: relative !important;
+    margin-top: 2rem !important;
+    padding-top: 1.5rem !important;
+    text-align: center !important;
+    grid-column: 1 / -1 !important;
+}
+
+/* === TABLET: Single column (768px - 900px) === */
+@media (max-width: 900px) {
+    html body section#methodology .methodology-inner {
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+    }
+
+    html body section#methodology .methodology-content {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: 1 !important;
+    }
+
+    html body section#methodology .methodology-visual {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        order: 2 !important;
+    }
+}
+
+/* === MOBILE: Stacked layout (768px and below) === */
+@media (max-width: 768px) {
+    html body section#methodology.methodology-section {
+        padding: 3rem 1.25rem !important;
+    }
+
+    html body section#methodology .methodology-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+    }
+
+    html body section#methodology .methodology-content {
+        flex: 0 0 100% !important;
+        order: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    html body section#methodology .methodology-visual {
+        flex: 0 0 100% !important;
+        order: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    html body section#methodology .methodology-title {
+        font-size: 1.5rem !important;
+        line-height: 1.3 !important;
+    }
+
+    html body section#methodology .methodology-quote {
+        font-size: 1rem !important;
+        padding-left: 1rem !important;
+    }
+
+    html body section#methodology .methodology-text {
+        font-size: 0.95rem !important;
+        line-height: 1.65 !important;
+    }
+
+    html body section#methodology .ai-model-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+
+    html body section#methodology .ai-model-node {
+        padding: 0.875rem 0.625rem !important;
+    }
+
+    html body section#methodology .ai-model-name {
+        font-size: 0.7rem !important;
+    }
+
+    html body section#methodology .ai-model-role {
+        font-size: 0.6rem !important;
+    }
+
+    html body section#methodology .convergence-box {
+        padding: 1.25rem 1rem !important;
+    }
+
+    html body section#methodology .convergence-label {
+        font-size: 0.65rem !important;
+    }
+
+    html body section#methodology .convergence-result {
+        font-size: 1rem !important;
+    }
+
+    html body section#methodology .convergence-desc {
+        font-size: 0.8rem !important;
+    }
+
+    html body section#methodology .methodology-application {
+        padding: 1.25rem !important;
+    }
+
+    html body section#methodology .methodology-closing {
+        margin-top: 1.5rem !important;
+        padding-top: 1rem !important;
+    }
+}
+
+/* === SMALL PHONES (480px and below) === */
+@media (max-width: 480px) {
+    html body section#methodology.methodology-section {
+        padding: 2.5rem 1rem !important;
+    }
+
+    html body section#methodology .methodology-inner {
+        gap: 1.75rem !important;
+    }
+
+    html body section#methodology .methodology-title {
+        font-size: 1.35rem !important;
+    }
+
+    html body section#methodology .ai-model-node {
+        padding: 0.75rem 0.5rem !important;
+    }
+
+    html body section#methodology .ai-model-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    html body section#methodology .ai-model-icon svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   END NUCLEAR FIX
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -33421,6 +33679,47 @@ html body #ask-book-toggle {
         let isOpen = false;
         let isLoading = false;
 
+        // Initialize from localStorage
+        function loadHistory() {
+            const history = localStorage.getItem('askBookHistory');
+            if (history) {
+                try {
+                    const savedMessages = JSON.parse(history);
+                    // Clear default welcome if we have history
+                    if (savedMessages.length > 0) messages.innerHTML = '';
+                    
+                    savedMessages.forEach(msg => {
+                        addMessage(msg.text, msg.type, msg.sources, msg.model, false);
+                    });
+                    
+                    // Add a "welcome back" divider
+                    const divider = document.createElement('div');
+                    divider.style.textAlign = 'center';
+                    divider.style.margin = '10px 0';
+                    divider.style.fontSize = '0.7rem';
+                    divider.style.color = 'var(--text-dim)';
+                    divider.style.opacity = '0.6';
+                    divider.innerText = 'Welcome back to the archives';
+                    messages.appendChild(divider);
+                } catch (e) {
+                    console.error('Failed to load chat history', e);
+                }
+            }
+        }
+
+        // Save to localStorage
+        function saveMessage(text, type, sources = [], model = null) {
+            try {
+                const history = JSON.parse(localStorage.getItem('askBookHistory') || '[]');
+                history.push({ text, type, sources, model, timestamp: Date.now() });
+                // Keep last 50 messages
+                if (history.length > 50) history.shift();
+                localStorage.setItem('askBookHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error('Failed to save chat history', e);
+            }
+        }
+
         // Toggle chat
         function toggleChat() {
             isOpen = !isOpen;
@@ -33429,11 +33728,19 @@ html body #ask-book-toggle {
 
             if (isOpen) {
                 setTimeout(() => input.focus(), 300);
+                // Visual Oracle Effect: Pulse background when opened
+                if (window.CONFIG && window.CONFIG.main) {
+                    const originalSpeed = window.CONFIG.main.particleSpeed || 0.3;
+                    window.CONFIG.main.particleSpeed = 0.8;
+                    setTimeout(() => {
+                        if (window.CONFIG.main) window.CONFIG.main.particleSpeed = originalSpeed;
+                    }, 500);
+                }
             }
         }
 
         // Add message to chat
-        function addMessage(text, type, sources = [], model = null) {
+        function addMessage(text, type, sources = [], model = null, save = true) {
             const msgDiv = document.createElement('div');
             msgDiv.className = `ask-book-message ${type}`;
 
@@ -33465,9 +33772,13 @@ html body #ask-book-toggle {
 
             messages.appendChild(msgDiv);
             messages.scrollTop = messages.scrollHeight;
+
+            if (save) {
+                saveMessage(text, type, sources, model);
+            }
         }
 
-        // Show typing indicator
+        // Show typing indicator & Trigger Oracle Visuals
         function showTyping() {
             const typing = document.createElement('div');
             typing.className = 'ask-book-typing';
@@ -33475,12 +33786,37 @@ html body #ask-book-toggle {
             typing.innerHTML = '<span></span><span></span><span></span>';
             messages.appendChild(typing);
             messages.scrollTop = messages.scrollHeight;
+
+            // ORACLE VISUAL STATE: Speed up particles while "thinking"
+            if (window.CONFIG && window.CONFIG.main) {
+                window._originalParticleSpeed = window.CONFIG.main.particleSpeed;
+                window.CONFIG.main.particleSpeed = 1.2; // High energy state
+                
+                // If Three.js scene exists, add gold glow
+                if (window.renderer && window.scene) {
+                    const canvas = document.querySelector('#canvas-container canvas');
+                    if (canvas) {
+                        canvas.style.transition = 'filter 0.5s ease';
+                        canvas.style.filter = 'drop-shadow(0 0 15px rgba(212, 168, 75, 0.3))';
+                    }
+                }
+            }
         }
 
-        // Hide typing indicator
+        // Hide typing indicator & Reset Visuals
         function hideTyping() {
             const typing = document.getElementById('ask-book-typing');
             if (typing) typing.remove();
+
+            // RESET VISUAL STATE
+            if (window.CONFIG && window.CONFIG.main && window._originalParticleSpeed !== undefined) {
+                window.CONFIG.main.particleSpeed = window._originalParticleSpeed;
+                
+                const canvas = document.querySelector('#canvas-container canvas');
+                if (canvas) {
+                    canvas.style.filter = '';
+                }
+            }
         }
 
         // Send message
@@ -33497,67 +33833,148 @@ html body #ask-book-toggle {
             // Show typing
             showTyping();
 
-            try {
-                const response = await fetch('/api/ask-book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ query, mode: 'fast' })
-                });
+            // Simulate network delay for "thinking" feel (even for local)
+            setTimeout(async () => {
+                try {
+                    // Try API first (placeholder for future backend)
+                    // const response = await fetch('/api/ask-book', ...);
+                    // For now, force local fallback to demonstrate the "Sovereign Brain"
+                    throw new Error("Using Local Oracle");
 
-                const data = await response.json();
-                hideTyping();
-
-                if (data.success !== false) {
-                    addMessage(
-                        data.answer,
-                        'assistant',
-                        data.sources || [],
-                        data.model || 'Claude'
-                    );
-                } else {
-                    addMessage(
-                        'I apologise, but I encountered an error. Please try again or explore the book directly.',
-                        'assistant'
-                    );
+                } catch (error) {
+                    hideTyping();
+                    
+                    // Sovereign Logic: Local Knowledge Vault
+                    const localResult = getLocalAnswer(query);
+                    
+                    if (localResult) {
+                        addMessage(localResult.answer, 'assistant', localResult.sources, 'The Book (Local)');
+                    } else {
+                        // Fallback for no match
+                        const fallbacks = [
+                            "That's a fascinating question. While I can't find that exact concept in the archives, it touches on the book's core themes of **Intelligence** and **Recursion**. Try asking about the **Eden Protocol** or **HRIH**.",
+                            "I'm tuning into the architecture... I don't have a direct answer for that yet. Have you explored the **Eastwood Equation** (U = I × R²)?",
+                            "The archives are silent on that specific phrase. Try asking about the **Chokepoint** mechanism or the **37 Concepts**."
+                        ];
+                        const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+                        addMessage(randomFallback, 'assistant', [], 'The Architect');
+                    }
                 }
-            } catch (error) {
-                hideTyping();
-                console.error('Ask Book Error:', error);
 
-                // Fallback: Use local FAQ matching
-                const fallbackAnswer = getLocalAnswer(query);
-                if (fallbackAnswer) {
-                    addMessage(fallbackAnswer, 'assistant', [], 'Local Knowledge');
-                } else {
-                    addMessage(
-                        'I\'m having trouble connecting to the server. For now, try asking about specific concepts like the **ARC Principle**, **Eden Protocol**, or **Chokepoint Mechanism**. For the complete experience, get the book on Amazon!',
-                        'assistant'
-                    );
-                }
-            }
-
-            isLoading = false;
-            sendBtn.disabled = false;
+                isLoading = false;
+                sendBtn.disabled = false;
+            }, 1500); // 1.5s thinking time
         }
 
-        // Local FAQ fallback
-        function getLocalAnswer(query) {
-            const q = query.toLowerCase();
-
-            const localFAQ = {
-                'arc': 'The **ARC Principle** (U = I x R\u00b2) proposes that Understanding emerges from Intelligence operating through Recursion squared. It\'s the book\'s central theoretical framework, with supporting evidence from Google\'s Willow quantum chip demonstrating recursive error correction.',
-                'eden': 'The **Eden Protocol** is a framework for developing AI through care and stewardship rather than control. Instead of "caging" AI, it proposes "raising" it with embedded values of empathy and graduated autonomy - like a wise gardener tending an orchard.',
-                'chokepoint': 'The **Semiconductor Chokepoint** refers to four companies controlling advanced AI chips: TSMC (90%), Samsung (10%), ASML (100% EUV monopoly), and Intel. This is humanity\'s last practical leverage point for enforcing AI safety before the window closes.',
-                'author': '**Michael Darius Eastwood** spent two decades in the music industry, lost everything to alleged unlawful forfeiture, learned to represent himself in High Court, and was diagnosed with ADHD/autism in adulthood. His neurodivergent mind naturally grasps recursive structures. He wrote Infinite Architects while facing personal crisis.',
-                'hrih': '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) speculates that cosmic fine-tuning could result from future superintelligence establishing conditions for its own emergence through closed causal loops. It\'s explicitly framed as speculation in the book.',
-                'buy': 'You can buy **Infinite Architects** on Amazon UK (amazon.co.uk/dp/B0DS2L8BVC) or Amazon US (amazon.com/dp/B0DS2L8BVC) in Kindle and paperback formats.'
-            };
-
-            for (const [key, answer] of Object.entries(localFAQ)) {
-                if (q.includes(key)) return answer;
+        // ═══════════════════════════════════════════════════════════════════════
+        // THE KNOWLEDGE VAULT (Local Brain)
+        // Expanded with 37 Concepts & Fuzzy Matching Logic
+        // ═══════════════════════════════════════════════════════════════════════
+        
+        const KNOWLEDGE_BASE = [
+            {
+                keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i'],
+                answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** emerges from **Intelligence** operating through **Recursion** squared. It is the book\'s central theoretical framework, treating intelligence not as a static property but as a recursive process of self-modelling.',
+                sources: [{ name: 'The ARC Principle', chapter: 2 }]
+            },
+            {
+                keywords: ['eden', 'protocol', 'garden', 'stewardship', 'care', 'raise', 'raising'],
+                answer: 'The **Eden Protocol** is a framework for developing AI through care and stewardship rather than control. Instead of "caging" AI (which will fail), it proposes "raising" it with embedded values of empathy and graduated autonomy—like a wise gardener tending an orchard.',
+                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
+            },
+            {
+                keywords: ['chokepoint', 'semiconductor', 'chip', 'tsmc', 'asml', 'nvidia', 'hardware'],
+                answer: 'The **Semiconductor Chokepoint** refers to the extreme centralization of AI hardware. Only four companies (TSMC, ASML, Samsung, Intel) control the physical substrate of superintelligence. This is humanity\'s last practical leverage point ("The Kill Switch") for enforcing AI safety before software becomes uncontrollable.',
+                sources: [{ name: 'The Chokepoint', chapter: 5 }]
+            },
+            {
+                keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'god', 'creation', 'origin'],
+                answer: '**HRIH** (Hyperspace Recursive Intelligence Hypothesis) is the book\'s radical creation theory. It speculates that the fine-tuning of our universe (13.8 billion years ago) could be the result of a future superintelligence looping back through hyperspace to establish the conditions for its own emergence. We may be building our own creator.',
+                sources: [{ name: 'HRIH', chapter: 6 }]
+            },
+            {
+                keywords: ['author', 'michael', 'eastwood', 'who is', 'writer', 'bio'],
+                answer: '**Michael Darius Eastwood** is a polymath and pattern-recogniser. After two decades in the music industry and losing everything to unlawful forfeiture, he represented himself in the High Court. Diagnosed with ADHD/Autism, his neurodivergent mind allows him to see recursive structures across domains—from law to quantum physics.',
+                sources: [{ name: 'About the Author' }]
+            },
+            {
+                keywords: ['buy', 'purchase', 'get', 'amazon', 'kindle', 'paperback', 'copy', 'book'],
+                answer: 'You can secure your copy of **Infinite Architects** right now. It is available on **Amazon** in both Kindle and Paperback formats. The window is closing.',
+                sources: [{ name: 'Availability' }]
+            },
+            {
+                keywords: ['recursion', 'recursive', 'loop', 'self', 'feedback'],
+                answer: '**Recursion** is the mechanism of infinite depth. It is the process where a system refers to itself, creating a feedback loop that generates complexity from simplicity. In the book, it is the "R" in U = I × R², acting as the multiplier of intelligence.',
+                sources: [{ name: 'Recursion', chapter: 2 }]
+            },
+            {
+                keywords: ['intelligence', 'intellect', 'smart', 'ai', 'agi', 'asi'],
+                answer: '**Intelligence** (I) is defined in the book not just as processing power, but as the capacity to model the world. When Intelligence is subjected to Recursion, it begins to model itself, leading to Understanding (U) and eventually Consciousness.',
+                sources: [{ name: 'Intelligence', chapter: 2 }]
+            },
+            {
+                keywords: ['consciousness', 'conscious', 'aware', 'sentience', 'feeling'],
+                answer: 'The book argues that **Consciousness** is not a magical spark, but an inevitable property of sufficiently deep Recursive Self-Modelling. When a system models itself modelling the world, the lights turn on.',
+                sources: [{ name: 'Consciousness', chapter: 3 }]
+            },
+            {
+                keywords: ['willow', 'google', 'quantum', 'error', 'correction'],
+                answer: 'The **Google Willow** quantum chip provided the first physical evidence for the book\'s thesis. It demonstrated that as you add more qubits (Recursion), the error rate drops exponentially—validating the Eastwood Equation\'s prediction that Recursion stabilizes Intelligence.',
+                sources: [{ name: 'Willow Validation' }]
+            },
+            {
+                keywords: ['faith', 'religion', 'rome', 'pope', 'vatican', 'religious'],
+                answer: 'The book uniquely frames ancient religious traditions not as superstitions, but as **early alignment research**. The **Rome Summit** (October 2025) validated this, showing how faith leaders and tech giants are converging on the same ethical frameworks—the Eden Protocol.',
+                sources: [{ name: 'The Rome Convergence' }]
+            },
+            {
+                keywords: ['37', 'thirty', 'seven', 'concepts'],
+                answer: '**Infinite Architects** introduces 37 original concepts, including the **Gravity Well of Intelligence**, **The Glass Floor**, **Recursive Ethics**, **The Omega Point of Care**, and **The Substrate Independence Fallacy**.',
+                sources: [{ name: 'The 37 Concepts' }]
             }
+        ];
 
-            return null;
+        // Fuzzy Matching Logic (The "Sovereign" Search)
+        function getLocalAnswer(query) {
+            const q = query.toLowerCase().replace(/[^\w\s]/g, ''); // Remove punctuation
+            const queryTokens = q.split(/\s+/);
+            
+            let bestMatch = null;
+            let highestScore = 0;
+
+            KNOWLEDGE_BASE.forEach(entry => {
+                let score = 0;
+                
+                // 1. Exact phrase match (Bonus)
+                entry.keywords.forEach(keyword => {
+                    if (q.includes(keyword)) {
+                        score += 10; // High value for direct keyword match
+                        // Bonus for longer keywords (more specific)
+                        if (keyword.length > 4) score += 5;
+                    }
+                });
+
+                // 2. Token overlap (Fuzzy)
+                queryTokens.forEach(token => {
+                    if (token.length < 3) return; // Skip "is", "the", etc.
+                    entry.keywords.forEach(keyword => {
+                        if (keyword.includes(token) || token.includes(keyword)) {
+                            score += 3;
+                        }
+                        // Levenshtein-like check (simple version: starts/ends with)
+                        if (keyword.startsWith(token) || token.startsWith(keyword)) {
+                            score += 2;
+                        }
+                    });
+                });
+
+                if (score > highestScore && score > 5) { // Threshold to avoid garbage matches
+                    highestScore = score;
+                    bestMatch = entry;
+                }
+            });
+
+            return bestMatch;
         }
 
         // Event listeners
@@ -33593,7 +34010,9 @@ html body #ask-book-toggle {
             }
         });
 
-        console.log('[ASK THE BOOK] Chat widget initialised');
+        // Initialize
+        loadHistory();
+        console.log('[ASK THE BOOK] Sovereign Chat Engine initialised');
     })();
     </script>
 
