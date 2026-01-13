@@ -5205,11 +5205,12 @@
            THE EASTWOOD EQUATION SECTION
            ═══════════════════════════════════════════════════════════════════════ */
         .equation-section {
-            min-height: 100vh;
+            min-height: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 2rem;
+            padding: 4rem 2rem;
             position: relative;
             background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.04) 0%, transparent 70%);
             overflow: hidden;
@@ -6982,7 +6983,8 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .future-born-section {
             position: relative;
-            min-height: 60vh;
+            min-height: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -7639,7 +7641,8 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .paradise-section {
             position: relative;
-            min-height: 70vh;
+            min-height: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -8461,11 +8464,12 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .prophecy-hero {
             position: relative;
-            min-height: 100vh;
+            min-height: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 2rem;
+            padding: 4rem 2rem;
             overflow: hidden;
         }
 
@@ -9597,13 +9601,14 @@
            ULTRATHINK: CHOKEPOINT MAP
            ═══════════════════════════════════════════════════════════════════════ */
         .chokepoint-section {
-            padding: 6rem 2rem;
+            padding: 4rem 2rem;
             background: var(--void-deep);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: auto;
+            height: auto;
         }
         .chokepoint-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
         .chokepoint-intro { font-family: var(--font-serif); font-size: 1.2rem; color: var(--text-dim); margin-bottom: 3rem; line-height: 1.8; }
@@ -19161,6 +19166,93 @@ img {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SUBTLE CHAPTER INDICATOR - Ambient awareness of current chapter
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.chapter-indicator {
+    position: fixed;
+    top: 70px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.9rem;
+    background: rgba(2, 3, 10, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 18px;
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.chapter-indicator.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.chapter-indicator__numeral {
+    font-family: var(--font-display, 'Cinzel', serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold-primary, #d4a84b);
+    letter-spacing: 0.05em;
+}
+
+.chapter-indicator__divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(212, 168, 75, 0.35);
+}
+
+.chapter-indicator__name {
+    font-family: var(--font-mono, 'Space Mono', monospace);
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: rgba(232, 212, 160, 0.75);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* Mobile - Compact pill at bottom, above buy bar */
+@media (max-width: 768px) {
+    .chapter-indicator {
+        top: auto;
+        bottom: 85px;
+        left: 50%;
+        transform: translateX(-50%) translateY(15px);
+        padding: 0.35rem 0.75rem;
+        gap: 0.4rem;
+        border-radius: 14px;
+    }
+
+    .chapter-indicator.visible {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .chapter-indicator__numeral {
+        font-size: 0.7rem;
+    }
+
+    .chapter-indicator__name {
+        font-size: 0.5rem;
+        letter-spacing: 0.1em;
+    }
+
+    .chapter-indicator__divider {
+        height: 9px;
+    }
+}
+
+/* Hide during scroll for cleaner experience */
+.chapter-indicator.scrolling {
+    opacity: 0.3;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    ADDITIONAL FIXES
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -21420,81 +21512,6 @@ html body .evidence-locker {
     }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   NUCLEAR OVERRIDE: ELIMINATE ALL BLANK SPACE
-   This block MUST be last to override all previous rules
-   ═══════════════════════════════════════════════════════════════════════════ */
-html body section,
-html body .snap-section,
-html body [class*="-section"] {
-    min-height: auto !important;
-    height: auto !important;
-}
-
-/* Exception: Hero needs minimum height for above-fold presence */
-html body .hero.snap-section {
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
-}
-
-/* All other sections - content determines height */
-html body .quote-section,
-html body .equation-section,
-html body .ideas-section,
-html body .carousel-section,
-html body .about-section,
-html body .origin-story,
-html body .methodology-section,
-html body .evidence-locker,
-html body .timeline-evidence-section,
-html body .predictions-section,
-html body .falsification-section,
-html body .predictions-validated,
-html body .hrih-section,
-html body .religion-section,
-html body .chokepoint-section,
-html body .window-section,
-html body .diagram-section,
-html body .future-born-section,
-html body .stakes-section,
-html body .reviews-section,
-html body .chapters-section,
-html body .comparison-section,
-html body .tripath-section,
-html body .cta-section,
-html body .newsletter-section,
-html body .paradise-section,
-html body .faq-section,
-html body .glossary-section,
-html body .timeline-section,
-html body .press-section {
-    min-height: auto !important;
-    height: auto !important;
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
-}
-
-/* Remove excessive padding from compact sections */
-html body .carousel-section {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-}
-
-html body .quote-section {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-}
-
-html body .future-born-section {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-}
-
-html body .paradise-section {
-    padding-top: 4rem !important;
-    padding-bottom: 4rem !important;
-}
-
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -21759,6 +21776,13 @@ html body .paradise-section {
             </div>
         </div>
     </div> -->
+
+    <!-- Chapter Indicator - Subtle ambient awareness of current chapter -->
+    <div class="chapter-indicator" id="chapter-indicator" aria-live="polite" aria-atomic="true">
+        <span class="chapter-indicator__numeral" id="chapter-numeral">I</span>
+        <span class="chapter-indicator__divider"></span>
+        <span class="chapter-indicator__name" id="chapter-name">THE THESIS</span>
+    </div>
 
     <!-- Main Content -->
     <main class="content" id="main-content" role="main">
@@ -25020,6 +25044,118 @@ html body .paradise-section {
         // Legacy function - now handled by chapter-based system
         function checkMilestones(currentLevel) {
             // Deprecated - milestones now trigger on chapter transitions only
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // CHAPTER INDICATOR - Subtle ambient awareness of current chapter
+        // ═══════════════════════════════════════════════════════════════════════
+
+        // Map sections to their chapters
+        const sectionToChapter = {
+            // Chapter I: THE THESIS
+            'hero': { numeral: 'I', name: 'THE THESIS' },
+            'book': { numeral: 'I', name: 'THE THESIS' },
+            'equation': { numeral: 'I', name: 'THE THESIS' },
+            'ideas': { numeral: 'I', name: 'THE THESIS' },
+            'carousel': { numeral: 'I', name: 'THE THESIS' },
+            'author': { numeral: 'I', name: 'THE THESIS' },
+            'origin': { numeral: 'I', name: 'THE THESIS' },
+            'methodology': { numeral: 'I', name: 'THE THESIS' },
+
+            // Chapter II: THE EVIDENCE
+            'evidence-locker': { numeral: 'II', name: 'THE EVIDENCE' },
+            'bbc-timeline': { numeral: 'II', name: 'THE EVIDENCE' },
+            'predictions': { numeral: 'II', name: 'THE EVIDENCE' },
+            'falsification': { numeral: 'II', name: 'THE EVIDENCE' },
+            'predictions-validated': { numeral: 'II', name: 'THE EVIDENCE' },
+
+            // Chapter III: THE PHILOSOPHY
+            'hrih': { numeral: 'III', name: 'THE PHILOSOPHY' },
+            'religion': { numeral: 'III', name: 'THE PHILOSOPHY' },
+            'chokepoint': { numeral: 'III', name: 'THE PHILOSOPHY' },
+            'window': { numeral: 'III', name: 'THE PHILOSOPHY' },
+            'architecture': { numeral: 'III', name: 'THE PHILOSOPHY' },
+
+            // Chapter IV: THE STAKES
+            'future-born': { numeral: 'IV', name: 'THE STAKES' },
+            'stakes': { numeral: 'IV', name: 'THE STAKES' },
+            'expert-validation': { numeral: 'IV', name: 'THE STAKES' },
+            'reviews': { numeral: 'IV', name: 'THE STAKES' },
+            'chapters': { numeral: 'IV', name: 'THE STAKES' },
+            'comparison': { numeral: 'IV', name: 'THE STAKES' },
+
+            // Chapter V: GET THE BOOK
+            'get-the-book': { numeral: 'V', name: 'GET THE BOOK' },
+            'cta': { numeral: 'V', name: 'GET THE BOOK' },
+            'newsletter': { numeral: 'V', name: 'GET THE BOOK' },
+            'paradise': { numeral: 'V', name: 'GET THE BOOK' },
+            'faq': { numeral: 'V', name: 'GET THE BOOK' },
+            'glossary': { numeral: 'V', name: 'GET THE BOOK' },
+            'ai-timeline': { numeral: 'V', name: 'GET THE BOOK' },
+            'press': { numeral: 'V', name: 'GET THE BOOK' }
+        };
+
+        let currentChapter = null;
+        let scrollTimeout = null;
+
+        function initChapterIndicator() {
+            const indicator = document.getElementById('chapter-indicator');
+            const numeralEl = document.getElementById('chapter-numeral');
+            const nameEl = document.getElementById('chapter-name');
+
+            if (!indicator || !numeralEl || !nameEl) return;
+
+            // Track all sections
+            const sections = document.querySelectorAll('.snap-section[id]');
+
+            const chapterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                        const sectionId = entry.target.id;
+                        const chapter = sectionToChapter[sectionId];
+
+                        if (chapter && chapter.numeral !== currentChapter) {
+                            currentChapter = chapter.numeral;
+                            numeralEl.textContent = chapter.numeral;
+                            nameEl.textContent = chapter.name;
+                        }
+                    }
+                });
+            }, {
+                threshold: [0.3, 0.5],
+                rootMargin: '-10% 0px -40% 0px'
+            });
+
+            sections.forEach(section => chapterObserver.observe(section));
+
+            // Show indicator after scrolling past hero
+            let hasScrolled = false;
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+
+                // Show after 200px scroll
+                if (scrollY > 200 && !hasScrolled) {
+                    indicator.classList.add('visible');
+                    hasScrolled = true;
+                } else if (scrollY <= 100) {
+                    indicator.classList.remove('visible');
+                    hasScrolled = false;
+                }
+
+                // Dim while actively scrolling
+                indicator.classList.add('scrolling');
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    indicator.classList.remove('scrolling');
+                }, 150);
+            }, { passive: true });
+        }
+
+        // Initialize on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initChapterIndicator);
+        } else {
+            initChapterIndicator();
         }
 
         // ═══════════════════════════════════════════════════════════════════════
