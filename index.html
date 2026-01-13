@@ -651,58 +651,23 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           SOVEREIGN GLASS UI - Living Glass & Optical Depth
+           SOVEREIGN GLASS UI - Subtle, Apple-grade refinement
            ═══════════════════════════════════════════════════════════════════════ */
         .glass-living {
-            background: rgba(212, 168, 75, 0.03);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(212, 168, 75, 0.12);
-            box-shadow: 
-                0 8px 32px 0 rgba(0, 0, 0, 0.37),
-                inset 0 0 0 1px rgba(212, 168, 75, 0.05);
-            position: relative;
-            overflow: hidden;
+            /* Extremely subtle glass - barely noticeable */
+            background: rgba(10, 12, 20, 0.4);
+            border: 1px solid rgba(212, 168, 75, 0.08);
+            /* NO backdrop-filter blur - it was too prominent */
         }
 
+        /* Removed shimmer animation - too distracting */
         .glass-living::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 0%,
-                rgba(212, 168, 75, 0.03) 45%,
-                rgba(212, 168, 75, 0.08) 50%,
-                rgba(212, 168, 75, 0.03) 55%,
-                transparent 100%
-            );
-            transform: rotate(-45deg);
-            animation: glassShimmer 8s linear infinite;
-            pointer-events: none;
+            display: none;
         }
 
-        @keyframes glassShimmer {
-            from { transform: translateX(-50%) rotate(-45deg); }
-            to { transform: translateX(50%) rotate(-45deg); }
-        }
-
-        .chromatic-lens {
-            position: relative;
-        }
-
+        /* Removed chromatic lens effect - unnecessary */
         .chromatic-lens::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 30%, rgba(212, 168, 75, 0.02) 100%);
-            pointer-events: none;
-            mix-blend-mode: color-dodge;
-            filter: blur(2px);
-            opacity: 0.5;
+            display: none;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -3207,11 +3172,16 @@
         .methodology-visual { display: flex; flex-direction: column; gap: 1.5rem; }
         .ai-model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
         @media (max-width: 600px) { .ai-model-grid { grid-template-columns: repeat(2, 1fr); } }
-        .ai-model-node { background: rgba(0, 20, 30, 0.6); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 10px; padding: 1rem; text-align: center; transition: all 0.4s var(--ease-out-expo); position: relative; overflow: hidden; }
-        .ai-model-node::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0, 200, 150, 0.5), transparent); transform: scaleX(0); transition: transform 0.4s ease; }
-        .ai-model-node:hover { border-color: rgba(0, 200, 150, 0.4); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 200, 150, 0.1); }
+        .ai-model-node { background: rgba(0, 20, 30, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+        .ai-model-node::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0, 200, 150, 0.6), transparent); transform: scaleX(0); transition: transform 0.4s ease; }
+        .ai-model-node::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 150, 0.05) 0%, transparent 70%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+        .ai-model-node:hover { border-color: rgba(0, 200, 150, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 200, 150, 0.12); }
         .ai-model-node:hover::before { transform: scaleX(1); }
-        .ai-model-icon { font-size: 1.5rem; margin-bottom: 0.5rem; filter: grayscale(0.3); }
+        .ai-model-node:hover::after { opacity: 1; }
+        .ai-model-icon { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: 0 auto 0.75rem; background: linear-gradient(135deg, rgba(0, 200, 150, 0.1) 0%, rgba(0, 200, 150, 0.05) 100%); border: 1px solid rgba(0, 200, 150, 0.1); border-radius: 12px; transition: all 0.3s ease; }
+        .ai-model-icon svg { width: 22px; height: 22px; stroke: rgba(0, 200, 150, 0.8); transition: all 0.3s ease; }
+        .ai-model-node:hover .ai-model-icon { background: linear-gradient(135deg, rgba(0, 200, 150, 0.15) 0%, rgba(0, 200, 150, 0.08) 100%); border-color: rgba(0, 200, 150, 0.2); box-shadow: 0 0 20px rgba(0, 200, 150, 0.1); }
+        .ai-model-node:hover .ai-model-icon svg { stroke: rgba(0, 200, 150, 1); transform: scale(1.08); }
         .ai-model-name { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(0, 200, 150, 0.9); text-transform: uppercase; }
         .ai-model-role { font-family: var(--font-serif); font-size: 0.75rem; color: var(--text-faint); margin-top: 0.25rem; }
         .convergence-box { background: linear-gradient(135deg, rgba(0, 30, 20, 0.8), rgba(0, 20, 40, 0.8)); border: 1px solid rgba(0, 200, 150, 0.2); border-radius: 12px; padding: 1.5rem; text-align: center; position: relative; }
@@ -3230,7 +3200,7 @@
         .methodology-closing { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(212, 168, 75, 0.1); text-align: center; }
         .methodology-closing-quote { font-family: var(--font-serif); font-size: clamp(1rem, 1.5vw, 1.2rem); font-style: italic; color: var(--gold); line-height: 1.6; }
         .methodology-closing-attr { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 0.75rem; }
-        @media (max-width: 768px) { .methodology-section { padding: 3rem 1rem; } .methodology-inner { gap: 2rem; } .methodology-quote { padding-left: 1rem; } .methodology-application { padding: 1rem; } .ai-model-node { padding: 0.75rem 0.5rem; } .ai-model-icon { font-size: 1.25rem; } .convergence-box { padding: 1rem; } }
+        @media (max-width: 768px) { .methodology-section { padding: 3rem 1rem; } .methodology-inner { gap: 2rem; } .methodology-quote { padding-left: 1rem; } .methodology-application { padding: 1rem; } .ai-model-node { padding: 0.75rem 0.5rem; backdrop-filter: blur(4px); } .ai-model-icon { width: 36px; height: 36px; margin-bottom: 0.5rem; border-radius: 10px; } .ai-model-icon svg { width: 18px; height: 18px; } .convergence-box { padding: 1rem; } }
         @media (max-width: 480px) { .methodology-section { padding: 2.5rem 1rem; } .ai-model-grid { gap: 0.5rem; } .ai-model-node { padding: 0.6rem 0.5rem; } .ai-model-name { font-size: 0.7rem; } .ai-model-role { display: none; } .application-feature { font-size: 0.8rem; } }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -9085,32 +9055,32 @@
             margin-bottom: 2rem;
         }
 
+        /* Live indicator - subtle, not distracting */
         .live-indicator {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            color: #ff3b30;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 59, 48, 0.1);
-            border: 1px solid rgba(255, 59, 48, 0.3);
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            padding: 0.3rem 0.6rem;
+            background: rgba(212, 168, 75, 0.06);
+            border: 1px solid rgba(212, 168, 75, 0.15);
             border-radius: 4px;
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #ff3b30;
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
             border-radius: 50%;
-            animation: pulse-red 1.5s infinite;
+            animation: pulse-gold 2s ease-in-out infinite;
         }
 
-        @keyframes pulse-red {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes pulse-gold {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .evidence-video-container {
@@ -9246,11 +9216,12 @@
             box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
         }
 
+        /* Sovereign proof badge - subtle, not flashy */
         .sovereign-proof-badge {
-            background: linear-gradient(135deg, var(--gold), var(--gold-bright)) !important;
-            color: var(--void) !important;
-            font-weight: 700 !important;
-            box-shadow: 0 0 15px var(--gold-alpha-40);
+            background: rgba(212, 168, 75, 0.12) !important;
+            border: 1px solid rgba(212, 168, 75, 0.3) !important;
+            color: var(--gold) !important;
+            font-weight: 500 !important;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -9278,7 +9249,7 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.1);
         }
 
-        .methodology-badge {
+        .evidence-card--methodology .methodology-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -9293,13 +9264,13 @@
             text-transform: uppercase;
         }
 
-        .methodology-list {
+        .evidence-card--methodology .methodology-list {
             list-style: none;
             padding: 0;
             margin: 1rem 0;
         }
 
-        .methodology-list li {
+        .evidence-card--methodology .methodology-list li {
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
@@ -9311,11 +9282,11 @@
             text-align: left;
         }
 
-        .methodology-list li:last-child {
+        .evidence-card--methodology .methodology-list li:last-child {
             border-bottom: none;
         }
 
-        .methodology-list .method-icon {
+        .evidence-card--methodology .methodology-list .method-icon {
             flex-shrink: 0;
             width: 20px;
             height: 20px;
@@ -9325,16 +9296,16 @@
             font-size: 0.9rem;
         }
 
-        .methodology-list .method-text {
+        .evidence-card--methodology .methodology-list .method-text {
             flex: 1;
         }
 
-        .methodology-list .method-highlight {
+        .evidence-card--methodology .methodology-list .method-highlight {
             color: var(--gold);
             font-weight: 500;
         }
 
-        .methodology-quote {
+        .evidence-card--methodology .methodology-quote {
             font-family: var(--font-serif);
             font-style: italic;
             font-size: 0.9rem;
@@ -9347,7 +9318,7 @@
             text-align: left;
         }
 
-        .methodology-quote cite {
+        .evidence-card--methodology .methodology-quote cite {
             display: block;
             font-style: normal;
             font-size: 0.7rem;
@@ -9358,19 +9329,19 @@
 
         /* Mobile responsiveness for methodology card */
         @media (max-width: 768px) {
-            .methodology-list li {
+            .evidence-card--methodology .methodology-list li {
                 font-size: 0.8rem;
                 padding: 0.5rem 0;
                 gap: 0.5rem;
             }
 
-            .methodology-list .method-icon {
+            .evidence-card--methodology .methodology-list .method-icon {
                 width: 18px;
                 height: 18px;
                 font-size: 0.8rem;
             }
 
-            .methodology-quote {
+            .evidence-card--methodology .methodology-quote {
                 font-size: 0.8rem;
                 padding: 0.6rem 0.8rem;
             }
@@ -9381,35 +9352,35 @@
                 padding: 1rem;
             }
 
-            .methodology-badge {
+            .evidence-card--methodology .methodology-badge {
                 font-size: 0.7rem;
                 padding: 0.2rem 0.5rem;
             }
 
-            .methodology-list li {
+            .evidence-card--methodology .methodology-list li {
                 font-size: 0.75rem;
                 padding: 0.4rem 0;
             }
 
-            .methodology-quote {
+            .evidence-card--methodology .methodology-quote {
                 font-size: 0.75rem;
                 padding: 0.5rem 0.6rem;
                 margin-top: 0.5rem;
             }
 
-            .methodology-quote cite {
+            .evidence-card--methodology .methodology-quote cite {
                 font-size: 0.7rem;
             }
         }
 
         /* Very short screens - compact methodology */
         @media (max-height: 700px) {
-            .methodology-list li {
+            .evidence-card--methodology .methodology-list li {
                 padding: 0.35rem 0;
                 font-size: 0.75rem;
             }
 
-            .methodology-quote {
+            .evidence-card--methodology .methodology-quote {
                 font-size: 0.7rem;
                 padding: 0.4rem 0.6rem;
                 margin-top: 0.4rem;
@@ -9418,14 +9389,37 @@
 
         .event-date {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .event-desc {
             font-family: var(--font-display);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-primary);
+            margin-top: 0.25rem;
+        }
+
+        /* Timeline card - ensure content visibility */
+        .evidence-locker .evidence-card:has(.willow-timeline) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .willow-timeline .timeline-event {
+            padding: 0.75rem 0 0.75rem 2rem;
+            border-left: 2px solid rgba(212, 168, 75, 0.2);
+            margin-left: 6px;
+        }
+
+        .willow-timeline .timeline-event.active {
+            border-color: var(--gold);
+        }
+
+        .willow-timeline .timeline-event.warning {
+            border-color: #ff3b30;
         }
 
         .evidence-locker .section-title {
@@ -9438,101 +9432,137 @@
             font-size: 0.7rem;
         }
 
-        /* Styled scrollbar for evidence grid if needed */
-        .evidence-locker .evidence-grid::-webkit-scrollbar {
-            width: 4px;
-        }
-        .evidence-locker .evidence-grid::-webkit-scrollbar-track {
-            background: rgba(0, 255, 136, 0.05);
-            border-radius: 2px;
-        }
-        .evidence-locker .evidence-grid::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 136, 0.2);
-            border-radius: 2px;
-        }
-        .evidence-locker .evidence-grid::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 255, 136, 0.4);
-        }
-
+        /* Evidence grid - clean layout */
         .evidence-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
             text-align: left;
         }
 
+        /* Evidence cards - GOLD theme (consistent with site) */
         .evidence-card {
-            background: rgba(0, 20, 10, 0.4);
-            border: 1px solid rgba(0, 255, 136, 0.15);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: rgba(10, 12, 20, 0.6);
+            border: 1px solid rgba(212, 168, 75, 0.12);
+            border-radius: 8px;
+            padding: 1.25rem;
             transition: all 0.3s ease;
         }
 
         .evidence-card:hover {
-            border-color: rgba(0, 255, 136, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(212, 168, 75, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
         }
 
         .evidence-card--featured {
             grid-column: span 2;
-            background: rgba(0, 30, 15, 0.5);
-            border-color: rgba(0, 255, 136, 0.25);
+            background: rgba(10, 12, 20, 0.7);
+            border-color: rgba(212, 168, 75, 0.2);
         }
 
-        .evidence-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-        .evidence-type { font-family: 'JetBrains Mono', var(--font-mono); font-size: 0.75rem; color: #00ff88; letter-spacing: 0.1em; }
+        .evidence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .evidence-type {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+        }
 
         .evidence-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            padding: 0.25rem 0.75rem;
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.85rem;
-            color: #00ff88;
-            letter-spacing: 0.1em;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
         }
 
-        .evidence-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.75rem; }
-        .evidence-desc { font-family: var(--font-serif); font-size: 1rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem; }
-        .evidence-subtext { font-family: 'JetBrains Mono', var(--font-mono); font-size: 0.8rem; color: var(--text-faint); }
-        .evidence-note { font-family: 'JetBrains Mono', var(--font-mono); font-size: 0.85rem; color: var(--gold); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0, 255, 136, 0.2); }
+        .evidence-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .evidence-desc {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .evidence-subtext {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+        }
+
+        .evidence-note {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(212, 168, 75, 0.15);
+        }
 
         .evidence-terminal {
-            background: rgba(0, 20, 10, 0.8);
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            border-radius: 8px;
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.9rem;
-            color: #00ff88;
+            background: rgba(4, 5, 12, 0.8);
+            border: 1px solid rgba(212, 168, 75, 0.15);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--gold);
         }
 
-        .terminal-line { display: block; padding-left: 1rem; margin: 0.25rem 0; opacity: 0.9; }
-        .terminal-line::before { content: '>'; margin-right: 0.5rem; opacity: 0.5; }
+        .terminal-line {
+            display: block;
+            padding-left: 1rem;
+            margin: 0.2rem 0;
+            opacity: 0.85;
+        }
+        .terminal-line::before {
+            content: '›';
+            margin-right: 0.5rem;
+            opacity: 0.5;
+        }
 
         .evidence-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: 'JetBrains Mono', var(--font-mono);
-            font-size: 0.85rem;
-            color: #00ff88;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 0.4rem 0.8rem;
+            background: rgba(212, 168, 75, 0.08);
+            border: 1px solid rgba(212, 168, 75, 0.2);
             border-radius: 4px;
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .evidence-link:hover { background: rgba(0, 255, 136, 0.2); transform: translateX(4px); }
+        .evidence-link:hover {
+            background: rgba(212, 168, 75, 0.15);
+            transform: translateX(2px);
+        }
 
         @media (max-width: 768px) { .evidence-card--featured { grid-column: span 1; } }
 
@@ -18814,19 +18844,30 @@ a {
     max-width: 1400px !important;
 }
 
-/* Evidence grid - desktop */
+/* Evidence grid - desktop - CLEAN Apple-grade layout */
 @media (min-width: 1025px) {
-    .evidence-grid,
     .evidence-locker .evidence-grid {
         display: grid !important;
+        /* Simple 3-column grid with all cards equal */
         grid-template-columns: repeat(3, 1fr) !important;
-        grid-template-rows: auto auto !important;
-        gap: 1.5rem !important;
+        gap: 1.25rem !important;
     }
 
+    /* Featured card - spans 2 columns, NOT 2 rows */
     .evidence-card--featured {
         grid-column: span 2 !important;
-        grid-row: span 2 !important;
+        grid-row: span 1 !important; /* Single row, not double */
+    }
+
+    /* All cards including timeline - proper sizing */
+    .evidence-locker .evidence-card {
+        min-height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Timeline card specifically - ensure content visibility */
+    .evidence-locker .evidence-card:nth-child(2) {
+        overflow: visible !important;
     }
 }
 
@@ -20220,7 +20261,7 @@ button.btn-secondary:hover {
     pointer-events: none !important;
 }
 
-/* 2. HIDE RIGHT SIDE HUD AND BEADS - Overlaps content */
+/* 2. HIDE RIGHT SIDE HUD - Overlaps content */
 .deep-dive-hud,
 .deep-dive-hud *,
 #deep-dive-hud,
@@ -20228,9 +20269,6 @@ button.btn-secondary:hover {
 .section-indicator *,
 #sectionIndicator,
 .section-indicator-dot,
-.ambient-orbs,
-.ambient-orbs *,
-.ambient-orb,
 .hud-inner,
 .hud-label,
 .hud-counter,
@@ -20243,6 +20281,17 @@ button.btn-secondary:hover {
     height: 0 !important;
     position: absolute !important;
     left: -9999px !important;
+}
+
+/* AMBIENT ORBS: Only hide on mobile, visible on desktop */
+@media (max-width: 1023px) {
+    .ambient-orbs,
+    .ambient-orbs *,
+    .ambient-orb {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
 }
 
 /* 3. FIX HERO SECTION TEXT LAYOUT */
@@ -21598,6 +21647,279 @@ html body #author .storm-story-principle svg {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   HERO MASTERPIECE - DESKTOP VISUAL PERFECTION
+   PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* DESKTOP HERO - Full viewport, side-by-side layout */
+@media (min-width: 1024px) {
+    html body section.hero.snap-section#hero {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: 1fr !important;
+        grid-template-areas: "book content" !important;
+        gap: 4rem !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
+        padding: 0 6% !important;
+        padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+        padding-bottom: 3rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Background video - absolute positioned */
+    html body .hero .mandelbrot-bg {
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 0 !important;
+    }
+
+    /* Hide elements that should be repositioned */
+    html body .hero .hero-badge {
+        display: none !important; /* Too cluttered - book cover says it all */
+    }
+
+    /* BOOK CONTAINER - Left side, perfectly sized */
+    html body .hero .hero-book-container {
+        grid-area: book !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        position: relative !important;
+        z-index: 5 !important;
+        height: 100% !important;
+        max-height: calc(100vh - 200px) !important;
+    }
+
+    html body .hero .hero-book {
+        width: auto !important;
+        max-width: 380px !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        aspect-ratio: auto !important;
+        filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6)) !important;
+        transition: transform 0.4s ease, filter 0.4s ease !important;
+    }
+
+    html body .hero .hero-book:hover {
+        transform: scale(1.02) !important;
+        filter: drop-shadow(0 25px 80px rgba(212, 168, 75, 0.3)) !important;
+    }
+
+    html body .hero .book-cover-video,
+    html body .hero .hero-book img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        object-fit: contain !important;
+        border-radius: 4px !important;
+    }
+
+    html body .hero .book-shadow {
+        display: none !important; /* CSS shadow is cleaner */
+    }
+
+    html body .hero .book-light-layer,
+    html body .hero .book-page-peek {
+        display: none !important; /* Simplify for clarity */
+    }
+
+    /* CONTENT - Right side, perfectly balanced */
+    html body .hero .hero-content-right {
+        grid-area: content !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        position: relative !important;
+        z-index: 5 !important;
+        max-width: 550px !important;
+        padding-right: 2rem !important;
+    }
+
+    /* Status pill - positioned absolutely in bottom left corner */
+    html body .hero .hero-status-pill {
+        position: absolute !important;
+        bottom: 2rem !important;
+        left: 6% !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        padding: 0.6rem 1.2rem !important;
+        background: rgba(0, 200, 83, 0.15) !important;
+        border: 1px solid rgba(0, 200, 83, 0.4) !important;
+        border-radius: 50px !important;
+        font-family: var(--font-mono) !important;
+        font-size: 0.7rem !important;
+        letter-spacing: 0.1em !important;
+        z-index: 15 !important;
+    }
+
+    html body .hero .hero-status-pill .pill-dot {
+        width: 8px !important;
+        height: 8px !important;
+        background: #00c853 !important;
+        border-radius: 50% !important;
+        animation: pulse-green 2s ease-in-out infinite !important;
+    }
+
+    @keyframes pulse-green {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    html body .hero .hero-status-pill .pill-text {
+        color: #00c853 !important;
+    }
+
+    html body .hero .hero-status-pill .pill-link {
+        color: var(--gold) !important;
+        text-decoration: none !important;
+        margin-left: 0.5rem !important;
+    }
+
+    /* Title - Elegant, not overwhelming */
+    html body .hero .hero-title {
+        display: block !important;
+        font-family: var(--font-display) !important;
+        font-size: clamp(2.2rem, 4vw, 3.2rem) !important;
+        color: var(--text-primary) !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1.5rem !important;
+        order: 2 !important;
+    }
+
+    html body .hero .hero-title .brand-word {
+        display: inline !important;
+    }
+
+    /* Subtitle - The hook */
+    html body .hero .hero-subtitle {
+        font-family: var(--font-serif) !important;
+        font-size: clamp(1.1rem, 2vw, 1.4rem) !important;
+        color: var(--text-secondary) !important;
+        line-height: 1.7 !important;
+        margin-bottom: 1.25rem !important;
+        max-width: 480px !important;
+        order: 3 !important;
+    }
+
+    /* Author name - subtle credibility */
+    html body .hero .hero-author {
+        font-family: var(--font-mono) !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 0.15em !important;
+        color: var(--gold) !important;
+        margin-bottom: 2rem !important;
+        order: 4 !important;
+    }
+
+    /* CTA Button - Premium, clickable */
+    html body .hero .hero-cta {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        padding: 1rem 2rem !important;
+        background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%) !important;
+        color: var(--void-deep) !important;
+        font-family: var(--font-mono) !important;
+        font-size: 0.8rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.15em !important;
+        text-decoration: none !important;
+        border-radius: 4px !important;
+        border: none !important;
+        transition: all 0.3s ease !important;
+        order: 5 !important;
+    }
+
+    html body .hero .hero-cta:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 30px rgba(212, 168, 75, 0.4) !important;
+    }
+
+    html body .hero .hero-cta .cta-icon-wrapper {
+        display: flex !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    html body .hero .hero-cta svg {
+        stroke: var(--void-deep) !important;
+    }
+
+    /* Scroll indicator - subtle at bottom */
+    html body .hero .scroll-indicator {
+        position: absolute !important;
+        bottom: 1.5rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        z-index: 10 !important;
+        opacity: 0.6 !important;
+        transition: opacity 0.3s ease !important;
+    }
+
+    html body .hero .scroll-indicator:hover {
+        opacity: 1 !important;
+    }
+
+    html body .hero .scroll-indicator span {
+        font-family: var(--font-mono) !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.2em !important;
+        color: var(--text-dim) !important;
+        text-transform: uppercase !important;
+    }
+
+    html body .hero .scroll-indicator .scroll-line {
+        width: 1px !important;
+        height: 30px !important;
+        background: linear-gradient(to bottom, var(--gold), transparent) !important;
+        animation: scroll-pulse 2s ease-in-out infinite !important;
+    }
+
+    @keyframes scroll-pulse {
+        0%, 100% { opacity: 0.4; height: 30px; }
+        50% { opacity: 1; height: 40px; }
+    }
+}
+
+/* EXTRA LARGE SCREENS - Maintain proportions */
+@media (min-width: 1600px) {
+    html body section.hero.snap-section#hero {
+        padding: 0 10% !important;
+        padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+        padding-bottom: 3rem !important;
+        gap: 6rem !important;
+    }
+
+    html body .hero .hero-book {
+        max-width: 420px !important;
+    }
+
+    html body .hero .hero-content-right {
+        max-width: 600px !important;
+    }
+
+    html body .hero .hero-title {
+        font-size: 3.5rem !important;
+    }
+
+    html body .hero .hero-subtitle {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    SOVEREIGN MOBILE FIXES - iPhone 15 Pro Max & All Mobile Devices
    PRIORITY: MAXIMUM - Fixes identified from screenshot review 2026-01-13
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -22491,12 +22813,36 @@ html body #author .storm-story-principle svg {
                 </div>
                 <div class="methodology-visual">
                     <div class="ai-model-grid reveal reveal-delay-2">
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Claude</div><div class="ai-model-role">Nuance</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">GPT-4</div><div class="ai-model-role">Breadth</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Gemini</div><div class="ai-model-role">Synthesis</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Perplexity</div><div class="ai-model-role">Citations</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Llama</div><div class="ai-model-role">Verification</div></div>
-                        <div class="ai-model-node"><div class="ai-model-icon">&#9679;</div><div class="ai-model-name">Mistral</div><div class="ai-model-role">Challenge</div></div>
+                        <div class="ai-model-node" data-model="claude">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+                            <div class="ai-model-name">Claude</div>
+                            <div class="ai-model-role">Nuance</div>
+                        </div>
+                        <div class="ai-model-node" data-model="gpt">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div>
+                            <div class="ai-model-name">GPT-4</div>
+                            <div class="ai-model-role">Breadth</div>
+                        </div>
+                        <div class="ai-model-node" data-model="gemini">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/></svg></div>
+                            <div class="ai-model-name">Gemini</div>
+                            <div class="ai-model-role">Synthesis</div>
+                        </div>
+                        <div class="ai-model-node" data-model="perplexity">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M21 21l-5-5"/><path d="M10 7v6M7 10h6"/></svg></div>
+                            <div class="ai-model-name">Perplexity</div>
+                            <div class="ai-model-role">Citations</div>
+                        </div>
+                        <div class="ai-model-node" data-model="llama">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                            <div class="ai-model-name">Llama</div>
+                            <div class="ai-model-role">Verification</div>
+                        </div>
+                        <div class="ai-model-node" data-model="mistral">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
+                            <div class="ai-model-name">Mistral</div>
+                            <div class="ai-model-role">Challenge</div>
+                        </div>
                     </div>
                     <div class="convergence-box reveal reveal-delay-3">
                         <div class="convergence-label">Triangulated Output</div>
