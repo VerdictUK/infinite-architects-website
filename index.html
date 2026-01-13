@@ -20293,8 +20293,8 @@ main {
         </div>
     </nav>
 
-    <!-- Deep Dive HUD: Persistent Recursion Counter -->
-    <div class="deep-dive-hud" id="deep-dive-hud">
+    <!-- Deep Dive HUD: DISABLED - was overlapping content -->
+    <!-- <div class="deep-dive-hud" id="deep-dive-hud">
         <div class="hud-inner">
             <div class="hud-label">RECURSION LEVEL</div>
             <div class="hud-counter">
@@ -20306,7 +20306,7 @@ main {
                 <div class="hud-progress-bar" id="hud-progress-bar"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Main Content -->
     <main class="content" id="main-content" role="main">
@@ -25417,9 +25417,13 @@ main {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 8: SECTION PROGRESS DOTS
+        // PHASE 8: SECTION PROGRESS DOTS - DISABLED: was overlapping content on right side
         // ═══════════════════════════════════════════════════════════════════════
         function initSectionProgress() {
+            // DISABLED - dots were overlapping content and causing visual issues
+            return;
+
+            /* Original code commented out:
             // Define sections to track
             const sectionConfig = [
                 { id: 'hero', label: 'HOME' },
@@ -25510,12 +25514,17 @@ main {
             }, { passive: true });
 
             // console.log('✨ Section progress dots enabled');
+            */
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS)
+        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS) - DISABLED: was overlapping content
         // ═══════════════════════════════════════════════════════════════════════
         function initAmbientOrbs() {
+            // DISABLED - orbs were overlapping content and causing visual issues
+            return;
+
+            /* Original code commented out:
             // Skip if reduced motion preferred
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -25537,6 +25546,7 @@ main {
             document.body.insertBefore(orbsContainer, mainContent);
 
             // console.log('✨ Ambient orbs enabled');
+            */
         }
 
         // ═══════════════════════════════════════════════════════════════════════
