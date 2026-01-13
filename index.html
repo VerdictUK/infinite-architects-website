@@ -20246,15 +20246,37 @@ html body #deep-dive-hud {
         max-height: none !important;
     }
 
-    /* === FIX: Text Overflow (IMG_6922) === */
-    html body .prediction-card,
-    html body .evidence-card,
-    html body [class*="card"] {
-        overflow: visible !important;
-        max-width: 100% !important;
+    /* === FIX: Swipeable Carousels === */
+    html body .ideas-grid,
+    html body .predictions-grid,
+    html body .concepts-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
+        margin: 0 -1rem !important;
     }
 
+    html body .ideas-grid > *,
+    html body .predictions-grid > *,
+    html body .concepts-grid > *,
+    html body .idea-card,
+    html body .prediction-card,
+    html body .concept-card {
+        flex: 0 0 85vw !important;
+        min-width: 85vw !important;
+        max-width: 85vw !important;
+        scroll-snap-align: center !important;
+    }
+
+    /* === FIX: Text Overflow in Cards === */
     html body .prediction-card *,
+    html body .idea-card *,
     html body [class*="timeline"] * {
         word-wrap: break-word !important;
         overflow-wrap: break-word !important;
@@ -20278,11 +20300,62 @@ html body #deep-dive-hud {
         overflow-wrap: break-word !important;
     }
 
-    /* === SIMPLIFY: Mobile Sticky Footer === */
+    /* === FIX: Reviews Carousel === */
+    html body .reviews-grid,
+    html body .reviews-container,
+    html body .testimonials-grid,
+    html body [class*="review"] > [class*="grid"],
+    html body [class*="testimonial"] > [class*="grid"] {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 1rem !important;
+        padding: 1rem !important;
+    }
+
+    html body .review-card,
+    html body .testimonial-card {
+        flex: 0 0 85vw !important;
+        min-width: 85vw !important;
+        max-width: 85vw !important;
+        scroll-snap-align: center !important;
+    }
+
+    /* === NUCLEAR: Hide ALL Sticky Elements === */
     html body .mobile-sticky-cta,
     html body .sticky-cta-bar,
-    html body .mobile-buy-bar {
+    html body .mobile-buy-bar,
+    html body [class*="sticky-footer"],
+    html body [class*="mobile-cta"],
+    html body [class*="floating-cta"],
+    html body footer[class*="sticky"],
+    html body .chapter-nav,
+    html body nav.chapter-nav,
+    html body #chapterNav {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        position: absolute !important;
+        left: -99999px !important;
+    }
+
+    /* === HIDE: Gold decorative bars on edges === */
+    html body .gold-bar,
+    html body .gold-line,
+    html body [class*="gold-bar"],
+    html body [class*="decorative-line"],
+    html body section::before,
+    html body section::after {
+        display: none !important;
+    }
+
+    /* Keep specific content pseudo-elements but hide decorative ones */
+    html body .chapter-title-divider__line {
+        display: block !important;
     }
 
     /* === CLEAN: Consistent Typography === */
@@ -28211,7 +28284,7 @@ html body .evidence-locker {
     <!-- ═══════════════════════════════════════════════════════════════════════
          MOBILE STICKY BUY BAR - Always-visible purchase option
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="mobile-buy-bar" id="mobile-buy-bar">
+    <div class="mobile-buy-bar" id="mobile-buy-bar" style="display:none !important; visibility:hidden !important; height:0 !important; opacity:0 !important;">
         <div class="mobile-buy-bar-inner">
             <div>
                 <div class="mobile-buy-bar-text">Infinite Architects</div>
