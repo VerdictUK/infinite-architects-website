@@ -13257,7 +13257,7 @@
         /* ENSURE ALL SNAP SECTIONS WORK CORRECTLY */
         .snap-section {
             scroll-snap-align: start !important;
-            scroll-snap-stop: always !important;
+            scroll-snap-stop: normal !important; /* FIXED: Allow scrolling past sections */
         }
 
         /* GLOBAL BACKGROUND IMAGE FIX - All images cover properly */
@@ -22956,6 +22956,15 @@ html body #author .storm-story-principle svg {
                     filter 0.5s ease !important;
     }
 
+    /* CRITICAL: Let clicks pass through to the book container */
+    html body .hero .book-portal video,
+    html body .hero .book-portal img,
+    html body .hero .book-portal .book-cover-video,
+    html body .hero .book-portal .book-light-layer,
+    html body .hero .book-portal .book-page-peek {
+        pointer-events: none !important;
+    }
+
     html body .hero .book-portal:hover {
         transform: scale(1.05) translateY(-8px) !important;
         filter: drop-shadow(0 30px 60px rgba(212, 168, 75, 0.4))
@@ -23036,6 +23045,15 @@ html body #author .storm-story-principle svg {
     .hero .book-portal {
         cursor: pointer !important;
         transition: transform 0.3s ease, filter 0.3s ease !important;
+    }
+
+    /* Let clicks pass through to the book container on mobile */
+    .hero .book-portal video,
+    .hero .book-portal img,
+    .hero .book-portal .book-cover-video,
+    .hero .book-portal .book-light-layer,
+    .hero .book-portal .book-page-peek {
+        pointer-events: none !important;
     }
 
     .hero .book-portal:active {
