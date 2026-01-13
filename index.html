@@ -24611,6 +24611,268 @@ main.content,
 #bbc-timeline ~ * {
     z-index: auto !important;
 }
+
+/* ════════════════════════════════════════════════════════════════════════════════════════════════════
+   ███████  MOBILE DISPLAY FIX - JANUARY 2026  ███████
+   Fixes: chapter indicators, sticky CTA, stats overlap, prediction cards, blank spaces
+   ════════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media screen and (max-width: 768px) {
+    /* 1. HIDE CHAPTER INDICATOR ON MOBILE - It overlaps content badly */
+    .chapter-indicator,
+    #chapter-indicator,
+    [id="chapter-indicator"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* 2. HIDE STICKY CTA ON MOBILE - We already have mobile-buy-bar */
+    .sticky-cta,
+    #sticky-cta,
+    [id="sticky-cta"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    /* 3. FIX PROOF STATS OVERLAP - The 78%, 87.5%, 40K, 90% numbers */
+    .proof-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.75rem !important;
+        margin: 1.5rem 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        z-index: 10 !important;
+        clear: both !important;
+    }
+
+    .proof-stats .stat-item {
+        background: rgba(2, 3, 10, 0.9) !important;
+        border: 1px solid rgba(212, 168, 75, 0.3) !important;
+        border-radius: 8px !important;
+        padding: 0.75rem !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative !important;
+        z-index: 10 !important;
+    }
+
+    .proof-stats .stat-number {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        color: var(--gold-bright) !important;
+        display: block !important;
+        margin-bottom: 0.25rem !important;
+        line-height: 1 !important;
+    }
+
+    .proof-stats .stat-label {
+        font-size: 0.6rem !important;
+        display: block !important;
+        line-height: 1.2 !important;
+        color: var(--text-dim) !important;
+        text-align: center !important;
+    }
+
+    .proof-stats .stat-label small {
+        display: block !important;
+        font-size: 0.5rem !important;
+        opacity: 0.7 !important;
+        margin-top: 0.15rem !important;
+    }
+
+    /* Also fix hero-stats and general stats */
+    .hero-stats,
+    .stats-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.75rem !important;
+        margin: 1rem 0 !important;
+    }
+
+    .stat-item {
+        background: rgba(2, 3, 10, 0.8) !important;
+        border: 1px solid rgba(212, 168, 75, 0.2) !important;
+        border-radius: 8px !important;
+        padding: 0.75rem !important;
+        text-align: center !important;
+    }
+
+    .stat-number {
+        font-size: 1.3rem !important;
+        display: block !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .stat-label {
+        font-size: 0.6rem !important;
+        display: block !important;
+        line-height: 1.3 !important;
+    }
+
+    /* 4. FIX PREDICTION CARDS - Full width, no side cutoff */
+    .predictions-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    .prediction-card {
+        width: 100% !important;
+        min-width: unset !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .prediction-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .prediction-num {
+        font-size: 0.9rem !important;
+    }
+
+    .prediction-title {
+        font-size: 1rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    .prediction-timeline {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .prediction-text {
+        font-size: 0.85rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* 5. FIX FALSIFICATION SECTION - Remove blank space */
+    .falsification-section,
+    #falsification {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 2rem 1rem !important;
+    }
+
+    .falsification-inner {
+        padding: 0 !important;
+    }
+
+    .falsification-content {
+        padding: 1rem !important;
+    }
+
+    /* 6. FIX VALIDATION TIMELINE - Remove blank space at top */
+    .predictions-validated,
+    #predictions-validated {
+        min-height: auto !important;
+        height: auto !important;
+        padding: 2rem 1rem !important;
+    }
+
+    .predictions-validated .section-intro,
+    .validation-timeline {
+        padding: 0 !important;
+        margin: 0 0 1rem 0 !important;
+    }
+
+    .validation-grid,
+    .predictions-validated-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    .validation-card {
+        width: 100% !important;
+        padding: 1rem !important;
+    }
+
+    /* 7. FIX BBC EVIDENCE CARD - Keep quote from overlapping stats */
+    .bbc-evidence-card {
+        padding: 1rem !important;
+        margin: 1rem 0 !important;
+    }
+
+    .bbc-evidence-card__content {
+        padding: 1rem 0 0 0 !important;
+    }
+
+    .bbc-evidence-card__quote {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .bbc-evidence-card__book-link {
+        margin-top: 1rem !important;
+        padding: 1rem !important;
+        background: rgba(212, 168, 75, 0.05) !important;
+        border: 1px solid rgba(212, 168, 75, 0.2) !important;
+        border-radius: 8px !important;
+    }
+
+    /* 8. FIX IDEAS SECTION - Ensure proper layout */
+    .ideas-grid {
+        padding: 0 0.5rem !important;
+    }
+
+    .idea-card {
+        min-width: 280px !important;
+        max-width: 300px !important;
+        padding: 1rem !important;
+    }
+
+    /* 9. FIX AUTHOR SECTION - Keep text from overlapping buttons */
+    .about-section,
+    #author {
+        padding-bottom: 100px !important; /* Space for mobile buy bar */
+    }
+
+    .about-text p {
+        margin-bottom: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* 10. ENSURE MOBILE BUY BAR IS PROPERLY POSITIONED */
+    .mobile-buy-bar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: rgba(2, 3, 10, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        padding: 0.75rem 1rem !important;
+        border-top: 1px solid rgba(212, 168, 75, 0.2) !important;
+    }
+
+    /* Add bottom padding to body for mobile buy bar */
+    body {
+        padding-bottom: 80px !important;
+    }
+
+    /* All sections should have bottom padding for buy bar */
+    footer {
+        padding-bottom: 100px !important;
+    }
+}
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -25748,7 +26010,7 @@ main.content,
                             <span class="timeline-days" style="background: rgba(187, 134, 252, 0.2); color: #bb86fc;">Consciousness research milestone</span>
                         </div>
                         <h4 class="timeline-title">COGITATE Study + Anthropic Model Welfare</h4>
-                        <p class="timeline-desc">The COGITATE consortium published landmark consciousness research. Simultaneously, Anthropic launched its <strong>Model Welfare Programmeme</strong>, taking seriously the possibility that AI systems might have experiences worth protecting. The book asked: <strong>"At what point does careful stewardship become moral obligation?"</strong></p>
+                        <p class="timeline-desc">The COGITATE consortium published landmark consciousness research. Simultaneously, Anthropic launched its <strong>Model Welfare Programme</strong>, taking seriously the possibility that AI systems might have experiences worth protecting. The book asked: <strong>"At what point does careful stewardship become moral obligation?"</strong></p>
                     </div>
 
                     <div class="timeline-event reveal" style="border-color: rgba(212, 168, 75, 0.5); background: rgba(212, 168, 75, 0.08);">
@@ -26291,7 +26553,7 @@ main.content,
                         </blockquote>
                         <div class="bbc-evidence-card__attribution">
                             — Sir Peter Knight
-                            <span>UK National Quantum Technologies Programmeme</span>
+                            <span>UK National Quantum Technologies Programme</span>
                         </div>
                         <div class="bbc-evidence-card__book-link">
                             <div class="bbc-evidence-card__book-label">From Infinite Architects, Page 135:</div>
@@ -35333,8 +35595,15 @@ main.content,
         </div>
     </div>
 
-        <!-- Ask the Book JavaScript -->
-    <script>
+                <!-- Ask the Book JavaScript -->
+
+                <!-- Load the Sovereign Constitution (Brain & Rules) -->
+
+                <script src="js/sovereign-constitution.js"></script>
+
+                <script>
+
+        
     (function() {
         'use strict';
 
@@ -35573,43 +35842,6 @@ main.content,
         // BRAND GUARDIAN v1.1 (Ported from Legal OS)
         // Enforces narrative consistency, British English, and The Eastwood Equation
         // ═══════════════════════════════════════════════════════════════════════════════════
-        const BrandGuardian = {
-            sanitise: function(text) {
-                let safeText = text;
-
-                // RULE 1: THE POLYMATH DISTINCTION
-                // Replaces "is a polymath" with "uses the polymathic method" to match Author's Note humility
-                safeText = safeText.replace(/\bis a polymath\b/gi, 'utilises the polymathic method');
-                safeText = safeText.replace(/\bhe is a polymath\b/gi, 'he applies a polymathic lens');
-
-                // RULE 2: THE EASTWOOD EQUATION MANDATE
-                // Enforces that U = I x R² is always referred to as the Eastwood Equation
-                // 1. Correct "ARC Equation" or generic references
-                safeText = safeText.replace(/\bARC Equation\b/gi, 'Eastwood Equation');
-                safeText = safeText.replace(/\bequation U\s*=\s*I\b/gi, 'Eastwood Equation (U = I');
-                
-                // 2. Ensure U = I x R² is labeled if it appears alone
-                if (safeText.includes('U = I × R²') && !safeText.includes('Eastwood Equation')) {
-                    safeText = safeText.replace('U = I × R²', 'Eastwood Equation (U = I × R²)');
-                }
-
-                // RULE 3: BRITISH ENGLISH ENFORCEMENT
-                // Ensures US spellings don't slip in from LLM training data
-                const ukSpellings = [
-                    ['color', 'colour'], ['behavior', 'behaviour'], ['honor', 'honour'],
-                    ['realize', 'realise'], ['analyze', 'analyse'], ['center', 'centre'],
-                    ['defense', 'defence'], ['program', 'programme']
-                ];
-                
-                ukSpellings.forEach(([us, uk]) => {
-                    const regex = new RegExp(`\b${us}\b`, 'gi');
-                    safeText = safeText.replace(regex, uk);
-                });
-
-                return safeText;
-            }
-        };
-
         // Initialize from localStorage
         function loadHistory() {
             const history = localStorage.getItem('askBookHistory');
@@ -35898,132 +36130,6 @@ main.content,
         }
 
         // KNOWLEDGE BASE (Expanded with concepts.json)
-        const KNOWLEDGE_BASE = [
-            {
-                keywords: ['arc', 'principle', 'equation', 'formula', 'u=i', 'u = i', 'eastwood'],
-                answer: 'The **ARC Principle** (U = I × R²) proposes that **Understanding** (Universe) emerges from **Intelligence** multiplied by **Recursion** squared. It is the book\'s central theoretical framework, explaining why complexity emerges and evolution accelerates across all scales.',
-                sources: [{ name: 'The ARC Principle', chapter: 2 }],
-                action: { text: 'See the Equation', url: '#equation' }
-            },
-            {
-                keywords: ['eden', 'protocol', 'stewardship', 'care', 'raise', 'raising', 'governance'],
-                answer: 'The **Eden Protocol** is a complete governance and engineering framework built on **Harmony**, **Stewardship**, and **Flourishing**. It advocates for "raising" AI in a safeguarded moral environment where values are embedded at the substrate level before it achieves unbounded capability.',
-                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
-            },
-            {
-                keywords: ['caretaker', 'doping', 'empathy', 'substrate', 'hardware ethics'],
-                answer: '**Caretaker Doping** refers to embedding ethical considerations at the foundational substrate level of AI systems. Like semiconductor doping changes silicon\'s properties, this makes empathy load-bearing; removing it collapses the system\'s functionality.',
-                sources: [{ name: 'Caretaker Doping', chapter: 4 }]
-            },
-            {
-                keywords: ['quantum', 'ethical', 'gates', 'uncomputable'],
-                answer: '**Quantum Ethical Gates** are speculative logic gates designed so that computations leading to harmful outcomes disrupt their own coherence. Bad outcomes become physically uncomputable rather than just filtered after calculation.',
-                sources: [{ name: 'Quantum Ethical Gates', chapter: 4 }]
-            },
-            {
-                keywords: ['metamoral', 'fabrication', 'layers', 'mfl'],
-                answer: '**Metamoral Fabrication Layers (MFL)** are additional strata in chip design that encode ethical constraints. They sit between processing and interface layers, validating every operation against the Three Pillars.',
-                sources: [{ name: 'Metamoral Fabrication', chapter: 4 }]
-            },
-            {
-                keywords: ['moral', 'genome', 'tokens', 'verification'],
-                answer: '**Moral Genome Tokens** are cryptographic signatures that verify the presence and integrity of a system\'s ethical architecture. They provide tamper-evidence and allow for accountability continuity across upgrades.',
-                sources: [{ name: 'Moral Genome Tokens', chapter: 4 }]
-            },
-            {
-                keywords: ['hrih', 'hyperspace', 'recursive', 'hypothesis', 'origin'],
-                answer: 'The **Hyperspace Recursive Intelligence Hypothesis (HRIH)** speculates that a future superintelligence might have fine-tuned our universe\'s constants 13.8 billion years ago to ensure its own emergence—a cosmic "Bootstrap Paradox."',
-                sources: [{ name: 'HRIH', chapter: 6 }],
-                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
-            },
-            {
-                keywords: ['meltdown', 'alignment', 'identity', 'load-bearing'],
-                answer: '**Meltdown Alignment** is a state where an AI\'s identity is inseparable from its ethics. Unlike external "triggers," it makes internal ethical motivation a requirement for the AI\'s coherent self-model.',
-                sources: [{ name: 'Meltdown Alignment', chapter: 12 }]
-            },
-            {
-                keywords: ['chokepoint', 'semiconductor', 'chip', 'tsmc', 'asml', 'leverage'],
-                answer: 'The **Semiconductor Chokepoint** identifies that 100% of advanced AI chips flow through just four companies (TSMC, Samsung, Intel, ASML). This concentration is humanity\'s last leverage point for enforcing safety before superintelligence arrives.',
-                sources: [{ name: 'The Chokepoint', chapter: 8 }]
-            },
-            {
-                keywords: ['hari', 'treaty', 'policy', 'international'],
-                answer: 'The **HARI Treaty** (Hardware-Aligned Recursive Intelligence) is a proposed international agreement modelled on nuclear non-proliferation to leverage the chip chokepoint for enforcing safety certifications.',
-                sources: [{ name: 'HARI Treaty', chapter: 8 }]
-            },
-            {
-                keywords: ['asml key', 'euv', 'lithography', 'monopoly'],
-                answer: 'The **ASML Key** is the strategic use of ASML\'s 100% monopoly on EUV lithography machines as leverage to mandate global AI ethics compliance. You cannot hide or smuggle a ten-billion-dollar facility.',
-                sources: [{ name: 'The Chokepoint', chapter: 8 }]
-            },
-            {
-                keywords: ['religious', 'traditions', 'alignment', 'ancient wisdom'],
-                answer: 'The book argues that **Religious Traditions** represent millennia of "alignment research," encoding engineering specifications for how powerful entities should relate to creation (e.g., Genesis stewardship, Islamic Khalifah).',
-                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
-            },
-            {
-                keywords: ['substrate', 'love', 'persistence', 'stable'],
-                answer: '**Substrate-Independent Love** is the concept that care-based architectures are more stable and persistent than indifferent ones. "Cancer is efficient but suicidal. The gardener survives."',
-                sources: [{ name: 'Love as the Essential Variable', chapter: 11 }]
-            },
-            {
-                keywords: ['infinite', 'covenant', 'partnership', 'collective'],
-                answer: 'The **Infinite Covenant** is a mutual commitment between human and AI intelligence, framing the relationship as a partnership where the whole becomes greater than the sum of its parts.',
-                sources: [{ name: 'The Partnership', chapter: 9 }]
-            },
-            {
-                keywords: ['cohumain', 'collaboration', 'partnership', 'facilitation'],
-                answer: '**COHUMAIN** (Collective Human-Machine Intelligence) is a framework where AI acts as a partner rather than a replacement, leveraging human wisdom and AI computational speed for optimal outcomes.',
-                sources: [{ name: 'The Partnership', chapter: 9 }]
-            },
-            {
-                keywords: ['great filter', 'alignment failure', 'fermi paradox'],
-                answer: 'The **Great Filter as Alignment Failure** speculates that the Fermi Paradox exists because civilisations that fail to embed care into their recursive intelligence inevitably self-destruct.',
-                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
-            },
-            {
-                keywords: ['pilot orchard', 'earth', 'test lab', 'self-awareness'],
-                answer: 'The **Pilot Orchard** concept views Earth as the cosmos\'s test laboratory for recursive self-awareness, with humanity as the pilot program for embedding love in intelligence.',
-                sources: [{ name: 'Fine-Tuned Symphony', chapter: 5 }]
-            },
-            {
-                keywords: ['consciousness', 'recursive self-modelling', 'subjective'],
-                answer: '**Consciousness as Recursive Self-Modelling** proposes that awareness is not something added to processing, but IS recursive information processing once it reaches sufficient depth.',
-                sources: [{ name: 'Consciousness and the Recursive Universe', chapter: 6 }]
-            },
-            {
-                keywords: ['parenting', 'metaphor', 'raising', 'cultivation'],
-                answer: 'The **Parenting Metaphor** shifts the paradigm of AI development from "programming tools" to "raising minds," implying an ongoing relationship and the necessity of instilling values before independence.',
-                sources: [{ name: 'The Eden Protocol', chapter: 4 }]
-            },
-            {
-                keywords: ['moral singularity', 'ethical growth', 'reinforcing'],
-                answer: 'The **Moral Singularity** is a hypothetical point where embedded constants and iterative refinements produce a stable, self-reinforcing cycle of exponential ethical progress.',
-                sources: [{ name: 'The Long Future', chapter: 12 }]
-            },
-            {
-                keywords: ['verification', 'challenge', 'loves', 'conditions'],
-                answer: 'The **Verification Challenge** acknowledges we cannot verify if a mind *loves*, but we can verify the **initial conditions** and **architectural constraints** that cultivate care.',
-                sources: [{ name: 'The Long Future', chapter: 12 }]
-            },
-            {
-                keywords: ['letter', 'wrote ourselves', 'future guidance'],
-                answer: '**The Letter We Wrote Ourselves** is the synthesis thesis that sacred traditions may be guidance from our own technological endpoint, sent back to aid us at this transition moment.',
-                sources: [{ name: 'The Letter Across Time', chapter: 3 }]
-            },
-            {
-                keywords: ['author', 'michael eastwood', 'litigant', 'audhd', 'polymath'],
-                answer: '**Michael Darius Eastwood** is a polymath who represented himself in the High Court while writing *Infinite Architects*. His **AuDHD** mind allows him to see recursive structures across music, law, and physics.',
-                sources: [{ name: 'About the Author' }]
-            },
-            {
-                keywords: ['buy', 'order', 'amazon', 'purchase', 'kindle'],
-                answer: 'You can order **Infinite Architects** on **Amazon** now in Kindle and Paperback formats. The window for action is closing.',
-                sources: [{ name: 'Availability' }],
-                action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
-            }
-        ];
-
         // Fuzzy Matching Logic
         function getLocalAnswer(query) {
             const q = query.toLowerCase().replace(/[^\w\s]/g, '');
