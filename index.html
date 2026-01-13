@@ -20076,6 +20076,120 @@ main {
     }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   NUCLEAR MOBILE FIX - Apple-Grade Mobile Experience
+   These rules have MAXIMUM specificity and MUST be last in the stylesheet
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* KILL the gold progress dots - they overlap content on ALL devices */
+html body .section-progress,
+html body .section-progress *,
+html body .progress-dot,
+html body .progress-dot *,
+html body .section-progress.visible,
+html body nav.section-progress,
+html body div.section-progress {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    top: -99999px !important;
+}
+
+/* KILL the ambient orbs - they distract on mobile */
+html body .ambient-orbs,
+html body .ambient-orbs *,
+html body .ambient-orb,
+html body div.ambient-orbs,
+html body div.ambient-orb {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -99999px !important;
+    animation: none !important;
+}
+
+/* KILL the deep-dive HUD */
+html body .deep-dive-hud,
+html body .deep-dive-hud *,
+html body #deep-dive-hud {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE-SPECIFIC APPLE-GRADE REFINEMENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    /* Streamline the sticky footer - make it less intrusive */
+    html body .mobile-sticky-cta,
+    html body .sticky-cta-bar {
+        padding: 8px 16px !important;
+        backdrop-filter: blur(20px) !important;
+        background: rgba(2, 3, 10, 0.85) !important;
+    }
+
+    /* Clean typography - consistent readable sizes */
+    html body .section-title,
+    html body .chapter-title {
+        font-size: 1.75rem !important;
+        line-height: 1.3 !important;
+        letter-spacing: 0.02em !important;
+    }
+
+    /* Proper spacing between sections */
+    html body .snap-section,
+    html body section {
+        padding: 3rem 1.25rem !important;
+    }
+
+    /* Fix any overflow issues */
+    html body {
+        overflow-x: hidden !important;
+    }
+
+    html body .main-content {
+        overflow-x: hidden !important;
+    }
+
+    /* Reviews carousel - prevent cutoff */
+    html body .reviews-carousel,
+    html body .testimonials-slider {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-snap-type: x mandatory !important;
+        padding-bottom: 1rem !important;
+    }
+
+    html body .review-card,
+    html body .testimonial-card {
+        scroll-snap-align: center !important;
+        flex-shrink: 0 !important;
+        min-width: 85vw !important;
+    }
+
+    /* Hide chapter sidebar on mobile completely */
+    html body .chapter-sidebar,
+    html body .chapter-nav {
+        display: none !important;
+    }
+
+    /* Ensure content doesn't get cut off */
+    html body .content-container,
+    html body .section-inner {
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+}
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
