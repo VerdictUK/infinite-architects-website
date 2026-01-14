@@ -366,6 +366,22 @@
             --part-gradient: linear-gradient(180deg, rgba(244, 200, 86, 0.05) 0%, transparent 50%);
         }
 
+        /* PERMANENTLY HIDE DUPLICATE/REDUNDANT UI ELEMENTS */
+        .deep-dive-hud,
+        nav.deep-dive-hud,
+        [class*="deep-dive-hud"],
+        .section-indicator,
+        #section-indicator,
+        .milestone-toast,
+        #milestone-toast {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            left: -9999px !important;
+        }
+
         body {
             background-color: var(--part-tint, transparent);
             transition: background-color 1s ease;
@@ -571,6 +587,37 @@
             --nav-height: 60px;
             --section-safe-padding: calc(var(--ticker-height) + var(--nav-height) + 2rem);
             --section-content-max: calc(100vh - var(--ticker-height) - var(--nav-height) - 6rem);
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           UI ELEMENTS HIDDEN DURING INTRO
+           These elements distract during the genesis animation and don't work
+           until the book cover appears. Revealed via body.ui-revealed class.
+           ═══════════════════════════════════════════════════════════════════ */
+        #reading-progress,
+        #part-progress-indicator,
+        #chapterSidebar,
+        #chapterNav,
+        #ask-book-toggle,
+        #status-ticker,
+        #nav {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        /* Reveal UI elements after intro completes */
+        body.ui-revealed #reading-progress,
+        body.ui-revealed #part-progress-indicator,
+        body.ui-revealed #chapterSidebar,
+        body.ui-revealed #chapterNav,
+        body.ui-revealed #ask-book-toggle,
+        body.ui-revealed #status-ticker,
+        body.ui-revealed #nav {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -892,8 +939,8 @@
         }
 
         .snap-section.entering {
-            transform: scale(1.1) translateZ(0);
-            opacity: 0;
+            transform: scale(1.02) translateZ(0);
+            opacity: 1; /* Changed from 0 - sections must always be visible */
         }
 
         .snap-section.active {
@@ -1950,12 +1997,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(2, 3, 10, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            /* Subtle vignette - see-through, not obstructive */
+            background: radial-gradient(ellipse at center, rgba(2, 3, 10, 0.45) 0%, rgba(2, 3, 10, 0.25) 60%, transparent 100%);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
             pointer-events: none;
         }
 
@@ -1966,9 +2014,15 @@
 
         .section-intro-content {
             text-align: center;
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.95) translateY(8px);
             opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+            /* Floating glass card for readability */
+            background: rgba(2, 3, 10, 0.7);
+            padding: 1.5rem 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 60px rgba(212, 168, 75, 0.1);
         }
 
         .section-intro-overlay.active .section-intro-content {
@@ -1983,17 +2037,17 @@
 
         .section-intro-title {
             font-family: var(--font-display, 'Cinzel', serif);
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            font-weight: 700;
-            color: var(--gold-primary, #d4a84b);
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 600;
+            color: var(--gold-bright, #f4c856);
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 20px rgba(244, 200, 86, 0.6);
             margin: 0;
             line-height: 1.2;
         }
 
         .section-intro-line {
-            width: 60px;
+            width: 50px;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--gold-primary, #d4a84b), transparent);
             margin: 1rem auto 0;
@@ -2899,43 +2953,47 @@
             margin-left: -0.1em;
         }
 
-        /* Enhanced loader title with dramatic reveal */
+        /* Enhanced loader title with dramatic reveal - REPOSITIONED */
         .loader-ui {
-            position: relative;
+            position: absolute;
+            bottom: 15%; /* Position from bottom, not pushed down */
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 4;
             text-align: center;
             pointer-events: none;
             opacity: 0.4;
-            transform: translateY(0);
             transition: opacity 1.2s ease, transform 1.2s ease, filter 1s ease;
             filter: blur(0px);
+            width: 90%;
+            max-width: 700px;
         }
 
         .loader-ui.reveal {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%); /* Maintain center position */
         }
 
         /* Phase 4 emphasis - UI pulses into prominence */
         .loader-ui.reveal-emphasis {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(-50%);
             animation: uiEmphasisPulse 1.5s ease-out forwards;
         }
 
         @keyframes uiEmphasisPulse {
             0% {
                 opacity: 0.5;
-                transform: scale(0.98) translateY(10px);
+                transform: translateX(-50%) scale(0.98);
             }
             50% {
                 opacity: 1;
-                transform: scale(1.02) translateY(-5px);
+                transform: translateX(-50%) scale(1.02);
                 filter: drop-shadow(0 0 40px rgba(212, 168, 75, 0.5));
             }
             100% {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: translateX(-50%) scale(1);
                 filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.3));
             }
         }
@@ -2998,6 +3056,262 @@
             visibility: hidden !important;
             pointer-events: none !important;
             will-change: transform, opacity;
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════
+           PRE-GENESIS COSMIC AWAKENING - Immediate Visual Cue
+           Something extraordinary is about to happen...
+           ═══════════════════════════════════════════════════════════════════ */
+        .cosmic-awakening {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        /* The Singularity - DRAMATIC Pulsing golden core */
+        .singularity {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #ffffff 0%, #f4c856 40%, #d4a84b 70%, transparent 100%);
+            border-radius: 50%;
+            box-shadow:
+                0 0 30px #ffffff,
+                0 0 60px #f4c856,
+                0 0 100px #d4a84b,
+                0 0 150px rgba(244, 200, 86, 0.9),
+                0 0 250px rgba(212, 168, 75, 0.6),
+                0 0 400px rgba(212, 168, 75, 0.4),
+                0 0 600px rgba(212, 168, 75, 0.2);
+            animation: singularityPulse 1.5s ease-in-out infinite, singularityGrow 2s ease-out forwards;
+        }
+
+        @keyframes singularityPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow:
+                    0 0 30px #ffffff,
+                    0 0 60px #f4c856,
+                    0 0 100px #d4a84b,
+                    0 0 150px rgba(244, 200, 86, 0.9),
+                    0 0 250px rgba(212, 168, 75, 0.6),
+                    0 0 400px rgba(212, 168, 75, 0.4),
+                    0 0 600px rgba(212, 168, 75, 0.2);
+            }
+            50% {
+                transform: scale(1.4);
+                box-shadow:
+                    0 0 50px #ffffff,
+                    0 0 100px #f4c856,
+                    0 0 150px #d4a84b,
+                    0 0 200px rgba(244, 200, 86, 1),
+                    0 0 350px rgba(212, 168, 75, 0.8),
+                    0 0 500px rgba(212, 168, 75, 0.5),
+                    0 0 700px rgba(212, 168, 75, 0.3);
+            }
+        }
+
+        @keyframes singularityGrow {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                width: 50px;
+                height: 50px;
+                opacity: 1;
+            }
+        }
+
+        /* Expanding rings - BOLD ripples of cosmic energy */
+        .awakening-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            pointer-events: none;
+        }
+
+        .awakening-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(244, 200, 86, 0.8);
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.5), inset 0 0 20px rgba(212, 168, 75, 0.3);
+            animation: ringExpand 3s ease-out infinite;
+        }
+
+        .awakening-ring:nth-child(1) { animation-delay: 0s; }
+        .awakening-ring:nth-child(2) { animation-delay: 0.75s; }
+        .awakening-ring:nth-child(3) { animation-delay: 1.5s; }
+        .awakening-ring:nth-child(4) { animation-delay: 2.25s; }
+
+        @keyframes ringExpand {
+            0% {
+                width: 60px;
+                height: 60px;
+                opacity: 1;
+                border-color: rgba(255, 255, 255, 0.9);
+                border-width: 3px;
+            }
+            50% {
+                opacity: 0.6;
+                border-color: rgba(244, 200, 86, 0.7);
+            }
+            100% {
+                width: 700px;
+                height: 700px;
+                opacity: 0;
+                border-color: rgba(212, 168, 75, 0);
+                border-width: 1px;
+            }
+        }
+
+        /* Awakening text - PROMINENT mysterious hint */
+        .awakening-text {
+            position: absolute;
+            top: calc(50% + 120px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 1.2rem;
+            letter-spacing: 0.8em;
+            color: rgba(244, 200, 86, 0.9);
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.8), 0 0 60px rgba(212, 168, 75, 0.4);
+            animation: awakeningTextPulse 2s ease-in-out infinite, awakeningTextFadeIn 1.5s ease-out forwards;
+            white-space: nowrap;
+        }
+
+        @keyframes awakeningTextFadeIn {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        @keyframes awakeningTextPulse {
+            0%, 100% { opacity: 0.7; letter-spacing: 0.8em; text-shadow: 0 0 30px rgba(212, 168, 75, 0.8), 0 0 60px rgba(212, 168, 75, 0.4); }
+            50% { opacity: 1; letter-spacing: 1em; text-shadow: 0 0 40px rgba(244, 200, 86, 1), 0 0 80px rgba(212, 168, 75, 0.6); }
+        }
+
+        /* Diagonal light rays emanating from singularity */
+        .awakening-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+
+        .awakening-ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to top,
+                rgba(244, 200, 86, 0.6) 0%,
+                rgba(244, 200, 86, 0.3) 30%,
+                rgba(212, 168, 75, 0.1) 70%,
+                transparent 100%);
+            transform-origin: bottom center;
+            animation: rayGrow 3s ease-out forwards;
+            filter: blur(1px);
+            box-shadow: 0 0 10px rgba(244, 200, 86, 0.3);
+        }
+
+        /* Position rays at different angles around the singularity */
+        .awakening-ray:nth-child(1) { transform: translate(-50%, 0) rotate(-30deg); animation-delay: 0.5s; }
+        .awakening-ray:nth-child(2) { transform: translate(-50%, 0) rotate(30deg); animation-delay: 0.7s; }
+        .awakening-ray:nth-child(3) { transform: translate(-50%, 0) rotate(-60deg); animation-delay: 0.9s; }
+        .awakening-ray:nth-child(4) { transform: translate(-50%, 0) rotate(60deg); animation-delay: 1.1s; }
+        .awakening-ray:nth-child(5) { transform: translate(-50%, 0) rotate(-120deg); animation-delay: 1.3s; }
+        .awakening-ray:nth-child(6) { transform: translate(-50%, 0) rotate(120deg); animation-delay: 1.5s; }
+
+        @keyframes rayGrow {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            100% {
+                height: 40vh;
+                opacity: 0.5;
+            }
+        }
+
+        /* Vertical light beam - BOLD energy gathering */
+        .awakening-beam {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 0;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 15%,
+                rgba(244, 200, 86, 0.8) 40%,
+                rgba(244, 200, 86, 0.8) 60%,
+                rgba(255, 255, 255, 0.3) 85%,
+                transparent 100%);
+            box-shadow: 0 0 30px rgba(244, 200, 86, 0.6), 0 0 60px rgba(212, 168, 75, 0.4);
+            animation: beamGrow 2s ease-out 0.3s forwards;
+            filter: blur(2px);
+        }
+
+        /* Secondary beams for more drama */
+        .awakening-beam::before,
+        .awakening-beam::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(212, 168, 75, 0.2) 20%,
+                rgba(244, 200, 86, 0.4) 50%,
+                rgba(212, 168, 75, 0.1) 80%,
+                transparent 100%);
+            animation: beamGrow 3s ease-out 0.5s forwards;
+            filter: blur(1px);
+        }
+
+        @keyframes beamGrow {
+            0% { height: 0; opacity: 0; }
+            40% { opacity: 1; }
+            100% { height: 100vh; opacity: 0.9; }
+        }
+
+        /* Awakening fades out as main loader takes over */
+        .cosmic-awakening {
+            animation: awakeningFadeOut 2s ease-out 4s forwards;
+        }
+
+        @keyframes awakeningFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; pointer-events: none; }
         }
 
         /* 2. THE LOADER: Sovereign Gold on Absolute Black */
@@ -3140,19 +3454,85 @@
         }
 
         /* Three.js Canvas Container - DESKTOP PARTICLE NETWORK */
+        /* Particles build up from darkness during intro */
         #canvas-container {
             position: fixed;
             inset: 0;
-            z-index: 0; /* Changed from -1 to ensure visibility */
+            z-index: 0;
             pointer-events: none;
-            opacity: 1 !important;
             display: block !important;
             visibility: visible !important;
+            /* Start dim and blurred, build up to full visibility */
+            opacity: 0.1;
+            filter: blur(8px) brightness(0.3);
+            animation: particlesAwaken 5s ease-out forwards;
+        }
+
+        @keyframes particlesAwaken {
+            0% {
+                opacity: 0.1;
+                filter: blur(8px) brightness(0.3);
+                transform: scale(1.1);
+            }
+            30% {
+                opacity: 0.4;
+                filter: blur(4px) brightness(0.6);
+                transform: scale(1.05);
+            }
+            60% {
+                opacity: 0.7;
+                filter: blur(2px) brightness(0.85);
+                transform: scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px) brightness(1);
+                transform: scale(1);
+            }
         }
 
         #canvas-container canvas {
             display: block !important;
+        }
+
+        /* Particles pulse gently during awakening */
+        #canvas-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                rgba(212, 168, 75, 0.15) 0%,
+                rgba(212, 168, 75, 0.05) 30%,
+                transparent 60%);
+            animation: cosmicPulse 3s ease-in-out infinite, cosmicFadeOut 5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes cosmicPulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes cosmicFadeOut {
+            0%, 70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* After intro completes, ensure full visibility */
+        body.ui-revealed #canvas-container {
             opacity: 1 !important;
+            filter: none !important;
+            transform: none !important;
+        }
+
+        body.ui-revealed #canvas-container::after {
+            display: none;
         }
 
         /* Film grain overlay */
@@ -4187,30 +4567,36 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           ABOUT SECTION: THE MASTER SOURCE OF TRUTH
-           Unified High-Fidelity Logic for Desktop & Mobile
+           ABOUT SECTION: REDESIGNED - Text Left, Photo Right (Sticky)
+           Premium author presentation with sticky photo
            ═══════════════════════════════════════════════════════════════════════ */
         .about-section {
             background: linear-gradient(180deg, var(--void) 0%, rgba(5, 8, 16, 1) 50%, var(--void) 100%);
-            padding: 6rem 2rem !important;
+            padding: 5rem 2rem !important;
             overflow: visible !important;
         }
 
         .about-inner {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 6rem;
-            align-items: start;
+            grid-template-columns: 1.8fr 1fr; /* Text much wider for laptop readability */
+            gap: 4rem;
+            align-items: center;
+            padding: 0 3rem;
         }
+
+        /* Reorder: Text first, Photo second (CSS order) */
+        .about-text { order: 1; }
+        .about-visual { order: 2; }
 
         .about-visual {
             position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-end; /* Push photo to right edge */
             justify-content: center;
+            padding-right: 2rem;
         }
 
         /* 3D Tesseract Background decoration */
@@ -4218,21 +4604,24 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 320px; height: 320px;
+            width: 380px; height: 380px;
             z-index: 1;
-            opacity: 0.4;
+            opacity: 0.3;
             pointer-events: none;
         }
 
-        /* Author Photo - Sovereign Framing */
+        /* Author Photo - Larger, More Prominent */
         .author-photo-wrapper {
             position: relative;
             z-index: 2;
-            width: 280px; height: 280px;
+            width: 320px; height: 320px;
             border-radius: 50%;
             overflow: hidden;
-            border: 3px solid var(--gold);
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--gold-alpha-10);
+            border: 4px solid var(--gold);
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 60px var(--gold-alpha-15),
+                inset 0 0 30px rgba(212, 168, 75, 0.1);
             transition: all 0.6s var(--ease-out-expo);
             background: var(--void-surface);
         }
@@ -4240,30 +4629,57 @@
         .author-photo {
             width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center 15%; /* Face Focus */
+            object-position: center 20%; /* Face Focus */
             transition: transform 1.2s var(--ease-out-expo);
         }
 
         .author-photo-wrapper:hover {
-            transform: scale(1.02);
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 60px var(--gold-alpha-20);
+            transform: scale(1.03);
+            box-shadow:
+                0 35px 100px rgba(0, 0, 0, 0.6),
+                0 0 80px var(--gold-alpha-25);
         }
 
-        .author-photo-wrapper:hover .author-photo { transform: scale(1.08); }
+        .author-photo-wrapper:hover .author-photo { transform: scale(1.06); }
 
-        /* Typography & Content */
-        .about-text { text-align: left; }
+        /* Typography & Content - Left aligned, readable */
+        .about-text {
+            text-align: left;
+            width: 100%; /* Fill the column */
+        }
+
+        .about-text .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-text .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            color: var(--gold-bright);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
         .about-text p {
             font-family: var(--font-serif);
-            font-size: 1.05rem;
-            color: var(--text-dim);
-            line-height: 1.9;
-            margin-bottom: 1.4rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
         }
+
         .about-text p:first-of-type {
             color: var(--gold);
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-style: italic;
+            border-left: 3px solid var(--gold-alpha-40);
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
         }
 
         /* Career Progression Bar */
@@ -4285,43 +4701,57 @@
         /* Storm Story - Emotional Resonance Block */
         .storm-story {
             margin-top: 3rem;
-            padding: 2.5rem;
+            padding: 2rem 2rem 2rem 1.5rem;
             position: relative;
-            background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%);
-            border-left: 3px solid var(--gold);
-            border-radius: 0 12px 12px 0;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.04) 0%, rgba(4, 5, 15, 0.95) 100%);
+            border-left: 4px solid var(--gold);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .storm-story-label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--gold-alpha-60);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
         }
 
         .storm-story-headline {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--gold-bright);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.02em;
         }
 
         .storm-story-quote {
             font-style: italic;
             color: var(--gold);
-            padding: 1.5rem;
-            background: rgba(212, 168, 75, 0.05);
+            padding: 1.2rem 1.5rem;
+            background: rgba(212, 168, 75, 0.06);
             margin: 1.5rem 0;
-            border-radius: 4px;
-            font-size: 1.1rem;
+            border-radius: 8px;
+            font-size: 1.15rem;
             line-height: 1.6;
+            border: 1px solid var(--gold-alpha-15);
         }
 
-        /* RESPONSIVE UNIFICATION */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .about-inner { gap: 4rem; grid-template-columns: 240px 1fr; }
-            .author-photo-wrapper { width: 220px; height: 220px; }
-            .tesseract-container { width: 260px; height: 260px; }
+            .about-inner { gap: 3rem; grid-template-columns: 1.5fr 1fr; padding: 0 2rem; }
+            .author-photo-wrapper { width: 260px; height: 260px; }
+            .tesseract-container { width: 320px; height: 320px; }
         }
 
         @media (max-width: 768px) {
-            .about-section { padding: 4rem 1.5rem !important; }
-            .about-inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
-            .about-visual { margin: 0 auto; width: 100%; }
+            .about-section { padding: 3rem 1.5rem !important; }
+            .about-inner { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; }
+            .about-text { order: 2; max-width: 100%; } /* Text below photo on mobile */
+            .about-visual { order: 1; position: relative; top: 0; margin: 0 auto; width: 100%; }
             .about-text { text-align: center; }
+            .about-text p:first-of-type { border-left: none; padding-left: 0; text-align: center; }
             .about-text .career-progression { justify-content: center; text-align: center; }
             .storm-story { text-align: left; padding: 1.5rem; }
             .author-photo-wrapper { width: 180px; height: 180px; }
@@ -21528,7 +21958,7 @@ img {
 
 .part-progress-indicator {
     position: fixed;
-    top: 70px;
+    top: 115px;
     left: 20px;
     z-index: 100;
     display: flex;
@@ -21832,6 +22262,7 @@ html.slideshow-mode .slideshow-dots {
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
 
+    <style>
 /* ═══════════════════════════════════════════════════════════════════════════
    APPLE-GRADE MOBILE EXPERIENCE - Comprehensive Overhaul
    Fixes all mobile issues identified from 49 screenshot analysis
@@ -22709,7 +23140,7 @@ html body .evidence-locker {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* Reset all conflicting author styles */
-html body #author,
+html body #the-mind,
 html body .about-section {
     min-height: auto !important;
     height: auto !important;
@@ -22717,43 +23148,47 @@ html body .about-section {
     overflow: visible !important;
 }
 
-html body #author .section-inner,
-html body #author .about-inner {
+html body .about-section .about-inner,
+html body #the-mind .about-inner {
     display: grid !important;
-    grid-template-columns: 280px 1fr !important;
+    grid-template-columns: 1fr 320px !important; /* TEXT LEFT, PHOTO RIGHT */
     gap: 4rem !important;
-    max-width: 1100px !important;
+    max-width: 1200px !important;
     margin: 0 auto !important;
     align-items: start !important;
-    padding: 0 !important;
+    padding: 0 2rem !important;
 }
 
 /* Visual container - author photo + tesseract */
-html body #author .about-visual {
+html body .about-section .about-visual,
+html body #the-mind .about-visual {
     position: relative !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     gap: 0.5rem !important;
-    width: 280px !important;
-    flex-shrink: 0 !important;
-    overflow: visible !important; /* Allow tesseract to extend beyond container */
+    width: 100% !important;
+    grid-column: 2 !important; /* FORCE photo to RIGHT column */
+    grid-row: 1 !important;
+    overflow: visible !important;
 }
 
 /* Author photo - prominent */
-html body #author .author-photo-wrapper {
+html body .about-section .author-photo-wrapper,
+html body #the-mind .author-photo-wrapper {
     position: relative !important;
     z-index: 2 !important;
-    width: 220px !important;
-    height: 220px !important;
+    width: 280px !important;
+    height: 280px !important;
     border-radius: 50% !important;
     overflow: hidden !important;
-    border: 3px solid var(--gold) !important;
-    box-shadow: 0 0 40px rgba(212, 168, 75, 0.3) !important;
+    border: 4px solid var(--gold) !important;
+    box-shadow: 0 0 50px rgba(212, 168, 75, 0.35) !important;
 }
 
-html body #author .author-photo {
+html body .about-section .author-photo,
+html body #the-mind .author-photo {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
@@ -22761,7 +23196,8 @@ html body #author .author-photo {
 }
 
 /* Tesseract - BEHIND the photo as decoration, NOT overlapping content */
-html body #author .tesseract-container {
+html body .about-section .tesseract-container,
+html body #the-mind .tesseract-container {
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
@@ -22773,19 +23209,24 @@ html body #author .tesseract-container {
     pointer-events: none !important;
 }
 
-html body #author #tesseract-canvas {
+html body .about-section #tesseract-canvas,
+html body #the-mind #tesseract-canvas {
     width: 100% !important;
     height: 100% !important;
 }
 
 /* Text content - clean typography */
-html body #author .about-text {
+html body .about-section .about-text,
+html body #the-mind .about-text {
     position: relative !important;
     z-index: 3 !important;
     text-align: left !important;
+    grid-column: 1 !important; /* FORCE text to LEFT column */
+    grid-row: 1 !important;
 }
 
-html body #author .about-text .section-label {
+html body .about-section .about-text .section-label,
+html body #the-mind .about-text .section-label {
     font-family: var(--font-mono) !important;
     font-size: 0.7rem !important;
     letter-spacing: 0.25em !important;
@@ -22794,7 +23235,8 @@ html body #author .about-text .section-label {
     margin-bottom: 0.5rem !important;
 }
 
-html body #author .about-text .section-title {
+html body .about-section .about-text .section-title,
+html body #the-mind .about-text .section-title {
     font-family: var(--font-display) !important;
     font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
     color: var(--text-primary) !important;
@@ -22802,7 +23244,8 @@ html body #author .about-text .section-title {
     line-height: 1.2 !important;
 }
 
-html body #author .about-text p {
+html body .about-section .about-text p,
+html body #the-mind .about-text p {
     font-family: var(--font-serif) !important;
     font-size: 1rem !important;
     line-height: 1.8 !important;
@@ -22811,14 +23254,16 @@ html body #author .about-text p {
     max-width: none !important;
 }
 
-html body #author .about-text p:first-of-type {
+html body .about-section .about-text p:first-of-type,
+html body #the-mind .about-text p:first-of-type {
     color: var(--gold) !important;
     font-style: italic !important;
     font-size: 1.1rem !important;
 }
 
 /* Career progression bar - prominent and clear */
-html body #author .about-text p[style*="font-family: var(--font-mono)"] {
+html body .about-section .about-text p[style*="font-family: var(--font-mono)"],
+html body #the-mind .about-text p[style*="font-family: var(--font-mono)"] {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: flex-start !important;
@@ -22834,7 +23279,8 @@ html body #author .about-text p[style*="font-family: var(--font-mono)"] {
 }
 
 /* Storm Story section - clearly separated */
-html body #author .storm-story {
+html body .about-section .storm-story,
+html body #the-mind .storm-story {
     margin-top: 2rem !important;
     padding: 2rem !important;
     background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
@@ -25965,6 +26411,34 @@ main.content, #main-content {
          A journey through recursion, consciousness, and cosmic revelation
          ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loader">
+        <!-- ═══════════════════════════════════════════════════════════════════
+             COSMIC AWAKENING - Immediate visual cue that something extraordinary approaches
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <div class="cosmic-awakening" id="cosmic-awakening">
+            <!-- Vertical energy beam -->
+            <div class="awakening-beam"></div>
+            <!-- Diagonal light rays emanating from singularity -->
+            <div class="awakening-rays">
+                <div class="awakening-ray"></div>
+                <div class="awakening-ray"></div>
+                <div class="awakening-ray"></div>
+                <div class="awakening-ray"></div>
+                <div class="awakening-ray"></div>
+                <div class="awakening-ray"></div>
+            </div>
+            <!-- Expanding cosmic rings -->
+            <div class="awakening-rings">
+                <div class="awakening-ring"></div>
+                <div class="awakening-ring"></div>
+                <div class="awakening-ring"></div>
+                <div class="awakening-ring"></div>
+            </div>
+            <!-- The singularity - golden pulsing core -->
+            <div class="singularity"></div>
+            <!-- Mysterious text hint -->
+            <div class="awakening-text">A W A K E N I N G</div>
+        </div>
+
         <div class="impact-flash" id="impact-flash"></div>
         <div class="space-streaks" id="space-streaks"></div>
         <div class="sonic-boom" id="sonic-boom"></div>
@@ -26100,14 +26574,7 @@ main.content, #main-content {
         </div>
     </div>
 
-    <!-- Milestone Toast - Chapter transition notification (bottom-left) -->
-    <div class="milestone-toast" id="milestone-toast" role="status" aria-live="polite">
-        <span class="milestone-icon" id="milestone-icon">🏛️</span>
-        <div class="milestone-content">
-            <span class="milestone-title">PART UNLOCKED</span>
-            <span class="milestone-text" id="milestone-text">PART I: THE THESIS</span>
-        </div>
-    </div>
+    <!-- Milestone Toast REMOVED - redundant notification -->
 
     <!-- Main Content -->
     <main class="content" id="main-content" role="main">
@@ -29381,6 +29848,12 @@ main.content, #main-content {
                         }
                     }
 
+                    // Reveal UI elements (sidebar, ticker, chat, etc.) now that intro is complete
+                    // This runs regardless of earlyInitDone - UI should appear after loader completes
+                    setTimeout(() => {
+                        document.body.classList.add('ui-revealed');
+                    }, 500); // Brief delay for book cover to settle
+
                     // Lazy load book cover video (skip if already loaded by early init)
                     const bookVideo = document.getElementById('book-cover-video');
                     if (bookVideo && !bookVideo.querySelector('source')) {
@@ -29403,27 +29876,7 @@ main.content, #main-content {
                         }
                     }
 
-                    // Phase 4: Cinematic entrance for Ask Book button (after impact)
-                    setTimeout(() => {
-                        const askBtn = document.getElementById('ask-book-toggle');
-                        if (askBtn) {
-                            askBtn.style.setProperty('display', 'flex', 'important');
-                            askBtn.style.setProperty('visibility', 'visible', 'important');
-                            askBtn.style.setProperty('opacity', '0', 'important'); // Start hidden
-                            askBtn.style.setProperty('transform', 'scale(0.5) translateY(50px)', 'important');
-                            askBtn.style.setProperty('transition', 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)', 'important');
-                            
-                            // Force reflow
-                            void askBtn.offsetWidth;
-                            
-                            askBtn.style.setProperty('opacity', '1', 'important');
-                            askBtn.style.setProperty('transform', 'scale(1) translateY(0)', 'important');
-                            askBtn.style.setProperty('z-index', '2147483647', 'important');
-                            askBtn.style.setProperty('pointer-events', 'auto', 'important');
-
-                            console.log('[LOADER COMPLETE] Ask Book button cinematic entry');
-                        }
-                    }, 800); // 0.8s after site becomes ready
+                    // UI elements (Ask Book, sidebar, ticker, etc.) revealed via body.ui-revealed CSS
 
                 }, 800); // 800ms - allow scroll much earlier during animations
 
@@ -29481,6 +29934,61 @@ main.content, #main-content {
                 ctx.beginPath();
                 ctx.arc(cx, cy, nexusSize, 0, TAU);
                 ctx.fill();
+
+                // SPARKS emanating from central nexus
+                // Initialize sparks array if not exists
+                if (!loaderState.sparks) {
+                    loaderState.sparks = [];
+                }
+
+                // Spawn new sparks periodically (more frequent early on)
+                const sparkChance = progress < 0.3 ? 0.08 : 0.03;
+                if (Math.random() < sparkChance && loaderState.sparks.length < 20) {
+                    const angle = Math.random() * TAU;
+                    const speed = 1.5 + Math.random() * 3;
+                    loaderState.sparks.push({
+                        x: cx,
+                        y: cy,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed,
+                        life: 1,
+                        decay: 0.008 + Math.random() * 0.012,
+                        size: 1.5 + Math.random() * 2.5,
+                        hue: 42 + Math.random() * 16
+                    });
+                }
+
+                // Update and draw sparks
+                for (let i = loaderState.sparks.length - 1; i >= 0; i--) {
+                    const spark = loaderState.sparks[i];
+                    spark.x += spark.vx;
+                    spark.y += spark.vy;
+                    spark.vx *= 0.98; // Slow down
+                    spark.vy *= 0.98;
+                    spark.life -= spark.decay;
+
+                    if (spark.life <= 0) {
+                        loaderState.sparks.splice(i, 1);
+                        continue;
+                    }
+
+                    // Draw spark with glow
+                    const sparkAlpha = spark.life * 0.9;
+                    const sparkGlow = ctx.createRadialGradient(spark.x, spark.y, 0, spark.x, spark.y, spark.size * 4);
+                    sparkGlow.addColorStop(0, `hsla(${spark.hue}, 80%, 75%, ${sparkAlpha})`);
+                    sparkGlow.addColorStop(0.3, `hsla(${spark.hue}, 70%, 60%, ${sparkAlpha * 0.5})`);
+                    sparkGlow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = sparkGlow;
+                    ctx.beginPath();
+                    ctx.arc(spark.x, spark.y, spark.size * 4, 0, TAU);
+                    ctx.fill();
+
+                    // Bright core
+                    ctx.fillStyle = `hsla(48, 90%, 90%, ${sparkAlpha})`;
+                    ctx.beginPath();
+                    ctx.arc(spark.x, spark.y, spark.size * 0.5, 0, TAU);
+                    ctx.fill();
+                }
 
                 // Vignette
                 const vg = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.55);
@@ -30493,19 +31001,19 @@ main.content, #main-content {
             // PART I: THE MIND - Meet the author
             'the-mind': { title: 'Meet The Mind' },
             'origin': { title: 'Where It Began' },
-            'methodology': { title: 'The Method' },
+            'methodology': { title: 'Recursive Verification' },
 
             // PART II: THE THESIS - The core argument
-            'book': { title: 'The Book' },
+            'book': { title: 'The Core Thesis' },
             'quote-carousel': { title: 'Key Quotes' },
-            'equation': { title: 'U = I × R²' },
-            'ideas': { title: '37 Ideas' },
+            'equation': { title: 'The Eastwood Equation' },
+            'ideas': { title: 'The Framework' },
 
             // PART III: THE EVIDENCE - Proof and validation
             'evidence-locker': { title: 'Evidence Board' },
             'bbc-timeline': { title: 'The Timeline' },
             'predictions': { title: 'Five Predictions' },
-            'falsification': { title: 'Falsification Tests' },
+            'falsification': { title: 'Falsification' },
             'predictions-validated': { title: 'Validated' },
 
             // PART IV: THE PHILOSOPHY - Deep theory
@@ -30519,19 +31027,19 @@ main.content, #main-content {
             'future-born': { title: 'Future Born' },
             'stakes': { title: 'Eden or Babylon' },
             'expert-validation': { title: 'Expert Warnings' },
-            'reviews': { title: 'Reviews' },
-            'chapters': { title: 'Chapter Guide' },
-            'comparison': { title: 'Comparison' },
+            'reviews': { title: 'Reader Reviews' },
+            'chapters': { title: 'Inside The Book' },
+            'comparison': { title: 'Why This Book' },
 
             // PART VI: GET THE BOOK - Conversion
             'get-the-book': { title: 'Three Doors' },
             'cta': { title: 'The Portal' },
-            'newsletter': { title: 'Stay Connected' },
-            'paradise': { title: 'Paradise Protocol' },
+            'newsletter': { title: 'The Journey Continues' },
+            'paradise': { title: 'The Garden' },
             'faq': { title: 'FAQ' },
-            'glossary': { title: 'Glossary' },
+            'glossary': { title: 'Key Terms' },
             'ai-timeline': { title: 'AI Timeline' },
-            'press': { title: 'Press Kit' }
+            'press': { title: 'Press Resources' }
         };
 
         // Track shown section intros to avoid repeats
@@ -30567,13 +31075,13 @@ main.content, #main-content {
             overlay.classList.add('active');
             overlay.setAttribute('aria-hidden', 'false');
 
-            // Auto-hide after 1.5 seconds
+            // Auto-hide after 1 second (subtle, non-obstructive)
             setTimeout(() => {
                 overlay.classList.remove('active');
                 overlay.setAttribute('aria-hidden', 'true');
                 sectionIntroActive = false;
                 shownSectionIntros.add(sectionId);
-            }, 1500);
+            }, 1000);
         }
 
         // Create observer for sections
@@ -34566,13 +35074,7 @@ main.content, #main-content {
             // console.log('✨ Living Equation particles initialized with', particles.length, 'particles');
         })();
 
-        // ═══════════════════════════════════════════════════════════════════════
-        // PROPHECY VIDEO PLAYER (ULTRATHINK)
-        // ═══════════════════════════════════════════════════════════════════════
-        (function initProphecyVideo() {
-            const video = document.getElementById('prophecy-video');
-            const overlay = document.getElementById('prophecy-overlay');
-    </div>
+    </script>
 
     <!-- ═══════════════════════════════════════════════════════════════════════
          MOBILE STICKY BUY BAR - Always-visible purchase option
@@ -37924,34 +38426,8 @@ main.content, #main-content {
          Toasts, HUD, and Section Indicators
          ═══════════════════════════════════════════════════════════════════════ -->
 
-    <!-- Top Center Section Indicator -->
-    <div id="section-indicator" class="section-indicator">
-        <span class="indicator-label">CURRENT CHAPTER</span>
-        <span class="indicator-title" id="indicator-title">00: THE ARCHITECT</span>
-    </div>
-
-    <!-- Right Side Deep Dive HUD -->
-    <nav class="deep-dive-hud">
-        <div class="hud-inner">
-            <div class="hud-label">DEEP DIVE</div>
-            <div class="hud-progress">
-                <div class="hud-progress-bar" id="hud-progress-bar"></div>
-            </div>
-            <div class="hud-counter">
-                <span id="hud-current">00</span>
-                <span class="hud-sep">/</span>
-                <span class="hud-total">05</span>
-            </div>
-        </div>
-        <!-- Dot Navigation -->
-        <div class="hud-dots">
-            <button class="hud-dot active" data-target="hero" aria-label="The Architect"></button>
-            <button class="hud-dot" data-target="equation" aria-label="The Equation"></button>
-            <button class="hud-dot" data-target="evidence" aria-label="The Evidence"></button>
-            <button class="hud-dot" data-target="author" aria-label="The Author"></button>
-            <button class="hud-dot" data-target="risk" aria-label="The Risk"></button>
-        </div>
-    </nav>
+    <!-- Section Indicator REMOVED - duplicate/cluttered navigation -->
+    <!-- Deep Dive HUD REMOVED - duplicate navigation -->
 
     <style>
         /* Section Indicator (Top Center) */
@@ -38570,25 +39046,25 @@ main.content, #main-content {
     </script>
 
 
-    <!-- Chat Toggle Button - INLINE STYLES FOR MAXIMUM VISIBILITY -->
-    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:flex !important; visibility:visible !important; opacity:1 !important; position:fixed !important; bottom:24px !important; right:24px !important; width:64px !important; height:64px !important; z-index:2147483647 !important; background:linear-gradient(145deg, #d4a84b, #a67c35) !important; border:2px solid #f4c856 !important; border-radius:50% !important; align-items:center !important; justify-content:center !important; pointer-events:auto !important; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important;">
+    <!-- Chat Toggle Button - HIDDEN DURING LOADING, SHOWN WHEN READY -->
+    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:2147483647; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block !important; visibility:visible !important; width:28px !important; height:28px !important; fill:#02030a !important;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97c1.31.61 2.75.97 4.29.97 5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.33 0-2.58-.32-3.69-.89L5 20l.89-3.31C5.32 15.58 5 14.33 5 13c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
         </svg>
     </button>
 
-    <!-- Force Ask Book Button Visibility on Mobile and Desktop -->
+    <!-- Force Ask Book Button Visibility ONLY AFTER LOADER COMPLETES -->
     <style id="ask-book-force-visible">
-        /* MAXIMUM PRIORITY - Always show Ask Book button */
+        /* HIDDEN by default during loading */
         #ask-book-toggle,
         html body #ask-book-toggle,
         html body button#ask-book-toggle {
-            display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
             position: fixed !important;
             z-index: 2147483647 !important;
-            pointer-events: auto !important;
+            pointer-events: none !important;
             background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
             border: 2px solid #f4c856 !important;
             border-radius: 50% !important;
@@ -38596,6 +39072,7 @@ main.content, #main-content {
             justify-content: center !important;
             cursor: pointer !important;
             box-shadow: 0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3) !important;
+            transition: opacity 0.6s ease, visibility 0.6s ease !important;
             /* Desktop default */
             bottom: 24px !important;
             right: 24px !important;
@@ -38640,6 +39117,16 @@ main.content, #main-content {
                 height: 54px !important;
             }
         }
+
+        /* SHOW button ONLY when cinematic-ready class is present (loader complete) */
+        body.cinematic-ready #ask-book-toggle,
+        html.cinematic-ready body #ask-book-toggle,
+        html body.cinematic-ready button#ask-book-toggle {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
     </style>
 
     <!-- NUCLEAR FIX: Force button visibility and scroll after load -->
@@ -38648,9 +39135,13 @@ main.content, #main-content {
         'use strict';
 
         function forceButtonAndScroll() {
-            // Force Ask Book button visible using setProperty for !important
+            // ONLY show Ask Book button when cinematic-ready class is present
+            const isCinematicReady = document.body.classList.contains('cinematic-ready') ||
+                                     document.body.classList.contains('cinematic') ||
+                                     document.documentElement.classList.contains('cinematic-ready');
+
             const btn = document.getElementById('ask-book-toggle');
-            if (btn) {
+            if (btn && isCinematicReady) {
                 btn.style.setProperty('display', 'flex', 'important');
                 btn.style.setProperty('visibility', 'visible', 'important');
                 btn.style.setProperty('opacity', '1', 'important');
@@ -38688,9 +39179,11 @@ main.content, #main-content {
                     svg.style.setProperty('fill', '#02030a', 'important');
                 }
 
-                console.log('[ASK BOOK] Button forced visible via setProperty');
+                console.log('[ASK BOOK] Button shown - cinematic ready');
+            } else if (btn && !isCinematicReady) {
+                console.log('[ASK BOOK] Button waiting for cinematic-ready class');
             } else {
-                console.log('[ASK BOOK] Button not found in DOM!');
+                console.log('[ASK BOOK] Button not found in DOM');
             }
 
             // Force scroll enabled using setProperty
@@ -38723,8 +39216,12 @@ main.content, #main-content {
         // Periodic check every 3 seconds AFTER initial delay
         setTimeout(function() {
             setInterval(function() {
+                const isCinematicReady = document.body.classList.contains('cinematic-ready') ||
+                                         document.body.classList.contains('cinematic') ||
+                                         document.documentElement.classList.contains('cinematic-ready');
+
                 const btn = document.getElementById('ask-book-toggle');
-                if (btn) {
+                if (btn && isCinematicReady) {
                     const computed = window.getComputedStyle(btn);
                     if (computed.display === 'none' || computed.visibility === 'hidden' || parseFloat(computed.opacity) < 0.5) {
                         console.log('[ASK BOOK] Button was hidden, forcing visible again');
