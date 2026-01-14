@@ -1977,13 +1977,8 @@
         }
 
         .section-intro-label {
-            font-family: var(--font-mono, 'Space Mono', monospace);
-            font-size: 0.65rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(212, 168, 75, 0.6);
-            margin-bottom: 0.5rem;
-            display: block;
+            /* Hidden - chapter gates already show part info */
+            display: none;
         }
 
         .section-intro-title {
@@ -3902,57 +3897,70 @@
         /* ═══════════════════════════════════════════════════════════════════════
            IDEAS GRID
            ═══════════════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════════════════
+           IDEAS SECTION: THE MASTER SOURCE OF TRUTH
+           ═══════════════════════════════════════════════════════════════════════ */
         .ideas-section {
-            background: linear-gradient(180deg, transparent 0%, rgba(26, 16, 53, 0.08) 50%, transparent 100%);
-        }
-
-        /* Ideas section snap - fit all content in viewport */
-        .ideas-section.snap-section {
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
-            padding-bottom: 0.5rem !important;
-            justify-content: flex-start !important;
-        }
-
-        .ideas-section .section-inner {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 1.5rem);
-            height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 1.5rem);
-            overflow: hidden;
-        }
-
-        .ideas-header {
-            text-align: center;
-            margin-bottom: 0.5rem;
-            flex-shrink: 0;
-        }
-
-        .ideas-header .section-label {
-            margin-bottom: 0.2rem;
-        }
-
-        .ideas-header .section-title {
-            font-size: clamp(1.4rem, 3vw, 2rem);
-            margin-bottom: 0;
+            background: linear-gradient(180deg, var(--void) 0%, rgba(26, 16, 53, 0.08) 50%, var(--void) 100%);
+            padding: 6rem 2rem !important;
+            overflow: visible !important;
         }
 
         .ideas-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 0.35rem;
-            width: 100%;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+            gap: 1.5rem !important;
             max-width: 1400px;
-            flex: 1;
-            min-height: 0;
-            overflow: visible !important; /* Allow cards to be visible */
+            margin: 0 auto;
+            width: 100%;
         }
 
         .idea-card {
-            background: rgba(212, 168, 75, 0.02);
-            border: 1px solid rgba(212, 168, 75, 0.08);
-            padding: 0.5rem 0.75rem;
+            background: linear-gradient(135deg, rgba(10, 12, 25, 0.95) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
+            border: 1px solid rgba(212, 168, 75, 0.15) !important;
+            padding: 2rem !important;
             position: relative;
+            transition: all 0.6s var(--ease-out-expo);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .idea-card:hover {
+            border-color: var(--gold) !important;
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .idea-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+        }
+
+        .idea-text {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE UNIFICATION */
+        @media (max-width: 1024px) {
+            .ideas-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+
+        @media (max-width: 768px) {
+            .ideas-section { padding: 4rem 1.25rem !important; }
+            .ideas-grid { display: flex !important; flex-direction: row !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 1rem 0 !important; }
+            .idea-card { flex: 0 0 280px !important; min-width: 280px !important; scroll-snap-align: center !important; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER IDEAS BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
             overflow: hidden;
             transition: all 0.6s var(--ease-out-expo);
             display: flex;
@@ -5389,30 +5397,71 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           REVIEWS SECTION: THE MASTER SOURCE OF TRUTH
+           ═══════════════════════════════════════════════════════════════════════ */
         .reviews-section {
-            padding: var(--space-2xl) var(--space-lg);
-            background: linear-gradient(180deg, transparent 0%, rgba(13, 31, 60, 0.08) 50%, transparent 100%);
+            padding: 6rem 2rem !important;
+            background: linear-gradient(180deg, var(--void) 0%, rgba(13, 31, 60, 0.08) 50%, var(--void) 100%);
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            min-height: auto !important;
         }
 
         .reviews-header {
             text-align: center;
-            margin-bottom: var(--space-xl);
+            margin-bottom: 3rem;
         }
 
         .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+            gap: 1.5rem !important;
             max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
+            overflow: visible !important;
         }
 
         .review-card {
-            background: rgba(212, 168, 75, 0.02);
-            border: 1px solid rgba(212, 168, 75, 0.08);
-            padding: 2rem;
+            background: linear-gradient(135deg, rgba(10, 12, 25, 0.95) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
+            border: 1px solid rgba(212, 168, 75, 0.15) !important;
+            padding: 2rem !important;
             position: relative;
             transition: all 0.5s var(--ease-out-expo);
+            border-radius: 12px;
+        }
+
+        .review-card:hover {
+            background: rgba(212, 168, 75, 0.05) !important;
+            border-color: var(--gold) !important;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-text {
+            font-family: var(--font-serif);
+            font-size: clamp(0.95rem, 1.1vw, 1.1rem) !important;
+            font-style: italic;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .reviews-section { padding: 4rem 1.25rem !important; }
+            .reviews-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+            .review-card { padding: 1.5rem !important; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER REVIEWS BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
         }
 
         .review-card::before {
@@ -10685,13 +10734,97 @@
             line-height: 1.5;
         }
 
-        /* Timeline Section with BBC Video */
+        /* ═══════════════════════════════════════════════════════════════════════
+           EVIDENCE SECTION: THE MASTER SOURCE OF TRUTH
+           ═══════════════════════════════════════════════════════════════════════ */
+        .evidence-locker {
+            background: linear-gradient(180deg, var(--void) 0%, rgba(5, 15, 12, 0.8) 50%, var(--void) 100%);
+            padding: 6rem 2rem !important;
+            overflow: visible !important;
+        }
+
         .timeline-evidence-section {
             padding: 6rem 2rem;
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.03) 50%, var(--void-deep) 100%);
             position: relative;
             overflow: hidden;
         }
+
+        .evidence-locker .section-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Bento Grid Architecture */
+        .evidence-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            grid-auto-rows: auto !important;
+            align-items: start !important;
+            gap: 1.5rem !important;
+            width: 100%;
+        }
+
+        .evidence-card {
+            background: linear-gradient(135deg, rgba(10, 12, 25, 0.95) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
+            border: 1px solid rgba(212, 168, 75, 0.15) !important;
+            padding: 1.5rem !important;
+            border-radius: 12px;
+            height: auto !important;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .evidence-card--featured {
+            grid-column: span 2 !important;
+            grid-row: span 1 !important;
+        }
+
+        .evidence-card:hover {
+            border-color: var(--gold) !important;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Typography & Components */
+        .evidence-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .evidence-desc {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .evidence-video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        /* RESPONSIVE UNIFICATION */
+        @media (max-width: 1024px) {
+            .evidence-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .evidence-card--featured { grid-column: span 2 !important; }
+        }
+
+        @media (max-width: 768px) {
+            .evidence-locker { padding: 4rem 1.25rem !important; }
+            .evidence-grid { display: flex !important; flex-direction: column !important; gap: 1rem !important; }
+            .evidence-card { width: 100% !important; padding: 1.25rem !important; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER EVIDENCE BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
 
         /* Section Video Background */
         .section-video-bg {
@@ -19415,43 +19548,48 @@
         /* ═══════════════════════════════════════════════════════════════════════════
            FAQ SECTION
            ═══════════════════════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════════════════
+           FAQ SECTION: THE MASTER SOURCE OF TRUTH
+           ═══════════════════════════════════════════════════════════════════════ */
         .faq-section {
             background: linear-gradient(180deg, var(--void-mid) 0%, var(--void-deep) 100%);
+            padding: 6rem 2rem !important;
         }
 
         .faq-inner {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         .faq-grid {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.25rem;
             margin-top: 2rem;
         }
 
         .faq-item {
-            background: rgba(10, 12, 20, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
+            background: linear-gradient(135deg, rgba(10, 12, 25, 0.95) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
+            border: 1px solid rgba(212, 168, 75, 0.15) !important;
             border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .faq-item.active {
-            border-color: rgba(212, 168, 75, 0.3);
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 30px rgba(212, 168, 75, 0.1);
         }
 
         .faq-question {
             width: 100%;
-            padding: 1.25rem 1.5rem;
+            padding: 1.5rem !important;
             background: transparent;
             border: none;
             color: var(--gold-pale);
             font-family: var(--font-serif);
-            font-size: 1.05rem;
+            font-size: 1.1rem !important;
             text-align: left;
             cursor: pointer;
             display: flex;
@@ -19460,6 +19598,44 @@
             gap: 1rem;
             transition: all 0.3s ease;
         }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.4s var(--ease-out-expo);
+            color: var(--gold);
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .faq-section { padding: 4rem 1.5rem !important; }
+            .faq-question { font-size: 1rem !important; padding: 1.25rem !important; }
+            .faq-answer-inner { font-size: 0.95rem !important; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER FAQ BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
 
         .faq-question:hover {
             color: var(--gold);
@@ -21812,9 +21988,11 @@ html.slideshow-mode .slideshow-dots {
 .reviews-section.snap-section,
 #reviews {
     background:
-    </style>
-
-    <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
+        radial-gradient(ellipse at 50% 40%, rgba(74, 20, 140, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 70%, rgba(106, 27, 154, 0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 20%, rgba(212, 168, 75, 0.1) 0%, transparent 40%),
+        linear-gradient(180deg, rgba(4, 5, 15, 0.9) 0%, rgba(15, 5, 25, 0.85) 50%, rgba(4, 5, 15, 0.9) 100%) !important;
+}
 
 /* 3. FIX HERO SECTION TEXT LAYOUT */
 .hero {
@@ -30721,48 +30899,48 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
 
         const sectionIntroData = {
-            // PART I: THE MIND
-            'the-mind': { part: 'PART I', title: 'The Mind' },
-            'origin': { part: 'PART I', title: 'Origin Story' },
-            'methodology': { part: 'PART I', title: 'Methodology' },
+            // PART I: THE MIND - Meet the author
+            'the-mind': { title: 'Meet The Mind' },
+            'origin': { title: 'Where It Began' },
+            'methodology': { title: 'The Method' },
 
-            // PART II: THE THESIS
-            'book': { part: 'PART II', title: 'The Book' },
-            'quote-carousel': { part: 'PART II', title: 'Key Insights' },
-            'equation': { part: 'PART II', title: 'The Equation' },
-            'ideas': { part: 'PART II', title: 'The 37 Ideas' },
+            // PART II: THE THESIS - The core argument
+            'book': { title: 'The Book' },
+            'quote-carousel': { title: 'Key Quotes' },
+            'equation': { title: 'U = I × R²' },
+            'ideas': { title: '37 Ideas' },
 
-            // PART III: THE EVIDENCE
-            'evidence-locker': { part: 'PART III', title: 'Evidence Locker' },
-            'bbc-timeline': { part: 'PART III', title: 'BBC Timeline' },
-            'predictions': { part: 'PART III', title: 'Predictions' },
-            'falsification': { part: 'PART III', title: 'Falsification Tests' },
-            'predictions-validated': { part: 'PART III', title: 'Predictions Validated' },
+            // PART III: THE EVIDENCE - Proof and validation
+            'evidence-locker': { title: 'Evidence Board' },
+            'bbc-timeline': { title: 'The Timeline' },
+            'predictions': { title: 'Five Predictions' },
+            'falsification': { title: 'Falsification Tests' },
+            'predictions-validated': { title: 'Validated' },
 
-            // PART IV: THE PHILOSOPHY
-            'hrih': { part: 'PART IV', title: 'HRIH Hypothesis' },
-            'religion': { part: 'PART IV', title: 'Religion as Alignment' },
-            'chokepoint': { part: 'PART IV', title: 'The Chokepoint' },
-            'window': { part: 'PART IV', title: 'The Window' },
-            'architecture': { part: 'PART IV', title: 'Architecture' },
+            // PART IV: THE PHILOSOPHY - Deep theory
+            'hrih': { title: 'The HRIH' },
+            'religion': { title: 'Ancient Wisdom' },
+            'chokepoint': { title: 'The Chokepoint' },
+            'window': { title: 'The Window' },
+            'architecture': { title: 'The Blueprint' },
 
-            // PART V: THE STAKES
-            'future-born': { part: 'PART V', title: 'Future Born' },
-            'stakes': { part: 'PART V', title: 'What\'s At Stake' },
-            'expert-validation': { part: 'PART V', title: 'Expert Validation' },
-            'reviews': { part: 'PART V', title: 'Reviews' },
-            'chapters': { part: 'PART V', title: 'Chapter Guide' },
-            'comparison': { part: 'PART V', title: 'Comparison' },
+            // PART V: THE STAKES - Why it matters
+            'future-born': { title: 'Future Born' },
+            'stakes': { title: 'Eden or Babylon' },
+            'expert-validation': { title: 'Expert Warnings' },
+            'reviews': { title: 'Reviews' },
+            'chapters': { title: 'Chapter Guide' },
+            'comparison': { title: 'Comparison' },
 
-            // PART VI: GET THE BOOK
-            'get-the-book': { part: 'PART VI', title: 'Get The Book' },
-            'cta': { part: 'PART VI', title: 'Take Action' },
-            'newsletter': { part: 'PART VI', title: 'Newsletter' },
-            'paradise': { part: 'PART VI', title: 'Paradise Protocol' },
-            'faq': { part: 'PART VI', title: 'FAQ' },
-            'glossary': { part: 'PART VI', title: 'Glossary' },
-            'ai-timeline': { part: 'PART VI', title: 'AI Timeline' },
-            'press': { part: 'PART VI', title: 'Press Kit' }
+            // PART VI: GET THE BOOK - Conversion
+            'get-the-book': { title: 'Three Doors' },
+            'cta': { title: 'The Portal' },
+            'newsletter': { title: 'Stay Connected' },
+            'paradise': { title: 'Paradise Protocol' },
+            'faq': { title: 'FAQ' },
+            'glossary': { title: 'Glossary' },
+            'ai-timeline': { title: 'AI Timeline' },
+            'press': { title: 'Press Kit' }
         };
 
         // Track shown section intros to avoid repeats
@@ -30786,13 +30964,11 @@ main.content, #main-content {
 
             const data = sectionIntroData[sectionId];
             const overlay = document.getElementById('section-intro-overlay');
-            const labelEl = document.getElementById('section-intro-label');
             const titleEl = document.getElementById('section-intro-title');
 
-            if (!overlay || !labelEl || !titleEl) return;
+            if (!overlay || !titleEl) return;
 
-            // Set content
-            labelEl.textContent = data.part;
+            // Set content (title only - no redundant part label)
             titleEl.textContent = data.title;
 
             // Show overlay
