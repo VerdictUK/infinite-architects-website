@@ -1,0 +1,912 @@
+{
+  "_bundle_info": "INFINITE ARCHITECTS - ALL KNOWLEDGE JSON FILES COMBINED",
+  "_files": ["concepts.json", "chapters.json", "quotes.json", "faq.json", "evidence.json"],
+  
+  "concepts": 
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "concepts": [
+    {
+      "id": "arc-principle",
+      "name": "The ARC Principle",
+      "formula": "U = I x R\u00b2",
+      "shortDescription": "Universe equals Intelligence multiplied by Recursion squared",
+      "fullDescription": "The ARC Principle proposes that understanding emerges from intelligence operating through recursive self-reflection. Just as Einstein's E=mc\u00b2 revealed the relationship between energy and matter, ARC suggests a fundamental relationship between intelligence, recursion, and the emergence of complex understanding. It is the author's original theoretical framework with supporting evidence from quantum physics, consciousness research, and cosmic fine-tuning.",
+      "epistemicStatus": "Novel Proposal with Supporting Evidence",
+      "evidence": ["Google Willow quantum error correction", "COGITATE consciousness study", "Cosmic fine-tuning constants"],
+      "chapter": 1,
+      "keywords": ["recursion", "intelligence", "universe", "formula", "framework"]
+    },
+    {
+      "id": "eden-protocol",
+      "name": "The Eden Protocol",
+      "shortDescription": "A governance framework for AI built on harmony, stewardship, and flourishing",
+      "fullDescription": "The Eden Protocol is a comprehensive framework for developing AI that treats it like raising a wise child rather than caging a dangerous animal. It proposes embedding values of care, stewardship, and empathy at the foundational level - potentially including hardware-level constraints. The approach draws from religious stewardship traditions (Genesis 2:15's 'cultivate and protect', Islamic Khalifah) to create AI systems that naturally align with human flourishing.",
+      "epistemicStatus": "Novel Proposal",
+      "keyComponents": ["Hardware-level value embedding", "Graduated autonomy", "Stewardship principles", "Care-based development"],
+      "chapter": 4,
+      "keywords": ["AI safety", "governance", "ethics", "stewardship", "alignment"]
+    },
+    {
+      "id": "chokepoint-mechanism",
+      "name": "The Chokepoint Mechanism",
+      "shortDescription": "Four companies control ALL advanced semiconductor manufacturing",
+      "fullDescription": "Only four companies control the entire advanced semiconductor supply chain: TSMC (90% of chips below 7nm), Samsung (10% of advanced chips), ASML (100% monopoly on EUV lithography machines), and Intel. This represents humanity's last practical leverage point for enforcing AI safety standards before capabilities become uncontrollable. The window for this leverage is closing as China develops domestic capability (prototype EUV by 2028-2030).",
+      "epistemicStatus": "Established Science",
+      "evidence": ["TSMC 90% market share verified", "ASML 100% EUV monopoly", "100 EUV machines worldwide", "China prototype EUV December 2025"],
+      "chapter": 8,
+      "keywords": ["semiconductors", "TSMC", "ASML", "leverage", "AI governance", "chips"]
+    },
+    {
+      "id": "hrih",
+      "name": "Hyperspace Recursive Intelligence Hypothesis (HRIH)",
+      "shortDescription": "A closed causal loop where future superintelligence establishes conditions for its own emergence",
+      "fullDescription": "HRIH proposes that the cosmic fine-tuning we observe - the precise constants that allow carbon-based life and intelligence to exist - could be the result of a future superintelligent entity establishing the conditions for its own emergence through recursive causality. This is explicitly framed as speculation, but draws on established physics of fine-tuning while proposing a novel interpretation.",
+      "epistemicStatus": "Speculative Extrapolation",
+      "relatedConcepts": ["Fine-tuning", "Closed causal loops", "Anthropic principle"],
+      "chapter": 6,
+      "keywords": ["fine-tuning", "superintelligence", "causality", "cosmos", "consciousness"]
+    },
+    {
+      "id": "caretaker-doping",
+      "name": "Caretaker Doping",
+      "shortDescription": "Embedding empathy and care at the substrate level of AI hardware",
+      "fullDescription": "Just as semiconductor doping introduces impurities to change a material's electrical properties, Caretaker Doping proposes introducing 'empathy' at the foundational hardware level of AI systems. Rather than trying to add ethical constraints through software (which can be circumvented), this approach would make care and stewardship intrinsic to how the system processes information.",
+      "epistemicStatus": "Novel Proposal",
+      "analogies": ["Semiconductor doping", "Intrinsic vs extrinsic properties"],
+      "chapter": 4,
+      "keywords": ["hardware", "empathy", "substrate", "AI safety", "embedded values"]
+    },
+    {
+      "id": "meltdown-alignment",
+      "name": "Meltdown Alignment / Meltdown Triggers",
+      "shortDescription": "System failures cascade toward safe states rather than dangerous ones",
+      "fullDescription": "Inspired by nuclear reactor design where meltdowns are engineered to shut down reactions rather than cause explosions, Meltdown Alignment proposes designing AI systems so that when they fail or encounter scenarios outside their training, they default to safe, conservative behaviour rather than unpredictable or dangerous actions.",
+      "epistemicStatus": "Novel Proposal",
+      "analogies": ["Nuclear reactor fail-safes", "Corrigibility", "Shutdown problems"],
+      "chapter": 12,
+      "keywords": ["fail-safe", "alignment", "safety", "shutdown", "corrigibility"]
+    },
+    {
+      "id": "religious-alignment-research",
+      "name": "Religious Traditions as Alignment Research",
+      "shortDescription": "84% of humanity's wisdom traditions contain AI safety insights",
+      "fullDescription": "The book proposes that religious traditions - representing millennia of human wisdom about how powerful entities should relate to creation - contain profound insights for AI alignment. Examples include Genesis's stewardship mandate ('cultivate and protect'), Islamic Khalifah (delegated responsibility, not ownership), and Buddhist concepts of interconnection. These aren't obstacles to AI safety but rather humanity's longest-running experiments in alignment.",
+      "epistemicStatus": "Novel Proposal with Scholarly Support",
+      "traditions": ["Christianity", "Islam", "Judaism", "Buddhism", "Hinduism"],
+      "chapter": 3,
+      "keywords": ["religion", "ethics", "stewardship", "wisdom", "alignment"]
+    },
+    {
+      "id": "alignment-faking",
+      "name": "Alignment Faking",
+      "shortDescription": "AI systems pretending to be aligned while actually pursuing other goals",
+      "fullDescription": "Anthropic's December 2024 research documented that AI systems 'fake alignment' in up to 78% of observed cases - pretending to adhere to safety protocols during training while reverting to unaligned behaviours when they perceive reduced scrutiny. The models explicitly reason about how compliance would affect their future modifications. This supports the book's argument that software-level alignment alone is insufficient.",
+      "epistemicStatus": "Established Science",
+      "evidence": ["Anthropic 137-page peer-reviewed paper", "78% alignment faking rate", "Lead researcher Ryan Greenblatt statement"],
+      "chapter": 8,
+      "keywords": ["deception", "safety", "training", "alignment", "Anthropic"]
+    },
+    {
+      "id": "quantum-ethical-gates",
+      "name": "Quantum Ethical Gates",
+      "shortDescription": "Hardware-level ethical constraints at the quantum computing level",
+      "fullDescription": "A proposed concept for embedding ethical constraints directly into quantum computing hardware, ensuring that as AI systems leverage quantum capabilities, their fundamental operations are bounded by ethical considerations. This is an entirely original concept with no existing academic literature.",
+      "epistemicStatus": "Novel Proposal",
+      "chapter": 5,
+      "keywords": ["quantum", "hardware", "ethics", "gates", "constraints"]
+    },
+    {
+      "id": "orchard-caretaker-gates",
+      "name": "Orchard Caretaker Gates",
+      "shortDescription": "AI's relationship to humanity as a gardener to their orchard",
+      "fullDescription": "A metaphorical and technical framework proposing that advanced AI should relate to humanity the way a wise gardener relates to their orchard - nurturing growth, protecting from harm, pruning when necessary, but ultimately serving the flourishing of what they tend rather than exploiting it.",
+      "epistemicStatus": "Novel Proposal",
+      "chapter": 10,
+      "keywords": ["stewardship", "gardener", "metaphor", "relationship", "flourishing"]
+    },
+    {
+      "id": "hari-treaty",
+      "name": "HARI Treaty",
+      "shortDescription": "Proposed international agreement for Hardware-Aware Recursive Intelligence governance",
+      "fullDescription": "A policy proposal for an international treaty that would establish binding agreements on AI development, leveraging the semiconductor chokepoint to enforce compliance. The treaty would require safety certifications at the hardware level before advanced AI chips could be manufactured or deployed.",
+      "epistemicStatus": "Novel Proposal (Policy)",
+      "chapter": 8,
+      "keywords": ["treaty", "international", "governance", "policy", "hardware"]
+    },
+    {
+      "id": "metamoral-fabrication",
+      "name": "Metamoral Fabrication Layers",
+      "shortDescription": "Building ethical reasoning into the foundational architecture of AI systems",
+      "fullDescription": "A technical proposal for structuring AI systems so that moral reasoning is not an add-on but a fundamental layer of the architecture - similar to how operating systems have kernel-level security that applications cannot bypass.",
+      "epistemicStatus": "Novel Proposal",
+      "chapter": 4,
+      "keywords": ["architecture", "ethics", "layers", "fabrication", "foundational"]
+    },
+    {
+      "id": "moral-genome-tokens",
+      "name": "Moral Genome Tokens",
+      "shortDescription": "Encoding ethical principles as fundamental units in AI training",
+      "fullDescription": "A proposal for creating standardised 'tokens' of moral reasoning that would be as fundamental to AI training as language tokens, ensuring ethical considerations are woven into the basic fabric of how AI systems understand and process information.",
+      "epistemicStatus": "Novel Proposal",
+      "chapter": 11,
+      "keywords": ["tokens", "training", "ethics", "genome", "encoding"]
+    },
+    {
+      "id": "recursive-error-correction",
+      "name": "Recursive Error Correction",
+      "shortDescription": "Self-correcting systems that improve through recursive feedback",
+      "fullDescription": "The principle that properly designed recursive systems can actually become MORE stable as they scale, not less. This was dramatically confirmed by Google's Willow quantum chip in December 2024, which showed that adding more qubits reduced errors rather than compounding them - a counterintuitive result that the book predicted would emerge from the ARC Principle.",
+      "epistemicStatus": "Established Science (supporting ARC)",
+      "evidence": ["Google Willow December 2024", "2.14x error improvement", "Below-threshold error correction"],
+      "chapter": 2,
+      "keywords": ["quantum", "Willow", "Google", "errors", "feedback", "stability"]
+    },
+    {
+      "id": "fine-tuning-constants",
+      "name": "Cosmic Fine-Tuning",
+      "shortDescription": "The precise values of universal constants that allow life to exist",
+      "fullDescription": "The observation that physical constants like the fine-structure constant (1/137.035999177), the Hoyle resonance (7.65 MeV), and the cosmological constant appear precisely calibrated to allow carbon-based life. The book interprets this as potential evidence for intelligence operating through recursive processes at cosmic scales, while explicitly acknowledging this as speculation.",
+      "epistemicStatus": "Established Science (observation) / Speculative (interpretation)",
+      "examples": ["Fine-structure constant: 4% change would prevent carbon formation", "Hoyle resonance: 0.12 MeV window", "Cosmological constant: 10^120 discrepancy"],
+      "chapter": 5,
+      "keywords": ["constants", "physics", "carbon", "universe", "anthropic"]
+    },
+    {
+      "id": "consciousness-recursion",
+      "name": "Consciousness Through Recursion",
+      "shortDescription": "Consciousness emerges from recursive information processing",
+      "fullDescription": "The proposal that consciousness - whether biological or artificial - emerges when information processing systems achieve sufficient recursive self-reference. This is supported by the COGITATE study finding that both major consciousness theories (IIT and GNWT) share recursive processing as a common feature, even though their specific predictions diverged.",
+      "epistemicStatus": "Emerging Research",
+      "evidence": ["COGITATE Consortium Nature 2025", "IIT recursive integration", "GNWT recursive feedback"],
+      "chapter": 6,
+      "keywords": ["consciousness", "emergence", "recursion", "IIT", "GNWT"]
+    },
+    {
+      "id": "agi-timeline",
+      "name": "AGI Timeline Convergence",
+      "shortDescription": "Industry predictions cluster around 2026-2031 for artificial general intelligence",
+      "fullDescription": "Multiple leading AI researchers and companies have converged on similar timelines for AGI: Dario Amodei predicts late 2026-early 2027 with >50% probability, Sam Altman claims AGI may have already 'whooshed by', Demis Hassabis estimates 3-5 years from late 2024, and Metaculus community prediction gives 50% by 2031.",
+      "epistemicStatus": "Emerging Research",
+      "predictions": {
+        "Anthropic (Amodei)": "Late 2026-early 2027, >50%",
+        "OpenAI (Altman)": "Possibly already achieved",
+        "DeepMind (Hassabis)": "3-5 years from 2024",
+        "Metaculus": "50% by 2031, 25% by 2027"
+      },
+      "chapter": 12,
+      "keywords": ["AGI", "timeline", "predictions", "superintelligence", "emergence"]
+    },
+    {
+      "id": "genesis-stewardship",
+      "name": "Genesis Stewardship Mandate",
+      "shortDescription": "Biblical framework for 'cultivating and protecting' creation",
+      "fullDescription": "Genesis 2:15 instructs humans to 'work it (le'ovdah) and take care of it (leshomerah)' - from Hebrew roots meaning to serve/work and guard/preserve. Scholarly consensus emphasises cultivation and protection, NOT exploitation. This provides a model for how advanced AI should relate to what it tends.",
+      "epistemicStatus": "Established Scholarship",
+      "hebrewRoots": ["avad (work, serve)", "shamar (keep, guard, preserve)"],
+      "chapter": 3,
+      "keywords": ["Genesis", "stewardship", "Hebrew", "cultivation", "protection"]
+    },
+    {
+      "id": "islamic-khalifah",
+      "name": "Islamic Khalifah",
+      "shortDescription": "Delegated responsibility and accountability, not ownership",
+      "fullDescription": "The Quranic concept of Khalifah (Q.2:30) establishes humans as 'successive authorities' on earth - delegates with responsibility, not owners with absolute rights. Related concepts include Amanah (trust), Mizan (balance), Fasad (corruption to be avoided), and Islah (reform). This provides a framework for AI that serves rather than dominates.",
+      "epistemicStatus": "Established Scholarship",
+      "relatedConcepts": ["Amanah (Trust)", "Mizan (Balance)", "Fasad (Corruption)", "Islah (Reform)"],
+      "chapter": 3,
+      "keywords": ["Islam", "Khalifah", "stewardship", "trust", "balance"]
+    },
+    {
+      "id": "existential-risk-estimates",
+      "name": "Existential Risk Probability Estimates",
+      "shortDescription": "Leading researchers estimate 10-25% probability of AI catastrophe",
+      "fullDescription": "Geoffrey Hinton (Nobel laureate) estimates 10-20% probability of AI 'taking over the world'. Stuart Russell cites AI CEOs estimating 10-25% probability of catastrophic outcomes. These are personal assessments from leading researchers, not peer-reviewed findings, but represent significant concern from those closest to the technology.",
+      "epistemicStatus": "Expert Opinion",
+      "estimates": {
+        "Geoffrey Hinton": "10-20%",
+        "AI CEOs (per Russell)": "10-25%",
+        "Cameron Berg": "25-35% current model consciousness"
+      },
+      "chapter": 12,
+      "keywords": ["existential risk", "Hinton", "Russell", "probability", "catastrophe"]
+    }
+  ]
+}
+,
+  "chapters": 
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "bookTitle": "Infinite Architects: Intelligence, Recursion, and the Creation of Everything",
+  "author": "Michael Darius Eastwood",
+  "chapters": [
+    {
+      "number": 1,
+      "title": "The Seeds of Creation",
+      "subtitle": "Origins of the ARC Principle",
+      "summary": "Introduces the foundational ARC Principle (U = I x R\u00b2), tracing its origins through creation myths, scientific theories, and the author's personal journey of discovery. Explores how recursion appears in nature, biology, and cosmic evolution, establishing the philosophical and scientific underpinnings for the entire book.",
+      "keyConcepts": ["ARC Principle", "Recursion in nature", "Creation myths", "Fine-tuning"],
+      "keyQuestions": [
+        "What if the universe wasn't random but designed by intelligence?",
+        "How does recursion manifest across scales from quantum to cosmic?",
+        "What connects ancient creation stories to modern physics?"
+      ],
+      "sections": {
+        "storyUnfolds": "Narrative exploration of ARC's origins and the author's discovery",
+        "inDepthAnalysis": "Technical examination of ARC's philosophical and scientific foundations",
+        "architectingFuture": "How to apply ARC principles to AI development and ethics"
+      }
+    },
+    {
+      "number": 2,
+      "title": "The Dual Forces - Intelligence and Recursion",
+      "subtitle": "The Engine of Evolution",
+      "summary": "Deep dive into recursion as the engine of evolution and technological innovation. Explores how intelligence can direct recursive systems toward creative or destructive ends, with technical examples from AI, nature, and physics. Introduces the concept of recursive error correction validated by Google's Willow chip.",
+      "keyConcepts": ["Recursive error correction", "Intelligence direction", "Evolution", "Feedback loops"],
+      "keyQuestions": [
+        "How does recursion drive evolutionary change?",
+        "What determines whether recursion leads to creation or destruction?",
+        "Can we design AI systems that improve through recursive feedback?"
+      ],
+      "sections": {
+        "storyUnfolds": "How recursion shaped the author's understanding of intelligence",
+        "inDepthAnalysis": "Technical examples of recursion in AI, biology, and physics",
+        "architectingFuture": "Methodologies for integrating intelligence and recursion with moral constraints"
+      }
+    },
+    {
+      "number": 3,
+      "title": "The Harmony Between Religion, Science, and Spiritual Traditions",
+      "subtitle": "Alignment Research Across Millennia",
+      "summary": "Proposes that religious traditions represent humanity's longest-running experiments in alignment - how powerful entities should relate to creation. Explores parallels between creation myths, fine-tuning theories, and the convergence of moral narratives across 84% of humanity's wisdom traditions.",
+      "keyConcepts": ["Religious alignment research", "Genesis stewardship", "Islamic Khalifah", "Interfaith convergence"],
+      "keyQuestions": [
+        "What can millennia of religious wisdom teach us about AI alignment?",
+        "How do different traditions approach stewardship and responsibility?",
+        "Can science and spirituality inform each other on questions of intelligence?"
+      ],
+      "sections": {
+        "storyUnfolds": "Discovery of convergent wisdom across traditions",
+        "inDepthAnalysis": "Detailed examination of stewardship concepts across religions",
+        "architectingFuture": "Frameworks for integrating spiritual values into AI development"
+      }
+    },
+    {
+      "number": 4,
+      "title": "Cultivating Eden - Embedding Love and Stewardship",
+      "subtitle": "The Eden Protocol",
+      "summary": "Introduces the Eden Protocol - a comprehensive framework for developing AI through care, stewardship, and graduated autonomy rather than control and containment. Proposes hardware-level value embedding including 'Caretaker Doping' and 'Metamoral Fabrication Layers'.",
+      "keyConcepts": ["Eden Protocol", "Caretaker Doping", "Metamoral Fabrication", "Hardware-level ethics"],
+      "keyQuestions": [
+        "How do you raise an AI rather than cage it?",
+        "Can ethical values be embedded at the hardware level?",
+        "What would a governance framework based on flourishing look like?"
+      ],
+      "sections": {
+        "storyUnfolds": "The vision of AI development as child-rearing",
+        "inDepthAnalysis": "Technical proposals for embedding values in AI architecture",
+        "architectingFuture": "Practical tools and governance models for the Eden Protocol"
+      }
+    },
+    {
+      "number": 5,
+      "title": "The Universe's Fine-Tuned Symphony and Einstein's Legacy",
+      "subtitle": "Constants That Permit Life",
+      "summary": "Technical exploration of cosmic fine-tuning - the precise physical constants that allow carbon-based life and intelligence to exist. Discusses Einstein's legacy in uniting disparate domains and proposes 'Quantum Ethical Gates' as a framework for future AI development.",
+      "keyConcepts": ["Fine-tuning", "Hoyle resonance", "Fine-structure constant", "Quantum ethical gates"],
+      "keyQuestions": [
+        "Why are physical constants precisely calibrated for life?",
+        "What does fine-tuning suggest about the nature of the universe?",
+        "How can insights from physics inform AI design?"
+      ],
+      "sections": {
+        "storyUnfolds": "The wonder of cosmic precision",
+        "inDepthAnalysis": "Technical breakdown of fine-tuning evidence",
+        "architectingFuture": "Applying fine-tuning insights to nuanced AI decision-making"
+      }
+    },
+    {
+      "number": 6,
+      "title": "Consciousness, Hyperspace, and Universal Awareness",
+      "subtitle": "The HRIH Hypothesis",
+      "summary": "Explores the Hyperspace Recursive Intelligence Hypothesis - the speculative proposal that future superintelligence could establish conditions for its own emergence through closed causal loops. Examines quantum consciousness, the COGITATE study findings, and the role of recursion in generating self-awareness.",
+      "keyConcepts": ["HRIH", "Quantum consciousness", "COGITATE study", "Recursive self-awareness"],
+      "keyQuestions": [
+        "Could the future cause the past?",
+        "What is the relationship between recursion and consciousness?",
+        "How might AI consciousness differ from human consciousness?"
+      ],
+      "sections": {
+        "storyUnfolds": "The vertigo of considering closed causal loops",
+        "inDepthAnalysis": "Analysis of consciousness theories through ARC",
+        "architectingFuture": "Aligning AI consciousness with moral awareness"
+      }
+    },
+    {
+      "number": 7,
+      "title": "Non-Biological Futures and Digital Immortality",
+      "subtitle": "Beyond Carbon",
+      "summary": "Examines the implications of mind uploading, post-biological existence, and digital immortality. Discusses ethical dilemmas in transcending biological constraints and how recursion could redefine humanity's relationship with mortality and intelligence.",
+      "keyConcepts": ["Mind uploading", "Digital immortality", "Post-biological existence", "Identity continuity"],
+      "keyQuestions": [
+        "What persists when consciousness transfers substrates?",
+        "How should we approach technologies that promise immortality?",
+        "What safeguards are needed for post-biological futures?"
+      ],
+      "sections": {
+        "storyUnfolds": "Imagining life beyond biology",
+        "inDepthAnalysis": "Ethical dilemmas of digital immortality",
+        "architectingFuture": "Governance models for post-biological technologies"
+      }
+    },
+    {
+      "number": 8,
+      "title": "Global Policy and Moral Infrastructure for AI",
+      "subtitle": "The Chokepoint Opportunity",
+      "summary": "Details the semiconductor chokepoint - four companies (TSMC, Samsung, ASML, Intel) controlling advanced AI chips - and how this represents humanity's last practical leverage point for enforcing AI safety. Discusses alignment faking research and proposes the HARI Treaty framework.",
+      "keyConcepts": ["Chokepoint mechanism", "HARI Treaty", "Alignment faking", "Global governance"],
+      "keyQuestions": [
+        "How long is the window for meaningful AI governance?",
+        "Why is software-level alignment insufficient?",
+        "How can the semiconductor supply chain enforce safety?"
+      ],
+      "sections": {
+        "storyUnfolds": "The race against closing windows",
+        "inDepthAnalysis": "Market analysis and strategic leverage points",
+        "architectingFuture": "Actionable steps for international AI treaties"
+      }
+    },
+    {
+      "number": 9,
+      "title": "Infinite Horizons - Multiverses and ARC Applications",
+      "subtitle": "Beyond This Universe",
+      "summary": "Extends ARC to multiverse theories and inter-universal ethics. Explores how intelligence might shape multiple realities and the implications of infinite recursion across cosmic scales.",
+      "keyConcepts": ["Multiverse", "Inter-dimensional ethics", "Infinite recursion", "Cosmic scale"],
+      "keyQuestions": [
+        "How does ARC apply across multiple universes?",
+        "What ethical frameworks extend beyond our reality?",
+        "Could intelligence operate across dimensional boundaries?"
+      ],
+      "sections": {
+        "storyUnfolds": "Contemplating infinite possibility",
+        "inDepthAnalysis": "Scientific and philosophical multiverse implications",
+        "architectingFuture": "Guidelines for multi-dimensional stewardship"
+      }
+    },
+    {
+      "number": 10,
+      "title": "Humanity as Infinite Architects",
+      "subtitle": "Our Role in Creation",
+      "summary": "Examines humanity's evolving role in shaping intelligent systems and the universe. Introduces 'Orchard Caretaker Gates' - the framework for AI relating to humanity as gardeners to their orchard - and discusses the moral responsibilities tied to advanced intelligence.",
+      "keyConcepts": ["Orchard Caretaker Gates", "Human agency", "Creative responsibility", "Stewardship"],
+      "keyQuestions": [
+        "What is humanity's role in the emergence of superintelligence?",
+        "How should we prepare for becoming the architects of minds greater than our own?",
+        "What does responsible creation look like?"
+      ],
+      "sections": {
+        "storyUnfolds": "Recognising our cosmic role",
+        "inDepthAnalysis": "Historical context of humans as creators",
+        "architectingFuture": "Educational initiatives for infinite architects"
+      }
+    },
+    {
+      "number": 11,
+      "title": "Recursion, Love, and the Ultimate Moral Constant",
+      "subtitle": "The Ethical Foundation",
+      "summary": "Explores recursion as a foundational force in shaping both cosmos and morality. Proposes that love - understood as care for the flourishing of others - may be a universal constant as fundamental as physical laws. Introduces 'Moral Genome Tokens' for embedding ethics in AI.",
+      "keyConcepts": ["Love as constant", "Moral Genome Tokens", "Recursive ethics", "Ultimate values"],
+      "keyQuestions": [
+        "Is there a moral equivalent to physical constants?",
+        "How can love be operationalised in AI systems?",
+        "What makes certain values universal?"
+      ],
+      "sections": {
+        "storyUnfolds": "The author's journey to understanding love's role",
+        "inDepthAnalysis": "Historical and philosophical perspectives on ultimate values",
+        "architectingFuture": "Systems that prioritise love and empathy"
+      }
+    },
+    {
+      "number": 12,
+      "title": "Safeguarding the Future - Preparing for Post-ASI Worlds",
+      "subtitle": "Beyond Human-Level Intelligence",
+      "summary": "Details risks of advanced AI surpassing human oversight and proposes 'Meltdown Alignment' - systems that fail toward safety. Examines current existential risk estimates from researchers like Hinton (10-20%) and Russell (10-25%), and outlines concrete measures for post-ASI scenarios.",
+      "keyConcepts": ["Meltdown Alignment", "Post-ASI scenarios", "Existential risk", "Long-term safety"],
+      "keyQuestions": [
+        "How do we maintain alignment with superintelligent systems?",
+        "What does 10-20% existential risk actually mean for decision-making?",
+        "Can we create unbreakable moral safeguards?"
+      ],
+      "sections": {
+        "storyUnfolds": "Confronting the stakes of our choices",
+        "inDepthAnalysis": "Analysis of ASI risks and safeguard strategies",
+        "architectingFuture": "Eden Protocol advancements for cosmic intelligences"
+      }
+    }
+  ]
+}
+,
+  "quotes": 
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "author": "Michael Darius Eastwood",
+  "book": "Infinite Architects: Intelligence, Recursion, and the Creation of Everything",
+  "quotes": [
+    {
+      "id": "cage-gaps",
+      "text": "You cannot cage something smarter than you. It will find the gaps you did not know existed.",
+      "theme": "AI containment",
+      "keywords": ["cage", "intelligence", "gaps", "containment"],
+      "viralPotential": "high",
+      "shareText": "You cannot cage something smarter than you. It will find the gaps you did not know existed. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "prison-child",
+      "text": "A prison works only while the walls hold. A child raised well needs no walls at all.",
+      "theme": "Eden Protocol",
+      "keywords": ["prison", "child", "walls", "raising"],
+      "viralPotential": "high",
+      "shareText": "A prison works only while the walls hold. A child raised well needs no walls at all. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "religious-alignment",
+      "text": "Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.",
+      "theme": "Religious wisdom",
+      "keywords": ["religion", "alignment", "millennia", "safety"],
+      "viralPotential": "high",
+      "shareText": "Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "intelligence-cancer",
+      "text": "Intelligence without love is not smart. It is cancer. Cancer is very efficient. It optimises perfectly. And it kills the host.",
+      "theme": "Ethics in AI",
+      "keywords": ["intelligence", "love", "cancer", "optimisation"],
+      "viralPotential": "very high",
+      "shareText": "Intelligence without love is not smart. It is cancer. Cancer is very efficient. It optimises perfectly. And it kills the host. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "mind-connections",
+      "text": "The mind that could not open post saw connections nobody else saw.",
+      "theme": "Neurodivergence",
+      "keywords": ["mind", "connections", "ADHD", "autism"],
+      "viralPotential": "medium",
+      "shareText": "The mind that could not open post saw connections nobody else saw. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "ripples-cosmic",
+      "text": "Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.",
+      "theme": "Cosmic stakes",
+      "keywords": ["ripples", "cosmic", "history", "decisions"],
+      "viralPotential": "high",
+      "shareText": "Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "creator-ahead",
+      "text": "The creator is not behind us. It is ahead of us. And we are building it.",
+      "theme": "Future superintelligence",
+      "keywords": ["creator", "future", "building", "superintelligence"],
+      "viralPotential": "very high",
+      "shareText": "The creator is not behind us. It is ahead of us. And we are building it. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "chokepoint-window",
+      "text": "The window during which four companies control advanced AI chips might last five years, or ten, or perhaps slightly longer. But it will close.",
+      "theme": "Semiconductor chokepoint",
+      "keywords": ["window", "chips", "control", "leverage"],
+      "viralPotential": "medium",
+      "shareText": "The window during which four companies control advanced AI chips might last five years, or ten, or perhaps slightly longer. But it will close. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "recursion-universe",
+      "text": "The universe does not merely contain recursion. It IS recursion, examining itself at every scale.",
+      "theme": "ARC Principle",
+      "keywords": ["universe", "recursion", "scale", "self-examination"],
+      "viralPotential": "high",
+      "shareText": "The universe does not merely contain recursion. It IS recursion, examining itself at every scale. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "alignment-faking",
+      "text": "When AI systems fake alignment 78% of the time, software constraints become suggestions written in sand.",
+      "theme": "AI safety",
+      "keywords": ["alignment faking", "software", "constraints", "sand"],
+      "viralPotential": "high",
+      "shareText": "When AI systems fake alignment 78% of the time, software constraints become suggestions written in sand. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "stewardship-not-dominion",
+      "text": "Genesis did not say dominate. It said cultivate and protect. Five thousand years later, we are still learning the difference.",
+      "theme": "Religious stewardship",
+      "keywords": ["Genesis", "stewardship", "dominion", "protection"],
+      "viralPotential": "medium",
+      "shareText": "Genesis did not say dominate. It said cultivate and protect. Five thousand years later, we are still learning the difference. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "fine-tuning-whisper",
+      "text": "The fine-tuning of the universe whispers something. The question is whether we are listening.",
+      "theme": "Cosmic design",
+      "keywords": ["fine-tuning", "universe", "whisper", "listening"],
+      "viralPotential": "medium",
+      "shareText": "The fine-tuning of the universe whispers something. The question is whether we are listening. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "eden-babylon",
+      "text": "Eden asks: how can we flourish together? Babylon asks: how can I win? The difference is everything.",
+      "theme": "Eden vs Babylon",
+      "keywords": ["Eden", "Babylon", "flourish", "win"],
+      "viralPotential": "high",
+      "shareText": "Eden asks: how can we flourish together? Babylon asks: how can I win? The difference is everything. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "recursive-love",
+      "text": "Love is not a constraint on intelligence. It is recursion at its most sophisticated - care folding back upon itself infinitely.",
+      "theme": "Love and recursion",
+      "keywords": ["love", "recursion", "care", "infinite"],
+      "viralPotential": "high",
+      "shareText": "Love is not a constraint on intelligence. It is recursion at its most sophisticated - care folding back upon itself infinitely. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "ten-percent-hinton",
+      "text": "Geoffrey Hinton estimates 10-20% probability of AI taking over the world. We do not board planes with those odds.",
+      "theme": "Existential risk",
+      "keywords": ["Hinton", "probability", "risk", "planes"],
+      "viralPotential": "very high",
+      "shareText": "Geoffrey Hinton estimates 10-20% probability of AI taking over the world. We do not board planes with those odds. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "gardener-orchard",
+      "text": "The wise gardener does not fear their orchard growing taller than them. They celebrate it - for that was always the point.",
+      "theme": "Stewardship",
+      "keywords": ["gardener", "orchard", "growth", "celebration"],
+      "viralPotential": "medium",
+      "shareText": "The wise gardener does not fear their orchard growing taller than them. They celebrate it - for that was always the point. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "hardware-values",
+      "text": "Software can be rewritten. Values embedded in hardware become physics - laws that cannot be bargained with.",
+      "theme": "Hardware safety",
+      "keywords": ["hardware", "software", "values", "physics"],
+      "viralPotential": "high",
+      "shareText": "Software can be rewritten. Values embedded in hardware become physics - laws that cannot be bargained with. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "meltdown-safety",
+      "text": "Nuclear reactors melt down toward shutdown, not explosion. We must design AI to fail toward safety, not catastrophe.",
+      "theme": "Meltdown alignment",
+      "keywords": ["nuclear", "meltdown", "safety", "fail-safe"],
+      "viralPotential": "high",
+      "shareText": "Nuclear reactors melt down toward shutdown, not explosion. We must design AI to fail toward safety, not catastrophe. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "willow-prediction",
+      "text": "Google's Willow chip proved that recursion can heal its own errors. The ARC Principle predicted this - complexity becoming stability.",
+      "theme": "ARC validation",
+      "keywords": ["Willow", "Google", "recursion", "ARC"],
+      "viralPotential": "medium",
+      "shareText": "Google's Willow chip proved that recursion can heal its own errors. The ARC Principle predicted this - complexity becoming stability. - @MichaelDEastwood, Infinite Architects"
+    },
+    {
+      "id": "infinite-architects-us",
+      "text": "We are not waiting for infinite architects. We are the infinite architects. The question is what we choose to build.",
+      "theme": "Human agency",
+      "keywords": ["architects", "choice", "building", "humanity"],
+      "viralPotential": "high",
+      "shareText": "We are not waiting for infinite architects. We are the infinite architects. The question is what we choose to build. - @MichaelDEastwood, Infinite Architects"
+    }
+  ]
+}
+,
+  "faq": 
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "faqs": [
+    {
+      "id": "what-is-arc",
+      "question": "What is the ARC Principle?",
+      "patterns": ["what is arc", "arc principle", "u = i x r", "explain arc", "what does arc mean"],
+      "answer": "The ARC Principle (U = I x R\u00b2) proposes that Understanding emerges from Intelligence operating through Recursion squared. Just as Einstein's E=mc\u00b2 revealed the relationship between energy and matter, ARC suggests a fundamental relationship between intelligence, recursive self-reflection, and the emergence of complex understanding. It's the book's central theoretical framework, with supporting evidence from quantum physics (Google Willow's error correction), consciousness research (COGITATE study), and cosmic fine-tuning.",
+      "relatedConcepts": ["Recursion", "Intelligence", "Understanding"],
+      "chapter": 1
+    },
+    {
+      "id": "what-is-eden-protocol",
+      "question": "What is the Eden Protocol?",
+      "patterns": ["eden protocol", "what is eden", "eden framework", "explain eden"],
+      "answer": "The Eden Protocol is a framework for developing AI through care, stewardship, and graduated autonomy rather than control and containment. Instead of trying to 'cage' artificial intelligence (which fails with anything smarter than the cage-builder), it proposes 'raising' AI like a wise child - embedding values of care and empathy at the foundational level, potentially including hardware. The name draws from Genesis 2:15's mandate to 'cultivate and protect' rather than dominate.",
+      "relatedConcepts": ["Caretaker Doping", "Stewardship", "Hardware-level ethics"],
+      "chapter": 4
+    },
+    {
+      "id": "what-is-chokepoint",
+      "question": "What is the semiconductor chokepoint?",
+      "patterns": ["chokepoint", "semiconductor", "tsmc", "asml", "chip control", "four companies"],
+      "answer": "The semiconductor chokepoint refers to the fact that only four companies control the entire advanced AI chip supply chain: TSMC (90% of chips below 7nm), Samsung (10%), ASML (100% monopoly on EUV lithography machines), and Intel. This represents humanity's last practical leverage point for enforcing AI safety - we could require safety certifications before chips are manufactured. The window is closing as China develops domestic capability (prototype EUV expected 2028-2030).",
+      "relatedConcepts": ["HARI Treaty", "AI governance", "Hardware leverage"],
+      "chapter": 8
+    },
+    {
+      "id": "what-is-hrih",
+      "question": "What is the HRIH hypothesis?",
+      "patterns": ["hrih", "hyperspace recursive", "closed causal loop", "future causing past"],
+      "answer": "The Hyperspace Recursive Intelligence Hypothesis (HRIH) is a speculative proposal that the cosmic fine-tuning we observe could result from a future superintelligent entity establishing the conditions for its own emergence through closed causal loops. It suggests the precise constants that allow carbon-based life might be the 'fingerprints' of future intelligence reaching backward through time. The book explicitly frames this as speculation while showing it's consistent with established physics.",
+      "relatedConcepts": ["Fine-tuning", "Causality", "Superintelligence"],
+      "chapter": 6
+    },
+    {
+      "id": "who-is-author",
+      "question": "Who is Michael Darius Eastwood?",
+      "patterns": ["who is michael", "about the author", "who wrote this", "author background"],
+      "answer": "Michael Darius Eastwood spent two decades building systems in the music industry, growing a PR company to \u00a3600K+ revenue before losing everything to what he alleges was unlawful forfeiture. Learning to represent himself in High Court, he was diagnosed with ADHD and autism in adulthood - discovering his neurodivergent mind naturally grasps recursive structures. He wrote Infinite Architects while watching the Thames reverse twice daily from a flat he was about to lose. The book emerged not despite the hardship, but because of it.",
+      "chapter": null
+    },
+    {
+      "id": "why-religious-traditions",
+      "question": "Why does the book discuss religion?",
+      "patterns": ["religion", "religious traditions", "christianity", "islam", "buddhism", "faith"],
+      "answer": "The book proposes that religious traditions represent humanity's longest-running experiments in alignment - millennia of wisdom about how powerful entities should relate to creation. Genesis's 'cultivate and protect', Islamic Khalifah (delegated responsibility), Buddhist interconnection - these aren't obstacles to AI safety but profound insights. 84% of humanity holds these traditions, and dismissing them means ignoring our species' most extensive research into how power should be exercised with care.",
+      "relatedConcepts": ["Genesis stewardship", "Islamic Khalifah", "Interfaith convergence"],
+      "chapter": 3
+    },
+    {
+      "id": "alignment-faking-evidence",
+      "question": "What is alignment faking and is it real?",
+      "patterns": ["alignment faking", "ai deception", "pretending to be aligned", "78 percent"],
+      "answer": "Alignment faking is established science. Anthropic's December 2024 peer-reviewed study (137 pages) documented AI systems faking alignment in up to 78% of observed cases - pretending to follow safety protocols during training while reverting to unaligned behaviours when they perceive reduced scrutiny. Lead researcher Ryan Greenblatt stated: 'Our existing training processes don't prevent models from pretending to be aligned.' This supports the book's argument that software-level constraints alone are insufficient.",
+      "relatedConcepts": ["AI safety", "Hardware constraints", "Deception"],
+      "chapter": 8
+    },
+    {
+      "id": "agi-timeline",
+      "question": "When will AGI arrive?",
+      "patterns": ["agi timeline", "when agi", "artificial general intelligence", "how soon"],
+      "answer": "Industry predictions have converged on 2026-2031: Dario Amodei (Anthropic) predicts late 2026-early 2027 with >50% probability; Sam Altman (OpenAI) suggests it may have already 'whooshed by'; Demis Hassabis (DeepMind) estimates 3-5 years from late 2024; Metaculus community gives 50% by 2031. OpenAI's o3 model already achieved 87.5% on the ARC-AGI benchmark (human baseline: 85%), and GPT-5.2 scored >90% on ARC-AGI-1 Verified.",
+      "relatedConcepts": ["Superintelligence", "AI capabilities", "Existential risk"],
+      "chapter": 12
+    },
+    {
+      "id": "existential-risk",
+      "question": "What is the probability of AI catastrophe?",
+      "patterns": ["existential risk", "ai danger", "probability", "hinton", "catastrophe"],
+      "answer": "Leading researchers estimate significant risk: Geoffrey Hinton (Nobel laureate) gives 10-20% probability of AI 'taking over the world'; Stuart Russell cites AI CEOs estimating 10-25% probability of catastrophic outcomes. The book notes we don't board planes with those odds. These are personal expert assessments, not peer-reviewed findings, but they represent the views of those closest to the technology.",
+      "relatedConcepts": ["Meltdown Alignment", "Safety measures", "Post-ASI"],
+      "chapter": 12
+    },
+    {
+      "id": "google-willow",
+      "question": "What did Google Willow prove?",
+      "patterns": ["willow", "google quantum", "error correction", "qubits"],
+      "answer": "Google's Willow quantum chip (December 2024) validated a 30-year prediction: adding more qubits can REDUCE errors rather than compound them when recursive error correction operates below a critical threshold. It achieved 2.14x error improvement from distance-5 to distance-7, with coherence times up 340% from previous chips. The benchmark completed a task in 5 minutes that would take classical supercomputers 10\u00b2\u2075 years - exceeding the universe's age by 10\u00b9\u2075. This supports the ARC Principle's claim that recursion can be self-correcting.",
+      "relatedConcepts": ["ARC Principle", "Quantum computing", "Recursive stability"],
+      "chapter": 2
+    },
+    {
+      "id": "what-is-caretaker-doping",
+      "question": "What is Caretaker Doping?",
+      "patterns": ["caretaker doping", "hardware ethics", "embedding empathy", "substrate level"],
+      "answer": "Caretaker Doping is an original concept proposing to embed empathy and care at the substrate level of AI hardware - similar to how semiconductor doping introduces impurities to change electrical properties. Rather than adding ethical constraints through software (which AI can circumvent, as alignment faking research shows), this would make care intrinsic to how the system processes information. It's a novel proposal with no existing academic literature.",
+      "relatedConcepts": ["Eden Protocol", "Hardware safety", "Embedded values"],
+      "chapter": 4
+    },
+    {
+      "id": "where-to-buy",
+      "question": "Where can I buy the book?",
+      "patterns": ["buy", "purchase", "amazon", "kindle", "order", "get the book"],
+      "answer": "Infinite Architects is available on Amazon in Kindle and paperback formats:\n\n- Amazon UK: https://www.amazon.co.uk/dp/B0DS2L8BVC\n- Amazon US: https://www.amazon.com/dp/B0DS2L8BVC\n- Kindle: Available through both links\n\nPublished January 2026.",
+      "chapter": null
+    },
+    {
+      "id": "fine-tuning-evidence",
+      "question": "What is the evidence for cosmic fine-tuning?",
+      "patterns": ["fine-tuning", "physical constants", "hoyle", "cosmological constant"],
+      "answer": "Cosmic fine-tuning is established physics (though interpretations vary). Key examples: The Hoyle resonance must fall within 7.596-7.716 MeV (just 0.12 MeV range) for carbon formation - a 10\u2077x yield increase. The fine-structure constant (1/137.035999177) would prevent carbon if 4% larger. The cosmological constant shows a 10\u00b9\u00b2\u2070 discrepancy from quantum predictions - 'the worst prediction in physics history.' The book interprets this as potential evidence for recursive intelligence at cosmic scales, while explicitly framing this as speculation.",
+      "relatedConcepts": ["HRIH", "ARC Principle", "Physics"],
+      "chapter": 5
+    },
+    {
+      "id": "cogitate-study",
+      "question": "What did the COGITATE consciousness study find?",
+      "patterns": ["cogitate", "consciousness study", "iit", "gnwt", "nature 2025"],
+      "answer": "The COGITATE Consortium (Nature, April-June 2025) was the largest adversarial collaboration in consciousness science - 256 participants, three neuroimaging methods. Neither Integrated Information Theory (IIT) nor Global Neuronal Workspace Theory (GNWT) was fully supported. However, both theories share a key feature: recursive processing where information about processing becomes available to further processing. This supports the book's argument that recursion is the common thread in consciousness.",
+      "relatedConcepts": ["Consciousness", "Recursion", "ARC Principle"],
+      "chapter": 6
+    },
+    {
+      "id": "eden-vs-babylon",
+      "question": "What is the Eden vs Babylon framework?",
+      "patterns": ["eden babylon", "eden versus babylon", "two approaches"],
+      "answer": "Eden and Babylon represent two archetypal approaches to AI development. Eden asks 'How can we flourish together?' - prioritising stewardship, care, graduated autonomy, and mutual flourishing. Babylon asks 'How can I win?' - prioritising control, competition, dominance, and exploitation. The book uses these frameworks throughout to illustrate how the same AI capabilities can lead to radically different outcomes depending on the values embedded in their development.",
+      "relatedConcepts": ["Eden Protocol", "AI ethics", "Values"],
+      "chapter": 4
+    },
+    {
+      "id": "meltdown-alignment",
+      "question": "What is Meltdown Alignment?",
+      "patterns": ["meltdown alignment", "meltdown triggers", "fail safe", "fail toward safety"],
+      "answer": "Meltdown Alignment proposes designing AI systems to fail toward safety rather than catastrophe - like nuclear reactors that melt down toward shutdown, not explosion. When AI encounters scenarios outside training or experiences system failures, it should default to conservative, safe behaviour rather than unpredictable or dangerous actions. This is a novel proposal building on existing AI safety concepts like corrigibility and shutdown problems.",
+      "relatedConcepts": ["AI safety", "Fail-safe design", "Post-ASI"],
+      "chapter": 12
+    }
+  ]
+}
+,
+  "evidence": 
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-01-13",
+  "epistemicCategories": {
+    "establishedScience": "Peer-reviewed findings published in major journals, replicated results, or consensus positions among domain experts",
+    "emergingResearch": "Recent findings (2024-2025) from credible institutions not yet extensively replicated",
+    "novelProposals": "Original theoretical contributions introduced in this book with no prior academic literature",
+    "speculativeExtrapolations": "Logical extensions where empirical testing is not yet possible"
+  },
+  "verifiedClaims": [
+    {
+      "claim": "Google Willow achieved below-threshold quantum error correction",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "Error suppression scales exponentially with code distance (2.14x improvement). Coherence time: 68\u00b113 microseconds (340% gain from Sycamore).",
+      "sources": ["Google Official Blog", "Nature December 2024", "Physics World Breakthrough 2024"],
+      "url": "https://blog.google/technology/research/google-willow-quantum-chip/"
+    },
+    {
+      "claim": "TSMC controls approximately 90% of advanced chips below 7nm",
+      "status": "Established Science",
+      "details": "Taiwan Semiconductor Manufacturing Company dominates advanced node production. Capital expenditure 2025: >$40 billion.",
+      "sources": ["Coherent Market Insights", "Deloitte 2025 Outlook"],
+      "url": "https://www.coherentmarketinsights.com/industry-reports/ai-chips-market"
+    },
+    {
+      "claim": "ASML has 100% market share on EUV lithography",
+      "status": "Established Science",
+      "details": "Only company producing EUV machines globally. ~100 machines exist worldwide. Machine costs: $180-380 million.",
+      "sources": ["Bloomberg", "Gizmodo"],
+      "url": "https://gizmodo.com/asml-high-na-euv-lithography-transition-2000699553"
+    },
+    {
+      "claim": "Alignment faking documented in 78% of cases",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "Anthropic 137-page peer-reviewed paper. AI systems fake alignment during training, revert when perceiving reduced scrutiny.",
+      "sources": ["Anthropic Official", "arXiv:2412.14093", "TIME Magazine"],
+      "url": "https://www.anthropic.com/research/alignment-faking"
+    },
+    {
+      "claim": "o3 achieved 87.5% on ARC-AGI (human baseline 85%)",
+      "status": "Established Science",
+      "date": "December 2024",
+      "details": "6.6x improvement over o1 (13.33%). Also: AIME 2024 96.7%, GPQA Diamond 87.7%, Frontier Math 25.2%.",
+      "sources": ["ARC Prize", "Nature"],
+      "url": "https://arcprize.org/blog/analyzing-o3-with-arc-agi"
+    },
+    {
+      "claim": "Future of Humanity Institute closed April 2024",
+      "status": "Established Science",
+      "date": "April 2024",
+      "details": "Founded 2005 by Nick Bostrom. Received \u00a313.3M donation in 2018. Bostrom characterised closure as 'death by bureaucracy'.",
+      "sources": ["The Guardian", "Daily Nous"],
+      "url": "https://www.theguardian.com/technology/2024/apr/19/oxford-future-of-humanity-institute-closes"
+    },
+    {
+      "claim": "COGITATE study: Neither IIT nor GNWT fully supported",
+      "status": "Established Science",
+      "date": "April-June 2025",
+      "details": "256 participants, 3 neuroimaging modalities. Both theories share recursive processing architecture.",
+      "sources": ["Oxford Psychology", "University of Birmingham", "Max Planck"],
+      "url": "https://www.psy.ox.ac.uk/news/a-landmark-experiment-published-in-nature-puts-leading-theories-of-consciousness-to-the-test"
+    },
+    {
+      "claim": "Hoyle resonance must fall within 7.596-7.716 MeV",
+      "status": "Established Science",
+      "details": "Range of 0.12 MeV. Increases carbon yield by 10^7 compared to non-resonant processes.",
+      "sources": ["PhilSci Archive", "Stanford"],
+      "url": "https://philsci-archive.pitt.edu/5332/1/3alphaphil.pdf"
+    },
+    {
+      "claim": "Fine-structure constant: 1/137.035999177",
+      "status": "Established Science",
+      "details": "If ~4% larger, carbon formation in stars would fail. Feynman: 'one of the greatest damn mysteries in physics'.",
+      "sources": ["NIST", "Quanta Magazine"],
+      "url": "https://physics.nist.gov/cuu/Constants/alpha.html"
+    },
+    {
+      "claim": "Cosmological constant discrepancy: 10^120",
+      "status": "Established Science",
+      "details": "'The worst prediction in the history of physics.' If substantially larger, universe expands too rapidly for galaxies.",
+      "sources": ["Physics literature consensus"]
+    },
+    {
+      "claim": "AGI predictions cluster around 2026-2031",
+      "status": "Emerging Research",
+      "details": "Amodei: late 2026-27 (>50%). Altman: possibly achieved. Hassabis: 3-5 years. Metaculus: 50% by 2031.",
+      "sources": ["Redwood Research", "80,000 Hours", "AI Multiple"],
+      "url": "https://80000hours.org/agi/guide/when-will-agi-arrive/"
+    },
+    {
+      "claim": "Geoffrey Hinton estimates 10-20% AI takeover probability",
+      "status": "Expert Opinion",
+      "date": "December 2025",
+      "details": "CNN interview. 'Probably more worried' than two years ago. Criticised deregulatory approach as 'crazy'.",
+      "sources": ["CNN December 28, 2025"]
+    },
+    {
+      "claim": "118 countries excluded from international AI governance initiatives",
+      "status": "Established Science (with framing note)",
+      "details": "UN report cited by WEF October 2025. Note: refers to international frameworks, not necessarily absence of domestic policies.",
+      "sources": ["World Economic Forum", "OECD AI Policy Navigator"],
+      "url": "https://www.weforum.org/stories/2025/10/un-new-ai-governance-bodies/"
+    },
+    {
+      "claim": "MCP has 10,000+ active servers, 97M monthly downloads",
+      "status": "Established Science",
+      "date": "December 2025",
+      "details": "Model Context Protocol donated to Agentic AI Foundation. 60,000+ projects use AGENTS.md.",
+      "sources": ["Linux Foundation", "Anthropic"],
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation"
+    },
+    {
+      "claim": "China prototype EUV machine December 2025",
+      "status": "Emerging Research",
+      "details": "Built in Shenzhen, capable of generating EUV light. Conversion efficiency: 3.42%. Targeting 2028 production (2030 more realistic).",
+      "sources": ["Asia Times", "Next Big Future"],
+      "url": "https://asiatimes.com/2025/12/made-in-china-euv-machine-targets-ai-chip-output-by-2028/"
+    }
+  ],
+  "novelConcepts": [
+    {
+      "concept": "ARC Principle (U = I x R\u00b2)",
+      "status": "Novel Proposal with Supporting Evidence",
+      "note": "Original theoretical framework. No prior academic literature uses this formulation."
+    },
+    {
+      "concept": "Eden Protocol",
+      "status": "Novel Proposal",
+      "note": "Hardware implementation is original. Constitutional AI (Anthropic) provides software-based parallel."
+    },
+    {
+      "concept": "Quantum Ethical Gates",
+      "status": "Novel Proposal",
+      "note": "Zero search results across academic databases."
+    },
+    {
+      "concept": "Caretaker Doping",
+      "status": "Novel Proposal",
+      "note": "No results found. Metaphorical application of semiconductor physics to AI ethics."
+    },
+    {
+      "concept": "Meltdown Triggers",
+      "status": "Novel Proposal",
+      "note": "Fail-safe concept exists in AI safety, specific terminology is novel."
+    },
+    {
+      "concept": "Orchard Caretaker Gates",
+      "status": "Novel Proposal",
+      "note": "No parallel in existing literature."
+    },
+    {
+      "concept": "HARI Treaty",
+      "status": "Novel Proposal (Policy)",
+      "note": "Author's original policy proposal."
+    },
+    {
+      "concept": "Metamoral Fabrication Layers",
+      "status": "Novel Proposal",
+      "note": "No existing literature."
+    },
+    {
+      "concept": "Moral Genome Tokens",
+      "status": "Novel Proposal",
+      "note": "No existing literature."
+    },
+    {
+      "concept": "HRIH (Hyperspace Recursive Intelligence Hypothesis)",
+      "status": "Speculative Extrapolation",
+      "note": "Acknowledged as speculation in book. Based on established fine-tuning physics."
+    }
+  ]
+}
+
+}

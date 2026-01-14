@@ -1,0 +1,262 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE FIX OVERRIDE BLOCK
+   Add this AFTER all existing CSS (before </style> tag)
+   This overrides the problematic snap/overflow rules
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* OVERRIDE 1: Disable aggressive snap - use proximity instead */
+html {
+    scroll-snap-type: y proximity !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+body {
+    scroll-snap-type: y proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+/* OVERRIDE 2: Allow snap sections to expand and scroll */
+.snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal !important; /* Don't force stop */
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-height: none !important; /* CRITICAL: Remove height constraint */
+    height: auto !important; /* CRITICAL: Let content determine height */
+    overflow: visible !important; /* CRITICAL: Show all content */
+    overflow-y: visible !important;
+}
+
+/* OVERRIDE 3: Allow content wrappers to expand */
+.snap-section > .section-inner,
+.snap-section > .container,
+.snap-section > [class*="-inner"],
+.snap-section > [class*="-content"],
+.snap-section > div:first-child:not(canvas) {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* OVERRIDE 4: Fix evidence locker */
+.evidence-locker-inner {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.evidence-locker .evidence-grid {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* OVERRIDE 5: Fix HRIH section */
+.hrih-section .hrih-content {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* OVERRIDE 6: Fix timeline evidence */
+.timeline-evidence-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* OVERRIDE 7: iOS Safari fix */
+@supports (-webkit-touch-callout: none) {
+    html, body {
+        scroll-snap-type: y proximity !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .snap-section {
+        scroll-snap-stop: normal !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE-SPECIFIC OVERRIDES
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* Allow sections to be scrollable on mobile */
+    .snap-section {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    /* Ideas grid - horizontal scroll */
+    .ideas-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 1rem !important;
+        padding: 1rem 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-height: none !important;
+    }
+    
+    .ideas-grid .idea-card {
+        flex: 0 0 85vw !important;
+        max-width: 85vw !important;
+        min-width: 280px !important;
+        scroll-snap-align: center !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    /* Evidence grid - 2 columns, scrollable */
+    .evidence-grid,
+    .evidence-locker .evidence-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+        overflow: visible !important;
+        max-height: none !important;
+    }
+    
+    /* BBC evidence section */
+    .bbc-evidence-section.snap-section,
+    .bbc-evidence-card {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+    
+    .bbc-evidence-card__video {
+        max-height: 50vh !important;
+        width: 100% !important;
+    }
+    
+    /* Religion section */
+    .religion-section.snap-section {
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    .religion-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        overflow: visible !important;
+    }
+    
+    /* HRIH section */
+    .hrih-section.snap-section {
+        height: auto !important;
+        max-height: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Even gentler snap on small phones */
+    html {
+        scroll-snap-type: none !important; /* Disable snap entirely on small phones */
+    }
+    
+    .snap-section {
+        scroll-snap-align: none !important;
+        scroll-snap-stop: normal !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 1rem 2rem !important;
+    }
+    
+    /* Full-width cards on small phones */
+    .ideas-grid .idea-card {
+        flex: 0 0 90vw !important;
+        max-width: 90vw !important;
+    }
+    
+    /* Single column evidence on small phones */
+    .evidence-grid,
+    .evidence-locker .evidence-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SCROLL INDICATOR FOR MOBILE
+   Shows users they can scroll
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .snap-section {
+        position: relative;
+    }
+    
+    /* Subtle gradient at bottom indicating more content */
+    .snap-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(to top, var(--void, #02030a) 0%, transparent 100%);
+        pointer-events: none;
+        opacity: 0.8;
+        z-index: 10;
+    }
+    
+    /* Hide gradient on last section */
+    .snap-section:last-of-type::after {
+        display: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SWIPE HINT FOR HORIZONTAL SCROLLING ELEMENTS
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .ideas-section .swipe-hint,
+    .swipe-hint {
+        display: block !important;
+        text-align: center;
+        font-size: 0.7rem;
+        color: var(--text-faint, rgba(240, 235, 227, 0.3));
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-top: 0.5rem;
+        animation: swipeHintPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes swipeHintPulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PERFORMANCE OPTIMIZATIONS FOR MOBILE
+   ═══════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* Disable expensive effects on mobile */
+    .film-grain,
+    .particle-canvas,
+    #canvas-container canvas {
+        display: none !important;
+    }
+    
+    /* Simpler transitions */
+    .idea-card,
+    .evidence-card,
+    .prophecy-card {
+        transition: transform 0.2s ease, opacity 0.2s ease !important;
+    }
+    
+    /* Disable backdrop-filter for smooth scrolling */
+    .nav,
+    .idea-card,
+    .evidence-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}

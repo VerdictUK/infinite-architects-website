@@ -1,0 +1,702 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS - HERO SECTION LAYOUT FIX
+   
+   PROBLEM: Overlapping panels, cramped spacing, improper visual hierarchy
+   
+   SOLUTION: Complete hero restructure with proper spacing, flexbox layout,
+   and clear visual hierarchy: Status → Title → Subtitle → Author → Book → CTAs → Trust
+   
+   INSTALLATION: Add this CSS at the END of your stylesheet
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   1. HERO SECTION - Master Container Reset
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero,
+.hero.snap-section,
+section.hero {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    padding: 120px 2rem 100px !important; /* Top: nav + ticker, Bottom: proof bar */
+    gap: 0 !important; /* We'll control spacing with margins */
+    text-align: center !important;
+    position: relative !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    box-sizing: border-box !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   2. STATUS PILL - "WILLOW PREDICTION VERIFIED"
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-status-pill,
+.hero .hero-status-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 0.6rem 1.25rem !important;
+    background: rgba(34, 197, 94, 0.08) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    border-radius: 100px !important;
+    margin-bottom: 2rem !important; /* Space below pill */
+    position: relative !important;
+    z-index: 10 !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.hero-status-pill .pill-dot,
+.pill-dot {
+    width: 8px !important;
+    height: 8px !important;
+    background: #22c55e !important;
+    border-radius: 50% !important;
+    animation: statusPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-status-pill .pill-text,
+.pill-text {
+    font-family: var(--font-mono, 'Space Mono', monospace) !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.1em !important;
+    color: #22c55e !important;
+    text-transform: uppercase !important;
+}
+
+.hero-status-pill .pill-link,
+.pill-link {
+    color: rgba(34, 197, 94, 0.8) !important;
+    font-family: var(--font-mono, 'Space Mono', monospace) !important;
+    font-size: 0.7rem !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+}
+
+.pill-link:hover {
+    color: #22c55e !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   3. HERO TITLE - "INFINITE ARCHITECTS"
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-title,
+.hero .hero-title,
+#hero-title {
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: clamp(2.5rem, 8vw, 4.5rem) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.15em !important;
+    color: var(--text, #f0ebe3) !important;
+    margin: 0 0 1rem 0 !important; /* Space below title */
+    line-height: 1.1 !important;
+    text-transform: uppercase !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   4. HERO SUBTITLE - Tagline
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-subtitle,
+.hero .hero-subtitle {
+    font-family: var(--font-serif, 'Cormorant Garamond', Georgia, serif) !important;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem) !important;
+    font-style: italic !important;
+    color: var(--text-secondary, rgba(240, 235, 227, 0.85)) !important;
+    margin: 0 0 0.5rem 0 !important;
+    line-height: 1.5 !important;
+    max-width: 600px !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.hero-subtitle-secondary,
+.hero .hero-subtitle-secondary {
+    font-family: var(--font-serif, 'Cormorant Garamond', Georgia, serif) !important;
+    font-size: clamp(0.95rem, 2vw, 1.15rem) !important;
+    color: var(--text-secondary, rgba(240, 235, 227, 0.85)) !important;
+    margin: 0 0 1.5rem 0 !important; /* Space before author */
+    line-height: 1.6 !important;
+    max-width: 500px !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.hero-urgency {
+    color: var(--gold, #d4a84b) !important;
+    font-style: italic !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   5. HERO AUTHOR
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-author,
+.hero .hero-author {
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.25em !important;
+    color: var(--gold, #d4a84b) !important;
+    text-transform: uppercase !important;
+    margin: 0 0 2rem 0 !important; /* Space before book */
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   6. BOOK CONTAINER - Centered with Proper Spacing
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-book-container,
+.hero .hero-book-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 0 2.5rem 0 !important; /* Space below book */
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.hero-book,
+.hero .hero-book,
+#hero-book {
+    width: clamp(180px, 28vw, 280px) !important;
+    height: auto !important;
+    aspect-ratio: 2/3 !important;
+    border-radius: 4px !important;
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(212, 168, 75, 0.15) !important;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
+    position: relative !important;
+}
+
+.hero-book:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+}
+
+.book-shadow,
+#book-shadow {
+    margin-top: 1rem !important;
+    width: 70% !important;
+    height: 20px !important;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%) !important;
+    filter: blur(8px) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   7. CTA STACK - Email + Amazon + Preview (Proper Spacing)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-cta-stack,
+.hero .hero-cta-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    margin: 0 0 1.5rem 0 !important; /* Space below CTAs */
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Email Capture Box */
+.hero-email-capture,
+.hero .hero-email-capture,
+#hero-email-capture {
+    width: 100% !important;
+    padding: 1.5rem !important;
+    background: rgba(212, 168, 75, 0.06) !important;
+    border: 1px solid rgba(212, 168, 75, 0.2) !important;
+    border-radius: 16px !important;
+    text-align: center !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.hero-email-hook {
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: 0.95rem !important;
+    color: var(--text, #f0ebe3) !important;
+    margin: 0 0 1rem 0 !important;
+}
+
+.hero-email-form,
+#hero-email-form {
+    display: flex !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+}
+
+.hero-email-input,
+#hero-email-input {
+    flex: 1 !important;
+    min-width: 0 !important;
+    padding: 0.85rem 1rem !important;
+    background: rgba(2, 3, 10, 0.6) !important;
+    border: 1px solid rgba(212, 168, 75, 0.2) !important;
+    border-radius: 8px !important;
+    color: var(--text, #f0ebe3) !important;
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: 0.95rem !important;
+    min-height: 48px !important;
+}
+
+.hero-email-input:focus {
+    outline: none !important;
+    border-color: var(--gold, #d4a84b) !important;
+    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.15) !important;
+}
+
+.hero-email-input::placeholder {
+    color: rgba(240, 235, 227, 0.5) !important;
+}
+
+.hero-email-submit,
+#hero-email-submit {
+    padding: 0.85rem 1.5rem !important;
+    background: linear-gradient(135deg, var(--gold, #d4a84b) 0%, #f4d675 100%) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: var(--void-deep, #02030a) !important;
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.hero-email-submit:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(212, 168, 75, 0.4) !important;
+}
+
+.hero-email-reassurance {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.65rem !important;
+    color: rgba(240, 235, 227, 0.5) !important;
+    margin: 0.75rem 0 0 0 !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Amazon Button */
+.hero-cta-secondary,
+.hero .hero-cta-secondary,
+#hero-amazon-cta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    background: transparent !important;
+    border: 1px solid rgba(212, 168, 75, 0.4) !important;
+    border-radius: 8px !important;
+    color: var(--gold, #d4a84b) !important;
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    min-height: 52px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.hero-cta-secondary:hover {
+    background: rgba(212, 168, 75, 0.1) !important;
+    border-color: var(--gold, #d4a84b) !important;
+    transform: translateY(-2px) !important;
+}
+
+.hero-cta-price {
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.75rem !important;
+    opacity: 0.7 !important;
+}
+
+/* Preview Link */
+.hero-preview-link {
+    background: transparent !important;
+    border: none !important;
+    color: rgba(240, 235, 227, 0.6) !important;
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    padding: 0.5rem 1rem !important;
+    transition: color 0.2s ease !important;
+}
+
+.hero-preview-link:hover {
+    color: var(--gold, #d4a84b) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   8. TRUST SIGNALS
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-trust-signals,
+.hero .hero-trust-signals {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+    margin: 0 0 2rem 0 !important; /* Space below trust signals */
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.hero-trust-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.7rem !important;
+    color: rgba(240, 235, 227, 0.6) !important;
+    letter-spacing: 0.03em !important;
+}
+
+.hero-trust-item svg {
+    width: 14px !important;
+    height: 14px !important;
+    color: var(--gold, #d4a84b) !important;
+    opacity: 0.7 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   9. SOCIAL PROOF BAR - Fixed at Bottom
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-proof-bar,
+.hero .hero-proof-bar {
+    position: absolute !important;
+    bottom: 2rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    padding: 0.75rem 2rem !important;
+    background: rgba(2, 3, 10, 0.8) !important;
+    border: 1px solid rgba(212, 168, 75, 0.15) !important;
+    border-radius: 100px !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    z-index: 100 !important;
+    white-space: nowrap !important;
+}
+
+.hero-proof-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.7rem !important;
+    color: rgba(240, 235, 227, 0.7) !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+}
+
+.hero-proof-icon {
+    font-size: 0.9rem !important;
+}
+
+.hero-proof-divider {
+    width: 1px !important;
+    height: 16px !important;
+    background: rgba(212, 168, 75, 0.3) !important;
+}
+
+.hero-proof-live {
+    color: var(--gold, #d4a84b) !important;
+}
+
+.hero-proof-dot {
+    width: 6px !important;
+    height: 6px !important;
+    background: #22c55e !important;
+    border-radius: 50% !important;
+    animation: proofPulse 1.5s ease-in-out infinite !important;
+}
+
+@keyframes proofPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   10. SCROLL INDICATOR
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.scroll-indicator,
+.hero .scroll-indicator {
+    position: absolute !important;
+    bottom: 6rem !important;
+    right: 2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.6rem !important;
+    color: rgba(240, 235, 227, 0.4) !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    z-index: 10 !important;
+}
+
+.scroll-line {
+    width: 1px !important;
+    height: 40px !important;
+    background: linear-gradient(to bottom, var(--gold, #d4a84b), transparent) !important;
+    animation: scrollPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; height: 40px; }
+    50% { opacity: 0.8; height: 50px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   11. CHAPTER NAVIGATION (Left sidebar) - Fix overlap
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.chapter-nav,
+.chapter-sidebar,
+.part-nav,
+[class*="chapter-nav"],
+[class*="part-nav"] {
+    position: fixed !important;
+    left: 1.5rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1000 !important;
+    background: rgba(2, 3, 10, 0.6) !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(212, 168, 75, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   12. HERO CONTENT WRAPPER (if using two-column layout)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-content,
+.hero-content-right,
+.hero .hero-content-right {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    max-width: 600px !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   13. MOBILE RESPONSIVE - Stack properly
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .hero,
+    .hero.snap-section {
+        padding: 100px 1.25rem 120px !important;
+        min-height: 100svh !important;
+    }
+    
+    .hero-status-pill {
+        margin-bottom: 1.5rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+    
+    .hero-status-pill .pill-text,
+    .pill-text {
+        font-size: 0.6rem !important;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.8rem, 10vw, 2.8rem) !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(0.95rem, 4vw, 1.1rem) !important;
+    }
+    
+    .hero-subtitle-secondary {
+        margin-bottom: 1rem !important;
+    }
+    
+    .hero-author {
+        font-size: 0.75rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .hero-book,
+    #hero-book {
+        width: clamp(140px, 38vw, 200px) !important;
+    }
+    
+    .hero-book-container {
+        margin-bottom: 2rem !important;
+    }
+    
+    .hero-cta-stack {
+        max-width: 100% !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .hero-email-form {
+        flex-direction: column !important;
+    }
+    
+    .hero-email-submit {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    .hero-trust-signals {
+        gap: 1rem !important;
+    }
+    
+    .hero-trust-item {
+        font-size: 0.6rem !important;
+    }
+    
+    /* Proof bar - horizontal scroll on mobile */
+    .hero-proof-bar {
+        bottom: 1.5rem !important;
+        gap: 1rem !important;
+        padding: 0.6rem 1.25rem !important;
+        max-width: calc(100vw - 2rem) !important;
+    }
+    
+    .hero-proof-divider {
+        display: none !important;
+    }
+    
+    .hero-proof-item {
+        font-size: 0.6rem !important;
+    }
+    
+    /* Hide scroll indicator on mobile */
+    .scroll-indicator {
+        display: none !important;
+    }
+    
+    /* Chapter nav - hide on mobile or make compact */
+    .chapter-nav,
+    .chapter-sidebar,
+    .part-nav {
+        display: none !important; /* Or position differently */
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .hero {
+        padding: 90px 1rem 110px !important;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.5rem, 12vw, 2.2rem) !important;
+        letter-spacing: 0.1em !important;
+    }
+    
+    .hero-email-capture {
+        padding: 1rem !important;
+    }
+    
+    .hero-proof-bar {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem 1rem !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   14. ENSURE PROPER STACKING ORDER (Z-INDEX)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero {
+    /* Background layers */
+    --z-bg: 1;
+    --z-particles: 2;
+    --z-video: 3;
+    /* Content */
+    --z-content: 10;
+    /* Navigation */
+    --z-nav: 100;
+    --z-proof-bar: 100;
+}
+
+.mandelbrot-bg,
+.hero-bg,
+#canvas-container {
+    z-index: var(--z-bg, 1) !important;
+}
+
+.hero-status-pill,
+.hero-title,
+.hero-subtitle,
+.hero-author,
+.hero-book-container,
+.hero-cta-stack,
+.hero-trust-signals {
+    z-index: var(--z-content, 10) !important;
+}
+
+.hero-proof-bar {
+    z-index: var(--z-proof-bar, 100) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   15. FIX ANY NEGATIVE MARGINS CAUSING OVERLAP
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero * {
+    margin-top: unset;
+}
+
+.hero > * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Then apply specific margins */
+.hero-status-pill { margin-bottom: 1.5rem !important; }
+.hero-title { margin-bottom: 0.75rem !important; }
+.hero-subtitle { margin-bottom: 0.5rem !important; }
+.hero-subtitle-secondary { margin-bottom: 1.25rem !important; }
+.hero-author { margin-bottom: 1.5rem !important; }
+.hero-book-container { margin-bottom: 2rem !important; }
+.hero-cta-stack { margin-bottom: 1.25rem !important; }
+.hero-trust-signals { margin-bottom: 0 !important; }

@@ -1,0 +1,326 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS - SURGICAL VISIBILITY FIX
+   Version: 1.0
+   Date: January 14, 2026
+   
+   PURPOSE: Fix content being cut off from Part III onwards
+   METHOD: Override specific height constraints, preserve everything else
+   
+   INSTALLATION: 
+   1. Add this ENTIRE file to the END of sovereign.css
+   2. Or link as separate stylesheet AFTER sovereign.css
+   
+   PRESERVES:
+   ✓ Cinematic loader animation
+   ✓ All opacity/visibility transitions  
+   ✓ Book portal effects
+   ✓ Film grain overlay
+   ✓ Chapter gates
+   ✓ All custom animations
+   ✓ Mobile responsiveness
+   
+   FIXES:
+   ✓ Line 2271: .ideas-grid max-height constraint
+   ✓ Line 5206: .religion-inner max-height constraint
+   ✓ Line 7728: .bbc-evidence-card max-height constraint
+   ✓ Snap scroll trapping users in sections
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   1. DISABLE AGGRESSIVE SCROLL SNAP
+   Allows normal scrolling through entire page
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+html {
+    scroll-snap-type: none !important;
+}
+
+html.cinematic-ready {
+    scroll-snap-type: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+body.cinematic-ready {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   2. SNAP SECTIONS - Remove height caps, allow natural flow
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.snap-section {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: clip !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   3. FIX: Line 2271 - ideas-grid constraint
+   Original: max-height: calc(100vh - 12rem); overflow-y: auto;
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.ideas-grid {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+@media (max-width: 1200px) {
+    .ideas-grid {
+        max-height: none !important;
+        overflow: visible !important;
+        overflow-x: auto !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   4. FIX: Line 5206 - religion-inner constraint
+   Original: max-height: calc(100vh - 14rem);
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.religion-inner {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.religion-section,
+.religion-section.snap-section {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   5. FIX: Line 7728 - bbc-evidence-card constraint
+   Original: max-height: calc(100vh - var(--ticker-height) - var(--nav-height) - 8rem);
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.bbc-evidence-card,
+.timeline-evidence-section .bbc-evidence-card {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.timeline-evidence-section,
+.timeline-evidence-section.snap-section {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   6. ALL NAMED SECTIONS - Ensure none are constrained
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.about-section,
+.chokepoint-section,
+.predictions-section,
+.falsification-section,
+.hrih-section,
+.equation-section,
+.expert-validation,
+.evidence-locker,
+.future-born-section,
+.cta-section,
+.carousel-section,
+.prophecy-section,
+.press-section {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   7. ALL GRID CONTAINERS - Remove height caps
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.predictions-grid,
+.evidence-grid,
+.expert-grid,
+.falsification-grid,
+.press-grid {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   8. ALL INNER CONTAINERS - Remove height caps
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.about-inner,
+.religion-inner,
+.chokepoint-inner,
+.predictions-inner,
+.falsification-inner,
+.hrih-inner,
+.equation-inner,
+.section-inner {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   9. CHAPTER GATES - Allow natural height
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.chapter-gate {
+    min-height: 40vh !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   10. QUOTE BREAKERS - Allow natural height
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.quote-breaker,
+.quote-section {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   11. HERO SECTION - Fix overflow without breaking animations
+   Only applies AFTER cinematic-ready (preserves intro)
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+body.cinematic-ready .hero,
+body.cinematic-ready .hero.snap-section {
+    overflow: visible !important;
+    overflow-x: clip !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   12. CARD TEXT - Remove line-clamp truncation (show full content)
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.idea-text,
+.prediction-desc,
+.evidence-desc {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   13. MAIN CONTENT - Ensure visible after loader
+   Only applies AFTER cinematic-ready (preserves intro)
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+body.cinematic-ready main,
+body.cinematic-ready #main-content,
+body.cinematic-ready .content {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   14. VIDEO CONTAINERS - Keep overflow hidden (they need it)
+   This PRESERVES video clipping while allowing content to flow
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.mandelbrot-bg,
+.bbc-evidence-card__video,
+[class*="-video-container"],
+[class*="-bg-wrapper"],
+[class*="-visual-wrapper"] {
+    overflow: hidden !important; /* These NEED overflow hidden */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   15. LOADER - Explicitly preserve (DO NOT TOUCH)
+   This ensures loader animations work correctly
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+#loader,
+.loader,
+.loader-ui,
+#loader-canvas {
+    /* No changes - preserve all loader behavior */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   16. MOBILE SAFETY - Ensure scrolling works on all devices
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .snap-section,
+    section,
+    [class*="-section"] {
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    
+    [class*="-inner"],
+    [class*="-grid"]:not(.loader-grid) {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   17. SHORT VIEWPORT SAFETY - Override max-height media query at line 7930
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-height: 700px) {
+    .snap-section {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   END OF SURGICAL FIX
+   
+   VERIFICATION CHECKLIST:
+   □ Intro animation plays normally
+   □ Loader completes and reveals content  
+   □ Hero section fully visible
+   □ Part I (The Mind) - Author section visible
+   □ Part II (The Ideas) - 37 concepts grid visible
+   □ Part III (Philosophy) - Religion section visible
+   □ Part IV (Evidence) - BBC card visible
+   □ Part V (Stakes) - All content visible
+   □ Part VI (Call) - CTA section visible
+   □ Footer visible
+   □ Page scrolls completely from top to bottom
+   □ No horizontal scroll bar
+   □ Mobile works correctly
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */

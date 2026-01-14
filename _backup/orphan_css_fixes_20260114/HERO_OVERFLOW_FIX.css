@@ -1,0 +1,562 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS - HERO OVERFLOW & LAYOUT FIX
+   
+   ROOT CAUSE: Line 3790 has `overflow: hidden` which cuts off content
+   Combined with min-height: 100vh, content doesn't fit
+   
+   SOLUTION: Remove overflow constraint, allow natural height growth,
+   fix grid layout to accommodate all elements
+   
+   INSTALLATION: Add this CSS at the VERY END of your stylesheet
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   1. HERO MASTER FIX - Remove overflow constraint
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero,
+.hero.snap-section,
+section.hero,
+#hero {
+    /* CRITICAL: Remove the overflow hidden that's cutting off content */
+    overflow: visible !important;
+    overflow-x: clip !important; /* Clip horizontal only to prevent scroll bar */
+    overflow-y: visible !important;
+    
+    /* Allow height to grow with content */
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+    height: auto !important;
+    max-height: none !important;
+    
+    /* Base layout */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    
+    /* Proper padding */
+    padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem) !important;
+    padding-bottom: 3rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    
+    /* Ensure it's positioned for absolute children */
+    position: relative !important;
+    
+    /* Add gap between children */
+    gap: 0.75rem !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   2. DESKTOP GRID LAYOUT FIX (1025px+)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1025px) {
+    .hero,
+    .hero.snap-section,
+    #hero {
+        /* Grid layout for two columns */
+        display: grid !important;
+        grid-template-columns: minmax(300px, 1fr) minmax(400px, 1.2fr) !important;
+        grid-template-rows: auto auto auto !important; /* Allow rows to size naturally */
+        grid-template-areas:
+            "pill pill"
+            "book content"
+            "proof proof" !important;
+        
+        gap: 1.5rem 3rem !important;
+        
+        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1.5rem) 5% 2rem !important;
+        
+        align-items: start !important;
+        justify-items: center !important;
+        
+        text-align: left !important;
+        
+        /* CRITICAL - allow content to flow */
+        overflow: visible !important;
+        overflow-x: clip !important;
+        overflow-y: visible !important;
+        min-height: 100vh !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+    
+    /* Status pill - top spanning both columns */
+    .hero-status-pill {
+        grid-area: pill !important;
+        justify-self: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Book container - left column */
+    .hero-book-container {
+        grid-area: book !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        position: sticky !important;
+        top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem) !important;
+        align-self: start !important;
+    }
+    
+    /* Content - right column (all the text/CTAs) */
+    .hero-content-right {
+        grid-area: content !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        max-width: 550px !important;
+        overflow: visible !important;
+        /* Allow content to determine height */
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+    }
+    
+    /* Hide badge on desktop (redundant with pill) */
+    .hero-badge {
+        display: none !important;
+    }
+    
+    /* Scroll indicator - bottom row or absolute */
+    .scroll-indicator {
+        position: absolute !important;
+        bottom: 1.5rem !important;
+        right: 2rem !important;
+        grid-area: unset !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   3. HERO CONTENT ELEMENTS - Proper Spacing
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Title */
+.hero-title,
+.hero .hero-title,
+#hero-title {
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: clamp(2rem, 5vw, 3.5rem) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.1em !important;
+    color: var(--text, #f0ebe3) !important;
+    margin: 0 0 0.75rem 0 !important;
+    line-height: 1.15 !important;
+}
+
+@media (min-width: 1025px) {
+    .hero-title {
+        display: block !important; /* Show on desktop too */
+        font-size: clamp(2.2rem, 4vw, 3.2rem) !important;
+    }
+}
+
+/* Subtitle */
+.hero-subtitle,
+.hero .hero-subtitle {
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: clamp(1rem, 2vw, 1.25rem) !important;
+    font-style: italic !important;
+    color: var(--text-secondary, rgba(240, 235, 227, 0.85)) !important;
+    line-height: 1.6 !important;
+    margin: 0 0 0.5rem 0 !important;
+    max-width: 100% !important;
+}
+
+.hero-subtitle-emphasis {
+    display: block !important;
+    margin-top: 0.5rem !important;
+    color: var(--gold-pale, #e8d8b0) !important;
+    font-style: normal !important;
+    font-size: 0.9em !important;
+}
+
+/* Author */
+.hero-author,
+.hero .hero-author {
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.3em !important;
+    text-transform: uppercase !important;
+    color: var(--gold, #d4a84b) !important;
+    margin: 0 0 1.25rem 0 !important;
+}
+
+/* Primary CTA (Read What I Found) */
+.hero-cta,
+.hero .hero-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem 2rem !important;
+    background: linear-gradient(135deg, var(--gold, #d4a84b) 0%, #f4d675 100%) !important;
+    color: var(--void, #02030a) !important;
+    font-family: var(--font-display, 'Cinzel', serif) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    margin: 0 0 0.75rem 0 !important;
+}
+
+.hero-cta:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 35px rgba(212, 168, 75, 0.4) !important;
+}
+
+/* Free Chapter Button */
+.free-chapter-cta,
+.hero .free-chapter-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.75rem 1.5rem !important;
+    background: transparent !important;
+    border: 1px solid rgba(212, 168, 75, 0.3) !important;
+    border-radius: 4px !important;
+    color: var(--gold, #d4a84b) !important;
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: 0.9rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    margin: 0 0 0.75rem 0 !important;
+}
+
+.free-chapter-cta:hover {
+    background: rgba(212, 168, 75, 0.1) !important;
+    border-color: var(--gold, #d4a84b) !important;
+}
+
+/* First Edition Badge */
+.first-edition-badge,
+.hero .first-edition-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+    background: rgba(212, 168, 75, 0.08) !important;
+    border: 1px solid rgba(212, 168, 75, 0.2) !important;
+    border-radius: 100px !important;
+    font-family: var(--font-mono, monospace) !important;
+    font-size: 0.7rem !important;
+    color: var(--text-dim, rgba(240, 235, 227, 0.7)) !important;
+    letter-spacing: 0.05em !important;
+    margin: 0 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   4. HERO BOOK - Proper Sizing
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-book,
+.hero .hero-book,
+#hero-book {
+    position: relative !important;
+    width: clamp(180px, 22vw, 280px) !important;
+    max-height: none !important; /* Remove max-height constraint */
+    height: auto !important;
+    z-index: 5 !important;
+    cursor: pointer !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5)) !important;
+}
+
+.hero-book:hover {
+    transform: scale(1.04) translateY(-8px) !important;
+    filter: drop-shadow(0 25px 60px rgba(212, 168, 75, 0.35)) !important;
+}
+
+.book-cover-video,
+.hero-book img {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 6px !important;
+    object-fit: contain !important;
+}
+
+.book-shadow,
+#book-shadow {
+    margin-top: 1rem !important;
+    width: 80% !important;
+    height: 20px !important;
+    background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%) !important;
+    filter: blur(8px) !important;
+}
+
+/* Portal hint under book */
+.book-portal-hint {
+    margin-top: 0.75rem !important;
+    text-align: center !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   5. STATUS PILL (WILLOW PREDICTION VERIFIED)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero-status-pill,
+.hero .hero-status-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    padding: 0.5rem 1.1rem !important;
+    background: rgba(34, 197, 94, 0.08) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    border-radius: 100px !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    z-index: 10 !important;
+}
+
+.pill-dot {
+    width: 8px !important;
+    height: 8px !important;
+    background: #22c55e !important;
+    border-radius: 50% !important;
+    animation: pillPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes pillPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.pill-text {
+    font-family: var(--font-mono, 'Space Mono', monospace) !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.08em !important;
+    color: #22c55e !important;
+    text-transform: uppercase !important;
+}
+
+.pill-link {
+    color: rgba(34, 197, 94, 0.75) !important;
+    font-family: var(--font-mono, 'Space Mono', monospace) !important;
+    font-size: 0.65rem !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+}
+
+.pill-link:hover {
+    color: #22c55e !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   6. SCROLL INDICATOR
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.scroll-indicator,
+.hero .scroll-indicator {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-family: var(--font-serif, Georgia, serif) !important;
+    font-size: 0.8rem !important;
+    font-style: italic !important;
+    color: rgba(240, 235, 227, 0.5) !important;
+    z-index: 10 !important;
+}
+
+.scroll-line {
+    width: 1px !important;
+    height: 40px !important;
+    background: linear-gradient(to bottom, var(--gold, #d4a84b), transparent) !important;
+    animation: scrollLine 2s ease-in-out infinite !important;
+}
+
+@keyframes scrollLine {
+    0%, 100% { opacity: 0.4; height: 35px; }
+    50% { opacity: 0.8; height: 45px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   7. MOBILE LAYOUT (under 1025px)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .hero,
+    .hero.snap-section,
+    #hero {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        text-align: center !important;
+        padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) 1.25rem 2rem !important;
+        gap: 0.75rem !important;
+        overflow: visible !important;
+        min-height: 100svh !important;
+        height: auto !important;
+    }
+    
+    /* Show badge on mobile */
+    .hero-badge {
+        display: inline-block !important;
+        font-family: var(--font-mono, monospace) !important;
+        font-size: 0.55rem !important;
+        letter-spacing: 0.1em !important;
+        color: rgba(240, 235, 227, 0.5) !important;
+        text-transform: uppercase !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .hero-status-pill {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .hero-book-container {
+        margin: 0.5rem 0 1rem 0 !important;
+    }
+    
+    .hero-book {
+        width: clamp(140px, 40vw, 200px) !important;
+    }
+    
+    .hero-content-right {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 0.75rem !important;
+    }
+    
+    .hero-title {
+        display: block !important;
+        font-size: clamp(1.6rem, 8vw, 2.5rem) !important;
+    }
+    
+    .hero-subtitle {
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem) !important;
+        max-width: 90% !important;
+    }
+    
+    .hero-author {
+        font-size: 0.75rem !important;
+        letter-spacing: 0.25em !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .hero-cta {
+        padding: 0.9rem 1.75rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .scroll-indicator {
+        position: relative !important;
+        margin-top: 1rem !important;
+    }
+    
+    .scroll-indicator span {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .hero {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    .hero-title {
+        font-size: clamp(1.4rem, 10vw, 2rem) !important;
+        letter-spacing: 0.08em !important;
+    }
+    
+    .hero-cta {
+        padding: 0.85rem 1.5rem !important;
+        font-size: 0.7rem !important;
+    }
+    
+    .hero-status-pill {
+        padding: 0.4rem 0.9rem !important;
+    }
+    
+    .pill-text,
+    .pill-link {
+        font-size: 0.55rem !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   8. CHAPTER NAVIGATION (Left Sidebar) - Fix overlap
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.chapter-nav,
+.part-nav,
+[class*="chapter-nav"],
+[class*="part-nav"],
+nav[class*="chapter"],
+nav[class*="part"] {
+    position: fixed !important;
+    left: 1rem !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 100 !important;
+    background: rgba(2, 3, 10, 0.85) !important;
+    padding: 1rem 0.75rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(212, 168, 75, 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Hide on mobile to prevent overlap */
+@media (max-width: 1024px) {
+    .chapter-nav,
+    .part-nav,
+    [class*="chapter-nav"],
+    [class*="part-nav"] {
+        display: none !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   9. Z-INDEX STACKING
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.mandelbrot-bg,
+#mandelbrot-bg {
+    z-index: 0 !important;
+}
+
+.hero-badge,
+.hero-status-pill,
+.hero-book-container,
+.hero-content-right,
+.hero-title,
+.hero-subtitle,
+.hero-author,
+.hero-cta,
+.free-chapter-cta,
+.first-edition-badge,
+.scroll-indicator {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   10. ENSURE ALL HERO CHILDREN ARE VISIBLE
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.hero > *,
+.hero-content-right > * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-height: none !important;
+    overflow: visible !important;
+}

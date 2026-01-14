@@ -1,0 +1,430 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS - CONTENT VISIBILITY FIX
+   
+   PROBLEM: Multiple CSS rules with max-height: calc(100vh - X) and overflow: hidden
+   are cutting off content from Part III onwards on desktop.
+   
+   SOLUTION: Override all problematic height constraints with high-specificity rules.
+   
+   INSTALLATION: Add this CSS at the END of your stylesheet (after all other CSS)
+   so it has the highest specificity and overrides everything.
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   1. REMOVE ALL SNAP-SECTION HEIGHT CONSTRAINTS
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Master override - all sections must allow natural content height */
+.snap-section,
+section.snap-section,
+[class*="-section"].snap-section {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Section inner containers */
+.snap-section > *,
+.snap-section .section-inner,
+.snap-section [class*="-inner"] {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   2. FIX SPECIFIC PROBLEMATIC SECTIONS (FROM ANALYSIS)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Line 9514 fix: .religion-inner */
+.religion-inner,
+.religion-section .religion-inner,
+.religion-section.snap-section .religion-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Line 14277 fix: Grid containers */
+.ideas-grid,
+.evidence-grid,
+.predictions-grid,
+.falsification-grid,
+.chokepoint-map,
+section .ideas-grid,
+section .evidence-grid,
+section .predictions-grid,
+section .falsification-grid {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Line 14306 fix: BBC Evidence Card */
+.bbc-evidence-card,
+.timeline-evidence-section .bbc-evidence-card,
+section .bbc-evidence-card {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   3. FIX ALL NAMED SECTIONS FROM PART III ONWARDS
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Religion/Philosophy Section */
+.religion-section,
+.religion-section.snap-section,
+#religion {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.religion-section .religion-content,
+.religion-section .religion-image-container {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Chokepoint Section */
+.chokepoint-section,
+.chokepoint-section.snap-section,
+#chokepoint {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.chokepoint-inner,
+.chokepoint-section .chokepoint-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.chokepoint-visual,
+.chokepoint-svg {
+    max-height: 500px !important; /* Allow reasonable height but not hidden */
+    overflow: visible !important;
+}
+
+/* Predictions Section */
+.predictions-section,
+.predictions-section.snap-section,
+#predictions {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.predictions-inner,
+.predictions-section .predictions-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Falsification Section */
+.falsification-section,
+.falsification-section.snap-section {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.falsification-inner,
+.falsification-section .falsification-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* HRIH Section */
+.hrih-section,
+.hrih-section.snap-section,
+#hrih {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.hrih-inner,
+.hrih-section .hrih-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Timeline/Evidence Section */
+.timeline-evidence-section,
+.timeline-evidence-section.snap-section {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Equation Section */
+.equation-section,
+.equation-section.snap-section,
+#equation {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.equation-inner,
+.equation-section .equation-inner {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Ideas Section */
+.ideas-section,
+.ideas-section.snap-section,
+#ideas {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Future Born Section */
+.future-born-section,
+.future-born-section.snap-section,
+#future-born {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* CTA Section */
+.cta-section,
+.cta-section.snap-section,
+#cta {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* Newsletter Section */
+.newsletter-section,
+.newsletter-section.snap-section {
+    min-height: auto !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   4. FIX CHAPTER GATES
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.chapter-gate {
+    min-height: 50vh !important; /* Give chapter gates reasonable height */
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   5. FIX CARD CONTAINERS - Allow Content to Show
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Idea cards */
+.idea-card,
+.idea-card--featured,
+.idea-card--with-image {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.idea-text {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Prediction cards */
+.prediction-card,
+.prediction-card--evidence {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.prediction-text,
+.prediction-desc {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+}
+
+/* Evidence cards */
+.evidence-card {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.evidence-desc {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   6. FIX QUOTE BREAKERS
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.quote-breaker {
+    max-height: none !important;
+    overflow: visible !important;
+    min-height: auto !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   7. ENSURE GRIDS DISPLAY PROPERLY
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Desktop grid layout fix */
+@media (min-width: 769px) {
+    .ideas-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+        gap: 1.5rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .predictions-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 1.5rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .evidence-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+        gap: 1.5rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .falsification-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        gap: 1.5rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    /* Two-column sections */
+    .religion-inner {
+        display: grid !important;
+        grid-template-columns: 1fr 1.3fr !important;
+        gap: 3rem !important;
+        align-items: start !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .about-inner {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 4rem !important;
+        align-items: start !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .bbc-evidence-card {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 2rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   8. REMOVE SCROLL SNAP STRICTNESS (Allow Free Scrolling)
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+html {
+    scroll-snap-type: none !important; /* Remove snap behavior that traps users */
+}
+
+/* If you want gentle snapping, use this instead: */
+/* html {
+    scroll-snap-type: y proximity !important;
+} */
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   9. ENSURE BODY ALLOWS FULL SCROLL
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+body.cinematic-ready {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+html.cinematic-ready {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   10. ENSURE MAIN CONTAINER ALLOWS ALL CONTENT
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+main,
+.main-content,
+#main-content,
+.page-content {
+    max-height: none !important;
+    overflow: visible !important;
+    height: auto !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   11. FIX IMAGES IN CONSTRAINED CONTAINERS
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+.religion-image {
+    max-height: 500px !important; /* Allow reasonable height */
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
+
+.idea-image {
+    max-height: 200px !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════════════════
+   12. DEBUG HELPER (Remove in production)
+   Uncomment this to see which sections are being constrained
+   ══════════════════════════════════════════════════════════════════════════════════════════ */
+
+/*
+.snap-section {
+    outline: 2px dashed red !important;
+}
+
+[style*="max-height"],
+[style*="overflow: hidden"] {
+    outline: 3px solid yellow !important;
+}
+*/
