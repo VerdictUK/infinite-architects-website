@@ -1939,6 +1939,87 @@
             background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.8), transparent);
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           SECTION INTRO - MINI TITLE CARDS
+           Brief cinematic overlay when entering subsections (1-2 seconds)
+           ═══════════════════════════════════════════════════════════════════════ */
+        .section-intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 3, 10, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+
+        .section-intro-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .section-intro-content {
+            text-align: center;
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .section-intro-overlay.active .section-intro-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .section-intro-label {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(212, 168, 75, 0.6);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-intro-title {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--gold-primary, #d4a84b);
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .section-intro-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary, #d4a84b), transparent);
+            margin: 1rem auto 0;
+            transform: scaleX(0);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        .section-intro-overlay.active .section-intro-line {
+            transform: scaleX(1);
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .section-intro-overlay,
+            .section-intro-content,
+            .section-intro-line {
+                transition: opacity 0.15s ease;
+                transform: none !important;
+            }
+        }
+
         /* Simple divider fallback for smaller breaks */
         .chapter-divider {
             position: relative;
@@ -3317,437 +3398,145 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           HERO SECTION
+           HERO SECTION: THE MASTER SOURCE OF TRUTH
+           Unified High-Fidelity Logic for Desktop & Mobile
            ═══════════════════════════════════════════════════════════════════════ */
         .hero {
             min-height: 100vh;
+            min-height: 100svh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: var(--space-lg) var(--space-lg);
+            padding: var(--space-lg);
             position: relative;
             width: 100%;
+            overflow: hidden;
         }
 
-        /* Override snap-section padding for hero - book must not be cut off */
-        .hero.snap-section {
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
-            padding-bottom: 1rem !important;
-            /* Ensure content is vertically distributed within available space */
-            justify-content: center !important;
-            gap: 0.35rem;
-        }
-
-        .hero > * {
-            margin-left: auto;
-            margin-right: auto;
-            flex-shrink: 1; /* Allow all hero children to shrink */
-        }
-
-        /* UNIVERSAL HERO FIT - All content must fit within viewport */
-        .hero .hero-badge,
-        .hero .prediction-bar {
-            margin-bottom: 0.25rem;
-        }
-
-        .hero .hero-title {
-            margin-bottom: 0.25rem;
-        }
-
-        .hero .hero-subtitle {
-            margin-bottom: 0.25rem;
-        }
-
-        .hero .hero-author {
-            margin-bottom: 0.35rem;
-        }
-
-        /* HERO SPLIT LAYOUT - Phase 12 */
-        @media (min-width: 1025px) {
-            .hero.snap-section {
-                flex-direction: row !important;
-                justify-content: center !important;
-                align-items: center !important;
-                text-align: left !important;
-                padding: 0 10% !important;
-                gap: 6rem;
-            }
-
-            .hero-book-container {
-                flex: 1;
-                display: flex;
-                justify-content: flex-end;
-                margin-bottom: 0 !important;
-            }
-
-            .hero-content-right {
-                flex: 1.2;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .hero-title {
-                display: none; /* De-duplicate brand: Book cover + Logo are enough */
-            }
-
-            .hero-badge {
-                align-self: flex-start;
-            }
-
-            .hero-status-pill {
-                margin-left: 0;
-                margin-right: auto;
-            }
-
-            .hero-subtitle {
-                max-width: 500px;
-                margin-left: 0;
-                font-size: 1.8rem;
-            }
-
-            .hero-author {
-                margin-left: 0;
-            }
-
-            .hero-cta {
-                align-self: flex-start;
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           MANDELBROT FRACTAL VIDEO BACKGROUND
-           ═══════════════════════════════════════════════════════════════════════ */
+        /* 1. MANDELBROT FRACTAL VIDEO BACKGROUND */
         .mandelbrot-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            inset: 0;
             z-index: 0;
-            background: var(--void);
-        }
-
-        /* Global video dark background fallback - for background videos only */
-        video {
-            background: var(--void) !important;
-        }
-
-        /* EXCEPTION: Book cover video - NO black background */
-        .book-cover-video,
-        .hero-book video {
-            background: transparent !important;
-            background-color: transparent !important;
+            background: #000;
         }
 
         .mandelbrot-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%; height: 100%;
             object-fit: cover;
-            opacity: 1;
-            background: var(--void);
-        }
-
-        /* Hide video controls and prevent white flash */
-        .mandelbrot-video::-webkit-media-controls {
-            display: none !important;
-        }
-
-        .mandelbrot-video::-webkit-media-controls-enclosure {
-            display: none !important;
+            opacity: 0.8;
         }
 
         .mandelbrot-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.4) 50%, rgba(2, 3, 10, 0.85) 100%),
-                linear-gradient(180deg, rgba(2, 3, 10, 0.3) 0%, transparent 30%, transparent 70%, rgba(2, 3, 10, 0.6) 100%);
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.7) 100%);
             pointer-events: none;
         }
 
-        /* Gold tint overlay for brand consistency */
-        .mandelbrot-bg::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 50% 30%, rgba(212, 168, 75, 0.08) 0%, transparent 60%);
-            mix-blend-mode: overlay;
-            pointer-events: none;
-        }
-
-        /* Universal Performance: Mandelbrot now enabled everywhere for Peak Standard */
-        @media (max-width: 768px) {
-            .mandelbrot-bg {
-                opacity: 0.6; /* Slightly reduced for mobile battery but VISIBLE */
+        /* 2. LAYOUT: SPLIT SCREEN (Desktop) & STACKED (Mobile) */
+        @media (min-width: 1025px) {
+            .hero {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                grid-template-rows: auto 1fr auto !important;
+                grid-template-areas:
+                    "pill pill"
+                    "book content"
+                    "scroll scroll" !important;
+                gap: 2rem 4rem;
+                padding: 0 8% !important;
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+                text-align: left;
             }
+
+            .hero-book-container { grid-area: book; display: flex; justify-content: flex-end; align-items: center; }
+            .hero-content-right { grid-area: content; display: flex; flex-direction: column; align-items: flex-start; }
+            .hero-status-pill { grid-area: pill; justify-self: center; margin-bottom: 2rem; }
+            .scroll-indicator { grid-area: scroll; }
+            .hero-title { display: none; } /* Logo/Cover sufficient on desktop */
         }
 
-        /* Reduced motion: hide video */
-        @media (prefers-reduced-motion: reduce) {
-            .mandelbrot-bg {
-                display: none;
-            }
-        }
-
+        /* 3. THE BOOK: Cinematic Portal */
         .hero-book {
-            /* Universal viewport-responsive sizing - NEVER cut off */
-            width: clamp(180px, 25vw, 280px);
-            max-height: clamp(250px, 35vh, 400px);
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            transform: translateY(60px) scale(0.95);
-            filter: drop-shadow(0 0 80px rgba(212, 168, 75, 0.35)) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
-            transition: transform 0.8s var(--ease-out-expo), filter 0.8s ease;
+            position: relative;
+            width: clamp(180px, 25vw, 320px);
+            max-height: 65vh;
+            z-index: 5;
             cursor: pointer;
-            flex-shrink: 1; /* Allow book to shrink if needed */
-        }
-
-        /* Book reveals WITH the Titan Drop - not after */
-        body.cinematic .hero-book {
-            animation: bookReveal 1.8s var(--ease-out-expo) 0.8s forwards;
+            transition: all 0.6s var(--ease-out-expo);
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6));
         }
 
         .hero-book:hover {
-            transform: translateY(-15px) scale(1.03) rotateY(5deg);
-            filter: drop-shadow(0 0 120px rgba(212, 168, 75, 0.5)) drop-shadow(0 50px 80px rgba(0, 0, 0, 0.8));
+            transform: scale(1.05) translateY(-10px);
+            filter: drop-shadow(0 30px 80px rgba(212, 168, 75, 0.4));
         }
 
-        @keyframes bookReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Floating animation */
-        @keyframes bookFloat {
-            0%, 100% { transform: translateY(0) rotateY(0deg); }
-            25% { transform: translateY(-10px) rotateY(2deg); }
-            50% { transform: translateY(-18px) rotateY(0deg); }
-            75% { transform: translateY(-10px) rotateY(-2deg); }
-        }
-
-        .hero-book.float {
-            opacity: 1 !important; /* Preserve visibility after heroReveal animation */
-            transform: translateY(0) scale(1); /* Reset transform base */
-            animation: bookFloat 8s ease-in-out infinite !important;
-            visibility: visible !important;
-        }
-
-        /* Video Book Cover Styles - Cinematic presentation */
-        .book-cover-video {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
+        .book-cover-video, .hero-book img {
+            width: 100%; height: auto;
             border-radius: 6px;
-            pointer-events: none; /* Allow hover effects on container */
-            box-shadow:
-                0 25px 50px -12px rgba(0, 0, 0, 0.8),
-                0 10px 30px rgba(0, 0, 0, 0.5),
-                0 0 60px rgba(212, 168, 75, 0.15),
-                inset 0 0 0 1px rgba(212, 168, 75, 0.1);
-            filter: contrast(1.05) saturate(1.1);
-            transition: box-shadow 0.5s ease, filter 0.5s ease;
+            object-fit: contain;
         }
 
-        /* Glow on hover - video inherits parent hover */
-        .hero-book:hover .book-cover-video,
-        .hero-book.float .book-cover-video {
-            box-shadow:
-                0 35px 60px -15px rgba(0, 0, 0, 0.9),
-                0 15px 40px rgba(0, 0, 0, 0.6),
-                0 0 100px rgba(212, 168, 75, 0.25),
-                0 0 40px rgba(212, 168, 75, 0.15),
-                inset 0 0 0 1px rgba(212, 168, 75, 0.2);
-            filter: contrast(1.08) saturate(1.15);
-        }
-
-        /* Reduced motion: show static poster instead */
-        @media (prefers-reduced-motion: reduce) {
-            .book-cover-video {
-                display: none;
-            }
-            .hero-book img {
-                display: block !important;
-            }
-        }
-
-        .hero-badge {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.3em;
-            color: var(--gold);
-            padding: 0.5rem 1.2rem;
+        /* 4. CONTENT & TYPOGRAPHY */
+        .hero-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(212, 168, 75, 0.1);
             border: 1px solid rgba(212, 168, 75, 0.3);
-            margin-bottom: var(--space-sm);
-            opacity: 0;
-            animation: fadeUp 1.2s var(--ease-out-expo) 0.5s forwards;
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 6vw, 4rem);
-            font-weight: 400;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 0.7s forwards;
-            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-pale) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            /* Prevent word-breaking mid-word */
-            word-break: keep-all;
-            overflow-wrap: break-word;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
         }
 
         .hero-subtitle {
             font-family: var(--font-serif);
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            font-weight: 300;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
             font-style: italic;
             color: var(--text-dim);
-            letter-spacing: 0.05em;
             max-width: 600px;
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 0.9s forwards;
+            line-height: 1.5;
+            margin-bottom: 2rem;
         }
 
         .hero-author {
             font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.35em;
+            font-size: 0.9rem;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: var(--space-sm);
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 1.1s forwards;
+            margin-bottom: 2.5rem;
         }
 
         .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            padding: 1.1rem 2.5rem;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 1.3s forwards;
-        }
-
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
-            transform: translateX(-101%);
-            transition: transform 0.5s var(--ease-out-expo);
-            z-index: -1;
-        }
-
-        .hero-cta:hover {
+            padding: 1.2rem 3rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-bright));
             color: var(--void);
-        }
-
-        .hero-cta:hover::before {
-            transform: translateX(0);
-        }
-
-        .hero-cta svg {
-            width: 14px;
-            height: 14px;
-            transition: transform 0.3s ease;
-        }
-
-        .hero-cta:hover svg {
-            transform: translateX(5px);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 2s forwards;
-        }
-
-        .scroll-indicator span {
             font-family: var(--font-display);
-            font-size: 0.75rem;
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            color: var(--gold-pale);
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.4s ease;
         }
 
-        .scroll-line {
-            width: 1px;
-            height: 50px;
-            position: relative;
-            overflow: hidden;
+        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212, 168, 75, 0.4); }
+
+        /* 5. MOBILE OPTIMIZATIONS (Consolidated) */
+        @media (max-width: 1024px) {
+            .hero { padding-top: 100px; padding-bottom: 120px; gap: 1.5rem; }
+            .hero-book { width: clamp(140px, 45vw, 220px); margin-bottom: 1rem; }
+            .hero-title { display: block; font-size: clamp(1.8rem, 8vw, 3rem); margin-bottom: 0.5rem; }
+            .hero-subtitle { font-size: 1rem; max-width: 90%; }
+            .mandelbrot-bg { opacity: 0.6; }
         }
 
-        .scroll-line::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--gold), transparent);
-            animation: scrollDown 2.5s ease-in-out infinite;
-        }
-
-        @keyframes scrollDown {
-            0% { transform: translateY(0); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(200%); opacity: 0; }
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(35px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER HERO BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
 
         /* ═══════════════════════════════════════════════════════════════════════
            QUOTE SECTION
@@ -4382,182 +4171,149 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           ABOUT SECTION
+           ABOUT SECTION: THE MASTER SOURCE OF TRUTH
+           Unified High-Fidelity Logic for Desktop & Mobile
            ═══════════════════════════════════════════════════════════════════════ */
         .about-section {
             background: linear-gradient(180deg, var(--void) 0%, rgba(5, 8, 16, 1) 50%, var(--void) 100%);
+            padding: 6rem 2rem !important;
+            overflow: visible !important;
         }
 
         .about-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1.3fr;
             gap: 6rem;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .about-inner {
-                grid-template-columns: 1fr;
-                gap: 4rem;
-            }
+            align-items: start;
         }
 
         .about-visual {
+            position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            position: relative;
+            justify-content: center;
         }
 
-        /* Tesseract/Hypercube Animation */
+        /* 3D Tesseract Background decoration */
         .tesseract-container {
-            width: 280px;
-            height: 280px;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px; height: 320px;
+            z-index: 1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Author Photo - Sovereign Framing */
+        .author-photo-wrapper {
             position: relative;
-            z-index: 5; /* Ensure visibility above mobile-particles overlay */
+            z-index: 2;
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--gold);
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--gold-alpha-10);
+            transition: all 0.6s var(--ease-out-expo);
+            background: var(--void-surface);
         }
 
-        #tesseract-canvas {
-            width: 100%;
-            height: 100%;
+        .author-photo {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center 15%; /* Face Focus */
+            transition: transform 1.2s var(--ease-out-expo);
         }
 
+        .author-photo-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7), 0 0 60px var(--gold-alpha-20);
+        }
+
+        .author-photo-wrapper:hover .author-photo { transform: scale(1.08); }
+
+        /* Typography & Content */
+        .about-text { text-align: left; }
         .about-text p {
+            font-family: var(--font-serif);
             font-size: 1.05rem;
             color: var(--text-dim);
             line-height: 1.9;
             margin-bottom: 1.4rem;
         }
-
         .about-text p:first-of-type {
-            color: var(--text);
-            font-size: 1.15rem;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           STORM STORY - "Married in the Storm"
-           Emotional resonance block demonstrating the Eden Protocol in action
-           ═══════════════════════════════════════════════════════════════════════ */
-        .storm-story {
-            margin-top: 2.5rem;
-            padding: 2rem;
-            position: relative;
-            background: linear-gradient(
-                135deg,
-                rgba(212, 168, 75, 0.03) 0%,
-                rgba(5, 8, 16, 0.8) 50%,
-                rgba(212, 168, 75, 0.02) 100%
-            );
-            border-left: 2px solid var(--gold);
-            border-radius: 0 8px 8px 0;
-        }
-
-        .storm-story::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -2px;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(
-                180deg,
-                var(--gold-bright) 0%,
-                var(--gold) 50%,
-                var(--gold-dark) 100%
-            );
-            animation: storm-pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes storm-pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .storm-story-label {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 1rem;
-            opacity: 0.8;
+            font-size: 1.15rem;
+            font-style: italic;
+        }
+
+        /* Career Progression Bar */
+        .about-text .career-progression {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            padding: 1.5rem 0;
+            margin: 2rem 0;
+            border-top: 1px solid rgba(212, 168, 75, 0.2);
+            border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* Storm Story - Emotional Resonance Block */
+        .storm-story {
+            margin-top: 3rem;
+            padding: 2.5rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 12px 12px 0;
         }
 
         .storm-story-headline {
             font-family: var(--font-display);
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-size: 1.5rem;
             color: var(--gold-bright);
-            margin-bottom: 1.2rem;
-            letter-spacing: 0.03em;
-            line-height: 1.4;
-        }
-
-        .storm-story-content {
-            font-family: var(--font-serif);
-            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
-            color: var(--text-dim);
-            line-height: 1.8;
-        }
-
-        .storm-story-content p {
             margin-bottom: 1rem;
         }
 
-        .storm-story-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .storm-story-emphasis {
-            color: var(--gold);
-            font-style: italic;
-        }
-
         .storm-story-quote {
-            display: block;
-            margin: 1.5rem 0;
-            padding: 1rem 1.5rem;
-            background: rgba(212, 168, 75, 0.05);
-            border-radius: 4px;
-            font-family: var(--font-serif);
-            font-size: clamp(1rem, 2vw, 1.15rem);
             font-style: italic;
             color: var(--gold);
-            line-height: 1.6;
-            position: relative;
-        }
-
-        .storm-story-quote::before {
-            content: '"';
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            font-family: var(--font-display);
-            font-size: 3rem;
-            color: var(--gold-dark);
-            opacity: 0.3;
-        }
-
-        .storm-story-principle {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            margin-top: 1.5rem;
-            padding: 0.6rem 1rem;
-            background: rgba(212, 168, 75, 0.08);
-            border: 1px solid rgba(212, 168, 75, 0.2);
+            padding: 1.5rem;
+            background: rgba(212, 168, 75, 0.05);
+            margin: 1.5rem 0;
             border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--gold);
-            letter-spacing: 0.1em;
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
-        .storm-story-principle svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
+        /* RESPONSIVE UNIFICATION */
+        @media (max-width: 1024px) {
+            .about-inner { gap: 4rem; grid-template-columns: 240px 1fr; }
+            .author-photo-wrapper { width: 220px; height: 220px; }
+            .tesseract-container { width: 260px; height: 260px; }
         }
+
+        @media (max-width: 768px) {
+            .about-section { padding: 4rem 1.5rem !important; }
+            .about-inner { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+            .about-visual { margin: 0 auto; width: 100%; }
+            .about-text { text-align: center; }
+            .about-text .career-progression { justify-content: center; text-align: center; }
+            .storm-story { text-align: left; padding: 1.5rem; }
+            .author-photo-wrapper { width: 180px; height: 180px; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER ABOUT BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
 
         /* ═══════════════════════════════════════════════════════════════════════
            RECURSIVE VERIFICATION METHOD - Proof of Concept Section
@@ -21848,112 +21604,6 @@ html.slideshow-mode .slideshow-dots {
     }
 }
 
-/* AUTHOR SECTION - Fix overlapping on mobile */
-.about-section .section-inner,
-.about-section .about-inner {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2rem !important;
-    padding: 2rem 1rem !important;
-    max-width: 1000px !important;
-    margin: 0 auto !important;
-    height: auto !important;
-    overflow: visible !important;
-}
-
-.about-section .about-visual {
-    flex-shrink: 0;
-    max-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.about-section .author-photo-wrapper {
-    max-width: 200px;
-    max-height: 200px;
-}
-
-.about-section .author-photo {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center 15%;
-}
-
-.about-section .tesseract-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.3;
-    z-index: 0;
-}
-
-.about-section .about-text {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-}
-
-.about-section .about-text p {
-    font-size: clamp(0.9rem, 2vw, 1.1rem) !important;
-    line-height: 1.6 !important;
-    margin-bottom: 1rem !important;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media (min-width: 769px) {
-    .about-section .section-inner,
-    .about-section .about-inner {
-        flex-direction: row !important;
-        align-items: center !important;
-        gap: 4rem !important;
-        text-align: left;
-    }
-
-    .about-section .about-visual {
-        flex: 0 0 300px;
-        max-height: none;
-    }
-
-    .about-section .about-text {
-        flex: 1;
-        text-align: left;
-    }
-
-    .about-section .about-text p {
-        margin-left: 0;
-        margin-right: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .about-section .about-visual {
-        max-height: 200px;
-    }
-
-    .about-section .author-photo-wrapper {
-        max-width: 150px;
-        max-height: 150px;
-    }
-
-    .about-section .author-photo {
-        object-position: center 15% !important; /* Show face, not hands */
-    }
-
-    .about-section .about-text p {
-        font-size: 0.9rem !important;
-        margin-bottom: 0.75rem !important;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   END EMERGENCY VISUAL FIX BLOCK
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 /* ═══════════════════════════════════════════════════════════════════════════
    MOBILE OPTIMIZATION AUDIT FIXES - January 2026
    Addresses touch targets, readability, and safe areas for all iPhone sizes
@@ -23986,141 +23636,6 @@ html body #author .storm-story {
     background: linear-gradient(135deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
     border-left: 3px solid var(--gold) !important;
     border-radius: 0 12px 12px 0 !important;
-}
-
-html body #author .storm-story-label {
-    display: block !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.65rem !important;
-    letter-spacing: 0.25em !important;
-    color: var(--gold) !important;
-    text-transform: uppercase !important;
-    margin-bottom: 0.5rem !important;
-}
-
-html body #author .storm-story-headline {
-    font-family: var(--font-display) !important;
-    font-size: 1.5rem !important;
-    color: var(--gold-bright) !important;
-    margin-bottom: 1rem !important;
-}
-
-html body #author .storm-story-content p {
-    font-size: 0.95rem !important;
-    margin-bottom: 1rem !important;
-}
-
-html body #author .storm-story-quote {
-    font-style: italic !important;
-    color: var(--gold) !important;
-    padding: 1rem !important;
-    border-left: 2px solid var(--gold-dark) !important;
-    margin: 1.5rem 0 !important;
-    background: rgba(212, 168, 75, 0.05) !important;
-}
-
-html body #author .storm-story-principle {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.75rem !important;
-    font-family: var(--font-mono) !important;
-    font-size: 0.7rem !important;
-    letter-spacing: 0.15em !important;
-    color: var(--gold) !important;
-    margin-top: 1.5rem !important;
-    padding-top: 1rem !important;
-    border-top: 1px solid rgba(212, 168, 75, 0.2) !important;
-}
-
-html body #author .storm-story-principle svg {
-    width: 18px !important;
-    height: 18px !important;
-    fill: var(--gold) !important;
-}
-
-/* TABLET - Slightly smaller layout */
-@media (max-width: 1024px) {
-    html body #author .section-inner,
-    html body #author .about-inner {
-        grid-template-columns: 220px 1fr !important;
-        gap: 3rem !important;
-    }
-
-    html body #author .about-visual {
-        width: 220px !important;
-    }
-
-    html body #author .author-photo-wrapper {
-        width: 180px !important;
-        height: 180px !important;
-    }
-
-    html body #author .tesseract-container {
-        width: 260px !important;
-        height: 260px !important;
-    }
-}
-
-/* MOBILE - Stacked layout, clean and readable */
-@media (max-width: 768px) {
-    html body #author,
-    html body .about-section {
-        padding: 2rem 1.5rem !important;
-    }
-
-    html body #author .section-inner,
-    html body #author .about-inner {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
-        text-align: center !important;
-    }
-
-    html body #author .about-visual {
-        width: 100% !important;
-        justify-content: center !important;
-    }
-
-    html body #author .author-photo-wrapper {
-        width: 150px !important;
-        height: 150px !important;
-    }
-
-    html body #author .author-photo {
-        object-position: center 15% !important; /* Show face, not hands */
-    }
-
-    html body #author .tesseract-container {
-        width: 200px !important;
-        height: 200px !important;
-        opacity: 0.3 !important;
-    }
-
-    html body #author .about-text {
-        text-align: center !important;
-    }
-
-    html body #author .about-text .section-title {
-        font-size: 1.6rem !important;
-    }
-
-    html body #author .about-text p {
-        font-size: 0.95rem !important;
-        margin-bottom: 1rem !important;
-    }
-
-    html body #author .about-text p[style*="font-family: var(--font-mono)"] {
-        justify-content: center !important;
-        font-size: 0.65rem !important;
-    }
-
-    html body #author .storm-story {
-        padding: 1.5rem !important;
-        text-align: left !important;
-    }
-
-    html body #author .storm-story-headline {
-        font-size: 1.25rem !important;
-    }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -27087,6 +26602,15 @@ main.content, #main-content {
             <h2 class="chapter-intro-title" id="chapter-intro-title">THE EVIDENCE</h2>
             <p class="chapter-intro-subtitle" id="chapter-intro-subtitle">Where Reality Validates Theory</p>
             <div class="chapter-intro-line chapter-intro-line-bottom"></div>
+        </div>
+    </div>
+
+    <!-- Section Intro Overlay - Mini title cards for subsections -->
+    <div class="section-intro-overlay" id="section-intro-overlay" aria-hidden="true">
+        <div class="section-intro-content">
+            <span class="section-intro-label" id="section-intro-label">PART I</span>
+            <h3 class="section-intro-title" id="section-intro-title">The Origin</h3>
+            <div class="section-intro-line"></div>
         </div>
     </div>
 
@@ -31757,6 +31281,125 @@ main.content, #main-content {
         });
 
         // ═══════════════════════════════════════════════════════════════════════
+        // SECTION INTRO - MINI TITLE CARDS FOR SUBSECTIONS
+        // Brief cinematic overlay when entering each subsection (1.5 seconds)
+        // ═══════════════════════════════════════════════════════════════════════
+
+        const sectionIntroData = {
+            // PART I: THE MIND
+            'the-mind': { part: 'PART I', title: 'The Mind' },
+            'origin': { part: 'PART I', title: 'Origin Story' },
+            'methodology': { part: 'PART I', title: 'Methodology' },
+
+            // PART II: THE THESIS
+            'book': { part: 'PART II', title: 'The Book' },
+            'quote-carousel': { part: 'PART II', title: 'Key Insights' },
+            'equation': { part: 'PART II', title: 'The Equation' },
+            'ideas': { part: 'PART II', title: 'The 37 Ideas' },
+
+            // PART III: THE EVIDENCE
+            'evidence-locker': { part: 'PART III', title: 'Evidence Locker' },
+            'bbc-timeline': { part: 'PART III', title: 'BBC Timeline' },
+            'predictions': { part: 'PART III', title: 'Predictions' },
+            'falsification': { part: 'PART III', title: 'Falsification Tests' },
+            'predictions-validated': { part: 'PART III', title: 'Predictions Validated' },
+
+            // PART IV: THE PHILOSOPHY
+            'hrih': { part: 'PART IV', title: 'HRIH Hypothesis' },
+            'religion': { part: 'PART IV', title: 'Religion as Alignment' },
+            'chokepoint': { part: 'PART IV', title: 'The Chokepoint' },
+            'window': { part: 'PART IV', title: 'The Window' },
+            'architecture': { part: 'PART IV', title: 'Architecture' },
+
+            // PART V: THE STAKES
+            'future-born': { part: 'PART V', title: 'Future Born' },
+            'stakes': { part: 'PART V', title: 'What\'s At Stake' },
+            'expert-validation': { part: 'PART V', title: 'Expert Validation' },
+            'reviews': { part: 'PART V', title: 'Reviews' },
+            'chapters': { part: 'PART V', title: 'Chapter Guide' },
+            'comparison': { part: 'PART V', title: 'Comparison' },
+
+            // PART VI: GET THE BOOK
+            'get-the-book': { part: 'PART VI', title: 'Get The Book' },
+            'cta': { part: 'PART VI', title: 'Take Action' },
+            'newsletter': { part: 'PART VI', title: 'Newsletter' },
+            'paradise': { part: 'PART VI', title: 'Paradise Protocol' },
+            'faq': { part: 'PART VI', title: 'FAQ' },
+            'glossary': { part: 'PART VI', title: 'Glossary' },
+            'ai-timeline': { part: 'PART VI', title: 'AI Timeline' },
+            'press': { part: 'PART VI', title: 'Press Kit' }
+        };
+
+        // Track shown section intros to avoid repeats
+        const shownSectionIntros = new Set();
+        let sectionIntroActive = false;
+
+        function showSectionIntro(sectionId) {
+            // Skip if already shown, currently showing, or doesn't exist in data
+            if (shownSectionIntros.has(sectionId) || sectionIntroActive) return;
+            if (!sectionIntroData[sectionId]) return;
+
+            // Respect reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                shownSectionIntros.add(sectionId);
+                return;
+            }
+
+            // Don't show during chapter intro
+            const chapterOverlay = document.getElementById('chapter-intro-overlay');
+            if (chapterOverlay && chapterOverlay.classList.contains('active')) return;
+
+            const data = sectionIntroData[sectionId];
+            const overlay = document.getElementById('section-intro-overlay');
+            const labelEl = document.getElementById('section-intro-label');
+            const titleEl = document.getElementById('section-intro-title');
+
+            if (!overlay || !labelEl || !titleEl) return;
+
+            // Set content
+            labelEl.textContent = data.part;
+            titleEl.textContent = data.title;
+
+            // Show overlay
+            sectionIntroActive = true;
+            overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+
+            // Auto-hide after 1.5 seconds
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.setAttribute('aria-hidden', 'true');
+                sectionIntroActive = false;
+                shownSectionIntros.add(sectionId);
+            }, 1500);
+        }
+
+        // Create observer for sections
+        const sectionIntroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    const sectionId = entry.target.id;
+                    // Slight delay for smoother experience
+                    setTimeout(() => showSectionIntro(sectionId), 200);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-10% 0px -10% 0px'
+        });
+
+        // Observe all sections with IDs that are in our data
+        Object.keys(sectionIntroData).forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                sectionIntroObserver.observe(section);
+            }
+        });
+
+        // Make function globally available
+        window.showSectionIntro = showSectionIntro;
+
+        // ═══════════════════════════════════════════════════════════════════════
         // WELCOME BACK - RESUME READING SYSTEM
         // Detects returning visitors and offers to resume from where they left off
         // ═══════════════════════════════════════════════════════════════════════
@@ -33061,16 +32704,17 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // NEWSLETTER FORM
+        // NEWSLETTER FORM - Connected to ConvertKit Form ID: 8970906
         // ═══════════════════════════════════════════════════════════════════════
         function initNewsletter() {
             const form = document.getElementById('newsletter-form');
             const success = document.getElementById('newsletter-success');
             if (!form || !success) return;
 
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const emailInput = document.getElementById('newsletter-email');
+                const submitBtn = form.querySelector('.newsletter-button');
                 const email = emailInput.value.trim();
 
                 // Validate email format
@@ -33082,23 +32726,70 @@ main.content, #main-content {
                 }
                 emailInput.setCustomValidity('');
 
-                // Sanitize email (remove potential HTML)
-                const sanitizedEmail = email.replace(/[<>]/g, '');
+                // Show loading state
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'JOINING...';
+                submitBtn.disabled = true;
 
-                // Store email locally (in production, send to backend)
-                const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
-                if (!subscribers.includes(sanitizedEmail)) {
-                    subscribers.push(sanitizedEmail);
-                    localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
-                }
+                try {
+                    // Submit to ConvertKit (Kit) Form ID: 8970906
+                    const response = await fetch('https://app.convertkit.com/forms/8970906/subscriptions', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email_address: email,
+                            tags: ['newsletter', 'infinite-architects']
+                        })
+                    });
 
-                // Show success message
-                form.style.display = 'none';
-                success.classList.add('show');
+                    if (!response.ok) {
+                        throw new Error('Subscription failed');
+                    }
 
-                // Track event (placeholder for analytics)
-                if (typeof gtag === 'function') {
-                    gtag('event', 'newsletter_signup', { email_domain: email.split('@')[1] });
+                    // Store locally as backup
+                    const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
+                    if (!subscribers.includes(email)) {
+                        subscribers.push(email);
+                        localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+                    }
+
+                    // Show success message
+                    form.style.display = 'none';
+                    success.classList.add('show');
+
+                    // Track conversion
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'newsletter_signup', {
+                            email_domain: email.split('@')[1],
+                            method: 'convertkit'
+                        });
+                    }
+
+                } catch (error) {
+                    console.error('ConvertKit submission error:', error);
+
+                    // Fallback: store locally and show success
+                    const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
+                    if (!subscribers.includes(email)) {
+                        subscribers.push(email);
+                        localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+                    }
+
+                    form.style.display = 'none';
+                    success.classList.add('show');
+
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'newsletter_signup', {
+                            email_domain: email.split('@')[1],
+                            method: 'local_fallback'
+                        });
+                    }
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 }
             });
         }
@@ -33118,24 +32809,86 @@ main.content, #main-content {
             document.body.style.overflow = '';
         }
 
-        window.submitFreeChapter = function(e) {
+        window.submitFreeChapter = async function(e) {
             e.preventDefault();
-            const email = document.getElementById('fc-email').value;
+            const emailInput = document.getElementById('fc-email');
+            const submitBtn = e.target.querySelector('.fc-submit');
+            const email = emailInput.value.trim();
 
-            // Store email locally
-            const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
-            if (!subscribers.includes(email)) {
-                subscribers.push(email);
-                localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailInput.setCustomValidity('Please enter a valid email address');
+                emailInput.reportValidity();
+                return;
             }
 
-            // Show success view
-            document.getElementById('free-chapter-form-view').style.display = 'none';
-            document.getElementById('free-chapter-success').style.display = 'block';
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span>SENDING...</span>';
+            submitBtn.disabled = true;
 
-            // Track conversion
-            if (typeof gtag === 'function') {
-                gtag('event', 'free_chapter_signup', { email_domain: email.split('@')[1] });
+            try {
+                // Submit to ConvertKit (Kit) Form ID: 8970906
+                const response = await fetch('https://app.convertkit.com/forms/8970906/subscriptions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email_address: email,
+                        tags: ['free-chapter', 'infinite-architects']
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Subscription failed');
+                }
+
+                // Store locally as backup
+                const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
+                if (!subscribers.includes(email)) {
+                    subscribers.push(email);
+                    localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+                }
+
+                // Show success view
+                document.getElementById('free-chapter-form-view').style.display = 'none';
+                document.getElementById('free-chapter-success').style.display = 'block';
+
+                // Track conversion
+                if (typeof gtag === 'function') {
+                    gtag('event', 'free_chapter_signup', {
+                        email_domain: email.split('@')[1],
+                        method: 'convertkit'
+                    });
+                }
+
+            } catch (error) {
+                console.error('ConvertKit submission error:', error);
+
+                // Fallback: store locally and show success anyway
+                const subscribers = JSON.parse(localStorage.getItem('ia_subscribers') || '[]');
+                if (!subscribers.includes(email)) {
+                    subscribers.push(email);
+                    localStorage.setItem('ia_subscribers', JSON.stringify(subscribers));
+                }
+
+                // Still show success (email captured locally)
+                document.getElementById('free-chapter-form-view').style.display = 'none';
+                document.getElementById('free-chapter-success').style.display = 'block';
+
+                // Track as fallback
+                if (typeof gtag === 'function') {
+                    gtag('event', 'free_chapter_signup', {
+                        email_domain: email.split('@')[1],
+                        method: 'local_fallback'
+                    });
+                }
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         }
 
@@ -36092,7 +35845,8 @@ main.content, #main-content {
             if (!this.elements.sidebarItems) return;
             this.elements.sidebarItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    const chapterIndex = parseInt(item.dataset.chapter);
+                    // data-chapter is 1-indexed, goToChapter expects 0-indexed
+                    const chapterIndex = parseInt(item.dataset.chapter) - 1;
                     this.goToChapter(chapterIndex);
                 });
             });
@@ -36333,9 +36087,9 @@ main.content, #main-content {
             const chapter = this.chapters[chapterIndex];
             if (!chapter) return;
 
-            // Trigger chapter intro for chapters 2-6 (not for chapter 1/THE MIND as it's first after hero)
+            // Trigger chapter intro for all chapters when clicking sidebar/menu
             const chapterNumber = chapterIndex + 1; // Convert 0-indexed to 1-indexed
-            if (chapterNumber >= 2 && window.showChapterIntro) {
+            if (window.showChapterIntro) {
                 window.showChapterIntro(chapterNumber, false);
             }
 
