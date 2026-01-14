@@ -838,6 +838,229 @@
     display: block !important;
   }
 
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   LUXURY UI ENHANCEMENTS - World-Class Visual Effects
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Premium Card 3D Hover Effect */
+.card-3d-hover {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-3d-hover:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 168, 75, 0.2),
+    0 0 30px rgba(212, 168, 75, 0.1);
+}
+
+/* Gold Glow on Hover */
+.glow-gold-hover {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glow-gold-hover:hover {
+  box-shadow:
+    0 0 20px rgba(212, 168, 75, 0.3),
+    0 0 40px rgba(212, 168, 75, 0.2),
+    0 0 60px rgba(212, 168, 75, 0.1);
+}
+
+/* Magnetic Hover Effect (subtle pull toward cursor) */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Shimmer Text Effect */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--gold-dark) 0%,
+    var(--gold-bright) 25%,
+    var(--gold) 50%,
+    var(--gold-bright) 75%,
+    var(--gold-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerText 3s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* Breathing Glow Animation */
+.breathing-glow {
+  animation: breathingGlow 4s ease-in-out infinite;
+}
+
+@keyframes breathingGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.2);
+    border-color: rgba(212, 168, 75, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 168, 75, 0.4);
+    border-color: rgba(212, 168, 75, 0.5);
+  }
+}
+
+/* Premium Button Hover */
+.btn-luxury {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-luxury:hover::before {
+  left: 100%;
+}
+
+.btn-luxury:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(212, 168, 75, 0.3);
+}
+
+/* Floating Animation */
+.float-gentle {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Reveal on Scroll (enhanced) */
+.reveal-enhanced {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-enhanced.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Reveal Children */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-children.in-view > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+.stagger-children.in-view > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+.stagger-children.in-view > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+.stagger-children.in-view > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+.stagger-children.in-view > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+.stagger-children.in-view > *:nth-child(6) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+
+/* Parallax Scroll Effect */
+.parallax-slow { will-change: transform; }
+.parallax-medium { will-change: transform; }
+.parallax-fast { will-change: transform; }
+
+/* Cinematic Section Entrance */
+.section-cinematic {
+  opacity: 0;
+  transform: translateY(100px) scale(0.95);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-cinematic.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Premium Border Gradient */
+.border-gradient-gold {
+  position: relative;
+  border: none;
+  background: var(--void-surface);
+}
+
+.border-gradient-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--gold) 0%, transparent 50%, var(--gold-dark) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Vibrancy Effect (iOS-style) */
+.vibrancy {
+  backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+  -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.1);
+  background: rgba(10, 12, 20, 0.4);
+}
+
+/* Noise Texture Overlay */
+.noise-texture::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Focus Ring (Accessibility + Beauty) */
+.focus-ring-gold:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--void-deep),
+    0 0 0 4px var(--gold),
+    0 0 20px rgba(212, 168, 75, 0.3);
+}
+
+/* Reduced Motion Fallbacks */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-text,
+  .breathing-glow,
+  .float-gentle,
+  .card-3d-hover,
+  .glow-gold-hover {
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .card-3d-hover:hover {
+    transform: none;
+  }
+}
+
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PRINT STYLES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media print {
   /* Reset backgrounds for printing */
   body, html {
     background: white !important;
