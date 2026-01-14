@@ -2268,46 +2268,145 @@
             animation: gapCoverFade 1.5s ease-out 1.8s forwards;
         }
 
+        /* SWOOSH LIGHT TRAIL - Golden streak swooshing down with the drop */
+        body.cinematic::after {
+            content: '';
+            position: fixed;
+            top: -100%;
+            left: 0;
+            right: 0;
+            height: 250vh;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 25%,
+                rgba(212, 168, 75, 0.02) 35%,
+                rgba(212, 168, 75, 0.08) 42%,
+                rgba(255, 255, 255, 0.15) 48%,
+                rgba(212, 168, 75, 0.25) 50%,
+                rgba(255, 255, 255, 0.5) 51%,
+                rgba(212, 168, 75, 0.25) 52%,
+                rgba(255, 255, 255, 0.15) 54%,
+                rgba(212, 168, 75, 0.08) 58%,
+                rgba(212, 168, 75, 0.02) 65%,
+                transparent 75%,
+                transparent 100%
+            );
+            z-index: 99995;
+            pointer-events: none;
+            animation: swooshTrail 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes swooshTrail {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            8% {
+                opacity: 0.6;
+            }
+            40% {
+                opacity: 1;
+            }
+            70% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
         @keyframes gapCoverFade {
             to { opacity: 0; visibility: hidden; }
         }
 
+        /* IMPACT BURST - Radial golden flash on landing */
+        .impact-flash {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300vmax;
+            height: 300vmax;
+            transform: translate(-50%, -50%) scale(0);
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255,255,255,0.95) 0%,
+                rgba(255,255,255,0.7) 10%,
+                rgba(212,168,75,0.5) 25%,
+                rgba(212,168,75,0.2) 45%,
+                transparent 70%
+            );
+            z-index: 99999;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        body.cinematic .impact-flash {
+            animation: impactBurst 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
+        }
+
+        @keyframes impactBurst {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            40% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 0;
+            }
+        }
+
         @keyframes titanDrop {
             0% {
-                transform: translateY(-105vh) scale(0.92);
+                transform: translateY(-115vh) scale(0.82);
                 opacity: 0;
-                filter: brightness(2.5) blur(15px);
+                filter: brightness(3) blur(25px);
             }
-            8% {
+            6% {
+                opacity: 0.4;
+                filter: brightness(2.5) blur(18px);
+            }
+            15% {
                 opacity: 0.7;
-                filter: brightness(2) blur(10px);
+                filter: brightness(2) blur(12px);
             }
-            20% {
-                opacity: 1;
-                filter: brightness(1.5) blur(5px);
+            28% {
+                opacity: 0.95;
+                filter: brightness(1.6) blur(6px);
             }
-            /* IMPACT MOMENT - land exactly at 0, massive flash */
+            /* ACCELERATION PHASE - blur increases with speed */
+            40% {
+                transform: translateY(-25vh) scale(0.96);
+                filter: brightness(2) blur(12px);
+            }
+            /* IMPACT - MASSIVE SLAM with blinding flash */
             48% {
-                transform: translateY(0) scale(1.02);
-                filter: brightness(5) contrast(1.8) saturate(0); /* WHITE-OUT FLASH */
+                transform: translateY(0) scale(1.06);
+                filter: brightness(8) contrast(2) saturate(0) blur(0);
             }
             52% {
+                transform: translateY(0) scale(1.02);
+                filter: brightness(3) contrast(1.6) saturate(0.1);
+            }
+            58% {
                 transform: translateY(0) scale(1);
-                filter: brightness(2) contrast(1.3) saturate(0.3);
+                filter: brightness(1.5) contrast(1.2) saturate(0.5);
             }
-            60% {
-                filter: brightness(1.2) contrast(1.1) saturate(0.7);
-            }
-            /* Subtle settle - NO positive Y to avoid showing content below */
+            /* HEAVY SETTLE - Weighty bounce, never positive Y */
             70% {
-                transform: translateY(-8px) scale(0.998);
+                transform: translateY(-15px) scale(0.995);
                 filter: brightness(1) contrast(1) saturate(1);
             }
             82% {
-                transform: translateY(0) scale(1.003);
+                transform: translateY(0) scale(1.008);
             }
             92% {
-                transform: translateY(-2px) scale(1);
+                transform: translateY(-4px) scale(1);
             }
             100% {
                 transform: translateY(0) scale(1);
@@ -2321,26 +2420,27 @@
             overflow-x: clip !important;
         }
 
-        /* Camera Shake on Impact - Applied to CONTENT wrapper, not body */
-        /* This preserves position:fixed elements (chat button, nav, etc) */
+        /* Camera Shake on Impact - VIOLENT earthquake rumble */
         /* Delay matches titanDrop impact (48% of 3s = 1.44s) */
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
-            animation: impactShake 0.6s cubic-bezier(.36,.07,.19,.97) 1.4s forwards;
+            animation: impactShake 0.8s cubic-bezier(.36,.07,.19,.97) 1.35s forwards;
         }
 
         @keyframes impactShake {
-            0% { transform: translate(0, 0); }
-            10% { transform: translate(-8px, -12px); }
-            20% { transform: translate(8px, 10px); }
-            30% { transform: translate(-6px, -8px); }
-            40% { transform: translate(6px, 6px); }
-            50% { transform: translate(-4px, -4px); }
-            60% { transform: translate(4px, 3px); }
-            70% { transform: translate(-2px, -2px); }
-            80% { transform: translate(2px, 1px); }
-            90% { transform: translate(-1px, -1px); }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            6% { transform: translate(-15px, -20px) rotate(-1.2deg); }
+            12% { transform: translate(18px, 15px) rotate(1.5deg); }
+            20% { transform: translate(-14px, -16px) rotate(-1deg); }
+            28% { transform: translate(16px, 12px) rotate(1.2deg); }
+            36% { transform: translate(-10px, -12px) rotate(-0.7deg); }
+            46% { transform: translate(10px, 10px) rotate(0.7deg); }
+            56% { transform: translate(-6px, -8px) rotate(-0.4deg); }
+            66% { transform: translate(6px, 5px) rotate(0.4deg); }
+            76% { transform: translate(-3px, -4px) rotate(-0.2deg); }
+            86% { transform: translate(3px, 2px) rotate(0.2deg); }
+            94% { transform: translate(-1px, -1px) rotate(0deg); }
             100% { transform: none; }
         }
 
