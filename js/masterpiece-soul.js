@@ -284,6 +284,20 @@
         initInteractions();
         initScramble();
         
+        // FAIL-SAFE UNLOCK (Rule 15)
+        // Ensure site is scrollable and visible after 4 seconds regardless of loader state
+        setTimeout(() => {
+            document.body.classList.remove('loader-active');
+            document.body.classList.add('scroll-unlocked');
+            console.log('🔓 Fail-safe: Scroll and Intro forced.');
+            
+            // Trigger Titan Slam if it hasn't fired
+            const book = document.getElementById('hero-book');
+            if (book && !book.classList.contains('titan-drop')) {
+                book.classList.add('titan-drop');
+            }
+        }, 4000);
+
         console.log('🚀 MASTERPIECE SOUL ACTIVATED: All enhancements live.');
     });
 

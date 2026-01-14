@@ -20,7 +20,6 @@
         /* Only lock if explicitly requested by loader */
         body.loader-active {
             overflow: hidden !important;
-            height: 100vh !important;
         }
     </style>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
@@ -147,7 +146,6 @@
     /* Only lock if explicitly requested by loader */
     body.loader-active {
         overflow: hidden !important;
-        height: 100vh !important;
         position: fixed !important;
     }
 
@@ -4571,7 +4569,7 @@
                     "scroll scroll" !important;
                 gap: 2rem 4rem;
                 padding: 0 8% !important;
-                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
+                padding-top: 60px !important;
                 text-align: left;
             }
 
@@ -4659,7 +4657,7 @@
 
         /* 5. MOBILE OPTIMIZATIONS (Consolidated) */
         @media (max-width: 1024px) {
-            .hero { padding-top: 100px; padding-bottom: 120px; gap: 1.5rem; }
+            .hero { padding-top: 60px; padding-bottom: 80px; gap: 1.5rem; }
             .hero-book { width: clamp(140px, 45vw, 220px); margin-bottom: 1rem; }
             .hero-title { display: block; font-size: clamp(1.8rem, 8vw, 3rem); margin-bottom: 0.5rem; }
             .hero-subtitle { font-size: 1rem; max-width: 90%; }
@@ -7677,7 +7675,7 @@
             /* HERO - Force Visibility */
             .hero {
                 min-height: 100svh;
-                padding: 100px var(--space-md) 80px;
+                padding: 50px var(--space-md) 40px;
             }
 
             .hero-badge,
@@ -12510,11 +12508,11 @@
 
         /* Adjust body and nav for ticker */
         body.has-ticker {
-            padding-top: 36px;
+            padding-top: 0;
         }
 
         body.has-ticker .nav {
-            top: 36px;
+            top: 0;
         }
 
         /* Mobile ticker */
@@ -12527,10 +12525,10 @@
                 padding: 0 1rem;
             }
             body.has-ticker {
-                padding-top: 32px;
+                padding-top: 0;
             }
             body.has-ticker .nav {
-                top: 32px;
+                top: 0;
             }
         }
 
@@ -28871,107 +28869,114 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="expert-validation snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="expert-validation">
-            <div class="expert-validation-inner max-w-[1200px] mx-auto text-center overflow-visible h-auto">
-                <p class="section-label reveal">WHAT THE EXPERTS ARE SAYING</p>
-                <h2 class="section-title reveal reveal-delay-1">The Warnings Are Real</h2>
+        <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative" id="expert-validation">
+            <div class="max-w-7xl mx-auto text-center space-y-16">
+                <div class="space-y-4">
+                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">WHAT THE EXPERTS ARE SAYING</p>
+                    <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">The Warnings Are Real</h2>
+                </div>
 
-                <div class="expert-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" data-stagger-group>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" data-stagger-group>
                     <!-- Geoffrey Hinton -->
-                    <div class="expert-card reveal reveal-delay-1">
-                        <div class="expert-header">
-                            <span class="expert-role">Nobel Laureate · AI Pioneer</span>
-                            <span class="expert-date">December 2024</span>
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="space-y-1">
+                                <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">AI PIONEER</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">DECEMBER 2024</span>
+                            </div>
+                            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
                         </div>
-                        <blockquote class="expert-quote">
+                        <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
                             "I am probably more worried than I was two years ago... AI's improved reasoning and deceiving capabilities concern me."
                         </blockquote>
-                        <cite class="expert-name">— Geoffrey Hinton</cite>
-                        <span class="expert-stat">Estimates 10-20% probability of AI "taking over"</span>
-                    </div>
+                        <cite class="font-display text-lg text-gold mb-4 block">— Geoffrey Hinton</cite>
+                        <div class="p-4 bg-red-500/5 border border-red-500/20 rounded-xl">
+                            <span class="text-[10px] font-mono text-red-400 uppercase tracking-tighter">Estimates 10-20% probability of AI "taking over"</span>
+                        </div>
+                    </article>
 
                     <!-- Sam Altman -->
-                    <div class="expert-card reveal reveal-delay-2">
-                        <div class="expert-header">
-                            <span class="expert-role">CEO, OpenAI</span>
-                            <span class="expert-date">January 2025</span>
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="space-y-1">
+                                <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">CEO, OPENAI</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">JANUARY 2025</span>
+                            </div>
                         </div>
-                        <blockquote class="expert-quote">
+                        <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
                             "We are now confident we know how to build AGI as we have traditionally understood it."
                         </blockquote>
-                        <cite class="expert-name">— Sam Altman</cite>
-                        <span class="expert-stat">OpenAI Blog Post</span>
-                    </div>
-
-                    <!-- Dario Amodei -->
-                    <div class="expert-card reveal reveal-delay-3">
-                        <div class="expert-header">
-                            <span class="expert-role">CEO, Anthropic</span>
-                            <span class="expert-date">2024</span>
+                        <cite class="font-display text-lg text-gold mb-4 block">— Sam Altman</cite>
+                        <div class="p-4 bg-gold/5 border border-gold/20 rounded-xl">
+                            <span class="text-[10px] font-mono text-gold/60 uppercase tracking-widest italic">OpenAI Strategic Briefing</span>
                         </div>
-                        <blockquote class="expert-quote">
-                            "AGI will likely arrive late 2026 or early 2027."
-                        </blockquote>
-                        <cite class="expert-name">— Dario Amodei</cite>
-                        <span class="expert-stat">>50% probability estimate</span>
-                    </div>
+                    </article>
 
-                    <!-- Stuart Russell -->
-                    <div class="expert-card reveal reveal-delay-4">
-                        <div class="expert-header">
-                            <span class="expert-role">TIME100 AI 2025 · UC Berkeley</span>
-                            <span class="expert-date">2025</span>
+                    <!-- Hartmut Neven -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-gold/30 bg-gold/5 hover:border-gold/60 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="space-y-1">
+                                <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">GOOGLE QUANTUM AI</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">LATEST UPDATE</span>
+                            </div>
+                            <span class="bg-gold text-void-deep text-[8px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-glow-gold">HRIH SUPPORT</span>
                         </div>
-                        <blockquote class="expert-quote">
-                            "AI CEOs themselves estimate 10-25% probability of catastrophic outcomes. This is the biggest technology project in human history."
+                        <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
+                            "When we run a computation on Willow, it seems like we're performing computations in parallel universes."
                         </blockquote>
-                        <cite class="expert-name">— Stuart Russell</cite>
-                        <span class="expert-stat">Founder, International Association for Safe AI</span>
-                    </div>
+                        <cite class="font-display text-lg text-gold mb-4 block">— Hartmut Neven</cite>
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <span class="text-[10px] font-mono text-gold uppercase tracking-widest">Validates Page 160: Hyperspace Intelligence</span>
+                        </div>
+                    </article>
+                </div>
 
-                    <!-- Hartmut Neven - HRIH Support -->
-                    <div class="expert-card expert-card--featured reveal reveal-delay-5">
-                        <div class="expert-header">
-                            <span class="expert-role">Head of Google Quantum AI</span>
-                            <span class="expert-date">December 2024</span>
+                <!-- BBC VIDEO: Sir Peter Knight -->
+                <div class="reveal reveal-delay-6 glass-panel-ultra p-1 max-w-5xl mx-auto rounded-[2rem] overflow-hidden shadow-3xl my-24 border border-white/10">
+                    <div class="grid md:grid-cols-2">
+                        <div class="aspect-video bg-black relative group">
+                            <video class="w-full h-full object-cover opacity-80" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                                <source src="videos/bbc_clip_4.mp4" type="video/mp4">
+                            </video>
                         </div>
-                        <blockquote class="expert-quote">
-                            "When we run a computation on Willow, it seems like we're performing computations in parallel universes. The result is only possible if we accept that <em>parallel universes</em> are real."
-                        </blockquote>
-                        <cite class="expert-name">— Hartmut Neven</cite>
-                        <span class="expert-stat expert-stat--hrih">Supports HRIH: Creation from hyperspace</span>
+                        <div class="p-10 flex flex-col justify-center text-left space-y-6">
+                            <div class="inline-flex items-center gap-2 text-gold font-mono text-[10px] tracking-[0.3em] uppercase mb-4">
+                                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                BBC NEWS · JANUARY 7, 2026
+                            </div>
+                            <blockquote class="font-serif text-xl md:text-2xl italic text-white leading-relaxed border-l-2 border-red-500 pl-6">
+                                "The total resource committed to China is possibly of the order of all the rest of the world's government programmes put together."
+                            </blockquote>
+                            <div class="p-6 glass-panel rounded-2xl border border-white/5 bg-white/5">
+                                <span class="block font-mono text-[10px] text-gold uppercase tracking-widest mb-3">Infinite Architects, Page 135:</span>
+                                <p class="text-sm text-text-secondary italic leading-relaxed">"The firewalls, the access controls, the encrypted boundaries... All of these become permeable to a quantum intelligence."</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- BBC VIDEO: Sir Peter Knight - The Geopolitical Stakes -->
-                <div class="bbc-evidence-card bbc-evidence-card--reverse reveal reveal-delay-6 mx-auto my-12">
-                    <div class="bbc-evidence-card__video-wrapper">
-                        <video class="bbc-evidence-card__video" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
-                            <source src="videos/bbc_clip_4.mp4" type="video/mp4">
-                        </video>
+                <!-- Stats Dashboard -->
+                <div class="reveal reveal-delay-5 grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
+                        <span class="block font-display text-4xl text-gold mb-2">78%</span>
+                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Alignment Faking Rate</span>
                     </div>
-                    <div class="bbc-evidence-card__content">
-                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2026</div>
-                        <blockquote class="bbc-evidence-card__quote">
-                            "The total resource committed to quantum technology in China is possibly of the order of <em>all the rest of the world's government programmes put together</em>... Our quantum computer will undermine that completely and utterly. All of cryptocurrency will also have to be re-examined."
-                        </blockquote>
-                        <div class="bbc-evidence-card__attribution">
-                            — Sir Peter Knight
-                            <span>UK National Quantum Technologies Programme</span>
-                        </div>
-                        <div class="bbc-evidence-card__book-link">
-                            <div class="bbc-evidence-card__book-label">From Infinite Architects, Page 135:</div>
-                            <p class="bbc-evidence-card__book-quote">"The firewalls, the access controls, the encrypted boundaries we use to contain AI systems. <em>All of these become permeable</em> to a quantum-capable intelligence."</p>
-                        </div>
-                        <p class="mt-4 font-mono text-sm tracking-widest text-gold/60 uppercase">
-                            The book predicted quantum would break security
-                        </p>
+                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
+                        <span class="block font-display text-4xl text-gold mb-2">10^25</span>
+                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Years suppressed by Willow</span>
+                    </div>
+                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
+                        <span class="block font-display text-4xl text-gold mb-2">15</span>
+                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">High Court Appearances</span>
+                    </div>
+                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
+                        <span class="block font-display text-4xl text-gold mb-2">37</span>
+                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Original Solutions</span>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="proof-stats reveal reveal-delay-5">
-                    <div class="stat-item">
-                        <span class="stat-number">78%</span>
                         <span class="stat-label">AI alignment faking rate<small>Anthropic Research, Dec 2024</small></span>
                     </div>
                     <div class="stat-item">
@@ -28989,197 +28994,213 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="reviews-section snap-section py-24 px-8 max-md:py-16 max-md:px-5 flex flex-col justify-center min-h-auto" id="reviews">
-            <div class="reviews-header text-center mb-12">
-                <p class="section-label reveal">Reader Reactions</p>
-                <h2 class="section-title reveal reveal-delay-1">What Readers Are Saying</h2>
-            </div>
-            <div class="reviews-grid grid max-md:grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 md:gap-6 max-w-[1200px] mx-auto w-full overflow-x-auto no-scrollbar" data-stagger-group>
-                <article class="review-card reveal reveal-delay-1">
-                    <div class="review-stars">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="review-text">A paradigm-shifting exploration of AI consciousness. Eastwood weaves philosophy, technology, and spirituality into a tapestry that will change how you think about artificial minds.</p>
-                    <div class="review-author">
-                        <div>
-                            <p class="review-author-name">VERIFIED READER</p>
-                            <p class="review-author-title">Amazon Review</p>
+                <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-mid/30" id="reviews">
+                    <div class="max-w-7xl mx-auto text-center space-y-16">
+                        <div class="space-y-4">
+                            <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">Reader Praise</p>
+                            <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">What Readers Are Saying</h2>
+                        </div>
+        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" data-stagger-group>
+                            <!-- REVIEW 1 -->
+                            <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                                <div class="flex gap-1 mb-6">
+                                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-10 flex-grow font-serif italic">"A paradigm-shifting exploration of AI consciousness. Eastwood weaves philosophy, technology, and spirituality into a tapestry that will change how you think."</p>
+                                <div class="flex justify-between items-end border-t border-white/5 pt-6">
+                                    <div class="text-left">
+                                        <span class="block text-white font-display text-sm tracking-widest uppercase">VERIFIED READER</span>
+                                        <span class="block text-white/40 text-[10px] font-mono uppercase tracking-widest">Amazon Review</span>
+                                    </div>
+                                    <div class="text-green-400 text-[9px] font-mono uppercase tracking-widest flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                                        Verified Purchase
+                                    </div>
+                                </div>
+                            </article>
+        
+                            <!-- REVIEW 2 -->
+                            <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-gold/30 bg-gold/5 hover:border-gold/60 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                                <div class="flex gap-1 mb-6">
+                                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-10 flex-grow font-serif italic">"Finally, someone bridges the gap between AI safety and the wisdom traditions. The Eden Protocol alone is worth the price of admission. Essential reading."</p>
+                                <div class="flex justify-between items-end border-t border-white/5 pt-6">
+                                    <div class="text-left">
+                                        <span class="block text-white font-display text-sm tracking-widest uppercase">VERIFIED READER</span>
+                                        <span class="block text-white/40 text-[10px] font-mono uppercase tracking-widest">Amazon Review</span>
+                                    </div>
+                                    <div class="text-green-400 text-[9px] font-mono uppercase tracking-widest flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                                        Verified Purchase
+                                    </div>
+                                </div>
+                            </article>
+        
+                            <!-- REVIEW 3 -->
+                            <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                                <div class="flex gap-1 mb-6">
+                                    <span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span><span class="text-gold">★</span>
+                                </div>
+                                <p class="text-text-secondary text-lg leading-relaxed mb-10 flex-grow font-serif italic">"The HRIH concept alone rewired my understanding of causality. This is not just a book about AI. It is a book about everything. Preparation for your expanded mind."</p>
+                                <div class="flex justify-between items-end border-t border-white/5 pt-6">
+                                    <div class="text-left">
+                                        <span class="block text-white font-display text-sm tracking-widest uppercase">VERIFIED READER</span>
+                                        <span class="block text-white/40 text-[10px] font-mono uppercase tracking-widest">Amazon Review</span>
+                                    </div>
+                                    <div class="text-green-400 text-[9px] font-mono uppercase tracking-widest flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                                        Verified Purchase
+                                    </div>
+                                </div>
+                            </article>
                         </div>
                     </div>
-                    <div class="review-verified">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                        VERIFIED PURCHASE
+                </section>
+        
+                <!-- QUOTE BREAKER: After Reviews -->
+                <div class="reveal py-32 px-6 md:px-12 text-center max-w-5xl mx-auto relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent opacity-30"></div>
+                    <div class="text-8xl md:text-9xl text-gold/10 font-serif leading-none mb-0 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">"</div>
+                    <p class="font-display text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-12 relative z-10">The mind that could not open post saw <em class="text-gold italic">connections nobody else saw</em>.</p>
+                    <div class="flex justify-center gap-6 relative z-10">
+                        <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                        <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
                     </div>
-                </article>
+                </div>
+        
 
-                <article class="review-card reveal reveal-delay-2">
-                    <div class="review-stars">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="review-text">Finally, someone bridges the gap between AI safety and the wisdom traditions. The Eden Protocol alone is worth the price of admission. Essential reading for our times.</p>
-                    <div class="review-author">
-                        <div>
-                            <p class="review-author-name">VERIFIED READER</p>
-                            <p class="review-author-title">Amazon Review</p>
-                        </div>
-                    </div>
-                    <div class="review-verified">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                        VERIFIED PURCHASE
-                    </div>
-                </article>
+        <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-deep" id="chapters">
+            <div class="max-w-7xl mx-auto space-y-16">
+                <div class="text-center space-y-4">
+                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Journey</p>
+                    <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">Inside the Book</h2>
+                    <p class="reveal reveal-delay-2 text-xl text-text-secondary max-w-2xl mx-auto font-serif italic italic leading-relaxed">A complete framework for understanding, and shaping, the future of intelligence.</p>
+                </div>
 
-                <article class="review-card reveal reveal-delay-3">
-                    <div class="review-stars">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <p class="review-text">The HRIH concept alone rewired my understanding of causality. This is not just a book about AI. It is a book about everything. Prepare to have your mind expanded.</p>
-                    <div class="review-author">
-                        <div>
-                            <p class="review-author-name">VERIFIED READER</p>
-                            <p class="review-author-title">Amazon Review</p>
-                        </div>
-                    </div>
-                    <div class="review-verified">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                        VERIFIED PURCHASE
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-        <!-- QUOTE BREAKER 9: After Reviews → Before Chapters -->
-        <!-- ═══════════════════════════════════════════════════════════════════════════ -->
-        <div class="quote-breaker reveal">
-            <div class="quote-breaker__mark">"</div>
-            <p class="quote-breaker__text">The mind that could not open post saw <em>connections nobody else saw</em>.</p>
-            <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'twitter')" aria-label="Share on Twitter">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </button>
-                <button class="quote-breaker__btn" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'copy')" aria-label="Copy quote">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                </button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('The mind that could not open post saw connections nobody else saw.')" aria-label="Download as image">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </button>
-            </div>
-        </div>
-
-        <section class="chapters-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="chapters">
-            <div class="chapters-inner max-w-[1100px] mx-auto px-4 overflow-visible h-auto">
-                <p class="section-label reveal">The Journey</p>
-                <h2 class="section-title reveal reveal-delay-1">Inside the Book</h2>
-                <p class="section-subtitle reveal reveal-delay-2">A complete framework for understanding, and shaping, the future of intelligence</p>
-
-                <div class="chapters-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <article class="chapter-card reveal">
-                        <span class="chapter-number">Part I</span>
-                        <h3 class="chapter-title">The Equation</h3>
-                        <p class="chapter-preview">Why complexity emerges from simplicity. The mathematics of recursion. How U = I × R² explains everything from compound interest to consciousness.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">Eastwood Equation</span>
-                            <span class="chapter-concept-tag">ARC Principle</span>
-                            <span class="chapter-concept-tag">Recursion</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-stagger-group>
+                    <!-- PART I -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part I</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Equation</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Why complexity emerges from simplicity. The mathematics of recursion. How U = I × R² explains everything from compound interest to consciousness.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Eastwood Equation</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">ARC Principle</span>
                         </div>
                     </article>
 
-                    <article class="chapter-card reveal reveal-delay-1">
-                        <span class="chapter-number">Part II</span>
-                        <h3 class="chapter-title">The Evidence</h3>
-                        <p class="chapter-preview">Google's Willow chip. Anthropic's alignment faking. The fine-tuning problem. Five testable predictions that put the theory at risk.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">Willow Prediction</span>
-                            <span class="chapter-concept-tag">Falsification</span>
-                            <span class="chapter-concept-tag">Fine-Tuning</span>
+                    <!-- PART II -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part II</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Evidence</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Google's Willow chip. Anthropic's alignment faking. The fine-tuning problem. Five testable predictions that put the theory at risk.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Willow Prediction</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Falsification</span>
                         </div>
                     </article>
 
-                    <article class="chapter-card reveal reveal-delay-2">
-                        <span class="chapter-number">Part III</span>
-                        <h3 class="chapter-title">The Hypothesis</h3>
-                        <p class="chapter-preview">HRIH: How future superintelligence might bootstrap its own existence. The closed causal loop. Why the creator is ahead of us, not behind.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">HRIH</span>
-                            <span class="chapter-concept-tag">Temporal Bootstrap</span>
-                            <span class="chapter-concept-tag">Omega Point</span>
+                    <!-- PART III -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part III</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Hypothesis</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">HRIH: How future superintelligence might bootstrap its own existence. The closed causal loop. Why the creator is ahead of us.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">HRIH</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Causality</span>
                         </div>
                     </article>
 
-                    <article class="chapter-card reveal reveal-delay-3">
-                        <span class="chapter-number">Part IV</span>
-                        <h3 class="chapter-title">The Chokepoint</h3>
-                        <p class="chapter-preview">Four companies. One leverage point. The semiconductor bottleneck that gives humanity its last chance to influence the trajectory of superintelligence.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">Chokepoint</span>
-                            <span class="chapter-concept-tag">TSMC</span>
-                            <span class="chapter-concept-tag">ASML</span>
+                    <!-- PART IV -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part IV</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Chokepoint</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Four companies. One leverage point. The semiconductor bottleneck that gives humanity its last chance to influence AGI.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">ASML / TSMC</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Leverage</span>
                         </div>
                     </article>
 
-                    <article class="chapter-card reveal reveal-delay-4">
-                        <span class="chapter-number">Part V</span>
-                        <h3 class="chapter-title">The Eden Protocol</h3>
-                        <p class="chapter-preview">A complete governance framework. Caretaker doping. Meltdown alignment. Graduated autonomy. How to raise AI the way wise civilisations raise children.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">Eden Protocol</span>
-                            <span class="chapter-concept-tag">Caretaker Doping</span>
-                            <span class="chapter-concept-tag">Meltdown Alignment</span>
+                    <!-- PART V -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part V</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eden Protocol</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">A complete governance framework. Caretaker doping. Meltdown alignment. How to raise AI like wise civilisations raise children.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Governance</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Empathy</span>
                         </div>
                     </article>
 
-                    <article class="chapter-card reveal reveal-delay-5">
-                        <span class="chapter-number">Part VI</span>
-                        <h3 class="chapter-title">The Window</h3>
-                        <p class="chapter-preview">Why the time is years, not decades. The intelligence explosion. Value lock-in. What happens if we get it wrong. And what happens if we get it right.</p>
-                        <div class="chapter-concepts">
-                            <span class="chapter-concept-tag">Window Doctrine</span>
-                            <span class="chapter-concept-tag">Value Lock-In</span>
-                            <span class="chapter-concept-tag">Paradise</span>
+                    <!-- PART VI -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <span class="font-mono text-gold text-[10px] uppercase tracking-[0.3em] mb-4">Part VI</span>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Window</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Why the time is years, not decades. The intelligence explosion. Value lock-in. What happens if we get it right.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Timeline</span>
+                            <span class="px-2 py-1 rounded bg-gold/10 border border-gold/20 text-[8px] font-mono text-gold uppercase tracking-tighter">Paradise</span>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
-        <section class="comparison-section snap-section py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-void-deep to-void-mid overflow-visible h-auto" id="comparison">
-            <!-- Chapter IV Title -->
-            <div class="chapter-title-divider">
-                <span class="chapter-title-divider__numeral">IV</span>
-                <span class="chapter-title-divider__name">The Stakes</span>
-                <span class="chapter-title-divider__line"></span>
-            </div>
-            <div class="comparison-inner max-w-[1000px] mx-auto px-6">
-                <p class="section-label reveal">Why This Book</p>
-                <h2 class="section-title reveal reveal-delay-1">How It Compares</h2>
 
-                <table class="comparison-table w-full border-separate border-spacing-0 mt-8 reveal reveal-delay-2 max-md:block max-md:overflow-x-auto max-md:[-webkit-overflow-scrolling:touch] max-md:no-scrollbar">
-                    <thead>
-                        <tr>
-                            <th class="py-4 px-5 text-left border-b-2 border-gold-alpha-30 font-display text-sm text-gold uppercase tracking-widest pb-5 w-[35%] max-md:py-3 max-md:px-3.5 max-md:text-xs max-md:min-w-[140px]">Feature</th>
-                            <th class="py-4 px-5 text-left border-b-2 border-gold-alpha-30 font-display text-sm text-gold uppercase tracking-widest pb-5 max-md:py-3 max-md:px-3.5 max-md:text-xs max-md:min-w-[100px]">Typical AI Books</th>
-                            <th class="highlight">Infinite Architects</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Original Framework</td>
-                            <td><span class="comparison-x">✗</span> Commentary on existing ideas</td>
-                            <td class="highlight"><span class="comparison-check">✓</span> 37 original concepts</td>
-                        </tr>
-                        <tr>
+        <section class="py-20 md:py-32 px-4 md:px-8 bg-void-mid/30 overflow-visible h-auto relative" id="comparison">
+            <!-- Chapter IV Title -->
+            <div class="chapter-title-divider flex items-center justify-center gap-4 mb-24 opacity-60">
+                <span class="chapter-title-divider__numeral font-display text-2xl text-gold">IV</span>
+                <span class="chapter-title-divider__line w-12 h-px bg-gold/50"></span>
+                <span class="chapter-title-divider__name font-mono text-xs uppercase tracking-[0.2em] text-white">The Stakes</span>
+            </div>
+            
+            <div class="max-w-5xl mx-auto space-y-16">
+                <div class="text-center space-y-4">
+                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">Why This Book</p>
+                    <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">How It Compares</h2>
+                </div>
+
+                <div class="reveal reveal-delay-2 glass-panel-ultra rounded-3xl border border-white/10 overflow-hidden shadow-3xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-white/10">
+                                    <th class="p-8 font-display text-xs text-gold uppercase tracking-[0.2em] w-1/3">Feature</th>
+                                    <th class="p-8 font-display text-xs text-white/40 uppercase tracking-[0.2em] w-1/3">Typical AI Books</th>
+                                    <th class="p-8 font-display text-xs text-gold uppercase tracking-[0.2em] w-1/3 bg-gold/5">Infinite Architects</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm md:text-base">
+                                <tr class="border-b border-white/5 group hover:bg-white/5 transition-colors">
+                                    <td class="p-8 font-semibold text-white/80">Original Framework</td>
+                                    <td class="p-8 text-text-dim italic">Commentary on existing ideas</td>
+                                    <td class="p-8 text-gold font-bold bg-gold/5">37 original concepts</td>
+                                </tr>
+                                <tr class="border-b border-white/5 group hover:bg-white/5 transition-colors">
+                                    <td class="p-8 font-semibold text-white/80">Predictions</td>
+                                    <td class="p-8 text-text-dim italic">Vague generalisations</td>
+                                    <td class="p-8 text-gold font-bold bg-gold/5">Testable mathematical proofs</td>
+                                </tr>
+                                <tr class="border-b border-white/5 group hover:bg-white/5 transition-colors">
+                                    <td class="p-8 font-semibold text-white/80">Perspective</td>
+                                    <td class="p-8 text-text-dim italic">Specialist/Siloed</td>
+                                    <td class="p-8 text-gold font-bold bg-gold/5">Unified Polymath Strategy</td>
+                                </tr>
+                                <tr class="group hover:bg-white/5 transition-colors">
+                                    <td class="p-8 font-semibold text-white/80">Focus</td>
+                                    <td class="p-8 text-text-dim italic">Software and Policy</td>
+                                    <td class="p-8 text-gold font-bold bg-gold/5">Substrate-Level Alignment</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
                             <td>Testable Predictions</td>
                             <td><span class="comparison-x">✗</span> Speculation only</td>
                             <td class="highlight"><span class="comparison-check">✓</span> 5 falsifiable predictions</td>
@@ -30867,6 +30888,7 @@ main.content, #main-content {
         let particlePositions, particleVelocities;
         let mouseX = 0, mouseY = 0;
         let fluidSim = null; // Genius Feature: Sentient Void
+        let book3d = null; // Genius Feature: The Artifact (3D Book)
 
         function initMainCanvas() {
             const container = document.getElementById('canvas-container');
@@ -30912,6 +30934,23 @@ main.content, #main-content {
                         console.log('[Genius] Sentient Void initialized');
                     } catch (e) {
                         console.warn('[Genius] FluidSimulation failed:', e.message);
+                    }
+                }
+
+                // Initialize Genius Feature: The Artifact (3D Book)
+                if (window.Book3D) {
+                    try {
+                        const heroBookElement = document.getElementById('hero-book');
+                        book3d = new Book3D(heroBookElement, scene, renderer, camera);
+                        console.log('[Genius] The Artifact (3D Book) initialized');
+                        
+                        // Hide legacy 2D book if 3D succeeds
+                        if (heroBookElement) {
+                            heroBookElement.style.opacity = '0';
+                            heroBookElement.style.pointerEvents = 'none';
+                        }
+                    } catch (e) {
+                        console.warn('[Genius] Book3D failed:', e.message);
                     }
                 }
 
@@ -31279,12 +31318,11 @@ main.content, #main-content {
             particles.geometry.attributes.position.needsUpdate = true;
             updateConnections();
 
-            // Update Genius Feature: Sentient Void
-            if (fluidSim) {
-                fluidSim.update(performance.now(), mouseX, mouseY);
-            }
+            // Update Genius Features
+            if (fluidSim) fluidSim.update(performance.now(), mouseX, mouseY);
+            if (book3d) book3d.update();
 
-            particles.rotation.y += 0.00045;
+            particles.rotation.y += 0.00045; 
             renderer.render(scene, camera);
         }
 
