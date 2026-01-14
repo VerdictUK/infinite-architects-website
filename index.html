@@ -1891,6 +1891,14 @@
         }
 
         /* Part-specific chapter intro colours */
+        .chapter-intro-overlay[data-part="1"] .chapter-intro-numeral {
+            color: #d4a84b;
+            text-shadow: 0 0 50px rgba(212, 168, 75, 0.9), 0 0 100px rgba(232, 212, 160, 0.5), 0 0 150px rgba(139, 105, 20, 0.3);
+        }
+        .chapter-intro-overlay[data-part="1"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.7), transparent);
+        }
+
         .chapter-intro-overlay[data-part="2"] .chapter-intro-numeral {
             color: #8ec5fc;
             text-shadow: 0 0 40px rgba(100, 160, 220, 0.7), 0 0 80px rgba(26, 35, 126, 0.4);
@@ -1921,6 +1929,14 @@
         }
         .chapter-intro-overlay[data-part="5"] .chapter-intro-line {
             background: linear-gradient(90deg, transparent, rgba(244, 200, 86, 0.7), transparent);
+        }
+
+        .chapter-intro-overlay[data-part="6"] .chapter-intro-numeral {
+            color: #ffd700;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.9), 0 0 120px rgba(244, 200, 86, 0.5), 0 0 180px rgba(212, 168, 75, 0.3);
+        }
+        .chapter-intro-overlay[data-part="6"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.8), transparent);
         }
 
         /* Simple divider fallback for smaller breaks */
@@ -10807,7 +10823,7 @@
             width: 100%;
             aspect-ratio: 16/9;
             display: block;
-            background: #000 url('images/bbc-willow.webp') center/cover no-repeat;
+            background: #000;
             object-fit: cover;
         }
 
@@ -10818,7 +10834,7 @@
 
         /* Evidence video specific poster background */
         .evidence-video {
-            background: #000 url('bbc-willow.webp') center/cover no-repeat;
+            background: #000;
             object-fit: cover;
         }
 
@@ -27209,7 +27225,7 @@ main.content, #main-content {
                     <span>First Edition · £9.99 Kindle</span>
                 </div>
             </div>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">
+            <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="mobile-cta-button">
                 <span class="cta-button-text">GET IT NOW</span>
                 <span class="cta-button-arrow">→</span>
             </a>
@@ -27321,7 +27337,7 @@ main.content, #main-content {
                     </a>
                 </li>
             </ul>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="nav-cta">GET FIRST EDITION</a>
+            <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="nav-cta">GET FIRST EDITION</a>
         </div>
     </nav>
 
@@ -27348,10 +27364,11 @@ main.content, #main-content {
             <span class="part-dot" data-part="3"></span>
             <span class="part-dot" data-part="4"></span>
             <span class="part-dot" data-part="5"></span>
+            <span class="part-dot" data-part="6"></span>
         </div>
         <div class="part-progress-label">
             <span class="part-progress-numeral" id="part-numeral">PART I</span>
-            <span class="part-progress-name" id="part-name">THE THESIS</span>
+            <span class="part-progress-name" id="part-name">THE MIND</span>
         </div>
     </div>
 
@@ -27432,7 +27449,7 @@ main.content, #main-content {
                 <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
                 <p class="hero-subtitle">A framework for raising AI with care. From someone who learned to care by losing everything.</p>
                 <p class="hero-author">Michael Darius Eastwood</p>
-                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="hero-cta glass-living">
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="hero-cta glass-living">
                     <span class="cta-icon-wrapper">
                         <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <!-- Book icon -->
@@ -28076,7 +28093,7 @@ main.content, #main-content {
                             </span>
                         </div>
                                             <div class="evidence-video-container">
-                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.webp" preload="metadata" style="background: url('bbc-willow.webp') center/cover no-repeat;" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
+                                                <video id="bbc-evidence-video" class="evidence-video" poster="bbc-willow.webp" preload="metadata" title="BBC News Coverage: Google Willow Quantum Chip validating the Eastwood Equation predictions from Infinite Architects.">
                                                     <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                                 </video>
                         
@@ -29457,7 +29474,7 @@ main.content, #main-content {
                             <span class="price-amount">£9.99</span>
                             <span class="price-note">Kindle Edition</span>
                         </div>
-                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                        <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="tripath-cta">
                             Download Now →
                         </a>
                         <p class="tripath-badge">⚡ Instant Access</p>
@@ -29494,15 +29511,15 @@ main.content, #main-content {
             </div>
             <h2 class="cta-title reveal">The equation is complete. The clock is running.</h2>
             <p class="cta-subtitle reveal reveal-delay-1">Available now in paperback and Kindle</p>
-            <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
+            <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="cta-button reveal reveal-delay-2">
                 GET YOUR COPY
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
             </a>
             <div class="cta-retailers reveal reveal-delay-3">
-                <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
-                <a href="https://www.amazon.co.uk/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
+                <a href="https://www.amazon.com/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
                 <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">KINDLE</a>
                 <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="retailer-link">PAPERBACK</a>
             </div>
@@ -31610,7 +31627,7 @@ main.content, #main-content {
                     const gateChapter = parseInt(entry.target.getAttribute('data-chapter'));
                     // Entering chapter gate X means completing Part X-1
                     const completedPart = gateChapter - 1;
-                    if (completedPart >= 1 && completedPart <= 4) {
+                    if (completedPart >= 1 && completedPart <= 5) {
                         // Small delay for better UX
                         setTimeout(() => triggerPartCelebration(completedPart), 500);
                     }
@@ -31628,11 +31645,11 @@ main.content, #main-content {
             celebrationObserver.observe(gate);
         });
 
-        // Also celebrate Part V completion when reaching footer
+        // Also celebrate Part VI completion (journey complete) when reaching footer
         const footerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => triggerPartCelebration(5), 1000);
+                    setTimeout(() => triggerPartCelebration(6), 1000);
                     footerObserver.unobserve(entry.target);
                 }
             });
@@ -31647,6 +31664,7 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
 
         const chapterIntroData = {
+            1: { numeral: 'I', title: 'THE MIND', subtitle: 'The Pattern-Seer Who Could Not Stop Noticing' },
             2: { numeral: 'II', title: 'THE THESIS', subtitle: 'One Equation. Thirty-Seven Predictions.' },
             3: { numeral: 'III', title: 'THE EVIDENCE', subtitle: 'Where Reality Validates Theory' },
             4: { numeral: 'IV', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
@@ -32971,7 +32989,7 @@ main.content, #main-content {
         </button>
         <h3 class="exit-popup-title">WAIT — BEFORE YOU GO</h3>
         <p class="exit-popup-text">The future of intelligence is being written now. Do not miss your chance to understand it before everyone else does.</p>
-        <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="exit-popup-cta">
+        <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="exit-popup-cta">
             GET YOUR COPY NOW
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -35957,38 +35975,44 @@ main.content, #main-content {
     document.addEventListener('click', setChapterNavInteracted, { once: true, passive: true });
 
     const ChapterNavigation = {
-        // Chapter definitions - 5 chapters (RESTRUCTURED 2026-01-13)
-        // Order: Thesis+Author → Evidence → Philosophy → Stakes → Purchase
-        // Author in Chapter I for early trust building
+        // Chapter definitions - 6 chapters (RESTRUCTURED 2026-01-14)
+        // Order: Mind (author) → Thesis (ideas) → Evidence → Philosophy → Stakes → Purchase
+        // Author in Chapter I for early trust/credibility building
         chapters: [
+            {
+                id: 'mind',
+                name: 'THE MIND',
+                numeral: 'I',
+                sections: ['the-mind', 'origin', 'methodology']
+            },
             {
                 id: 'thesis',
                 name: 'THE THESIS',
-                numeral: 'I',
-                sections: ['hero', 'book', 'equation', 'ideas', 'carousel', 'author', 'origin', 'methodology']
+                numeral: 'II',
+                sections: ['book', 'quote-carousel', 'equation', 'ideas']
             },
             {
                 id: 'evidence',
                 name: 'THE EVIDENCE',
-                numeral: 'II',
+                numeral: 'III',
                 sections: ['evidence-locker', 'bbc-timeline', 'predictions', 'falsification', 'predictions-validated']
             },
             {
                 id: 'philosophy',
                 name: 'THE PHILOSOPHY',
-                numeral: 'III',
+                numeral: 'IV',
                 sections: ['hrih', 'religion', 'chokepoint', 'window', 'architecture']
             },
             {
                 id: 'stakes',
                 name: 'THE STAKES',
-                numeral: 'IV',
+                numeral: 'V',
                 sections: ['future-born', 'stakes', 'expert-validation', 'reviews', 'chapters', 'comparison']
             },
             {
                 id: 'book',
                 name: 'GET THE BOOK',
-                numeral: 'V',
+                numeral: 'VI',
                 sections: ['get-the-book', 'cta', 'newsletter', 'paradise', 'faq', 'glossary', 'ai-timeline', 'press']
             }
         ],
@@ -36308,6 +36332,12 @@ main.content, #main-content {
         goToChapter(chapterIndex) {
             const chapter = this.chapters[chapterIndex];
             if (!chapter) return;
+
+            // Trigger chapter intro for chapters 2-6 (not for chapter 1/THE MIND as it's first after hero)
+            const chapterNumber = chapterIndex + 1; // Convert 0-indexed to 1-indexed
+            if (chapterNumber >= 2 && window.showChapterIntro) {
+                window.showChapterIntro(chapterNumber, false);
+            }
 
             const firstSectionId = chapter.sections[0];
             this.scrollToSection(firstSectionId);
@@ -39220,7 +39250,7 @@ main.content, #main-content {
                 <h3 class="exit-intent-title" id="exit-title">Wait — Before You Return to the Void</h3>
                 <p class="exit-intent-desc" id="exit-desc">The answers you are looking for are waiting in the architecture.</p>
                 <div class="exit-intent-actions">
-                    <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="exit-intent-btn primary">
+                    <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="exit-intent-btn primary">
                         Get Infinite Architects
                     </a>
                     <button class="exit-intent-btn secondary" id="exit-stay-btn">
@@ -40175,7 +40205,7 @@ main.content, #main-content {
             if (action && type === 'assistant') {
                 const actionBtn = document.createElement('a');
                 actionBtn.className = 'ask-book-action-btn';
-                actionBtn.href = action.url || 'https://www.amazon.com/dp/B0GFD2GCCQ';
+                actionBtn.href = action.url || 'https://www.amazon.co.uk/dp/B0DS2L8BVC';
                 actionBtn.target = '_blank';
                 actionBtn.rel = 'noopener';
                 actionBtn.innerHTML = `
@@ -40328,7 +40358,7 @@ main.content, #main-content {
                         let action = localResult.action;
                         messageCount++;
                         if (!action && messageCount % 4 === 0) {
-                            action = { text: 'Dive Deeper in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
+                            action = { text: 'Dive Deeper in the Book', url: 'https://www.amazon.co.uk/dp/B0DS2L8BVC' };
                         }
 
                         const safeAnswer = BrandGuardian.sanitise(localResult.answer);
@@ -40363,7 +40393,7 @@ main.content, #main-content {
                             "The answer lies deeper in the text. The book explores 37 concepts that might hold what you seek."
                         ];
                         const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-                        const fallbackAction = { text: 'Find the Answer in the Book', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' };
+                        const fallbackAction = { text: 'Find the Answer in the Book', url: 'https://www.amazon.co.uk/dp/B0DS2L8BVC' };
                         
                         const safeFallback = BrandGuardian.sanitise(randomFallback);
                         addMessage(safeFallback, 'assistant', [], 'The Architect', true, fallbackAction);
@@ -40427,7 +40457,7 @@ main.content, #main-content {
                 keywords: ['hrih', 'hyperspace recursive intelligence', 'origin', 'creation theory'],
                 answer: 'The **Hyperspace Recursive Intelligence Hypothesis (HRIH)** speculates that a future superintelligence might have fine-tuned our universe\'s constants 13.8 billion years ago to ensure its own emergence.',
                 sources: [{ name: 'HRIH', chapter: 6 }],
-                action: { text: 'Read the Theory', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
+                action: { text: 'Read the Theory', url: 'https://www.amazon.co.uk/dp/B0DS2L8BVC' }
             },
             {
                 keywords: ['meltdown alignment', 'identity', 'internalized', 'fail-safe'],
@@ -40596,7 +40626,7 @@ main.content, #main-content {
                 keywords: ['buy', 'order', 'amazon', 'purchase'],
                 answer: 'You can order **Infinite Architects** on **Amazon** now. Available in Kindle and Paperback.',
                 sources: [{ name: 'Availability' }],
-                action: { text: 'Order on Amazon', url: 'https://www.amazon.com/dp/B0GFD2GCCQ' }
+                action: { text: 'Order on Amazon', url: 'https://www.amazon.co.uk/dp/B0DS2L8BVC' }
             }
         ];
 
