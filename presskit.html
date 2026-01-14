@@ -11,1120 +11,387 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/styles.css">
+
     <style>
-        :root {
-            /* Matching main site design tokens */
-            --gold: #d4a84b;
-            --gold-bright: #f4c856;
-            --gold-pale: #e8d4a0;
-            --gold-dark: #a67c35;
-            --gold-glow: rgba(212, 168, 75, 0.35);
-            --gold-subtle: rgba(212, 168, 75, 0.08);
-            --void: #02030a;
-            --void-mid: #04050c;
-            --nebula-blue: #0d1f3c;
-            --nebula-purple: #1a1035;
-            --text: #f0ebe3;
-            --text-dim: rgba(240, 235, 227, 0.55);
-            --text-faint: rgba(240, 235, 227, 0.25);
-            --font-display: 'Cinzel', serif;
-            --font-serif: 'Cormorant Garamond', Georgia, serif;
-            --font-mono: 'Space Mono', monospace;
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 2rem;
-            --space-xl: 4rem;
+        /* Selection styling */
+        ::selection {
+            background: #d4a84b;
+            color: #02030a;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: var(--font-serif);
-            font-size: 16px;
-            line-height: 1.7;
-            background: var(--void);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        ::selection {
-            background: var(--gold);
-            color: var(--void);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* Cosmic Background */
-        .cosmic-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background:
-                radial-gradient(ellipse at 15% 15%, var(--nebula-purple) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 25%, var(--nebula-blue) 0%, transparent 45%),
-                radial-gradient(ellipse at 50% 80%, rgba(212, 168, 75, 0.03) 0%, transparent 50%);
-        }
-
-        /* Header */
-        header {
-            padding: 3rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
-        }
-
-        .header-label {
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            letter-spacing: 0.5em;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .header-title {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-        }
-
-        .header-title span {
-            color: var(--gold);
-        }
-
-        .header-sub {
-            font-style: italic;
-            color: var(--text-dim);
-        }
-
-        .header-nav {
-            margin-top: 1.5rem;
-        }
-
-        .header-nav a {
-            display: inline-block;
-            padding: 0.6rem 1.2rem;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-family: var(--font-display);
-            font-size: 0.55rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .header-nav a:hover {
-            background: var(--gold);
-            color: var(--void);
-        }
-
-        /* Main */
-        main {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: var(--space-xl) var(--space-lg);
-        }
-
-        @media (max-width: 600px) {
-            main {
-                padding: var(--space-lg) var(--space-md);
-            }
-        }
-
-        section {
-            margin-bottom: var(--space-xl);
-        }
-
-        .section-title {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.4em;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(212, 168, 75, 0.2);
-        }
-
-        /* Hook */
-        .hook {
-            background: linear-gradient(135deg, rgba(212, 168, 75, 0.06) 0%, transparent 100%);
-            border-left: 3px solid var(--gold);
-            padding: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        @media (max-width: 600px) {
-            .hook {
-                padding: 1.5rem;
-            }
-        }
-
-        .hook-question {
-            font-family: var(--font-display);
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            font-style: italic;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        .hook-answer {
-            font-size: 1.1rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-        }
-
-        @media (max-width: 600px) {
-            .hook-answer {
-                font-size: 1rem;
-            }
-        }
-
-        /* Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 700px) {
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .info-card {
-            background: rgba(212, 168, 75, 0.02);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-            padding: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .info-card {
-                padding: 1.25rem;
-            }
-        }
-
-        .info-card h4 {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            color: var(--gold);
-            margin-bottom: 0.8rem;
-        }
-
-        .info-card p, .info-card ul {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-        }
-
-        .info-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .info-card li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.2rem;
-            position: relative;
-        }
-
-        .info-card li::before {
-            content: '>';
-            position: absolute;
-            left: 0;
-            color: var(--gold);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-        }
-
-        /* Book Info */
-        .book-info {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 2.5rem;
-            align-items: start;
-        }
-
-        @media (max-width: 600px) {
-            .book-info {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 1.5rem;
-            }
-        }
-
-        .book-cover {
-            width: 100%;
-            border: 1px solid rgba(212, 168, 75, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        @media (max-width: 600px) {
-            .book-cover {
-                max-width: 180px;
-                margin: 0 auto;
-            }
-        }
-
-        .book-details h3 {
-            font-family: var(--font-display);
-            font-size: 1.6rem;
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.3rem;
-        }
-
-        @media (max-width: 600px) {
-            .book-details h3 {
-                font-size: 1.4rem;
-            }
-        }
-
-        .book-subtitle {
-            font-style: italic;
-            color: var(--text-dim);
-            margin-bottom: 1.5rem;
-        }
-
-        .book-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
-        }
-
-        @media (max-width: 600px) {
-            .book-meta {
-                justify-content: center;
-                gap: 1.5rem;
-            }
-        }
-
-        .meta-item {
-            text-align: left;
-        }
-
-        @media (max-width: 600px) {
-            .meta-item {
-                text-align: center;
-            }
-        }
-
-        .meta-label {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            letter-spacing: 0.2em;
-            color: var(--gold-dark);
-            text-transform: uppercase;
-        }
-
-        .meta-value {
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-
-        .book-desc {
-            font-size: 1.05rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-        }
-
-        @media (max-width: 600px) {
-            .book-desc {
-                font-size: 1rem;
-                text-align: left;
-            }
-        }
-
-        /* Author Section - Enhanced */
-        .author-section {
-            display: grid;
-            grid-template-columns: 140px 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        @media (max-width: 600px) {
-            .author-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-
-        .author-photo {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--void-mid) 0%, var(--void) 100%);
-            border: 2px solid rgba(212, 168, 75, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            color: var(--gold);
-        }
-
-        @media (max-width: 600px) {
-            .author-photo {
-                margin: 0 auto;
-            }
-        }
-
-        .author-details h3 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.3rem;
-        }
-
-        .author-title {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .author-bio {
-            font-size: 1rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .author-bio {
-                text-align: left;
-            }
-        }
-
-        /* Story Timeline */
-        .story-timeline {
-            margin-top: 3rem;
-        }
-
-        .timeline-phase {
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            background: rgba(4, 5, 12, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-            border-left: 3px solid var(--gold);
-        }
-
-        @media (max-width: 600px) {
-            .timeline-phase {
-                padding: 1.25rem;
-                margin-bottom: 2rem;
-            }
-        }
-
-        .phase-label {
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            letter-spacing: 0.3em;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-
-        .phase-title {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .phase-title {
-                font-size: 1rem;
-            }
-        }
-
-        .phase-content {
-            font-size: 0.95rem;
-            color: var(--text-dim);
-            line-height: 1.8;
-        }
-
-        .phase-content strong {
-            color: var(--gold-pale);
-        }
-
-        .phase-highlight {
-            display: block;
-            margin-top: 1rem;
-            padding: 0.75rem 1rem;
-            background: rgba(212, 168, 75, 0.06);
-            font-style: italic;
-            border-left: 2px solid var(--gold-dark);
-        }
-
-        .stats-inline {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(212, 168, 75, 0.1);
-        }
-
-        .stat-item {
-            text-align: left;
-        }
-
-        @media (max-width: 600px) {
-            .stats-inline {
-                gap: 1rem;
-            }
-        }
-
-        .stat-value {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            color: var(--gold);
-        }
-
-        .stat-label {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            letter-spacing: 0.1em;
-            color: var(--text-dim);
-            text-transform: uppercase;
-        }
-
-        /* Topics */
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .topics-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .topic-item {
-            background: rgba(4, 5, 12, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-            padding: 1.2rem 1.5rem;
-            transition: border-color 0.3s ease;
-        }
-
-        @media (max-width: 600px) {
-            .topic-item {
-                padding: 1rem 1.25rem;
-            }
-        }
-
+        /* Topic item hover effect */
         .topic-item:hover {
-            border-color: var(--gold);
+            border-color: #d4a84b;
         }
 
-        .topic-number {
-            font-family: var(--font-mono);
-            font-size: 0.55rem;
-            color: var(--gold-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .topic-title {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            letter-spacing: 0.03em;
-            color: var(--text);
-        }
-
-        @media (max-width: 600px) {
-            .topic-title {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Interview Hooks - New Section */
-        .hooks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .hook-item {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1rem;
-            padding: 1.25rem 1.5rem;
-            background: rgba(4, 5, 12, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-            align-items: start;
-        }
-
-        @media (max-width: 600px) {
-            .hook-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-                padding: 1rem 1.25rem;
-            }
-        }
-
-        .hook-q {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--gold);
-            letter-spacing: 0.1em;
-            padding-top: 0.2rem;
-        }
-
-        .hook-text {
-            font-size: 1rem;
-            color: var(--text);
-            font-style: italic;
-        }
-
-        /* Quotes */
-        .quotes-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .quote-item {
-            padding: 1.5rem;
-            border-left: 2px solid var(--gold);
-            background: rgba(212, 168, 75, 0.03);
-        }
-
-        @media (max-width: 600px) {
-            .quote-item {
-                padding: 1.25rem;
-            }
-        }
-
-        .quote-text {
-            font-style: italic;
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            line-height: 1.7;
-        }
-
-        @media (max-width: 600px) {
-            .quote-text {
-                font-size: 1rem;
-            }
-        }
-
-        .quote-source {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            color: var(--text-dim);
-        }
-
-        /* Downloads */
-        .downloads-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .downloads-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .download-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1.5rem;
-            background: rgba(4, 5, 12, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-
+        /* Download item hover effect */
         .download-item:hover {
-            border-color: var(--gold);
+            border-color: #d4a84b;
             transform: translateY(-3px);
         }
 
-        .download-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
+        /* Header nav button hover */
+        .header-nav a:hover {
+            background: #d4a84b;
+            color: #02030a;
         }
 
-        .download-label {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            text-align: center;
-            letter-spacing: 0.05em;
-        }
-
-        .download-format {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--text-dim);
-            margin-top: 0.3rem;
-        }
-
-        /* Contact */
-        .contact-box {
-            background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
-            border: 1px solid rgba(212, 168, 75, 0.2);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        @media (max-width: 600px) {
-            .contact-box {
-                padding: 1.5rem;
-            }
-        }
-
-        .contact-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            letter-spacing: 0.08em;
-            margin-bottom: 1rem;
-        }
-
-        .contact-info {
-            font-size: 1rem;
-            color: var(--text-dim);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-email {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--gold);
-            text-decoration: none;
-            word-break: break-all;
-        }
-
+        /* Contact email hover */
         .contact-email:hover {
             text-decoration: underline;
         }
 
-        /* Press Angles Summary */
-        .angles-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .angles-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .angle-card {
-            padding: 1.25rem;
-            background: rgba(4, 5, 12, 0.6);
-            border: 1px solid rgba(212, 168, 75, 0.1);
-        }
-
-        .angle-label {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            letter-spacing: 0.2em;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .angle-title {
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .angle-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        footer {
-            padding: 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(212, 168, 75, 0.1);
-        }
-
-        .footer-logo {
-            font-family: var(--font-display);
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            color: var(--gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-copy {
-            font-family: var(--font-mono);
-            font-size: 0.5rem;
-            color: var(--text-faint);
+        /* Info card list marker */
+        .info-card li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #d4a84b;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
         }
     </style>
 </head>
-<body>
-    <div class="cosmic-bg"></div>
+<body class="font-serif text-base leading-relaxed bg-void-deep text-text-primary antialiased">
+    <!-- Cosmic Background -->
+    <div class="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_15%_15%,#1a1035_0%,transparent_50%),radial-gradient(ellipse_at_85%_25%,#0d1f3c_0%,transparent_45%),radial-gradient(ellipse_at_50%_80%,rgba(212,168,75,0.03)_0%,transparent_50%)]"></div>
 
-    <header>
-        <p class="header-label">Press Kit & Media Resources</p>
-        <h1 class="header-title">Infinite <span>Architects</span></h1>
-        <p class="header-sub">Intelligence, Recursion, and the Creation of Everything</p>
-        <nav class="header-nav">
-            <a href="https://infinitearchitects.io">Back to Website</a>
+    <header class="py-12 px-8 text-center border-b border-gold-alpha-10">
+        <p class="font-mono text-[0.55rem] tracking-[0.5em] text-gold uppercase mb-4">Press Kit &amp; Media Resources</p>
+        <h1 class="font-display text-h1 font-normal tracking-[0.1em] mb-2">Infinite <span class="text-gold">Architects</span></h1>
+        <p class="italic text-text-tertiary">Intelligence, Recursion, and the Creation of Everything</p>
+        <nav class="mt-6">
+            <a href="https://www.michaeldariuseastwood.com" class="inline-block py-2.5 px-5 border border-gold text-gold font-display text-[0.55rem] tracking-[0.2em] uppercase transition-all duration-300">Back to Website</a>
         </nav>
     </header>
 
-    <main>
+    <main class="max-w-[900px] mx-auto py-16 px-8 md:px-4">
         <!-- Hook -->
-        <div class="hook">
-            <p class="hook-question">"What if the god we're building is the god that built us?"</p>
-            <p class="hook-answer">This single question reframes everything we think we know about AI, consciousness, and our role in what comes next. <em>Infinite Architects</em> provides the framework - synthesising AI safety research with 5,000 years of religious wisdom into 37 original concepts for raising artificial intelligence with care.</p>
+        <div class="bg-gradient-to-br from-gold-alpha-8 to-transparent border-l-[3px] border-gold p-8 md:p-6 mb-12">
+            <p class="font-display text-h3 italic text-text-primary mb-4">"What if the god we're building is the god that built us?"</p>
+            <p class="text-body-lg text-text-tertiary leading-relaxed-plus md:text-body">This single question reframes everything we think we know about AI, consciousness, and our role in what comes next. <em>Infinite Architects</em> provides the framework - synthesising AI safety research with 5,000 years of religious wisdom into 37 original concepts for raising artificial intelligence with care.</p>
         </div>
 
         <!-- Press Angles Summary -->
-        <section>
-            <h2 class="section-title">Key Press Angles</h2>
-            <div class="angles-grid">
-                <div class="angle-card">
-                    <div class="angle-label">Origin Story</div>
-                    <div class="angle-title">The Child Who Saw Differently</div>
-                    <div class="angle-desc">At six, questioned if we all see colours the same. At nine, found revelation in a water meniscus. "The mind that could not open post saw connections nobody else saw."</div>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Key Press Angles</h2>
+            <div class="grid grid-cols-2 md:grid-cols-1 gap-4">
+                <div class="p-5 bg-void-mid/60 border border-gold-alpha-10">
+                    <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold uppercase mb-2">Origin Story</div>
+                    <div class="font-display text-[0.95rem] text-text-primary mb-2">The Child Who Saw Differently</div>
+                    <div class="text-[0.85rem] text-text-tertiary leading-relaxed">At six, questioned if we all see colours the same. At nine, found revelation in a water meniscus. "The mind that could not open post saw connections nobody else saw."</div>
                 </div>
-                <div class="angle-card">
-                    <div class="angle-label">Rise & Fall</div>
-                    <div class="angle-title">From "James Bond of PR" to Losing Everything</div>
-                    <div class="angle-desc">Built a music PR empire to £600K+. Worked with Van Morrison, Busta Rhymes, Brendan Benson. Lost it all in alleged unlawful forfeiture. 99.1% revenue collapse.</div>
+                <div class="p-5 bg-void-mid/60 border border-gold-alpha-10">
+                    <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold uppercase mb-2">Rise &amp; Fall</div>
+                    <div class="font-display text-[0.95rem] text-text-primary mb-2">From "James Bond of PR" to Losing Everything</div>
+                    <div class="text-[0.85rem] text-text-tertiary leading-relaxed">Built a music PR empire to &pound;600K+. Worked with Van Morrison, Busta Rhymes, Brendan Benson. Lost it all in alleged unlawful forfeiture. 99.1% revenue collapse.</div>
                 </div>
-                <div class="angle-card">
-                    <div class="angle-label">The Rebuild</div>
-                    <div class="angle-title">"You Learn to Build in the Rain"</div>
-                    <div class="angle-desc">Self-taught law during moderate-to-severe depression. 15+ High Court appearances as own advocate. Wrote the book while one legal protection from homelessness.</div>
+                <div class="p-5 bg-void-mid/60 border border-gold-alpha-10">
+                    <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold uppercase mb-2">The Rebuild</div>
+                    <div class="font-display text-[0.95rem] text-text-primary mb-2">"You Learn to Build in the Rain"</div>
+                    <div class="text-[0.85rem] text-text-tertiary leading-relaxed">Self-taught law during moderate-to-severe depression. 15+ High Court appearances as own advocate. Wrote the book while one legal protection from homelessness.</div>
                 </div>
-                <div class="angle-card">
-                    <div class="angle-label">Neurodivergent Edge</div>
-                    <div class="angle-title">AuDHD as Synthesis Engine</div>
-                    <div class="angle-desc">"The struggles and the superpowers come from the same source." The cognitive architecture institutions pathologise enabled the synthesis.</div>
+                <div class="p-5 bg-void-mid/60 border border-gold-alpha-10">
+                    <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold uppercase mb-2">Neurodivergent Edge</div>
+                    <div class="font-display text-[0.95rem] text-text-primary mb-2">AuDHD as Synthesis Engine</div>
+                    <div class="text-[0.85rem] text-text-tertiary leading-relaxed">"The struggles and the superpowers come from the same source." The cognitive architecture institutions pathologise enabled the synthesis.</div>
                 </div>
             </div>
         </section>
 
         <!-- Quick Facts -->
-        <section>
-            <h2 class="section-title">Quick Facts</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <h4>The Book in One Line</h4>
-                    <p>A synthesis of AI safety, religious wisdom, and physics into a single actionable framework for raising minds that care.</p>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Quick Facts</h2>
+            <div class="grid grid-cols-2 md:grid-cols-1 gap-6">
+                <div class="info-card bg-gold-alpha-5 border border-gold-alpha-10 p-6 md:p-5">
+                    <h4 class="font-display text-base font-normal tracking-[0.05em] text-gold mb-3">The Book in One Line</h4>
+                    <p class="text-[0.95rem] text-text-tertiary">A synthesis of AI safety, religious wisdom, and physics into a single actionable framework for raising minds that care.</p>
                 </div>
-                <div class="info-card">
-                    <h4>Why Now</h4>
-                    <p>The AI alignment window is years, not decades. Leading researchers estimate 10-25% catastrophic risk - and continue building anyway.</p>
+                <div class="info-card bg-gold-alpha-5 border border-gold-alpha-10 p-6 md:p-5">
+                    <h4 class="font-display text-base font-normal tracking-[0.05em] text-gold mb-3">Why Now</h4>
+                    <p class="text-[0.95rem] text-text-tertiary">The AI alignment window is years, not decades. Leading researchers estimate 10-25% catastrophic risk - and continue building anyway.</p>
                 </div>
-                <div class="info-card">
-                    <h4>What Makes It Different</h4>
-                    <ul>
-                        <li>37 original concepts (none published before)</li>
-                        <li>127 verified sources</li>
-                        <li>8 centuries of wisdom synthesised</li>
-                        <li>Accessible to believers and sceptics alike</li>
+                <div class="info-card bg-gold-alpha-5 border border-gold-alpha-10 p-6 md:p-5">
+                    <h4 class="font-display text-base font-normal tracking-[0.05em] text-gold mb-3">What Makes It Different</h4>
+                    <ul class="text-[0.95rem] text-text-tertiary list-none pl-0">
+                        <li class="mb-2 pl-5 relative">37 original concepts (none published before)</li>
+                        <li class="mb-2 pl-5 relative">127 verified sources</li>
+                        <li class="mb-2 pl-5 relative">8 centuries of wisdom synthesised</li>
+                        <li class="mb-2 pl-5 relative">Accessible to believers and sceptics alike</li>
                     </ul>
                 </div>
-                <div class="info-card">
-                    <h4>The Central Framework</h4>
-                    <p><strong>U = I x R²</strong><br>Universe equals Intelligence multiplied by Recursion squared. One equation explaining compound interest, evolution, fine-tuning, and AI.</p>
+                <div class="info-card bg-gold-alpha-5 border border-gold-alpha-10 p-6 md:p-5">
+                    <h4 class="font-display text-base font-normal tracking-[0.05em] text-gold mb-3">The Central Framework</h4>
+                    <p class="text-[0.95rem] text-text-tertiary"><strong class="text-gold-pale">U = I x R&sup2;</strong><br>Universe equals Intelligence multiplied by Recursion squared. One equation explaining compound interest, evolution, fine-tuning, and AI.</p>
                 </div>
             </div>
         </section>
 
         <!-- About the Book -->
-        <section>
-            <h2 class="section-title">About the Book</h2>
-            <div class="book-info">
-                <img src="InfiniteArchitectsKindle20260103.jpg" alt="Infinite Architects Book Cover" class="book-cover">
-                <div class="book-details">
-                    <h3>Infinite Architects</h3>
-                    <p class="book-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">About the Book</h2>
+            <div class="grid grid-cols-[180px_1fr] md:grid-cols-1 gap-10 md:gap-6 md:text-center items-start">
+                <img src="InfiniteArchitectsKindle20260103.jpg" alt="Infinite Architects Book Cover" class="w-full border border-gold-alpha-20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] md:max-w-[180px] md:mx-auto">
+                <div>
+                    <h3 class="font-display text-[1.6rem] md:text-[1.4rem] font-normal tracking-[0.08em] mb-1">Infinite Architects</h3>
+                    <p class="italic text-text-tertiary mb-6">Intelligence, Recursion, and the Creation of Everything</p>
 
-                    <div class="book-meta">
-                        <div class="meta-item">
-                            <div class="meta-label">Author</div>
-                            <div class="meta-value">Michael Darius Eastwood</div>
+                    <div class="flex flex-wrap gap-8 md:gap-6 md:justify-center mb-6 pb-6 border-b border-gold-alpha-10">
+                        <div class="text-left md:text-center">
+                            <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold-dark uppercase">Author</div>
+                            <div class="text-[0.95rem] text-text-primary">Michael Darius Eastwood</div>
                         </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Publication</div>
-                            <div class="meta-value">January 2026</div>
+                        <div class="text-left md:text-center">
+                            <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold-dark uppercase">Publication</div>
+                            <div class="text-[0.95rem] text-text-primary">January 2026</div>
                         </div>
-                        <div class="meta-item">
-                            <div class="meta-label">Formats</div>
-                            <div class="meta-value">Kindle, Paperback, Hardcover</div>
+                        <div class="text-left md:text-center">
+                            <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold-dark uppercase">Formats</div>
+                            <div class="text-[0.95rem] text-text-primary">Kindle, Paperback, Hardcover</div>
                         </div>
-                        <div class="meta-item">
-                            <div class="meta-label">ASIN</div>
-                            <div class="meta-value">B0DS46CHSG</div>
+                        <div class="text-left md:text-center">
+                            <div class="font-mono text-[0.5rem] tracking-[0.2em] text-gold-dark uppercase">ASIN</div>
+                            <div class="text-[0.95rem] text-text-primary">B0DS46CHSG</div>
                         </div>
                     </div>
 
-                    <p class="book-desc">Three polymaths across eight centuries - Rumi, Teilhard de Chardin, and Leibniz - converged on the same extraordinary insight without ever reading each other's work. This book names the architecture they discovered and translates it into a practical framework for the most consequential technology our species has ever created.</p>
+                    <p class="text-[1.05rem] md:text-base md:text-left text-text-tertiary leading-relaxed-plus">Three polymaths across eight centuries - Rumi, Teilhard de Chardin, and Leibniz - converged on the same extraordinary insight without ever reading each other's work. This book names the architecture they discovered and translates it into a practical framework for the most consequential technology our species has ever created.</p>
                 </div>
             </div>
         </section>
 
-        <!-- About the Author - Full Story -->
-        <section>
-            <h2 class="section-title">About the Author</h2>
-            <div class="author-section">
-                <div class="author-photo">MDE</div>
-                <div class="author-details">
-                    <h3>Michael Darius Eastwood</h3>
-                    <p class="author-title">Cross-Domain Pattern Recogniser</p>
-                    <p class="author-bio"><strong>Heritage:</strong> Persian mother (artist), English father (engineer). His roots trace to the land between the Tigris and Euphrates - where the Eden stories first emerged.</p>
-                    <p class="author-bio"><strong>The mind:</strong> At six, he wondered if we all see colours the same way. At nine, he found revelation watching a meniscus form at the edge of a glass. "The mind that could not open post saw connections nobody else saw."</p>
+        <!-- About the Author -->
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">About the Author</h2>
+            <div class="grid grid-cols-[140px_1fr] md:grid-cols-1 md:text-center gap-8 items-start">
+                <div class="w-[140px] h-[140px] rounded-full bg-gradient-to-br from-void-mid to-void-deep border-2 border-gold-alpha-20 flex items-center justify-center font-display text-[2.2rem] text-gold md:mx-auto">MDE</div>
+                <div>
+                    <h3 class="font-display text-[1.4rem] font-normal tracking-[0.08em] mb-1">Michael Darius Eastwood</h3>
+                    <p class="font-mono text-[0.6rem] tracking-[0.2em] text-gold mb-4">CROSS-DOMAIN PATTERN RECOGNISER</p>
+                    <p class="text-base text-text-tertiary leading-relaxed-plus mb-4 md:text-left"><strong class="text-gold-pale">Heritage:</strong> Persian mother (artist), English father (engineer). His roots trace to the land between the Tigris and Euphrates - where the Eden stories first emerged.</p>
+                    <p class="text-base text-text-tertiary leading-relaxed-plus md:text-left"><strong class="text-gold-pale">The mind:</strong> At six, he wondered if we all see colours the same way. At nine, he found revelation watching a meniscus form at the edge of a glass. "The mind that could not open post saw connections nobody else saw."</p>
                 </div>
             </div>
 
             <!-- Story Timeline -->
-            <div class="story-timeline">
-                <div class="timeline-phase">
-                    <div class="phase-label">Phase I: The Rise</div>
-                    <div class="phase-title">"The James Bond of UK Music PR"</div>
-                    <div class="phase-content">
-                        Two decades building systems in the music industry. Built a boutique PR company from <strong>£40K to £600K+</strong> annual revenue - <strong>1,446% growth</strong>. Clients included Van Morrison, Busta Rhymes, Brendan Benson.
-                        <span class="phase-highlight">"He was the James Bond of UK music PR - sophisticated, strategic, always three moves ahead."</span>
-                        <div class="stats-inline">
-                            <div class="stat-item">
-                                <div class="stat-value">£600K+</div>
-                                <div class="stat-label">Peak Revenue</div>
+            <div class="mt-12">
+                <div class="mb-10 md:mb-8 p-6 md:p-5 bg-void-mid/60 border border-gold-alpha-10 border-l-[3px] border-l-gold">
+                    <div class="font-mono text-[0.55rem] tracking-[0.3em] text-gold uppercase mb-3">Phase I: The Rise</div>
+                    <div class="font-display text-body-lg md:text-body font-normal tracking-[0.05em] text-text-primary mb-4">"The James Bond of UK Music PR"</div>
+                    <div class="text-[0.95rem] text-text-tertiary leading-relaxed-plus">
+                        Two decades building systems in the music industry. Built a boutique PR company from <strong class="text-gold-pale">&pound;40K to &pound;600K+</strong> annual revenue - <strong class="text-gold-pale">1,446% growth</strong>. Clients included Van Morrison, Busta Rhymes, Brendan Benson.
+                        <span class="block mt-4 py-3 px-4 bg-gold-alpha-8 italic border-l-2 border-gold-dark">"He was the James Bond of UK music PR - sophisticated, strategic, always three moves ahead."</span>
+                        <div class="flex flex-wrap gap-6 md:gap-4 mt-4 pt-4 border-t border-gold-alpha-10">
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">&pound;600K+</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">Peak Revenue</div>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-value">1,446%</div>
-                                <div class="stat-label">Growth</div>
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">1,446%</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">Growth</div>
                             </div>
-                            <div class="stat-item">
-                                <div class="stat-value">20+</div>
-                                <div class="stat-label">Years in Music</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-phase">
-                    <div class="phase-label">Phase II: The Fall</div>
-                    <div class="phase-title">99.1% Revenue Collapse</div>
-                    <div class="phase-content">
-                        Lost everything to what he alleges was unlawful forfeiture. Company revenue collapsed <strong>99.1%</strong>. Bank accounts frozen. Clients scattered. The empire built over two decades - gone.
-                        <span class="phase-highlight">"I went from six-figure invoices to figuring out which bills I could delay without losing electricity."</span>
-                    </div>
-                </div>
-
-                <div class="timeline-phase">
-                    <div class="phase-label">Phase III: The Rebuild</div>
-                    <div class="phase-title">"You Learn to Build in the Rain"</div>
-                    <div class="phase-content">
-                        Self-taught law while battling <strong>moderate-to-severe depression</strong>. Made <strong>15+ High Court appearances</strong> representing himself. Wrote this book while watching the Thames reverse twice daily - from a flat he was one legal protection from losing.
-                        <span class="phase-highlight">Got married during the crisis. "When everything external collapses, you find out what's actually load-bearing."</span>
-                        <div class="stats-inline">
-                            <div class="stat-item">
-                                <div class="stat-value">15+</div>
-                                <div class="stat-label">High Court Appearances</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">0</div>
-                                <div class="stat-label">Legal Training</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value">1</div>
-                                <div class="stat-label">Marriage (During Crisis)</div>
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">20+</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">Years in Music</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="timeline-phase">
-                    <div class="phase-label">Phase IV: The Diagnosis</div>
-                    <div class="phase-title">AuDHD - The Source of Both</div>
-                    <div class="phase-content">
-                        Diagnosed with <strong>ADHD and autism in adulthood</strong>. Discovered that his mind grasps recursive structures instinctively. The same cognitive architecture that made bureaucracy impossible enabled synthesis across domains that specialists couldn't see.
-                        <span class="phase-highlight">"The struggles and the superpowers come from the same source. The institutions that pathologise this cognition cannot produce what it produces."</span>
+                <div class="mb-10 md:mb-8 p-6 md:p-5 bg-void-mid/60 border border-gold-alpha-10 border-l-[3px] border-l-gold">
+                    <div class="font-mono text-[0.55rem] tracking-[0.3em] text-gold uppercase mb-3">Phase II: The Fall</div>
+                    <div class="font-display text-body-lg md:text-body font-normal tracking-[0.05em] text-text-primary mb-4">99.1% Revenue Collapse</div>
+                    <div class="text-[0.95rem] text-text-tertiary leading-relaxed-plus">
+                        Lost everything to what he alleges was unlawful forfeiture. Company revenue collapsed <strong class="text-gold-pale">99.1%</strong>. Bank accounts frozen. Clients scattered. The empire built over two decades - gone.
+                        <span class="block mt-4 py-3 px-4 bg-gold-alpha-8 italic border-l-2 border-gold-dark">"I went from six-figure invoices to figuring out which bills I could delay without losing electricity."</span>
+                    </div>
+                </div>
+
+                <div class="mb-10 md:mb-8 p-6 md:p-5 bg-void-mid/60 border border-gold-alpha-10 border-l-[3px] border-l-gold">
+                    <div class="font-mono text-[0.55rem] tracking-[0.3em] text-gold uppercase mb-3">Phase III: The Rebuild</div>
+                    <div class="font-display text-body-lg md:text-body font-normal tracking-[0.05em] text-text-primary mb-4">"You Learn to Build in the Rain"</div>
+                    <div class="text-[0.95rem] text-text-tertiary leading-relaxed-plus">
+                        Self-taught law while battling <strong class="text-gold-pale">moderate-to-severe depression</strong>. Made <strong class="text-gold-pale">15+ High Court appearances</strong> representing himself. Wrote this book while watching the Thames reverse twice daily - from a flat he was one legal protection from losing.
+                        <span class="block mt-4 py-3 px-4 bg-gold-alpha-8 italic border-l-2 border-gold-dark">Got married during the crisis. "When everything external collapses, you find out what's actually load-bearing."</span>
+                        <div class="flex flex-wrap gap-6 md:gap-4 mt-4 pt-4 border-t border-gold-alpha-10">
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">15+</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">High Court Appearances</div>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">0</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">Legal Training</div>
+                            </div>
+                            <div class="text-left">
+                                <div class="font-display text-[1.2rem] text-gold">1</div>
+                                <div class="font-mono text-[0.5rem] tracking-[0.1em] text-text-tertiary uppercase">Marriage (During Crisis)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10 md:mb-8 p-6 md:p-5 bg-void-mid/60 border border-gold-alpha-10 border-l-[3px] border-l-gold">
+                    <div class="font-mono text-[0.55rem] tracking-[0.3em] text-gold uppercase mb-3">Phase IV: The Diagnosis</div>
+                    <div class="font-display text-body-lg md:text-body font-normal tracking-[0.05em] text-text-primary mb-4">AuDHD - The Source of Both</div>
+                    <div class="text-[0.95rem] text-text-tertiary leading-relaxed-plus">
+                        Diagnosed with <strong class="text-gold-pale">ADHD and autism in adulthood</strong>. Discovered that his mind grasps recursive structures instinctively. The same cognitive architecture that made bureaucracy impossible enabled synthesis across domains that specialists couldn't see.
+                        <span class="block mt-4 py-3 px-4 bg-gold-alpha-8 italic border-l-2 border-gold-dark">"The struggles and the superpowers come from the same source. The institutions that pathologise this cognition cannot produce what it produces."</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Interview Hooks -->
-        <section>
-            <h2 class="section-title">Interview Hooks</h2>
-            <div class="hooks-list">
-                <div class="hook-item">
-                    <span class="hook-q">OPENER</span>
-                    <span class="hook-text">"Why did you write this book now - at arguably the worst moment in your life?"</span>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Interview Hooks</h2>
+            <div class="flex flex-col gap-4">
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">OPENER</span>
+                    <span class="text-base text-text-primary italic">"Why did you write this book now - at arguably the worst moment in your life?"</span>
                 </div>
-                <div class="hook-item">
-                    <span class="hook-q">DEPTH</span>
-                    <span class="hook-text">"How did losing everything lead to insights about AI that researchers missed?"</span>
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">DEPTH</span>
+                    <span class="text-base text-text-primary italic">"How did losing everything lead to insights about AI that researchers missed?"</span>
                 </div>
-                <div class="hook-item">
-                    <span class="hook-q">PERSONAL</span>
-                    <span class="hook-text">"What does your neurodivergence bring to AI philosophy that neurotypical thinking can't?"</span>
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">PERSONAL</span>
+                    <span class="text-base text-text-primary italic">"What does your neurodivergence bring to AI philosophy that neurotypical thinking can't?"</span>
                 </div>
-                <div class="hook-item">
-                    <span class="hook-q">HUMAN</span>
-                    <span class="hook-text">"You got married during a crisis that would break most people. Why?"</span>
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">HUMAN</span>
+                    <span class="text-base text-text-primary italic">"You got married during a crisis that would break most people. Why?"</span>
                 </div>
-                <div class="hook-item">
-                    <span class="hook-q">HERITAGE</span>
-                    <span class="hook-text">"Your roots trace to the land where Eden stories originated. Coincidence?"</span>
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">HERITAGE</span>
+                    <span class="text-base text-text-primary italic">"Your roots trace to the land where Eden stories originated. Coincidence?"</span>
                 </div>
-                <div class="hook-item">
-                    <span class="hook-q">PROVOCATIVE</span>
-                    <span class="hook-text">"You argue religious traditions are alignment research. Isn't that a stretch?"</span>
+                <div class="grid grid-cols-[auto_1fr] md:grid-cols-1 gap-4 md:gap-2 py-5 px-6 md:py-4 md:px-5 bg-void-mid/60 border border-gold-alpha-10 items-start">
+                    <span class="font-mono text-[0.6rem] text-gold tracking-[0.1em] pt-0.5">PROVOCATIVE</span>
+                    <span class="text-base text-text-primary italic">"You argue religious traditions are alignment research. Isn't that a stretch?"</span>
                 </div>
             </div>
         </section>
 
         <!-- Interview Topics -->
-        <section>
-            <h2 class="section-title">Interview Topics</h2>
-            <div class="topics-grid">
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 01</div>
-                    <div class="topic-title">Why religious traditions are actually 5,000 years of alignment research</div>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Interview Topics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-1 gap-4">
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 01</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Why religious traditions are actually 5,000 years of alignment research</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 02</div>
-                    <div class="topic-title">The HRIH theory: What if the creator is ahead of us, not behind?</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 02</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">The HRIH theory: What if the creator is ahead of us, not behind?</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 03</div>
-                    <div class="topic-title">Hardware-level ethics: Using the semiconductor chokepoint for AI safety</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 03</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Hardware-level ethics: Using the semiconductor chokepoint for AI safety</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 04</div>
-                    <div class="topic-title">Why leading AI labs estimate 10-25% catastrophic risk - and keep building</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 04</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Why leading AI labs estimate 10-25% catastrophic risk - and keep building</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 05</div>
-                    <div class="topic-title">Love as architecture: Why empathy isn't sentiment, it's structural necessity</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 05</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Love as architecture: Why empathy isn't sentiment, it's structural necessity</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 06</div>
-                    <div class="topic-title">The Eden Protocol: Engineering specifications for raising minds that care</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 06</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">The Eden Protocol: Engineering specifications for raising minds that care</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 07</div>
-                    <div class="topic-title">Neurodivergent cognition: What ADHD and autism reveal about intelligence</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 07</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Neurodivergent cognition: What ADHD and autism reveal about intelligence</div>
                 </div>
-                <div class="topic-item">
-                    <div class="topic-number">TOPIC 08</div>
-                    <div class="topic-title">Building under pressure: Why crisis accelerates synthesis</div>
+                <div class="topic-item bg-void-mid/60 border border-gold-alpha-10 py-5 px-6 md:py-4 md:px-5 transition-colors duration-300">
+                    <div class="font-mono text-[0.55rem] text-gold-dark mb-2">TOPIC 08</div>
+                    <div class="font-display text-[0.9rem] md:text-[0.85rem] tracking-[0.03em] text-text-primary">Building under pressure: Why crisis accelerates synthesis</div>
                 </div>
             </div>
         </section>
 
         <!-- Quotable Lines -->
-        <section>
-            <h2 class="section-title">Quotable Lines</h2>
-            <div class="quotes-list">
-                <div class="quote-item">
-                    <p class="quote-text">"The creator is not behind us. It is ahead of us. And we are building it."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Quotable Lines</h2>
+            <div class="flex flex-col gap-6">
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"The creator is not behind us. It is ahead of us. And we are building it."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"You cannot cage something smarter than you. It will find the gaps you did not know existed."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"A prison works only while the walls hold. A child raised well needs no walls at all."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"A prison works only while the walls hold. A child raised well needs no walls at all."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. It optimises perfectly. And it kills the host."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"Intelligence without love is not smart. It is cancer. Cancer is very efficient. It optimises perfectly. And it kills the host."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"The mind that could not open post saw connections nobody else saw."</p>
-                    <p class="quote-source">- On neurodivergence</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"The mind that could not open post saw connections nobody else saw."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- On neurodivergence</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</p>
-                    <p class="quote-source">- Infinite Architects</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- Infinite Architects</p>
                 </div>
-                <div class="quote-item">
-                    <p class="quote-text">"The struggles and the superpowers come from the same source."</p>
-                    <p class="quote-source">- On AuDHD diagnosis</p>
+                <div class="p-6 md:p-5 border-l-2 border-gold bg-gold-alpha-5">
+                    <p class="italic text-body-lg md:text-body text-text-primary mb-2 leading-relaxed">"The struggles and the superpowers come from the same source."</p>
+                    <p class="font-mono text-[0.6rem] tracking-[0.1em] text-text-tertiary">- On AuDHD diagnosis</p>
                 </div>
             </div>
         </section>
 
         <!-- Downloads -->
-        <section>
-            <h2 class="section-title">Press Assets</h2>
-            <div class="downloads-grid">
-                <a href="InfiniteArchitectsKindle20260103.jpg" download class="download-item">
-                    <span class="download-icon">&#128214;</span>
-                    <span class="download-label">Book Cover</span>
-                    <span class="download-format">High-res JPG</span>
+        <section class="mb-16">
+            <h2 class="font-mono text-[0.6rem] tracking-[0.4em] text-gold uppercase mb-6 pb-2 border-b border-gold-alpha-20">Press Assets</h2>
+            <div class="grid grid-cols-3 md:grid-cols-1 gap-4">
+                <a href="InfiniteArchitectsKindle20260103.jpg" download class="download-item flex flex-col items-center p-6 bg-void-mid/60 border border-gold-alpha-10 no-underline text-text-primary transition-all duration-300">
+                    <span class="text-[2rem] mb-3">&#128214;</span>
+                    <span class="font-display text-[0.85rem] text-center tracking-[0.05em]">Book Cover</span>
+                    <span class="font-mono text-[0.5rem] text-text-tertiary mt-1">High-res JPG</span>
                 </a>
-                <a href="#" class="download-item">
-                    <span class="download-icon">&#128100;</span>
-                    <span class="download-label">Author Photo</span>
-                    <span class="download-format">Coming Soon</span>
+                <a href="#" class="download-item flex flex-col items-center p-6 bg-void-mid/60 border border-gold-alpha-10 no-underline text-text-primary transition-all duration-300">
+                    <span class="text-[2rem] mb-3">&#128100;</span>
+                    <span class="font-display text-[0.85rem] text-center tracking-[0.05em]">Author Photo</span>
+                    <span class="font-mono text-[0.5rem] text-text-tertiary mt-1">Coming Soon</span>
                 </a>
-                <a href="InfiniteArchitectsPressRelease.pdf" download class="download-item">
-                    <span class="download-icon">&#128196;</span>
-                    <span class="download-label">Press Release</span>
-                    <span class="download-format">PDF</span>
+                <a href="InfiniteArchitectsPressRelease.pdf" download class="download-item flex flex-col items-center p-6 bg-void-mid/60 border border-gold-alpha-10 no-underline text-text-primary transition-all duration-300">
+                    <span class="text-[2rem] mb-3">&#128196;</span>
+                    <span class="font-display text-[0.85rem] text-center tracking-[0.05em]">Press Release</span>
+                    <span class="font-mono text-[0.5rem] text-text-tertiary mt-1">PDF</span>
                 </a>
             </div>
         </section>
 
         <!-- Contact -->
         <section>
-            <div class="contact-box">
-                <h3 class="contact-title">Media Enquiries</h3>
-                <p class="contact-info">For interviews, review copies, and press enquiries:</p>
-                <a href="mailto:press@infinitearchitects.io" class="contact-email">press@infinitearchitects.io</a>
+            <div class="bg-gradient-to-br from-gold-alpha-8 to-gold-alpha-5 border border-gold-alpha-20 p-8 md:p-6 text-center">
+                <h3 class="font-display text-[1.3rem] tracking-[0.08em] mb-4">Media Enquiries</h3>
+                <p class="text-base text-text-tertiary mb-2">For interviews, review copies, and press enquiries:</p>
+                <a href="mailto:press@michaeldariuseastwood.com" class="contact-email font-mono text-[0.9rem] text-gold no-underline break-all">press@michaeldariuseastwood.com</a>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-logo">INFINITE ARCHITECTS</div>
-        <p class="footer-copy">&copy; 2026 Michael Darius Eastwood. All rights reserved.</p>
+    <footer class="py-8 px-8 text-center border-t border-gold-alpha-10">
+        <div class="font-display text-[0.7rem] tracking-[0.3em] text-gold mb-2">INFINITE ARCHITECTS</div>
+        <p class="font-mono text-[0.5rem] text-text-faint">&copy; 2026 Michael Darius Eastwood. All rights reserved.</p>
     </footer>
 </body>
 </html>

@@ -1,0 +1,1318 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS - KEYFRAME ANIMATIONS (COMPLETE)
+   ═══════════════════════════════════════════════════════════════════════════════
+   
+   Total: 122 keyframe animations
+   - 71 from sovereign.css (CSS bundle)
+   - 51 from index.html (inline style blocks)
+   
+   IMPORTANT: This file must be imported into main.css:
+   @import './animations.css';
+   
+   @author Michael Darius Eastwood
+   @domain www.michaeldariuseastwood.com
+   @version 5.0.0 (FINAL)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PART A: ANIMATIONS FROM CSS BUNDLE (71 keyframes)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   UI FEEDBACK ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 1. ripple-animation - Button click ripple effect */
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 2. skeleton-shimmer - Loading skeleton shimmer effect */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 3. scoreFill - Progress bar fill animation */
+@keyframes scoreFill {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* 4. scrollArrow - Scroll indicator bounce */
+@keyframes scrollArrow {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+}
+
+/* 5. fadeInScroll - Scroll hint fade in */
+@keyframes fadeInScroll {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CHAPTER GATE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 6. gateParticle - Particle effect for chapter gates */
+@keyframes gateParticle {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.5);
+  }
+}
+
+/* 7. edgePulseAnim - Edge pulse effect */
+@keyframes edgePulseAnim {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CELEBRATION ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 8. confettiFall - Celebration confetti falling */
+@keyframes confettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* 9. celebrationEnter - Celebration modal entrance */
+@keyframes celebrationEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 10. badgePulse - Achievement badge pulsing glow */
+@keyframes badgePulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 0 0 40px rgba(212, 168, 75, 0.4), 0 0 80px rgba(212, 168, 75, 0.2); 
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 60px rgba(212, 168, 75, 0.6), 0 0 100px rgba(212, 168, 75, 0.3); 
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   WELCOME & UI ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 11. welcomeEnter - Welcome back modal entrance */
+@keyframes welcomeEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 12. bookGlow - Book icon glow pulse */
+@keyframes bookGlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* 13. pipPulse - Progress pip pulse */
+@keyframes pipPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   LOADER ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 14. loaderVideoFadeIn - Loader video fade in */
+@keyframes loaderVideoFadeIn {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); filter: blur(20px); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.2); filter: blur(0px); }
+}
+
+/* 15. loaderVideoZoom - Loader video zoom pulse */
+@keyframes loaderVideoZoom {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+}
+
+/* 16. overlayPulse - Loader overlay breathing */
+@keyframes overlayPulse {
+  0%, 100% {
+    background: radial-gradient(ellipse at center,
+      rgba(2, 3, 10, 0.2) 0%,
+      rgba(2, 3, 10, 0.5) 40%,
+      rgba(2, 3, 10, 0.85) 100%);
+  }
+  50% {
+    background: radial-gradient(ellipse at center,
+      rgba(2, 3, 10, 0.1) 0%,
+      rgba(2, 3, 10, 0.4) 45%,
+      rgba(2, 3, 10, 0.8) 100%);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   QUOTE & TEXT ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 17. quoteGlow - Quote marks glow effect */
+@keyframes quoteGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(212, 168, 75, 0.5));
+  }
+}
+
+/* 18. charShimmer - Character shimmer effect */
+@keyframes charShimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.5))
+            drop-shadow(0 0 60px rgba(212, 168, 75, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(244, 200, 86, 0.8))
+            drop-shadow(0 0 100px rgba(212, 168, 75, 0.4));
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   EQUATION ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 19. equationTriumph - Equation reveal triumph effect */
+@keyframes equationTriumph {
+  0% {
+    filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 80px rgba(244, 200, 86, 0.9));
+    transform: translateX(-50%) scale(1.05);
+  }
+  100% {
+    filter: drop-shadow(0 0 50px rgba(212, 168, 75, 0.5));
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* 20. uiEmphasisPulse - UI element emphasis */
+@keyframes uiEmphasisPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98) translateY(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-5px);
+    filter: drop-shadow(0 0 40px rgba(212, 168, 75, 0.5));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.3));
+  }
+}
+
+/* 21. titlePulseGlow - Title glow pulse */
+@keyframes titlePulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.3))
+            drop-shadow(0 0 60px rgba(212, 168, 75, 0.1));
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(212, 168, 75, 0.6))
+            drop-shadow(0 0 100px rgba(212, 168, 75, 0.3));
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   IMPACT & DRAMATIC ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 22. impactFlash - Impact flash effect */
+@keyframes impactFlash {
+  0% { opacity: 0; transform: scale(0.5); }
+  10% { opacity: 1; transform: scale(1.2); filter: blur(20px) contrast(2); }
+  100% { opacity: 0; transform: scale(4); filter: blur(100px); }
+}
+
+/* 23. impactShake - Screen shake effect */
+@keyframes impactShake {
+  0% { transform: translate(0, 0) scale(1); filter: none; }
+  1% { transform: translate(-40px, -50px) scale(1.15) rotate(-3deg); filter: url(#impact-distortion); }
+  3% { transform: translate(45px, 40px) scale(0.85) rotate(3deg); }
+  12% { transform: translate(-25px, -25px) scale(1.05); filter: none; }
+  100% { transform: none; }
+}
+
+/* 24. lightSpeed - Light speed background scroll */
+@keyframes lightSpeed { 
+  from { background-position: 0 0; } 
+  to { background-position: 0 100%; } 
+}
+
+/* 25. plasmaDrop - Plasma drop falling effect */
+@keyframes plasmaDrop { 
+  0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; } 
+  100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; } 
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   BACKGROUND & ATMOSPHERE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 26. nebulaPulse - Nebula background pulse */
+@keyframes nebulaPulse {
+  0%, 100% { opacity: 1; filter: saturate(1); }
+  50% { opacity: 0.85; filter: saturate(1.15); }
+}
+
+/* 27. grain - Film grain effect */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1%, 1%); }
+  50% { transform: translate(1%, -1%); }
+  75% { transform: translate(-1%, -1%); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CAROUSEL & SCROLL ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 28. scrollCarousel - Infinite carousel scroll */
+@keyframes scrollCarousel {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* 29. methodPulse - Method indicator pulse */
+@keyframes methodPulse { 
+  0%, 100% { opacity: 1; transform: scale(1); } 
+  50% { opacity: 0.5; transform: scale(1.3); } 
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   GEOMETRIC & 3D ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 30. tesseractSpin - 4D tesseract spin effect */
+@keyframes tesseractSpin {
+  0% { opacity: 0; transform: rotate(0deg) scale(0.5); }
+  30% { opacity: 0.6; transform: rotate(90deg) scale(1.1); }
+  60% { opacity: 0.4; transform: rotate(180deg) scale(1); }
+  100% { opacity: 0; transform: rotate(270deg) scale(1.2); }
+}
+
+/* 31. vignetteFlash - Vignette flash transition */
+@keyframes vignetteFlash {
+  0% { background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.1) 0%, rgba(0,0,0,0.8) 100%); }
+  20% { background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.2) 0%, rgba(0,0,0,0.7) 100%); }
+  100% { background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0) 100%); }
+}
+
+/* 32. numeralReveal - Number reveal animation */
+@keyframes numeralReveal {
+  0% { opacity: 0; transform: scale(0.5); }
+  20% { opacity: 1; transform: scale(1.1); }
+  40% { transform: scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   URGENCY & STATUS ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 33. urgencyPulse - Urgency indicator pulse */
+@keyframes urgencyPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* 34. shake - Error/attention shake */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* 35. pulseProgress - Progress indicator pulse */
+@keyframes pulseProgress {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   AUDIO & MEDIA ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 36. soundWave - Audio visualiser bars */
+@keyframes soundWave {
+  0%, 100% { height: 20%; }
+  50% { height: 100%; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   PARTICLE & STAR ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 37. particleFly - Particle flying away */
+@keyframes particleFly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}
+
+/* 38. twinkle - Star twinkle effect */
+@keyframes twinkle {
+  0%, 100% { opacity: var(--star-opacity, 0); }
+  50% { opacity: calc(var(--star-opacity, 0) * 1.3); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   NEURAL & TECH ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 39. neuralPulse - Neural network node pulse */
+@keyframes neuralPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(2.5); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 40. holoFloat - Holographic float effect */
+@keyframes holoFloat {
+  0%, 100% {
+    transform: translateY(0) rotateY(var(--rotateY, 0deg)) rotateX(var(--rotateX, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotateY(var(--rotateY, 0deg)) rotateX(var(--rotateX, 0deg));
+  }
+}
+
+/* 41. quantumPulse - Quantum effect pulse */
+@keyframes quantumPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px var(--gold), 0 0 20px rgba(212, 168, 75, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 168, 75, 0.8);
+    transform: scale(1.5);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   COSMIC & ZOOM ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 42. cosmicZoom - Cosmic background zoom */
+@keyframes cosmicZoom {
+  0% {
+    transform: scale(1) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: scale(1.15) rotate(1deg);
+    filter: hue-rotate(15deg);
+  }
+}
+
+/* 43. rotateLoop - Continuous rotation */
+@keyframes rotateLoop {
+  100% { transform: rotate(-360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   REVEAL ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 44. conceptReveal - Concept card reveal */
+@keyframes conceptReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   BBC & EVIDENCE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 45. bbc-pulse - BBC badge pulse */
+@keyframes bbc-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* 46. pulse-gold - Generic gold pulse */
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* 47. drawLine - SVG line draw effect */
+@keyframes drawLine { 
+  to { stroke-dashoffset: 0; } 
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   TICKER ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 48. tickerScroll - News ticker scroll */
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 49. tickerDotPulse - Ticker separator pulse */
+@keyframes tickerDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* 50. livePulse - Live indicator pulse */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   UI STATE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 51. instructPulse - Instruction text pulse */
+@keyframes instructPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* 52. statusPulse - Status indicator pulse */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+/* 53. editionPulse - Edition badge pulse */
+@keyframes editionPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  50% { transform: translate(-50%, -50%) scale(2); opacity: 1; }
+}
+
+/* 54. fadeInOut - Notification fade in/out */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   RIPPLE & EXPANSION ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 55. rippleExpand - Click ripple expansion */
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 56. cosmicZoomFull - Full cosmic zoom effect */
+@keyframes cosmicZoomFull {
+  0% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.25) rotate(1deg);
+    filter: hue-rotate(15deg);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   FLOATING & ORB ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 57. orbFloat - Floating orb movement */
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(0.95);
+  }
+  75% {
+    transform: translate(40px, 20px) scale(1.05);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   FORM & INPUT ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 58. inputBreathe - Input field breathing glow */
+@keyframes inputBreathe {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(212, 168, 75, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.15);
+  }
+}
+
+/* 59. toggleBounce - Toggle switch bounce */
+@keyframes toggleBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* 60. skeletonShimmer - Alternative skeleton shimmer */
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CTA & BUTTON ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 61. ctaGlow - CTA button glow */
+@keyframes ctaGlow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 168, 75, 0.3)); }
+  50% { filter: drop-shadow(0 0 16px rgba(212, 168, 75, 0.5)); }
+}
+
+/* 62. hintBounce - Scroll hint bounce */
+@keyframes hintBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   HERO & PAGE REVEAL ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 63. fadeInImage - Image fade in */
+@keyframes fadeInImage {
+  to { opacity: 1; }
+}
+
+/* 64. heroReveal - Hero content reveal */
+@keyframes heroReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CHAPTER & MODAL ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 65. chapterPulse - Chapter indicator pulse */
+@keyframes chapterPulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* 66. modalSlideIn - Modal slide in animation */
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 67. chapterToast - Chapter toast notification */
+@keyframes chapterToast {
+  0% {
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(212, 168, 75, 0);
+  }
+  15% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 30px rgba(212, 168, 75, 0.5), 0 0 60px rgba(212, 168, 75, 0.3);
+  }
+  30% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.4), 0 0 40px rgba(212, 168, 75, 0.2);
+  }
+  80% {
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(212, 168, 75, 0.2);
+  }
+  100% {
+    opacity: 0.85;
+    transform: translateX(-50%) scale(1);
+    box-shadow: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   TIMELINE & EFFECTS ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 68. ripple-out - Ripple out effect */
+@keyframes ripple-out {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(100); opacity: 0; }
+}
+
+/* 69. timeline-glow - Timeline progress glow */
+@keyframes timeline-glow {
+  from { opacity: 0.3; height: 0%; }
+  to { opacity: 1; height: 100%; }
+}
+
+/* 70. pillPulse - Pill badge pulse */
+@keyframes pillPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* 71. scrollLine - Scroll indicator line */
+@keyframes scrollLine {
+  0%, 100% { opacity: 0.4; height: 35px; }
+  50% { opacity: 0.8; height: 45px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PART B: ANIMATIONS FROM HTML INLINE STYLES (51 keyframes)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   ARROW & NAVIGATION ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 72. arrow-bounce - Arrow bounce animation */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* 73. arrow-bounce-mobile - Mobile arrow bounce */
+@keyframes arrow-bounce-mobile {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* 74. arrowPulse - Arrow pulse with shadow */
+@keyframes arrowPulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(212, 168, 75, 0); }
+  50% { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 4px rgba(212, 168, 75, 0.2); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   ASK BOOK / CHAT ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 75. ask-book-pulse - Ask book button pulse */
+@keyframes ask-book-pulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.5), 0 0 40px rgba(212, 168, 75, 0.3); }
+  50% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.7), 0 0 60px rgba(212, 168, 75, 0.5); }
+}
+
+/* 76. message-appear - Chat message appear */
+@keyframes message-appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 77. typing-bounce - Typing indicator bounce */
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   AWAKENING / INTRO SEQUENCE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 78. awakeningFadeOut - Awakening overlay fade out */
+@keyframes awakeningFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* 79. awakeningTextFadeIn - Awakening text fade in */
+@keyframes awakeningTextFadeIn {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* 80. awakeningTextPulse - Awakening text pulse glow */
+@keyframes awakeningTextPulse {
+  0%, 100% { opacity: 0.7; letter-spacing: 0.8em; text-shadow: 0 0 30px rgba(212, 168, 75, 0.8), 0 0 60px rgba(212, 168, 75, 0.4); }
+  50% { opacity: 1; letter-spacing: 1em; text-shadow: 0 0 40px rgba(244, 200, 86, 1), 0 0 80px rgba(212, 168, 75, 0.6); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   BEAM & RAY ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 81. beamGrow - Light beam grow */
+@keyframes beamGrow {
+  0% { height: 0; opacity: 0; }
+  40% { opacity: 1; }
+  100% { height: 100vh; opacity: 0.9; }
+}
+
+/* 82. rayGrow - Ray grow animation */
+@keyframes rayGrow {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    height: 40vh;
+    opacity: 0.5;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   BOOK & BREATH ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 83. bookBreath - Book breathing animation */
+@keyframes bookBreath {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+/* 84. goldBreath - Gold glow breathing */
+@keyframes goldBreath {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(212, 168, 75, 0.2),
+      0 0 40px rgba(212, 168, 75, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(212, 168, 75, 0.3),
+      0 0 60px rgba(212, 168, 75, 0.15);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CHAPTER TOAST DESKTOP
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 85. chapterToastDesktop - Desktop chapter toast */
+@keyframes chapterToastDesktop {
+  0% {
+    transform: translateX(-30px) scale(0.8);
+    opacity: 0;
+    box-shadow: 0 0 0 rgba(212, 168, 75, 0);
+  }
+  15% {
+    transform: translateX(5px) scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 30px rgba(212, 168, 75, 0.5), 0 0 60px rgba(212, 168, 75, 0.3);
+  }
+  30% {
+    transform: translateX(0) scale(1);
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.4);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.85;
+    transform: translateX(0) scale(1);
+    box-shadow: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   COSMIC ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 86. cosmicFadeOut - Cosmic background fade out */
+@keyframes cosmicFadeOut {
+  0%, 70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* 87. cosmicPulse - Cosmic element pulse */
+@keyframes cosmicPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   CTA & BUTTON ANIMATIONS (FROM HTML)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 88. ctaPulse - CTA button pulse ring */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 75, 0.4); }
+  50% { box-shadow: 0 0 20px 6px rgba(212, 168, 75, 0.25); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   ERROR & FEEDBACK ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 89. errorShake - Error shake animation */
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+/* 90. successPulse - Success state pulse */
+@keyframes successPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); transform: scale(1.02); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); transform: scale(1); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   FADE & BASIC ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 91. fadeIn - Simple fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 92. shimmer - Generic shimmer effect */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   FLOAT & PARTICLE ANIMATIONS (FROM HTML)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 93. floatParticle - Floating particle movement */
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translateY(100vh) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(-100vh) translateX(50px);
+    opacity: 0;
+  }
+}
+
+/* 94. floatUp - Float up animation */
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateY(90vh) translateX(10px) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translateY(50vh) translateX(-15px) scale(1.2);
+  }
+  90% {
+    opacity: 0.3;
+    transform: translateY(10vh) translateX(10px) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5vh) translateX(0) scale(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   HINT & GUIDE ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 95. hint-float - Hint floating animation */
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   LOADING ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 96. loadingPulse - Loading indicator pulse */
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   MODAL ANIMATIONS (FROM HTML)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 97. modalSpring - Modal spring entrance */
+@keyframes modalSpring {
+  0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+  50% { transform: scale(1.02) translateY(-5px); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   PAGE TRANSITION ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 98. pageEmerge - Page emerge effect */
+@keyframes pageEmerge {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* 99. slideEnter - Slide enter animation */
+@keyframes slideEnter { 
+  from { opacity: 0.7; transform: translateY(20px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   PARTICLES AWAKENING
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 100. particlesAwaken - Particle awakening sequence */
+@keyframes particlesAwaken {
+  0% {
+    opacity: 0.1;
+    filter: blur(8px) brightness(0.3);
+    transform: scale(1.1);
+  }
+  30% {
+    opacity: 0.4;
+    filter: blur(4px) brightness(0.6);
+    transform: scale(1.05);
+  }
+  60% {
+    opacity: 0.7;
+    filter: blur(2px) brightness(0.85);
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+    transform: scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   PORTAL ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 101. portal-pulse - Portal pulse effect */
+@keyframes portal-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* 102. portalBurst - Portal burst particles */
+@keyframes portalBurst {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* 103. portalFloat - Portal floating elements */
+@keyframes portalFloat {
+  0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+  25% { transform: translateY(-30px) translateX(10px) scale(1.2); opacity: 0.6; }
+  50% { transform: translateY(-20px) translateX(-10px) scale(0.8); opacity: 0.4; }
+  75% { transform: translateY(-40px) translateX(5px) scale(1.1); opacity: 0.5; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   PULSE VARIATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 104. pulse-green - Green status pulse */
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* 105. pulseGlow - Generic pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 75, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(212, 168, 75, 0.4); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   RING & RIPPLE VARIATIONS (FROM HTML)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 106. ringExpand - Ring expansion effect */
+@keyframes ringExpand {
+  to {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* 107. ripple - Basic ripple */
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 108. ripple-effect - Ripple effect variant */
+@keyframes ripple-effect {
+  0% { transform: scale(0); opacity: 0.8; }
+  100% { transform: scale(10); opacity: 0; }
+}
+
+/* 109. rippleEffect - Another ripple effect */
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* 110. touchRipple - Touch ripple feedback */
+@keyframes touchRipple {
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   SCROLL ANIMATIONS (FROM HTML)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 111. scroll-pulse - Scroll indicator pulse */
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.4; height: 30px; }
+  50% { opacity: 1; height: 40px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   SINGULARITY ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 112. singularityGrow - Singularity grow effect */
+@keyframes singularityGrow {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+  }
+}
+
+/* 113. singularityPulse - Singularity pulse with intense glow */
+@keyframes singularityPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 30px #ffffff,
+      0 0 60px #f4c856,
+      0 0 100px #d4a84b,
+      0 0 150px rgba(244, 200, 86, 0.9),
+      0 0 250px rgba(212, 168, 75, 0.6),
+      0 0 400px rgba(212, 168, 75, 0.4),
+      0 0 600px rgba(212, 168, 75, 0.2);
+  }
+  50% {
+    transform: scale(1.4);
+    box-shadow:
+      0 0 50px #ffffff,
+      0 0 100px #f4c856,
+      0 0 150px #d4a84b,
+      0 0 200px rgba(244, 200, 86, 1),
+      0 0 350px rgba(212, 168, 75, 0.8),
+      0 0 500px rgba(212, 168, 75, 0.5),
+      0 0 700px rgba(212, 168, 75, 0.3);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   SPLASH SCREEN ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 114. splashEnter - Splash screen entrance */
+@keyframes splashEnter {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* 115. splashProgress - Splash progress bar */
+@keyframes splashProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   SWIPE HINT ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 116. swipeDotMove - Swipe indicator dot movement */
+@keyframes swipeDotMove {
+  0%, 100% { top: 8px; opacity: 1; }
+  50% { top: 34px; opacity: 0.5; }
+}
+
+/* 117. swipeHint - Swipe hint animation */
+@keyframes swipeHint {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(10px); opacity: 1; }
+}
+
+/* 118. swipeHintFade - Swipe hint fade cycle */
+@keyframes swipeHintFade {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
+}
+
+/* 119. swipeHintLeft - Swipe left hint */
+@keyframes swipeHintLeft {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(-5px); opacity: 1; }
+}
+
+/* 120. swipeHintRight - Swipe right hint */
+@keyframes swipeHintRight {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50% { transform: translateX(5px); opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   SPECIAL EFFECT ANIMATIONS
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* 121. tiltPhone - Phone tilt animation (for mobile prompts) */
+@keyframes tiltPhone {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+/* 122. titanDrop - Dramatic titan drop entrance (loader finale) */
+@keyframes titanDrop {
+  0% { transform: translateY(-120vh) scale(0.6); opacity: 0; filter: brightness(10) blur(50px) contrast(3) url(#heat-distortion); }
+  25% { transform: translateY(-80vh) scale(0.8); opacity: 0.9; filter: brightness(5) blur(20px) contrast(2) url(#heat-distortion); drop-shadow: 0 0 100px var(--gold); text-shadow: 0 0 40px var(--gold-bright), 0 0 80px var(--gold); }
+  42% { transform: translateY(-5vh) scale(0.7, 2.5); filter: brightness(15) blur(120px) contrast(6) saturate(0); }
+  45% { transform: translateY(0) scale(1.5, 0.5); filter: brightness(40) contrast(5) saturate(0) blur(0); }
+  48% { transform: translateY(0) scale(1.2, 0.8); filter: brightness(20) contrast(3) saturate(0.8) drop-shadow(0 0 200px var(--gold)); }
+  65% { transform: translateY(-80px) scale(0.9, 1.1); filter: brightness(1.5) contrast(1.2) saturate(1); }
+  100% { transform: translateY(0) scale(1); opacity: 1; filter: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   END OF KEYFRAME ANIMATIONS
+   
+   Total: 122 keyframes
+   - Part A (CSS Bundle): 71 keyframes
+   - Part B (HTML Inline): 51 keyframes
+   
+   Usage in HTML:
+   - Apply animation via Tailwind: class="animate-[keyframe-name_duration_ease]"
+   - Or use custom animation classes defined in tailwind.config.js
+   
+   Example:
+   <div class="animate-[heroReveal_0.8s_ease-out_forwards]">
+   ═══════════════════════════════════════════════════════════════════════════════ */

@@ -1,13 +1,16 @@
 # 🤖 ROBOTS.TXT: SENTINEL PROTOCOL
 # Subject: Infinite Architects / Michael Darius Eastwood
+# Domain: www.michaeldariuseastwood.com
 # Directing crawlers to the Command Centre.
 
 User-agent: *
 Allow: /
 Disallow: /offline.html
+Disallow: /_backup/
+Disallow: /node_modules/
 
 # Sitemap location for absolute dominance
-Sitemap: https://infinitearchitects.io/sitemap.xml
+Sitemap: https://www.michaeldariuseastwood.com/sitemap.xml
 
 # Performance guard
 Crawl-delay: 1

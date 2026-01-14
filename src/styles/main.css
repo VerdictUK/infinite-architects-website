@@ -1,0 +1,725 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * INFINITE ARCHITECTS - MAIN STYLESHEET v5.0 (FINAL)
+ * Sovereign Design System - Complete Tailwind CSS Architecture
+ * ═══════════════════════════════════════════════════════════════════════════════
+ * 
+ * Structure:
+ * 1. Google Fonts Import (MUST BE FIRST)
+ * 2. Tailwind Directives
+ * 3. Animation Import (122 keyframes in separate file)
+ * 4. @layer base - CSS Custom Properties & Global Resets
+ * 5. @layer utilities - Custom Utility Classes
+ * 
+ * CRITICAL: Animations are in a SEPARATE FILE to prevent truncation.
+ * The @layer separation prevents CSS specificity conflicts.
+ * 
+ * @author Michael Darius Eastwood
+ * @domain www.michaeldariuseastwood.com
+ * @version 5.0.0 (FINAL)
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   GOOGLE FONTS IMPORT - MUST BE FIRST
+   Cinzel (Display), Cormorant Garamond (Serif), Space Mono (Monospace)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   ANIMATION IMPORT - CRITICAL (Must be before @tailwind directives)
+   122 keyframe animations stored in separate file to prevent truncation
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@import './animations.css';
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TAILWIND DIRECTIVES
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   @LAYER BASE - CSS Custom Properties & Global Resets
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  /* ─────────────────────────────────────────────────────────────────────────────
+     CSS CUSTOM PROPERTIES (CSS Variables)
+     These supplement Tailwind's theme and provide runtime flexibility
+     ─────────────────────────────────────────────────────────────────────────────── */
+  :root {
+    /* ═══ Sacred Gold Palette (DO NOT MODIFY) ═══ */
+    --gold: #d4a84b;
+    --gold-primary: #d4a84b;
+    --gold-bright: #f4c856;
+    --gold-pale: #e8d4a0;
+    --gold-dark: #8b6914;
+
+    /* ═══ Cosmic Void ═══ */
+    --void-deep: #02030a;
+    --void-mid: #04050c;
+    --void-surface: #0a0c14;
+    --void-elevated: #121420;
+
+    /* ═══ Nebula Accents ═══ */
+    --nebula-blue: #1a237e;
+    --nebula-purple: #4a148c;
+    --nebula-teal: #004d40;
+
+    /* ═══ Text Hierarchy - WCAG AAA Compliant ═══ */
+    --text-base: #f0ebe3;
+    --text: var(--text-base);
+    --text-primary: var(--text-base);
+    --text-secondary: rgba(240, 235, 227, 0.85);
+    --text-dim: rgba(240, 235, 227, 0.72);
+    --text-tertiary: rgba(240, 235, 227, 0.55);
+    --text-muted: rgba(240, 235, 227, 0.35);
+    --text-faint: rgba(240, 235, 227, 0.25);
+    --text-ghost: rgba(240, 235, 227, 0.15);
+    --text-inverse: var(--void-deep);
+    --text-accent: var(--gold);
+
+    /* ═══ Alpha Variations ═══ */
+    --gold-alpha-5: rgba(212, 168, 75, 0.05);
+    --gold-alpha-8: rgba(212, 168, 75, 0.08);
+    --gold-alpha-10: rgba(212, 168, 75, 0.10);
+    --gold-alpha-15: rgba(212, 168, 75, 0.15);
+    --gold-alpha-20: rgba(212, 168, 75, 0.20);
+    --gold-alpha-25: rgba(212, 168, 75, 0.25);
+    --gold-alpha-30: rgba(212, 168, 75, 0.30);
+    --gold-alpha-40: rgba(212, 168, 75, 0.40);
+    --gold-alpha-50: rgba(212, 168, 75, 0.50);
+    --gold-alpha-60: rgba(212, 168, 75, 0.60);
+    --void-alpha-50: rgba(2, 3, 10, 0.50);
+    --void-alpha-70: rgba(2, 3, 10, 0.70);
+    --void-alpha-80: rgba(2, 3, 10, 0.80);
+    --void-alpha-90: rgba(2, 3, 10, 0.90);
+    --void-alpha-95: rgba(2, 3, 10, 0.95);
+
+    /* ═══ Typography ═══ */
+    --font-display: 'Cinzel', serif;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-mono: 'Space Mono', 'SF Mono', Monaco, monospace;
+    --font-code: 'JetBrains Mono', 'Space Mono', monospace;
+
+    /* ═══ Layout Spacing ═══ */
+    --ticker-height: 40px;
+    --ticker-height-mobile: 28px;
+    --nav-height: 60px;
+    --nav-height-mobile: 56px;
+    --section-safe-padding: calc(var(--ticker-height) + var(--nav-height) + 2rem);
+
+    /* ═══ Z-Index Scale ═══ */
+    --z-deep: -10;
+    --z-behind: -1;
+    --z-base: 0;
+    --z-docked: 1;
+    --z-content: 2;
+    --z-card: 5;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-banner: 30;
+    --z-nav: 100;
+    --z-overlay: 500;
+    --z-modal: 600;
+    --z-popover: 700;
+    --z-toast: 800;
+    --z-loader: 900;
+    --z-tooltip: 950;
+    --z-max: 9999;
+
+    /* ═══ Animation Timing ═══ */
+    --duration-instant: 50ms;
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --duration-slower: 800ms;
+    --duration-cinematic: 1800ms;
+    
+    --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+    --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+    --ease-expressive: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-expressive-out: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-smooth-out: cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* ═══ Focus States (Accessibility) ═══ */
+    --focus-ring-color: var(--gold);
+    --focus-ring-width: 3px;
+    --focus-ring-offset: 4px;
+
+    /* ═══ Borders ═══ */
+    --border-subtle: var(--gold-alpha-8);
+    --border-default: var(--gold-alpha-15);
+    --border-strong: var(--gold-alpha-30);
+    --border-accent: var(--gold-alpha-50);
+
+    /* ═══ Shadows ═══ */
+    --shadow-gold-sm: 0 2px 8px var(--gold-alpha-15);
+    --shadow-gold-md: 0 4px 20px var(--gold-alpha-30);
+    --shadow-gold-lg: 0 8px 32px var(--gold-alpha-40);
+    --glow-sm: 0 0 10px var(--gold-alpha-30), 0 0 20px var(--gold-alpha-15);
+    --glow-md: 0 0 20px var(--gold-alpha-40), 0 0 40px var(--gold-alpha-20);
+    --glow-lg: 0 0 30px var(--gold-alpha-50), 0 0 60px var(--gold-alpha-30);
+
+    /* ═══ Accordion Variable (for JS animation) ═══ */
+    --accordion-height: auto;
+    
+    /* ═══ Score Variable (for progress animations) ═══ */
+    --score-width: 0%;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     GLOBAL RESETS & BASE STYLES
+     ─────────────────────────────────────────────────────────────────────────────── */
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    /* CRITICAL: proximity allows free scrolling between sections */
+    scroll-snap-type: y proximity;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-void-deep text-text-primary font-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    /* Prevent rubber-banding on iOS */
+    overscroll-behavior-y: none;
+  }
+
+  /* Lock scroll when modals/menus open */
+  body.no-scroll,
+  body.modal-open,
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     TYPOGRAPHY BASE STYLES
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-gold;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  h1 { @apply text-h1 tracking-tight; }
+  h2 { @apply text-h2 tracking-tight; }
+  h3 { @apply text-h3; }
+  h4 { @apply text-h4; }
+  h5 { @apply text-h5; }
+  h6 { @apply text-h6; }
+
+  p {
+    @apply text-body text-text-secondary;
+    text-wrap: pretty;
+    max-width: 75ch;
+  }
+
+  a {
+    @apply text-gold no-underline transition-colors duration-normal;
+    text-decoration-skip-ink: auto;
+  }
+
+  a:hover {
+    @apply text-gold-bright;
+  }
+
+  strong, b {
+    @apply font-semibold text-text-primary;
+  }
+
+  em, i {
+    @apply italic;
+  }
+
+  code, pre, kbd, samp {
+    @apply font-mono text-gold-pale;
+  }
+
+  pre {
+    @apply overflow-x-auto p-4 rounded-lg;
+    background: var(--void-surface);
+  }
+
+  blockquote {
+    @apply border-l-4 border-gold-alpha-30 pl-4 italic text-text-dim;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     FORM ELEMENTS
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--text-muted);
+  }
+
+  /* Remove default button styles */
+  button {
+    @apply bg-transparent border-0 cursor-pointer;
+  }
+
+  /* Hide spinners on number inputs */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     SELECTION STYLES
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  ::selection {
+    background: var(--gold-alpha-30);
+    color: var(--text-primary);
+  }
+
+  ::-moz-selection {
+    background: var(--gold-alpha-30);
+    color: var(--text-primary);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     ACCESSIBILITY - FOCUS VISIBLE
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Skip to content link */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-max);
+    padding: 1rem 2rem;
+    background: var(--gold);
+    color: var(--void-deep);
+    font-weight: 600;
+    border-radius: 0 0 8px 8px;
+    transition: top 0.3s ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   @LAYER UTILITIES - Custom Utility Classes
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  /* ─────────────────────────────────────────────────────────────────────────────
+     SCROLLBAR UTILITIES - CRITICAL FOR MOBILE POLISH
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  /* .no-scrollbar - COMPLETELY hide scrollbar (required for Ideas/Evidence grids) */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* .scrollbar-hide - Alternative name (aliased) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* .scrollbar-gold - Styled gold scrollbar for desktop */
+  .scrollbar-gold {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-alpha-30) transparent;
+  }
+  .scrollbar-gold::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-gold::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-gold::-webkit-scrollbar-thumb {
+    background: var(--gold-alpha-30);
+    border-radius: 3px;
+  }
+  .scrollbar-gold::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-alpha-50);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     SAFE AREA INSETS - CRITICAL FOR iPHONE NOTCH/HOME BAR
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .safe-left {
+    padding-left: env(safe-area-inset-left, 0);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right, 0);
+  }
+
+  .safe-all {
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
+
+  /* Mobile-safe padding (bottom + extra space) */
+  .mobile-safe-padding {
+    padding-bottom: max(env(safe-area-inset-bottom, 0), 1rem);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     GPU ACCELERATION UTILITIES
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .force-layer {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     GLASS MORPHISM
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .glass {
+    background: var(--void-alpha-70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--gold-alpha-10);
+  }
+
+  .glass-light {
+    background: var(--void-alpha-50);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--gold-alpha-5);
+  }
+
+  .glass-dark {
+    background: var(--void-alpha-90);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--gold-alpha-15);
+  }
+
+  .glass-gold {
+    background: var(--gold-alpha-8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--gold-alpha-20);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     LINE CLAMP (Text Truncation)
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  .line-clamp-none {
+    display: block;
+    -webkit-box-orient: unset;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     RESPONSIVE VISIBILITY HELPERS
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .mobile-only {
+    @apply block md:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden md:block;
+  }
+
+  .touch-only {
+    @apply block;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .touch-only {
+      @apply hidden;
+    }
+  }
+
+  .mouse-only {
+    @apply hidden;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .mouse-only {
+      @apply block;
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     ASPECT RATIOS
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .aspect-book {
+    aspect-ratio: 2 / 3;
+  }
+
+  .aspect-kindle {
+    aspect-ratio: 5 / 8;
+  }
+
+  .aspect-card {
+    aspect-ratio: 3 / 2;
+  }
+
+  .aspect-golden {
+    aspect-ratio: 1.618 / 1;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     SPACING HELPERS
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .section-padding {
+    padding-top: var(--section-safe-padding);
+    padding-bottom: 4rem;
+  }
+
+  .content-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .content-padding {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .content-padding {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     FOCUS VISIBLE HELPERS
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .focus-ring {
+    outline: none;
+  }
+
+  .focus-ring:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: 4px;
+  }
+
+  .focus-ring-inset:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: -4px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     INTERACTION STATES
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .interactive {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .select-all {
+    user-select: all;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     VISIBILITY STATES (for JS animations)
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .visible-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .hidden-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    visibility: hidden;
+  }
+
+  .visible-scale {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hidden-scale {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     CONTAINER QUERIES
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .container-type-inline {
+    container-type: inline-size;
+  }
+
+  .container-type-size {
+    container-type: size;
+  }
+
+  .container-type-normal {
+    container-type: normal;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     DEBUG HELPERS (Remove in production)
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  .debug-outline {
+    outline: 1px solid red !important;
+  }
+
+  .debug-outline-blue {
+    outline: 1px solid blue !important;
+  }
+
+  .debug-outline-green {
+    outline: 1px solid green !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PRINT STYLES (Outside layers for highest specificity)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .break-before-page {
+    break-before: page;
+  }
+
+  .break-after-page {
+    break-after: page;
+  }
+
+  .avoid-break {
+    break-inside: avoid;
+  }
+}

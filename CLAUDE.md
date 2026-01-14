@@ -27,7 +27,7 @@ Before executing ANY task (coding, file modification, deployment), you MUST:
 3. **Verify all Nuclear Rules** before writing ANY code
 4. **If HIGH or NUCLEAR risk**: Stop and request human approval
 
-### The 12 Nuclear Rules for Website Development
+### The 15 Nuclear Rules for Website Development
 
 1. **Feature Preservation** — NEVER remove features, animations, or effects without explicit approval
 2. **Visual Excellence** — Every pixel must project "genius author" — use design tokens ONLY
@@ -41,6 +41,9 @@ Before executing ANY task (coding, file modification, deployment), you MUST:
 10. **Performance Priority** — Lighthouse 90+ on all metrics
 11. **Mobile Excellence** — Must be flawless on ALL devices
 12. **Zero Hallucination** — Never invent, fabricate, or guess
+13. **NO CSS OVERRIDES** — NEVER use `!important` chains or override hacks. FIX problems at the source by REMOVING problematic code entirely. CSS overrides create technical debt and unmaintainable codebases.
+14. **MODERN & FUTURE-PROOF** — Always implement the most modern, stable, and future-proof approach. Use current best practices (2025+). Never cut corners to save time. Do it RIGHT even if it takes longer.
+15. **HARDCODE FIXES, NOT PATCHES** — When fixing bugs, REMOVE the broken code and replace with correct code. Never layer fixes on top of broken code. Clean architecture over quick fixes.
 
 ### If You Skip This Protocol
 

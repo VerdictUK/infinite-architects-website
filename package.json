@@ -1,43 +1,82 @@
 {
   "name": "infinite-architects-website",
-  "version": "1.0.0",
-  "description": "Ultimate website for Infinite Architects: Intelligence, Recursion, and the Creation of Everything by Michael Darius Eastwood",
+  "version": "2.0.0",
+  "description": "Infinite Architects: Intelligence, Recursion, and the Creation of Everything - Premium book website with Tailwind CSS",
   "main": "index.html",
+  "type": "module",
   "scripts": {
-    "serve": "npx serve . -p 3000",
-    "dev": "npx serve . -p 3000 --cors",
+    "dev": "concurrently \"npm run tailwind:watch\" \"npm run serve\"",
+    "serve": "npx serve . -p 3000 --cors",
+    "build": "npm run tailwind:build && npm run css:minify",
+    "build:production": "NODE_ENV=production npm run build",
+    "tailwind:watch": "npx postcss ./src/styles/main.css -o ./dist/styles.css --watch",
+    "tailwind:build": "npx postcss ./src/styles/main.css -o ./dist/styles.css",
+    "tailwind:minify": "NODE_ENV=production npx postcss ./src/styles/main.css -o ./dist/styles.min.css",
+    "css:minify": "NODE_ENV=production npx postcss ./dist/styles.css -o ./dist/styles.min.css",
+    "lint:css": "npx stylelint 'src/styles/**/*.css'",
     "preview": "npx vercel",
-    "deploy": "npx vercel --prod",
-    "deploy:preview": "npx vercel",
+    "deploy": "npm run build:production && npx vercel --prod",
+    "deploy:preview": "npm run build && npx vercel",
     "logs": "npx vercel logs",
     "list": "npx vercel ls",
-    "optimize:images": "echo 'Use: cwebp -q 85 input.jpg -o output.webp'",
-    "validate:html": "npx html-validate index.html",
-    "lighthouse": "npx lighthouse http://localhost:3000 --view"
+    "validate:html": "npx html-validate '*.html'",
+    "lighthouse": "npx lighthouse http://localhost:3000 --view",
+    "lighthouse:ci": "npx lighthouse http://localhost:3000 --output=json --output-path=./reports/lighthouse.json",
+    "test:a11y": "npx pa11y http://localhost:3000",
+    "clean": "rm -rf dist node_modules/.cache",
+    "clean:all": "rm -rf dist node_modules",
+    "setup": "npm install && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/infinite-architects-website"
+    "url": "https://github.com/infinitearchitects/website"
   },
   "keywords": [
     "infinite-architects",
     "michael-darius-eastwood",
     "ai-philosophy",
     "book-website",
+    "tailwindcss",
     "three.js",
-    "author-website"
+    "author-website",
+    "uk-english"
   ],
-  "author": "Michael Darius Eastwood <michael@michaeldariuseastwood.com>",
+  "author": {
+    "name": "Michael Darius Eastwood",
+    "email": "michael@michaeldariuseastwood.com",
+    "url": "https://www.michaeldariuseastwood.com"
+  },
   "license": "UNLICENSED",
   "private": true,
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.0"
   },
   "devDependencies": {
-    "serve": "^14.2.0",
-    "vercel": "^50.1.6"
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "cssnano": "^7.0.1",
+    "html-validate": "^8.18.2",
+    "pa11y": "^6.2.3",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-import": "^16.1.0",
+    "serve": "^14.2.3",
+    "stylelint": "^16.3.1",
+    "stylelint-config-standard": "^36.0.0",
+    "tailwindcss": "^3.4.3",
+    "vercel": "^34.1.2"
+  },
+  "optionalDependencies": {
+    "lighthouse": "^12.0.0"
   }
 }
