@@ -29961,6 +29961,25 @@ main.content, #main-content {
         'use strict';
 
         // ═══════════════════════════════════════════════════════════════════════
+        // LOCALHOST CACHE BUSTER - Force scroll unlock on local dev
+        // ═══════════════════════════════════════════════════════════════════════
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            // 1. Clear Service Worker caches
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    for (let name of names) caches.delete(name);
+                });
+            }
+            // 2. Unregister Service Workers
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                    for (let registration of registrations) registration.unregister();
+                });
+            }
+            console.log('🧪 LOCALHOST: Caches purged and Service Worker unregistered to fix scroll lock.');
+        }
+
+        // ═══════════════════════════════════════════════════════════════════════
         // PRODUCTION MODE: Suppress console.log in production
         // ═══════════════════════════════════════════════════════════════════════
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
