@@ -100,10 +100,10 @@
     --void-alpha-95: rgba(2, 3, 10, 0.95);
 
     /* ═══ Typography ═══ */
-    --font-display: 'Cinzel', serif;
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-mono: 'Space Mono', 'SF Mono', Monaco, monospace;
-    --font-code: 'JetBrains Mono', 'Space Mono', monospace;
+    --font-display: 'Cinzel', 'SF Pro Display', system-ui, serif;
+    --font-serif: 'Cormorant Garamond', 'New York', serif;
+    --font-mono: 'Space Mono', 'SF Mono', Menlo, monospace;
+    --font-code: 'JetBrains Mono', 'SF Mono', monospace;
 
     /* ═══ Layout Spacing ═══ */
     --ticker-height: 40px;
@@ -511,35 +511,58 @@
   }
 
   /* ─────────────────────────────────────────────────────────────────────────────
-     GLASS MORPHISM
+     GLASS MORPHISM (Apple Vibrancy)
      ─────────────────────────────────────────────────────────────────────────────── */
 
+  /* Standard Glass - For headers/docks */
   .glass {
-    background: var(--void-alpha-70);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--gold-alpha-10);
+    background: rgba(2, 3, 10, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 
+  /* Light Glass - For interactions/hovers */
   .glass-light {
-    background: var(--void-alpha-50);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--gold-alpha-5);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
+  /* Deep Glass - For cards/modals */
   .glass-dark {
-    background: var(--void-alpha-90);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--gold-alpha-15);
+    background: rgba(2, 3, 10, 0.8);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 
+  /* Gold Glass - For accents */
   .glass-gold {
-    background: var(--gold-alpha-8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--gold-alpha-20);
+    background: rgba(212, 168, 75, 0.08);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.1);
+  }
+  
+  /* Ultra Glass - The "Titanium" Standard */
+  .glass-panel-ultra {
+    background: rgba(10, 12, 20, 0.65);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); /* Spring tight */
+  }
+  
+  .glass-panel-ultra:hover {
+    border-color: rgba(212, 168, 75, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(212, 168, 75, 0.15);
+    transform: translateY(-2px);
   }
 
   /* ─────────────────────────────────────────────────────────────────────────────

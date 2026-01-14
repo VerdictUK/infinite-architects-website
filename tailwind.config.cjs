@@ -83,10 +83,10 @@ module.exports = {
 
     extend: {
       // ═══════════════════════════════════════════════════════════════════════════
-      // COLORS - Sovereign Gold & Cosmic Void System
+      // COLORS - Sovereign Gold & Cosmic Void System (Apple-Grade Vibrancy)
       // ═══════════════════════════════════════════════════════════════════════════
       colors: {
-        // Sacred Gold Palette (DO NOT MODIFY)
+        // Sacred Gold Palette
         gold: {
           DEFAULT: '#d4a84b',   // --gold-primary
           50: '#fefbf3',
@@ -107,10 +107,10 @@ module.exports = {
         // Cosmic Void Palette
         void: {
           DEFAULT: '#02030a',
-          deep: '#02030a',      // --void-deep (Main BG)
-          mid: '#04050c',       // --void-mid
-          surface: '#0a0c14',   // --void-surface
-          elevated: '#121420',  // --void-elevated
+          deep: '#010208',      // OLED Black
+          mid: '#04050c',       // Deep Space
+          surface: '#0a0c14',   // Card Surface
+          elevated: '#121420',  // Modal Surface
           light: '#1a1d2e',
         },
         // Nebula Accent Palette
@@ -121,238 +121,113 @@ module.exports = {
           magenta: '#8a2b60',
           cyan: '#006064',
         },
-        // Text Hierarchy
+        // Text Hierarchy (Apple Standard Contrast)
         text: {
-          primary: '#f0ebe3',
-          secondary: 'rgba(240, 235, 227, 0.85)',
-          dim: 'rgba(240, 235, 227, 0.72)',
-          tertiary: 'rgba(240, 235, 227, 0.55)',
-          muted: 'rgba(240, 235, 227, 0.35)',
-          faint: 'rgba(240, 235, 227, 0.25)',
-          ghost: 'rgba(240, 235, 227, 0.15)',
+          primary: '#f5f5f7', // SF Pro Light Text
+          secondary: 'rgba(235, 235, 245, 0.75)',
+          dim: 'rgba(235, 235, 245, 0.60)',
+          tertiary: 'rgba(235, 235, 245, 0.45)',
+          muted: 'rgba(235, 235, 245, 0.30)',
         },
         // Alpha Variations
         'gold-alpha': {
           5: 'rgba(212, 168, 75, 0.05)',
-          8: 'rgba(212, 168, 75, 0.08)',
           10: 'rgba(212, 168, 75, 0.10)',
-          15: 'rgba(212, 168, 75, 0.15)',
           20: 'rgba(212, 168, 75, 0.20)',
-          25: 'rgba(212, 168, 75, 0.25)',
           30: 'rgba(212, 168, 75, 0.30)',
-          40: 'rgba(212, 168, 75, 0.40)',
           50: 'rgba(212, 168, 75, 0.50)',
-          60: 'rgba(212, 168, 75, 0.60)',
-          70: 'rgba(212, 168, 75, 0.70)',
-          80: 'rgba(212, 168, 75, 0.80)',
-          90: 'rgba(212, 168, 75, 0.90)',
-        },
-        'void-alpha': {
-          50: 'rgba(2, 3, 10, 0.50)',
-          60: 'rgba(2, 3, 10, 0.60)',
-          70: 'rgba(2, 3, 10, 0.70)',
-          80: 'rgba(2, 3, 10, 0.80)',
-          90: 'rgba(2, 3, 10, 0.90)',
-          95: 'rgba(2, 3, 10, 0.95)',
-          98: 'rgba(2, 3, 10, 0.98)',
         },
       },
 
       // ═══════════════════════════════════════════════════════════════════════════
-      // TYPOGRAPHY
+      // TYPOGRAPHY - Optical Sizing & Rhythm
       // ═══════════════════════════════════════════════════════════════════════════
       fontFamily: {
-        display: ['Cinzel', 'serif', ...defaultTheme.fontFamily.serif],
-        serif: ['Cormorant Garamond', 'Georgia', 'Times New Roman', 'serif'],
-        mono: ['Space Mono', 'SF Mono', 'Monaco', 'Consolas', 'monospace'],
-        code: ['JetBrains Mono', 'Fira Code', 'Space Mono', 'monospace'],
+        display: ['Cinzel', 'SF Pro Display', 'system-ui', 'serif'],
+        serif: ['Cormorant Garamond', 'New York', 'serif'],
+        mono: ['Space Mono', 'SF Mono', 'Menlo', 'monospace'],
+        sans: ['SF Pro Text', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
       },
       fontSize: {
         // Fluid typography with clamp()
-        'display-2xl': ['clamp(3rem, 8vw + 1rem, 6rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display-xl': ['clamp(2.5rem, 6vw + 1rem, 5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display': ['clamp(2rem, 5vw + 1rem, 4rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
-        'h1': ['clamp(1.75rem, 4vw + 0.5rem, 3rem)', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
-        'h2': ['clamp(1.5rem, 3vw + 0.5rem, 2.5rem)', { lineHeight: '1.25' }],
-        'h3': ['clamp(1.25rem, 2vw + 0.5rem, 1.875rem)', { lineHeight: '1.3' }],
-        'h4': ['clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem)', { lineHeight: '1.35' }],
-        'h5': ['clamp(1rem, 1vw + 0.5rem, 1.25rem)', { lineHeight: '1.4' }],
-        'h6': ['clamp(0.875rem, 0.5vw + 0.5rem, 1.125rem)', { lineHeight: '1.4' }],
-        'body-xl': ['clamp(1.25rem, 1.5vw + 0.75rem, 1.5rem)', { lineHeight: '1.7' }],
-        'body-lg': ['clamp(1.125rem, 1vw + 0.75rem, 1.25rem)', { lineHeight: '1.7' }],
-        'body': ['clamp(1rem, 0.5vw + 0.875rem, 1.125rem)', { lineHeight: '1.7' }],
-        'body-sm': ['clamp(0.875rem, 0.25vw + 0.75rem, 0.9375rem)', { lineHeight: '1.6' }],
-        'caption': ['clamp(0.75rem, 0.25vw + 0.625rem, 0.875rem)', { lineHeight: '1.5' }],
-        'micro': ['clamp(0.625rem, 0.125vw + 0.5rem, 0.75rem)', { lineHeight: '1.4' }],
+        'display-2xl': ['clamp(3.5rem, 8vw + 1rem, 7rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }], // Apple Tight
+        'display-xl': ['clamp(3rem, 6vw + 1rem, 5.5rem)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+        'display': ['clamp(2.25rem, 5vw + 1rem, 4.5rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'h1': ['clamp(2rem, 4vw + 0.5rem, 3.5rem)', { lineHeight: '1.1', letterSpacing: '-0.015em' }],
+        'h2': ['clamp(1.75rem, 3vw + 0.5rem, 2.75rem)', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'h3': ['clamp(1.5rem, 2vw + 0.5rem, 2rem)', { lineHeight: '1.25' }],
+        'h4': ['clamp(1.25rem, 1.5vw + 0.5rem, 1.5rem)', { lineHeight: '1.3' }],
+        'h5': ['clamp(1.125rem, 1vw + 0.5rem, 1.25rem)', { lineHeight: '1.35' }],
+        'h6': ['clamp(1rem, 0.75vw + 0.5rem, 1.125rem)', { lineHeight: '1.4' }],
+        'body-xl': ['clamp(1.25rem, 1.5vw + 0.75rem, 1.5rem)', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
+        'body-lg': ['clamp(1.125rem, 1vw + 0.75rem, 1.25rem)', { lineHeight: '1.6' }],
+        'body': ['clamp(1rem, 0.5vw + 0.875rem, 1.125rem)', { lineHeight: '1.6' }],
+        'caption': ['clamp(0.75rem, 0.25vw + 0.625rem, 0.875rem)', { lineHeight: '1.5', letterSpacing: '0.02em' }],
       },
       letterSpacing: {
         'tightest': '-0.05em',
-        'display': '-0.02em',
-        'widest-plus': '0.2em',
-        'ultra-wide': '0.3em',
-      },
-      lineHeight: {
-        'display': '1.1',
-        'heading': '1.25',
-        'relaxed-plus': '1.8',
-        'loose-plus': '2.2',
+        'tighter': '-0.03em',
+        'tight': '-0.015em',
+        'normal': '0em',
+        'wide': '0.025em',
+        'wider': '0.05em',
+        'widest': '0.15em',
       },
 
       // ═══════════════════════════════════════════════════════════════════════════
-      // SPACING
-      // ═══════════════════════════════════════════════════════════════════════════
-      spacing: {
-        '4.5': '1.125rem',
-        '13': '3.25rem',
-        '15': '3.75rem',
-        '18': '4.5rem',
-        '22': '5.5rem',
-        '26': '6.5rem',
-        '30': '7.5rem',
-        '34': '8.5rem',
-        '38': '9.5rem',
-        '42': '10.5rem',
-        '50': '12.5rem',
-        '60': '15rem',
-        '72': '18rem',
-        '80': '20rem',
-        '96': '24rem',
-        '120': '30rem',
-        '140': '35rem',
-        '160': '40rem',
-        // Layout-specific
-        'ticker': '40px',
-        'ticker-mobile': '28px',
-        'nav': '60px',
-        'nav-mobile': '56px',
-        'safe-top': 'env(safe-area-inset-top)',
-        'safe-bottom': 'env(safe-area-inset-bottom)',
-        'safe-left': 'env(safe-area-inset-left)',
-        'safe-right': 'env(safe-area-inset-right)',
-      },
-      maxWidth: {
-        'content': '1200px',
-        'wide': '1400px',
-        'ultra': '1600px',
-        'full-safe': 'calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right))',
-        'prose-wide': '75ch',
-        'prose-narrow': '55ch',
-      },
-      minHeight: {
-        'screen-safe': 'calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom))',
-        'screen-dvh': '100dvh',
-        'screen-svh': '100svh',
-        'screen-lvh': '100lvh',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // Z-INDEX SCALE
-      // ═══════════════════════════════════════════════════════════════════════════
-      zIndex: {
-        'deep': '-10',
-        'behind': '-1',
-        'base': '0',
-        'docked': '1',
-        'content': '2',
-        'card': '5',
-        'dropdown': '10',
-        'sticky': '20',
-        'banner': '30',
-        'nav': '100',
-        'overlay': '500',
-        'modal': '600',
-        'popover': '700',
-        'toast': '800',
-        'loader': '900',
-        'tooltip': '950',
-        'max': '9999',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // SHADOWS
-      // ═══════════════════════════════════════════════════════════════════════════
-      boxShadow: {
-        'gold-sm': '0 2px 8px rgba(212, 168, 75, 0.15)',
-        'gold-md': '0 4px 20px rgba(212, 168, 75, 0.25)',
-        'gold-lg': '0 8px 32px rgba(212, 168, 75, 0.35)',
-        'gold-xl': '0 12px 48px rgba(212, 168, 75, 0.45)',
-        'glow-sm': '0 0 10px rgba(212, 168, 75, 0.3), 0 0 20px rgba(212, 168, 75, 0.15)',
-        'glow-md': '0 0 20px rgba(212, 168, 75, 0.4), 0 0 40px rgba(212, 168, 75, 0.2)',
-        'glow-lg': '0 0 30px rgba(212, 168, 75, 0.5), 0 0 60px rgba(212, 168, 75, 0.3)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
-        'card-hover': '0 10px 15px -3px rgba(212, 168, 75, 0.2), 0 4px 6px -2px rgba(212, 168, 75, 0.1)',
-        'elevation-1': '0 1px 3px rgba(0, 0, 0, 0.4)',
-        'elevation-2': '0 3px 6px rgba(0, 0, 0, 0.4)',
-        'elevation-3': '0 6px 12px rgba(0, 0, 0, 0.4)',
-        'elevation-4': '0 12px 24px rgba(0, 0, 0, 0.4)',
-        'inset-gold': 'inset 0 0 20px rgba(212, 168, 75, 0.1)',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // BORDER RADIUS
-      // ═══════════════════════════════════════════════════════════════════════════
-      borderRadius: {
-        'card': '0.75rem',
-        'button': '0.5rem',
-        'badge': '0.375rem',
-        'pill': '9999px',
-        '4xl': '2rem',
-        '5xl': '2.5rem',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // BACKDROP BLUR
-      // ═══════════════════════════════════════════════════════════════════════════
-      backdropBlur: {
-        'xs': '2px',
-        '3xl': '64px',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // ASPECT RATIOS
-      // ═══════════════════════════════════════════════════════════════════════════
-      aspectRatio: {
-        'book': '2 / 3',
-        'kindle': '5 / 8',
-        'card': '3 / 2',
-        'golden': '1.618 / 1',
-        'cinema': '21 / 9',
-        'portrait': '3 / 4',
-        'square': '1 / 1',
-      },
-
-      // ═══════════════════════════════════════════════════════════════════════════
-      // TRANSITION TIMING
+      // PHYSICS - iOS Spring Dynamics
       // ═══════════════════════════════════════════════════════════════════════════
       transitionTimingFunction: {
+        'spring-tight': 'cubic-bezier(0.25, 1, 0.5, 1)', // iOS "Snappy"
+        'spring-loose': 'cubic-bezier(0.34, 1.56, 0.64, 1)', // iOS "Bouncy"
+        'expo-out': 'cubic-bezier(0.19, 1, 0.22, 1)', // Apple Standard Ease
+        'lux': 'cubic-bezier(0.65, 0, 0.35, 1)', // Cinematic slow-mo
         'standard': 'cubic-bezier(0.4, 0.0, 0.2, 1)',
-        'decelerate': 'cubic-bezier(0.0, 0.0, 0.2, 1)',
-        'accelerate': 'cubic-bezier(0.4, 0.0, 1, 1)',
-        'expressive': 'cubic-bezier(0.16, 1, 0.3, 1)',
-        'spring': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-        'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-        'smooth-out': 'cubic-bezier(0.25, 1, 0.5, 1)',
-        'sharp': 'cubic-bezier(0.4, 0, 0.6, 1)',
-        'elastic': 'cubic-bezier(0.68, -0.6, 0.32, 1.6)',
       },
       transitionDuration: {
         '0': '0ms',
-        '50': '50ms',
-        '250': '250ms',
-        '350': '350ms',
-        '400': '400ms',
-        '600': '600ms',
-        '800': '800ms',
-        '900': '900ms',
-        '1200': '1200ms',
-        '1500': '1500ms',
-        '2000': '2000ms',
-        'fast': '150ms',
-        'normal': '300ms',
-        'slow': '500ms',
-        'slower': '800ms',
-        'cinematic': '1800ms',
+        '200': '200ms',
+        '300': '300ms',
+        '400': '400ms', // iOS Navigation Speed
+        '600': '600ms', // Modal Speed
+        'normal': '300ms', // Standard duration
       },
+
+      // ═══════════════════════════════════════════════════════════════════════════
+      // SPACING - 4pt/8pt Rhythm
+      // ═══════════════════════════════════════════════════════════════════════════
+      spacing: {
+        '4.5': '1.125rem',
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '26': '6.5rem',
+        '30': '7.5rem', // 120px
+        '34': '8.5rem',
+        '112': '28rem',
+        '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+        'screen-safe': 'calc(100vh - env(safe-area-inset-bottom))',
+      },
+      
+      // ═══════════════════════════════════════════════════════════════════════════
+      // GLASS & DEPTH
+      // ═══════════════════════════════════════════════════════════════════════════
+      backdropBlur: {
+        'xs': '2px',
+        'md': '12px',
+        'lg': '24px', // Apple Standard
+        'xl': '40px',
+        '2xl': '60px',
+        '3xl': '80px', // Deep Depth
+      },
+      boxShadow: {
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.3)',
+        'glass-hover': '0 12px 40px 0 rgba(212, 168, 75, 0.15)',
+        'glow-gold': '0 0 20px rgba(212, 168, 75, 0.3)',
+        'card-hover': '0 20px 40px -10px rgba(0,0,0,0.5)',
+      },
+
 
       // ═══════════════════════════════════════════════════════════════════════════
       // ANIMATION KEYFRAMES - ALL 108+ COMPLETE (NO PLACEHOLDERS)

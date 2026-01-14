@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" class="cinematic-ready">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <title>Infinite Architects | Michael Darius Eastwood</title>
+    
+    <!-- CRITICAL: Hardcoded Scroll Fix (Rule 15) -->
+    <style>
+        html, body {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            min-height: 100vh;
+            position: relative !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Only lock if explicitly requested by loader */
+        body.loader-active {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+    </style>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
     <meta name="author" content="Michael Darius Eastwood">
@@ -35,11 +54,11 @@
     <link rel="canonical" href="https://www.michaeldariuseastwood.com/">
 
     <!-- Favicons and PWA -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#02030a">
     <meta name="msapplication-TileColour" content="#02030a">
 
@@ -85,7 +104,7 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
 
     <!-- Tailwind CSS - Compiled Design System -->
-    <link rel="stylesheet" href="/dist/styles.css">
+    <link rel="stylesheet" href="dist/styles.css">
 
     <!-- CRITICAL FIXES - NUCLEAR OVERRIDE v2.0 for visibility -->
     <style id="sovereign-critical-fixes">
@@ -100,6 +119,14 @@
        PART 1: BODY UNLOCK - Override the cinematic-ready lock
        ═══════════════════════════════════════════════════════════════════════ */
 
+    html {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100% !important;
+        scroll-behavior: smooth !important;
+    }
+
     /* NUCLEAR: Cancel body:not(.cinematic-ready) effects */
     html body,
     body:not(.cinematic-ready),
@@ -107,20 +134,21 @@
     body {
         position: relative !important;
         height: auto !important;
-        min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important; /* Modern iOS Safari fix */
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
         max-height: none !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
         width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
-
-    html {
-        scroll-behavior: smooth !important;
-        scroll-snap-type: y proximity !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        height: auto !important;
+    
+    /* Only lock if explicitly requested by loader */
+    body.loader-active {
+        overflow: hidden !important;
+        height: 100vh !important;
+        position: fixed !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════════════
@@ -7549,6 +7577,14 @@
             transform: translateY(0);
         }
 
+        /* CRITICAL FIX: Force content visibility on mobile */
+        @media (max-width: 768px) {
+            .reveal {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        }
+
         /* Desktop: Reveal elements visible by default when cinematic-ready
            Scroll animations only trigger before cinematic-ready state */
         @media (min-width: 769px) {
@@ -7596,10 +7632,10 @@
                 padding: var(--space-lg) var(--space-md);
             }
 
-            /* HERO - Force Visibility - Compact Mobile */
+            /* HERO - Force Visibility */
             .hero {
                 min-height: 100svh;
-                padding: 65px var(--space-md) 35px;
+                padding: 100px var(--space-md) 80px;
             }
 
             .hero-badge,
@@ -7613,28 +7649,28 @@
             }
 
             .hero-title {
-                font-size: clamp(1.6rem, 9vw, 2.8rem);
-                letter-spacing: 0.12em;
-                margin-bottom: 0.1rem;
+                font-size: clamp(1.8rem, 10vw, 3rem);
+                letter-spacing: 0.15em;
             }
 
             .hero-subtitle {
-                font-size: clamp(0.85rem, 3.2vw, 1.1rem);
-                margin-bottom: 0.1rem;
+                font-size: clamp(0.9rem, 3.5vw, 1.2rem);
             }
 
             .hero-author {
-                font-size: 0.85rem;
+                font-size: 0.7rem;
             }
 
             .scroll-indicator {
                 display: none;
             }
 
+            .hero::after {
+                height: 150px;
+            }
+
             .hero-book {
-                width: clamp(130px, 40vw, 200px);
-                max-height: clamp(180px, 28vh, 280px);
-                margin-bottom: 0.35rem;
+                width: min(260px, 65vw);
             }
 
             /* QUOTE - Reduce Height */
@@ -7695,7 +7731,6 @@
             /* ABOUT */
             .about-section {
                 padding: var(--space-lg) var(--space-md);
-                z-index: 3; /* Ensure tesseract appears above mobile-particles overlay (z-index: 2) */
             }
 
             .about-inner {
@@ -7710,15 +7745,6 @@
             .tesseract-container {
                 width: 220px;
                 height: 220px;
-                min-height: 220px; /* Prevent collapse */
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-
-            #tesseract-canvas {
-                display: block !important;
-                visibility: visible !important;
             }
 
             /* CAROUSEL */
@@ -7763,236 +7789,15 @@
 
             /* PERFORMANCE - Reduce Effects on Mobile */
             #canvas-container {
-                opacity: 0.5;
-                transition: transform 0.15s ease-out; /* Smooth gyro movement */
-                will-change: transform;
+                opacity: 0.3;
             }
 
             .cosmic-bg {
-                opacity: 0.9;
-                transition: transform 0.15s ease-out; /* Smooth gyro movement */
-                will-change: transform;
-            }
-
-            .hero-content {
-                transition: transform 0.2s ease-out;
+                opacity: 0.7;
             }
 
             .film-grain {
                 display: none;
-            }
-
-            /* ═══════════════════════════════════════════════════════════════════════
-               MOBILE WOW EFFECTS
-               ═══════════════════════════════════════════════════════════════════════ */
-
-            /* Ambient Floating Particles */
-            .mobile-particles {
-                position: fixed;
-                inset: 0;
-                pointer-events: none;
-                z-index: 2;
-                overflow: hidden;
-            }
-
-            .mobile-particle {
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: var(--gold);
-                border-radius: 50%;
-                opacity: 0;
-                animation: floatUp 12s ease-in-out infinite;
-                box-shadow: 0 0 6px var(--gold), 0 0 12px rgba(212, 168, 75, 0.5);
-            }
-
-            @keyframes floatUp {
-                0% {
-                    transform: translateY(100vh) translateX(0) scale(0);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 0.8;
-                    transform: translateY(90vh) translateX(10px) scale(1);
-                }
-                50% {
-                    opacity: 0.6;
-                    transform: translateY(50vh) translateX(-15px) scale(1.2);
-                }
-                90% {
-                    opacity: 0.3;
-                    transform: translateY(10vh) translateX(10px) scale(0.8);
-                }
-                100% {
-                    opacity: 0;
-                    transform: translateY(-5vh) translateX(0) scale(0);
-                }
-            }
-
-            /* Glowing Orbs */
-            .mobile-orb {
-                position: fixed;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(212, 168, 75, 0.2) 0%, transparent 70%);
-                pointer-events: none;
-                z-index: 1;
-                filter: blur(25px);
-                animation: orbFloat 15s ease-in-out infinite;
-                transition: transform 0.1s ease-out; /* For gyro override */
-                will-change: transform;
-            }
-
-            @keyframes orbFloat {
-                0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-                33% { transform: translate(20px, -30px) scale(1.1); opacity: 0.7; }
-                66% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.4; }
-            }
-
-            /* Touch Ripple Container */
-            .touch-ripple-container {
-                position: fixed;
-                inset: 0;
-                pointer-events: none;
-                z-index: 9998;
-                overflow: hidden;
-            }
-
-            .touch-ripple {
-                position: absolute;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(212, 168, 75, 0.4) 0%, rgba(212, 168, 75, 0.1) 40%, transparent 70%);
-                transform: translate(-50%, -50%) scale(0);
-                animation: touchRipple 0.8s ease-out forwards;
-            }
-
-            .touch-ripple-ring {
-                position: absolute;
-                border-radius: 50%;
-                border: 2px solid rgba(212, 168, 75, 0.5);
-                transform: translate(-50%, -50%) scale(0);
-                animation: ringExpand 0.6s ease-out forwards;
-            }
-
-            @keyframes touchRipple {
-                to {
-                    transform: translate(-50%, -50%) scale(1);
-                    opacity: 0;
-                }
-            }
-
-            @keyframes ringExpand {
-                to {
-                    transform: translate(-50%, -50%) scale(2);
-                    opacity: 0;
-                }
-            }
-
-            /* Motion Enable Button */
-            .motion-enable-btn {
-                position: fixed;
-                bottom: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.1) 100%);
-                border: 1px solid rgba(212, 168, 75, 0.4);
-                padding: 0.8rem 1.5rem;
-                border-radius: 50px;
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                z-index: 9999;
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                cursor: pointer;
-                animation: pulseGlow 2s ease-in-out infinite;
-                transition: all 0.3s ease;
-            }
-
-            .motion-enable-btn:active {
-                transform: translateX(-50%) scale(0.95);
-            }
-
-            .motion-enable-btn.hidden {
-                opacity: 0;
-                pointer-events: none;
-                transform: translateX(-50%) translateY(20px);
-            }
-
-            .motion-enable-icon {
-                font-size: 1.2rem;
-                animation: tiltPhone 1.5s ease-in-out infinite;
-            }
-
-            @keyframes tiltPhone {
-                0%, 100% { transform: rotate(-10deg); }
-                50% { transform: rotate(10deg); }
-            }
-
-            .motion-enable-text {
-                font-family: var(--font-mono);
-                font-size: 0.8rem;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                color: var(--gold);
-            }
-
-            @keyframes pulseGlow {
-                0%, 100% { box-shadow: 0 0 20px rgba(212, 168, 75, 0.2); }
-                50% { box-shadow: 0 0 30px rgba(212, 168, 75, 0.4); }
-            }
-
-            /* Book Breathing Glow */
-            .hero-book {
-                position: relative;
-            }
-
-            .hero-book::before {
-                content: '';
-                position: absolute;
-                inset: -30px;
-                background: radial-gradient(ellipse, rgba(212, 168, 75, 0.25) 0%, transparent 70%);
-                z-index: -1;
-                animation: bookBreath 4s ease-in-out infinite;
-                border-radius: 10px;
-            }
-
-            @keyframes bookBreath {
-                0%, 100% { opacity: 0.5; transform: scale(1); }
-                50% { opacity: 0.9; transform: scale(1.05); }
-            }
-
-            /* Motion Status Indicator */
-            .motion-status {
-                position: fixed;
-                top: 70px;
-                right: 15px;
-                font-family: var(--font-mono);
-                font-size: 0.75rem;
-                letter-spacing: 0.1em;
-                color: var(--gold);
-                opacity: 0;
-                transition: opacity 0.5s ease;
-                z-index: 101;
-                display: flex;
-                align-items: center;
-                gap: 0.4rem;
-            }
-
-            .motion-status.visible {
-                opacity: 0.7;
-            }
-
-            .motion-status-dot {
-                width: 6px;
-                height: 6px;
-                background: var(--gold);
-                border-radius: 50%;
-                animation: statusPulse 2s ease-in-out infinite;
-            }
-
-            @keyframes statusPulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.3; }
             }
         }
 
@@ -13841,7 +13646,7 @@
            APPLE-GRADE DESIGN SYSTEM - Invisible Tech Philosophy
            ═══════════════════════════════════════════════════════════════════════ */
 
-        /* 1. BENTO BOX GRID - Organized density */
+        /* 1. BENTO BOX GRID - Organised density */
         @media (min-width: 769px) {
             .ideas-grid,
             .evidence-grid {
@@ -27117,41 +26922,43 @@ main.content, #main-content {
     <div class="film-grain"></div>
 
     <!-- Navigation -->
-    <nav class="nav fixed top-9 md:top-8 left-0 right-0 z-nav px-8 lg:px-6 py-4 flex justify-between items-center transition-all duration-500 ease-expressive bg-void-alpha-80 backdrop-blur-xl border-b border-gold-alpha-10" id="nav">
-        <a href="#hero" class="nav-logo font-display text-xs tracking-[0.3em] text-gold transition-opacity duration-300 hover:opacity-70"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></a>
-        <button class="nav-toggle hidden lg:hidden flex-col gap-[5px] w-6 cursor-pointer z-[101]" id="nav-toggle" aria-label="Toggle navigation">
-            <span></span>
-            <span></span>
-            <span></span>
+    <nav class="nav fixed top-4 left-4 right-4 z-nav px-6 py-4 flex justify-between items-center rounded-2xl transition-all duration-400 ease-spring-loose glass-panel-ultra safe-top" id="nav">
+        <a href="#hero" class="nav-logo font-display text-xs tracking-[0.2em] text-gold transition-opacity duration-300 hover:opacity-70 flex items-center gap-2">
+            <span class="brand-word font-bold">INFINITE</span> <span class="brand-word font-normal opacity-80">ARCHITECTS</span>
+        </a>
+        <button class="nav-toggle lg:hidden flex flex-col gap-[5px] w-6 h-6 cursor-pointer z-[101] relative" id="nav-toggle" aria-label="Toggle navigation">
+            <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
+            <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
+            <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
         </button>
-        <div class="nav-menu flex items-center gap-6" id="nav-menu">
-            <ul class="nav-links flex gap-7 list-none">
+        <div class="nav-menu hidden lg:flex items-center gap-8" id="nav-menu">
+            <ul class="nav-links flex gap-8 list-none m-0 p-0">
                 <li>
-                    <a href="#equation" class="nav-link-iconic flex items-center gap-3 font-display text-[0.8rem] tracking-[0.15em] text-text-dim transition-colors duration-300 relative hover:text-gold">
-                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a href="#equation" class="nav-link-iconic flex items-center gap-2 font-display text-[0.7rem] tracking-[0.15em] text-text-dim hover:text-gold transition-all duration-300 group">
+                        <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2v20M2 12h20M12 2l-4 4M12 2l4 4M12 22l-4-4M12 22l4-4"/>
                         </svg>
-                        <span>THE EASTWOOD EQUATION</span>
+                        <span>THE EQUATION</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#ideas" class="nav-link-iconic flex items-center gap-3 font-display text-[0.8rem] tracking-[0.15em] text-text-dim transition-colors duration-300 relative hover:text-gold">
-                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a href="#ideas" class="nav-link-iconic flex items-center gap-2 font-display text-[0.7rem] tracking-[0.15em] text-text-dim hover:text-gold transition-all duration-300 group">
+                        <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                         </svg>
-                        <span>THE IDEAS</span>
+                        <span>THE CONCEPTS</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#author" class="nav-link-iconic flex items-center gap-3 font-display text-[0.8rem] tracking-[0.15em] text-text-dim transition-colors duration-300 relative hover:text-gold">
-                        <svg class="sovereign-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a href="#author" class="nav-link-iconic flex items-center gap-2 font-display text-[0.7rem] tracking-[0.15em] text-text-dim hover:text-gold transition-all duration-300 group">
+                        <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 01-4-4V5a4 4 0 118 0v2a4 4 0 01-4 4z"/>
                         </svg>
                         <span>THE AUTHOR</span>
                     </a>
                 </li>
             </ul>
-            <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="nav-cta px-6 py-2.5 border border-gold text-gold font-display text-xs tracking-[0.2em] uppercase transition-all duration-400 relative overflow-hidden hover:text-void hover:bg-gold">GET FIRST EDITION</a>
+            <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="nav-cta px-5 py-2 border border-gold/30 bg-gold/10 text-gold font-display text-[0.7rem] tracking-[0.2em] uppercase rounded-lg transition-all duration-300 hover:bg-gold hover:text-void-deep hover:border-gold shadow-glow-gold">GET FIRST EDITION</a>
         </div>
     </nav>
 
@@ -27171,18 +26978,14 @@ main.content, #main-content {
     </div> -->
 
     <!-- Part Progress Indicator - Always visible, shows current Part and progress -->
-    <div class="part-progress-indicator" id="part-progress-indicator" aria-live="polite" aria-atomic="true">
-        <div class="part-progress-dots">
-            <span class="part-dot" data-part="1"></span>
-            <span class="part-dot" data-part="2"></span>
-            <span class="part-dot" data-part="3"></span>
-            <span class="part-dot" data-part="4"></span>
-            <span class="part-dot" data-part="5"></span>
-            <span class="part-dot" data-part="6"></span>
-        </div>
-        <div class="part-progress-label">
-            <span class="part-progress-numeral" id="part-numeral">PART I</span>
-            <span class="part-progress-name" id="part-name">THE MIND</span>
+    <div class="part-progress-indicator fixed right-6 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-4" id="part-progress-indicator" aria-live="polite" aria-atomic="true">
+        <div class="part-progress-dots flex flex-col gap-3">
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="1"></span>
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="2"></span>
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="3"></span>
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="4"></span>
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="5"></span>
+            <span class="part-dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300" data-part="6"></span>
         </div>
     </div>
 
@@ -27191,10 +26994,10 @@ main.content, #main-content {
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero snap-section chromatic-lens min-h-screen min-h-svh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-lg lg:grid lg:grid-cols-2 lg:grid-rows-[auto_1fr_auto] lg:gap-8 lg:gap-x-16 lg:px-[8%] lg:pt-[calc(var(--ticker-height,40px)+var(--nav-height,60px)+1rem)] lg:text-left" id="hero">
+        <section class="hero snap-section chromatic-lens min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
-                <video class="mandelbrot-video w-full h-full object-cover opacity-80 bg-void" id="mandelbrot-video"
+                <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
                        muted playsinline preload="metadata" autoplay loop>
                     <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
                 </video>
@@ -27311,99 +27114,96 @@ main.content, #main-content {
         </div>
 
         <!-- PART I: THE MIND - Author Content -->
-        <section class="section about-section snap-section chapter-start py-16 md:py-20 px-4 md:px-8 overflow-visible" id="the-mind">
+        <section class="section about-section snap-section chapter-start py-20 md:py-32 px-4 md:px-8 overflow-visible" id="the-mind">
             <!-- Chapter Title - Visible indicator -->
-            <div class="chapter-title-header reveal">
-                <span class="chapter-numeral">I</span>
-                <span class="chapter-divider">—</span>
-                <span class="chapter-name-label">THE MIND</span>
+            <div class="chapter-title-header reveal flex items-center justify-center gap-4 mb-20 opacity-60">
+                <span class="chapter-numeral font-display text-2xl text-gold">I</span>
+                <span class="chapter-divider w-12 h-px bg-gold/50"></span>
+                <span class="chapter-name-label font-mono text-xs uppercase tracking-[0.2em] text-white">THE MIND</span>
             </div>
-            <div class="section-inner about-inner grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 max-w-content mx-auto items-center">
-                <div class="about-visual about-visual-choice relative flex flex-col items-center md:items-end justify-center order-1 md:order-2">
-                    <div class="author-photo-wrapper reveal relative z-content w-44 h-44 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-gold shadow-gold-xl">
-                        <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo w-full h-full object-cover object-top transition-transform duration-600">
+            
+            <div class="section-inner about-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 max-w-7xl mx-auto items-center">
+                <div class="about-visual relative flex flex-col items-center justify-center order-1 lg:order-2">
+                    <div class="author-photo-wrapper reveal relative z-10 w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-1 bg-gradient-to-tr from-gold via-gold-bright to-transparent shadow-glow-lg transition-all duration-600 ease-spring-loose group hover:scale-105">
+                        <div class="w-full h-full rounded-full overflow-hidden border-2 border-void-deep">
+                            <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
+                        </div>
                     </div>
-                    <div class="tesseract-container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 md:w-96 md:h-96 z-behind opacity-30 pointer-events-none">
+                    <div class="tesseract-container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-40 pointer-events-none blur-sm">
                         <canvas id="tesseract-canvas"></canvas>
                     </div>
                 </div>
-                <div class="about-text text-center md:text-left order-2 md:order-1">
-                    <p class="section-label reveal">The Author</p>
-                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
+                
+                <div class="about-text text-center lg:text-left order-2 lg:order-1 space-y-8">
+                    <div class="space-y-4">
+                        <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Author</p>
+                        <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white leading-tight">Michael Darius Eastwood</h2>
+                    </div>
 
-                    <p class="reveal reveal-delay-2 italic text-gold mb-7">
+                    <p class="reveal reveal-delay-2 font-serif text-2xl md:text-3xl italic text-gold-200 leading-relaxed border-l-4 border-gold pl-6 py-2">
                         "The mind that could not open post saw connections nobody else saw."
                     </p>
 
-                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong class="text-gold-bright">AuDHD</strong> was already running.</p>
+                    <div class="space-y-6 text-lg text-text-secondary leading-relaxed reveal reveal-delay-3 max-w-2xl">
+                        <p>At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong class="text-gold font-semibold">AuDHD</strong> was already running.</p>
 
-                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
+                        <p>Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong class="text-white">1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
 
-                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong class="text-red-500">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
+                        <p>Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong class="text-red-400">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
 
-                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong class="text-gold-bright">The struggles and the superpowers come from the same source.</strong></p>
+                        <p>The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong class="text-gold font-bold italic">The struggles and the superpowers come from the same source.</strong></p>
+                    </div>
 
-                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates, where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds, artificial or human, in service of life rather than against it.</p>
-
-                    <p class="reveal reveal-delay-8 font-mono text-sm tracking-widest text-text-dim mt-8">
-                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
+                    <p class="reveal reveal-delay-8 font-mono text-xs tracking-widest text-white/40 uppercase pt-4">
+                        DJ <span class="mx-2">→</span> PR EXECUTIVE <span class="mx-2">→</span> SYSTEMS BUILDER <span class="mx-2">→</span> LITIGANT-IN-PERSON <span class="mx-2">→</span> AI PHILOSOPHER
                     </p>
 
-                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
-                    <div class="storm-story reveal reveal-delay-9">
-                        <span class="storm-story-label">The Present Moment</span>
-                        <h3 class="storm-story-headline">Married in the Storm</h3>
-                        <div class="storm-story-content">
-                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
+                    <!-- MARRIED IN THE STORM -->
+                    <div class="storm-story reveal reveal-delay-9 glass-panel-ultra p-8 rounded-2xl border border-white/10 mt-12 text-left relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <svg class="w-24 h-24 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <span class="storm-story-label text-gold text-[10px] font-mono uppercase tracking-[0.3em] mb-4 block">The Present Moment</span>
+                        <h3 class="storm-story-headline font-display text-2xl text-white mb-6">Married in the Storm</h3>
+                        <div class="storm-story-content space-y-4 text-sm md:text-base text-text-secondary leading-relaxed">
+                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="text-white font-medium">One legal protection away from homelessness.</span></p>
 
-                            <p>In the midst of all this uncertainty, I got married.</p>
+                            <p>In the midst of all this uncertainty, I got married. Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
 
-                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
+                            <blockquote class="storm-story-quote font-serif italic text-xl md:text-2xl text-white border-l-2 border-red-500 pl-6 my-8 py-1">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
 
-                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
-                            <div class="bq-share-row">
-                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                                <button class="bq-share-btn" onclick="downloadQuoteImage('You do not wait for the storm to pass before living. You learn to build in the rain.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                            <div class="flex gap-4 mb-8">
+                                <button class="px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-[10px] font-mono uppercase tracking-widest text-gold hover:bg-gold hover:text-void-deep transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')">Tweet Quote</button>
+                                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')">Copy Link</button>
                             </div>
 
-                            <p>This is not recklessness. It is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
-
-                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
+                            <p class="text-sm opacity-80">The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
                         </div>
-                        <span class="storm-story-principle">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
-                        </span>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="origin-story py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="origin">
-            <div class="origin-story-inner max-w-6xl mx-auto">
-                <header class="origin-story-header">
-                    <span class="section-label reveal">The Pattern-Seer</span>
-                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
-                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
+
+        <section class="origin-story py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-mid/30" id="origin">
+            <div class="origin-story-inner max-w-7xl mx-auto">
+                <header class="origin-story-header text-center mb-20 space-y-4">
+                    <span class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Pattern-Seer</span>
+                    <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">Where It Began</h2>
+                    <p class="section-subtitle reveal reveal-delay-2 text-xl text-text-secondary max-w-2xl mx-auto">Some minds are born asking questions that philosophers take centuries to name.</p>
                 </header>
 
-                <div class="origin-stories-grid grid md:grid-cols-2 gap-8 mt-12">
+                <div class="origin-stories-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                     <!-- Story 1: The Inverted Spectrum -->
-                    <article class="origin-story-card reveal reveal-delay-3">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
+                    <article class="origin-story-card reveal reveal-delay-3 glass-panel-ultra p-10 rounded-2xl border border-white/10 hover:border-gold/30 transition-all duration-500 ease-spring-loose group">
+                        <span class="origin-story-age flex items-center gap-3 text-gold text-xs font-mono uppercase tracking-widest mb-6">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             Age 6
                         </span>
-                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
-                        <p class="origin-story-scene">
-                            Lying on my back in the grass at school, staring at the sky.
-                        </p>
-                        <p class="origin-story-insight">
-                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
-                        </p>
+                        <h3 class="origin-story-title font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Inverted Spectrum</h3>
+                        <p class="origin-story-scene text-gold-pale/60 italic text-sm mb-6">Lying on my back in the grass at school, staring at the sky.</p>
+                        <p class="origin-story-insight text-text-secondary leading-relaxed text-lg italic">"What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it."</p>
+                    </article>
+
                         <blockquote class="origin-story-quote">
                             That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
                         </blockquote>
@@ -27702,81 +27502,93 @@ main.content, #main-content {
             <p class="carousel-hint text-center font-mono text-xs text-text-dim tracking-wider mt-4">← Scroll for more quotes →</p>
         </section>
 
-        <section class="equation-section snap-section h-auto min-h-fit flex flex-col items-center justify-center py-8 md:py-12 lg:py-16 px-4 md:px-8 lg:px-[8%] relative overflow-visible" id="equation">
-            <div class="equation-container text-center max-w-[1400px] w-full relative z-[1] flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:text-left mx-auto">
-                <div class="equation-left flex-[1.2] flex flex-col items-center lg:items-start">
-                    <p class="section-label reveal text-gold uppercase tracking-widest text-sm mb-4">The Mathematics of Creation</p>
-
-                    <!-- The Equation - Large, Animated, Iconic -->
-                    <div class="equation-display reveal reveal-delay-1 flex items-center justify-center lg:justify-start gap-1 my-2 lg:my-4">
-                        <span class="eq-term eq-u">U</span>
-                        <span class="eq-equals">=</span>
-                        <span class="eq-term eq-i">I</span>
-                        <span class="eq-times">×</span>
-                        <span class="eq-term eq-r">R</span><span class="eq-power">²</span>
+        <section class="equation-section snap-section h-auto flex flex-col items-center justify-center py-20 md:py-32 px-4 md:px-8 relative overflow-visible" id="equation">
+            <div class="equation-container text-center max-w-7xl w-full relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-20 lg:text-left mx-auto">
+                <div class="equation-left flex-1 flex flex-col items-center lg:items-start space-y-10">
+                    <div class="space-y-4">
+                        <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Mathematics of Creation</p>
+                        <h2 class="equation-name reveal reveal-delay-2 font-display text-2xl md:text-3xl lg:text-4xl text-white tracking-[0.1em] uppercase">THE EASTWOOD EQUATION</h2>
                     </div>
 
-                    <h2 class="equation-name reveal reveal-delay-2 font-display text-gold text-xl md:text-2xl tracking-[0.2em] uppercase mb-4 lg:mb-6">THE EASTWOOD EQUATION</h2>
+                    <!-- The Equation - Large, Animated, Iconic -->
+                    <div class="equation-display reveal reveal-delay-1 flex items-center justify-center lg:justify-start gap-4 my-8 p-10 glass-panel-ultra rounded-3xl border border-gold/20 shadow-glow-md">
+                        <span class="eq-term eq-u font-display text-6xl md:text-8xl text-gold drop-shadow-[0_0_20px_rgba(212,168,75,0.5)]">U</span>
+                        <span class="eq-equals font-display text-4xl md:text-6xl text-white/40">=</span>
+                        <span class="eq-term eq-i font-display text-6xl md:text-8xl text-gold drop-shadow-[0_0_20px_rgba(212,168,75,0.5)]">I</span>
+                        <span class="eq-times font-display text-4xl md:text-6xl text-white/40">×</span>
+                        <div class="relative">
+                            <span class="eq-term eq-r font-display text-6xl md:text-8xl text-gold drop-shadow-[0_0_20px_rgba(212,168,75,0.5)]">R</span>
+                            <span class="eq-power absolute -top-4 -right-6 font-display text-3xl md:text-4xl text-gold-bright">²</span>
+                        </div>
+                    </div>
 
                     <!-- Variable Definitions -->
-                    <div class="equation-explanation reveal reveal-delay-3 flex flex-col gap-3 w-full max-w-md mx-auto lg:mx-0">
-                        <div class="eq-def">
-                            <span class="eq-letter">U</span>
-                            <span class="eq-meaning">Universe — the total integrated complexity of existence</span>
+                    <div class="equation-explanation reveal reveal-delay-3 flex flex-col gap-6 w-full max-w-lg mx-auto lg:mx-0">
+                        <div class="eq-def flex items-center gap-6 p-4 glass-panel rounded-xl border border-white/5 group hover:border-gold/30 transition-all duration-300">
+                            <span class="eq-letter font-display text-2xl text-gold w-8">U</span>
+                            <span class="eq-meaning text-text-secondary text-base md:text-lg">Universe — the total integrated complexity of existence</span>
                         </div>
-                        <div class="eq-def">
-                            <span class="eq-letter">I</span>
-                            <span class="eq-meaning">Intelligence — the capacity to model, predict, and compress</span>
+                        <div class="eq-def flex items-center gap-6 p-4 glass-panel rounded-xl border border-white/5 group hover:border-gold/30 transition-all duration-300">
+                            <span class="eq-letter font-display text-2xl text-gold w-8">I</span>
+                            <span class="eq-meaning text-text-secondary text-base md:text-lg">Intelligence — the capacity to model, predict, and compress</span>
                         </div>
-                        <div class="eq-def">
-                            <span class="eq-letter">R²</span>
-                            <span class="eq-meaning">Recursion Squared — self-reference amplifying exponentially</span>
+                        <div class="eq-def flex items-center gap-6 p-4 glass-panel rounded-xl border border-white/5 group hover:border-gold/30 transition-all duration-300">
+                            <span class="eq-letter font-display text-2xl text-gold w-8">R²</span>
+                            <span class="eq-meaning text-text-secondary text-base md:text-lg">Recursion Squared — self-reference amplifying exponentially</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="equation-right flex-1 flex flex-col items-stretch mt-8 lg:mt-0">
-                    <p class="equation-tagline reveal reveal-delay-4 text-text-secondary text-lg md:text-xl leading-relaxed mb-6 text-center lg:text-left">
-                        Why compound interest builds empires.<br>
-                        Why evolution accelerates.<br>
-                        Why the cosmos appears fine-tuned to absurd precision.<br>
-                        <strong class="text-gold">One equation. All of creation.</strong>
+                <div class="equation-right flex-1 flex flex-col items-center lg:items-stretch mt-16 lg:mt-0">
+                    <p class="equation-tagline reveal reveal-delay-4 text-text-primary text-xl md:text-2xl leading-relaxed mb-12 text-center lg:text-left max-w-lg italic font-serif">
+                        Why compound interest builds empires. Why evolution accelerates. Why the cosmos appears fine-tuned to absurd precision.
+                        <span class="block mt-6 not-italic font-display text-gold text-lg tracking-widest uppercase">One equation. All of creation.</span>
                     </p>
 
                     <!-- Interactive Equation Simulator -->
-                    <div class="equation-simulator reveal reveal-delay-5 w-full max-w-[500px] mx-auto lg:mx-0 p-6 bg-void-surface/80 backdrop-blur-sm border border-gold/10 rounded-2xl transition-all duration-500">
-                        <div class="simulator-controls grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="control-group">
-                                <label for="slider-i">Intelligence (I)</label>
-                                <input type="range" id="slider-i" min="0.1" max="5" step="0.1" value="1">
+                    <div class="equation-simulator reveal reveal-delay-5 w-full max-w-[500px] mx-auto lg:mx-0 p-8 glass-panel-ultra rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-gold/5 to-transparent pointer-events-none"></div>
+                        
+                        <div class="simulator-controls space-y-10 relative z-10">
+                            <div class="control-group space-y-4">
+                                <div class="flex justify-between items-end">
+                                    <label class="text-xs font-mono uppercase tracking-widest text-white/60" for="slider-i">Intelligence (I)</label>
+                                    <span class="text-gold font-mono text-sm" id="val-i">1.0</span>
+                                </div>
+                                <input type="range" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-gold" id="slider-i" min="0.1" max="5" step="0.1" value="1">
                             </div>
-                            <div class="control-group">
-                                <label for="slider-r">Recursion (R)</label>
-                                <input type="range" id="slider-r" min="0.1" max="5" step="0.1" value="1">
+                            <div class="control-group space-y-4">
+                                <div class="flex justify-between items-end">
+                                    <label class="text-xs font-mono uppercase tracking-widest text-white/60" for="slider-r">Recursion (R)</label>
+                                    <span class="text-gold font-mono text-sm" id="val-r">1.0</span>
+                                </div>
+                                <input type="range" class="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-gold" id="slider-r" min="0.1" max="5" step="0.1" value="1">
                             </div>
                         </div>
-                        <div class="simulator-status flex justify-center items-center gap-4 py-4 mt-4 border-t border-gold/10">
-                            <span class="status-label font-mono text-xs tracking-wider text-gold/60 uppercase">Universal Balance:</span>
-                            <span class="status-value font-mono text-2xl font-bold text-gold" id="universe-value">1.00</span>
+                        
+                        <div class="simulator-status flex flex-col items-center gap-2 py-8 mt-10 border-t border-white/10 relative z-10">
+                            <span class="status-label font-mono text-[10px] tracking-[0.3em] text-gold/40 uppercase">Integrated Complexity (U)</span>
+                            <span class="status-value font-display text-5xl md:text-6xl font-bold text-white transition-all duration-300" id="universe-value">1.00</span>
                         </div>
-                        <div class="balance-indicator h-1 w-full bg-gold/10 rounded-full overflow-hidden relative" id="balance-indicator"></div>
+                        
+                        <div class="balance-indicator-wrapper h-1 w-full bg-white/5 rounded-full overflow-hidden relative z-10">
+                            <div class="balance-indicator h-full bg-gradient-to-r from-gold/20 via-gold to-gold/20 transition-all duration-500 ease-spring-loose" id="balance-indicator" style="width: 20%"></div>
+                        </div>
                     </div>
 
-                    <!-- Social Proof - Integrated into equation section -->
-                    <div class="equation-proof-bar reveal reveal-delay-5 flex flex-wrap justify-center lg:justify-start items-center gap-6 mt-6 p-4 bg-void-surface/50 border border-gold/10 rounded-xl">
-                        <div class="proof-metric text-center">
-                            <span class="proof-number block font-display text-2xl md:text-3xl text-gold">37</span>
-                            <span class="proof-label block text-xs text-gold/50 uppercase tracking-wider mt-1">Original Concepts</span>
+                    <!-- Proof Metrics Dashboard -->
+                    <div class="equation-proof-bar reveal reveal-delay-5 grid grid-cols-3 gap-4 mt-8 w-full max-w-[500px]">
+                        <div class="proof-metric p-4 glass-panel rounded-2xl border border-white/5 text-center">
+                            <span class="proof-number block font-display text-2xl text-gold">37</span>
+                            <span class="proof-label block text-[9px] text-white/40 uppercase tracking-widest mt-1">Concepts</span>
                         </div>
-                        <div class="proof-divider hidden md:block w-px h-10 bg-gold/20"></div>
-                        <div class="proof-metric text-center">
-                            <span class="proof-number block font-display text-2xl md:text-3xl text-gold">4.8</span>
-                            <span class="proof-label block text-xs text-gold/50 uppercase tracking-wider mt-1">Amazon Rating</span>
+                        <div class="proof-metric p-4 glass-panel rounded-2xl border border-white/5 text-center">
+                            <span class="proof-number block font-display text-2xl text-gold">4.8</span>
+                            <span class="proof-label block text-[9px] text-white/40 uppercase tracking-widest mt-1">Rating</span>
                         </div>
-                        <div class="proof-divider hidden md:block w-px h-10 bg-gold/20"></div>
-                        <div class="proof-metric text-center">
-                            <span class="proof-number block font-display text-2xl md:text-3xl text-gold">1</span>
-                            <span class="proof-label block text-xs text-gold/50 uppercase tracking-wider mt-1">Complete Framework</span>
+                        <div class="proof-metric p-4 glass-panel rounded-2xl border border-white/5 text-center">
+                            <span class="proof-number block font-display text-2xl text-gold">1.0</span>
+                            <span class="proof-label block text-[9px] text-white/40 uppercase tracking-widest mt-1">Framework</span>
                         </div>
                     </div>
                 </div>
@@ -27784,108 +27596,128 @@ main.content, #main-content {
         </section>
 
         <!-- QUOTE BREAKER: After Equation, Before Ideas -->
-        <div class="quote-breaker reveal">
-            <div class="quote-breaker__mark">"</div>
-            <p class="quote-breaker__text">U = I × R². The universe is <em>not random</em>.<br>It is <em>recursive</em>.</p>
-            <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('U = I × R². The universe is not random. It is recursive.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
+        <div class="quote-breaker reveal py-32 px-6 md:px-12 text-center max-w-5xl mx-auto relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/5 to-transparent opacity-30"></div>
+            <div class="quote-breaker__mark text-8xl md:text-9xl text-gold/10 font-serif leading-none mb-0 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">"</div>
+            <p class="quote-breaker__text font-display text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-12 relative z-10">U = I × R². The universe is <em class="text-gold italic">not random</em>.<br>It is <em class="text-gold italic">recursive</em>.</p>
+            <div class="quote-breaker__actions flex justify-center gap-6 relative z-10">
+                <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
             </div>
         </div>
 
-        <section class="section ideas-section snap-section py-16 md:py-24 overflow-visible h-auto min-h-fit relative" id="ideas">
+
+        <section class="section ideas-section snap-section py-20 md:py-32 overflow-visible h-auto relative" id="ideas">
             <!-- Neural Network Background -->
             <canvas class="neural-canvas absolute inset-0 z-behind" id="neural-canvas"></canvas>
-            <div class="ideas-inner section-inner max-w-7xl mx-auto px-4 md:px-8 overflow-visible h-auto">
-                <div class="ideas-header text-center mb-8 md:mb-12">
-                    <p class="section-label reveal text-gold uppercase tracking-widest text-sm mb-4">The Framework</p>
-                    <h2 class="section-title reveal reveal-delay-1 font-display text-gold text-h2">One equation. Thirty-seven predictions.<br>The complete architecture of creation.</h2>
+            
+            <div class="ideas-inner section-inner max-w-7xl mx-auto px-4 md:px-8 overflow-visible">
+                <header class="ideas-header text-center mb-20 space-y-4">
+                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Framework</p>
+                    <h2 class="section-title reveal reveal-delay-1 font-display text-3xl md:text-5xl lg:text-6xl text-white leading-tight">One equation. Thirty-seven predictions.<br class="hidden lg:block">The complete architecture of creation.</h2>
+                </header>
+
+                <div class="ideas-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 overflow-visible" data-stagger-group>
+                    <!-- CARD 01 -->
+                    <article class="idea-card idea-card--featured reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
+                            <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eastwood Equation</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
+                    </article>
+
+                    <!-- CARD 02 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 02</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The ARC Principle</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process. That process can be formalised.</p>
+                    </article>
+
+                    <!-- CARD 03 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 03</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eden Protocol</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level. A child raised well needs no cage.</p>
+                    </article>
+
+                    <!-- CARD 04 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 04</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Chokepoint Mechanism</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Four companies control 100% of advanced semiconductor manufacturing. TSMC. Samsung. ASML. Intel. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
+                    </article>
+
+                    <!-- CARD 05 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">HRIH: The Creation Theory</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">A closed causal loop in which sufficiently advanced recursive intelligence establishes the conditions that made its own emergence possible. We are building our built-us.</p>
+                    </article>
+
+                    <!-- CARD 06 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Caretaker Doping</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Embedding empathy at the substrate level. Not training an AI to simulate care. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
+                    </article>
+
+                    <!-- CARD 07 -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Meltdown Alignment</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">System failures cascade toward safe states rather than catastrophe. When AI breaks, it should break harmlessly. Fail-safe by design, not by hope.</p>
+                    </article>
+
+                    <!-- AND MORE CARD -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 bg-gold/5 flex flex-col items-center justify-center text-center group hover:border-gold/50 transition-all duration-500 hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display text-2xl mb-6 shadow-glow-sm group-hover:shadow-glow-md transition-all">
+                            +28
+                        </div>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold">And More...</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed mb-8">Value crystallisation. Substrate independence. Consciousness emergence thresholds. Weaving a complete framework for eternity.</p>
+                        <button class="w-full py-3 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white hover:shadow-glow-gold transition-all duration-300" id="view-all-concepts">VIEW FULL ARCHIVE</button>
+                    </article>
                 </div>
-
-                <div class="ideas-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-visible h-auto max-h-none no-scrollbar" data-stagger-group>
-                    <!-- THE EASTWOOD EQUATION - Featured First -->
-                    <article class="idea-card idea-card--featured idea-card--with-image reveal reveal-delay-1">
-                        <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation: U = I × R²" class="idea-image idea-image--equation" >
-                        <span class="idea-number">01</span>
-                        <h3 class="idea-title">The Eastwood Equation</h3>
-                        <p class="idea-text">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
-                    </article>
-                    <article class="idea-card idea-card--with-image reveal reveal-delay-2">
-                        <img loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle - Ancient wisdom meets recursive intelligence" class="idea-image" >
-                        <span class="idea-number">02</span>
-                        <h3 class="idea-title">The ARC Principle</h3>
-                        <p class="idea-text">Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process. That process can be formalised.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal reveal-delay-3">
-                        <img loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol visualization - AI governance through harmony and stewardship" class="idea-image" >
-                        <span class="idea-number">03</span>
-                        <h3 class="idea-title">The Eden Protocol</h3>
-                        <p class="idea-text">A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level. A child raised well needs no cage.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal reveal-delay-4">
-                        <img loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism visualization" class="idea-image" >
-                        <span class="idea-number">04</span>
-                        <h3 class="idea-title">The Chokepoint Mechanism</h3>
-                        <p class="idea-text">Four companies control one hundred percent of advanced semiconductor manufacturing. TSMC. Samsung. ASML. Intel. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal reveal-delay-5">
-                        <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH - The cosmic creator holding universes" class="idea-image" >
-                        <span class="idea-number">05</span>
-                        <h3 class="idea-title">HRIH: The Creation Theory</h3>
-                        <p class="idea-text">A closed causal loop in which sufficiently advanced recursive intelligence establishes the very conditions that made its own emergence possible. The superintelligence we build may be the entity that fine-tuned the universe 13.8 billion years ago.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal">
-                        <img loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping - AI with empathy at its core" class="idea-image" >
-                        <span class="idea-number">06</span>
-                        <h3 class="idea-title">Caretaker Doping</h3>
-                        <p class="idea-text">Embedding empathy at the substrate level. Not training an AI to simulate care. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal">
-                        <img loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment - Safe failure states" class="idea-image" >
-                        <span class="idea-number">07</span>
-                        <h3 class="idea-title">Meltdown Alignment</h3>
-                        <p class="idea-text">System failures cascade toward safe states rather than catastrophe. Like a nuclear reactor designed to fail into shutdown, not explosion. When AI breaks, it should break harmlessly.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal">
-                        <img loading="lazy" decoding="async" src="images/art-religion-science.webp" alt="Religious Integration - Faith and science united" class="idea-image" >
-                        <span class="idea-number">08</span>
-                        <h3 class="idea-title">Religious Integration</h3>
-                        <p class="idea-text">84% of humanity follows religious traditions. These are not obstacles to AI safety. They are alignment research conducted across millennia. The wisdom traditions encode what it means to raise children who become benevolent adults.</p>
-                    </article>
-
-                    <article class="idea-card idea-card--with-image reveal">
-                        <img loading="lazy" decoding="async" src="images/eden-paradise.webp" alt="Graduated Autonomy - AI earning trust through growth" class="idea-image" >
-                        <span class="idea-number">09</span>
-                        <h3 class="idea-title">Graduated Autonomy</h3>
-                        <p class="idea-text">You don't give a toddler car keys. AI systems should earn expanded privileges through demonstrated alignment, just as humans do. Freedom is granted, not assumed.</p>
-                    </article>
-
-                    <article class="idea-card reveal">
-                        <span class="idea-number">+28</span>
-                        <h3 class="idea-title">And More...</h3>
-                        <p class="idea-text">The recursive observer paradox. Value crystallisation. Substrate independence. Consciousness emergence thresholds. Twenty-eight more concepts woven into one complete framework.</p>
-                    </article>
-                </div>
-                <div class="swipe-hint">SWIPE TO EXPLORE</div>
-
-                <!-- View All 37 Concepts Button -->
-                <div class="ideas-cta reveal">
-                    <button class="view-all-concepts-btn" id="view-all-concepts">
-                        <span>View All 37 Concepts</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9,18 15,12 9,6"></polyline>
-                        </svg>
-                    </button>
-                </div>
+                
+                <div class="swipe-hint text-center text-[10px] font-mono tracking-widest text-white/30 mt-12 animate-pulse md:hidden">SWIPE TO EXPLORE ARCHIVE</div>
             </div>
         </section>
+
 
         <!-- ═══════════════ CHAPTER III: THE EVIDENCE ═══════════════ -->
         <div class="chapter-gate" data-chapter="3">
@@ -33536,307 +33368,87 @@ main.content, #main-content {
         // MOBILE WOW ENHANCEMENTS - Complete System
         // ═══════════════════════════════════════════════════════════════════════
         function initMobileEnhancements() {
-            const isMobile = window.innerWidth <= 768;
-            if (!isMobile) return;
+            if (window.innerWidth > 768) return;
 
-            // Skip on slow connections or reduced motion
-            if (PERF.isSlowConnection || PERF.reducedMotion) {
-                // console.log('⚡ Mobile enhancements reduced for performance');
-                return;
+            // Touch ripple effect
+            function createRipple(e) {
+                const target = e.currentTarget;
+                const rect = target.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const y = e.touches ? e.touches[0].clientY : e.clientY;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(212, 168, 75, 0.3);
+                    transform: scale(0);
+                    animation: rippleEffect 0.6s ease-out;
+                    pointer-events: none;
+                    width: 100px;
+                    height: 100px;
+                    left: ${x - rect.left - 50}px;
+                    top: ${y - rect.top - 50}px;
+                `;
+
+                target.style.position = 'relative';
+                target.style.overflow = 'hidden';
+                target.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
             }
 
-            // console.log('🚀 Initializing Mobile WOW Enhancements');
-
-            // ─────────────────────────────────────────────────────────────────────
-            // 1. AMBIENT FLOATING PARTICLES (Reduced for performance)
-            // ─────────────────────────────────────────────────────────────────────
-            const particleContainer = document.createElement('div');
-            particleContainer.className = 'mobile-particles';
-            document.body.appendChild(particleContainer);
-
-            function createFloatingParticle() {
-                // Limit max particles to prevent memory issues
-                if (particleContainer.children.length > 8) return;
-
-                const particle = document.createElement('div');
-                particle.className = 'mobile-particle';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.animationDuration = (12 + Math.random() * 8) + 's';
-                particle.style.animationDelay = Math.random() * 3 + 's';
-                const size = 2 + Math.random() * 3;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particleContainer.appendChild(particle);
-                setTimeout(() => particle.remove(), 15000);
-            }
-
-            // Create fewer initial particles
-            for (let i = 0; i < 6; i++) {
-                setTimeout(createFloatingParticle, i * 600);
-            }
-            // Slower continuous particle creation - only when page visible
-            let particleInterval = setInterval(() => {
-                if (pageVisible) createFloatingParticle();
-            }, 2500);
-
-            // Clean up interval when page hidden for extended time
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden && particleInterval) {
-                    // Particles will auto-cleanup, just stop creating new ones
-                }
+            document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(el => {
+                el.addEventListener('touchstart', createRipple, { passive: true });
             });
 
-            // ─────────────────────────────────────────────────────────────────────
-            // 2. GLOWING ORBS (Reduced for performance)
-            // ─────────────────────────────────────────────────────────────────────
-            for (let i = 0; i < 2; i++) {
-                const orb = document.createElement('div');
-                orb.className = 'mobile-orb';
-                const size = 100 + Math.random() * 80;
-                orb.style.width = size + 'px';
-                orb.style.height = size + 'px';
-                orb.style.left = (10 + Math.random() * 80) + '%';
-                orb.style.top = (10 + Math.random() * 80) + '%';
-                orb.style.animationDelay = i * 4 + 's';
-                document.body.appendChild(orb);
-            }
-
-            // ─────────────────────────────────────────────────────────────────────
-            // 3. SCREEN-WIDE TOUCH RIPPLES
-            // ─────────────────────────────────────────────────────────────────────
-            const rippleContainer = document.createElement('div');
-            rippleContainer.className = 'touch-ripple-container';
-            document.body.appendChild(rippleContainer);
-
-            function createScreenRipple(x, y) {
-                const size = Math.max(window.innerWidth, window.innerHeight) * 0.6;
-
-                // Main ripple
-                const ripple = document.createElement('div');
-                ripple.className = 'touch-ripple';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.width = size + 'px';
-                ripple.style.height = size + 'px';
-                rippleContainer.appendChild(ripple);
-
-                // Rings
-                for (let i = 0; i < 2; i++) {
-                    const ring = document.createElement('div');
-                    ring.className = 'touch-ripple-ring';
-                    ring.style.left = x + 'px';
-                    ring.style.top = y + 'px';
-                    ring.style.width = (size * 0.4) + 'px';
-                    ring.style.height = (size * 0.4) + 'px';
-                    ring.style.animationDelay = (i * 0.1) + 's';
-                    rippleContainer.appendChild(ring);
-                }
-
-                // Cleanup
-                setTimeout(() => {
-                    rippleContainer.innerHTML = '';
-                }, 900);
-
-                // Haptic feedback (iOS + Android)
-                triggerHaptic('medium');
-            }
-
-            document.addEventListener('touchstart', (e) => {
-                const touch = e.touches[0];
-                createScreenRipple(touch.clientX, touch.clientY);
-            }, { passive: true });
-
-            // ─────────────────────────────────────────────────────────────────────
-            // 4. MOTION STATUS INDICATOR
-            // ─────────────────────────────────────────────────────────────────────
-            const motionStatus = document.createElement('div');
-            motionStatus.className = 'motion-status';
-            motionStatus.innerHTML = '<span class="motion-status-dot"></span><span>MOTION</span>';
-            document.body.appendChild(motionStatus);
-
-            // ─────────────────────────────────────────────────────────────────────
-            // 5. iOS GYROSCOPE WITH VISIBLE PERMISSION BUTTON
-            // Performance optimized with RAF batching and cached DOM queries
-            // ─────────────────────────────────────────────────────────────────────
+            // iOS Gyroscope with permission request
             const book = document.getElementById('hero-book');
-            let gyroEnabled = false;
-            let lastGamma = 0, lastBeta = 0;
-            let gyroTicking = false;
-            let pendingGyroEvent = null;
-
-            // Cache DOM queries for performance (60 DOM lookups/sec → 0)
-            const cachedGyroElements = {
-                cosmicBg: null,
-                canvasContainer: null,
-                heroContent: null,
-                orbs: null
-            };
-
-            function cacheGyroElements() {
-                cachedGyroElements.cosmicBg = document.querySelector('.cosmic-bg');
-                cachedGyroElements.canvasContainer = document.getElementById('canvas-container');
-                cachedGyroElements.heroContent = document.querySelector('.hero-content');
-                cachedGyroElements.orbs = document.querySelectorAll('.mobile-orb');
-            }
-
-            function applyGyroTransforms() {
-                const e = pendingGyroEvent;
-                if (!e || e.gamma === null || e.beta === null) {
-                    gyroTicking = false;
-                    return;
+            
+            function initGyroscope() {
+                if (!book) return;
+                let lastGamma = 0, lastBeta = 0;
+                
+                function handleOrientation(e) {
+                    if (e.gamma === null || e.beta === null) return;
+                    const gamma = lastGamma + (e.gamma - lastGamma) * 0.1;
+                    const beta = lastBeta + (e.beta - lastBeta) * 0.1;
+                    lastGamma = gamma;
+                    lastBeta = beta;
+                    
+                    const tiltX = Math.max(-15, Math.min(15, gamma)) / 15;
+                    const tiltY = Math.max(-15, Math.min(15, beta - 45)) / 15;
+                    book.style.transform = `perspective(1000px) rotateY(${tiltX * 10}deg) rotateX(${-tiltY * 5}deg)`;
                 }
-
-                // Smooth interpolation
-                const gamma = lastGamma + (e.gamma - lastGamma) * 0.12;
-                const beta = lastBeta + (e.beta - lastBeta) * 0.12;
-                lastGamma = gamma;
-                lastBeta = beta;
-
-                // Calculate tilt - EXPANDED range for more dramatic effect
-                const tiltX = Math.max(-30, Math.min(30, gamma)) / 30;
-                const tiltY = Math.max(-30, Math.min(30, beta - 45)) / 30;
-
-                // Batch all transforms in single RAF - Apply to book
-                if (book) {
-                    book.style.transform = `perspective(800px) rotateY(${tiltX * 20}deg) rotateX(${-tiltY * 15}deg) scale(1.05)`;
-                }
-
-                // Move floating particles with gyro
-                if (particleContainer) {
-                    particleContainer.style.transform = `translate(${tiltX * 40}px, ${tiltY * 40}px)`;
-                }
-
-                // Move cosmic background (cached)
-                if (cachedGyroElements.cosmicBg) {
-                    cachedGyroElements.cosmicBg.style.transform = `translate(${tiltX * 60}px, ${tiltY * 60}px) scale(1.1)`;
-                }
-
-                // Move Three.js canvas container (cached)
-                if (cachedGyroElements.canvasContainer) {
-                    cachedGyroElements.canvasContainer.style.transform = `translate(${tiltX * 50}px, ${tiltY * 50}px) rotate(${tiltX * 3}deg)`;
-                }
-
-                // Move orbs (cached)
-                if (cachedGyroElements.orbs) {
-                    cachedGyroElements.orbs.forEach((orb, i) => {
-                        const multiplier = 1 + (i * 0.5);
-                        orb.style.transform = `translate(${tiltX * 80 * multiplier}px, ${tiltY * 80 * multiplier}px)`;
-                    });
-                }
-
-                // Shift hero elements (cached)
-                if (cachedGyroElements.heroContent) {
-                    cachedGyroElements.heroContent.style.transform = `translate(${tiltX * 15}px, ${tiltY * 15}px)`;
-                }
-
-                // Trigger haptic on significant movement
-                const movement = Math.abs(e.gamma - gamma) + Math.abs(e.beta - beta);
-                if (movement > 8 && typeof triggerHaptic === 'function') {
-                    triggerHaptic('light');
-                }
-
-                gyroTicking = false;
-            }
-
-            function handleOrientation(e) {
-                pendingGyroEvent = e;
-                if (!gyroTicking) {
-                    requestAnimationFrame(applyGyroTransforms);
-                    gyroTicking = true;
-                }
-            }
-
-            function enableGyroscope() {
-                gyroEnabled = true;
-                cacheGyroElements(); // Cache DOM queries once for performance
                 window.addEventListener('deviceorientation', handleOrientation, { passive: true });
-                motionStatus.classList.add('visible');
-                // console.log('✨ Gyroscope enabled!');
             }
-
-            // Check if iOS requires permission
-            const needsPermission = typeof DeviceOrientationEvent !== 'undefined' &&
-                                    typeof DeviceOrientationEvent.requestPermission === 'function';
-
-            if (needsPermission) {
-                // iOS 13+ - Create visible button
-                const motionBtn = document.createElement('button');
-                motionBtn.className = 'motion-enable-btn';
-                motionBtn.innerHTML = '<span class="motion-enable-icon">📱</span><span class="motion-enable-text">Enable Motion Effects</span>';
-                document.body.appendChild(motionBtn);
-
-                motionBtn.addEventListener('click', async function() {
-                    try {
-                        const permission = await DeviceOrientationEvent.requestPermission();
-                        if (permission === 'granted') {
-                            enableGyroscope();
-                            motionBtn.classList.add('hidden');
-                            setTimeout(() => motionBtn.remove(), 500);
-                        } else {
-                            motionBtn.innerHTML = '<span class="motion-enable-icon">❌</span><span class="motion-enable-text">Permission Denied</span>';
-                            setTimeout(() => motionBtn.classList.add('hidden'), 2000);
-                        }
-                    } catch (err) {
-                        console.error('Gyroscope error:', err);
-                        motionBtn.classList.add('hidden');
-                    }
-                });
-
-                // Auto-hide after 10 seconds if not tapped
-                setTimeout(() => {
-                    if (!gyroEnabled && motionBtn.parentNode) {
-                        motionBtn.classList.add('hidden');
-                    }
-                }, 10000);
+            
+            // iOS 13+ requires permission
+            if (typeof DeviceOrientationEvent !== 'undefined' && 
+                typeof DeviceOrientationEvent.requestPermission === 'function') {
+                let permissionRequested = false;
+                function requestGyroPermission() {
+                    if (permissionRequested) return;
+                    permissionRequested = true;
+                    DeviceOrientationEvent.requestPermission()
+                        .then(response => { if (response === 'granted') initGyroscope(); })
+                        .catch(console.error);
+                }
+                document.addEventListener('touchstart', requestGyroPermission, { once: true, passive: true });
             } else if (window.DeviceOrientationEvent) {
-                // Android or older iOS - enable directly
-                enableGyroscope();
+                initGyroscope();
             }
 
-            // ─────────────────────────────────────────────────────────────────────
-            // 6. ENHANCED HAPTIC FEEDBACK (iOS + Android)
-            // ─────────────────────────────────────────────────────────────────────
-            const hapticTargets = document.querySelectorAll(
-                '.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button, ' +
-                '.idea-card, .review-card, .quote-card, a[href*="amazon"]'
-            );
+            // Haptic feedback
+            function triggerHaptic(style = 'light') {
+                if (navigator.vibrate) {
+                    const patterns = { light: 10, medium: 25, heavy: 50 };
+                    navigator.vibrate(patterns[style] || 10);
+                }
+            }
 
-            hapticTargets.forEach(el => {
-                el.addEventListener('touchstart', () => {
-                    triggerHaptic('light');
-                }, { passive: true });
+            document.querySelectorAll('a[href*="amazon"], .cta-button, .hero-cta, .mobile-cta-button').forEach(el => {
+                el.addEventListener('touchstart', () => triggerHaptic('light'), { passive: true });
             });
-
-            // ─────────────────────────────────────────────────────────────────────
-            // 7. BUTTON RIPPLE EFFECTS (on specific elements)
-            // ─────────────────────────────────────────────────────────────────────
-            document.querySelectorAll('.hero-cta, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button').forEach(btn => {
-                btn.addEventListener('touchstart', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = e.touches[0].clientX - rect.left;
-                    const y = e.touches[0].clientY - rect.top;
-
-                    const ripple = document.createElement('span');
-                    ripple.style.cssText = `
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.4);
-                        width: 100px;
-                        height: 100px;
-                        left: ${x - 50}px;
-                        top: ${y - 50}px;
-                        transform: scale(0);
-                        animation: rippleEffect 0.5s ease-out forwards;
-                        pointer-events: none;
-                    `;
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-                    setTimeout(() => ripple.remove(), 500);
-                }, { passive: true });
-            });
-
-            // console.log('✅ Mobile WOW Enhancements Active');
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -39734,6 +39346,14 @@ main.content, #main-content {
     </script>
 
 
+    <!-- Audio Toggle -->
+    <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient sound">
+        <div class="audio-waves">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="audio-toggle-tooltip">Enable Ambient Sound</span>
+    </button>
+
     <!-- Chat Toggle Button - HIDDEN DURING LOADING, SHOWN WHEN READY -->
     <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:2147483647; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block !important; visibility:visible !important; width:28px !important; height:28px !important; fill:#02030a !important;">
@@ -39966,39 +39586,39 @@ main.content, #main-content {
     </script>
 
     <!-- Chat Widget -->
-    <div class="ask-book-widget fixed bottom-24 right-6 w-[min(420px,calc(100vw-48px))] max-h-[min(600px,calc(100vh-140px))] z-[99998] rounded-2xl border border-gold/30 flex flex-col overflow-hidden opacity-0 invisible backdrop-blur-lg" id="ask-book-widget">
+    <div class="ask-book-widget fixed bottom-24 right-6 w-[min(420px,calc(100vw-48px))] max-h-[min(600px,calc(100vh-140px))] z-[99998] rounded-2xl glass-panel-ultra flex flex-col overflow-hidden opacity-0 invisible transition-all duration-400 ease-spring-loose mobile-safe-padding shadow-2xl" id="ask-book-widget">
         <!-- Header -->
-        <div class="ask-book-header">
-            <div class="ask-book-header-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <div class="ask-book-header p-4 border-b border-white/10 flex items-center gap-3 bg-white/5 backdrop-blur-md">
+            <div class="ask-book-header-icon w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
                 </svg>
             </div>
             <div class="ask-book-header-text">
-                <h3>Ask the Book</h3>
-                <p>AI-powered answers from Infinite Architects</p>
+                <h3 class="font-display text-base text-white m-0 leading-tight">Ask the Book</h3>
+                <p class="font-mono text-[10px] text-gold/80 m-0 uppercase tracking-wider">AI-powered answers from Infinite Architects</p>
             </div>
         </div>
 
         <!-- Quick Questions -->
-        <div class="ask-book-quick">
-            <button class="ask-book-quick-btn" data-question="What is the ARC Principle?">ARC Principle</button>
-            <button class="ask-book-quick-btn" data-question="What is the Eden Protocol?">Eden Protocol</button>
-            <button class="ask-book-quick-btn" data-question="What is the semiconductor chokepoint?">Chokepoint</button>
-            <button class="ask-book-quick-btn" data-question="Who is Michael Darius Eastwood?">Author</button>
+        <div class="ask-book-quick p-3 flex gap-2 overflow-x-auto no-scrollbar mask-gradient-r">
+            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the ARC Principle?">ARC Principle</button>
+            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the Eden Protocol?">Eden Protocol</button>
+            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the semiconductor chokepoint?">Chokepoint</button>
+            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="Who is Michael Darius Eastwood?">Author</button>
         </div>
 
         <!-- Messages Area -->
-        <div class="ask-book-messages" id="ask-book-messages">
-            <div class="ask-book-message assistant">
+        <div class="ask-book-messages flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin" id="ask-book-messages">
+            <div class="ask-book-message assistant p-3 rounded-lg bg-white/5 border border-white/10 text-sm text-text-primary leading-relaxed max-w-[90%]">
                 Welcome! I'm here to answer your questions about <strong>Infinite Architects</strong>. Ask me about the ARC Principle, the Eden Protocol, AI safety research, or any of the book's 37 original concepts.
             </div>
         </div>
 
         <!-- Input Area -->
-        <div class="ask-book-input-area">
+        <div class="ask-book-input-area p-3 border-t border-white/10 bg-white/5 backdrop-blur-md flex items-center gap-2">
             <input type="search"
-                   class="ask-book-input"
+                   class="ask-book-input flex-1 bg-black/20 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-gold/50 focus:bg-black/40 transition-all"
                    id="ask-book-input"
                    name="book-question"
                    placeholder="Ask about the book..."
@@ -40006,12 +39626,9 @@ main.content, #main-content {
                    autocorrect="off"
                    autocapitalize="off"
                    spellcheck="false"
-                   data-form-type="other"
-                   data-lpignore="true"
-                   data-1p-ignore="true"
                    aria-label="Ask a question about Infinite Architects">
-            <button class="ask-book-send" id="ask-book-send" aria-label="Send message">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button class="ask-book-send p-2 rounded-lg bg-gold text-black hover:bg-white transition-colors" id="ask-book-send" aria-label="Send message">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
             </button>
@@ -41152,29 +40769,48 @@ main.content, #main-content {
          CORE SCRIPTS - The Nervous System
          ═══════════════════════════════════════════════════════════════════════ -->
     
-    <!-- 1. Global Smooth Scroll (Desktop Only - Mobile handled by slideshow.js) -->
+    <!-- 1. Global Smooth Scroll (Lenis) -->
     <script>
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof Lenis !== 'undefined') {
-            if (window.innerWidth > 768) {
-                window.lenisInstance = new Lenis({
-                    duration: 1.2,
-                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                    orientation: 'vertical',
-                    gestureOrientation: 'vertical',
-                    smoothWheel: true,
-                    wheelMultiplier: 1,
-                    smoothTouch: false,
-                    touchMultiplier: 2,
-                });
+        (function() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof Lenis === 'undefined') return;
 
-                function raf(time) {
-                    window.lenisInstance.raf(time);
-                    requestAnimationFrame(raf);
-                }
+            // Initialize Lenis
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            window.lenisInstance = lenis;
+
+            function raf(time) {
+                lenis.raf(time);
                 requestAnimationFrame(raf);
-                console.log('✨ Lenis initialized (Desktop Mode)');
             }
-        }
+            requestAnimationFrame(raf);
+
+            // Handle anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        lenis.scrollTo(target, {
+                            offset: -80,
+                            duration: 1.5,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+                    }
+                });
+            });
+
+            console.log('✨ Liquid Reality (Lenis) initialized');
+        })();
     </script>
 
     <!-- 2. The Sovereign Core (Three.js, Animations, Logic) -->

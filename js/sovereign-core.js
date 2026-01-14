@@ -458,6 +458,9 @@
         }
 
         function initLoader() {
+            // Explicitly lock scroll on loader start
+            document.body.classList.add('loader-active');
+            
             const canvas = document.getElementById('loader-canvas');
             if (!canvas) {
                 console.error('[Loader] Canvas element not found');
@@ -558,28 +561,26 @@
                     const distort = document.getElementById('distort-anim');
                     if (distort) distort.beginElement();
 
-                    // FORCE UNLOCK SCROLL
-                    document.body.classList.add('cinematic-ready');
-                    document.documentElement.classList.add('cinematic-ready');
-
-                    // Inline styles as backup
-                    document.body.style.overflow = 'auto';
-                    document.body.style.overflowY = 'auto';
-                    document.body.style.overflowX = 'hidden';
-                    document.body.style.height = 'auto';
-                    document.documentElement.style.overflow = 'auto';
-                    document.documentElement.style.overflowY = 'auto';
-                    document.documentElement.style.overflowX = 'hidden';
-                    document.body.style.position = 'relative';
-
+                    // FORCE UNLOCK SCROLL (Hardcode Fix)
+                    document.body.classList.remove('loader-active');
+                    document.body.classList.add('cinematic-ready'); // Keep for other CSS hooks if any
+                    
                     // CRITICAL: Resize Lenis to recalculate scroll bounds after unlock
                     if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
                         window.lenisInstance.resize();
                         console.log('[LENIS] Resize called after scroll unlock');
                     }
 
-                    // Cleanup loader
+                    // Cleanup loader (Robust)
                     loader.classList.add('fully-hidden');
+                    loader.style.display = 'none'; // Force hide
+                    loader.style.pointerEvents = 'none'; // Ensure clicks pass through
+
+                    // Force scroll enabled (Robust)
+                    document.body.style.overflow = 'auto';
+                    document.body.style.overflowY = 'auto';
+                    document.documentElement.style.overflow = 'auto';
+                    document.documentElement.style.overflowY = 'auto';
 
                     // Initialize features (skip if early init already done)
                     if (!earlyInitDone) {
