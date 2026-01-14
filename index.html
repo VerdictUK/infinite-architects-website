@@ -5518,6 +5518,38 @@
             transform: scale(0.5);
             text-shadow: 0 0 60px rgba(212, 168, 75, 0.8), 0 0 120px rgba(212, 168, 75, 0.4);
             animation: numeralReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+        }
+
+        /* Tesseract frame around numeral */
+        .vignette-numeral::before,
+        .vignette-numeral::after {
+            content: '';
+            position: absolute;
+            border: 2px solid var(--gold);
+            opacity: 0.4;
+            animation: tesseractSpin 1.5s ease-out forwards;
+        }
+
+        .vignette-numeral::before {
+            inset: -30px;
+            transform: rotate(0deg);
+        }
+
+        .vignette-numeral::after {
+            inset: -50px;
+            transform: rotate(45deg);
+        }
+
+        @keyframes tesseractSpin {
+            0% { opacity: 0; transform: rotate(0deg) scale(0.5); }
+            30% { opacity: 0.6; transform: rotate(90deg) scale(1.1); }
+            60% { opacity: 0.4; transform: rotate(180deg) scale(1); }
+            100% { opacity: 0; transform: rotate(270deg) scale(1.2); }
+        }
+
+        .vignette-numeral::after {
+            animation: tesseractSpin 1.5s ease-out 0.1s forwards;
         }
 
         @keyframes vignetteFlash {
@@ -20750,7 +20782,7 @@ img {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SUBTLE CHAPTER INDICATOR - Ambient awareness of current chapter
+   PART PROGRESS INDICATOR - Always visible, shows current Part and progress
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .chapter-indicator {
