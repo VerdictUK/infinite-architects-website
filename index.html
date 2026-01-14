@@ -3853,6 +3853,235 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           PREMIUM MOBILE UX FIXES - Tesla/Apple-Level Polish
+           Fix content clipping, hide intrusive navigation, optimize touch targets
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 768px) {
+            /* FIX: About section grid clipping - force single column on mobile */
+            .about-section .about-content,
+            .about-section .section-inner,
+            .about-section .about-inner,
+            .about-inner,
+            .section-inner.about-inner {
+                display: flex !important;
+                flex-direction: column !important;
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 1rem !important;
+            }
+
+            /* FIX: Author visual and text - proper stacking */
+            .about-section .about-visual,
+            .about-visual {
+                order: 1 !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .about-section .about-text,
+            .about-text {
+                order: 2 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                padding: 0 !important;
+            }
+
+            /* HIDE: Chapter sidebar on mobile - too intrusive */
+            .chapter-sidebar,
+            #chapterSidebar {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+
+            /* HIDE: PART I badge that overlaps content */
+            .part-progress-indicator,
+            #part-progress-indicator {
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+            /* SMALLER: Ask book toggle - 48px instead of 64px */
+            html body .ask-book-toggle,
+            html body button.ask-book-toggle,
+            html body #ask-book-toggle {
+                width: 48px !important;
+                height: 48px !important;
+                bottom: 80px !important;
+                right: 16px !important;
+                box-shadow: 0 4px 16px rgba(212, 168, 75, 0.4) !important;
+            }
+
+            .ask-book-toggle svg {
+                width: 22px !important;
+                height: 22px !important;
+            }
+
+            /* Ensure no content is clipped on left/right */
+            section,
+            .snap-section,
+            [class*="-section"] {
+                overflow-x: hidden !important;
+                padding-left: max(1rem, env(safe-area-inset-left)) !important;
+                padding-right: max(1rem, env(safe-area-inset-right)) !important;
+            }
+
+            /* Ensure full-width containers */
+            .section-inner,
+            .container,
+            [class*="-inner"],
+            [class*="-content"] {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        /* Very small screens - even more compact */
+        @media (max-width: 480px) {
+            /* Smaller chat button on very small screens */
+            html body .ask-book-toggle,
+            html body #ask-book-toggle {
+                width: 44px !important;
+                height: 44px !important;
+                bottom: 75px !important;
+                right: 12px !important;
+            }
+
+            .ask-book-toggle svg {
+                width: 20px !important;
+                height: 20px !important;
+            }
+
+            /* Tighter padding on small screens */
+            .about-section .about-content,
+            .about-section .section-inner,
+            .about-inner {
+                padding: 0 0.75rem !important;
+                gap: 1.5rem !important;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           PREMIUM TOUCH INTERACTIONS - iOS/Tesla-Level Polish
+           Spring animations, haptic-ready states, premium feel
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 768px) {
+            /* iOS Spring Animation for all interactive elements */
+            button,
+            a,
+            .card,
+            .idea-card,
+            .prediction-card,
+            .buy-option,
+            [role="button"] {
+                transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                            box-shadow 0.3s ease,
+                            background 0.2s ease !important;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Press state - subtle scale down (haptic-ready) */
+            button:active,
+            a:active,
+            .card:active,
+            .idea-card:active,
+            .prediction-card:active,
+            .buy-option:active,
+            [role="button"]:active {
+                transform: scale(0.97) !important;
+                transition-duration: 0.1s !important;
+            }
+
+            /* Premium card hover/active states */
+            .idea-card:active,
+            .prediction-card:active,
+            .expert-card:active,
+            .review-card:active {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
+                            inset 0 1px 2px rgba(212, 168, 75, 0.1) !important;
+            }
+
+            /* CTA buttons - more pronounced press */
+            .mobile-cta-button:active,
+            .buy-button:active,
+            .cta-button:active,
+            .primary-cta:active {
+                transform: scale(0.95) !important;
+                box-shadow: 0 2px 8px rgba(212, 168, 75, 0.4) !important;
+            }
+
+            /* Smooth momentum scrolling */
+            .overflow-x-auto,
+            .scroll-container,
+            [class*="carousel"],
+            [class*="slider"] {
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+                overscroll-behavior-x: contain;
+            }
+
+            /* Premium focus states for accessibility */
+            button:focus-visible,
+            a:focus-visible,
+            input:focus-visible,
+            [role="button"]:focus-visible {
+                outline: 2px solid rgba(212, 168, 75, 0.6);
+                outline-offset: 2px;
+                box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.15);
+            }
+
+            /* Glassmorphism enhancement for overlays */
+            .modal,
+            .popup,
+            .overlay,
+            .ask-book-widget {
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+            }
+
+            /* Premium input styling */
+            input[type="email"],
+            input[type="text"],
+            textarea {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(212, 168, 75, 0.2);
+                border-radius: 12px;
+                padding: 14px 16px;
+                font-size: 16px; /* Prevents iOS zoom */
+                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            input[type="email"]:focus,
+            input[type="text"]:focus,
+            textarea:focus {
+                border-color: rgba(212, 168, 75, 0.5);
+                box-shadow: 0 0 0 4px rgba(212, 168, 75, 0.1);
+                background: rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        /* Smooth scroll behavior for anchor links */
+        @media (max-width: 768px) {
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* Scroll padding for fixed headers */
+            :target {
+                scroll-margin-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
+            }
+        }
+
         /* Reduced motion - disable all loader animations for accessibility */
         @media (prefers-reduced-motion: reduce) {
             .cosmic-awakening,
@@ -22533,10 +22762,15 @@ html.slideshow-mode .slideshow-dots {
     /* === CRITICAL: Remove fixed/overlapping UI elements (except chapter-nav for mobile navigation) === */
     html body .ambient-orbs,
     html body .ambient-orb,
+    html body .mobile-orb,
     html body .deep-dive-hud,
     html body .chapter-sidebar,
+    html body .chapter-sidebar-item,
+    html body .chapter-sidebar-num,
     html body .slideshow-nav,
     html body .slideshow-dots,
+    html body .part-progress-indicator,
+    html body #part-progress-indicator,
     html body [class*="scroll-indicator"] {
         display: none !important;
         visibility: hidden !important;
@@ -22710,6 +22944,119 @@ html.slideshow-mode .slideshow-dots {
     /* Keep specific content pseudo-elements but hide decorative ones */
     html body .chapter-title-divider__line {
         display: block !important;
+    }
+
+    /* === ENHANCED: Author Section Mobile Layout === */
+    html body .about-section,
+    html body #the-mind,
+    html body #author {
+        min-height: auto !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        padding: 2rem 1rem !important;
+    }
+
+    html body .about-inner,
+    html body .section-inner.about-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html body .about-text {
+        order: 2 !important;
+        text-align: center !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html body .about-text p {
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+        line-height: 1.7 !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html body .about-visual {
+        order: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    html body .author-photo-wrapper {
+        width: 160px !important;
+        height: 160px !important;
+        margin: 0 auto 1rem !important;
+    }
+
+    /* === ENHANCED: Storm Story Section (within Author) === */
+    html body .storm-story {
+        margin: 1.5rem 0 !important;
+        padding: 1.25rem !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 12px !important;
+    }
+
+    html body .storm-story-content {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    html body .storm-story-content p {
+        margin-bottom: 1rem !important;
+        text-align: left !important;
+    }
+
+    /* === ENHANCED: Text Readability for Mobile === */
+    html body p,
+    html body .section-subtitle,
+    html body .evidence-desc,
+    html body .prediction-text,
+    html body blockquote {
+        text-wrap: pretty !important;
+        orphans: 2 !important;
+        widows: 2 !important;
+        word-spacing: -0.02em !important;
+    }
+
+    /* === ENHANCED: Timeline Section Mobile - Single Column === */
+    html body .timeline-section,
+    html body #ai-timeline {
+        padding: 2rem 1rem !important;
+    }
+
+    html body .timeline-container {
+        padding: 1rem 0 !important;
+    }
+
+    html body .timeline-line {
+        left: 12px !important;
+    }
+
+    html body .timeline-event,
+    html body .timeline-event:nth-child(odd),
+    html body .timeline-event:nth-child(even) {
+        flex-direction: column !important;
+        text-align: left !important;
+        padding-left: 35px !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    html body .timeline-content {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    html body .timeline-dot {
+        left: 12px !important;
+        transform: translateX(-50%) !important;
+        width: 10px !important;
+        height: 10px !important;
     }
 
     /* === CLEAN: Consistent Typography === */
