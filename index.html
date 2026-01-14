@@ -309,6 +309,23 @@
             --nebula-magenta: rgba(138, 43, 96, 0.15);
             --nebula-warm: rgba(255, 150, 100, 0.08);
 
+            /* Part-Based Background Tinting (Subtle 3-5% opacity) */
+            --part-tint: transparent;
+        }
+
+        /* Part Background Tints - Subtle color shifts per Part */
+        [data-current-part="1"] { --part-tint: rgba(212, 168, 75, 0.03); }  /* Warm gold - Welcome */
+        [data-current-part="2"] { --part-tint: rgba(26, 35, 126, 0.04); }   /* Cool blue - Evidence */
+        [data-current-part="3"] { --part-tint: rgba(74, 20, 140, 0.035); }  /* Purple - Philosophy */
+        [data-current-part="4"] { --part-tint: rgba(255, 152, 0, 0.03); }   /* Amber - Stakes */
+        [data-current-part="5"] { --part-tint: rgba(244, 200, 86, 0.04); }  /* Bright gold - CTA */
+
+        body {
+            background-color: var(--part-tint);
+            transition: background-color 0.8s ease;
+        }
+
+        :root {
             /* ═══════════════════════════════════════════════════════════════════
                TEXT COLOUR HIERARCHY - WCAG Compliant
                ═══════════════════════════════════════════════════════════════════ */
@@ -909,7 +926,7 @@
         .chapter-gate {
             position: relative;
             width: 100%;
-            min-height: 40vh;
+            min-height: 100vh; /* Full viewport for cinematic pause */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -918,11 +935,78 @@
             background: linear-gradient(
                 180deg,
                 rgba(2, 3, 10, 0.95) 0%,
-                rgba(2, 3, 10, 1) 30%,
-                rgba(2, 3, 10, 1) 70%,
+                rgba(2, 3, 10, 1) 20%,
+                rgba(2, 3, 10, 1) 80%,
                 rgba(2, 3, 10, 0.95) 100%
             );
             overflow: hidden;
+        }
+
+        /* Massive background Roman numeral */
+        .chapter-gate-bg-numeral {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(20rem, 35vw, 40rem);
+            font-weight: 700;
+            color: rgba(212, 168, 75, 0.04);
+            letter-spacing: 0.1em;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+        }
+
+        /* Scroll to continue indicator */
+        .chapter-gate-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeInScroll 1s ease 1.5s forwards;
+        }
+
+        .chapter-gate-scroll-text {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            color: rgba(232, 212, 160, 0.5);
+            text-transform: uppercase;
+        }
+
+        .chapter-gate-scroll-arrow {
+            width: 20px;
+            height: 30px;
+            position: relative;
+        }
+
+        .chapter-gate-scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, var(--gold-primary, #d4a84b));
+            transform: translateX(-50%);
+            animation: scrollArrow 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollArrow {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes fadeInScroll {
+            from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         /* Decorative top and bottom lines */
@@ -1032,11 +1116,20 @@
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .chapter-gate {
-                min-height: 35vh;
+                min-height: 100vh; /* Still full viewport on mobile */
+                min-height: 100dvh; /* Use dynamic viewport height where supported */
                 padding: 3rem 1.5rem;
             }
             .chapter-gate::before { top: 1.5rem; }
             .chapter-gate::after { bottom: 1.5rem; }
+
+            .chapter-gate-bg-numeral {
+                font-size: clamp(12rem, 50vw, 20rem);
+            }
+
+            .chapter-gate-scroll {
+                bottom: 5rem; /* Above mobile nav */
+            }
         }
 
         /* Edge Pulse Effect - Non-blocking gold glow when entering chapters */
@@ -2040,10 +2133,10 @@
         /* Initial state: content ready behind loader but translated up */
         html body:not(.cinematic) .content,
         html body:not(.cinematic) #main-content {
-            transform: translateY(-100vh) !important;
-            opacity: 1 !important; /* Ready but hidden by loader */
-            visibility: visible !important;
-            will-change: transform;
+            transform: translateY(-100vh);
+            opacity: 0;
+            visibility: hidden;
+            will-change: transform, opacity;
         }
 
         /* Active state: The slam - SWOOSH DOWN effect */
@@ -2054,159 +2147,162 @@
             visibility: visible !important;
         }
 
-        /* Cover any potential gap during drop */
-        body.cinematic::before {
-            content: '';
+        /* ═══════════════════════════════════════════════════════════════════════
+           SUPREME CINEMATIC SYSTEM - Final Ultimate Edition
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* 1. CINEMATIC LETTERBOX */
+        .letterbox {
             position: fixed;
-            top: 0;
             left: 0;
             right: 0;
-            height: 100vh;
-            background: #02030a;
-            z-index: 99990;
-            pointer-events: none;
-            animation: gapCoverFade 1.5s ease-out 1.8s forwards;
+            height: 0;
+            background: #000;
+            z-index: 100001;
+            transition: height 1.8s var(--ease-out-expo);
+        }
+        .letterbox.top { top: 0; }
+        .letterbox.bottom { bottom: 0; }
+        body.cinematic .letterbox { height: 6vh; }
+        @media (max-width: 768px) { body.cinematic .letterbox { height: 4vh; } }
+
+        /* 2. SUPREME LOADER CORE */
+        #loader {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 100000 !important;
+            background: #02030a !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), 
+                        opacity 0.5s ease-out 0.8s,
+                        z-index 0.1s 0.8s !important;
         }
 
-        /* SWOOSH LIGHT TRAIL - Golden streak swooshing down with the drop */
-        body.cinematic::after {
-            content: '';
-            position: fixed;
-            top: -100%;
-            left: 0;
-            right: 0;
-            height: 250vh;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                transparent 25%,
-                rgba(212, 168, 75, 0.02) 35%,
-                rgba(212, 168, 75, 0.08) 42%,
-                rgba(255, 255, 255, 0.15) 48%,
-                rgba(212, 168, 75, 0.25) 50%,
-                rgba(255, 255, 255, 0.5) 51%,
-                rgba(212, 168, 75, 0.25) 52%,
-                rgba(255, 255, 255, 0.15) 54%,
-                rgba(212, 168, 75, 0.08) 58%,
-                rgba(212, 168, 75, 0.02) 65%,
-                transparent 75%,
-                transparent 100%
-            );
-            z-index: 99995;
-            pointer-events: none;
-            animation: swooshTrail 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        body.cinematic #loader {
+            transform: translateY(-100%) !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -1 !important;
+            transition: transform 0.8s ease-in, opacity 0.5s ease-out, z-index 0.1s 0.5s !important;
         }
 
-        @keyframes swooshTrail {
-            0% {
-                transform: translateY(0);
-                opacity: 0;
-            }
-            8% {
-                opacity: 0.6;
-            }
-            40% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
+
+        /* 3. CINEMATIC VIDEO BACKGROUND */
+        .loader-video-bg {
+            position: absolute !important;
+            top: 50% !important; left: 50% !important;
+            min-width: 100% !important; min-height: 100% !important;
+            width: auto !important; height: auto !important;
+            transform: translate(-50%, -50%) scale(1.2) !important;
+            object-fit: cover !important; opacity: 0; z-index: 0 !important;
+            animation: loaderVideoFadeIn 3s ease-out 0.5s forwards, loaderVideoZoom 15s ease-in-out 3s infinite;
+        }
+        @keyframes loaderVideoFadeIn { 
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); filter: blur(20px); }
+            100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.2); filter: blur(0px); }
+        }
+        @keyframes loaderVideoZoom { 
+            0%, 100% { transform: translate(-50%, -50%) scale(1.2); }
+            50% { transform: translate(-50%, -50%) scale(1.4); }
         }
 
-        @keyframes gapCoverFade {
-            to { opacity: 0; visibility: hidden; }
+        /* 4. SUPREME LOADER UI */
+        .loader-quotes {
+            position: absolute !important; top: 50% !important; left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            z-index: 10 !important; text-align: center !important; width: 90% !important; max-width: 800px !important;
+        }
+        .loader-quote {
+            position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important;
+            opacity: 0 !important; transform: translateY(20px) scale(0.97) !important;
+            transition: opacity 1.2s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
+        }
+        .loader-quote.active { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
+        .quote-line {
+            font-family: var(--font-serif) !important; font-size: clamp(1.5rem, 3.5vw, 2.8rem) !important;
+            font-style: italic !important; font-weight: 300 !important; color: var(--gold-pale) !important;
+            text-shadow: 0 0 80px rgba(212, 168, 75, 0.6), 0 0 40px rgba(212, 168, 75, 0.3) !important;
+            line-height: 1.4 !important;
         }
 
-        /* IMPACT BURST - Radial golden flash on landing */
-        .impact-flash {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 300vmax;
-            height: 300vmax;
-            transform: translate(-50%, -50%) scale(0);
-            background: radial-gradient(
-                ellipse at center,
-                rgba(255,255,255,0.95) 0%,
-                rgba(255,255,255,0.7) 10%,
-                rgba(212,168,75,0.5) 25%,
-                rgba(212,168,75,0.2) 45%,
-                transparent 70%
-            );
-            z-index: 99999;
-            pointer-events: none;
-            opacity: 0;
+        .loader-equation {
+            position: absolute !important; top: 50% !important; left: 50% !important;
+            transform: translate(-50%, -50%) scale(0.95) !important;
+            z-index: 10 !important; opacity: 0 !important;
+            transition: opacity 1s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
+        }
+        .loader-equation.reveal { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; }
+        .loader-equation.move-up { transform: translate(-50%, -220%) scale(0.82) !important; }
+        .eq-char {
+            font-size: clamp(2.2rem, 6vw, 4.5rem) !important;
+            transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-dramatic), filter 0.6s ease !important;
+        }
+        .eq-char.visible { animation: charReveal 0.8s var(--ease-dramatic) forwards !important; }
+        @keyframes charReveal {
+            0% { opacity: 0; transform: translateY(30px) scale(0.7) rotateX(30deg); filter: blur(4px); }
+            60% { opacity: 1; transform: translateY(-5px) scale(1.05) rotateX(-5deg); filter: blur(0); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); }
         }
 
-        body.cinematic .impact-flash {
-            animation: impactBurst 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
+        .loader-ui {
+            position: absolute !important; top: 50% !important; left: 50% !important;
+            transform: translate(-50%, -30%) scale(0.95) !important;
+            z-index: 10 !important; text-align: center !important; opacity: 0 !important;
+            transition: opacity 1.2s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
+            width: 90% !important; max-width: 600px !important;
+        }
+        .loader-ui.reveal { opacity: 1 !important; transform: translate(-50%, -30%) scale(1) !important; }
+        .loader-title {
+            font-size: clamp(1.3rem, 3.5vw, 2.5rem) !important; letter-spacing: 0.3em !important;
+            margin-bottom: 1rem !important; animation: loaderGlow 4s ease-in-out infinite !important;
+        }
+        @keyframes loaderGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.2)); }
+            50% { filter: drop-shadow(0 0 50px rgba(212, 168, 75, 0.5)); }
+        }
+        .loader-bar {
+            width: 200px; height: 2px; background: rgba(212, 168, 75, 0.1);
+            overflow: hidden; border-radius: 1px; position: relative; margin: 1.5rem auto;
+        }
+        .loader-bar::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.4), transparent);
+            animation: barShimmer 2s linear infinite;
+        }
+        @keyframes barShimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+        .loader-bar-fill { height: 100%; width: 0%; background: var(--gold); box-shadow: 0 0 15px var(--gold); transition: width 0.3s ease; }
+        .loader-skip {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.3em;
+            color: var(--text-faint); animation: pulse 2s ease-in-out infinite; cursor: pointer;
         }
 
-        @keyframes impactBurst {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 1;
-            }
-            40% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.9;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(2.5);
-                opacity: 0;
-            }
-        }
-
+        /* 5. ULTIMATE TITAN DROP & IMPACT */
         @keyframes titanDrop {
             0% {
-                transform: translateY(-115vh) scale(0.82);
+                transform: translateY(-115vh) scale(0.85);
                 opacity: 0;
-                filter: brightness(3) blur(25px);
+                filter: brightness(4) blur(30px);
             }
-            6% {
-                opacity: 0.4;
-                filter: brightness(2.5) blur(18px);
+            45% {
+                transform: translateY(0) scale(1.08);
+                filter: brightness(10) contrast(2) saturate(0) blur(0); /* MASSIVE BLINDING IMPACT */
             }
-            15% {
-                opacity: 0.7;
-                filter: brightness(2) blur(12px);
+            50% {
+                transform: translateY(0) scale(1.04);
+                filter: brightness(4) contrast(1.5) saturate(0.2);
             }
-            28% {
-                opacity: 0.95;
-                filter: brightness(1.6) blur(6px);
-            }
-            /* ACCELERATION PHASE - blur increases with speed */
-            40% {
-                transform: translateY(-25vh) scale(0.96);
-                filter: brightness(2) blur(12px);
-            }
-            /* IMPACT - MASSIVE SLAM with blinding flash */
-            48% {
-                transform: translateY(0) scale(1.06);
-                filter: brightness(8) contrast(2) saturate(0) blur(0);
-            }
-            52% {
-                transform: translateY(0) scale(1.02);
-                filter: brightness(3) contrast(1.6) saturate(0.1);
-            }
-            58% {
-                transform: translateY(0) scale(1);
-                filter: brightness(1.5) contrast(1.2) saturate(0.5);
-            }
-            /* HEAVY SETTLE - Weighty bounce, never positive Y */
-            70% {
-                transform: translateY(-15px) scale(0.995);
-                filter: brightness(1) contrast(1) saturate(1);
+            65% {
+                transform: translateY(-35px) scale(0.98); /* Heavy bounce */
+                filter: brightness(1.2) contrast(1.1) saturate(1);
             }
             82% {
-                transform: translateY(0) scale(1.008);
-            }
-            92% {
-                transform: translateY(-4px) scale(1);
+                transform: translateY(12px) scale(1.02);
             }
             100% {
                 transform: translateY(0) scale(1);
@@ -2215,353 +2311,70 @@
             }
         }
 
-        /* Body cinematic state - NO TRANSFORM on body to preserve position:fixed */
-        html body.cinematic {
-            overflow-x: clip !important;
+        html body.cinematic .content,
+        html body.cinematic #main-content {
+            animation: titanDrop 3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }
 
-        /* Camera Shake on Impact - VIOLENT earthquake rumble */
-        /* Delay matches titanDrop impact (48% of 3s = 1.44s) */
+        /* Impact Flash Burst */
+        .impact-flash {
+            position: fixed;
+            inset: 0;
+            background: white;
+            opacity: 0;
+            z-index: 200000;
+            pointer-events: none;
+            mix-blend-mode: color-dodge;
+        }
+
+        body.cinematic .impact-flash {
+            animation: impactFlash 1.2s cubic-bezier(0.23, 1, 0.32, 1) 1.35s forwards;
+        }
+
+        @keyframes impactFlash {
+            0% { opacity: 0; transform: scale(0.8); }
+            10% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        /* VIOLENT Earthquake Shake */
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
-            animation: impactShake 0.8s cubic-bezier(.36,.07,.19,.97) 1.35s forwards;
+            animation: impactShake 0.9s cubic-bezier(.36,.07,.19,.97) 1.35s forwards;
         }
 
         @keyframes impactShake {
             0% { transform: translate(0, 0) rotate(0deg); }
-            6% { transform: translate(-15px, -20px) rotate(-1.2deg); }
-            12% { transform: translate(18px, 15px) rotate(1.5deg); }
-            20% { transform: translate(-14px, -16px) rotate(-1deg); }
-            28% { transform: translate(16px, 12px) rotate(1.2deg); }
-            36% { transform: translate(-10px, -12px) rotate(-0.7deg); }
-            46% { transform: translate(10px, 10px) rotate(0.7deg); }
-            56% { transform: translate(-6px, -8px) rotate(-0.4deg); }
-            66% { transform: translate(6px, 5px) rotate(0.4deg); }
-            76% { transform: translate(-3px, -4px) rotate(-0.2deg); }
-            86% { transform: translate(3px, 2px) rotate(0.2deg); }
-            94% { transform: translate(-1px, -1px) rotate(0deg); }
+            10% { transform: translate(-18px, -22px) rotate(-1.2deg); }
+            20% { transform: translate(20px, 18px) rotate(1.8deg); }
+            30% { transform: translate(-15px, -18px) rotate(-1.2deg); }
+            40% { transform: translate(15px, 12px) rotate(1deg); }
+            50% { transform: translate(-10px, -10px) rotate(-0.8deg); }
+            60% { transform: translate(8px, 8px) rotate(0.6deg); }
+            70% { transform: translate(-5px, -5px) rotate(-0.4deg); }
+            80% { transform: translate(3px, 3px) rotate(0.2deg); }
             100% { transform: none; }
         }
 
-        /* Fix Blank Flash: Ensure Loader covers content until the drop */
-        #loader {
-            transition: transform 0.8s ease-in, opacity 0.5s ease-out 0.8s !important;
-            z-index: 100000 !important;
-            background: #02030a !important;
+        /* Golden Swoosh Trail */
+        body.cinematic::after {
+            content: '';
+            position: fixed;
+            top: -100%; left: 0; right: 0; height: 200vh;
+            background: linear-gradient(to bottom, transparent, rgba(212, 168, 75, 0.3), white, rgba(212, 168, 75, 0.3), transparent);
+            z-index: 99999;
+            pointer-events: none;
+            animation: swooshTrail 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        /* Loader exits by flying UP - Pushed to back immediately to avoid masking */
-        body.cinematic #loader {
-            transform: translateY(-100%) !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            z-index: -1 !important; 
-            transition: transform 0.8s ease-in, opacity 0.5s ease-out, z-index 0.1s 0.5s !important;
+        @keyframes swooshTrail {
+            0% { transform: translateY(0); opacity: 0; }
+            40% { opacity: 0.8; }
+            100% { transform: translateY(150vh); opacity: 0; }
         }
-
-
-        /* QUOTES: Centered using transform only (GPU accelerated) */
-        .loader-quotes {
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            z-index: 10 !important;
-            text-align: center !important;
-            width: 90% !important;
-            max-width: 800px !important;
-            will-change: opacity !important;
-        }
-
-        .loader-quote {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            opacity: 0 !important;
-            transform: translateY(20px) scale(0.97) !important;
-            transition: opacity 1.2s var(--ease-cinematic),
-                        transform 1.2s var(--ease-dramatic) !important;
-            will-change: opacity, transform !important;
-        }
-
-        .loader-quote.active {
-            opacity: 1 !important;
-            transform: translateY(0) scale(1) !important;
-        }
-
-        .quote-line {
-            font-family: var(--font-serif) !important;
-            font-size: clamp(1.5rem, 3.5vw, 2.8rem) !important;
-            font-style: italic !important;
-            font-weight: 300 !important;
-            color: var(--gold-pale) !important;
-            text-shadow: 0 0 80px rgba(212, 168, 75, 0.6),
-                         0 0 40px rgba(212, 168, 75, 0.3) !important;
-            line-height: 1.4 !important;
-        }
-
-        /* EQUATION: Fixed center, moves via transform only (no top changes!) */
-        .loader-equation {
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) scale(0.95) !important;
-            z-index: 10 !important;
-            opacity: 0 !important;
-            transition: opacity 1s var(--ease-cinematic),
-                        transform 1.2s var(--ease-dramatic) !important;
-            will-change: opacity, transform !important;
-        }
-
-        .loader-equation.reveal {
-            opacity: 1 !important;
-            transform: translate(-50%, -50%) scale(1) !important;
-        }
-
-        /* Equation moves UP using transform only - NO top change = smooth */
-        .loader-equation.move-up {
-            transform: translate(-50%, -220%) scale(0.82) !important;
-        }
-
-        .eq-char {
-            font-size: clamp(2.2rem, 6vw, 4.5rem) !important;
-            transition: opacity 0.6s var(--ease-cinematic),
-                        transform 0.6s var(--ease-dramatic),
-                        filter 0.6s ease !important;
-        }
-
-        .eq-char.visible {
-            animation: charReveal 0.8s var(--ease-dramatic) forwards !important;
-        }
-
-        @keyframes charReveal {
-            0% {
-                opacity: 0;
-                transform: translateY(30px) scale(0.7) rotateX(30deg);
-                filter: blur(4px);
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(-5px) scale(1.05) rotateX(-5deg);
-                filter: blur(0);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1) rotateX(0);
-                filter: blur(0);
-            }
-        }
-
-        /* LOADER UI: Below equation, appears via transform */
-        .loader-ui {
-            position: absolute !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -30%) scale(0.95) !important;
-            z-index: 10 !important;
-            text-align: center !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            transition: opacity 1.2s var(--ease-cinematic),
-                        transform 1.2s var(--ease-dramatic) !important;
-            will-change: opacity, transform !important;
-            width: 90% !important;
-            max-width: 600px !important;
-        }
-
-        .loader-ui.reveal {
-            opacity: 1 !important;
-            transform: translate(-50%, -30%) scale(1) !important;
-        }
-
-        .loader-title {
-            font-size: clamp(1.3rem, 3.5vw, 2.5rem) !important;
-            letter-spacing: 0.3em !important;
-            margin-bottom: 1rem !important;
-            animation: none !important;
-        }
-
-        .loader-subtitle {
-            font-size: clamp(0.7rem, 1.3vw, 0.95rem) !important;
-            opacity: 0 !important;
-            transform: translateY(10px) !important;
-            animation: none !important;
-            margin-bottom: 0.8rem !important;
-            transition: opacity 0.8s var(--ease-cinematic),
-                        transform 0.8s var(--ease-dramatic) !important;
-        }
-
-        .loader-subtitle.reveal {
-            opacity: 0.7 !important;
-            transform: translateY(0) !important;
-        }
-
-        .loader-author {
-            font-size: clamp(0.55rem, 1vw, 0.75rem) !important;
-            letter-spacing: 0.25em !important;
-            opacity: 0 !important;
-            transform: translateY(10px) !important;
-            margin-bottom: 1rem !important;
-            transition: opacity 0.8s var(--ease-cinematic) 0.2s,
-                        transform 0.8s var(--ease-dramatic) 0.2s !important;
-        }
-
-        .loader-author.reveal {
-            opacity: 0.6 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Progress section - fixed at bottom */
-        .loader-progress {
-            position: absolute !important;
-            bottom: min(80px, 10vh) !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: min(180px, 40vw) !important;
-            opacity: 0.5 !important;
-            animation: none !important;
-            z-index: 10 !important;
-        }
-
-        .loader-status {
-            font-size: clamp(0.55rem, 1vw, 0.65rem) !important;
-            letter-spacing: 0.15em !important;
-            color: rgba(212, 168, 75, 0.45) !important;
-        }
-
-        /* Skip button - very bottom */
-        .loader-skip {
-            position: absolute !important;
-            bottom: min(25px, 4vh) !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            z-index: 10 !important;
-            font-size: clamp(0.55rem, 1vw, 0.7rem) !important;
-            letter-spacing: 0.2em !important;
-        }
-
-        /* Completion flash effect */
-        .loader-flash {
-            position: absolute !important;
-            inset: 0 !important;
-            background: radial-gradient(ellipse at center,
-                rgba(212, 168, 75, 0.3) 0%,
-                transparent 70%) !important;
-            opacity: 0 !important;
-            z-index: 5 !important;
-            pointer-events: none !important;
-            transition: opacity 0.5s ease !important;
-        }
-
-        .loader-flash.active {
-            animation: completionFlash 1.5s var(--ease-cinematic) forwards !important;
-        }
-
-        @keyframes completionFlash {
-            0% { opacity: 0; transform: scale(0.8); }
-            30% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0; transform: scale(2); }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════════
-           RESPONSIVE: All screen sizes handled via vh/vw units
-           ═══════════════════════════════════════════════════════════════════════════ */
-
-        /* Small screens / Mobile */
-        @media (max-width: 768px) {
-            .loader-quotes {
-                width: 88% !important;
-            }
-
-            .quote-line {
-                font-size: clamp(1.1rem, 5vw, 1.6rem) !important;
-            }
-
-            .loader-equation.move-up {
-                transform: translate(-50%, -250%) scale(0.75) !important;
-            }
-
-            .eq-char {
-                font-size: clamp(1.6rem, 9vw, 2.5rem) !important;
-            }
-
-            .loader-ui {
-                transform: translate(-50%, -30%) scale(0.95) !important;
-            }
-
-            .loader-ui.reveal {
-                transform: translate(-50%, -30%) scale(1) !important;
-            }
-
-            .loader-title {
-                font-size: clamp(0.9rem, 5vw, 1.4rem) !important;
-                letter-spacing: 0.15em !important;
-            }
-
-            .loader-progress {
-                bottom: min(60px, 8vh) !important;
-                width: min(150px, 50vw) !important;
-            }
-        }
-
-        /* Short screens (landscape mobile, small laptops) */
-        @media (max-height: 600px) {
-            .loader-equation.move-up {
-                transform: translate(-50%, -280%) scale(0.7) !important;
-            }
-
-            .loader-ui {
-                transform: translate(-50%, -20%) scale(0.9) !important;
-            }
-
-            .loader-ui.reveal {
-                transform: translate(-50%, -20%) scale(1) !important;
-            }
-
-            .loader-progress {
-                bottom: min(40px, 6vh) !important;
-            }
-
-            .loader-skip {
-                bottom: min(15px, 3vh) !important;
-            }
-        }
-
-        /* Very tall screens */
-        @media (min-height: 900px) and (min-width: 769px) {
-            .loader-equation.move-up {
-                transform: translate(-50%, -200%) scale(0.88) !important;
-            }
-
-            .loader-ui {
-                transform: translate(-50%, -35%) scale(0.95) !important;
-            }
-
-            .loader-ui.reveal {
-                transform: translate(-50%, -35%) scale(1) !important;
-            }
-        }
-
-        /* Ultra-wide screens */
-        @media (min-width: 1800px) {
-            .quote-line {
-                font-size: 3rem !important;
-            }
-
-            .eq-char {
-                font-size: 5rem !important;
-            }
-
-            .loader-title {
-                font-size: 2.8rem !important;
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           VISUAL EFFECTS LAYERS
-           ═══════════════════════════════════════════════════════════════════════ */
         
         /* Cosmic nebula background */
         .cosmic-bg {
@@ -12707,14 +12520,45 @@
             align-items: center;
             box-sizing: border-box;
 
-            /* Padding */
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
-            padding-bottom: 2rem;
+            /* Enhanced Padding for Breathing Room */
+            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem);
+            padding-bottom: 4rem;
             padding-left: 1.5rem;
             padding-right: 1.5rem;
 
+            /* Section Spacing */
+            margin-bottom: 2rem;
+
             position: relative;
             isolation: isolate;
+        }
+
+        /* Subtle divider between sections (not before chapter gates) */
+        .snap-section:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25%;
+            max-width: 200px;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(212, 168, 75, 0.2) 20%,
+                rgba(212, 168, 75, 0.3) 50%,
+                rgba(212, 168, 75, 0.2) 80%,
+                transparent
+            );
+        }
+
+        /* Remove divider before chapter gates */
+        .snap-section + .chapter-gate {
+            margin-top: 0;
+        }
+        .chapter-gate + .snap-section::after {
+            /* Chapter gates already provide visual separation */
         }
 
         /* Mobile: sections become normal flowing blocks */
@@ -12724,8 +12568,15 @@
                 min-height: auto;
                 height: auto;
                 overflow: visible;
-                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem);
-                padding-bottom: 2rem;
+                padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1.5rem);
+                padding-bottom: 3rem;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Mobile divider - slightly smaller */
+            .snap-section:not(:last-child)::after {
+                width: 20%;
+                max-width: 120px;
             }
         }
 
@@ -19555,6 +19406,32 @@
             transition: width 0.1s ease-out;
         }
 
+        /* Progress Bar Part Markers */
+        .reading-progress-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .progress-marker {
+            position: absolute;
+            top: 0;
+            width: 2px;
+            height: 8px;
+            background: rgba(212, 168, 75, 0.4);
+            transform: translateX(-50%);
+            transition: all 0.3s ease;
+        }
+
+        .progress-marker.active {
+            background: var(--gold-bright);
+            height: 10px;
+            box-shadow: 0 0 6px rgba(212, 168, 75, 0.8);
+        }
+
         /* SOCIAL PROOF COUNTER - REMOVED */
 
         /* ═══════════════════════════════════════════════════════════════════════════
@@ -20785,7 +20662,7 @@ img {
    PART PROGRESS INDICATOR - Always visible, shows current Part and progress
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.chapter-indicator {
+.part-progress-indicator {
     position: fixed;
     top: 70px;
     left: 20px;
@@ -20805,12 +20682,12 @@ img {
     pointer-events: none;
 }
 
-.chapter-indicator.visible {
+.part-progress-indicator.visible {
     opacity: 1;
     transform: translateX(0);
 }
 
-.chapter-indicator__numeral {
+.part-progress-numeral {
     font-family: var(--font-display, 'Cinzel', serif);
     font-size: 0.85rem;
     font-weight: 600;
@@ -20818,13 +20695,13 @@ img {
     letter-spacing: 0.05em;
 }
 
-.chapter-indicator__divider {
+.part-progress-divider {
     width: 1px;
     height: 12px;
     background: rgba(212, 168, 75, 0.35);
 }
 
-.chapter-indicator__name {
+.part-progress-name {
     font-family: var(--font-mono, 'Space Mono', monospace);
     font-size: 0.6rem;
     font-weight: 400;
@@ -20835,7 +20712,7 @@ img {
 
 /* Mobile - Compact pill at bottom, above buy bar */
 @media (max-width: 768px) {
-    .chapter-indicator {
+    .part-progress-indicator {
         top: auto;
         bottom: 85px;
         left: 50%;
@@ -20845,31 +20722,31 @@ img {
         border-radius: 14px;
     }
 
-    .chapter-indicator.visible {
+    .part-progress-indicator.visible {
         transform: translateX(-50%) translateY(0);
     }
 
-    .chapter-indicator__numeral {
+    .part-progress-numeral {
         font-size: 0.7rem;
     }
 
-    .chapter-indicator__name {
+    .part-progress-name {
         font-size: 0.5rem;
         letter-spacing: 0.1em;
     }
 
-    .chapter-indicator__divider {
+    .part-progress-divider {
         height: 9px;
     }
 }
 
 /* Hide during scroll for cleaner experience */
-.chapter-indicator.scrolling {
+.part-progress-indicator.scrolling {
     opacity: 0.3;
 }
 
 /* Chapter Toast Animation - Fires when entering new chapter */
-.chapter-indicator.toast-active {
+.part-progress-indicator.transitioning {
     animation: chapterToast 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -20901,7 +20778,7 @@ img {
 
 /* Desktop toast - from left */
 @media (min-width: 769px) {
-    .chapter-indicator.toast-active {
+    .part-progress-indicator.transitioning {
         animation: chapterToastDesktop 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
@@ -25774,10 +25651,10 @@ main.content,
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
 @media screen and (max-width: 768px) {
-    /* 1. CHAPTER INDICATOR ON MOBILE - Position above nav bars */
-    .chapter-indicator,
-    #chapter-indicator,
-    [id="chapter-indicator"] {
+    /* 1. PART PROGRESS INDICATOR ON MOBILE - Position above nav bars */
+    .part-progress-indicator,
+    #part-progress-indicator,
+    [id="part-progress-indicator"] {
         /* Enabled on mobile - positioned center-bottom above mobile nav */
         bottom: 140px !important; /* Above chapter-nav (70px) + mobile-buy-bar (60px) + gap */
         left: 50% !important;
@@ -25787,7 +25664,7 @@ main.content,
         z-index: 9980 !important;
     }
 
-    .chapter-indicator.visible {
+    .part-progress-indicator.visible {
         display: flex !important;
         visibility: visible !important;
         opacity: 1 !important;
@@ -26199,9 +26076,16 @@ main.content, #main-content {
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Reading Progress Bar -->
+    <!-- Reading Progress Bar with Part Markers -->
     <div class="reading-progress" id="reading-progress">
         <div class="reading-progress-bar" id="reading-progress-bar"></div>
+        <div class="reading-progress-markers" aria-hidden="true">
+            <span class="progress-marker" data-part="1" style="left: 0%"></span>
+            <span class="progress-marker" data-part="2" style="left: 20%"></span>
+            <span class="progress-marker" data-part="3" style="left: 40%"></span>
+            <span class="progress-marker" data-part="4" style="left: 60%"></span>
+            <span class="progress-marker" data-part="5" style="left: 80%"></span>
+        </div>
     </div>
 
     <!-- Edge Pulse Effect (Non-blocking chapter transition glow) -->
@@ -27008,7 +26892,15 @@ main.content, #main-content {
 
         <!-- ═══════════════ CHAPTER II: THE EVIDENCE ═══════════════ -->
         <div class="chapter-gate" data-chapter="2">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">II</span>
             <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -27019,6 +26911,10 @@ main.content, #main-content {
                 <span class="chapter-gate-numeral">II</span>
                 <h3 class="chapter-gate-title">The Evidence</h3>
                 <p class="chapter-gate-subtitle">Where Reality Validates Theory</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
             </div>
         </div>
 
@@ -27484,7 +27380,15 @@ main.content, #main-content {
 
         <!-- ═══════════════ CHAPTER III: THE PHILOSOPHY ═══════════════ -->
         <div class="chapter-gate" data-chapter="3">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">III</span>
             <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -27495,6 +27399,10 @@ main.content, #main-content {
                 <span class="chapter-gate-numeral">III</span>
                 <h3 class="chapter-gate-title">The Philosophy</h3>
                 <p class="chapter-gate-subtitle">The Hyperspace Origin Theory</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
             </div>
         </div>
 
@@ -27868,7 +27776,15 @@ main.content, #main-content {
 
         <!-- ═══════════════ CHAPTER IV: THE STAKES ═══════════════ -->
         <div class="chapter-gate" data-chapter="4">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">IV</span>
             <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -27879,6 +27795,10 @@ main.content, #main-content {
                 <span class="chapter-gate-numeral">IV</span>
                 <h3 class="chapter-gate-title">The Stakes</h3>
                 <p class="chapter-gate-subtitle">Eden or Babylon — The Choice Is Ours</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
             </div>
         </div>
 
@@ -28252,7 +28172,15 @@ main.content, #main-content {
 
         <!-- ═══════════════ CHAPTER V: GET THE BOOK ═══════════════ -->
         <div class="chapter-gate" data-chapter="5">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">V</span>
             <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -28263,6 +28191,10 @@ main.content, #main-content {
                 <span class="chapter-gate-numeral">V</span>
                 <h3 class="chapter-gate-title">Get The Book</h3>
                 <p class="chapter-gate-subtitle">Three Doors. One Framework. Your Choice.</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
             </div>
         </div>
 
@@ -30253,40 +30185,83 @@ main.content, #main-content {
             'press': { numeral: 'V', name: 'GET THE BOOK' }
         };
 
-        let currentChapter = null;
+        let currentPart = null;
         let scrollTimeout = null;
 
-        function initChapterIndicator() {
-            const indicator = document.getElementById('chapter-indicator');
-            const numeralEl = document.getElementById('chapter-numeral');
-            const nameEl = document.getElementById('chapter-name');
+        // Map Part numbers to Roman numerals
+        const partNumerals = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };
+        const partNames = {
+            1: 'THE THESIS',
+            2: 'THE EVIDENCE',
+            3: 'THE PHILOSOPHY',
+            4: 'THE STAKES',
+            5: 'GET THE BOOK'
+        };
+
+        function initPartProgressIndicator() {
+            const indicator = document.getElementById('part-progress-indicator');
+            const numeralEl = document.getElementById('part-numeral');
+            const nameEl = document.getElementById('part-name');
+            const dots = document.querySelectorAll('.part-dot');
+            const progressMarkers = document.querySelectorAll('.progress-marker');
 
             if (!indicator || !numeralEl || !nameEl) return;
+
+            // Update dots based on current Part
+            function updateDots(partNum) {
+                dots.forEach((dot, index) => {
+                    const dotPart = index + 1;
+                    dot.classList.remove('completed', 'current');
+                    if (dotPart < partNum) {
+                        dot.classList.add('completed');
+                    } else if (dotPart === partNum) {
+                        dot.classList.add('current');
+                    }
+                });
+            }
+
+            // Update progress bar markers
+            function updateProgressMarkers(partNum) {
+                progressMarkers.forEach(marker => {
+                    const markerPart = parseInt(marker.getAttribute('data-part'));
+                    marker.classList.toggle('active', markerPart === partNum);
+                });
+            }
 
             // Track all sections
             const sections = document.querySelectorAll('.snap-section[id]');
 
-            const chapterObserver = new IntersectionObserver((entries) => {
+            const partObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
                         const sectionId = entry.target.id;
                         const chapter = sectionToChapter[sectionId];
 
-                        if (chapter && chapter.numeral !== currentChapter) {
-                            currentChapter = chapter.numeral;
-                            numeralEl.textContent = chapter.numeral;
-                            nameEl.textContent = chapter.name;
+                        if (chapter) {
+                            // Convert chapter numeral to Part number
+                            const partNum = Object.keys(partNumerals).find(key => partNumerals[key] === chapter.numeral);
 
-                            // Trigger toast animation on chapter change
-                            indicator.classList.remove('toast-active');
-                            // Force reflow to restart animation
-                            void indicator.offsetWidth;
-                            indicator.classList.add('toast-active');
+                            if (partNum && chapter.numeral !== currentPart) {
+                                currentPart = chapter.numeral;
+                                numeralEl.textContent = 'PART ' + chapter.numeral;
+                                nameEl.textContent = chapter.name;
 
-                            // Remove toast-active after animation completes
-                            setTimeout(() => {
-                                indicator.classList.remove('toast-active');
-                            }, 2500);
+                                // Update dots and progress markers
+                                updateDots(parseInt(partNum));
+                                updateProgressMarkers(parseInt(partNum));
+
+                                // Update body data attribute for background tinting
+                                document.body.setAttribute('data-current-part', partNum);
+
+                                // Trigger transition animation
+                                indicator.classList.remove('transitioning');
+                                void indicator.offsetWidth;
+                                indicator.classList.add('transitioning');
+
+                                setTimeout(() => {
+                                    indicator.classList.remove('transitioning');
+                                }, 800);
+                            }
                         }
                     }
                 });
@@ -30295,7 +30270,7 @@ main.content, #main-content {
                 rootMargin: '-10% 0px -40% 0px'
             });
 
-            sections.forEach(section => chapterObserver.observe(section));
+            sections.forEach(section => partObserver.observe(section));
 
             // Show indicator after scrolling past hero
             let hasScrolled = false;
@@ -30318,13 +30293,18 @@ main.content, #main-content {
                     indicator.classList.remove('scrolling');
                 }, 150);
             }, { passive: true });
+
+            // Initialize with Part I
+            updateDots(1);
+            updateProgressMarkers(1);
+            document.body.setAttribute('data-current-part', '1');
         }
 
         // Initialize on DOM ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initChapterIndicator);
+            document.addEventListener('DOMContentLoaded', initPartProgressIndicator);
         } else {
-            initChapterIndicator();
+            initPartProgressIndicator();
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -31316,21 +31296,21 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // FREE CHAPTER MODAL
+        // FREE CHAPTER MODAL (Global scope for onclick handlers)
         // ═══════════════════════════════════════════════════════════════════════
-        function openFreeChapterModal() {
+        window.openFreeChapterModal = function() {
             document.getElementById('free-chapter-overlay').classList.add('show');
             document.getElementById('free-chapter-modal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeFreeChapterModal() {
+        window.closeFreeChapterModal = function() {
             document.getElementById('free-chapter-overlay').classList.remove('show');
             document.getElementById('free-chapter-modal').classList.remove('show');
             document.body.style.overflow = '';
         }
 
-        function submitFreeChapter(e) {
+        window.submitFreeChapter = function(e) {
             e.preventDefault();
             const email = document.getElementById('fc-email').value;
 
@@ -36598,8 +36578,8 @@ main.content, #main-content {
             });
         }
 
-        // Universal quote share function for inline buttons
-        function shareQuote(quote, platform) {
+        // Universal quote share function for inline buttons (global for onclick)
+        window.shareQuote = function(quote, platform) {
             const text = `"${quote}"\n\n— ${AUTHOR}, "${BOOK_TITLE}"\n\n${BOOK_URL}`;
 
             if (platform === 'twitter') {
@@ -36617,8 +36597,8 @@ main.content, #main-content {
             }
         }
 
-        // Download quote as branded image
-        function downloadQuoteImage(quote) {
+        // Download quote as branded image (global for onclick)
+        window.downloadQuoteImage = function(quote) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
             const size = 1080; // Instagram-optimized square
