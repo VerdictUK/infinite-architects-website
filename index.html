@@ -2282,27 +2282,40 @@
             color: var(--text-faint); animation: pulse 2s ease-in-out infinite; cursor: pointer;
         }
 
-        /* 5. ULTIMATE TITAN DROP & IMPACT */
+        /* 5. ULTIMATE TITAN DROP: INTERSTELLAR RE-ENTRY */
         @keyframes titanDrop {
             0% {
-                transform: translateY(-115vh) scale(0.85);
+                transform: translateY(-120vh) scale(0.7);
                 opacity: 0;
-                filter: brightness(4) blur(30px);
+                filter: brightness(5) blur(40px) contrast(2);
             }
+            /* ATMOSPHERIC RE-ENTRY - Heating up */
+            25% {
+                transform: translateY(-80vh) scale(0.85);
+                opacity: 0.8;
+                filter: brightness(3) blur(20px) contrast(1.5) drop-shadow(0 0 50px rgba(212, 168, 75, 0.8));
+            }
+            /* MAXIMUM VELOCITY - Extreme motion blur & stretch */
+            42% {
+                transform: translateY(-10vh) scale(1.1, 1.4); /* Vertical stretch */
+                filter: brightness(6) blur(60px) contrast(3) saturate(0);
+            }
+            /* IMPACT - THE BIG BANG */
             45% {
-                transform: translateY(0) scale(1.08);
-                filter: brightness(10) contrast(2) saturate(0) blur(0); /* MASSIVE BLINDING IMPACT */
+                transform: translateY(0) scale(1.15, 0.85); /* Squash on impact */
+                filter: brightness(15) contrast(2) saturate(0) blur(0); 
             }
             50% {
-                transform: translateY(0) scale(1.04);
-                filter: brightness(4) contrast(1.5) saturate(0.2);
+                transform: translateY(0) scale(1.05);
+                filter: brightness(5) contrast(1.5) saturate(0.2);
             }
+            /* HEAVY REBOUND */
             65% {
-                transform: translateY(-35px) scale(0.98); /* Heavy bounce */
+                transform: translateY(-40px) scale(0.97);
                 filter: brightness(1.2) contrast(1.1) saturate(1);
             }
             82% {
-                transform: translateY(12px) scale(1.02);
+                transform: translateY(15px) scale(1.02);
             }
             100% {
                 transform: translateY(0) scale(1);
@@ -2313,12 +2326,76 @@
 
         html body.cinematic .content,
         html body.cinematic #main-content {
-            animation: titanDrop 3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+            animation: titanDrop 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
         }
 
-        /* Impact Flash Burst */
+        /* SPACE STREAKS - Moving stars during descent */
+        .space-streaks {
+            position: fixed;
+            inset: 0;
+            z-index: 99998;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        body.cinematic .space-streaks {
+            opacity: 1;
+            animation: starFade 3.5s ease-out forwards;
+            background-image: 
+                radial-gradient(1px 100px at 20% 20%, white, transparent),
+                radial-gradient(1px 150px at 80% 40%, var(--gold), transparent),
+                radial-gradient(1px 120px at 50% 60%, white, transparent),
+                radial-gradient(1px 200px at 30% 80%, var(--gold), transparent);
+            background-size: 100% 200%;
+        }
+
+        body.cinematic .space-streaks::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: inherit;
+            animation: starStreaks 1.5s linear infinite;
+        }
+
+        @keyframes starStreaks {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(100%); }
+        }
+
+        @keyframes starFade {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            40% { opacity: 1; }
+            45% { opacity: 0; transform: scale(2); }
+            100% { opacity: 0; }
+        }
+
+        /* SONIC BOOM SHOCKWAVE */
+        .sonic-boom {
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 100px; height: 100px;
+            transform: translate(-50%, -50%) scale(0);
+            border: 4px solid white;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 200001;
+            pointer-events: none;
+        }
+
+        body.cinematic .sonic-boom {
+            animation: sonicBlast 1s cubic-bezier(0.1, 0.8, 0.2, 1) 1.57s forwards; /* Synchronized with 45% of 3.5s = 1.575s */
+        }
+
+        @keyframes sonicBlast {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; border-width: 20px; filter: blur(0); }
+            100% { transform: translate(-50%, -50%) scale(15); opacity: 0; border-width: 1px; filter: blur(20px); }
+        }
+
+        /* Impact Flash Burst (Refined) */
         .impact-flash {
             position: fixed;
             inset: 0;
@@ -2330,50 +2407,53 @@
         }
 
         body.cinematic .impact-flash {
-            animation: impactFlash 1.2s cubic-bezier(0.23, 1, 0.32, 1) 1.35s forwards;
+            animation: impactFlash 1.5s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards;
         }
 
         @keyframes impactFlash {
             0% { opacity: 0; transform: scale(0.8); }
-            10% { opacity: 1; transform: scale(1.1); }
-            100% { opacity: 0; transform: scale(2); }
+            5% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(3); }
         }
 
         /* VIOLENT Earthquake Shake */
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
-            animation: impactShake 0.9s cubic-bezier(.36,.07,.19,.97) 1.35s forwards;
+            animation: impactShake 1.2s cubic-bezier(.36,.07,.19,.97) 1.57s forwards;
         }
 
         @keyframes impactShake {
             0% { transform: translate(0, 0) rotate(0deg); }
-            10% { transform: translate(-18px, -22px) rotate(-1.2deg); }
-            20% { transform: translate(20px, 18px) rotate(1.8deg); }
-            30% { transform: translate(-15px, -18px) rotate(-1.2deg); }
-            40% { transform: translate(15px, 12px) rotate(1deg); }
-            50% { transform: translate(-10px, -10px) rotate(-0.8deg); }
-            60% { transform: translate(8px, 8px) rotate(0.6deg); }
-            70% { transform: translate(-5px, -5px) rotate(-0.4deg); }
-            80% { transform: translate(3px, 3px) rotate(0.2deg); }
+            5% { transform: translate(-25px, -30px) rotate(-2deg); }
+            15% { transform: translate(30px, 25px) rotate(2.5deg); }
+            25% { transform: translate(-20px, -25px) rotate(-1.5deg); }
+            35% { transform: translate(25px, 15px) rotate(1.2deg); }
+            50% { transform: translate(-15px, -15px) rotate(-0.8deg); }
             100% { transform: none; }
         }
 
-        /* Golden Swoosh Trail */
+        /* Golden Swoosh Trail (Plasma Re-entry) */
         body.cinematic::after {
             content: '';
             position: fixed;
-            top: -100%; left: 0; right: 0; height: 200vh;
-            background: linear-gradient(to bottom, transparent, rgba(212, 168, 75, 0.3), white, rgba(212, 168, 75, 0.3), transparent);
+            top: -100%; left: 0; right: 0; height: 300vh;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                rgba(212, 168, 75, 0.4), 
+                rgba(255, 255, 255, 0.8), 
+                rgba(212, 168, 75, 0.4), 
+                transparent
+            );
             z-index: 99999;
             pointer-events: none;
-            animation: swooshTrail 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: swooshTrail 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes swooshTrail {
             0% { transform: translateY(0); opacity: 0; }
-            40% { opacity: 0.8; }
-            100% { transform: translateY(150vh); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(200vh); opacity: 0; }
         }
         
         /* Cosmic nebula background */
@@ -9217,6 +9297,53 @@
 
         .concept-item--expandable.expanded .concept-expand-btn span:first-child {
             display: none;
+        }
+
+        /* Concept card share buttons */
+        .concept-share-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .concept-item--expandable.expanded .concept-share-row {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .concept-share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            background: rgba(212, 168, 75, 0.08);
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 4px;
+            color: var(--gold);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .concept-share-btn:hover {
+            background: rgba(212, 168, 75, 0.15);
+            border-color: rgba(212, 168, 75, 0.4);
+        }
+
+        .concept-share-btn svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            fill: none;
         }
 
         /* Concept mini-card legacy support */
@@ -26227,6 +26354,8 @@ main.content, #main-content {
          ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loader">
         <div class="impact-flash" id="impact-flash"></div>
+        <div class="space-streaks" id="space-streaks"></div>
+        <div class="sonic-boom" id="sonic-boom"></div>
         <!-- Mandelbrot Video Background - Recursion Made Visible -->
         <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="metadata" style="background: #02030a;">
             <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
@@ -31456,8 +31585,15 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         let audioContext = null;
 
+        // Track user interaction for vibrate API (Chrome requirement)
+        let hapticUserInteracted = false;
+        const markHapticInteraction = () => { hapticUserInteracted = true; };
+        document.addEventListener('touchstart', markHapticInteraction, { once: true, passive: true });
+        document.addEventListener('click', markHapticInteraction, { once: true, passive: true });
+
         function triggerHaptic(intensity = 'medium') {
-            // console.log('🎯 triggerHaptic called:', intensity);
+            // Chrome requires user interaction before calling vibrate
+            if (!hapticUserInteracted) return;
 
             // ANDROID - Vibration API (works reliably)
             if (typeof navigator.vibrate === 'function') {
@@ -34133,6 +34269,13 @@ main.content, #main-content {
     // CHAPTER-BASED NAVIGATION SYSTEM
     // Book-like chapter navigation for mobile (replaces slideshow dots)
     // ═══════════════════════════════════════════════════════════════════════════
+
+    // Global user interaction tracking for haptic feedback (Chrome requirement)
+    let chapterNavUserInteracted = false;
+    const setChapterNavInteracted = () => { chapterNavUserInteracted = true; };
+    document.addEventListener('touchstart', setChapterNavInteracted, { once: true, passive: true });
+    document.addEventListener('click', setChapterNavInteracted, { once: true, passive: true });
+
     const ChapterNavigation = {
         // Chapter definitions - 5 chapters (RESTRUCTURED 2026-01-13)
         // Order: Thesis+Author → Evidence → Philosophy → Stakes → Purchase
@@ -34548,7 +34691,7 @@ main.content, #main-content {
 
         // Haptic feedback
         haptic(intensity = 'light') {
-            if (!this.config.hapticEnabled || !('vibrate' in navigator)) return;
+            if (!chapterNavUserInteracted || !this.config.hapticEnabled || !('vibrate' in navigator)) return;
 
             const patterns = {
                 light: 10,
@@ -34630,6 +34773,13 @@ main.content, #main-content {
         let scrollTimeout = null;
         let titleTimeout = null;
 
+        // Track user interaction for haptic feedback (Chrome requirement)
+        let userHasInteracted = false;
+        const setUserInteracted = () => { userHasInteracted = true; };
+        document.addEventListener('touchstart', setUserInteracted, { once: true, passive: true });
+        document.addEventListener('click', setUserInteracted, { once: true, passive: true });
+        document.addEventListener('keydown', setUserInteracted, { once: true, passive: true });
+
         // ─────────────────────────────────────────────────────────────────────
         // DOM ELEMENTS
         // ─────────────────────────────────────────────────────────────────────
@@ -34680,17 +34830,17 @@ main.content, #main-content {
         // ─────────────────────────────────────────────────────────────────────
         const haptic = {
             light: () => {
-                if (config.hapticEnabled && 'vibrate' in navigator) {
+                if (userHasInteracted && config.hapticEnabled && 'vibrate' in navigator) {
                     navigator.vibrate(10);
                 }
             },
             medium: () => {
-                if (config.hapticEnabled && 'vibrate' in navigator) {
+                if (userHasInteracted && config.hapticEnabled && 'vibrate' in navigator) {
                     navigator.vibrate(20);
                 }
             },
             tick: () => {
-                if (config.hapticEnabled && 'vibrate' in navigator) {
+                if (userHasInteracted && config.hapticEnabled && 'vibrate' in navigator) {
                     navigator.vibrate([10, 30, 10]); // Mechanical click feel
                 }
             }
@@ -36455,6 +36605,43 @@ main.content, #main-content {
                 }, 400);
             });
         });
+
+        // Inject share buttons into concept cards
+        document.querySelectorAll('.concept-item--expandable').forEach(card => {
+            const conceptDetails = card.querySelector('.concept-details');
+            if (!conceptDetails) return;
+
+            const conceptNum = card.querySelector('.concept-num')?.textContent || '';
+            const title = card.querySelector('h4')?.textContent || '';
+            const definition = card.querySelector('.concept-definition')?.textContent || '';
+
+            // Create share row
+            const shareRow = document.createElement('div');
+            shareRow.className = 'concept-share-row';
+            shareRow.innerHTML = `
+                <button class="concept-share-btn" data-action="twitter" aria-label="Share on Twitter">
+                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                    Share
+                </button>
+                <button class="concept-share-btn" data-action="copy" aria-label="Copy concept">
+                    <svg viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy
+                </button>
+            `;
+
+            // Add click handlers
+            shareRow.querySelector('[data-action="twitter"]').addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.shareConcept(conceptNum, title, definition, 'twitter');
+            });
+
+            shareRow.querySelector('[data-action="copy"]').addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.shareConcept(conceptNum, title, definition, 'copy');
+            });
+
+            conceptDetails.appendChild(shareRow);
+        });
     })();
     </script>
 
@@ -36590,6 +36777,23 @@ main.content, #main-content {
                     const toast = document.createElement('div');
                     toast.className = 'copy-toast';
                     toast.textContent = 'Quote copied!';
+                    toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--void-deep);padding:0.75rem 1.5rem;border-radius:50px;font-family:var(--font-mono);font-size:0.85rem;z-index:9999;animation:fadeInOut 2s ease forwards;';
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                });
+            }
+        }
+
+        // Share concept from ideas grid (global for onclick)
+        window.shareConcept = function(conceptNum, title, definition, platform) {
+            const text = `💡 Concept ${conceptNum}: ${title}\n\n"${definition}"\n\n— From "Infinite Architects" by Michael Darius Eastwood\n\n${BOOK_URL}`;
+
+            if (platform === 'twitter') {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=550,height=420');
+            } else if (platform === 'copy') {
+                navigator.clipboard.writeText(text).then(() => {
+                    const toast = document.createElement('div');
+                    toast.textContent = 'Concept copied!';
                     toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--void-deep);padding:0.75rem 1.5rem;border-radius:50px;font-family:var(--font-mono);font-size:0.85rem;z-index:9999;animation:fadeInOut 2s ease forwards;';
                     document.body.appendChild(toast);
                     setTimeout(() => toast.remove(), 2000);
