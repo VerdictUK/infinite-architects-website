@@ -291,6 +291,13 @@
             document.body.classList.add('scroll-unlocked');
             console.log('🔓 Fail-safe: Scroll and Intro forced.');
             
+            // Force Lenis to wake up
+            if (window.lenisInstance) {
+                window.lenisInstance.start();
+                window.lenisInstance.resize();
+                console.log('✨ Lenis forced start (Local Fix)');
+            }
+            
             // Trigger Titan Slam if it hasn't fired
             const book = document.getElementById('hero-book');
             if (book && !book.classList.contains('titan-drop')) {
