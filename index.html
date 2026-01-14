@@ -313,16 +313,80 @@
             --part-tint: transparent;
         }
 
-        /* Part Background Tints - Subtle color shifts per Part */
-        [data-current-part="1"] { --part-tint: rgba(212, 168, 75, 0.03); }  /* Warm gold - Welcome */
-        [data-current-part="2"] { --part-tint: rgba(26, 35, 126, 0.04); }   /* Cool blue - Evidence */
-        [data-current-part="3"] { --part-tint: rgba(74, 20, 140, 0.035); }  /* Purple - Philosophy */
-        [data-current-part="4"] { --part-tint: rgba(255, 152, 0, 0.03); }   /* Amber - Stakes */
-        [data-current-part="5"] { --part-tint: rgba(244, 200, 86, 0.04); }  /* Bright gold - CTA */
+        /* ═══════════════════════════════════════════════════════════════════════════
+           PART-BASED VISUAL THEMING
+           Each Part has its own colour temperature and atmospheric feel
+           ═══════════════════════════════════════════════════════════════════════════ */
+
+        /* Part I: THE THESIS - Warm, welcoming gold (introduction) */
+        [data-current-part="1"] {
+            --part-tint: rgba(212, 168, 75, 0.04);
+            --part-accent: rgba(212, 168, 75, 1);
+            --part-glow: rgba(212, 168, 75, 0.15);
+            --part-gradient: linear-gradient(180deg, rgba(212, 168, 75, 0.03) 0%, transparent 50%);
+        }
+
+        /* Part II: THE EVIDENCE - Cool, scientific blue (proof) */
+        [data-current-part="2"] {
+            --part-tint: rgba(26, 35, 126, 0.06);
+            --part-accent: rgba(100, 140, 200, 1);
+            --part-glow: rgba(26, 35, 126, 0.2);
+            --part-gradient: linear-gradient(180deg, rgba(26, 35, 126, 0.05) 0%, transparent 50%);
+        }
+
+        /* Part III: THE PHILOSOPHY - Deep purple/violet (mystery, depth) */
+        [data-current-part="3"] {
+            --part-tint: rgba(74, 20, 140, 0.05);
+            --part-accent: rgba(138, 100, 180, 1);
+            --part-glow: rgba(74, 20, 140, 0.2);
+            --part-gradient: linear-gradient(180deg, rgba(74, 20, 140, 0.04) 0%, transparent 50%);
+        }
+
+        /* Part IV: THE STAKES - Warm amber/orange (urgency, importance) */
+        [data-current-part="4"] {
+            --part-tint: rgba(255, 152, 0, 0.045);
+            --part-accent: rgba(255, 180, 50, 1);
+            --part-glow: rgba(255, 152, 0, 0.2);
+            --part-gradient: linear-gradient(180deg, rgba(255, 152, 0, 0.04) 0%, transparent 50%);
+        }
+
+        /* Part V: GET THE BOOK - Radiant gold (action, conversion) */
+        [data-current-part="5"] {
+            --part-tint: rgba(244, 200, 86, 0.06);
+            --part-accent: rgba(244, 200, 86, 1);
+            --part-glow: rgba(244, 200, 86, 0.25);
+            --part-gradient: linear-gradient(180deg, rgba(244, 200, 86, 0.05) 0%, transparent 50%);
+        }
 
         body {
-            background-color: var(--part-tint);
-            transition: background-color 0.8s ease;
+            background-color: var(--part-tint, transparent);
+            transition: background-color 1s ease;
+        }
+
+        /* Gradient overlay at top of viewport */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30vh;
+            background: var(--part-gradient, transparent);
+            pointer-events: none;
+            z-index: -1;
+            transition: background 1s ease;
+        }
+
+        /* Subtle vignette that shifts with Part */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 50%, var(--part-tint, transparent) 100%);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+            transition: background 1s ease;
         }
 
         :root {
@@ -1369,6 +1433,488 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════════
+           WELCOME BACK - RESUME READING OVERLAY
+           ═══════════════════════════════════════════════════════════════════════════ */
+        .welcome-back-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 3, 10, 0.95);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .welcome-back-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-back-content {
+            position: relative;
+            text-align: center;
+            padding: 3rem 3.5rem;
+            max-width: 420px;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 168, 75, 0.08) 0%,
+                rgba(10, 12, 20, 0.95) 50%,
+                rgba(212, 168, 75, 0.05) 100%
+            );
+            border: 1px solid rgba(212, 168, 75, 0.2);
+            border-radius: 16px;
+            box-shadow:
+                0 0 60px rgba(212, 168, 75, 0.15),
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: welcomeEnter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes welcomeEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .welcome-back-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-back-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary, #d4a84b);
+            animation: bookGlow 3s ease-in-out infinite;
+        }
+
+        .welcome-back-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes bookGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(212, 168, 75, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.7));
+            }
+        }
+
+        .welcome-back-title {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 600;
+            color: var(--gold-bright, #f4c856);
+            margin: 0;
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.4);
+        }
+
+        .welcome-back-message {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            color: var(--text-primary, #e8d4a0);
+            margin: 0 0 1.75rem;
+            line-height: 1.5;
+        }
+
+        .welcome-back-message strong {
+            color: var(--gold-primary, #d4a84b);
+            font-weight: 600;
+        }
+
+        .welcome-back-progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-back-progress-track {
+            position: relative;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: visible;
+            margin-bottom: 0.75rem;
+        }
+
+        .welcome-back-progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), var(--gold-bright));
+            border-radius: 3px;
+            transition: width 0.8s ease-out;
+            box-shadow: 0 0 15px rgba(212, 168, 75, 0.5);
+        }
+
+        .welcome-back-progress-markers {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2%;
+        }
+
+        .welcome-back-progress-markers .progress-pip {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(212, 168, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .welcome-back-progress-markers .progress-pip.completed {
+            background: var(--gold-primary, #d4a84b);
+            border-color: var(--gold-bright, #f4c856);
+            box-shadow: 0 0 8px rgba(212, 168, 75, 0.6);
+        }
+
+        .welcome-back-progress-markers .progress-pip.current {
+            background: var(--gold-bright, #f4c856);
+            border-color: var(--gold-bright, #f4c856);
+            box-shadow: 0 0 12px rgba(244, 200, 86, 0.8);
+            animation: pipPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pipPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .welcome-back-progress-text {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.8rem;
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            margin: 0;
+            letter-spacing: 0.05em;
+        }
+
+        .welcome-back-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .welcome-back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1rem 1.5rem;
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .welcome-back-resume {
+            color: var(--void-deep, #02030a);
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright));
+            box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
+        }
+
+        .welcome-back-resume:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 168, 75, 0.5);
+        }
+
+        .welcome-back-resume .btn-icon {
+            font-size: 0.8rem;
+        }
+
+        .welcome-back-fresh {
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            background: transparent;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+        }
+
+        .welcome-back-fresh:hover {
+            color: var(--text-primary, #e8d4a0);
+            border-color: rgba(212, 168, 75, 0.5);
+            background: rgba(212, 168, 75, 0.1);
+        }
+
+        .welcome-back-dismiss {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-dim, rgba(232, 212, 160, 0.4));
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-back-dismiss:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .welcome-back-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                max-width: calc(100vw - 2rem);
+            }
+
+            .welcome-back-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .welcome-back-btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .welcome-back-overlay {
+                transition: opacity 0.2s ease;
+            }
+            .welcome-back-content {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .welcome-back-icon {
+                animation: none;
+            }
+            .welcome-back-progress-markers .progress-pip.current {
+                animation: none;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════════
+           CHAPTER INTRO - CINEMATIC ENTRY SCREEN
+           ═══════════════════════════════════════════════════════════════════════════ */
+        .chapter-intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .chapter-intro-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .chapter-intro-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--void-deep, #02030a);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-bg {
+            opacity: 1;
+        }
+
+        .chapter-intro-overlay.fade-out .chapter-intro-bg {
+            opacity: 0;
+            transition: opacity 0.6s ease 0.3s;
+        }
+
+        .chapter-intro-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .chapter-intro-overlay.fade-out .chapter-intro-content {
+            opacity: 0;
+            transform: scale(1.05);
+            transition: all 0.4s ease;
+        }
+
+        .chapter-intro-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary, #d4a84b), transparent);
+            margin: 0 auto;
+            opacity: 0;
+            transform: scaleX(0);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-line {
+            opacity: 1;
+            transform: scaleX(1);
+        }
+
+        .chapter-intro-line-top {
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter-intro-line-bottom {
+            margin-top: 1.5rem;
+        }
+
+        .chapter-intro-numeral {
+            display: block;
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 700;
+            color: var(--gold-bright, #f4c856);
+            letter-spacing: 0.1em;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow:
+                0 0 40px rgba(212, 168, 75, 0.6),
+                0 0 80px rgba(212, 168, 75, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.4s;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-numeral {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter-intro-title {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 600;
+            color: var(--text-primary, #e8d4a0);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin: 0 0 0.75rem;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease 0.55s;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chapter-intro-subtitle {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            font-style: italic;
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            margin: 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease 0.65s;
+        }
+
+        .chapter-intro-overlay.active .chapter-intro-subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .chapter-intro-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .chapter-intro-overlay,
+            .chapter-intro-bg,
+            .chapter-intro-content,
+            .chapter-intro-numeral,
+            .chapter-intro-title,
+            .chapter-intro-subtitle,
+            .chapter-intro-line {
+                transition: opacity 0.2s ease;
+                transform: none !important;
+            }
+        }
+
+        /* Part-specific chapter intro colours */
+        .chapter-intro-overlay[data-part="2"] .chapter-intro-numeral {
+            color: #8ec5fc;
+            text-shadow: 0 0 40px rgba(100, 160, 220, 0.7), 0 0 80px rgba(26, 35, 126, 0.4);
+        }
+        .chapter-intro-overlay[data-part="2"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(100, 160, 220, 0.6), transparent);
+        }
+
+        .chapter-intro-overlay[data-part="3"] .chapter-intro-numeral {
+            color: #c9a8f0;
+            text-shadow: 0 0 40px rgba(160, 100, 200, 0.7), 0 0 80px rgba(74, 20, 140, 0.4);
+        }
+        .chapter-intro-overlay[data-part="3"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(160, 100, 200, 0.6), transparent);
+        }
+
+        .chapter-intro-overlay[data-part="4"] .chapter-intro-numeral {
+            color: #ffcc70;
+            text-shadow: 0 0 40px rgba(255, 180, 50, 0.7), 0 0 80px rgba(255, 152, 0, 0.4);
+        }
+        .chapter-intro-overlay[data-part="4"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(255, 180, 50, 0.6), transparent);
+        }
+
+        .chapter-intro-overlay[data-part="5"] .chapter-intro-numeral {
+            color: #f4c856;
+            text-shadow: 0 0 50px rgba(244, 200, 86, 0.8), 0 0 100px rgba(244, 200, 86, 0.4);
+        }
+        .chapter-intro-overlay[data-part="5"] .chapter-intro-line {
+            background: linear-gradient(90deg, transparent, rgba(244, 200, 86, 0.7), transparent);
+        }
+
         /* Simple divider fallback for smaller breaks */
         .chapter-divider {
             position: relative;
@@ -2071,12 +2617,8 @@
         .loader-video-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center,
-                rgba(2, 3, 10, 0.2) 0%,
-                rgba(2, 3, 10, 0.5) 40%,
-                rgba(2, 3, 10, 0.85) 100%);
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 60%, #000000 100%);
             z-index: 1;
-            animation: overlayPulse 8s ease-in-out infinite;
         }
 
         @keyframes overlayPulse {
@@ -2345,25 +2887,8 @@
            PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
            ═══════════════════════════════════════════════════════════════════════════ */
         
-        /* Initial state: content ready behind loader but translated up */
-        html body:not(.cinematic) .content,
-        html body:not(.cinematic) #main-content {
-            transform: translateY(-100vh);
-            opacity: 0;
-            visibility: hidden;
-            will-change: transform, opacity;
-        }
-
-        /* Active state: The slam - SWOOSH DOWN effect */
-        html body.cinematic .content,
-        html body.cinematic #main-content {
-            animation: titanDrop 3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
         /* ═══════════════════════════════════════════════════════════════════════
-           SUPREME CINEMATIC SYSTEM - Final Ultimate Edition
+           SUPREME CINEMATIC SYSTEM - Genesis Edition (Gold & Black)
            ═══════════════════════════════════════════════════════════════════════ */
 
         /* 1. CINEMATIC LETTERBOX */
@@ -2378,6 +2903,14 @@
         .letterbox.bottom { bottom: 0; }
         body.cinematic .letterbox { height: 6vh; }
         @media (max-width: 768px) { body.cinematic .letterbox { height: 4vh; } }
+
+        /* HIDE LETTERBOX after cinematic intro completes */
+        body.cinematic-ready .letterbox {
+            height: 0 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            visibility: hidden !important;
+        }
 
         /* 2. SUPREME LOADER CORE */
         #loader {
@@ -2404,8 +2937,18 @@
             transition: transform 0.8s ease-in, opacity 0.5s ease-out, z-index 0.1s 0.5s !important;
         }
 
+        /* FULLY HIDE LOADER when marked as fully-hidden or when cinematic-ready */
+        #loader.fully-hidden,
+        #loader.hidden,
+        body.cinematic-ready #loader {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            z-index: -9999 !important;
+        }
 
-        /* 3. CINEMATIC VIDEO BACKGROUND */
+        /* 3. CINEMATIC VIDEO BACKGROUND - SOVEREIGN GOLD */
         .loader-video-bg {
             position: absolute !important;
             top: 50% !important; left: 50% !important;
@@ -2413,6 +2956,7 @@
             width: auto !important; height: auto !important;
             transform: translate(-50%, -50%) scale(1.2) !important;
             object-fit: cover !important; opacity: 0; z-index: 0 !important;
+            filter: sepia(1) saturate(5) hue-rotate(-10deg) brightness(0.8) contrast(1.2); 
             animation: loaderVideoFadeIn 3s ease-out 0.5s forwards, loaderVideoZoom 15s ease-in-out 3s infinite;
         }
         @keyframes loaderVideoFadeIn { 
@@ -2498,38 +3042,36 @@
         /* 5. ULTIMATE TITAN DROP: INTERSTELLAR RE-ENTRY */
         @keyframes titanDrop {
             0% {
-                transform: translateY(-120vh) scale(0.7);
+                transform: translateY(-120vh) scale(0.6);
                 opacity: 0;
-                filter: brightness(5) blur(40px) contrast(2) url(#heat-distortion);
+                filter: brightness(10) blur(50px) contrast(3) url(#heat-distortion);
             }
-            /* ATMOSPHERIC RE-ENTRY - Chromatic Aberration & Heat */
+            /* ATMOSPHERIC IONISATION - Liquid Gold Phase */
             25% {
-                transform: translateY(-80vh) scale(0.85);
-                opacity: 0.8;
-                filter: brightness(3) blur(20px) contrast(1.5) url(#heat-distortion);
-                text-shadow: 4px 0 0 rgba(255,0,0,0.7), -4px 0 0 rgba(0,255,255,0.7); /* Extreme Aberration */
+                transform: translateY(-80vh) scale(0.8);
+                opacity: 0.9;
+                filter: brightness(5) blur(20px) contrast(2) url(#heat-distortion);
+                drop-shadow: 0 0 100px var(--gold);
+                text-shadow: 0 0 40px var(--gold-bright), 0 0 80px var(--gold);
             }
-            /* MAXIMUM VELOCITY - Extreme vertical stretch (Motion Blur) */
+            /* MAXIMUM VELOCITY - Light Speed Distortion */
             42% {
-                transform: translateY(-5vh) scale(0.8, 2.2); /* Maximum Stretch */
-                filter: brightness(10) blur(100px) contrast(5) saturate(0);
+                transform: translateY(-5vh) scale(0.7, 2.5); 
+                filter: brightness(15) blur(120px) contrast(6) saturate(0);
             }
-            /* IMPACT - THE BIG BANG (Blinding White-out) */
+            /* IMPACT - THE SUPERNOVA */
             45% {
-                transform: translateY(0) scale(1.4, 0.6); /* Deep Squash */
-                filter: brightness(25) contrast(4) saturate(0) blur(0); 
+                transform: translateY(0) scale(1.5, 0.5); 
+                filter: brightness(40) contrast(5) saturate(0) blur(0); 
             }
             48% {
-                transform: translateY(0) scale(1.15, 0.85);
-                filter: brightness(15) contrast(2) saturate(0.5);
+                transform: translateY(0) scale(1.2, 0.8);
+                filter: brightness(20) contrast(3) saturate(0.8) drop-shadow(0 0 200px var(--gold));
             }
-            /* HEAVY REBOUND & SETTLE */
+            /* HEAVY SETTLE */
             65% {
-                transform: translateY(-60px) scale(0.9, 1.1); /* Higher bounce */
+                transform: translateY(-80px) scale(0.9, 1.1);
                 filter: brightness(1.5) contrast(1.2) saturate(1);
-            }
-            82% {
-                transform: translateY(20px) scale(1.05, 0.95);
             }
             100% {
                 transform: translateY(0) scale(1);
@@ -2538,11 +3080,21 @@
             }
         }
 
+        /* 4.5 CONTENT INITIAL STATE - CRITICAL for Titan Drop Visibility */
+        html body:not(.cinematic) .content,
+        html body:not(.cinematic) #main-content {
+            transform: translateY(-120vh) !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
         html body.cinematic .content,
         html body.cinematic #main-content {
             animation: titanDrop 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
+            pointer-events: auto !important;
         }
 
         /* SPACE STREAKS - Light-speed particles */
@@ -2553,6 +3105,19 @@
             pointer-events: none;
             background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%);
             opacity: 0;
+        }
+
+        /* HIDE ALL CINEMATIC OVERLAYS after intro completes */
+        body.cinematic-ready .space-streaks,
+        body.cinematic-ready .sonic-boom,
+        body.cinematic-ready .lens-flare,
+        body.cinematic-ready .ground-shock,
+        body.cinematic-ready .impact-flash,
+        body.cinematic-ready .plasma-trail {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
 
         body.cinematic .space-streaks::before {
@@ -2638,7 +3203,28 @@
             100% { transform: scaleX(1); opacity: 0; }
         }
 
-        /* VIOLENT Earthquake Shake - With Distortion Pulse */
+        /* Impact Flash Burst (Genesis Gold) */
+        .impact-flash {
+            position: fixed;
+            inset: -50%;
+            background: radial-gradient(circle at center, white 0%, var(--gold) 30%, #000000 70%);
+            opacity: 0;
+            z-index: 200000;
+            pointer-events: none;
+            mix-blend-mode: color-dodge;
+        }
+
+        body.cinematic .impact-flash {
+            animation: impactFlash 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards;
+        }
+
+        @keyframes impactFlash {
+            0% { opacity: 0; transform: scale(0.5); filter: blur(0); }
+            10% { opacity: 1; transform: scale(1.2); filter: blur(20px) contrast(2); }
+            100% { opacity: 0; transform: scale(4); filter: blur(100px); }
+        }
+
+        /* VIOLENT Earthquake Shake */
         body.cinematic #main-content,
         body.cinematic .content,
         body.cinematic main {
@@ -2648,16 +3234,11 @@
         @keyframes impactShake {
             0% { transform: translate(0, 0) scale(1); filter: none; }
             2% { transform: translate(-30px, -40px) scale(1.1); filter: url(#impact-distortion); }
-            4% { transform: translate(35px, 30px) scale(0.9); }
-            6% { transform: translate(-40px, 20px) rotate(-2deg); }
-            8% { transform: translate(30px, -35px) rotate(2deg); }
             15% { transform: translate(-20px, -20px); filter: none; }
-            25% { transform: translate(15px, 15px); }
-            40% { transform: translate(-8px, -8px); }
             100% { transform: none; }
         }
 
-        /* PLASMA TRAIL - Re-entry fire */
+        /* PLASMA TRAIL - Re-entry fire (Genesis Gold) */
         .plasma-trail {
             position: fixed;
             top: 0; left: 50%;
@@ -23009,7 +23590,7 @@ html body #deep-dive-hud {
 
     /* Background Video - Cover */
     html body .hero .mandelbrot-bg,
-    html body .hero #thames-bg {
+    html body .hero #mandelbrot-bg {
         position: absolute !important;
         inset: 0 !important;
         width: 100% !important;
@@ -23024,7 +23605,7 @@ html body #deep-dive-hud {
     }
 
     /* Ensure hero content above background */
-    html body .hero > *:not(.mandelbrot-bg):not(#thames-bg) {
+    html body .hero > *:not(.mandelbrot-bg):not(#mandelbrot-bg) {
         position: relative !important;
         z-index: 10 !important;
     }
@@ -26662,6 +27243,69 @@ main.content, #main-content {
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         WELCOME BACK - RESUME READING OVERLAY
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="welcome-back-overlay" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
+        <div class="welcome-back-content">
+            <div class="welcome-back-header">
+                <div class="welcome-back-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                    </svg>
+                </div>
+                <h2 class="welcome-back-title" id="welcome-back-title">Welcome Back</h2>
+            </div>
+
+            <p class="welcome-back-message">
+                Continue from <strong id="welcome-back-part-name">Part III: The Philosophy</strong>?
+            </p>
+
+            <div class="welcome-back-progress-container">
+                <div class="welcome-back-progress-track">
+                    <div class="welcome-back-progress-fill" id="welcome-back-progress-fill"></div>
+                    <div class="welcome-back-progress-markers">
+                        <span class="progress-pip" data-part="1"></span>
+                        <span class="progress-pip" data-part="2"></span>
+                        <span class="progress-pip" data-part="3"></span>
+                        <span class="progress-pip" data-part="4"></span>
+                        <span class="progress-pip" data-part="5"></span>
+                    </div>
+                </div>
+                <p class="welcome-back-progress-text" id="welcome-back-progress-text">60% explored</p>
+            </div>
+
+            <div class="welcome-back-actions">
+                <button class="welcome-back-btn welcome-back-resume" id="welcome-back-resume">
+                    <span class="btn-icon">▶</span>
+                    <span class="btn-text">Resume Reading</span>
+                </button>
+                <button class="welcome-back-btn welcome-back-fresh" id="welcome-back-fresh">
+                    <span class="btn-text">Start Fresh</span>
+                </button>
+            </div>
+
+            <button class="welcome-back-dismiss" id="welcome-back-dismiss" aria-label="Dismiss">
+                <span>×</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         CHAPTER INTRO - CINEMATIC ENTRY SCREEN
+         Brief blackout with chapter title when entering a new Part
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="chapter-intro-overlay" id="chapter-intro-overlay" aria-hidden="true">
+        <div class="chapter-intro-bg"></div>
+        <div class="chapter-intro-content">
+            <div class="chapter-intro-line chapter-intro-line-top"></div>
+            <span class="chapter-intro-numeral" id="chapter-intro-numeral">II</span>
+            <h2 class="chapter-intro-title" id="chapter-intro-title">THE EVIDENCE</h2>
+            <p class="chapter-intro-subtitle" id="chapter-intro-subtitle">Where Reality Validates Theory</p>
+            <div class="chapter-intro-line chapter-intro-line-bottom"></div>
+        </div>
+    </div>
+
     <!-- Social Proof Badge REMOVED - user requested removal -->
 
     <!-- ═══════════════════════════════════════════════════════════════════════
@@ -26815,6 +27459,8 @@ main.content, #main-content {
         <div class="lens-flare" id="lens-flare"></div>
         <div class="ground-shock" id="ground-shock"></div>
         <div class="plasma-trail" id="plasma-trail"></div>
+        <div class="god-rays" id="god-rays"></div>
+        <div class="spark-container" id="spark-container"></div>
         <!-- Mandelbrot Video Background - Recursion Made Visible -->
         <video class="loader-video-bg" id="loader-video" muted playsinline autoplay loop preload="metadata" style="background: #02030a;">
             <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
@@ -26955,10 +27601,9 @@ main.content, #main-content {
         <!-- Hero Section -->
         <section class="hero snap-section chromatic-lens" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
-            <div class="mandelbrot-bg" id="thames-bg" aria-hidden="true">
-                <video class="mandelbrot-video" id="thames-video"
+            <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
+                <video class="mandelbrot-video" id="mandelbrot-video"
                        muted playsinline preload="metadata" autoplay loop
-                       poster="hero-portal-poster.jpg"
                        style="background: #02030a; opacity: 0.5;">
                     <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
                 </video>
@@ -28106,7 +28751,7 @@ main.content, #main-content {
             <div class="chapter-gate-content">
                 <span class="chapter-gate-numeral">III</span>
                 <h3 class="chapter-gate-title">The Philosophy</h3>
-                <p class="chapter-gate-subtitle">The Hyperspace Origin Theory</p>
+                <p class="chapter-gate-subtitle">The Recursive Nature of Intelligence</p>
             </div>
             <div class="chapter-gate-scroll">
                 <span class="chapter-gate-scroll-text">Scroll to continue</span>
@@ -30062,6 +30707,7 @@ main.content, #main-content {
             let currentQuoteIndex = -1;
             let equationRevealed = false;
             let uiRevealed = false;
+            let earlyInitDone = false; // Track if early site init has run
 
             // Device pixel ratio for crisp mobile rendering
             const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
@@ -30157,39 +30803,42 @@ main.content, #main-content {
                     // Cleanup loader
                     loader.classList.add('fully-hidden');
 
-                    // Initialize Three.js canvas only when library is ready
-                    if (window.THREE) {
-                        initMainCanvas();
-                    } else if (window.threeJsReady === false) {
-                        window.addEventListener('threejs-ready', initMainCanvas, { once: true });
+                    // Initialize features (skip if early init already done)
+                    if (!earlyInitDone) {
+                        // Initialize Three.js canvas only when library is ready
+                        if (window.THREE) {
+                            initMainCanvas();
+                        } else if (window.threeJsReady === false) {
+                            window.addEventListener('threejs-ready', initMainCanvas, { once: true });
+                        }
+
+                        initScrollAnimations();
+                        initNavigation();
+
+                        // Trigger Tesseract
+                        initTesseract();
+
+                        // Trigger Book Float
+                        const book = document.getElementById('hero-book');
+                        if (book) {
+                            book.style.opacity = '1';
+                            book.classList.add('float');
+                        }
                     }
 
-                    initScrollAnimations();
-                    initNavigation();
-
-                    // Trigger Tesseract
-                    initTesseract();
-
-                    // Trigger Book Float
-                    const book = document.getElementById('hero-book');
-                    if (book) {
-                        book.style.opacity = '1';
-                        book.classList.add('float');
-                    }
-
-                    // Lazy load book cover video after hero is visible
+                    // Lazy load book cover video (skip if already loaded by early init)
                     const bookVideo = document.getElementById('book-cover-video');
-                    if (bookVideo) {
+                    if (bookVideo && !bookVideo.querySelector('source')) {
                         const isDesktop = window.innerWidth > 768;
                         const videoSrc = isDesktop ? bookVideo.dataset.srcHq : bookVideo.dataset.srcMobile;
-                        
+
                         if (videoSrc) {
                             // Create and add source element
                             const source = document.createElement('source');
                             source.src = videoSrc;
                             source.type = 'video/mp4';
                             bookVideo.appendChild(source);
-                            
+
                             // Load and play when ready
                             bookVideo.load();
                             bookVideo.play().catch(() => {
@@ -30221,9 +30870,9 @@ main.content, #main-content {
                         }
                     }, 800); // 0.8s after site becomes ready
 
-                }, 2000); // 2000ms = 400ms delay + 1.6s re-entry travel
+                }, 800); // 800ms - allow scroll much earlier during animations
 
-                // SAFETY UNLOCK: Force scroll ability after 6s in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability after 2s in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
@@ -30236,7 +30885,7 @@ main.content, #main-content {
                     if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
                         window.lenisInstance.resize();
                     }
-                }, 6000);
+                }, 2000);
             }
 
             function animate() {
@@ -30390,6 +31039,64 @@ main.content, #main-content {
             }
 
             animate();
+
+            // EARLY SITE INITIALIZATION - Let users scroll and interact after 3 seconds
+            setTimeout(() => {
+                // 1. Unlock scrolling
+                document.body.classList.add('cinematic-ready');
+                document.documentElement.classList.add('cinematic-ready');
+                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
+                document.body.style.overflowX = 'hidden';
+                document.body.style.height = 'auto';
+                document.body.style.position = 'relative';
+
+                // 2. Start loading book video early
+                const bookVideo = document.getElementById('book-cover-video');
+                if (bookVideo && !bookVideo.querySelector('source')) {
+                    const isDesktop = window.innerWidth > 768;
+                    const videoSrc = isDesktop ? bookVideo.dataset.srcHq : bookVideo.dataset.srcMobile;
+                    if (videoSrc) {
+                        const source = document.createElement('source');
+                        source.src = videoSrc;
+                        source.type = 'video/mp4';
+                        bookVideo.appendChild(source);
+                        bookVideo.load();
+                        bookVideo.play().catch(() => {
+                            console.log('[Book Video] Early autoplay blocked, poster shows');
+                        });
+                        console.log('[EARLY INIT] Book video started loading');
+                    }
+                }
+
+                // 3. Show book early
+                const book = document.getElementById('hero-book');
+                if (book) {
+                    book.style.opacity = '1';
+                    book.classList.add('float');
+                }
+
+                // 4. Initialize site features early (if not already done)
+                if (typeof initScrollAnimations === 'function') {
+                    try { initScrollAnimations(); } catch(e) { console.log('[EARLY INIT] Scroll animations deferred'); }
+                }
+                if (typeof initNavigation === 'function') {
+                    try { initNavigation(); } catch(e) { console.log('[EARLY INIT] Navigation deferred'); }
+                }
+
+                // 5. Initialize Three.js background early
+                if (window.THREE && typeof initMainCanvas === 'function') {
+                    try { initMainCanvas(); } catch(e) { console.log('[EARLY INIT] Three.js deferred'); }
+                }
+
+                // 6. Initialize Tesseract early
+                if (typeof initTesseract === 'function') {
+                    try { initTesseract(); } catch(e) { console.log('[EARLY INIT] Tesseract deferred'); }
+                }
+
+                earlyInitDone = true;
+                console.log('[EARLY INIT] Site fully unlocked at 3s');
+            }, 3000);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -31003,13 +31710,13 @@ main.content, #main-content {
             if (data.isFinal) {
                 ctaEl.textContent = 'Get Your Copy →';
                 ctaEl.onclick = () => {
-                    closeCelebration();
+                    closeCelebration(false);
                     document.getElementById('get-the-book')?.scrollIntoView({ behavior: 'smooth' });
                 };
             } else {
                 ctaEl.textContent = `Continue to Part ${data.nextPart} →`;
                 ctaEl.onclick = () => {
-                    closeCelebration();
+                    closeCelebration(true); // Show chapter intro
                     // Scroll to the next chapter gate
                     const nextGate = document.querySelector(`.chapter-gate[data-chapter="${partNumber + 1}"]`);
                     if (nextGate) {
@@ -31018,23 +31725,23 @@ main.content, #main-content {
                 };
             }
 
-            // Create confetti
-            createConfetti(confettiContainer);
+            // Create confetti with Part-specific colours
+            createConfetti(confettiContainer, partNumber);
 
             // Show overlay
             overlay.classList.add('active');
             overlay.setAttribute('aria-hidden', 'false');
 
-            // Dismiss handlers
-            dismissEl.onclick = closeCelebration;
+            // Dismiss handlers (show intro when dismissing)
+            dismissEl.onclick = () => closeCelebration(true);
             overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) closeCelebration();
+                if (e.target === overlay) closeCelebration(true);
             });
 
             // Auto-dismiss after 8 seconds
-            const autoDismiss = setTimeout(closeCelebration, 8000);
+            const autoDismiss = setTimeout(() => closeCelebration(true), 8000);
 
-            function closeCelebration() {
+            function closeCelebration(showIntro = false) {
                 clearTimeout(autoDismiss);
                 overlay.classList.remove('active');
                 overlay.setAttribute('aria-hidden', 'true');
@@ -31042,17 +31749,29 @@ main.content, #main-content {
                 setTimeout(() => {
                     confettiContainer.innerHTML = '';
                 }, 500);
+                // Trigger chapter intro for next Part (if not final)
+                if (showIntro && !data.isFinal && window.showChapterIntro) {
+                    window.showChapterIntro(partNumber + 1, true);
+                }
             }
         }
 
-        function createConfetti(container) {
+        function createConfetti(container, partNum = 1) {
             if (!container) return;
             container.innerHTML = '';
 
-            const colors = ['#d4a84b', '#f4c856', '#e8d4a0', '#8b6914', '#ffffff'];
+            // Part-specific confetti colours
+            const partColors = {
+                1: ['#d4a84b', '#f4c856', '#e8d4a0', '#8b6914', '#ffffff'],           // Gold
+                2: ['#8ec5fc', '#6fa8dc', '#4a90c2', '#ffffff', '#d4a84b'],           // Blue + gold
+                3: ['#c9a8f0', '#9b7ed9', '#7c5cbf', '#ffffff', '#d4a84b'],           // Purple + gold
+                4: ['#ffcc70', '#ff9f43', '#ff7f50', '#ffffff', '#d4a84b'],           // Amber + gold
+                5: ['#f4c856', '#ffe066', '#ffed4a', '#d4a84b', '#ffffff']            // Bright gold
+            };
+            const colors = partColors[partNum] || partColors[1];
             const shapes = ['square', 'circle'];
 
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 60; i++) {  // Increased from 50 to 60
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti-piece';
                 confetti.style.left = `${Math.random() * 100}%`;
@@ -31105,6 +31824,290 @@ main.content, #main-content {
 
         const footer = document.querySelector('footer');
         if (footer) footerObserver.observe(footer);
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // CHAPTER INTRO - CINEMATIC ENTRY SCREEN
+        // Brief blackout with chapter title when entering a new Part
+        // ═══════════════════════════════════════════════════════════════════════
+
+        const chapterIntroData = {
+            2: { numeral: 'II', title: 'THE EVIDENCE', subtitle: 'Where Reality Validates Theory' },
+            3: { numeral: 'III', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
+            4: { numeral: 'IV', title: 'THE STAKES', subtitle: 'Eden or Babylon — The Choice Is Ours' },
+            5: { numeral: 'V', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
+        };
+
+        // Track which intros have been shown this session
+        const shownIntros = new Set();
+
+        function showChapterIntro(chapterNum, afterCelebration = false) {
+            // Don't show if already shown this session
+            if (shownIntros.has(chapterNum)) return;
+
+            // Respect reduced motion
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                shownIntros.add(chapterNum);
+                return;
+            }
+
+            const data = chapterIntroData[chapterNum];
+            if (!data) return;
+
+            // Mark as shown
+            shownIntros.add(chapterNum);
+
+            const overlay = document.getElementById('chapter-intro-overlay');
+            const numeralEl = document.getElementById('chapter-intro-numeral');
+            const titleEl = document.getElementById('chapter-intro-title');
+            const subtitleEl = document.getElementById('chapter-intro-subtitle');
+
+            if (!overlay) return;
+
+            // Update content
+            if (numeralEl) numeralEl.textContent = data.numeral;
+            if (titleEl) titleEl.textContent = data.title;
+            if (subtitleEl) subtitleEl.textContent = data.subtitle;
+
+            // Set Part-specific styling
+            overlay.setAttribute('data-part', chapterNum.toString());
+
+            // Delay if coming from celebration (let it fully close)
+            const showDelay = afterCelebration ? 600 : 100;
+
+            setTimeout(() => {
+                // Show overlay
+                overlay.classList.remove('fade-out');
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+
+                // Auto-dismiss after 2.2 seconds
+                setTimeout(() => {
+                    overlay.classList.add('fade-out');
+                    setTimeout(() => {
+                        overlay.classList.remove('active', 'fade-out');
+                        overlay.setAttribute('aria-hidden', 'true');
+                    }, 700);
+                }, 2200);
+            }, showDelay);
+        }
+
+        // Make showChapterIntro available globally for celebration callbacks
+        window.showChapterIntro = showChapterIntro;
+
+        // Observe chapter gates for direct entry (no celebration)
+        const chapterIntroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+                    const gateChapter = parseInt(entry.target.getAttribute('data-chapter'));
+                    // Small delay to allow celebration to show first if applicable
+                    setTimeout(() => {
+                        // Only show if celebration hasn't already been shown for this transition
+                        const completedPart = gateChapter - 1;
+                        if (!celebratedParts.has(completedPart)) {
+                            // No celebration was shown, show intro directly
+                            showChapterIntro(gateChapter, false);
+                        }
+                    }, 1000);
+                    chapterIntroObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-20% 0px -20% 0px'
+        });
+
+        // Observe all chapter gates for intro
+        document.querySelectorAll('.chapter-gate[data-chapter]').forEach(gate => {
+            chapterIntroObserver.observe(gate);
+        });
+
+        // ═══════════════════════════════════════════════════════════════════════
+        // WELCOME BACK - RESUME READING SYSTEM
+        // Detects returning visitors and offers to resume from where they left off
+        // ═══════════════════════════════════════════════════════════════════════
+
+        (function initWelcomeBackSystem() {
+            const WELCOME_CONFIG = {
+                minScrollToSave: 300,
+                minTimeToSave: 10000,
+                sessionGapThreshold: 30 * 60 * 1000,
+                storageKeys: {
+                    scrollPosition: 'ia_resume_scroll',
+                    partNumber: 'ia_resume_part',
+                    partName: 'ia_resume_part_name',
+                    lastVisit: 'ia_resume_timestamp',
+                    sessionId: 'ia_session_id',
+                    hasSeenWelcome: 'ia_seen_welcome_this_session'
+                }
+            };
+
+            const welcomePartDefs = {
+                1: { name: 'Part I: The Thesis', percentage: 0 },
+                2: { name: 'Part II: The Evidence', percentage: 25 },
+                3: { name: 'Part III: The Philosophy', percentage: 50 },
+                4: { name: 'Part IV: The Stakes', percentage: 75 },
+                5: { name: 'Part V: Get The Book', percentage: 90 }
+            };
+
+            function generateWelcomeSessionId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+
+            function getWelcomeCurrentPart() {
+                const scrollY = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+                if (scrollPercent >= 85) return 5;
+                if (scrollPercent >= 65) return 4;
+                if (scrollPercent >= 45) return 3;
+                if (scrollPercent >= 20) return 2;
+                return 1;
+            }
+
+            let welcomeSaveTimeout = null;
+            let welcomePageLoadTime = Date.now();
+
+            function saveWelcomeProgress() {
+                if (Date.now() - welcomePageLoadTime < WELCOME_CONFIG.minTimeToSave) return;
+                if (window.scrollY < WELCOME_CONFIG.minScrollToSave) return;
+                const currentPart = getWelcomeCurrentPart();
+                try {
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.scrollPosition, window.scrollY.toString());
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.partNumber, currentPart.toString());
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.partName, welcomePartDefs[currentPart].name);
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.lastVisit, Date.now().toString());
+                } catch (e) {}
+            }
+
+            function debouncedSaveWelcomeProgress() {
+                clearTimeout(welcomeSaveTimeout);
+                welcomeSaveTimeout = setTimeout(saveWelcomeProgress, 1000);
+            }
+
+            function calculateWelcomeProgress(scrollY) {
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                return docHeight > 0 ? Math.min(95, Math.round((scrollY / docHeight) * 100)) : 0;
+            }
+
+            function checkReturningVisitor() {
+                try {
+                    const savedScroll = localStorage.getItem(WELCOME_CONFIG.storageKeys.scrollPosition);
+                    const savedPart = localStorage.getItem(WELCOME_CONFIG.storageKeys.partNumber);
+                    const lastVisit = localStorage.getItem(WELCOME_CONFIG.storageKeys.lastVisit);
+                    const savedSessionId = localStorage.getItem(WELCOME_CONFIG.storageKeys.sessionId);
+                    const currentSessionId = sessionStorage.getItem('ia_current_session');
+                    const hasSeenWelcome = sessionStorage.getItem(WELCOME_CONFIG.storageKeys.hasSeenWelcome);
+
+                    if (hasSeenWelcome || !savedScroll || !savedPart || !lastVisit) return null;
+                    if (savedSessionId && currentSessionId && savedSessionId === currentSessionId) return null;
+                    if (Date.now() - parseInt(lastVisit) < WELCOME_CONFIG.sessionGapThreshold) return null;
+
+                    const savedScrollNum = parseInt(savedScroll);
+                    const savedPartNum = parseInt(savedPart);
+                    if (savedScrollNum < WELCOME_CONFIG.minScrollToSave) return null;
+                    if (savedPartNum <= 1 && savedScrollNum < 800) return null;
+
+                    return {
+                        scrollPosition: savedScrollNum,
+                        partNumber: savedPartNum,
+                        partName: welcomePartDefs[savedPartNum]?.name || 'Part ' + savedPartNum,
+                        percentage: calculateWelcomeProgress(savedScrollNum)
+                    };
+                } catch (e) { return null; }
+            }
+
+            function showWelcomeBack(data) {
+                const overlay = document.getElementById('welcome-back-overlay');
+                if (!overlay) return;
+
+                const partNameEl = document.getElementById('welcome-back-part-name');
+                const progressFill = document.getElementById('welcome-back-progress-fill');
+                const progressText = document.getElementById('welcome-back-progress-text');
+                const resumeBtn = document.getElementById('welcome-back-resume');
+                const freshBtn = document.getElementById('welcome-back-fresh');
+                const dismissBtn = document.getElementById('welcome-back-dismiss');
+
+                if (partNameEl) partNameEl.textContent = data.partName;
+                if (progressFill) progressFill.style.width = data.percentage + '%';
+                if (progressText) progressText.textContent = data.percentage + '% explored';
+
+                overlay.querySelectorAll('.progress-pip').forEach((pip, i) => {
+                    pip.classList.remove('completed', 'current');
+                    if (i + 1 < data.partNumber) pip.classList.add('completed');
+                    else if (i + 1 === data.partNumber) pip.classList.add('current');
+                });
+
+                function closeWelcomeBack() {
+                    overlay.classList.remove('active');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    sessionStorage.setItem(WELCOME_CONFIG.storageKeys.hasSeenWelcome, 'true');
+                }
+
+                if (resumeBtn) resumeBtn.onclick = () => {
+                    closeWelcomeBack();
+                    window.scrollTo({ top: data.scrollPosition, behavior: 'smooth' });
+                };
+
+                if (freshBtn) freshBtn.onclick = () => {
+                    closeWelcomeBack();
+                    try {
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.scrollPosition);
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.partNumber);
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.partName);
+                    } catch (e) {}
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+
+                if (dismissBtn) dismissBtn.onclick = closeWelcomeBack;
+                overlay.onclick = (e) => { if (e.target === overlay) closeWelcomeBack(); };
+
+                overlay.classList.add('active');
+                overlay.setAttribute('aria-hidden', 'false');
+                setTimeout(() => resumeBtn?.focus(), 100);
+            }
+
+            function initWelcome() {
+                let currentSessionId = sessionStorage.getItem('ia_current_session');
+                if (!currentSessionId) {
+                    currentSessionId = generateWelcomeSessionId();
+                    sessionStorage.setItem('ia_current_session', currentSessionId);
+                }
+
+                window.addEventListener('scroll', debouncedSaveWelcomeProgress, { passive: true });
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') {
+                        saveWelcomeProgress();
+                        try { localStorage.setItem(WELCOME_CONFIG.storageKeys.sessionId, currentSessionId); } catch (e) {}
+                    }
+                });
+                window.addEventListener('beforeunload', saveWelcomeProgress);
+
+                function checkAndShowWelcome() {
+                    const data = checkReturningVisitor();
+                    if (data) setTimeout(() => showWelcomeBack(data), 800);
+                }
+
+                const loaderOverlay = document.getElementById('cinematic-loader');
+                if (loaderOverlay && !loaderOverlay.classList.contains('hidden')) {
+                    const obs = new MutationObserver((m) => {
+                        if (loaderOverlay.classList.contains('hidden') || loaderOverlay.style.display === 'none') {
+                            obs.disconnect();
+                            setTimeout(checkAndShowWelcome, 500);
+                        }
+                    });
+                    obs.observe(loaderOverlay, { attributes: true, attributeFilter: ['class', 'style'] });
+                    setTimeout(() => { obs.disconnect(); checkAndShowWelcome(); }, 6000);
+                } else {
+                    setTimeout(checkAndShowWelcome, 1000);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initWelcome);
+            } else {
+                initWelcome();
+            }
+        })();
 
         // ═══════════════════════════════════════════════════════════════════════
         // CHAPTER INDICATOR - Subtle ambient awareness of current chapter
@@ -38891,9 +39894,9 @@ main.content, #main-content {
         // Let the loader animation play first (15 seconds + 2.5s titan drop)
         // Then ensure button is visible and scroll works
 
-        // Safety fallback: Run after loader should be complete
-        setTimeout(forceButtonAndScroll, 18000);  // 18 seconds - after loader completes
-        setTimeout(forceButtonAndScroll, 22000); // 22 seconds - extra safety
+        // Safety fallback: Run after intro animations
+        setTimeout(forceButtonAndScroll, 3000);  // 3 seconds - quick safety
+        setTimeout(forceButtonAndScroll, 5000); // 5 seconds - extra safety
 
         // Periodic check every 3 seconds AFTER initial delay
         setTimeout(function() {
@@ -38919,7 +39922,7 @@ main.content, #main-content {
                     }
                 }
             }, 3000);
-        }, 20000); // Start interval checks after 20 seconds (loader + titan drop)
+        }, 5000); // Start interval checks after 5 seconds
 
         // Handle orientation change / resize - update button position
         let resizeTimeout;
