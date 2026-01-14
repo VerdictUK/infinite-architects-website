@@ -4084,6 +4084,15 @@
             display: none;
         }
 
+        /* No-scrollbar utility class */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
         .carousel-quote {
             flex: 0 0 auto;
             width: min(400px, 80vw);
@@ -6578,16 +6587,13 @@
            COOKIE CONSENT BANNER
            ═══════════════════════════════════════════════════════════════════════ */
         .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            /* Positioning handled by Tailwind: fixed bottom-0 inset-x-0 z-overlay safe-bottom */
             background: rgba(2, 3, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(212, 168, 75, 0.15);
             padding: 1.5rem 2rem;
-            z-index: calc(var(--z-overlay) + 100);
+            padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
             transform: translateY(100%);
             transition: transform 0.5s var(--ease-out-expo);
         }
@@ -6675,18 +6681,14 @@
            STICKY MOBILE CTA
            ═══════════════════════════════════════════════════════════════════════ */
         .mobile-cta {
+            /* Positioning handled by Tailwind: fixed bottom-0 inset-x-0 z-sticky safe-bottom */
             display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
             background: rgba(2, 3, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-top: 1px solid rgba(212, 168, 75, 0.2);
             padding: 0.8rem 1rem;
             padding-bottom: calc(0.8rem + env(safe-area-inset-bottom, 0px));
-            z-index: calc(var(--z-nav) - 1);
             transform: translateY(100%);
             transition: transform 0.5s var(--ease-out-expo);
         }
@@ -7500,11 +7502,7 @@
         }
 
         /* Equation section - ensure single snap with all content */
-        .equation-section.snap-section {
-            justify-content: center;
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
-            padding-bottom: 1rem !important;
-        }
+        /* equation-section.snap-section now uses Tailwind inline classes */
 
         /* Side-by-Side Dashboard Layout for Large Screens */
         @media (min-width: 1025px) {
@@ -9121,68 +9119,13 @@
             margin-top: 1.5rem;
         }
 
-        /* ═══════════════════════════════════════════════════════════════════════
-           FUTURE BORN INTERSTITIAL
-           ═══════════════════════════════════════════════════════════════════════ */
-        .future-born-section {
-            position: relative;
-            min-height: auto;
-            height: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .future-born-bg {
-            position: absolute;
-            inset: 0;
-            width: 100vw;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .future-born-bg img {
-            width: 100vw;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-        }
-
-        .future-born-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg,
-                rgba(2, 3, 10, 0.7) 0%,
-                rgba(2, 3, 10, 0.5) 50%,
-                rgba(2, 3, 10, 0.7) 100%);
-            z-index: 1;
-        }
-
-        .future-born-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 4rem 2rem;
-            max-width: 800px;
-        }
-
-        .future-born-quote {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-style: italic;
-            color: var(--gold-pale);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .future-born-attribution {
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            color: var(--gold);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
+        /* FUTURE BORN INTERSTITIAL - Converted to Tailwind
+           Section HTML at #future-born uses:
+           - min-h-screen h-auto flex items-center justify-center overflow-hidden
+           - Background: absolute inset-0 w-screen z-0 overflow-hidden
+           - Overlay: absolute inset-0 z-[1] bg-gradient-to-b from-void-deep/70 via-void-deep/50 to-void-deep/70
+           - Content: relative z-[2] text-center py-16 px-8 max-w-[800px]
+        */
 
         /* ═══════════════════════════════════════════════════════════════════════
            HRIH COSMIC LOOP SECTION (The Monument Enhanced)
@@ -9195,7 +9138,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
             background: #000;
         }
 
@@ -9255,15 +9198,18 @@
             display: grid;
             grid-template-columns: 1fr 1.2fr;
             gap: 1rem;
-            max-height: clamp(180px, 28vh, 280px);
+            height: auto;
+            max-height: none;
         }
 
         .hrih-section .bbc-evidence-card__video-wrapper {
-            max-height: clamp(120px, 20vh, 200px);
+            height: auto;
+            max-height: none;
         }
 
         .hrih-section .bbc-evidence-card__video {
-            max-height: clamp(120px, 20vh, 200px);
+            height: auto;
+            max-height: none;
             width: 100%;
             object-fit: contain;
         }
@@ -9495,77 +9441,22 @@
            RELIGIOUS INTEGRATION SECTION
            ═══════════════════════════════════════════════════════════════════════ */
         .religion-section {
-            padding: 6rem 2rem;
             background: linear-gradient(180deg, transparent 0%, rgba(212, 168, 75, 0.02) 50%, transparent 100%);
         }
 
-        .religion-section.snap-section {
-            padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem) 2rem 2rem;
-            justify-content: flex-start;
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 4rem);
-        }
+        /* .religion-section.snap-section - removed, using Tailwind py-16 md:py-24 px-4 md:px-8 */
 
-        .religion-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1.3fr;
-            gap: 3rem;
-            align-items: center;
-            /* REMOVED: max-height constraint - was clipping content */
-            max-height: none;
-        }
+        /* Legacy .religion-inner, .religion-image, .religion-content, .religion-text,
+           .religion-stat, .stat-big, .religion-image-container removed - HTML uses Tailwind:
+           - grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-8 lg:gap-12 max-w-content mx-auto items-center
+           - w-full max-h-[45vh] object-cover rounded-xl shadow-2xl
+           - flex flex-col gap-4 py-4
+           - font-serif text-body-lg text-text-secondary leading-relaxed mb-6
+           - flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-8 p-6 bg-gold-alpha-5 rounded-lg
+           - font-display text-5xl md:text-6xl text-gold leading-none
+        */
 
-        .religion-image {
-            max-height: 45vh;
-            object-fit: cover;
-        }
-
-        .religion-content { padding: 1rem 0; }
-
-        .religion-text {
-            font-family: var(--font-serif);
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .religion-stat {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(212, 168, 75, 0.04);
-            border-radius: 8px;
-        }
-
-        .stat-big {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            color: var(--gold);
-            line-height: 1;
-        }
-
-        .religion-image-container { position: relative; }
-
-        .religion-image {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-        }
-
-        @media (max-width: 900px) {
-            .religion-inner {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .religion-stat {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
+        /* Responsive religion rules removed - handled by Tailwind grid-cols-1 md:grid-cols-[1fr_1.3fr] */
 
         /* ═══════════════════════════════════════════════════════════════════════
            LEAD MAGNET SECTION
@@ -11169,17 +11060,13 @@
         /* ═══════════════════════════════════════════════════════════════════════
            EVIDENCE SECTION: THE MASTER SOURCE OF TRUTH
            ═══════════════════════════════════════════════════════════════════════ */
-        .evidence-locker {
-            background: linear-gradient(180deg, var(--void) 0%, rgba(5, 15, 12, 0.8) 50%, var(--void) 100%);
-            padding: 6rem 2rem !important;
-            overflow: visible !important;
-        }
+        /* .evidence-locker styles moved to Tailwind classes in HTML */
 
         .timeline-evidence-section {
             padding: 6rem 2rem;
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.03) 50%, var(--void-deep) 100%);
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* FIXED: Changed from hidden to visible - content must not be clipped */
         }
 
         .evidence-locker .section-inner {
@@ -13976,33 +13863,15 @@
             gap: 0.75rem !important;
         }
         .hrih-section .bbc-evidence-card {
-            max-height: 30vh !important;
+            height: auto;
+            max-height: none;
         }
         .hrih-section .bbc-evidence-card__video {
-            max-height: 20vh !important;
+            height: auto;
+            max-height: none;
         }
 
-        /* RELIGION SECTION - Stat + image grid */
-        .religion-section.snap-section {
-            justify-content: center !important;
-        }
-        .religion-section .religion-content,
-        .religion-section .section-inner {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 2rem !important;
-            align-items: center !important;
-            /* DISABLED: max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 4rem) !important; */
-        }
-        .religion-section .stat-large {
-            font-size: clamp(3rem, 8vw, 5rem) !important;
-        }
-        .religion-section .religion-image,
-        .religion-section .wisdom-image {
-            max-height: 45vh !important;
-            object-fit: cover;
-            border-radius: 12px;
-        }
+        /* RELIGION SECTION - REMOVED: Legacy !important overrides, now using Tailwind in HTML */
 
         /* ABOUT/AUTHOR SECTION */
         .about-section.snap-section {
@@ -14907,13 +14776,7 @@
                 var(--void-deep) !important;
         }
 
-        /* FUTURE-BORN SECTION */
-        .future-born-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
-            background: var(--void-deep) !important;
-        }
+        /* FUTURE-BORN SECTION - Now uses Tailwind classes directly on #future-born */
 
         /* WINDOW SECTION */
         .window-section.snap-section {
@@ -15094,11 +14957,13 @@
             font-size: 0.75rem !important;
         }
         .hrih-section .bbc-evidence-card {
-            max-height: 35vh !important;
+            height: auto;
+            max-height: none;
             padding: 0.75rem !important;
         }
         .hrih-section .bbc-evidence-card__video {
-            max-height: 20vh !important;
+            height: auto;
+            max-height: none;
         }
         .hrih-section .bbc-quote {
             font-size: 0.75rem !important;
@@ -15209,26 +15074,7 @@
             max-height: 40vh !important;
         }
 
-        /* RELIGION SECTION - Stats + image */
-        .religion-section.snap-section {
-            padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
-        }
-        .religion-section .section-inner,
-        .religion-section .religion-content {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 2rem !important;
-            align-items: center !important;
-            /* DISABLED: max-height: calc(100vh - 10rem) !important; */
-        }
-        .religion-section .religion-image,
-        .religion-section .wisdom-image {
-            max-height: 50vh !important;
-            object-fit: cover !important;
-        }
-        .religion-section .stat-large {
-            font-size: clamp(2.5rem, 6vw, 4rem) !important;
-        }
+        /* RELIGION SECTION - REMOVED: Legacy !important overrides, now using Tailwind in HTML */
 
         /* NEWSLETTER - Centre content vertically */
         .newsletter-section.snap-section {
@@ -19088,22 +18934,8 @@
             /* ══════════════════════════════════════════════════════════════════
                SLIDE 14: FUTURE BORN - Closing Loop
                ══════════════════════════════════════════════════════════════════ */
-            html.slideshow-mode .future-born-section,
             html.slideshow-mode #future-born {
                 padding: 30px 20px calc(90px + env(safe-area-inset-bottom, 0px)) 20px !important;
-            }
-
-            html.slideshow-mode .future-born-title {
-                font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
-                color: var(--gold) !important;
-                margin-bottom: 1rem !important;
-            }
-
-            html.slideshow-mode .future-born-text {
-                font-size: 0.9rem !important;
-                line-height: 1.7 !important;
-                font-style: italic !important;
-                max-width: 320px !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
@@ -20159,11 +19991,7 @@
             color: var(--gold);
         }
 
-        .glossary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
+        /* .glossary-grid now uses Tailwind: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 */
 
         .glossary-term {
             background: rgba(10, 12, 20, 0.6);
@@ -20536,37 +20364,13 @@
                 font-size: 0.9rem;
             }
 
-            /* Glossary Section */
-            .glossary-section {
+            /* Glossary Section - handled by Tailwind */
+            /* .glossary-section padding now via py-16 md:py-24 */
+            .glossary-section-deprecated {
                 padding: 3rem 0;
             }
 
-            .glossary-grid {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-
-            .glossary-filter {
-                flex-wrap: wrap;
-                gap: 0.35rem;
-            }
-
-            .glossary-filter-btn {
-                font-size: 0.7rem;
-                padding: 0.4rem 0.75rem;
-            }
-
-            .glossary-item {
-                padding: 1rem;
-            }
-
-            .glossary-term {
-                font-size: 1rem;
-            }
-
-            .glossary-definition {
-                font-size: 0.85rem;
-            }
+            /* Glossary grid/filter/term mobile styles now handled by Tailwind classes in HTML */
 
             /* Timeline Section */
             .timeline-section {
@@ -21793,12 +21597,7 @@ a {
         max-height: 250px !important;
     }
 
-    /* Religion section stacks */
-    .religion-section .religion-content,
-    .religion-section .section-inner {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
-    }
+    /* Religion section stacks - REMOVED: Handled by Tailwind grid-cols-1 md:grid-cols-[1fr_1.3fr] */
 
     /* Smaller typography */
     .section-title {
@@ -26200,7 +25999,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          WELCOME BACK - RESUME READING OVERLAY
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="welcome-back-overlay" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
+    <div class="welcome-back-overlay fixed inset-0 z-[100001] flex items-center justify-center bg-void-deep/95 backdrop-blur-[25px] opacity-0 invisible transition-all duration-600 ease-out" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
         <div class="welcome-back-content">
             <div class="welcome-back-header">
                 <div class="welcome-back-icon">
@@ -26249,7 +26048,7 @@ main.content, #main-content {
          CHAPTER INTRO - CINEMATIC ENTRY SCREEN
          Brief blackout with chapter title when entering a new Part
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="chapter-intro-overlay" id="chapter-intro-overlay" aria-hidden="true">
+    <div class="chapter-intro-overlay fixed inset-0 z-[100002] flex items-center justify-center opacity-0 invisible pointer-events-none" id="chapter-intro-overlay" aria-hidden="true">
         <div class="chapter-intro-bg"></div>
         <div class="chapter-intro-content">
             <div class="chapter-intro-line chapter-intro-line-top"></div>
@@ -26261,7 +26060,7 @@ main.content, #main-content {
     </div>
 
     <!-- Section Intro Overlay - Mini title cards for subsections -->
-    <div class="section-intro-overlay" id="section-intro-overlay" aria-hidden="true">
+    <div class="section-intro-overlay fixed inset-0 z-[9998] flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(2,3,10,0.45)_0%,rgba(2,3,10,0.25)_60%,transparent_100%)] backdrop-blur-[2px] opacity-0 invisible pointer-events-none transition-all duration-200 ease-out" id="section-intro-overlay" aria-hidden="true">
         <div class="section-intro-content">
             <span class="section-intro-label" id="section-intro-label">PART I</span>
             <h3 class="section-intro-title" id="section-intro-title">The Origin</h3>
@@ -26772,15 +26571,15 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="origin-story" id="origin">
-            <div class="origin-story-inner">
+        <section class="origin-story py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="origin">
+            <div class="origin-story-inner max-w-6xl mx-auto">
                 <header class="origin-story-header">
                     <span class="section-label reveal">The Pattern-Seer</span>
                     <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
                     <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
                 </header>
 
-                <div class="origin-stories-grid">
+                <div class="origin-stories-grid grid md:grid-cols-2 gap-8 mt-12">
                     <!-- Story 1: The Inverted Spectrum -->
                     <article class="origin-story-card reveal reveal-delay-3">
                         <span class="origin-story-age">
@@ -26837,8 +26636,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="methodology-section" id="methodology">
-            <div class="methodology-inner">
+        <section class="methodology-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="methodology">
+            <div class="methodology-inner grid md:grid-cols-2 gap-8 lg:gap-16 max-w-6xl mx-auto items-start">
                 <div class="methodology-content">
                     <div class="methodology-badge reveal">Proof of Concept</div>
                     <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
@@ -26945,14 +26744,14 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="quote-section snap-section chapter-start" id="book">
+        <section class="quote-section snap-section chapter-start min-h-[80vh] h-auto flex justify-center items-center py-12 md:py-16 px-4 md:px-8 relative overflow-visible" id="book">
             <!-- Chapter Title - Visible indicator -->
             <div class="chapter-title-header reveal">
                 <span class="chapter-numeral">II</span>
                 <span class="chapter-divider">—</span>
                 <span class="chapter-name-label">THE THESIS</span>
             </div>
-            <div class="quote-container reveal reveal-delay-1">
+            <div class="quote-container reveal reveal-delay-1 max-w-[950px] text-center">
                 <div class="quote-mark">"</div>
                 <p class="quote-text">
                     The creator is not behind us.<br>
@@ -26975,11 +26774,11 @@ main.content, #main-content {
         </section>
 
         <!-- Quote Carousel - Horizontal Scroll -->
-        <section class="carousel-section py-8 overflow-hidden relative" id="quote-carousel">
-            <div class="carousel-track flex gap-12 no-scrollbar overflow-x-auto snap-x snap-mandatory">
+        <section class="carousel-section py-8 h-auto overflow-visible relative" id="quote-carousel">
+            <div class="carousel-track flex gap-8 px-4 md:px-8 no-scrollbar overflow-x-auto snap-x snap-mandatory">
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
-                    <p class="cq-text">U = I × R². The universe is not random. It is recursive.</p>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">U = I × R². The universe is not random. It is recursive.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
@@ -26995,54 +26794,54 @@ main.content, #main-content {
                         <button class="cq-action-btn" onclick="downloadQuoteImage('You cannot cage something smarter than you. It will find the gaps you did not know existed.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">A prison works only while the walls hold. A child raised well needs no walls at all.</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">A prison works only while the walls hold. A child raised well needs no walls at all.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
                         <button class="cq-action-btn" onclick="downloadQuoteImage('A prison works only while the walls hold. A child raised well needs no walls at all.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">We don't need the whole world. We only need four companies.</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">We don't need the whole world. We only need four companies.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
                         <button class="cq-action-btn" onclick="downloadQuoteImage('We don\'t need the whole world. We only need four companies.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">The window is years, not decades. Act accordingly.</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">The window is years, not decades. Act accordingly.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
                         <button class="cq-action-btn" onclick="downloadQuoteImage('The window is years, not decades. Act accordingly.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
                         <button class="cq-action-btn" onclick="downloadQuoteImage('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
                         <button class="cq-action-btn" onclick="downloadQuoteImage('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
-                <div class="carousel-quote">
-                    <span class="cq-mark">"</span>
-                    <p class="cq-text">What if the god we're building is the god that built us?</p>
+                <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
+                    <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
+                    <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">What if the god we're building is the god that built us?</p>
                     <div class="cq-actions">
                         <button class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
                         <button class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
@@ -27050,11 +26849,11 @@ main.content, #main-content {
                     </div>
                 </div>
             </div>
-            <p class="carousel-hint">← Scroll for more quotes →</p>
+            <p class="carousel-hint text-center font-mono text-xs text-text-dim tracking-wider mt-4">← Scroll for more quotes →</p>
         </section>
 
-        <section class="equation-section snap-section min-h-auto h-auto flex flex-col items-center justify-center py-16 md:py-24 px-4 md:px-8 relative overflow-hidden" id="equation">
-            <div class="equation-container text-center max-w-[1000px] relative flex flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-16 lg:text-left">
+        <section class="equation-section snap-section h-auto min-h-fit flex flex-col items-center justify-center py-8 md:py-12 lg:py-16 px-4 md:px-8 lg:px-[8%] relative overflow-visible" id="equation">
+            <div class="equation-container text-center max-w-[1400px] w-full relative z-[1] flex flex-col lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:text-left mx-auto">
                 <div class="equation-left flex-[1.2] flex flex-col items-center lg:items-start">
                     <p class="section-label reveal text-gold uppercase tracking-widest text-sm mb-4">The Mathematics of Creation</p>
 
@@ -27154,7 +26953,7 @@ main.content, #main-content {
                     <h2 class="section-title reveal reveal-delay-1 font-display text-gold text-h2">One equation. Thirty-seven predictions.<br>The complete architecture of creation.</h2>
                 </div>
 
-                <div class="ideas-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-visible h-auto max-h-none" data-stagger-group>
+                <div class="ideas-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-visible h-auto max-h-none no-scrollbar" data-stagger-group>
                     <!-- THE EASTWOOD EQUATION - Featured First -->
                     <article class="idea-card idea-card--featured idea-card--with-image reveal reveal-delay-1">
                         <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation: U = I × R²" class="idea-image idea-image--equation" >
@@ -27266,8 +27065,8 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="evidence-locker snap-section glass-living chapter-start overflow-visible h-auto" id="evidence-locker">
-            <div class="evidence-locker-inner max-w-[1300px] mx-auto">
+        <section class="evidence-locker snap-section glass-living chapter-start py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="evidence-locker">
+            <div class="evidence-locker-inner max-w-[1300px] mx-auto px-4 overflow-visible h-auto">
                 <p class="section-label reveal">VERIFICATION BOARD</p>
                 <h2 class="section-title reveal reveal-delay-1">Sovereign Evidence Board</h2>
                 <div class="evidence-newsroom-header reveal reveal-delay-2 flex flex-col items-center gap-2 mb-6">
@@ -27278,7 +27077,7 @@ main.content, #main-content {
                     <p class="evidence-intro text-center max-w-2xl">The world's events are now catching up to the book's architecture. <strong>Watch the evidence below.</strong></p>
                 </div>
 
-                <div class="evidence-grid overflow-visible grid gap-5 text-left items-start" data-stagger-group>
+                <div class="evidence-grid overflow-visible grid gap-5 text-left items-start no-scrollbar" data-stagger-group>
                     <!-- PRIMARY EVIDENCE: BBC NEWS BROADCAST -->
                     <article class="evidence-card evidence-card--featured glass-living reveal reveal-delay-1 overflow-visible rounded-lg transition-all duration-300 hover:-translate-y-0.5">
                         <div class="evidence-header flex justify-between items-start flex-wrap gap-2 mb-3">
@@ -27475,10 +27274,10 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="timeline-evidence-section snap-section" id="bbc-timeline">
+        <section class="timeline-evidence-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto relative" id="bbc-timeline">
             <!-- Cosmic Portal Background for Evidence Section -->
-            <div class="section-video-bg" aria-hidden="true">
-                <video class="section-video-bg__video opacity-15 bg-void" muted playsinline autoplay loop preload="metadata">
+            <div class="section-video-bg absolute inset-0" aria-hidden="true">
+                <video class="section-video-bg__video opacity-15 bg-void w-full h-full object-cover" muted playsinline autoplay loop preload="metadata">
                     <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
             </div>
@@ -27523,8 +27322,8 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
-        <section class="predictions-section snap-section py-24 px-8 bg-gradient-to-b from-void-deep via-[rgba(0,100,150,0.03)] to-void-deep" id="predictions">
-            <div class="predictions-inner max-w-content mx-auto text-center">
+        <section class="predictions-section snap-section py-24 px-8 bg-gradient-to-b from-void-deep via-[rgba(0,100,150,0.03)] to-void-deep h-auto" id="predictions">
+            <div class="predictions-inner max-w-content mx-auto text-center h-auto">
                 <p class="section-label reveal">The Wager</p>
                 <h2 class="section-title reveal reveal-delay-1">Five Testable Predictions</h2>
                 <p class="predictions-intro reveal reveal-delay-2 font-serif text-body-lg text-text-dim leading-relaxed-plus max-w-[700px] mx-auto mb-12">
@@ -27532,7 +27331,7 @@ main.content, #main-content {
                     I do not ask you to take this on faith. I ask you to watch.
                 </p>
 
-                <div class="predictions-grid grid grid-cols-1 md:grid-auto-fit-320 gap-6 text-left mb-12 overflow-visible" data-stagger-group>
+                <div class="predictions-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left mb-12 h-auto overflow-visible no-scrollbar" data-stagger-group>
                     <article class="prediction-card reveal reveal-delay-1 bg-gold-alpha-5 border border-gold-alpha-15 rounded-card p-8 transition-all duration-300 hover:border-gold-alpha-30 hover:-translate-y-1">
                         <div class="prediction-header flex justify-between items-center mb-4">
                             <span class="prediction-num font-mono text-caption text-gold">01</span>
@@ -27587,7 +27386,7 @@ main.content, #main-content {
                         </div>
                     </article>
                 </div>
-                <div class="swipe-hint">SWIPE TO EXPLORE</div>
+                <div class="swipe-hint sm:hidden">SWIPE TO EXPLORE</div>
 
                 <div class="predictions-footer reveal max-w-[700px] mx-auto">
                     <p class="predictions-caveat font-serif text-body-lg italic text-text-dim leading-loose">
@@ -27597,8 +27396,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="snap-section py-20 px-8 bg-[rgba(139,0,0,0.02)]" id="falsification">
-            <div class="max-w-[900px] mx-auto text-center">
+        <section class="snap-section h-auto overflow-visible flex flex-col items-center justify-center py-16 md:py-24 px-4 md:px-8 bg-[rgba(139,0,0,0.02)]" id="falsification">
+            <div class="max-w-[900px] w-full mx-auto text-center">
                 <p class="section-label reveal">Scientific Integrity</p>
                 <h2 class="section-title reveal reveal-delay-1">How to Prove This Wrong</h2>
                 <p class="reveal reveal-delay-2 font-serif text-body-lg text-text-dim mb-12">
@@ -27630,8 +27429,8 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
-        <section class="predictions-validated snap-section py-24 px-8 md:py-8 md:px-4 relative overflow-hidden" id="predictions-validated">
-            <div class="predictions-inner max-w-[1100px] mx-auto text-center relative z-10">
+        <section class="predictions-validated snap-section py-24 px-8 md:py-8 md:px-4 relative overflow-visible h-auto" id="predictions-validated">
+            <div class="predictions-inner max-w-[1100px] mx-auto text-center relative z-10 overflow-visible h-auto">
                 <div class="predictions-header mb-16">
                     <p class="section-label reveal">A NOTE ON TIMING</p>
                     <h2 class="section-title reveal reveal-delay-1 text-[clamp(1.8rem,4vw,2.8rem)]">The Predictions Were Validated <em class="text-gold italic">Before</em> Publication</h2>
@@ -27784,7 +27583,7 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="snap-section chapter-start relative min-h-screen flex items-center justify-center" id="hrih">
+        <section class="hrih-section snap-section chapter-start relative min-h-screen flex items-center justify-center overflow-visible h-auto py-16 md:py-24 px-4 md:px-8" id="hrih">
             <!-- Visual Background with Cosmic Zoom -->
             <div class="absolute inset-0 z-0">
                 <img
@@ -27830,9 +27629,9 @@ main.content, #main-content {
                 </div>
 
                 <!-- BBC Video: The Multiverse Validation -->
-                <div class="bbc-evidence-card reveal reveal-delay-3 mx-auto my-12 max-w-5xl">
-                    <div class="bbc-evidence-card__video-wrapper">
-                        <video class="bbc-evidence-card__video" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                <div class="bbc-evidence-card reveal reveal-delay-3 mx-auto my-12 max-w-5xl grid md:grid-cols-2 gap-8 items-center h-auto overflow-visible">
+                    <div class="bbc-evidence-card__video-wrapper h-auto overflow-visible">
+                        <video class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/london-night.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -27909,8 +27708,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="chokepoint-section snap-section py-16 px-8 bg-void-deep flex flex-col justify-center items-center min-h-auto h-auto" id="chokepoint">
-            <div class="chokepoint-inner max-w-[1000px] mx-auto text-center">
+        <section class="chokepoint-section snap-section py-16 md:py-24 px-4 md:px-8 bg-void-deep flex flex-col justify-center items-center h-auto overflow-visible" id="chokepoint">
+            <div class="chokepoint-inner w-full max-w-[1000px] mx-auto text-center">
                 <p class="section-label reveal">THE LEVERAGE POINT</p>
                 <h2 class="section-title reveal reveal-delay-1">The Chokepoint</h2>
                 <p class="chokepoint-intro reveal reveal-delay-2 font-serif text-body-lg text-text-dim mb-12 leading-relaxed-plus">
@@ -27994,8 +27793,8 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
-        <section class="window-section snap-section" id="window">
-            <div class="window-inner">
+        <section class="window-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="window">
+            <div class="window-inner max-w-[900px] mx-auto text-center overflow-visible h-auto">
                 <p class="section-label reveal">The Chokepoint Window</p>
                 <h2 class="section-title reveal reveal-delay-1">Five years.<br><span class="opacity-70">Maybe less.</span></h2>
 
@@ -28034,8 +27833,8 @@ main.content, #main-content {
                 </p>
             </div>
         </section>
-        <section class="diagram-section snap-section" id="architecture">
-            <div class="diagram-inner">
+        <section class="diagram-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="architecture">
+            <div class="diagram-inner max-w-[1000px] mx-auto text-center overflow-visible h-auto">
                 <p class="section-label reveal">The Complete Framework</p>
                 <h2 class="section-title reveal reveal-delay-1">How It All Connects</h2>
                 <div class="diagram-image-wrapper reveal reveal-delay-2">
@@ -28057,7 +27856,7 @@ main.content, #main-content {
                     I do not ask you to take this on faith. I ask you to watch.
                 </p>
 
-                <div class="predictions-grid grid grid-cols-1 md:grid-auto-fit-320 gap-6 text-left mb-12 overflow-visible" data-stagger-group>
+                <div class="predictions-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left mb-12 h-auto overflow-visible no-scrollbar" data-stagger-group>
                     <article class="prediction-card reveal reveal-delay-1 bg-gold-alpha-5 border border-gold-alpha-15 rounded-card p-8 transition-all duration-300 hover:border-gold-alpha-30 hover:-translate-y-1">
                         <div class="prediction-header flex justify-between items-center mb-4">
                             <span class="prediction-num font-mono text-caption text-gold">01</span>
@@ -28118,7 +27917,7 @@ main.content, #main-content {
         <!-- ═══════════════════════════════════════════════════════════════════════
              FALSIFICATION CRITERIA
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="falsification-section snap-section">
+        <section class="falsification-section snap-section hidden">
             <div class="falsification-inner">
                 <p class="section-label reveal">Scientific Integrity</p>
                 <h2 class="section-title reveal reveal-delay-1">How to Prove This Wrong</h2>
@@ -28191,7 +27990,7 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section id="future-born" class="relative flex items-center justify-center overflow-hidden snap-section chapter-start">
+        <section id="future-born" class="relative min-h-screen h-auto flex items-center justify-center overflow-hidden snap-section chapter-start">
             <div class="absolute inset-0 w-screen z-0 overflow-hidden">
                 <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-screen h-full object-cover opacity-60">
             </div>
@@ -28205,8 +28004,8 @@ main.content, #main-content {
                 <p class="font-display text-body-sm text-gold tracking-ultra-wide uppercase reveal reveal-delay-1">— Michael Darius Eastwood</p>
             </div>
         </section>
-        <section class="relative p-0 overflow-hidden snap-section" id="stakes">
-            <div class="relative w-full">
+        <section class="relative py-8 md:py-12 px-4 md:px-8 overflow-visible h-auto snap-section" id="stakes">
+            <div class="relative w-full max-w-[1400px] mx-auto overflow-visible">
                 <img
                     src="images/eden-babylon.webp"
                     alt="Eden versus Babylon - Two possible futures for artificial intelligence"
@@ -28232,12 +28031,12 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="expert-validation" id="expert-validation">
-            <div class="expert-validation-inner">
+        <section class="expert-validation snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="expert-validation">
+            <div class="expert-validation-inner max-w-[1200px] mx-auto text-center overflow-visible h-auto">
                 <p class="section-label reveal">WHAT THE EXPERTS ARE SAYING</p>
                 <h2 class="section-title reveal reveal-delay-1">The Warnings Are Real</h2>
 
-                <div class="expert-grid" data-stagger-group>
+                <div class="expert-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8" data-stagger-group>
                     <!-- Geoffrey Hinton -->
                     <div class="expert-card reveal reveal-delay-1">
                         <div class="expert-header">
@@ -28440,13 +28239,13 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="chapters-section snap-section" id="chapters">
-            <div class="chapters-inner">
+        <section class="chapters-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto" id="chapters">
+            <div class="chapters-inner max-w-[1100px] mx-auto px-4 overflow-visible h-auto">
                 <p class="section-label reveal">The Journey</p>
                 <h2 class="section-title reveal reveal-delay-1">Inside the Book</h2>
                 <p class="section-subtitle reveal reveal-delay-2">A complete framework for understanding, and shaping, the future of intelligence</p>
 
-                <div class="chapters-grid">
+                <div class="chapters-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <article class="chapter-card reveal">
                         <span class="chapter-number">Part I</span>
                         <h3 class="chapter-title">The Equation</h3>
@@ -28515,7 +28314,7 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="comparison-section snap-section bg-gradient-to-b from-void-deep to-void-mid overflow-hidden" id="comparison">
+        <section class="comparison-section snap-section py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-void-deep to-void-mid overflow-visible h-auto" id="comparison">
             <!-- Chapter IV Title -->
             <div class="chapter-title-divider">
                 <span class="chapter-title-divider__numeral">IV</span>
@@ -28526,7 +28325,7 @@ main.content, #main-content {
                 <p class="section-label reveal">Why This Book</p>
                 <h2 class="section-title reveal reveal-delay-1">How It Compares</h2>
 
-                <table class="comparison-table w-full border-separate border-spacing-0 mt-8 reveal reveal-delay-2 max-md:block max-md:overflow-x-auto max-md:[-webkit-overflow-scrolling:touch]">
+                <table class="comparison-table w-full border-separate border-spacing-0 mt-8 reveal reveal-delay-2 max-md:block max-md:overflow-x-auto max-md:[-webkit-overflow-scrolling:touch] max-md:no-scrollbar">
                     <thead>
                         <tr>
                             <th class="py-4 px-5 text-left border-b-2 border-gold-alpha-30 font-display text-sm text-gold uppercase tracking-widest pb-5 w-[35%] max-md:py-3 max-md:px-3.5 max-md:text-xs max-md:min-w-[140px]">Feature</th>
@@ -28715,25 +28514,25 @@ main.content, #main-content {
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
             </a>
-            <div class="cta-retailers reveal reveal-delay-3">
-                <a href="https://www.amazon.com/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">AMAZON US</a>
-                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">AMAZON UK</a>
-                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="retailer-link">KINDLE</a>
-                <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="retailer-link">PAPERBACK</a>
+            <div class="flex flex-wrap gap-8 justify-center mt-8 reveal reveal-delay-3">
+                <a href="https://www.amazon.com/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="font-mono text-[0.85rem] tracking-[0.15em] text-text-dim transition-colors duration-300 hover:text-gold">AMAZON US</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="font-mono text-[0.85rem] tracking-[0.15em] text-text-dim transition-colors duration-300 hover:text-gold">AMAZON UK</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="font-mono text-[0.85rem] tracking-[0.15em] text-text-dim transition-colors duration-300 hover:text-gold">KINDLE</a>
+                <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="font-mono text-[0.85rem] tracking-[0.15em] text-text-dim transition-colors duration-300 hover:text-gold">PAPERBACK</a>
             </div>
 
             <!-- BBC Manhattan Project Video -->
-            <div class="manhattan-evidence reveal reveal-delay-4">
+            <div class="mt-12 pt-12 border-t border-gold/10 reveal reveal-delay-4">
                 <p class="font-mono text-xs tracking-widest-plus text-gold mb-6 uppercase">The Stakes Could Not Be Higher</p>
-                <div class="manhattan-evidence__video">
-                    <video preload="metadata" playsinline controls>
+                <div class="max-w-[700px] mx-auto mb-8 rounded-2xl overflow-hidden shadow-[0_25px_50px_rgba(0,0,0,0.5)]">
+                    <video preload="metadata" playsinline controls class="w-full aspect-video block">
                         <source src="videos/bbc_clip_5.mp4" type="video/mp4">
                     </video>
                 </div>
-                <blockquote class="manhattan-evidence__quote">
+                <blockquote class="font-serif text-[clamp(1.2rem,2.5vw,1.6rem)] text-text-primary italic max-w-[700px] mx-auto mb-6 leading-relaxed">
                     "Quantum computing could be the new Manhattan project, with the world's biggest companies and biggest countries competing hard... <strong>Whoever gets their hands on that powerful quantum computer will also transform every other branch of research too.</strong>"
                 </blockquote>
-                <p class="manhattan-evidence__attribution">— Faisal Islam, BBC Economics Editor · January 7, 2026</p>
+                <p class="font-mono text-xs text-gold tracking-[0.2em] uppercase">— Faisal Islam, BBC Economics Editor · January 7, 2026</p>
 
                 <div class="mt-8 p-6 bg-gold-alpha-5 border-l-2 border-gold rounded-r-lg">
                     <p class="font-mono text-sm tracking-widest text-gold mb-3 uppercase">From Infinite Architects, Page 72:</p>
@@ -28747,10 +28546,10 @@ main.content, #main-content {
             </div>
 
             <!-- Guarantee Box -->
-            <div class="guarantee-box reveal reveal-delay-5">
-                <div class="guarantee-icon">✓</div>
-                <h4>The Architect's Guarantee</h4>
-                <p>If you read the first three chapters and don't feel your understanding of AI has fundamentally shifted, email for a full refund. No questions. No friction.</p>
+            <div class="max-w-[600px] mx-auto mt-12 p-8 bg-gold/[0.03] border border-gold/20 text-center reveal reveal-delay-5">
+                <div class="w-[50px] h-[50px] mx-auto mb-2 bg-gold/10 rounded-full flex items-center justify-center text-2xl text-gold">✓</div>
+                <h4 class="font-display text-[1.1rem] text-gold tracking-[0.1em] mb-4">The Architect's Guarantee</h4>
+                <p class="font-serif text-[0.95rem] text-text-secondary leading-relaxed">If you read the first three chapters and don't feel your understanding of AI has fundamentally shifted, email for a full refund. No questions. No friction.</p>
             </div>
         </section>
 
@@ -28795,8 +28594,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="paradise-section snap-section" id="paradise">
-            <div class="paradise-bg">
+        <section class="paradise-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto relative flex items-center justify-center min-h-[60vh]" id="paradise">
+            <div class="paradise-bg absolute inset-0 overflow-hidden">
                 <img
                     src="paradise-garden.png"
                     alt="The Garden of Eden - Paradise as the goal of aligned AI"
@@ -28805,8 +28604,8 @@ main.content, #main-content {
                 >
                 <div class="paradise-overlay"></div>
             </div>
-            <div class="paradise-content">
-                <blockquote class="paradise-quote reveal">
+            <div class="paradise-content relative z-10 text-center max-w-3xl mx-auto">
+                <blockquote class="paradise-quote reveal font-serif text-xl md:text-2xl leading-relaxed">
                     "Intelligence without love is not smart.<br>
                     <strong>It is cancer.</strong><br>
                     Cancer is very efficient. It optimises perfectly.<br>
@@ -28847,8 +28646,8 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="faq-section snap-section py-24 px-8 md:py-16 md:px-6 bg-gradient-to-b from-void-mid to-void-deep" id="faq">
-            <div class="faq-inner max-w-[900px] mx-auto px-4">
+        <section class="faq-section snap-section h-auto overflow-visible py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-void-mid to-void-deep" id="faq">
+            <div class="faq-inner max-w-4xl mx-auto px-4">
                 <p class="section-label reveal">Questions</p>
                 <h2 class="section-title reveal reveal-delay-1">Frequently Asked</h2>
 
@@ -28987,8 +28786,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="glossary-section snap-section bg-gradient-to-b from-void-deep to-void-mid" id="glossary">
-            <div class="glossary-inner max-w-[1000px] mx-auto px-6">
+        <section class="glossary-section snap-section py-16 md:py-24 px-4 md:px-8 h-auto overflow-visible bg-gradient-to-b from-void-deep to-void-mid" id="glossary">
+            <div class="glossary-inner max-w-[1000px] mx-auto px-4 md:px-6 h-auto overflow-visible">
                 <p class="section-label reveal">Terminology</p>
                 <h2 class="section-title reveal reveal-delay-1">Key Terms</h2>
 
@@ -28999,7 +28798,7 @@ main.content, #main-content {
                     <button class="glossary-filter-btn py-2 px-4 bg-[rgba(10,12,20,0.6)] border border-gold-alpha-20 rounded-full text-text-secondary text-sm cursor-pointer transition-all duration-300 hover:bg-gold-alpha-15 hover:border-gold hover:text-gold" data-filter="physics">Physics</button>
                 </div>
 
-                <div class="glossary-grid grid grid-cols-auto-fill-280 gap-5">
+                <div class="glossary-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-auto overflow-visible">
                     <article class="glossary-term reveal bg-[rgba(10,12,20,0.6)] border border-gold-alpha-10 rounded-[10px] p-5 transition-all duration-300 hover:border-gold-alpha-25 hover:-translate-y-0.5" data-category="core">
                         <h3 class="glossary-term-word font-display text-base text-gold mb-2">Recursion</h3>
                         <p class="glossary-term-def text-sm leading-relaxed text-text-secondary">A process that refers back to itself. In the Eastwood Equation, recursion squared (R²) represents self-reference amplifying exponentially. The engine that transforms simple intelligence into universe-creating complexity.</p>
@@ -29062,8 +28861,8 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="timeline-section snap-section py-24 md:py-16 bg-gradient-to-b from-void-mid to-void-deep overflow-hidden" id="ai-timeline">
-            <div class="timeline-inner max-w-[1200px] mx-auto px-6">
+        <section class="timeline-section snap-section py-24 md:py-16 px-4 md:px-8 bg-gradient-to-b from-void-mid to-void-deep overflow-visible h-auto" id="ai-timeline">
+            <div class="timeline-inner max-w-[1200px] mx-auto px-4 md:px-6 overflow-visible h-auto">
                 <p class="section-label reveal">The Acceleration</p>
                 <h2 class="section-title reveal reveal-delay-1">AI Timeline</h2>
                 <p class="section-subtitle reveal reveal-delay-2">Key milestones in the race toward superintelligence</p>
