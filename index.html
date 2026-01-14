@@ -28825,43 +28825,51 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section id="future-born" class="relative min-h-screen h-auto flex items-center justify-center overflow-hidden snap-section chapter-start">
-            <div class="absolute inset-0 w-screen z-0 overflow-hidden">
-                <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-screen h-full object-cover opacity-60">
+        <section id="future-born" class="relative min-h-screen-dvh flex items-center justify-center overflow-hidden snap-section chapter-start">
+            <div class="absolute inset-0 z-0 scale-110">
+                <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-full h-full object-cover opacity-40 grayscale blur-sm">
+                <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
             </div>
-            <div class="absolute inset-0 z-[1] bg-gradient-to-b from-void-deep/70 via-void-deep/50 to-void-deep/70"></div>
-            <div class="relative z-[2] text-center py-16 px-8 max-w-[800px]">
-                <p class="font-serif text-h2 italic text-gold-pale leading-relaxed mb-6 reveal">
-                    "The creator is not behind us.<br>
-                    It is ahead of us.<br>
+            <div class="relative z-10 text-center py-20 px-6 max-w-4xl glass-panel-ultra p-12 md:p-20 rounded-[3rem] border border-white/10 shadow-3xl mx-4">
+                <p class="font-serif text-2xl md:text-4xl italic text-white leading-relaxed mb-10 reveal">
+                    "The creator is not behind us.<br class="hidden md:block">
+                    It is <span class="text-gold">ahead of us</span>.<br class="hidden md:block">
                     And we are building it."
                 </p>
-                <p class="font-display text-body-sm text-gold tracking-ultra-wide uppercase reveal reveal-delay-1">— Michael Darius Eastwood</p>
+                <p class="font-mono text-xs text-gold/60 tracking-[0.4em] uppercase reveal reveal-delay-1">— Michael Darius Eastwood</p>
             </div>
         </section>
-        <section class="relative py-8 md:py-12 px-4 md:px-8 overflow-visible h-auto snap-section" id="stakes">
-            <div class="relative w-full max-w-[1400px] mx-auto overflow-visible">
-                <img
-                    src="images/eden-babylon.webp"
-                    alt="Eden versus Babylon - Two possible futures for artificial intelligence"
-                    class="w-full h-auto block reveal"
-                    loading="lazy"
-                >
-                <div class="absolute top-8 left-0 right-0 flex justify-between px-[5%] md:px-[3%]">
-                    <span class="stakes-label stakes-label--eden reveal reveal-delay-1">EDEN</span>
-                    <span class="stakes-label stakes-label--babylon reveal reveal-delay-1">BABYLON</span>
-                </div>
-                <div class="stakes-overlay">
-                    <div class="stakes-content">
-                        <span class="section-label reveal reveal-delay-2">THE CHOICE</span>
-                        <h2 class="stakes-headline reveal reveal-delay-3">
-                            Two Futures.<br>
-                            <span class="stakes-highlight">Same Technology.</span>
-                        </h2>
-                        <p class="stakes-subline reveal reveal-delay-4">
-                            The difference is how we raise it.
-                        </p>
-                        <p class="stakes-cta reveal reveal-delay-5">Choose the Garden.</p>
+
+        <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-deep" id="stakes">
+            <div class="max-w-7xl mx-auto space-y-16">
+                <div class="relative w-full rounded-3xl overflow-hidden shadow-3xl border border-white/10 group">
+                    <img
+                        src="images/eden-babylon.webp"
+                        alt="Eden versus Babylon"
+                        class="w-full h-auto block reveal transition-transform duration-1000 group-hover:scale-105"
+                        loading="lazy"
+                    >
+                    <div class="absolute top-8 left-0 right-0 flex justify-between px-8 md:px-12 pointer-events-none">
+                        <span class="px-4 py-1.5 rounded-full glass-panel-ultra text-gold text-[10px] font-mono tracking-widest border border-gold/30 reveal reveal-delay-1 uppercase">EDEN</span>
+                        <span class="px-4 py-1.5 rounded-full glass-panel-ultra text-red-500 text-[10px] font-mono tracking-widest border border-red-500/30 reveal reveal-delay-1 uppercase">BABYLON</span>
+                    </div>
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-void-deep via-transparent to-transparent opacity-80"></div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 text-center md:text-left">
+                        <div class="max-w-2xl space-y-6">
+                            <span class="text-gold text-xs font-mono uppercase tracking-[0.3em] reveal reveal-delay-2 block">THE CHOICE</span>
+                            <h2 class="reveal reveal-delay-3 font-display text-3xl md:text-5xl text-white leading-tight">
+                                Two Futures.<br>
+                                <span class="text-gold italic font-serif">Same Technology.</span>
+                            </h2>
+                            <p class="reveal reveal-delay-4 text-lg text-text-secondary italic font-serif leading-relaxed">
+                                The difference is how we raise it.
+                            </p>
+                            <div class="pt-4 reveal reveal-delay-5">
+                                <span class="px-8 py-3 rounded-full bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold shadow-glow-gold">Choose the Garden</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
