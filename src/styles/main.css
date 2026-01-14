@@ -184,6 +184,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* Remove tap highlight on mobile - cleaner touch experience */
+    -webkit-tap-highlight-color: transparent;
   }
 
   html {
@@ -353,6 +355,64 @@
 
   .skip-link:focus {
     top: 0;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     AUTOFILL STYLES - Prevent browser autofill from breaking design
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px var(--void-surface) inset !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    caret-color: var(--gold);
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────────
+     HIGH CONTRAST MODE SUPPORT - WCAG Accessibility
+     ─────────────────────────────────────────────────────────────────────────────── */
+
+  @media (forced-colors: active) {
+    /* Ensure text remains readable */
+    body {
+      forced-color-adjust: none;
+    }
+
+    /* Maintain button visibility */
+    .btn, button, [role="button"] {
+      border: 2px solid currentColor !important;
+    }
+
+    /* Ensure links are distinguishable */
+    a {
+      text-decoration: underline !important;
+    }
+
+    /* Keep focus rings visible */
+    :focus-visible {
+      outline: 3px solid currentColor !important;
+      outline-offset: 2px !important;
+    }
+
+    /* Ensure cards have visible boundaries */
+    .card, [class*="card"] {
+      border: 1px solid currentColor !important;
+    }
+  }
+
+  /* Prefer high contrast mode */
+  @media (prefers-contrast: high) {
+    :root {
+      --text-secondary: rgba(240, 235, 227, 0.95);
+      --text-dim: rgba(240, 235, 227, 0.85);
+      --gold-alpha-30: rgba(212, 168, 75, 0.5);
+      --border-default: var(--gold-alpha-40);
+    }
   }
 }
 
@@ -703,7 +763,24 @@
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 @media print {
-  .no-print {
+  /* Hide non-essential elements */
+  .no-print,
+  nav,
+  .nav,
+  .navbar,
+  .modal,
+  .modal-overlay,
+  .ticker,
+  .loader,
+  .video-background,
+  .particles,
+  .three-canvas,
+  #three-container,
+  .cookie-consent,
+  .toast,
+  button:not(.print-button),
+  .skip-link,
+  [aria-hidden="true"] {
     display: none !important;
   }
 
@@ -711,6 +788,43 @@
     display: block !important;
   }
 
+  /* Reset backgrounds for printing */
+  body, html {
+    background: white !important;
+    color: black !important;
+  }
+
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure links show URLs */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+
+  a[href^="#"]:after,
+  a[href^="javascript"]:after {
+    content: "";
+  }
+
+  /* Typography for print */
+  h1, h2, h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+  }
+
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Page break controls */
   .break-before-page {
     break-before: page;
   }
@@ -721,5 +835,15 @@
 
   .avoid-break {
     break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure book cover prints well */
+  .book-cover img {
+    max-height: 400px;
   }
 }
