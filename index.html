@@ -40509,5 +40509,40 @@ main.content, #main-content {
         </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         CORE SCRIPTS - The Nervous System
+         ═══════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- 1. Global Smooth Scroll (Desktop Only - Mobile handled by slideshow.js) -->
+    <script>
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && typeof Lenis !== 'undefined') {
+            if (window.innerWidth > 768) {
+                window.lenisInstance = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    orientation: 'vertical',
+                    gestureOrientation: 'vertical',
+                    smoothWheel: true,
+                    wheelMultiplier: 1,
+                    smoothTouch: false,
+                    touchMultiplier: 2,
+                });
+
+                function raf(time) {
+                    window.lenisInstance.raf(time);
+                    requestAnimationFrame(raf);
+                }
+                requestAnimationFrame(raf);
+                console.log('✨ Lenis initialized (Desktop Mode)');
+            }
+        }
+    </script>
+
+    <!-- 2. The Sovereign Core (Three.js, Animations, Logic) -->
+    <script src="js/sovereign-core.js"></script>
+
+    <!-- 3. Mobile Slideshow Experience -->
+    <script src="js/slideshow.js"></script>
+
 </body>
 </html>
