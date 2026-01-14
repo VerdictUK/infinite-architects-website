@@ -26921,6 +26921,36 @@ main.content, #main-content {
     <div class="vignette"></div>
     <div class="film-grain"></div>
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MASTERPIECE UI - The Soul Layer
+         ═══════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- Custom God Cursor -->
+    <div id="cursor-dot" class="fixed top-0 left-0 w-2 h-2 bg-gold rounded-full pointer-events-none z-[10000] mix-blend-difference opacity-0 transition-opacity duration-300"></div>
+    <div id="cursor-ring" class="fixed top-0 left-0 w-10 h-10 border border-gold/30 rounded-full pointer-events-none z-[10000] mix-blend-screen opacity-0 transition-opacity duration-300 flex items-center justify-center">
+        <div class="cursor-glow w-full h-full bg-gold/5 rounded-full blur-md"></div>
+    </div>
+
+    <!-- Audio Control (Apple Grade) -->
+    <div class="fixed bottom-8 left-8 z-[1000]" id="audio-control">
+        <button id="audio-toggle" class="glass-panel-ultra w-12 h-12 rounded-full flex items-center justify-center text-gold hover:scale-110 transition-all duration-300 group" aria-label="Toggle ambient sound">
+            <div class="sound-waves flex items-end gap-0.5 h-4">
+                <span class="w-0.5 bg-gold/40 rounded-full h-full animate-sound-wave-1"></span>
+                <span class="w-0.5 bg-gold/60 rounded-full h-2/3 animate-sound-wave-2"></span>
+                <span class="w-0.5 bg-gold rounded-full h-full animate-sound-wave-3"></span>
+                <span class="w-0.5 bg-gold/60 rounded-full h-1/2 animate-sound-wave-4"></span>
+            </div>
+            <div class="absolute -top-12 left-0 glass-panel-ultra px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap text-[10px] font-mono tracking-widest uppercase">
+                Ambient Sound: <span id="audio-status">Off</span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Masterpiece Engines -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
     <!-- Navigation -->
     <nav class="nav fixed top-4 left-4 right-4 z-nav px-6 py-4 flex justify-between items-center rounded-2xl transition-all duration-400 ease-spring-loose glass-panel-ultra safe-top" id="nav">
         <a href="#hero" class="nav-logo font-display text-xs tracking-[0.2em] text-gold transition-opacity duration-300 hover:opacity-70 flex items-center gap-2">
@@ -40851,55 +40881,11 @@ main.content, #main-content {
          CORE SCRIPTS - The Nervous System
          ═══════════════════════════════════════════════════════════════════════ -->
     
-    <!-- 1. Global Smooth Scroll (Lenis) -->
-    <script>
-        (function() {
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof Lenis === 'undefined') return;
-
-            // Initialize Lenis
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true,
-                touchMultiplier: 2,
-                infinite: false,
-            });
-
-            window.lenisInstance = lenis;
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-
-            // Handle anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const target = document.querySelector(targetId);
-                    if (target) {
-                        e.preventDefault();
-                        lenis.scrollTo(target, {
-                            offset: -80,
-                            duration: 1.5,
-                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-                        });
-                    }
-                });
-            });
-
-            console.log('✨ Liquid Reality (Lenis) initialized');
-        })();
-    </script>
-
-    <!-- 2. The Sovereign Core (Three.js, Animations, Logic) -->
-    <script src="js/sovereign-core.js"></script>
-
     <!-- 3. Mobile Slideshow Experience -->
     <script src="js/slideshow.js"></script>
+
+    <!-- 4. MASTERPIECE SOUL (Audio, Interactions, Scramble, Physics) -->
+    <script src="js/masterpiece-soul.js"></script>
 
 </body>
 </html>
