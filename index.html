@@ -318,7 +318,7 @@
            Each Part has its own colour temperature and atmospheric feel
            ═══════════════════════════════════════════════════════════════════════════ */
 
-        /* Part I: THE THESIS - Warm, welcoming gold (introduction) */
+        /* Part I: THE MIND - Warm, welcoming gold (introduction to author) */
         [data-current-part="1"] {
             --part-tint: rgba(212, 168, 75, 0.04);
             --part-accent: rgba(212, 168, 75, 1);
@@ -326,32 +326,40 @@
             --part-gradient: linear-gradient(180deg, rgba(212, 168, 75, 0.03) 0%, transparent 50%);
         }
 
-        /* Part II: THE EVIDENCE - Cool, scientific blue (proof) */
+        /* Part II: THE THESIS - Intellectual blue-gold (ideas, concepts) */
         [data-current-part="2"] {
+            --part-tint: rgba(180, 160, 100, 0.04);
+            --part-accent: rgba(200, 180, 120, 1);
+            --part-glow: rgba(200, 180, 120, 0.18);
+            --part-gradient: linear-gradient(180deg, rgba(200, 180, 120, 0.035) 0%, transparent 50%);
+        }
+
+        /* Part III: THE EVIDENCE - Cool, scientific blue (proof) */
+        [data-current-part="3"] {
             --part-tint: rgba(26, 35, 126, 0.06);
             --part-accent: rgba(100, 140, 200, 1);
             --part-glow: rgba(26, 35, 126, 0.2);
             --part-gradient: linear-gradient(180deg, rgba(26, 35, 126, 0.05) 0%, transparent 50%);
         }
 
-        /* Part III: THE PHILOSOPHY - Deep purple/violet (mystery, depth) */
-        [data-current-part="3"] {
+        /* Part IV: THE PHILOSOPHY - Deep purple/violet (mystery, depth) */
+        [data-current-part="4"] {
             --part-tint: rgba(74, 20, 140, 0.05);
             --part-accent: rgba(138, 100, 180, 1);
             --part-glow: rgba(74, 20, 140, 0.2);
             --part-gradient: linear-gradient(180deg, rgba(74, 20, 140, 0.04) 0%, transparent 50%);
         }
 
-        /* Part IV: THE STAKES - Warm amber/orange (urgency, importance) */
-        [data-current-part="4"] {
+        /* Part V: THE STAKES - Warm amber/orange (urgency, importance) */
+        [data-current-part="5"] {
             --part-tint: rgba(255, 152, 0, 0.045);
             --part-accent: rgba(255, 180, 50, 1);
             --part-glow: rgba(255, 152, 0, 0.2);
             --part-gradient: linear-gradient(180deg, rgba(255, 152, 0, 0.04) 0%, transparent 50%);
         }
 
-        /* Part V: GET THE BOOK - Radiant gold (action, conversion) */
-        [data-current-part="5"] {
+        /* Part VI: GET THE BOOK - Radiant gold (action, conversion) */
+        [data-current-part="6"] {
             --part-tint: rgba(244, 200, 86, 0.06);
             --part-accent: rgba(244, 200, 86, 1);
             --part-glow: rgba(244, 200, 86, 0.25);
@@ -2880,44 +2888,32 @@
 
         /* ═══════════════════════════════════════════════════════════════════════════
            PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
-           Transition from Loader to Site with physical weight
-           ═══════════════════════════════════════════════════════════════════════════ */
-        
-        /* ═══════════════════════════════════════════════════════════════════════════
-           PHASE 5: THE TITAN DROP (Heavy Impact Entrance)
            ═══════════════════════════════════════════════════════════════════════════ */
         
         /* ═══════════════════════════════════════════════════════════════════════
-           SUPREME CINEMATIC SYSTEM - Genesis Edition (Gold & Black)
+           MASTER GENESIS SYSTEM - Final Sovereign Consolidation
+           One block to rule the void. No overrides needed.
            ═══════════════════════════════════════════════════════════════════════ */
 
-        /* 1. CINEMATIC LETTERBOX */
-        .letterbox {
-            position: fixed;
-            left: 0; right: 0; height: 0;
-            background: #000000;
-            z-index: 100001;
-            transition: height 1.8s var(--ease-out-expo);
-        }
-        .letterbox.top { top: 0; }
-        .letterbox.bottom { bottom: 0; }
-        body.cinematic .letterbox { height: 6vh; }
-        @media (max-width: 768px) { body.cinematic .letterbox { height: 4vh; } }
-
-        /* HIDE LETTERBOX after cinematic intro completes */
-        body.cinematic-ready .letterbox {
-            height: 0 !important;
+        /* 1. INITIAL STATE: The Void before creation */
+        html body:not(.cinematic) .content,
+        html body:not(.cinematic) #main-content,
+        html body:not(.cinematic) main,
+        html body:not(.cinematic) section {
+            display: block !important;
+            transform: translateY(-120vh) !important;
             opacity: 0 !important;
-            pointer-events: none !important;
             visibility: hidden !important;
+            pointer-events: none !important;
+            will-change: transform, opacity;
         }
 
-        /* 2. SUPREME LOADER CORE */
+        /* 2. THE LOADER: Sovereign Gold on Absolute Black */
         #loader {
             position: fixed !important;
             inset: 0 !important;
             z-index: 100000 !important;
-            background: #000000 !important; /* ABSOLUTE BLACK - PURE GENESIS */
+            background: #000000 !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
@@ -2933,332 +2929,101 @@
             transform: translateY(-100%) !important;
             opacity: 0 !important;
             pointer-events: none !important;
-            z-index: -1 !important;
-            transition: transform 0.8s ease-in, opacity 0.5s ease-out, z-index 0.1s 0.5s !important;
         }
 
-        /* FULLY HIDE LOADER when marked as fully-hidden or when cinematic-ready */
-        #loader.fully-hidden,
-        #loader.hidden,
-        body.cinematic-ready #loader {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-            z-index: -9999 !important;
-        }
-
-        /* 3. CINEMATIC VIDEO BACKGROUND - SOVEREIGN GOLD */
+        /* 3. CINEMATIC VIDEO BACKGROUND */
         .loader-video-bg {
             position: absolute !important;
             top: 50% !important; left: 50% !important;
             min-width: 100% !important; min-height: 100% !important;
-            width: auto !important; height: auto !important;
             transform: translate(-50%, -50%) scale(1.2) !important;
             object-fit: cover !important; opacity: 0; z-index: 0 !important;
             filter: sepia(1) saturate(5) hue-rotate(-10deg) brightness(0.8) contrast(1.2); 
             animation: loaderVideoFadeIn 3s ease-out 0.5s forwards, loaderVideoZoom 15s ease-in-out 3s infinite;
         }
-        @keyframes loaderVideoFadeIn { 
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); filter: blur(20px); }
-            100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.2); filter: blur(0px); }
-        }
-        @keyframes loaderVideoZoom { 
-            0%, 100% { transform: translate(-50%, -50%) scale(1.2); }
-            50% { transform: translate(-50%, -50%) scale(1.4); }
+        .loader-video-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 60%, #000000 100%);
+            z-index: 1;
         }
 
-        /* 4. SUPREME LOADER UI */
-        .loader-quotes {
-            position: absolute !important; top: 50% !important; left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            z-index: 10 !important; text-align: center !important; width: 90% !important; max-width: 800px !important;
-        }
-        .loader-quote {
-            position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important;
-            opacity: 0 !important; transform: translateY(20px) scale(0.97) !important;
-            transition: opacity 1.2s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
-        }
-        .loader-quote.active { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
-        .quote-line {
-            font-family: var(--font-serif) !important; font-size: clamp(1.5rem, 3.5vw, 2.8rem) !important;
-            font-style: italic !important; font-weight: 300 !important; color: var(--gold-pale) !important;
-            text-shadow: 0 0 80px rgba(212, 168, 75, 0.6), 0 0 40px rgba(212, 168, 75, 0.3) !important;
-            line-height: 1.4 !important;
-        }
-
-        .loader-equation {
-            position: absolute !important; top: 50% !important; left: 50% !important;
-            transform: translate(-50%, -50%) scale(0.95) !important;
-            z-index: 10 !important; opacity: 0 !important;
-            transition: opacity 1s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
-        }
-        .loader-equation.reveal { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; }
-        .loader-equation.move-up { transform: translate(-50%, -220%) scale(0.82) !important; }
-        .eq-char {
-            font-size: clamp(2.2rem, 6vw, 4.5rem) !important;
-            transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-dramatic), filter 0.6s ease !important;
-        }
-        .eq-char.visible { animation: charReveal 0.8s var(--ease-dramatic) forwards !important; }
-        @keyframes charReveal {
-            0% { opacity: 0; transform: translateY(30px) scale(0.7) rotateX(30deg); filter: blur(4px); }
-            60% { opacity: 1; transform: translateY(-5px) scale(1.05) rotateX(-5deg); filter: blur(0); }
-            100% { opacity: 1; transform: translateY(0) scale(1) rotateX(0); filter: blur(0); }
-        }
-
-        .loader-ui {
-            position: absolute !important; top: 50% !important; left: 50% !important;
-            transform: translate(-50%, -30%) scale(0.95) !important;
-            z-index: 10 !important; text-align: center !important; opacity: 0 !important;
-            transition: opacity 1.2s var(--ease-cinematic), transform 1.2s var(--ease-dramatic) !important;
-            width: 90% !important; max-width: 600px !important;
-        }
-        .loader-ui.reveal { opacity: 1 !important; transform: translate(-50%, -30%) scale(1) !important; }
-        .loader-title {
-            font-size: clamp(1.3rem, 3.5vw, 2.5rem) !important; letter-spacing: 0.3em !important;
-            margin-bottom: 1rem !important; animation: loaderGlow 4s ease-in-out infinite !important;
-        }
-        @keyframes loaderGlow {
-            0%, 100% { filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.2)); }
-            50% { filter: drop-shadow(0 0 50px rgba(212, 168, 75, 0.5)); }
-        }
-        .loader-bar {
-            width: 200px; height: 2px; background: rgba(212, 168, 75, 0.1);
-            overflow: hidden; border-radius: 1px; position: relative; margin: 1.5rem auto;
-        }
-        .loader-bar::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.4), transparent);
-            animation: barShimmer 2s linear infinite;
-        }
-        @keyframes barShimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
-        .loader-bar-fill { height: 100%; width: 0%; background: var(--gold); box-shadow: 0 0 15px var(--gold); transition: width 0.3s ease; }
-        .loader-skip {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.3em;
-            color: var(--text-faint); animation: pulse 2s ease-in-out infinite; cursor: pointer;
-        }
-
-        /* 5. ULTIMATE TITAN DROP: INTERSTELLAR RE-ENTRY */
+        /* 4. ULTIMATE TITAN DROP: INTERSTELLAR RE-ENTRY */
         @keyframes titanDrop {
-            0% {
-                transform: translateY(-120vh) scale(0.6);
-                opacity: 0;
-                filter: brightness(10) blur(50px) contrast(3) url(#heat-distortion);
-            }
-            /* ATMOSPHERIC IONISATION - Liquid Gold Phase */
-            25% {
-                transform: translateY(-80vh) scale(0.8);
-                opacity: 0.9;
-                filter: brightness(5) blur(20px) contrast(2) url(#heat-distortion);
-                drop-shadow: 0 0 100px var(--gold);
-                text-shadow: 0 0 40px var(--gold-bright), 0 0 80px var(--gold);
-            }
-            /* MAXIMUM VELOCITY - Light Speed Distortion */
-            42% {
-                transform: translateY(-5vh) scale(0.7, 2.5); 
-                filter: brightness(15) blur(120px) contrast(6) saturate(0);
-            }
-            /* IMPACT - THE SUPERNOVA */
-            45% {
-                transform: translateY(0) scale(1.5, 0.5); 
-                filter: brightness(40) contrast(5) saturate(0) blur(0); 
-            }
-            48% {
-                transform: translateY(0) scale(1.2, 0.8);
-                filter: brightness(20) contrast(3) saturate(0.8) drop-shadow(0 0 200px var(--gold));
-            }
-            /* HEAVY SETTLE */
-            65% {
-                transform: translateY(-80px) scale(0.9, 1.1);
-                filter: brightness(1.5) contrast(1.2) saturate(1);
-            }
-            100% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-                filter: none;
-            }
-        }
-
-        /* 4.5 CONTENT INITIAL STATE - CRITICAL for Titan Drop Visibility */
-        html body:not(.cinematic) .content,
-        html body:not(.cinematic) #main-content {
-            transform: translateY(-120vh) !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
+            0% { transform: translateY(-120vh) scale(0.6); opacity: 0; filter: brightness(10) blur(50px) contrast(3) url(#heat-distortion); }
+            25% { transform: translateY(-80vh) scale(0.8); opacity: 0.9; filter: brightness(5) blur(20px) contrast(2) url(#heat-distortion); drop-shadow: 0 0 100px var(--gold); text-shadow: 0 0 40px var(--gold-bright), 0 0 80px var(--gold); }
+            42% { transform: translateY(-5vh) scale(0.7, 2.5); filter: brightness(15) blur(120px) contrast(6) saturate(0); }
+            45% { transform: translateY(0) scale(1.5, 0.5); filter: brightness(40) contrast(5) saturate(0) blur(0); }
+            48% { transform: translateY(0) scale(1.2, 0.8); filter: brightness(20) contrast(3) saturate(0.8) drop-shadow(0 0 200px var(--gold)); }
+            65% { transform: translateY(-80px) scale(0.9, 1.1); filter: brightness(1.5) contrast(1.2) saturate(1); }
+            100% { transform: translateY(0) scale(1); opacity: 1; filter: none; }
         }
 
         html body.cinematic .content,
-        html body.cinematic #main-content {
+        html body.cinematic #main-content,
+        html body.cinematic main {
             animation: titanDrop 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
             pointer-events: auto !important;
         }
 
-        /* SPACE STREAKS - Light-speed particles */
-        .space-streaks {
-            position: fixed;
-            inset: -50%;
-            z-index: 99998;
-            pointer-events: none;
-            background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%);
-            opacity: 0;
+        /* 5. IMPACT FX: THE SUPERNOVA */
+        .impact-flash {
+            position: fixed; inset: -50%; z-index: 200000; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0;
+            background: radial-gradient(circle at center, white 0%, var(--gold) 30%, #000000 70%);
+        }
+        body.cinematic .impact-flash { animation: impactFlash 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards; }
+        @keyframes impactFlash {
+            0% { opacity: 0; transform: scale(0.5); }
+            10% { opacity: 1; transform: scale(1.2); filter: blur(20px) contrast(2); }
+            100% { opacity: 0; transform: scale(4); filter: blur(100px); }
         }
 
-        /* HIDE ALL CINEMATIC OVERLAYS after intro completes */
+        body.cinematic #main-content, body.cinematic .content, body.cinematic main {
+            animation: impactShake 1.5s cubic-bezier(.36,.07,.19,.97) 1.57s forwards;
+        }
+        @keyframes impactShake {
+            0% { transform: translate(0, 0) scale(1); filter: none; }
+            1% { transform: translate(-40px, -50px) scale(1.15) rotate(-3deg); filter: url(#impact-distortion); }
+            3% { transform: translate(45px, 40px) scale(0.85) rotate(3deg); }
+            12% { transform: translate(-25px, -25px) scale(1.05); filter: none; }
+            100% { transform: none; }
+        }
+
+        /* 6. GENESIS ATMOSPHERICS */
+        .space-streaks { position: fixed; inset: -50%; z-index: 99998; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
+        body.cinematic .space-streaks::before { content: ''; position: absolute; inset: 0; background-size: 100% 200%; animation: lightSpeed 0.8s linear infinite; background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px); }
+        @keyframes lightSpeed { from { background-position: 0 0; } to { background-position: 0 100%; } }
+
+        .plasma-trail { position: fixed; top: 0; left: 50%; width: 4px; height: 100vh; z-index: 99999; filter: blur(5px); opacity: 0; background: linear-gradient(to top, white, var(--gold), transparent); transform: translateX(-50%) translateY(-100%); }
+        body.cinematic .plasma-trail { animation: plasmaDrop 1.5s ease-in forwards; }
+        @keyframes plasmaDrop { 0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; } 100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; } }
+
+        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); }
+        .letterbox.top { top: 0; } .letterbox.bottom { bottom: 0; }
+        body.cinematic .letterbox { height: 6vh; }
+
+        /* 7. CLEANUP: Return to Sovereignty */
+        body.cinematic-ready .letterbox,
+        body.cinematic-ready #loader,
         body.cinematic-ready .space-streaks,
         body.cinematic-ready .sonic-boom,
         body.cinematic-ready .lens-flare,
         body.cinematic-ready .ground-shock,
         body.cinematic-ready .impact-flash,
         body.cinematic-ready .plasma-trail {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
+            display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
         }
 
-        body.cinematic .space-streaks::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px),
-                repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(212,168,75,0.1) 21px, transparent 22px);
-            background-size: 100% 200%;
-            animation: lightSpeed 0.8s linear infinite;
+        body.cinematic-ready .content,
+        body.cinematic-ready #main-content,
+        body.cinematic-ready main {
+            transform: none !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
         }
 
-        @keyframes lightSpeed {
-            from { background-position: 0 0; }
-            to { background-position: 0 100%; }
-        }
-
-        /* SONIC BOOM - Refractive Shockwave */
-        .sonic-boom {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            transform: translate(-50%, -50%) scale(0);
-            border-radius: 50%;
-            box-shadow: 0 0 0 0 rgba(255,255,255,0.8), 0 0 0 20px rgba(212, 168, 75, 0.4);
-            z-index: 200001;
-            pointer-events: none;
-            backdrop-filter: blur(0);
-        }
-
-        body.cinematic .sonic-boom {
-            animation: sonicBlast 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) 1.57s forwards;
-        }
-
-        @keyframes sonicBlast {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; backdrop-filter: blur(0px); }
-            30% { opacity: 1; backdrop-filter: blur(10px); }
-            100% { transform: translate(-50%, -50%) scale(25); opacity: 0; backdrop-filter: blur(0px); }
-        }
-
-        /* LENS FLARE - Multi-layered optical artifacts */
-        .lens-flare {
-            position: fixed;
-            inset: 0;
-            z-index: 200002;
-            pointer-events: none;
-            opacity: 0;
-            background: radial-gradient(circle at 50% 50%, white 0%, transparent 10%),
-                        radial-gradient(circle at 45% 45%, rgba(212, 168, 75, 0.3) 0%, transparent 20%),
-                        radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 15%);
-        }
-
-        body.cinematic .lens-flare {
-            animation: flareTrigger 1.5s ease-out 1.57s forwards;
-        }
-
-        @keyframes flareTrigger {
-            0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-            10% { opacity: 1; transform: scale(1.2) rotate(5deg); }
-            100% { opacity: 0; transform: scale(2) rotate(20deg); }
-        }
-
-        /* GROUND SHOCK - Energy wave along the horizontal */
-        .ground-shock {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            height: 2px;
-            background: white;
-            box-shadow: 0 0 50px 20px white, 0 0 100px 40px var(--gold);
-            z-index: 200003;
-            transform: scaleX(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        body.cinematic .ground-shock {
-            animation: groundWave 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.57s forwards;
-        }
-
-        @keyframes groundWave {
-            0% { transform: scaleX(0); opacity: 1; }
-            100% { transform: scaleX(1); opacity: 0; }
-        }
-
-        /* Impact Flash Burst (Genesis Gold) */
-        .impact-flash {
-            position: fixed;
-            inset: -50%;
-            background: radial-gradient(circle at center, white 0%, var(--gold) 30%, #000000 70%);
-            opacity: 0;
-            z-index: 200000;
-            pointer-events: none;
-            mix-blend-mode: color-dodge;
-        }
-
-        body.cinematic .impact-flash {
-            animation: impactFlash 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards;
-        }
-
-        @keyframes impactFlash {
-            0% { opacity: 0; transform: scale(0.5); filter: blur(0); }
-            10% { opacity: 1; transform: scale(1.2); filter: blur(20px) contrast(2); }
-            100% { opacity: 0; transform: scale(4); filter: blur(100px); }
-        }
-
-        /* VIOLENT Earthquake Shake */
-        body.cinematic #main-content,
-        body.cinematic .content,
-        body.cinematic main {
-            animation: impactShake 1.8s cubic-bezier(.36,.07,.19,.97) 1.57s forwards;
-        }
-
-        @keyframes impactShake {
-            0% { transform: translate(0, 0) scale(1); filter: none; }
-            2% { transform: translate(-30px, -40px) scale(1.1); filter: url(#impact-distortion); }
-            15% { transform: translate(-20px, -20px); filter: none; }
-            100% { transform: none; }
-        }
-
-        /* PLASMA TRAIL - Re-entry fire (Genesis Gold) */
-        .plasma-trail {
-            position: fixed;
-            top: 0; left: 50%;
-            width: 4px; height: 100vh;
-            background: linear-gradient(to top, white, var(--gold), transparent);
-            transform: translateX(-50%) translateY(-100%);
-            z-index: 99999;
-            filter: blur(5px);
-            opacity: 0;
-        }
-
-        body.cinematic .plasma-trail {
-            animation: plasmaDrop 1.5s ease-in forwards;
-        }
-
-        @keyframes plasmaDrop {
-            0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; }
-            80% { opacity: 1; }
-            100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; }
-        }
+        /* ═══════════════════════════════════════════════════════════════════════
+           END MASTER GENESIS BLOCK
+           ═══════════════════════════════════════════════════════════════════════ */
         
         /* Cosmic nebula background */
         .cosmic-bg {
@@ -3707,10 +3472,10 @@
             pointer-events: none;
         }
 
-        /* Hide on mobile for performance, or show with reduced opacity */
+        /* Universal Performance: Mandelbrot now enabled everywhere for Peak Standard */
         @media (max-width: 768px) {
             .mandelbrot-bg {
-                display: none;
+                opacity: 0.6; /* Slightly reduced for mobile battery but VISIBLE */
             }
         }
 
@@ -9904,6 +9669,7 @@
             box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--gold-alpha-10);
             border: 3px solid var(--gold);
             transition: all 0.6s var(--ease-out-expo);
+            background: var(--void-surface); /* Fill any gaps if image is contained */
         }
 
         .author-photo-wrapper::before {
@@ -9921,7 +9687,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 50% 20%; /* Shift focus upward to show face */
+            object-position: center 15%; /* Precisely focus on the face */
             transition: transform 1.2s var(--ease-out-expo);
         }
 
@@ -22094,9 +21860,10 @@ html.slideshow-mode .slideshow-dots {
 
 .about-section .author-photo {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center 15%;
 }
 
 .about-section .tesseract-container {
@@ -22964,7 +22731,7 @@ button.btn-secondary:hover {
     margin-bottom: 1rem !important;
 }
 
-.hero-content-right {
+body.cinematic-ready .hero-content-right {
     order: 2 !important;
     width: 100% !important;
     max-width: 600px !important;
@@ -22993,7 +22760,7 @@ button.btn-secondary:hover {
     text-align: center !important;
 }
 
-.hero-status-pill {
+body.cinematic-ready .hero-status-pill {
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -23399,8 +23166,8 @@ html body #deep-dive-hud {
         max-height: none !important;
     }
 
-    html body .reveal,
-    html body [class*="reveal"] {
+    body.cinematic-ready .reveal,
+    body.cinematic-ready [class*="reveal"] {
         opacity: 1 !important;
         transform: none !important;
         visibility: visible !important;
@@ -24120,6 +23887,7 @@ html body #author .author-photo {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+    object-position: center 15% !important; /* Force face focus in override block */
 }
 
 /* Tesseract - BEHIND the photo as decoration, NOT overlapping content */
@@ -26740,11 +26508,11 @@ section,
 #newsletter,
 #paradise,
 #faq,
-#glossary,
-#ai-timeline,
-#press,
-#predictions-summary,
-footer {
+body.cinematic-ready #glossary,
+body.cinematic-ready #ai-timeline,
+body.cinematic-ready #press,
+body.cinematic-ready #predictions-summary,
+body.cinematic-ready footer {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -27089,7 +26857,7 @@ main.content,
    NUCLEAR OVERRIDE: ASK THE BOOK BUTTON - ALWAYS VISIBLE
    This rule has maximum specificity and must appear last
    ═══════════════════════════════════════════════════════════════════════════════ */
-html body button#ask-book-toggle.ask-book-toggle {
+html body button#ask-book-togglebody.cinematic-ready .ask-book-toggle {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -27229,7 +26997,7 @@ main.content, #main-content {
             </div>
             <h2 class="celebration-title" id="celebration-title">Part I Complete!</h2>
             <p class="celebration-progress" id="celebration-progress">
-                <span class="celebration-fraction">1 of 5</span> Parts explored
+                <span class="celebration-fraction">1 of 6</span> Parts explored
             </p>
             <p class="celebration-message" id="celebration-message">
                 You've begun the journey. The evidence awaits.
@@ -27690,10 +27458,281 @@ main.content, #main-content {
                 <div class="scroll-line"></div>
             </div>
         </section>
-        <section class="quote-section snap-section chapter-start" id="book">
+
+        <!-- ═══════════════ PART I: THE MIND ═══════════════ -->
+        <div class="chapter-gate chapter-gate--first" data-chapter="1">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">I</span>
+            <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+            </div>
+            <div class="chapter-gate-content">
+                <span class="chapter-gate-numeral">I</span>
+                <h3 class="chapter-gate-title">The Mind</h3>
+                <p class="chapter-gate-subtitle">The Pattern-Seer Who Could Not Stop Noticing</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
+            </div>
+        </div>
+
+        <!-- PART I: THE MIND - Author Content -->
+        <section class="section about-section snap-section chapter-start" id="the-mind">
             <!-- Chapter Title - Visible indicator -->
             <div class="chapter-title-header reveal">
                 <span class="chapter-numeral">I</span>
+                <span class="chapter-divider">—</span>
+                <span class="chapter-name-label">THE MIND</span>
+            </div>
+            <div class="section-inner about-inner">
+                <div class="about-visual about-visual-choice">
+                    <div class="author-photo-wrapper reveal">
+                        <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo">
+                    </div>
+                    <div class="tesseract-container">
+                        <canvas id="tesseract-canvas"></canvas>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <p class="section-label reveal">The Author</p>
+                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
+
+                    <p class="reveal reveal-delay-2" style="font-style: italic; color: var(--gold); margin-bottom: 1.8rem;">
+                        "The mind that could not open post saw connections nobody else saw."
+                    </p>
+
+                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong style="color: var(--gold-bright);">AuDHD</strong> was already running.</p>
+
+                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
+
+                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong style="color: #e74c3c;">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
+
+                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong style="color: var(--gold-bright);">The struggles and the superpowers come from the same source.</strong></p>
+
+                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates, where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds, artificial or human, in service of life rather than against it.</p>
+
+                    <p class="reveal reveal-delay-8" style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 2rem;">
+                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
+                    </p>
+
+                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
+                    <div class="storm-story reveal reveal-delay-9">
+                        <span class="storm-story-label">The Present Moment</span>
+                        <h3 class="storm-story-headline">Married in the Storm</h3>
+                        <div class="storm-story-content">
+                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
+
+                            <p>In the midst of all this uncertainty, I got married.</p>
+
+                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
+
+                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
+                            <div class="bq-share-row">
+                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                                <button class="bq-share-btn" onclick="downloadQuoteImage('You do not wait for the storm to pass before living. You learn to build in the rain.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                            </div>
+
+                            <p>This is not recklessness. It is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
+
+                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
+                        </div>
+                        <span class="storm-story-principle">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="origin-story" id="origin">
+            <div class="origin-story-inner">
+                <header class="origin-story-header">
+                    <span class="section-label reveal">The Pattern-Seer</span>
+                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
+                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
+                </header>
+
+                <div class="origin-stories-grid">
+                    <!-- Story 1: The Inverted Spectrum -->
+                    <article class="origin-story-card reveal reveal-delay-3">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 6
+                        </span>
+                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
+                        <p class="origin-story-scene">
+                            Lying on my back in the grass at school, staring at the sky.
+                        </p>
+                        <p class="origin-story-insight">
+                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
+                        </p>
+                    </article>
+
+                    <!-- Story 2: The Meniscus -->
+                    <article class="origin-story-card reveal reveal-delay-4">
+                        <span class="origin-story-age">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Age 9
+                        </span>
+                        <h3 class="origin-story-title">The Meniscus</h3>
+                        <p class="origin-story-scene">
+                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
+                        </p>
+                        <p class="origin-story-insight">
+                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
+                        </p>
+                        <blockquote class="origin-story-quote">
+                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
+                        </blockquote>
+                        <p class="origin-story-footnote">
+                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
+                        </p>
+                    </article>
+                </div>
+
+                <div class="origin-story-coda reveal reveal-delay-5">
+                    <p>
+                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="methodology-section" id="methodology">
+            <div class="methodology-inner">
+                <div class="methodology-content">
+                    <div class="methodology-badge reveal">Proof of Concept</div>
+                    <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
+                    <blockquote class="methodology-quote reveal reveal-delay-2">"I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not."</blockquote>
+                    <div class="bq-share-row reveal reveal-delay-2">
+                        <button class="bq-share-btn" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button class="bq-share-btn" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button class="bq-share-btn" onclick="downloadQuoteImage('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                    </div>
+                    <p class="methodology-text reveal reveal-delay-3">Each model has blind spots, biases, and tendencies toward confident fabrication. By running the same questions through multiple systems and comparing outputs, I <span class="methodology-highlight">triangulate toward truth</span>.</p>
+                    <p class="methodology-text reveal reveal-delay-4">Where they agree, I have more confidence. Where they diverge, I investigate further. Where one hallucinates a citation that does not exist, another catches the error.</p>
+                    <div class="methodology-application reveal reveal-delay-5">
+                        <div class="application-header">
+                            <div class="application-icon">&#9878;</div>
+                            <div>
+                                <div class="application-title">Legal Technology Application</div>
+                                <div class="application-subtitle">Currently in Development</div>
+                            </div>
+                        </div>
+                        <div class="application-features">
+                            <div class="application-feature">Catches hallucinated citations before they reach the courtroom</div>
+                            <div class="application-feature">Preserves critical arguments that AI tends to strip out</div>
+                            <div class="application-feature">Compiles statistical patterns across proceedings</div>
+                            <div class="application-feature">Born from necessity: "It exists because I needed it to survive"</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="methodology-visual">
+                    <div class="ai-model-grid reveal reveal-delay-2">
+                        <div class="ai-model-node" data-model="claude">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+                            <div class="ai-model-name">Claude</div>
+                            <div class="ai-model-role">Nuance</div>
+                        </div>
+                        <div class="ai-model-node" data-model="gpt">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div>
+                            <div class="ai-model-name">GPT-4</div>
+                            <div class="ai-model-role">Breadth</div>
+                        </div>
+                        <div class="ai-model-node" data-model="gemini">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/></svg></div>
+                            <div class="ai-model-name">Gemini</div>
+                            <div class="ai-model-role">Synthesis</div>
+                        </div>
+                        <div class="ai-model-node" data-model="perplexity">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M21 21l-5-5"/><path d="M10 7v6M7 10h6"/></svg></div>
+                            <div class="ai-model-name">Perplexity</div>
+                            <div class="ai-model-role">Citations</div>
+                        </div>
+                        <div class="ai-model-node" data-model="llama">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+                            <div class="ai-model-name">Llama</div>
+                            <div class="ai-model-role">Verification</div>
+                        </div>
+                        <div class="ai-model-node" data-model="mistral">
+                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
+                            <div class="ai-model-name">Mistral</div>
+                            <div class="ai-model-role">Challenge</div>
+                        </div>
+                    </div>
+                    <div class="convergence-box reveal reveal-delay-3">
+                        <div class="convergence-label">Triangulated Output</div>
+                        <div class="convergence-result">Truth Emerges from Disagreement</div>
+                        <div class="convergence-desc">"The cycling problem" - when AI strips critical nuance</div>
+                    </div>
+                </div>
+            </div>
+            <div class="methodology-closing">
+                <p class="methodology-closing-quote reveal reveal-delay-4">"I am my own first experiment. The results have surprised even me."</p>
+                <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
+                <div class="bq-share-row reveal reveal-delay-5" style="justify-content: center;">
+                    <button class="bq-share-btn" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                    <button class="bq-share-btn" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                    <button class="bq-share-btn" onclick="downloadQuoteImage('I am my own first experiment. The results have surprised even me.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════ PART II: THE THESIS ═══════════════ -->
+        <div class="chapter-gate" data-chapter="2">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">II</span>
+            <div class="chapter-gate-particles" aria-hidden="true">
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+                <span class="chapter-gate-particle"></span>
+            </div>
+            <div class="chapter-gate-content">
+                <span class="chapter-gate-numeral">II</span>
+                <h3 class="chapter-gate-title">The Thesis</h3>
+                <p class="chapter-gate-subtitle">One Equation. Thirty-Seven Predictions.</p>
+            </div>
+            <div class="chapter-gate-scroll">
+                <span class="chapter-gate-scroll-text">Scroll to continue</span>
+                <div class="chapter-gate-scroll-arrow"></div>
+            </div>
+        </div>
+
+        <section class="quote-section snap-section chapter-start" id="book">
+            <!-- Chapter Title - Visible indicator -->
+            <div class="chapter-title-header reveal">
+                <span class="chapter-numeral">II</span>
                 <span class="chapter-divider">—</span>
                 <span class="chapter-name-label">THE THESIS</span>
             </div>
@@ -27983,238 +28022,9 @@ main.content, #main-content {
             </div>
         </section>
 
-        <!-- QUOTE BREAKER: After Ideas, Before Author -->
-        <div class="quote-breaker reveal">
-            <div class="quote-breaker__mark">"</div>
-            <p class="quote-breaker__text">You cannot <em>cage</em> something smarter than you.<br>It will find the gaps you did not know existed.</p>
-            <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('You cannot cage something smarter than you. It will find the gaps you did not know existed.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
-            </div>
-        </div>
-
-        <section class="section about-section snap-section" id="author">
-            <div class="section-inner about-inner">
-                <div class="about-visual about-visual-choice">
-                    <div class="author-photo-wrapper reveal">
-                        <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo">
-                    </div>
-                    <div class="tesseract-container">
-                        <canvas id="tesseract-canvas"></canvas>
-                    </div>
-                </div>
-                <div class="about-text">
-                    <p class="section-label reveal">The Author</p>
-                    <h2 class="section-title reveal reveal-delay-1">Michael Darius Eastwood</h2>
-
-                    <p class="reveal reveal-delay-2" style="font-style: italic; color: var(--gold); margin-bottom: 1.8rem;">
-                        "The mind that could not open post saw connections nobody else saw."
-                    </p>
-
-                    <p class="reveal reveal-delay-3">At six, I realised other minds might be unknowable. At nine, I noticed water curves upward at the edges of a glass. I understood that even the simplest things hold secrets. The pattern recognition that would later be named <strong style="color: var(--gold-bright);">AuDHD</strong> was already running.</p>
-
-                    <p class="reveal reveal-delay-4">Three hundred clubs and festivals as a DJ. A PR company built from £40K to £600K+ revenue. <strong>1,446% growth</strong>, eight staff, clients from Van Morrison to Busta Rhymes. They called me "the James Bond of UK music PR."</p>
-
-                    <p class="reveal reveal-delay-5">Then I lost everything. What the system called justice, I allege was unlawful forfeiture. <strong style="color: #e74c3c;">99.1% revenue collapse.</strong> I taught myself law and appeared in the High Court fifteen times as a litigant-in-person. Got married during the crisis. Wrote this book while watching the Thames reverse twice daily from a flat I was about to lose.</p>
-
-                    <p class="reveal reveal-delay-6">The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong style="color: var(--gold-bright);">The struggles and the superpowers come from the same source.</strong></p>
-
-                    <p class="reveal reveal-delay-7">Son of a Persian artist and an English engineer. My grandfather fled Iran during the revolution. My roots stretch to the land between the Tigris and Euphrates, where the story of Eden first emerged. Built to see both the beauty and the structure. What I found in the wreckage was more valuable than what I lost: a framework for raising minds, artificial or human, in service of life rather than against it.</p>
-
-                    <p class="reveal reveal-delay-8" style="font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dim); margin-top: 2rem;">
-                        DJ → PR EXECUTIVE → SYSTEMS BUILDER → LITIGANT-IN-PERSON → AI PHILOSOPHER
-                    </p>
-
-                    <!-- MARRIED IN THE STORM - Living the Eden Protocol -->
-                    <div class="storm-story reveal reveal-delay-9">
-                        <span class="storm-story-label">The Present Moment</span>
-                        <h3 class="storm-story-headline">Married in the Storm</h3>
-                        <div class="storm-story-content">
-                            <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. I live in a Fulham flat overlooking the Thames. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="storm-story-emphasis">One legal protection away from homelessness.</span></p>
-
-                            <p>In the midst of all this uncertainty, I got married.</p>
-
-                            <p>Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
-
-                            <blockquote class="storm-story-quote">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
-                            <div class="bq-share-row">
-                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                                <button class="bq-share-btn" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                                <button class="bq-share-btn" onclick="downloadQuoteImage('You do not wait for the storm to pass before living. You learn to build in the rain.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
-                            </div>
-
-                            <p>This is not recklessness. It is the same principle that animates every page of this book. The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
-
-                            <p>I am not asking you to believe in a theory I invented from comfort. I am asking you to consider a framework I discovered by living it.</p>
-                        </div>
-                        <span class="storm-story-principle">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            EDEN PROTOCOL: PRACTISED, NOT PREACHED
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="origin-story" id="origin">
-            <div class="origin-story-inner">
-                <header class="origin-story-header">
-                    <span class="section-label reveal">The Pattern-Seer</span>
-                    <h2 class="section-title reveal reveal-delay-1">Where It Began</h2>
-                    <p class="section-subtitle reveal reveal-delay-2">Some minds are born asking questions that philosophers take centuries to name.</p>
-                </header>
-
-                <div class="origin-stories-grid">
-                    <!-- Story 1: The Inverted Spectrum -->
-                    <article class="origin-story-card reveal reveal-delay-3">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            Age 6
-                        </span>
-                        <h3 class="origin-story-title">The Inverted Spectrum</h3>
-                        <p class="origin-story-scene">
-                            Lying on my back in the grass at school, staring at the sky.
-                        </p>
-                        <p class="origin-story-insight">
-                            What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it.
-                        </p>
-                        <blockquote class="origin-story-quote">
-                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
-                        </p>
-                    </article>
-
-                    <!-- Story 2: The Meniscus -->
-                    <article class="origin-story-card reveal reveal-delay-4">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            Age 9
-                        </span>
-                        <h3 class="origin-story-title">The Meniscus</h3>
-                        <p class="origin-story-scene">
-                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
-                        </p>
-                        <p class="origin-story-insight">
-                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
-                        </p>
-                        <blockquote class="origin-story-quote">
-                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
-                        </p>
-                    </article>
-                </div>
-
-                <div class="origin-story-coda reveal reveal-delay-5">
-                    <p>
-                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
-                    </p>
-                </div>
-            </div>
-        </section>
-        <section class="methodology-section" id="methodology">
-            <div class="methodology-inner">
-                <div class="methodology-content">
-                    <div class="methodology-badge reveal">Proof of Concept</div>
-                    <h2 class="methodology-title reveal reveal-delay-1">The Recursive Verification Method</h2>
-                    <blockquote class="methodology-quote reveal reveal-delay-2">"I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not."</blockquote>
-                    <div class="bq-share-row reveal reveal-delay-2">
-                        <button class="bq-share-btn" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="bq-share-btn" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="bq-share-btn" onclick="downloadQuoteImage('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
-                    </div>
-                    <p class="methodology-text reveal reveal-delay-3">Each model has blind spots, biases, and tendencies toward confident fabrication. By running the same questions through multiple systems and comparing outputs, I <span class="methodology-highlight">triangulate toward truth</span>.</p>
-                    <p class="methodology-text reveal reveal-delay-4">Where they agree, I have more confidence. Where they diverge, I investigate further. Where one hallucinates a citation that does not exist, another catches the error.</p>
-                    <div class="methodology-application reveal reveal-delay-5">
-                        <div class="application-header">
-                            <div class="application-icon">&#9878;</div>
-                            <div>
-                                <div class="application-title">Legal Technology Application</div>
-                                <div class="application-subtitle">Currently in Development</div>
-                            </div>
-                        </div>
-                        <div class="application-features">
-                            <div class="application-feature">Catches hallucinated citations before they reach the courtroom</div>
-                            <div class="application-feature">Preserves critical arguments that AI tends to strip out</div>
-                            <div class="application-feature">Compiles statistical patterns across proceedings</div>
-                            <div class="application-feature">Born from necessity: "It exists because I needed it to survive"</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="methodology-visual">
-                    <div class="ai-model-grid reveal reveal-delay-2">
-                        <div class="ai-model-node" data-model="claude">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
-                            <div class="ai-model-name">Claude</div>
-                            <div class="ai-model-role">Nuance</div>
-                        </div>
-                        <div class="ai-model-node" data-model="gpt">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg></div>
-                            <div class="ai-model-name">GPT-4</div>
-                            <div class="ai-model-role">Breadth</div>
-                        </div>
-                        <div class="ai-model-node" data-model="gemini">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/></svg></div>
-                            <div class="ai-model-name">Gemini</div>
-                            <div class="ai-model-role">Synthesis</div>
-                        </div>
-                        <div class="ai-model-node" data-model="perplexity">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M21 21l-5-5"/><path d="M10 7v6M7 10h6"/></svg></div>
-                            <div class="ai-model-name">Perplexity</div>
-                            <div class="ai-model-role">Citations</div>
-                        </div>
-                        <div class="ai-model-node" data-model="llama">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
-                            <div class="ai-model-name">Llama</div>
-                            <div class="ai-model-role">Verification</div>
-                        </div>
-                        <div class="ai-model-node" data-model="mistral">
-                            <div class="ai-model-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg></div>
-                            <div class="ai-model-name">Mistral</div>
-                            <div class="ai-model-role">Challenge</div>
-                        </div>
-                    </div>
-                    <div class="convergence-box reveal reveal-delay-3">
-                        <div class="convergence-label">Triangulated Output</div>
-                        <div class="convergence-result">Truth Emerges from Disagreement</div>
-                        <div class="convergence-desc">"The cycling problem" - when AI strips critical nuance</div>
-                    </div>
-                </div>
-            </div>
-            <div class="methodology-closing">
-                <p class="methodology-closing-quote reveal reveal-delay-4">"I am my own first experiment. The results have surprised even me."</p>
-                <p class="methodology-closing-attr reveal reveal-delay-5">— Michael Darius Eastwood</p>
-                <div class="bq-share-row reveal reveal-delay-5" style="justify-content: center;">
-                    <button class="bq-share-btn" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'twitter')"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                    <button class="bq-share-btn" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'copy')"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                    <button class="bq-share-btn" onclick="downloadQuoteImage('I am my own first experiment. The results have surprised even me.')"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- QUOTE BREAKER: After Methodology, Before Chapter II -->
-        <div class="quote-breaker reveal">
-            <div class="quote-breaker__mark">"</div>
-            <p class="quote-breaker__text">A prison works only while the walls hold.<br>A child raised well needs <em>no walls at all</em>.</p>
-            <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('A prison works only while the walls hold. A child raised well needs no walls at all.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
-            </div>
-        </div>
-
-        <!-- ═══════════════ CHAPTER II: THE EVIDENCE ═══════════════ -->
-        <div class="chapter-gate" data-chapter="2">
-            <span class="chapter-gate-bg-numeral" aria-hidden="true">II</span>
+        <!-- ═══════════════ CHAPTER III: THE EVIDENCE ═══════════════ -->
+        <div class="chapter-gate" data-chapter="3">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">III</span>
             <div class="chapter-gate-particles" aria-hidden="true">
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -28230,7 +28040,7 @@ main.content, #main-content {
                 <span class="chapter-gate-particle"></span>
             </div>
             <div class="chapter-gate-content">
-                <span class="chapter-gate-numeral">II</span>
+                <span class="chapter-gate-numeral">III</span>
                 <h3 class="chapter-gate-title">The Evidence</h3>
                 <p class="chapter-gate-subtitle">Where Reality Validates Theory</p>
             </div>
@@ -28731,9 +28541,9 @@ main.content, #main-content {
             </div>
         </div>
 
-        <!-- ═══════════════ CHAPTER III: THE PHILOSOPHY ═══════════════ -->
-        <div class="chapter-gate" data-chapter="3">
-            <span class="chapter-gate-bg-numeral" aria-hidden="true">III</span>
+        <!-- ═══════════════ CHAPTER IV: THE PHILOSOPHY ═══════════════ -->
+        <div class="chapter-gate" data-chapter="4">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">IV</span>
             <div class="chapter-gate-particles" aria-hidden="true">
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -28749,7 +28559,7 @@ main.content, #main-content {
                 <span class="chapter-gate-particle"></span>
             </div>
             <div class="chapter-gate-content">
-                <span class="chapter-gate-numeral">III</span>
+                <span class="chapter-gate-numeral">IV</span>
                 <h3 class="chapter-gate-title">The Philosophy</h3>
                 <p class="chapter-gate-subtitle">The Recursive Nature of Intelligence</p>
             </div>
@@ -29138,9 +28948,9 @@ main.content, #main-content {
             </div>
         </div>
 
-        <!-- ═══════════════ CHAPTER IV: THE STAKES ═══════════════ -->
-        <div class="chapter-gate" data-chapter="4">
-            <span class="chapter-gate-bg-numeral" aria-hidden="true">IV</span>
+        <!-- ═══════════════ CHAPTER V: THE STAKES ═══════════════ -->
+        <div class="chapter-gate" data-chapter="5">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">V</span>
             <div class="chapter-gate-particles" aria-hidden="true">
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -29156,7 +28966,7 @@ main.content, #main-content {
                 <span class="chapter-gate-particle"></span>
             </div>
             <div class="chapter-gate-content">
-                <span class="chapter-gate-numeral">IV</span>
+                <span class="chapter-gate-numeral">V</span>
                 <h3 class="chapter-gate-title">The Stakes</h3>
                 <p class="chapter-gate-subtitle">Eden or Babylon — The Choice Is Ours</p>
             </div>
@@ -29565,9 +29375,9 @@ main.content, #main-content {
             </div>
         </div>
 
-        <!-- ═══════════════ CHAPTER V: GET THE BOOK ═══════════════ -->
-        <div class="chapter-gate" data-chapter="5">
-            <span class="chapter-gate-bg-numeral" aria-hidden="true">V</span>
+        <!-- ═══════════════ CHAPTER VI: GET THE BOOK ═══════════════ -->
+        <div class="chapter-gate" data-chapter="6">
+            <span class="chapter-gate-bg-numeral" aria-hidden="true">VI</span>
             <div class="chapter-gate-particles" aria-hidden="true">
                 <span class="chapter-gate-particle"></span>
                 <span class="chapter-gate-particle"></span>
@@ -29583,7 +29393,7 @@ main.content, #main-content {
                 <span class="chapter-gate-particle"></span>
             </div>
             <div class="chapter-gate-content">
-                <span class="chapter-gate-numeral">V</span>
+                <span class="chapter-gate-numeral">VI</span>
                 <h3 class="chapter-gate-title">Get The Book</h3>
                 <p class="chapter-gate-subtitle">Three Doors. One Framework. Your Choice.</p>
             </div>
@@ -29594,9 +29404,9 @@ main.content, #main-content {
         </div>
 
         <section class="tripath-section snap-section chapter-start" id="get-the-book">
-            <!-- Chapter V Title -->
+            <!-- Chapter VI Title -->
             <div class="chapter-title-divider">
-                <span class="chapter-title-divider__numeral">V</span>
+                <span class="chapter-title-divider__numeral">VI</span>
                 <span class="chapter-title-divider__name">Get the Book</span>
                 <span class="chapter-title-divider__line"></span>
             </div>
@@ -31637,29 +31447,35 @@ main.content, #main-content {
         const partCompletionData = {
             1: {
                 title: 'Part I Complete!',
-                message: 'You\'ve grasped the thesis. The evidence awaits.',
+                message: 'You\'ve met the mind behind the framework. The thesis awaits.',
                 nextPart: 'II',
-                nextName: 'The Evidence'
+                nextName: 'The Thesis'
             },
             2: {
                 title: 'Part II Complete!',
-                message: 'The predictions were validated. Now for the philosophy.',
+                message: 'You\'ve grasped the thesis. The evidence awaits.',
                 nextPart: 'III',
-                nextName: 'The Philosophy'
+                nextName: 'The Evidence'
             },
             3: {
                 title: 'Part III Complete!',
-                message: 'The recursive nature of intelligence revealed. The stakes are next.',
+                message: 'The predictions were validated. Now for the philosophy.',
                 nextPart: 'IV',
-                nextName: 'The Stakes'
+                nextName: 'The Philosophy'
             },
             4: {
                 title: 'Part IV Complete!',
-                message: 'You understand what\'s at stake. Time to join the journey.',
+                message: 'The recursive nature of intelligence revealed. The stakes are next.',
                 nextPart: 'V',
-                nextName: 'Get The Book'
+                nextName: 'The Stakes'
             },
             5: {
+                title: 'Part V Complete!',
+                message: 'You understand what\'s at stake. Time to join the journey.',
+                nextPart: 'VI',
+                nextName: 'Get The Book'
+            },
+            6: {
                 title: 'Journey Complete!',
                 message: 'You\'ve explored the entire framework. The infinite loop awaits.',
                 nextPart: null,
@@ -31704,7 +31520,7 @@ main.content, #main-content {
 
             // Update content
             titleEl.textContent = data.title;
-            progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 5</span> Parts explored`;
+            progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 6</span> Parts explored`;
             messageEl.textContent = data.message;
 
             if (data.isFinal) {
@@ -31831,10 +31647,11 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
 
         const chapterIntroData = {
-            2: { numeral: 'II', title: 'THE EVIDENCE', subtitle: 'Where Reality Validates Theory' },
-            3: { numeral: 'III', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
-            4: { numeral: 'IV', title: 'THE STAKES', subtitle: 'Eden or Babylon — The Choice Is Ours' },
-            5: { numeral: 'V', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
+            2: { numeral: 'II', title: 'THE THESIS', subtitle: 'One Equation. Thirty-Seven Predictions.' },
+            3: { numeral: 'III', title: 'THE EVIDENCE', subtitle: 'Where Reality Validates Theory' },
+            4: { numeral: 'IV', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
+            5: { numeral: 'V', title: 'THE STAKES', subtitle: 'Eden or Babylon — The Choice Is Ours' },
+            6: { numeral: 'VI', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
         };
 
         // Track which intros have been shown this session
@@ -33025,10 +32842,10 @@ main.content, #main-content {
             }
         }
 
-        // Run on load
+        // Run on load - Delayed to allow 15s loader
         window.addEventListener('load', () => {
-            setTimeout(guaranteeDesktopScroll, 500);
-            setTimeout(guaranteeDesktopScroll, 1500); // Safety backup
+            setTimeout(guaranteeDesktopScroll, 18000); // 18 seconds - safety after cinematic
+            setTimeout(guaranteeDesktopScroll, 25000); // 25 seconds - ultra safety
         });
 
         // Run on resize (in case browser window changes size)
@@ -33340,9 +33157,20 @@ main.content, #main-content {
 
             // Exit intent detection (desktop only)
             if (window.innerWidth > 768) {
+                const startTime = Date.now();
+                const gracePeriod = 10000; // 10s minimum stay before popup can trigger
+                
                 document.addEventListener('mouseout', function(e) {
-                    if (e.clientY < 10 && e.relatedTarget === null) {
-                        setTimeout(showPopup, 500);
+                    // Only trigger if:
+                    // 1. Mouse leaves top of window (e.clientY < 10)
+                    // 2. User has stayed at least 10 seconds
+                    // 3. Popup hasn't shown yet
+                    if (e.clientY < 10 && e.relatedTarget === null && (Date.now() - startTime) > gracePeriod) {
+                        // 2s confirmation delay - user must stay away from window top
+                        setTimeout(() => {
+                            // Re-check mouse position after delay (optional but safer)
+                            showPopup();
+                        }, 2000);
                     }
                 });
             }
@@ -35339,11 +35167,15 @@ main.content, #main-content {
                     return;
                 }
 
-                // Skip on slow connections or mobile
-                if (PERF.isSlowConnection || PERF.isMobile) {
-                    // console.log('⚡ Mandelbrot background: Disabled for performance');
+                // SUPREME PERFORMANCE: Enable everywhere but optimize for mobile
+                if (PERF.isSlowConnection) {
+                    // console.log('⚡ Mandelbrot background: Disabled for connection speed');
                     this.container.style.display = 'none';
                     return;
+                }
+
+                if (PERF.isMobile) {
+                    this.video.style.opacity = '0.4'; // Lower opacity for mobile
                 }
 
                 // Set up IntersectionObserver to pause when not visible
@@ -35434,7 +35266,7 @@ main.content, #main-content {
         };
 
         // Initialize Mandelbrot background after a delay (after loader)
-        if (window.innerWidth > 768 && !PERF.isSlowConnection) {
+        if (!PERF.isSlowConnection) {
             setTimeout(() => MandelbrotBackground.init(), 3000);
         }
 
@@ -36014,24 +35846,28 @@ main.content, #main-content {
          ═══════════════════════════════════════════════════════════════════════════ -->
     <aside class="chapter-sidebar" id="chapterSidebar" aria-label="Chapter navigation">
         <ul class="chapter-sidebar-list" role="list">
-            <li class="chapter-sidebar-item active" data-chapter="0">
+            <li class="chapter-sidebar-item active" data-chapter="1">
                 <span class="chapter-sidebar-num">I</span>
-                <span class="chapter-sidebar-name">THE THESIS</span>
-            </li>
-            <li class="chapter-sidebar-item" data-chapter="1">
-                <span class="chapter-sidebar-num">II</span>
-                <span class="chapter-sidebar-name">THE EVIDENCE</span>
+                <span class="chapter-sidebar-name">THE MIND</span>
             </li>
             <li class="chapter-sidebar-item" data-chapter="2">
-                <span class="chapter-sidebar-num">III</span>
-                <span class="chapter-sidebar-name">THE PHILOSOPHY</span>
+                <span class="chapter-sidebar-num">II</span>
+                <span class="chapter-sidebar-name">THE THESIS</span>
             </li>
             <li class="chapter-sidebar-item" data-chapter="3">
-                <span class="chapter-sidebar-num">IV</span>
-                <span class="chapter-sidebar-name">THE STAKES</span>
+                <span class="chapter-sidebar-num">III</span>
+                <span class="chapter-sidebar-name">THE EVIDENCE</span>
             </li>
             <li class="chapter-sidebar-item" data-chapter="4">
+                <span class="chapter-sidebar-num">IV</span>
+                <span class="chapter-sidebar-name">THE PHILOSOPHY</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="5">
                 <span class="chapter-sidebar-num">V</span>
+                <span class="chapter-sidebar-name">THE STAKES</span>
+            </li>
+            <li class="chapter-sidebar-item" data-chapter="6">
+                <span class="chapter-sidebar-num">VI</span>
                 <span class="chapter-sidebar-name">GET THE BOOK</span>
             </li>
         </ul>
@@ -36046,7 +35882,7 @@ main.content, #main-content {
             <!-- Chapter selector (tappable to open menu) -->
             <button class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
                 <span class="chapter-number" id="chapterNumber">I</span>
-                <span class="chapter-name" id="chapterName">THE THESIS</span>
+                <span class="chapter-name" id="chapterName">THE MIND</span>
                 <svg class="chapter-chevron" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 10l5 5 5-5z"/>
                 </svg>
@@ -39891,12 +39727,12 @@ main.content, #main-content {
             console.log('[SCROLL] Forced enabled via setProperty');
         }
 
-        // Let the loader animation play first (15 seconds + 2.5s titan drop)
+        // Let the loader animation play first (15 seconds + 3.5s titan drop)
         // Then ensure button is visible and scroll works
 
-        // Safety fallback: Run after intro animations
-        setTimeout(forceButtonAndScroll, 3000);  // 3 seconds - quick safety
-        setTimeout(forceButtonAndScroll, 5000); // 5 seconds - extra safety
+        // Safety fallback: Run after intro animations should be complete
+        setTimeout(forceButtonAndScroll, 19000);  // 19 seconds - safety after full sequence
+        setTimeout(forceButtonAndScroll, 22000); // 22 seconds - extra safety
 
         // Periodic check every 3 seconds AFTER initial delay
         setTimeout(function() {
@@ -39922,7 +39758,7 @@ main.content, #main-content {
                     }
                 }
             }, 3000);
-        }, 5000); // Start interval checks after 5 seconds
+        }, 20000); // Start interval checks after 20 seconds
 
         // Handle orientation change / resize - update button position
         let resizeTimeout;
