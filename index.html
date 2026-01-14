@@ -1728,176 +1728,6 @@
 
         /* ═══════════════════════════════════════════════════════════════════════
            CINEMATIC LOADER - Wormhole Entry Sequence
-           ═══════════════════════════════════════════════════════════════════════ */
-        /* ═══════════════════════════════════════════════════════════════════════
-           CINEMATIC LOADER - Supreme Priority
-           ═══════════════════════════════════════════════════════════════════════ */
-        html body #loader {
-            position: fixed !important;
-            inset: 0 !important;
-            z-index: 100000 !important; /* Above everything */
-            background: #02030a !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            align-items: center !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), 
-                        opacity 0.5s ease-out 0.8s !important;
-        }
-
-        html body #loader.hidden {
-            transform: translateY(-100%) !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-
-        html body #loader.fully-hidden {
-            display: none !important;
-            pointer-events: none !important;
-            visibility: hidden !important;
-        }
-
-        #loader-canvas {
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            z-index: 1 !important;
-        }
-
-        .loader-ui {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            pointer-events: none;
-        }
-
-        .loader-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.5rem, 5vw, 3.5rem);
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 45%, var(--gold-pale) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.6rem;
-            animation: loaderGlow 3s ease-in-out infinite;
-            /* Prevent word-breaking mid-word */
-            word-break: keep-all;
-            overflow-wrap: break-word;
-        }
-
-        /* Prevent INFINITE/ARCHITECTS from splitting mid-word */
-        .brand-word {
-            white-space: nowrap;
-            display: inline-block;
-        }
-
-        @keyframes loaderGlow {
-            0%, 100% { filter: drop-shadow(0 0 30px rgba(212, 168, 75, 0.3)); }
-            50% { filter: drop-shadow(0 0 60px rgba(212, 168, 75, 0.6)); }
-        }
-
-        .loader-subtitle {
-            font-family: var(--font-serif);
-            font-size: clamp(0.8rem, 1.8vw, 1.1rem);
-            font-style: italic;
-            color: var(--text-dim);
-            letter-spacing: 0.12em;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 0.5s forwards;
-        }
-
-        .loader-progress {
-            width: 200px;
-            opacity: 0;
-            animation: fadeUp 1.5s var(--ease-out-expo) 0.8s forwards;
-        }
-
-        .loader-status {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: rgba(212, 168, 75, 0.45);
-            margin-bottom: 0.8rem;
-            min-height: 1em;
-        }
-
-        .loader-bar {
-            width: 100%;
-            height: 2px;
-            background: rgba(212, 168, 75, 0.12);
-            overflow: hidden;
-            border-radius: 1px;
-            position: relative;
-        }
-
-        .loader-bar::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.3), transparent);
-            animation: shimmer 2s linear infinite;
-        }
-
-        @keyframes shimmer {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100%); }
-        }
-
-        .loader-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--gold-dark), var(--gold-bright), var(--gold));
-            box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(212, 168, 75, 0.5);
-            transition: width 0.15s ease;
-        }
-
-        .loader-skip {
-            position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.35em;
-            color: var(--text-faint);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Letterbox bars for cinematic feel */
-        .letterbox {
-            position: fixed;
-            left: 0;
-            right: 0;
-            height: 0;
-            background: #000;
-            z-index: calc(var(--z-loader) + 1);
-            transition: height 1.8s var(--ease-out-expo);
-        }
-
-        .letterbox.top { top: 0; }
-        .letterbox.bottom { bottom: 0; }
-
-        body.cinematic .letterbox { height: 6vh; }
-
-        @media (max-width: 768px) {
-            body.cinematic .letterbox { height: 4vh; }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           LOADER MASTERPIECE ENHANCEMENTS
-           ═══════════════════════════════════════════════════════════════════════ */
 
         /* Video Background - Recursion visualised */
         .loader-video-bg {
@@ -5659,6 +5489,49 @@
                 transform: translate(var(--dx), var(--dy)) scale(0);
                 opacity: 0;
             }
+        }
+
+        /* Chapter Vignette Cinematic Flash */
+        .chapter-vignette-flash {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.6) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chapter-vignette-flash.active {
+            opacity: 1;
+            animation: vignetteFlash 1.5s ease-out forwards;
+        }
+
+        .vignette-numeral {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 15vw, 10rem);
+            color: var(--gold);
+            opacity: 0;
+            transform: scale(0.5);
+            text-shadow: 0 0 60px rgba(212, 168, 75, 0.8), 0 0 120px rgba(212, 168, 75, 0.4);
+            animation: numeralReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes vignetteFlash {
+            0% { background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.1) 0%, rgba(0,0,0,0.8) 100%); }
+            20% { background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.2) 0%, rgba(0,0,0,0.7) 100%); }
+            100% { background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0) 100%); }
+        }
+
+        @keyframes numeralReveal {
+            0% { opacity: 0; transform: scale(0.5); }
+            20% { opacity: 1; transform: scale(1.1); }
+            40% { transform: scale(1); }
+            70% { opacity: 1; }
+            100% { opacity: 0; transform: scale(1.2); }
         }
 
         .exit-popup {
@@ -26549,11 +26422,19 @@ main.content, #main-content {
         </div>
     </div> -->
 
-    <!-- Chapter Indicator - Subtle ambient awareness of current chapter -->
-    <div class="chapter-indicator" id="chapter-indicator" aria-live="polite" aria-atomic="true">
-        <span class="chapter-indicator__numeral" id="chapter-numeral">I</span>
-        <span class="chapter-indicator__divider"></span>
-        <span class="chapter-indicator__name" id="chapter-name">THE THESIS</span>
+    <!-- Part Progress Indicator - Always visible, shows current Part and progress -->
+    <div class="part-progress-indicator" id="part-progress-indicator" aria-live="polite" aria-atomic="true">
+        <div class="part-progress-dots">
+            <span class="part-dot" data-part="1"></span>
+            <span class="part-dot" data-part="2"></span>
+            <span class="part-dot" data-part="3"></span>
+            <span class="part-dot" data-part="4"></span>
+            <span class="part-dot" data-part="5"></span>
+        </div>
+        <div class="part-progress-label">
+            <span class="part-progress-numeral" id="part-numeral">PART I</span>
+            <span class="part-progress-name" id="part-name">THE THESIS</span>
+        </div>
     </div>
 
     <!-- Milestone Toast - Chapter transition notification (bottom-left) -->
@@ -29127,7 +29008,7 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         const CONFIG = {
             loader: {
-                duration: PERF.isSlowConnection ? 8000 : 12000, // Cinematic intro - let the prophecy unfold
+                duration: PERF.isSlowConnection ? 10000 : 15000, // Cinematic intro - let the prophecy unfold
                 particleCount: Math.floor(350 * PERF.multiplier) || 150, // Increased base
                 ringCount: 4, // Always show all rings
                 trailLength: PERF.isSlowConnection ? 8 : 15,
@@ -29590,9 +29471,9 @@ main.content, #main-content {
                         }
                     }, 1000); // 1s after site becomes ready
 
-                }, 3200); // 400ms delay + 2.8s (enough for book to appear)
+                }, 1800); // Unlock right after impact (400ms + 1.4s impact moment)
 
-                // SAFETY UNLOCK: Force scroll ability after 6s in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability after 3s in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
@@ -29605,7 +29486,7 @@ main.content, #main-content {
                     if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
                         window.lenisInstance.resize();
                     }
-                }, 5000);
+                }, 3000);
             }
 
             function animate() {
