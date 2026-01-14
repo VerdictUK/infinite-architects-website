@@ -1690,27 +1690,6 @@
             overflow-x: hidden !important;
         }
 
-        /* Impact Flash Overlay */
-        .impact-flash {
-            position: fixed;
-            inset: 0;
-            background: white;
-            opacity: 0;
-            z-index: 200000;
-            pointer-events: none;
-            mix-blend-mode: overlay;
-        }
-
-        body.cinematic .impact-flash {
-            animation: impactFlash 1.5s cubic-bezier(0.23, 1, 0.32, 1) 1.1s forwards;
-        }
-
-        @keyframes impactFlash {
-            0% { opacity: 0; transform: scale(0.8); }
-            5% { opacity: 1; transform: scale(1); filter: blur(20px); }
-            100% { opacity: 0; transform: scale(1.5); filter: blur(0); }
-        }
-
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -2243,15 +2222,6 @@
             animation: titanDrop 3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
             opacity: 1 !important;
             visibility: visible !important;
-        }
-
-        /* Ensure scroll is unlocked when cinematic is active */
-        html.cinematic-ready,
-        html.cinematic-ready body,
-        body.cinematic-ready {
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
-            height: auto !important;
         }
 
         /* Cover any potential gap during drop */
@@ -30227,6 +30197,9 @@ main.content, #main-content {
             const icon = document.getElementById('milestone-icon');
             const text = document.getElementById('milestone-text');
 
+            // === CINEMATIC VIGNETTE FLASH ===
+            triggerChapterCinematic(milestone.numeral);
+
             // Show milestone toast (bottom-left notification)
             if (toast && icon && text) {
                 icon.textContent = milestone.icon;
@@ -30241,14 +30214,26 @@ main.content, #main-content {
             }
 
             localStorage.setItem('ia_part_milestone', milestone.chapter);
+        }
 
-            // Subtle gold flash on body
-            document.body.style.transition = 'background-color 0.3s ease';
-            const originalBg = document.body.style.backgroundColor;
-            document.body.style.backgroundColor = 'rgba(212, 168, 75, 0.03)';
+        // Cinematic chapter transition effect
+        function triggerChapterCinematic(numeral) {
+            // Create vignette overlay
+            const vignette = document.createElement('div');
+            vignette.className = 'chapter-vignette-flash';
+            vignette.innerHTML = `<span class="vignette-numeral">${numeral}</span>`;
+            document.body.appendChild(vignette);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                vignette.classList.add('active');
+            });
+
+            // Remove after animation
             setTimeout(() => {
-                document.body.style.backgroundColor = originalBg;
-            }, 1000);
+                vignette.classList.remove('active');
+                setTimeout(() => vignette.remove(), 500);
+            }, 1500);
         }
 
         // Legacy function - now handled by Part-based system
