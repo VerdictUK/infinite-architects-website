@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     
-    <!-- SOVEREIGN VISIBILITY ENGINE - FORCE RENDER ALL CONTENT (Rule 15) -->
+    <!-- ULTRATHINK NUCLEAR VISIBILITY - COGNITIVE ACCESSIBILITY PROTOCOL (Rule 15) -->
     <style>
         /* 1. Force All Content Visible */
         * {
             opacity: 1 !important;
             visibility: visible !important;
-            display: inherit; /* Don't force flex on everything, just inherit */
         }
         
-        /* 2. Force Section Display */
-        section, main, article, div[id], div[class*="section"] {
+        /* 2. Force Section Display & Auto-Height */
+        section, main, article, div[id], div[class*="section"], [id], [class*="inner"], [class*="content"] {
             display: flex !important;
             flex-direction: column !important;
             opacity: 1 !important;
@@ -31,19 +30,25 @@
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100vh !important;
+            min-height: auto !important;
             position: relative !important;
+            display: block !important;
         }
 
         /* 4. Kill Reveal Traps */
-        .reveal, .entering, .active, [class*="reveal"] {
+        .reveal, .entering, .active, [class*="reveal"], [class*="active"] {
             opacity: 1 !important;
             visibility: visible !important;
             transform: none !important;
             transition: none !important;
         }
 
-        /* 5. Loader Hider */
+        /* 5. Force specific grid behaviors to stay consistent */
+        .grid, [class*="grid"] { display: grid !important; }
+        .flex, [class*="flex"] { display: flex !important; }
+        .hidden { display: none !important; }
+
+        /* 6. Loader Bypass */
         #loader, .loader, #cinematic-loader {
             display: none !important;
             pointer-events: none !important;
@@ -65,7 +70,7 @@
         
         /* Only lock if explicitly requested by loader */
         body.loader-active {
-            overflow: hidden !important;
+            overflow: visible !important;
         }
     </style>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
@@ -237,8 +242,8 @@
     body {
         position: relative !important;
         height: auto;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
+        min-height: auto !important;
         max-height: none !important;
         overflow-x: hidden !important;
         overflow-y: auto !important;
@@ -257,7 +262,7 @@
         overflow-y: auto !important;
         overflow-x: hidden !important;
         height: auto !important;
-        min-height: 100vh !important;
+        min-height: auto !important;
         position: relative !important;
     }
 
@@ -305,7 +310,7 @@
 
     /* Only lock if explicitly requested by loader */
     body.loader-active {
-        overflow: hidden !important;
+        overflow: visible !important;
         position: fixed !important;
     }
 
@@ -358,7 +363,7 @@
     html body #hero.snap-section,
     #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
         max-height: none !important;
         overflow: visible !important;
     }
@@ -727,7 +732,7 @@
         .milestone-toast,
         #milestone-toast {
             display: none !important;
-            visibility: hidden !important;
+            visibility: visible !important;
             opacity: 0 !important;
             pointer-events: none !important;
             position: absolute !important;
@@ -954,7 +959,7 @@
         #status-ticker,
         #nav {
             opacity: 0 !important;
-            visibility: hidden !important;
+            visibility: visible !important;
             pointer-events: none !important;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
@@ -1115,7 +1120,7 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .ripple-container {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -1140,7 +1145,7 @@
         .prophecy-card, .book-cover-link, .section-nav-dot,
         .mobile-nav-toggle, .buy-option {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -1340,7 +1345,7 @@
             height: 4px;
             background: rgba(212, 168, 75, 0.1);
             border-radius: 2px;
-            overflow: hidden;
+            overflow: visible;
             margin-bottom: 0.75rem;
         }
 
@@ -1410,7 +1415,7 @@
                 rgba(2, 3, 10, 1) 80%,
                 rgba(2, 3, 10, 0.95) 100%
             );
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* Massive background Roman numeral */
@@ -1545,7 +1550,7 @@
         .chapter-gate-particles {
             position: absolute;
             inset: 0;
-            overflow: hidden;
+            overflow: visible;
             pointer-events: none;
         }
 
@@ -1652,7 +1657,7 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .confetti-piece {
@@ -3026,29 +3031,22 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Prevent scroll during loader - keeps page at top */
-        body:not(.cinematic-ready) {
-            overflow: hidden !important;
-            height: 100vh!important; height: 100dvh!important;
-            position: fixed;
-            width: 100%;
-        }
-
-        /* ENABLE SCROLL after drop completes - CRITICAL */
-        body.cinematic-ready {
-            overflow: auto !important;
+        /* ULTRATHINK: PERMANENT SCROLL UNLOCK */
+        html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100vh!important; min-height: 100dvh!important;
-            min-height: 100dvh !important;
-            position: relative;
+            min-height: auto !important;
+            position: relative !important;
+            width: 100% !important;
         }
 
+        body:not(.cinematic-ready),
+        body.cinematic-ready,
         html.cinematic-ready {
-            overflow: auto !important;
             overflow-y: auto !important;
-            overflow-x: hidden !important;
+            height: auto !important;
+            position: relative !important;
         }
 
         /* Reduced motion */
@@ -3773,7 +3771,7 @@
         body.cinematic-ready .ground-shock,
         body.cinematic-ready .impact-flash,
         body.cinematic-ready .plasma-trail {
-            display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+            display: block !important; opacity: 1 !important; visibility: visible !important; pointer-events: none !important;
         }
 
         body.cinematic-ready .content,
@@ -4116,7 +4114,7 @@
             .chapter-sidebar,
             #chapterSidebar {
                 display: none !important;
-                visibility: hidden !important;
+                visibility: visible !important;
                 opacity: 0 !important;
             }
 
@@ -4124,7 +4122,7 @@
             .part-progress-indicator,
             #part-progress-indicator {
                 display: none !important;
-                visibility: hidden !important;
+                visibility: visible !important;
             }
 
             /* SMALLER: Ask book toggle - 48px instead of 64px */
@@ -4317,7 +4315,7 @@
             .letterbox {
                 animation: none !important;
                 opacity: 0 !important;
-                visibility: hidden !important;
+                visibility: visible !important;
             }
 
             /* Simplified content reveal - no dramatic drop */
@@ -4352,7 +4350,7 @@
                 radial-gradient(ellipse at 25% 75%, var(--nebula-magenta) 0%, transparent 40%),
                 linear-gradient(180deg, var(--void) 0%, #050810 50%, var(--void) 100%);
             animation: nebulaPulse 25s ease-in-out infinite;
-            overflow: hidden;
+            overflow: visible;
         }
 
         @keyframes nebulaPulse {
@@ -4563,7 +4561,7 @@
             text-transform: uppercase;
             transition: all 0.4s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .nav-cta::before {
@@ -4877,7 +4875,7 @@
                 rgba(10, 12, 20, 0.9) 70%,
                 rgba(2, 3, 10, 0.95) 100%
             );
-            overflow: hidden;
+            overflow: visible;
         }
 
         .quote-breaker::before {
@@ -4976,7 +4974,7 @@
         .carousel-section {
             padding: 2rem 0;
             background: linear-gradient(180deg, transparent 0%, rgba(212, 168, 75, 0.03) 50%, transparent 100%);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .carousel-track {
@@ -5287,7 +5285,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* View all concepts button */
@@ -5372,7 +5370,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: visible;
         }
 
         @media (max-width: 1200px) {
@@ -5413,7 +5411,7 @@
         .carousel-section {
             padding: var(--space-md) 0;
             min-height: auto !important;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
         }
 
@@ -5526,7 +5524,7 @@
             z-index: 2;
             width: 320px; height: 320px;
             border-radius: 50%;
-            overflow: hidden;
+            overflow: visible;
             border: 4px solid var(--gold);
             box-shadow:
                 0 25px 80px rgba(0, 0, 0, 0.5),
@@ -5674,7 +5672,7 @@
         /* ═══════════════════════════════════════════════════════════════════════
            RECURSIVE VERIFICATION METHOD - Proof of Concept Section
            ═══════════════════════════════════════════════════════════════════════ */
-        .methodology-section { padding: 5rem 2rem; background: linear-gradient(180deg, var(--void) 0%, rgba(0, 200, 150, 0.03) 30%, rgba(0, 150, 200, 0.04) 70%, var(--void) 100%); position: relative; overflow: hidden; }
+        .methodology-section { padding: 5rem 2rem; background: linear-gradient(180deg, var(--void) 0%, rgba(0, 200, 150, 0.03) 30%, rgba(0, 150, 200, 0.04) 70%, var(--void) 100%); position: relative; overflow: visible; }
         .methodology-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold-alpha-30), transparent); }
         .methodology-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
         @media (max-width: 900px) { .methodology-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
@@ -5689,7 +5687,7 @@
         .methodology-visual { display: flex; flex-direction: column; gap: 1.5rem; }
         .ai-model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
         @media (max-width: 600px) { .ai-model-grid { grid-template-columns: repeat(2, 1fr); } }
-        .ai-model-node { background: rgba(0, 20, 30, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+        .ai-model-node { background: rgba(0, 20, 30, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 12px; padding: 1rem; text-align: center; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: visible; }
         .ai-model-node::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0, 200, 150, 0.6), transparent); transform: scaleX(0); transition: transform 0.4s ease; }
         .ai-model-node::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(0, 200, 150, 0.05) 0%, transparent 70%); opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
         .ai-model-node:hover { border-color: rgba(0, 200, 150, 0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 200, 150, 0.12); }
@@ -6313,7 +6311,7 @@
             letter-spacing: 0.3em;
             text-transform: uppercase;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.5s ease;
         }
 
@@ -6535,7 +6533,7 @@
                 rgba(212, 168, 75, 0.03) 70%,
                 var(--void) 100%);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .predictions-validated::before {
@@ -6790,7 +6788,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 6;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: visible;
         }
 
         @media (max-width: 768px) {
@@ -7016,7 +7014,7 @@
             text-transform: uppercase;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.4s ease;
             white-space: nowrap;
             touch-action: manipulation;
@@ -8015,7 +8013,7 @@
             padding: 4rem 2rem;
             position: relative;
             background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.04) 0%, transparent 70%);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .equation-section::before {
@@ -8359,7 +8357,7 @@
             background: rgba(212, 168, 75, 0.1);
             border-radius: 2px;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .balance-indicator::after {
@@ -9020,7 +9018,7 @@
             opacity: 0;
             transition: all 0.4s ease;
             pointer-events: none;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .hero-book:hover .book-page-peek {
@@ -9285,7 +9283,7 @@
         .book-page-peek {
             /* DISABLED - white panel was showing on hover */
             display: none !important;
-            visibility: hidden !important;
+            visibility: visible !important;
             opacity: 0 !important;
             pointer-events: none;
         }
@@ -9293,7 +9291,7 @@
         .hero-book-3d:hover .book-page-peek {
             /* Keep disabled on hover too */
             display: none !important;
-            visibility: hidden !important;
+            visibility: visible !important;
             opacity: 0 !important;
         }
 
@@ -9599,7 +9597,7 @@
         .bbc-image-wrapper {
             position: relative;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(212, 168, 75, 0.2);
         }
@@ -9707,7 +9705,7 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .idea-card--with-image {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .idea-card--with-image .idea-image {
@@ -9753,7 +9751,7 @@
         .diagram-image-wrapper {
             margin: 3rem 0;
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(212, 168, 75, 0.15);
             position: relative;
@@ -9816,7 +9814,7 @@
 
         .hrih-section .hrih-content {
         /* DISABLED:             max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 2rem); */
-        /* DISABLED:             overflow: hidden; */
+        /* DISABLED:             overflow: visible; */
             display: flex;
             flex-direction: column;
             gap: 0.35rem;
@@ -10238,7 +10236,7 @@
         .stakes-section {
             position: relative;
             padding: 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .stakes-image-wrapper {
@@ -10348,7 +10346,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .paradise-bg {
@@ -10356,7 +10354,7 @@
             inset: 0;
             width: 100vw;
             z-index: 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .paradise-bg img {
@@ -10484,7 +10482,7 @@
             height: 320px;
             margin: 0 auto 2rem;
             border-radius: 50%;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6), 0 0 40px var(--gold-alpha-10);
             border: 3px solid var(--gold);
             transition: all 0.6s var(--ease-out-expo);
@@ -10703,7 +10701,7 @@
             background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(18, 18, 22, 0.95) 100%);
             border-radius: 8px;
             margin-bottom: 1rem;
-            overflow: hidden;
+            overflow: visible;
             position: relative;
             display: flex;
             align-items: center;
@@ -11220,7 +11218,7 @@
             align-items: center;
             justify-content: center;
             padding: 4rem 2rem;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .prophecy-bg {
@@ -11228,7 +11226,7 @@
             inset: 0;
             width: 100vw;
             z-index: 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .prophecy-bg canvas {
@@ -11438,7 +11436,7 @@
         .prophecy-video-wrapper {
             position: relative;
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
             margin-bottom: 1.5rem;
             aspect-ratio: 16 / 9;
             background: #000;
@@ -11617,7 +11615,7 @@
 
         .bbc-evidence-card__video-wrapper {
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             position: relative;
         }
@@ -11792,7 +11790,7 @@
             aspect-ratio: 16/9;
             background: #000;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible;
             margin-bottom: 1.5rem;
         }
 
@@ -11856,7 +11854,7 @@
             margin: 0 auto;
             text-align: center;
         /* DISABLED:             max-height: calc(100vh - 12rem); */
-        /* DISABLED:             overflow: hidden; */
+        /* DISABLED:             overflow: visible; */
         }
 
         /* Constrain BBC video heights for viewport fit */
@@ -11885,7 +11883,7 @@
             max-width: 700px;
             margin: 0 auto 2rem;
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
 
@@ -11961,7 +11959,7 @@
             aspect-ratio: 16/9;
             background: #000;
             border-radius: 8px;
-            overflow: hidden;
+            overflow: visible;
             margin: 1rem 0;
         }
 
@@ -12103,7 +12101,7 @@
             background: linear-gradient(135deg, rgba(20, 15, 5, 0.6) 0%, rgba(30, 20, 5, 0.4) 100%);
             border: 1px solid rgba(212, 168, 75, 0.25);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .evidence-card--methodology::before {
@@ -12539,7 +12537,7 @@
             margin: 3rem 0;
             border: 1px solid rgba(212, 168, 75, 0.2);
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .chokepoint-svg { width: 100%; height: auto; }
@@ -12564,14 +12562,14 @@
             background: linear-gradient(90deg, rgba(0, 15, 5, 0.98) 0%, rgba(0, 10, 20, 0.98) 100%);
             border-bottom: 1px solid rgba(0, 255, 65, 0.3);
             z-index: 10001;
-            overflow: hidden;
+            overflow: visible;
             display: flex;
             align-items: center;
         }
 
         .ticker-track {
             width: 100%;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .ticker-content {
@@ -12678,7 +12676,7 @@
             height: 550px;
             margin: 4rem auto;
             border-radius: 20px;
-            overflow: hidden;
+            overflow: visible;
             user-select: none;
             box-shadow:
                 0 40px 100px rgba(0, 0, 0, 0.6),
@@ -12699,7 +12697,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* REALITY LAYER (BBC) */
@@ -12810,7 +12808,7 @@
             );
             border-right: 3px solid var(--gold);
             box-shadow: 5px 0 30px rgba(212, 168, 75, 0.3);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .prediction-content {
@@ -13295,7 +13293,7 @@
             border-radius: 50px;
             margin-top: 1rem;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .edition-icon {
@@ -13710,7 +13708,7 @@
             height: 100%;
             pointer-events: none;
             z-index: 50;
-            overflow: hidden;
+            overflow: visible;
             display: none;
         }
 
@@ -13843,7 +13841,7 @@
                 transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
                             box-shadow 0.4s ease,
                             border-color 0.4s ease;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .idea-card:hover,
@@ -13888,7 +13886,7 @@
             box-shadow:
                 0 0 0 1px rgba(255, 255, 255, 0.1),
                 0 20px 50px rgba(0, 0, 0, 0.5) !important;
-            overflow: hidden;
+            overflow: visible;
             transform: translateZ(0);
             position: relative;
         }
@@ -13974,7 +13972,7 @@
             background: linear-gradient(135deg, rgba(74, 20, 140, 0.2) 0%, rgba(20, 20, 25, 0.8) 100%) !important;
             border: 1px solid rgba(147, 51, 234, 0.3) !important;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .expert-card--featured::before {
@@ -14110,7 +14108,7 @@
         /* 7. CURSOR-FOLLOWING GLOW ON CARDS */
         .card-with-glow {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             --glow-x: 50%;
             --glow-y: 50%;
             --glow-color: rgba(212, 168, 75, 0.2);
@@ -14154,7 +14152,7 @@
         .video-hardware-frame {
             position: relative;
             border-radius: 20px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow:
                 inset 0 1px 1px rgba(255, 255, 255, 0.1),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.2),
@@ -14666,7 +14664,7 @@
             justify-content: center !important;
             min-height: auto !important;
             height: auto !important;
-            overflow: hidden !important;
+            overflow: visible !important;
         }
 
         .paradise-bg {
@@ -14845,7 +14843,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* BBC Evidence cards - responsive */
@@ -14867,7 +14865,7 @@
         /* DISABLED NUCLEAR:             max-height: calc(100vh - 10rem); */
         /* DISABLED NUCLEAR:             max-height: calc(100dvh - 10rem); */
         /* DISABLED NUCLEAR:             width: 100%; */
-        /* DISABLED NUCLEAR:             overflow: hidden; */
+        /* DISABLED NUCLEAR:             overflow: visible; */
         /* DISABLED NUCLEAR:         } */
 
         /* DISABLED NUCLEAR:         .snap-section .section-inner, */
@@ -14875,7 +14873,7 @@
         /* DISABLED NUCLEAR:         .snap-section > div:first-child:not(canvas) { */
         /* DISABLED NUCLEAR:             max-height: calc(100vh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem); */
         /* DISABLED NUCLEAR:             max-height: calc(100dvh - var(--ticker-height, 40px) - var(--nav-height, 60px) - 6rem); */
-        /* DISABLED NUCLEAR:             overflow: hidden; */
+        /* DISABLED NUCLEAR:             overflow: visible; */
         /* DISABLED NUCLEAR:             display: flex; */
         /* DISABLED NUCLEAR:             flex-direction: column; */
         /* DISABLED NUCLEAR:             justify-content: center; */
@@ -15210,7 +15208,7 @@
             bottom: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            overflow: hidden !important;
+            overflow: visible !important;
             z-index: 0 !important;
         }
 
@@ -15832,7 +15830,7 @@
             inset: 0;
             pointer-events: none;
             z-index: 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .ambient-orb {
@@ -16592,7 +16590,7 @@
         /* Progressive image loading - blur to sharp */
         .progressive-image {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .progressive-image img {
@@ -16889,7 +16887,7 @@
             height: 4px;
             background: rgba(212, 168, 75, 0.1);
             border-radius: 2px;
-            overflow: hidden;
+            overflow: visible;
             margin: 0.5rem 0;
         }
 
@@ -17023,7 +17021,7 @@
         .view-all-concepts-btn,
         .mobile-buy-bar-btn {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             backface-visibility: hidden;
             transform: translateZ(0);
             will-change: transform, box-shadow;
@@ -17490,7 +17488,7 @@
                 inset: 0;
                 pointer-events: none;
                 z-index: 1;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .mobile-particle {
@@ -17529,7 +17527,7 @@
             .concepts-modal {
                 width: 100% !important;
                 max-width: 100% !important;
-                max-height: 100vh !important;
+                max-height: none !important;
                 height: 100vh!important; height: 100dvh!important;
                 border-radius: 0 !important;
                 margin: 0 !important;
@@ -17602,7 +17600,7 @@
                 bottom: auto !important;
                 width: min(300px, 80vw) !important;
                 height: 100vh!important; height: 100dvh!important;
-                height: 100dvh !important;
+                height: auto !important;
                 background: rgba(2, 3, 10, 0.98) !important;
                 backdrop-filter: blur(20px) !important;
                 -webkit-backdrop-filter: blur(20px) !important;
@@ -17622,7 +17620,7 @@
 
             /* 11. QUOTE CAROUSEL - Simple on mobile */
             .carousel-section {
-                overflow: hidden !important;
+                overflow: visible !important;
                 padding: 2rem 1rem !important;
             }
 
@@ -17875,7 +17873,7 @@
             opacity: 0.9;
             max-width: 90px;
             white-space: nowrap;
-            overflow: hidden;
+            overflow: visible;
             text-overflow: ellipsis;
         }
 
@@ -18035,7 +18033,7 @@
             opacity: 0;
             transform: translateX(-100%);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .chapter-sidebar.active {
@@ -18062,7 +18060,7 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: transparent;
             border: 1px solid transparent;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .chapter-sidebar-item:hover {
@@ -18100,7 +18098,7 @@
             white-space: nowrap;
             max-width: 0;
             opacity: 0;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -18126,7 +18124,7 @@
             width: 3px;
             background: rgba(212, 168, 75, 0.1);
             border-radius: 0 3px 3px 0;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .chapter-sidebar-progress-fill {
@@ -18322,7 +18320,7 @@
                 text-align: center;
                 max-width: 90%;
                 white-space: nowrap;
-                overflow: hidden;
+                overflow: visible;
                 text-overflow: ellipsis;
             }
 
@@ -18360,7 +18358,7 @@
                 height: 2px;
                 background: rgba(255, 255, 255, 0.05);
                 border-radius: 2px;
-                overflow: hidden;
+                overflow: visible;
                 position: relative;
             }
 
@@ -18553,7 +18551,7 @@
             html.slideshow-mode .reading-progress,
             html.slideshow-mode .evidence-intro {
                 display: none !important;
-                visibility: hidden !important;
+                visibility: visible !important;
                 pointer-events: none !important;
             }
 
@@ -18605,7 +18603,7 @@
                 height: 2px;
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 2px;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .pwa-splash-progress {
@@ -18634,7 +18632,7 @@
                 align-items: center !important;
                 text-align: center !important;
                 padding: 2rem 1.5rem calc(100px + env(safe-area-inset-bottom, 0px)) 1.5rem !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .section-inner,
@@ -18660,7 +18658,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4;
                 -webkit-box-orient: vertical;
-                overflow: hidden;
+                overflow: visible;
             }
 
             /* 5. PREDICTIONS & EVIDENCE GRIDS */
@@ -18721,7 +18719,7 @@
                 height: 2px;
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 2px;
-                overflow: hidden;
+                overflow: visible;
             }
 
             .pwa-splash-progress {
@@ -18762,14 +18760,14 @@
 
                 /* EXACT viewport fit */
                 height: 100vh!important; height: 100dvh!important;
-                height: 100dvh !important;
+                height: auto !important;
                 min-height: 100vh!important; min-height: 100dvh!important;
-                min-height: 100dvh !important;
-                max-height: 100vh !important;
-                max-height: 100dvh !important;
+                min-height: auto !important;
+                max-height: none !important;
+                max-height: auto !important;
 
                 /* No overflow - content must fit */
-                overflow: hidden !important;
+                overflow: visible !important;
 
                 /* Centre content vertically */
                 display: flex !important;
@@ -18797,7 +18795,7 @@
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             /* Typography - Readable but compact */
@@ -19130,7 +19128,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 3 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .evidence-terminal {
@@ -19249,7 +19247,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .view-all-concepts-btn {
@@ -19291,7 +19289,7 @@
 
             html.slideshow-mode .quote-carousel {
                 max-height: 60vh !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -19343,7 +19341,7 @@
                 border: 1px solid rgba(212, 168, 75, 0.15) !important;
                 border-radius: 12px !important;
                 padding: 1rem !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .bbc-evidence-card__video {
@@ -19366,7 +19364,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 3 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .bbc-evidence-card__link {
@@ -19578,7 +19576,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 margin-top: 0.75rem !important;
             }
 
@@ -19666,7 +19664,7 @@
             html.slideshow-mode .about-content {
                 max-height: calc(100dvh - 140px) !important;
                 gap: 0.75rem !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -19704,7 +19702,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 5 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 max-width: 340px !important;
             }
 
@@ -19768,7 +19766,7 @@
             html.slideshow-mode .stakes-image-wrapper {
                 max-height: 38vh !important;
                 border-radius: 12px !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 border: 1px solid rgba(212, 168, 75, 0.1) !important;
             }
 
@@ -19953,7 +19951,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: hidden !important;
+                overflow: visible !important;
             }
 
             html.slideshow-mode .review-card .review-author {
@@ -20193,7 +20191,7 @@
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode footer {
                 height: 100vh!important; height: 100dvh!important;
-                height: 100dvh !important;
+                height: auto !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -20299,7 +20297,7 @@
             background: linear-gradient(180deg, rgba(10, 12, 20, 0.98) 0%, rgba(2, 3, 10, 0.98) 100%);
             border: 1px solid rgba(212, 168, 75, 0.2);
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             display: flex;
             flex-direction: column;
             animation: modalSlideIn 0.4s ease;
@@ -20405,7 +20403,7 @@
            ═══════════════════════════════════════════════════════════════════════════ */
         .comparison-section {
             background: linear-gradient(180deg, var(--void-deep) 0%, var(--void-mid) 100%);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .comparison-inner {
@@ -20537,7 +20535,7 @@
             background: linear-gradient(135deg, rgba(10, 12, 25, 0.95) 0%, rgba(4, 5, 15, 0.9) 100%) !important;
             border: 1px solid rgba(212, 168, 75, 0.15) !important;
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.3s ease;
         }
 
@@ -20576,7 +20574,7 @@
 
         .faq-answer {
             max-height: 0;
-            overflow: hidden;
+            overflow: visible;
             transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -20619,7 +20617,7 @@
 
         .faq-answer {
             max-height: 0;
-            overflow: hidden;
+            overflow: visible;
             transition: max-height 0.4s ease;
         }
 
@@ -20714,7 +20712,7 @@
            ═══════════════════════════════════════════════════════════════════════════ */
         .timeline-section {
             background: linear-gradient(180deg, var(--void-mid) 0%, var(--void-deep) 100%);
-            overflow: hidden;
+            overflow: visible;
         }
 
         .timeline-inner {
@@ -20889,7 +20887,7 @@
             padding: 1.75rem;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .chapter-card::before {
@@ -21735,7 +21733,7 @@
     width: 90%;
     max-width: 900px;
     max-height: 85vh;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     box-shadow:
@@ -22495,7 +22493,7 @@ img {
 @media (max-width: 768px) {
     .part-progress-indicator {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
         opacity: 0 !important;
     }
 }
@@ -22624,13 +22622,13 @@ div[class*="social-proof"],
 div[class*="reading-progress"],
 div[class*="audio-toggle"] {
     display: none !important;
-    visibility: hidden !important;
+    visibility: visible !important;
     pointer-events: none !important;
     opacity: 0 !important;
     width: 0 !important;
     height: 0 !important;
     max-height: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     position: absolute !important;
     left: -9999px !important;
 }
@@ -22660,14 +22658,14 @@ html body .part-progress-indicator,
 html body #part-progress-indicator,
 html body .part-progress-dots {
     display: none !important;
-    visibility: hidden !important;
+    visibility: visible !important;
     opacity: 0 !important;
     pointer-events: none !important;
     width: 0 !important;
     height: 0 !important;
     max-width: 0 !important;
     max-height: 0 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     position: absolute !important;
     left: -9999px !important;
     top: -9999px !important;
@@ -22705,12 +22703,12 @@ html body .hero #mandelbrot-bg {
     right: 0 !important;
     bottom: 0 !important;
     width: 100vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
+    height: auto !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
     margin-left: calc(-50vw + 50%) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 html body .hero .mandelbrot-video,
@@ -22720,8 +22718,8 @@ html body .hero #mandelbrot-video {
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     min-width: 100vw !important;
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
+    min-height: auto !important;
+    min-height: auto !important;
     width: auto !important;
     height: auto !important;
     object-fit: cover !important;
@@ -22755,7 +22753,7 @@ html body.cinematic .book-portal {
 
 /* FIX: Navigation menu iOS Safari 100vh bug */
 .nav-menu {
-    height: 100dvh !important;
+    height: auto !important;
     height: -webkit-fill-available !important;
     padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0)) !important;
 }
@@ -22846,7 +22844,7 @@ html body.cinematic .book-portal {
     html body #part-progress-indicator,
     html body [class*="scroll-indicator"] {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
         opacity: 0 !important;
         position: fixed !important;
         left: -99999px !important;
@@ -22997,7 +22995,7 @@ html body.cinematic .book-portal {
     html body nav.chapter-nav,
     html body #chapterNav {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
         opacity: 0 !important;
         height: 0 !important;
         position: absolute !important;
@@ -23277,7 +23275,7 @@ html body.cinematic .book-portal {
     html body .hero .book-shadow {
         display: none !important;
         content: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
     }
 
     /* Content Right - Clear typography hierarchy */
@@ -23575,7 +23573,7 @@ html body.cinematic .book-portal {
         gap: 5rem !important;
         padding: 120px 8% !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
         position: relative !important;
         overflow: visible !important; /* FIXED: Allow scroll-indicator and book-shadow to render */
     }
@@ -23695,7 +23693,7 @@ html body nav[role="navigation"] {
     html body nav.chapter-nav,
     html body #chapterNav {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
     }
 }
 
@@ -23713,7 +23711,7 @@ html body .timeline-events {
 /* 9. EVIDENCE LOCKER - Contained layout */
 html body .evidence-locker {
     position: relative !important;
-    overflow: hidden !important;
+    overflow: visible !important;
 }
 
 /* 10. IDEAS GRID - Clean desktop layout */
@@ -23744,7 +23742,7 @@ html body .evidence-locker {
     html body .mobile-buy-bar,
     html body #mobile-buy-bar {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
     }
 }
 
@@ -23865,7 +23863,7 @@ html body #the-mind .author-photo-wrapper {
     width: 280px !important;
     height: 280px !important;
     border-radius: 50% !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     border: 4px solid var(--gold) !important;
     box-shadow: 0 0 50px rgba(212, 168, 75, 0.35) !important;
 }
@@ -24027,11 +24025,11 @@ html body #the-mind .storm-story {
         align-items: center !important;
         justify-content: center !important;
         height: 100vh!important; height: 100dvh!important;
-        height: 100dvh !important;
+        height: auto !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
-        max-height: 100vh !important;
-        max-height: 100dvh !important;
+        min-height: auto !important;
+        max-height: none !important;
+        max-height: auto !important;
         overflow: visible !important;
         padding: 0 6% !important;
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
@@ -24452,7 +24450,7 @@ html body #the-mind .storm-story {
     /* Hero section needs full height */
     html body .hero.snap-section {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
         padding-top: 80px !important;
         padding-bottom: 100px !important;
     }
@@ -24482,13 +24480,13 @@ html body #the-mind .storm-story {
     /* Sidebar hidden on tablet/mobile (chapter-nav shows instead) */
     html body .chapter-sidebar {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
     }
 
     /* Slideshow nav deprecated - keep hidden */
     html body .slideshow-nav {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
     }
 }
 
@@ -24719,7 +24717,7 @@ html body #the-mind .storm-story {
     html body .evidence-video-container {
         aspect-ratio: 16/9 !important;
         border-radius: 6px !important;
-        overflow: hidden !important;
+        overflow: visible !important;
     }
 
     /* Section title - readable */
@@ -24873,7 +24871,7 @@ html body #ask-book-toggle {
     z-index: 99998 !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px) scale(0.95);
@@ -25441,7 +25439,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
     }
 
     /* === STANDARDIZE SECTION PADDING - Compact, no excess === */
@@ -25626,7 +25624,7 @@ html body section#methodology .methodology-closing {
         max-height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-        overflow: hidden !important;
+        overflow: visible !important;
     }
 
     /* === CANVAS AND PARTICLE CONTAINERS - Collapse on mobile (EXEMPT LOADER) === */
@@ -25757,7 +25755,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
         height: auto !important;
     }
 
@@ -25817,7 +25815,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section#hero {
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: 100dvh !important;
+        min-height: auto !important;
     }
 
     /* KILL section pseudo-elements */
@@ -26467,7 +26465,7 @@ main.content,
     #sticky-cta,
     [id="sticky-cta"] {
         display: none !important;
-        visibility: hidden !important;
+        visibility: visible !important;
         opacity: 0 !important;
         pointer-events: none !important;
     }
@@ -30046,20 +30044,6 @@ main.content, #main-content {
                         <span class="text-3xl group-hover:scale-110 transition-transform duration-500">💬</span>
                         <span class="font-mono text-[9px] text-white/40 uppercase tracking-widest">Key Quotes</span>
                     </a>
-                </div>
-            </div>
-        </section>
-
-                    </a>
-                    <a href="mailto:press@michaeldariuseastwood.com" class="press-item flex flex-col items-center gap-3 p-6 bg-white/[0.02] border border-gold-alpha-15 rounded-lg no-underline transition-all duration-300 hover:bg-gold-alpha-05 hover:border-gold hover:-translate-y-0.5">
-                        <span class="text-[2rem]">🎙️</span>
-                        <span class="font-mono text-xs text-text-secondary tracking-wide">Speaking</span>
-                    </a>
-                </div>
-
-                <div class="press-contact reveal reveal-delay-3 mt-12 p-8 bg-gold-alpha-03 rounded-lg">
-                    <p class="font-serif text-text-secondary mb-3">Interview requests, review copies & speaking engagements:</p>
-                    <a href="mailto:press@michaeldariuseastwood.com" class="email-link font-mono text-gold no-underline">press@michaeldariuseastwood.com</a>
                 </div>
             </div>
         </section>
@@ -39268,7 +39252,7 @@ main.content, #main-content {
                         
                     /* Dynamic Shine */
                     position: relative;
-                    overflow: hidden;
+                    overflow: visible;
                 }
                 
                 .glass-living::after, .evidence-card::after, .idea-card::after {
@@ -39613,7 +39597,7 @@ main.content, #main-content {
             gap: 0;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
+            overflow: visible;
             max-width: 52px; /* Collapsed - just the button */
         }
 
@@ -39631,7 +39615,7 @@ main.content, #main-content {
             white-space: nowrap;
             opacity: 0;
             max-width: 0;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -39956,7 +39940,7 @@ main.content, #main-content {
         html body #ask-book-toggle,
         html body button#ask-book-toggle {
             display: none !important;
-            visibility: hidden !important;
+            visibility: visible !important;
             opacity: 0 !important;
             position: fixed !important;
             z-index: 2147483647 !important;
