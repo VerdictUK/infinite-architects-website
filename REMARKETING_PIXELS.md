@@ -68,11 +68,12 @@
 
 | Property | Value |
 |----------|-------|
-| **Pixel ID** | `[TO BE ADDED]` |
+| **Pixel ID** | `[PENDING - Account access issue]` |
 | **Admin URL** | https://ads.twitter.com |
 
 ### Installation Status
 - [ ] Not yet installed
+- **Note:** Owner having account access issues - will add later
 
 ---
 
@@ -80,11 +81,21 @@
 
 | Property | Value |
 |----------|-------|
-| **Partner ID** | `[TO BE ADDED]` |
+| **Partner ID** | `8470874` |
 | **Admin URL** | https://www.linkedin.com/campaignmanager |
 
 ### Installation Status
-- [ ] Not yet installed
+- [x] Installed and active
+
+### Remarketing Audiences to Create
+1. **All Website Visitors** - Everyone who visited (90-180 days)
+2. **Professional Audience** - Great for B2B targeting
+3. **Engaged Visitors** - Time on site / pages viewed
+
+### How to Create Audiences
+1. LinkedIn Campaign Manager → Account Assets → Matched Audiences
+2. Create audience → Website → Website visitors
+3. Use for Sponsored Content and InMail campaigns
 
 ---
 
@@ -105,16 +116,17 @@
 ### Code Location
 All pixels are installed in `/index.html` in the `<head>` section:
 - Lines 109-119: Google (Analytics + Ads)
-- Lines 121-140: Meta/Facebook Pixel
+- Lines 121-143: Meta/Facebook Pixel
+- Lines 145-164: LinkedIn Insight Tag
 
 ### Event Tracking Location
-- Newsletter Lead event: Line ~33331
-- InitiateCheckout events: Line ~32628
+- Newsletter Lead event: Line ~33350
+- InitiateCheckout events: Line ~32650
 
 ### CSP Configuration
 The Content Security Policy in `vercel.json` allows:
-- `script-src`: googletagmanager.com, google-analytics.com, connect.facebook.net
-- `connect-src`: google-analytics.com, analytics.google.com, facebook.com
+- `script-src`: googletagmanager.com, google-analytics.com, connect.facebook.net, snap.licdn.com
+- `connect-src`: google-analytics.com, analytics.google.com, facebook.com, px.ads.linkedin.com
 
 ---
 
