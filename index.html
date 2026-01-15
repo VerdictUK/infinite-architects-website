@@ -4,43 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- SOVEREIGN MASTERPIECE VISIBILITY - Production Standard (Rule 15) -->
+    <!-- ULTRATHINK NUCLEAR VISIBILITY v15.0 - ABSOLUTE ALIGNMENT (Rule 15) -->
     <style>
-        /* 1. SCROLL FOUNDATION */
+        /* 1. SCROLL AUTHORITY */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100dvh !important;
+            min-height: 100vh !important;
             position: relative !important;
+            display: block !important;
             background-color: #02030a !important;
             margin: 0 !important;
             padding: 0 !important;
             scroll-behavior: smooth !important;
         }
 
-        /* 2. VISIBILITY GUARANTEE - Safe implementation that respects layout types */
-        .reveal, .active, .entering, 
-        [class*="reveal"], [class*="active"], [class*="entering"],
-        section, main, article, footer, header {
-            opacity: 1 !important;
+        /* 2. CONTENT GUARANTEE - Force render without breaking layout types */
+        * {
             visibility: visible !important;
+            opacity: 1 !important;
             max-height: none !important;
             filter: none !important;
+        }
+
+        /* 3. LAYOUT PROTECTION - Sections must flow vertically, but inner grids must stay grids */
+        section, main, article, footer, header {
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: auto !important;
+            position: relative !important;
+            transform: none !important;
+            overflow: visible !important;
+        }
+
+        /* 4. PROTECT THE ENGINE - Do NOT force flex on things that need to be grids */
+        .grid, [class*="grid"], .grid-cols-1, .grid-cols-2, .grid-cols-12 { 
+            display: grid !important; 
+        }
+        .flex, [class*="flex"], .inline-flex { 
+            display: flex !important; 
+        }
+
+        /* 5. ANIMATION NEUTRALISATION - Immediate presence */
+        .reveal, .active, .entering, [class*="reveal"], [class*="active"], [class*="entering"] {
             transform: none !important;
             transition: none !important;
             animation: none !important;
         }
 
-        /* 3. LAYOUT INTEGRITY - Sections should be relative blocks to prevent overlap */
-        section, .snap-section {
-            display: block !important;
-            position: relative !important;
-            width: 100% !important;
-            overflow: visible !important;
+        /* 6. LOADER & BLOCKER REMOVAL */
+        #loader, .loader, #cinematic-loader, .loader-video-overlay, .cosmic-awakening, .letterbox {
+            display: none !important;
+            pointer-events: none !important;
         }
 
-        /* 4. OVERLAY PROTECTION - Functional elements must stay hidden until needed */
+        /* 7. OVERLAY PROTECTION - Functional elements must stay hidden until needed */
         [id*="modal"]:not(.active):not(.show), 
         [id*="overlay"]:not(.active):not(.show),
         #chapter-intro-overlay:not(.active),
@@ -48,156 +68,7 @@
         .hidden { 
             display: none !important; 
         }
-
-        /* 5. LOADER BYPASS */
-        #loader, .loader, #cinematic-loader, .loader-video-overlay {
-            display: none !important;
-            pointer-events: none !important;
-        }
     </style>
-    <title>Infinite Architects | Michael Darius Eastwood</title>
-    <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
-    <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
-    <meta name="author" content="Michael Darius Eastwood">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph - Complete for optimal social sharing -->
-    <meta property="og:title" content="Infinite Architects | Michael Darius Eastwood">
-    <meta property="og:description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything.">
-    <meta property="og:type" content="book">
-    <meta property="og:url" content="https://www.michaeldariuseastwood.com/">
-    <meta property="og:image" content="https://www.michaeldariuseastwood.com/InfiniteArchitectsKindle20260103.jpg">
-    <meta property="og:image:width" content="1600">
-    <meta property="og:image:height" content="2560">
-    <meta property="og:image:alt" content="Infinite Architects book cover - Intelligence, Recursion, and the Creation of Everything">
-    <meta property="og:site_name" content="Infinite Architects">
-    <meta property="og:locale" content="en_GB">
-    <meta property="book:author" content="Michael Darius Eastwood">
-    <meta property="book:isbn" content="B0DS2L8BVC">
-    <meta property="book:release_date" content="2026-01">
-
-    <!-- Twitter Card - Complete for optimal display -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Infinite Architects | Michael Darius Eastwood">
-    <meta name="twitter:description" content="What if the god we're building is the god that built us? 37 original concepts for understanding AI.">
-    <meta name="twitter:image" content="https://www.michaeldariuseastwood.com/InfiniteArchitectsKindle20260103.jpg">
-    <meta name="twitter:image:alt" content="Infinite Architects book cover">
-    <meta name="twitter:creator" content="@MichaelDEastwood">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.michaeldariuseastwood.com/">
-
-    <!-- Favicons and PWA -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#02030a">
-    <meta name="msapplication-TileColour" content="#02030a">
-
-    <!-- APP-LIKE MOBILE EXPERIENCE -->
-    <!-- iOS Web App (Add to Home Screen) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Infinite Architects">
-    
-    <!-- iOS SPLASH SCREENS (Premium Entrance) -->
-    <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
-    <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
-    <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
-    <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
-    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="InfiniteArchitectsKindle20260103.jpg">
-
-    <!-- Android Web App -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- Prevent telephone number detection -->
-    <meta name="format-detection" content="telephone=no">
-    <!-- Prevent email detection -->
-    <meta name="format-detection" content="email=no">
-    <!-- Prevent address detection -->
-    <meta name="format-detection" content="address=no">
-
-    <!-- Preconnects for performance - ALL external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-
-    <!-- DNS prefetch for backup -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://unpkg.com">
-
-    <!-- Critical font: Preload + load immediately -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap">
-
-    <!-- Non-critical fonts: Load async (print media trick) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
-
-    <!-- Tailwind CSS - Compiled Design System -->
-    <link rel="stylesheet" href="dist/styles.css">
-
-    <!-- Google tag (gtag.js) - Analytics + Ads Remarketing -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        // Google Analytics 4
-        gtag('config', 'G-V4FDJHP4R4');
-        // Google Ads Remarketing
-        gtag('config', 'AW-17876453606');
-    </script>
-
-    <!-- Facebook/Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-    document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1951047602453657');
-    fbq('track', 'PageView');
-    // Track ViewContent for the book
-    fbq('track', 'ViewContent', {
-        content_name: 'Infinite Architects Book',
-        content_category: 'Book',
-        content_type: 'product',
-        content_ids: ['B0DS2L8BVC'],
-        value: 9.99,
-        currency: 'GBP'
-    });
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.net/tr?id=1951047602453657&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Facebook/Meta Pixel Code -->
-
-    <!-- LinkedIn Insight Tag -->
-    <script type="text/javascript">
-    _linkedin_partner_id = "8470874";
-    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-    </script>
-    <script type="text/javascript">
-    (function(l) {
-    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-    window.lintrk.q=[]}
-    var s = document.getElementsByTagName("script")[0];
-    var b = document.createElement("script");
-    b.type = "text/javascript";b.async = true;
-    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-    s.parentNode.insertBefore(b, s);})(window.lintrk);
-    </script>
-    <noscript>
-    <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8470874&fmt=gif" />
-    </noscript>
-    <!-- End LinkedIn Insight Tag -->
-
-    <!-- CRITICAL FIXES - NUCLEAR OVERRIDE v2.0 for visibility -->
 
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
@@ -18521,7 +18392,7 @@
                 min-height: 100vh!important; min-height: 100dvh!important;
                 min-height: 100vh !important;
                 
-                max-
+                max-height: none !important;
 
                 /* No overflow - content must fit */
                 
@@ -21729,13 +21600,13 @@
 [class*="-content"],
 [class*="-container"]:not(.hero-book-container) {
     
-    min-
+    min-height: auto !important;
     
 }
 
 /* Sections expand to fit content - no forced viewport height */
 .snap-section {
-    min-
+    min-height: auto !important;
     
 }
 
@@ -21857,7 +21728,7 @@ a {
 
     /* All cards including timeline - proper sizing */
     .evidence-locker .evidence-card {
-        min-
+        min-height: auto !important;
         
     }
 
@@ -21993,7 +21864,7 @@ a {
     /* Sections flow naturally */
     .snap-section {
         scroll-snap-align: none !important;
-        min-
+        min-height: auto !important;
         
         padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1.5rem) 1rem 3rem !important;
     }
@@ -22475,8 +22346,8 @@ html body .hero #mandelbrot-video {
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     min-width: 100vw !important;
-    min-
-    min-
+    min-height: auto !important;
+    min-height: auto !important;
     width: auto !important;
     
     object-fit: cover !important;
@@ -22547,7 +22418,7 @@ html body.cinematic .book-portal {
     }
 
     .hero-section {
-        min-
+        min-height: auto !important;
         padding: 1rem !important;
     }
 }
@@ -22600,28 +22471,17 @@ html body.cinematic .book-portal {
     html body .part-progress-indicator,
     html body #part-progress-indicator,
     html body [class*="scroll-indicator"] {
-        display: flex !important; visibility: visible !important;
-        
-        opacity: 0 !important;
-        position: fixed !important;
-        left: -99999px !important;
-        top: -99999px !important;
-        width: 0 !important;
-        height: 0 !important;
-        pointer-events: none !important;
+        display: none !important;
     }
 
     /* chapter-nav (mobile bottom bar) - ENABLED on mobile for chapter navigation */
     html body .chapter-nav {
         display: block !important;
-        
-        
         position: fixed !important;
         left: 0 !important;
         bottom: 0 !important;
         top: auto !important;
         width: 100% !important;
-        
         pointer-events: auto;
         z-index: 9999 !important;
     }
@@ -22629,23 +22489,17 @@ html body.cinematic .book-portal {
     /* === FIX: Quote Carousel Visibility === */
     html body .carousel-section {
         min-height: 120px !important;
-        
         padding: 2rem 1rem !important;
-        
         background: var(--void-deep, #02030a) !important;
     }
 
     html body .carousel-track {
         display: flex !important;
         animation: scrollCarousel 45s linear infinite !important;
-        
-        
     }
 
     html body .carousel-item {
         color: var(--gold-pale, #e8d4a0) !important;
-        
-        
         font-size: 0.95rem !important;
         padding: 0.75rem 1.25rem !important;
         white-space: normal !important;
@@ -22659,9 +22513,7 @@ html body.cinematic .book-portal {
     html body .snap-section,
     html body section,
     html body [class*="section"] {
-        min-
-        
-        
+        min-height: auto !important;
     }
 
     /* === FIX: Swipeable Carousels === */
@@ -22778,7 +22630,7 @@ html body.cinematic .book-portal {
     html body .about-section,
     html body #the-mind,
     html body #author {
-        min-
+        min-height: auto !important;
         
         
         
@@ -22953,7 +22805,7 @@ html body.cinematic .book-portal {
         justify-content: flex-start !important;
         /* Account for ticker + nav, then minimal padding */
         padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 1rem !important;
-        min-
+        min-height: auto !important;
         
         text-align: center !important;
         gap: 0.5rem !important; /* Tight elegant spacing */
@@ -23119,7 +22971,7 @@ html body.cinematic .book-portal {
     html body .quote-section,
     html body #book {
         padding: 2rem 1.5rem !important;
-        min-
+        min-height: auto !important;
     }
 
     html body .quote-container {
@@ -23140,7 +22992,7 @@ html body.cinematic .book-portal {
     html body .equation-section,
     html body #equation {
         padding: 2rem 1rem !important;
-        min-
+        min-height: auto !important;
     }
 
     html body .equation-container {
@@ -23330,7 +23182,7 @@ html body.cinematic .book-portal {
         gap: 5rem !important;
         padding: 120px 8% !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
         position: relative !important;
          /* FIXED: Allow scroll-indicator and book-shadow to render */
     }
@@ -23580,7 +23432,7 @@ html body .evidence-locker {
 /* Reset all conflicting author styles */
 html body #the-mind,
 html body .about-section {
-    min-
+    min-height: auto !important;
     
     padding: 4rem 2rem !important;
     
@@ -23752,7 +23604,7 @@ html body #the-mind .storm-story {
     main, .content, #main-content {
         
         
-        min-
+        min-height: auto !important;
     }
 
     .snap-section {
@@ -23763,7 +23615,7 @@ html body #the-mind .storm-story {
 
     /* Ensure sections after hero can scroll past */
     .snap-section:not(.hero) {
-        min-
+        min-height: auto !important;
         
     }
 }
@@ -23784,9 +23636,9 @@ html body #the-mind .storm-story {
         height: 100vh!important; height: 100dvh!important;
         
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
         
-        max-
+        max-height: none !important;
         
         padding: 0 6% !important;
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
@@ -24198,7 +24050,7 @@ html body #the-mind .storm-story {
 /* 2. FIX BLANK SECTIONS - Remove excessive min-height causing empty screens */
 @media (max-width: 1023px) {
     html body .snap-section {
-        min-
+        min-height: auto !important;
         
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
@@ -24207,7 +24059,7 @@ html body #the-mind .storm-story {
     /* Hero section needs full height */
     html body .hero.snap-section {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
         padding-top: 80px !important;
         padding-bottom: 100px !important;
     }
@@ -24215,13 +24067,13 @@ html body #the-mind .storm-story {
     /* Prevent sections from having massive gaps */
     html body section,
     html body .section {
-        min-
+        min-height: auto !important;
     }
 
     /* Fix carousel sections */
     html body .concepts-carousel-section,
     html body .ideas-section {
-        min-
+        min-height: auto !important;
         padding: 3rem 0 !important;
     }
 }
@@ -25186,7 +25038,7 @@ html body section#methodology .methodology-closing {
     html body .section,
     html body [class*="-section"],
     html body .snap-section {
-        min-
+        min-height: auto !important;
         
         
     }
@@ -25196,7 +25048,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
     }
 
     /* === STANDARDIZE SECTION PADDING - Compact, no excess === */
@@ -25429,14 +25281,14 @@ html body section#methodology .methodology-closing {
     html body .slideshow-section,
     html body .slideshow-container,
     html body [class*="slideshow"]:not(.slideshow-nav) {
-        min-
+        min-height: auto !important;
         
     }
 
     /* === SNAP SECTION OVERRIDES === */
     html body .snap-section:not(.hero) {
         scroll-snap-align: none !important;
-        min-
+        min-height: auto !important;
         
         padding-top: 1.5rem !important;
         padding-bottom: 1.5rem !important;
@@ -25512,7 +25364,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
         
     }
 
@@ -25547,7 +25399,7 @@ html body section#methodology .methodology-closing {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
         margin: 0 !important;
-        min-
+        min-height: auto !important;
         
     }
 
@@ -25558,7 +25410,7 @@ html body section#methodology .methodology-closing {
     html body .snap-section[class] {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
-        min-
+        min-height: auto !important;
         
         margin: 0 !important;
     }
@@ -25569,7 +25421,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section#hero {
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-
+        min-height: auto !important;
     }
 
     /* KILL section pseudo-elements */
@@ -25597,7 +25449,7 @@ html body section#methodology .methodology-closing {
     html body main#main-content section [class*="-content"]:not(.hrih-content) {
         padding: 0 !important;
         margin: 0 auto !important;
-        min-
+        min-height: auto !important;
         
     }
 
@@ -25634,7 +25486,7 @@ html body section#methodology .methodology-closing {
     html body #press {
         padding: 1rem !important;
         margin: 0 !important;
-        min-
+        min-height: auto !important;
         
     }
 
@@ -26227,7 +26079,7 @@ main.content,
     /* 3. FIX EXPERT-VALIDATION SECTION - Remove height constraints causing overlap */
     .expert-validation,
     #expert-validation {
-        min-
+        min-height: auto !important;
         
         
         
@@ -26391,7 +26243,7 @@ main.content,
     /* 5. FIX FALSIFICATION SECTION - Remove blank space */
     .falsification-section,
     #falsification {
-        min-
+        min-height: auto !important;
         
         padding: 2rem 1rem !important;
     }
@@ -26407,7 +26259,7 @@ main.content,
     /* 6. FIX VALIDATION TIMELINE - Remove blank space at top */
     .predictions-validated,
     #predictions-validated {
-        min-
+        min-height: auto !important;
         
         padding: 2rem 1rem !important;
     }
@@ -27194,30 +27046,33 @@ main.content, #main-content {
         </div>
 
         <!-- PART I: THE MIND - Author Content -->
-        <section class="section about-section snap-section chapter-start py-20 md:py-32 px-4 md:px-8 overflow-visible" id="the-mind">
-            <!-- Chapter Title - Visible indicator -->
-            <div class="chapter-title-header reveal flex items-center justify-center gap-4 mb-20 opacity-60">
-                <span class="chapter-numeral font-display text-2xl text-gold">I</span>
-                <span class="chapter-divider w-12 h-px bg-gold/50"></span>
-                <span class="chapter-name-label font-mono text-xs uppercase tracking-[0.2em] text-white">THE MIND</span>
+                <!-- THE AUTHOR -->
+        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-visible relative bg-void-deep" id="the-mind">
+            <!-- Chapter Title -->
+            <div class="reveal flex items-center justify-center gap-4 mb-20 opacity-60">
+                <span class="font-display text-2xl text-gold">I</span>
+                <span class="w-12 h-px bg-gold/50"></span>
+                <span class="font-mono text-xs uppercase tracking-[0.2em] text-white">THE MIND</span>
             </div>
             
-            <div class="section-inner about-inner grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 max-w-7xl mx-auto items-center">
-                <div class="about-visual relative flex flex-col items-center justify-center order-1 lg:order-2">
-                    <div class="author-photo-wrapper reveal relative z-10 w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-1 bg-gradient-to-tr from-gold via-gold-bright to-transparent shadow-glow-lg transition-all duration-600 ease-spring-loose group hover:scale-105">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 max-w-7xl mx-auto items-center overflow-visible">
+                <!-- Visual Column -->
+                <div class="relative flex flex-col items-center justify-center order-1 lg:order-2">
+                    <div class="reveal relative z-10 w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-1 bg-gradient-to-tr from-gold via-gold-bright to-transparent shadow-glow-lg group hover:scale-105 transition-all duration-700 ease-spring-loose">
                         <div class="w-full h-full rounded-full overflow-hidden border-2 border-void-deep">
-                            <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="author-photo w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
+                            <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
                         </div>
                     </div>
-                    <div class="tesseract-container absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-40 pointer-events-none blur-sm">
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-40 pointer-events-none blur-sm">
                         <canvas id="tesseract-canvas"></canvas>
                     </div>
                 </div>
                 
-                <div class="about-text text-center lg:text-left order-2 lg:order-1 space-y-8">
+                <!-- Text Column -->
+                <div class="text-center lg:text-left order-2 lg:order-1 space-y-8">
                     <div class="space-y-4">
-                        <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Author</p>
-                        <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white leading-tight">Michael Darius Eastwood</h2>
+                        <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Author</p>
+                        <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white leading-tight">Michael Darius Eastwood</h2>
                     </div>
 
                     <p class="reveal reveal-delay-2 font-serif text-2xl md:text-3xl italic text-gold-200 leading-relaxed border-l-4 border-gold pl-6 py-2">
@@ -27234,27 +27089,27 @@ main.content, #main-content {
                         <p>The diagnoses came late: ADHD and autism in adulthood. Finally naming the architecture that made some things impossible and other things inevitable. <strong class="text-gold font-bold italic">The struggles and the superpowers come from the same source.</strong></p>
                     </div>
 
-                    <p class="reveal reveal-delay-8 font-mono text-xs tracking-widest text-white/40 uppercase pt-4">
+                    <p class="reveal reveal-delay-8 font-mono text-[10px] tracking-widest text-white/40 uppercase pt-4">
                         DJ <span class="mx-2">→</span> PR EXECUTIVE <span class="mx-2">→</span> SYSTEMS BUILDER <span class="mx-2">→</span> LITIGANT-IN-PERSON <span class="mx-2">→</span> AI PHILOSOPHER
                     </p>
 
-                    <!-- MARRIED IN THE STORM -->
-                    <div class="storm-story reveal reveal-delay-9 glass-panel-ultra p-8 rounded-2xl border border-white/10 mt-12 text-left relative overflow-hidden group">
-                        <span class="storm-story-label text-gold text-[10px] font-mono uppercase tracking-[0.3em] mb-4 block">The Present Moment</span>
-                        <h3 class="storm-story-headline font-display text-2xl text-white mb-6">Married in the Storm</h3>
-                        <div class="storm-story-content space-y-4 text-sm md:text-base text-text-secondary leading-relaxed">
+                    <!-- MARRIED IN THE STORM CARD -->
+                    <div class="reveal reveal-delay-9 glass-panel-ultra p-8 rounded-3xl border border-white/10 mt-12 text-left relative overflow-hidden group shadow-2xl">
+                        <span class="text-gold text-[10px] font-mono uppercase tracking-[0.3em] mb-4 block">The Present Moment</span>
+                        <h3 class="font-display text-2xl text-white mb-6">Married in the Storm</h3>
+                        <div class="space-y-4 text-sm md:text-base text-text-secondary leading-relaxed">
                             <p>Right now, as you read this, my company is in liquidation. I am fighting to resurrect it. Rent arrears in the tens of thousands. The only reason I still have a home is a mental health crisis moratorium. <span class="text-white font-medium">One legal protection away from homelessness.</span></p>
 
                             <p>In the midst of all this uncertainty, I got married. Some might call that foolish. Who starts a new life while fighting to save the old one?</p>
 
-                            <blockquote class="storm-story-quote font-serif italic text-xl md:text-2xl text-white border-l-2 border-red-500 pl-6 my-8 py-1">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
+                            <blockquote class="font-serif italic text-xl md:text-2xl text-white border-l-2 border-red-500 pl-6 my-8 py-1">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
 
                             <div class="flex gap-4 mb-8">
                                 <button class="px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-[10px] font-mono uppercase tracking-widest text-gold hover:bg-gold hover:text-void-deep transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')">Tweet Quote</button>
                                 <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')">Copy Link</button>
                             </div>
 
-                            <p class="text-sm opacity-80">The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
+                            <p class="text-[11px] opacity-60 leading-relaxed italic">The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
                         </div>
                     </div>
                 </div>
