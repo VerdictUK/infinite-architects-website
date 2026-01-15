@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    
-    <!-- ULTRATHINK NUCLEAR VISIBILITY - COGNITIVE ACCESSIBILITY PROTOCOL (Rule 15) -->
+
+    <!-- NUCLEAR VISIBILITY FIX v3.0 - Clean approach that respects layouts -->
     <style>
-        /* 1. Force All Content Visible */
-        * {
+        /* 1. Force ALL 34 sections visible - explicit IDs */
+        #hero, #the-mind, #origin, #methodology, #book, #quote-carousel,
+        #equation, #ideas, #evidence-locker, #bbc-timeline, #predictions,
+        #falsification, #predictions-validated, #hrih, #religion, #chokepoint,
+        #window, #architecture, #predictions-summary, #future-born, #stakes,
+        #expert-validation, #reviews, #chapters, #comparison, #get-the-book,
+        #cta, #newsletter, #paradise, #faq, #glossary, #ai-timeline, #press {
             opacity: 1 !important;
             visibility: visible !important;
-        }
-        
-        /* 2. Force Section Display & Auto-Height */
-        section, main, article, div[id], div[class*="section"], [id], [class*="inner"], [class*="content"] {
-            display: flex !important;
-            flex-direction: column !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            height: auto !important;
-            min-height: auto !important;
             max-height: none !important;
             overflow: visible !important;
-            transform: none !important;
+        }
+
+        /* 2. Main content containers */
+        main, #main-content, .content {
+            opacity: 1 !important;
+            visibility: visible !important;
+            max-height: none !important;
+            overflow: visible !important;
         }
 
         /* 3. Global Scroll Unlock */
@@ -30,29 +32,21 @@
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: auto !important;
-            position: relative !important;
-            display: block !important;
         }
 
-        /* 4. Kill Reveal Traps */
-        .reveal, .entering, .active, [class*="reveal"], [class*="active"] {
+        /* 4. Kill opacity/visibility traps on reveal elements */
+        .reveal, [class*="reveal"] {
             opacity: 1 !important;
             visibility: visible !important;
-            transform: none !important;
-            transition: none !important;
         }
 
-        /* 5. Force specific grid behaviors to stay consistent */
-        .grid, [class*="grid"] { display: grid !important; }
-        .flex, [class*="flex"] { display: flex !important; }
-        .hidden { display: none !important; }
-
-        /* 6. Loader Bypass */
+        /* 5. Loader Bypass */
         #loader, .loader, #cinematic-loader {
             display: none !important;
-            pointer-events: none !important;
         }
+
+        /* 6. Intentional hides stay hidden */
+        .hidden { display: none !important; }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
     
@@ -105,11 +99,11 @@
     <link rel="canonical" href="https://www.michaeldariuseastwood.com/">
 
     <!-- Favicons and PWA -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#02030a">
     <meta name="msapplication-TileColour" content="#02030a">
 
@@ -26845,7 +26839,7 @@ main.content, #main-content {
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer crossorigin="anonymous"></script>
+
 
     <!-- Tone.js for Professional Audio (Phase 10) - Deferred, loads on demand -->
     <script>
@@ -27243,9 +27237,9 @@ main.content, #main-content {
     </div>
 
     <!-- Masterpiece Engines -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <!-- Navigation -->
     <nav class="nav fixed top-4 left-4 right-4 z-nav px-6 py-4 flex justify-between items-center rounded-2xl transition-all duration-400 ease-spring-loose glass-panel-ultra safe-top" id="nav">
