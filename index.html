@@ -4,42 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- SOVEREIGN VISIBILITY ENGINE v5.0 (Rule 15 - Hardcode Fix) -->
+    <!-- ULTRATHINK NUCLEAR VISIBILITY v10.0 - ABSOLUTE ACCESS (Rule 15) -->
     <style>
-        /* Ensure the foundation is scrollable and alive */
+        /* 1. THE FOUNDATION: Scroll or Death */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100dvh;
+            min-height: 100vh !important;
             position: relative !important;
-            background-color: #02030a !important; /* Ensure background isn't white */
+            display: block !important;
+            background-color: #02030a !important;
+            margin: 0 !important;
+            padding: 0 !important;
         }
 
-        /* Force visibility on everything that starts hidden, but don't touch the display/layout logic */
-        .reveal, [class*="reveal"], .entering, .active, 
-        section, main, article, div[id] {
+        /* 2. THE CONTENT: 100% Render Guarantee */
+        section, main, article, footer, header, div, span, h1, h2, h3, h4, p, a, button, canvas, video, img {
+            visibility: visible !important;
+            opacity: 1 !important;
+            max-height: none !important;
+            transform: none !important;
+            filter: none !important;
+            pointer-events: auto !important;
+        }
+
+        /* 3. THE LAYOUT: Preserve essential structures while forcing height */
+        [class*="section"], [class*="container"], [class*="inner"], [class*="content"], [id] {
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: auto !important;
+            overflow: visible !important;
+        }
+
+        /* 4. ANIMATION BYPASS: Skip the wait */
+        .reveal, .active, .entering, [class*="reveal"], [class*="delay"] {
             opacity: 1 !important;
             visibility: visible !important;
             transform: none !important;
             transition: none !important;
+            animation: none !important;
         }
 
-        /* Prevent height traps */
-        section, main {
-            max-height: none !important;
-            height: auto !important;
-        }
-
-        /* Explicitly hide the loader so it doesn't block the site */
-        #loader, .loader, #cinematic-loader {
+        /* 5. LOADER DISPOSAL: Site over Cinema */
+        #loader, .loader, #cinematic-loader, .loader-video-overlay {
             display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
             pointer-events: none !important;
         }
 
-        /* Keep intentional utilities */
+        /* 6. UTILITY PROTECT */
+        .flex { display: flex !important; }
+        .grid { display: grid !important; }
         .hidden { display: none !important; }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
@@ -31644,6 +31662,14 @@ main.content, #main-content {
             // Don't show if already shown this session
             if (shownIntros.has(chapterNum)) return;
 
+            // Don't show if welcome-back overlay is active (prevents stacking)
+            const welcomeOverlay = document.getElementById('welcome-back-overlay');
+            if (welcomeOverlay && welcomeOverlay.classList.contains('active')) return;
+
+            // Don't show if celebration overlay is active
+            const celebrationOverlay = document.getElementById('celebration-overlay');
+            if (celebrationOverlay && celebrationOverlay.classList.contains('active')) return;
+
             // Respect reduced motion
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 shownIntros.add(chapterNum);
@@ -31675,6 +31701,10 @@ main.content, #main-content {
             const showDelay = afterCelebration ? 600 : 100;
 
             setTimeout(() => {
+                // Double-check welcome-back isn't showing (race condition protection)
+                const wb = document.getElementById('welcome-back-overlay');
+                if (wb && wb.classList.contains('active')) return;
+
                 // Show overlay
                 overlay.classList.remove('fade-out');
                 overlay.classList.add('active');
