@@ -926,7 +926,7 @@
             overscroll-behavior: none;
             overscroll-behavior-y: none;
             overflow-x: hidden;
-            width: 100vw;
+            width: 100%; /* Changed from 100vw to prevent scrollbar overflow */
         }
 
         /* iOS safe area handling for notch devices */
@@ -3395,7 +3395,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             height: 100vh; height: 100dvh;
             pointer-events: none;
         }
@@ -4306,7 +4306,7 @@
         .cosmic-bg {
             position: fixed;
             inset: 0;
-            width: 100vw;
+            /* width: 100vw removed - inset: 0 handles full width */
             height: 100vh; height: 100dvh;
             z-index: -2;
             background: 
@@ -5075,7 +5075,8 @@
             justify-content: center;
             gap: 0.3rem;
             flex: 1;
-            padding: 0.5rem 0.75rem;
+            padding: 0.75rem 1rem;
+            min-height: 44px; /* Apple HIG minimum touch target */
             background: rgba(212, 168, 75, 0.08);
             border: 1px solid rgba(212, 168, 75, 0.2);
             border-radius: 6px;
@@ -5266,6 +5267,21 @@
             .ideas-section { padding: 4rem 1.25rem !important; }
             .ideas-grid { display: flex !important; flex-direction: row !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; gap: 1rem !important; padding: 1rem 0 !important; }
             .idea-card { flex: 0 0 280px !important; min-width: 280px !important; scroll-snap-align: center !important; }
+        }
+
+        /* Small phones: Stack ideas vertically instead of horizontal scroll */
+        @media (max-width: 480px) {
+            .ideas-grid {
+                flex-direction: column !important;
+                overflow-x: visible !important;
+                scroll-snap-type: none !important;
+            }
+            .idea-card {
+                flex: 0 0 auto !important;
+                min-width: 100% !important;
+                width: 100% !important;
+                scroll-snap-align: none !important;
+            }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -10386,13 +10402,13 @@
         .paradise-bg {
             position: absolute;
             inset: 0;
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             z-index: 0;
             overflow: visible;
         }
 
         .paradise-bg img {
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             height: 100%;
             object-fit: cover;
         }
@@ -11258,13 +11274,13 @@
         .prophecy-bg {
             position: absolute;
             inset: 0;
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             z-index: 0;
             overflow: visible;
         }
 
         .prophecy-bg canvas {
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             height: 100%;
         }
 
@@ -12835,7 +12851,7 @@
         .prediction-bg {
             position: absolute;
             inset: 0;
-            width: 100vw;
+            width: 100%; /* Changed from 100vw */
             background: linear-gradient(
                 135deg,
                 var(--void-mid) 0%,
@@ -15386,7 +15402,7 @@
             .hero-visual,
             .section-visual,
             [class*="-visual"]:not([class*="-wrapper"]) {
-                min-width: 100vw !important;
+                min-width: 100% !important; /* Changed from 100vw */
                 min-height: 100% !important;
             }
         }
@@ -22829,7 +22845,7 @@ html body .hero #mandelbrot-video {
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    min-width: 100vw !important;
+    min-width: 100% !important; /* Changed from 100vw */
     min-height: auto !important;
     min-height: auto !important;
     width: auto !important;
@@ -31351,11 +31367,17 @@ main.content, #main-content {
                 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000);
                 camera.position.z = 1000;
 
+                // EXPOSE: For Genius Reanimation (Step 2 - Proper Fix)
+                window.mainScene = scene;
+                window.mainCamera = camera;
+
                 renderer = new THREE.WebGLRenderer({
                     antialias: true,
                     alpha: true,
                     powerPreference: 'high-performance'
                 });
+
+                window.mainRenderer = renderer;
 
                 // Check if context was created successfully
                 if (!renderer.getContext()) {
@@ -34564,124 +34586,9 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // CAROUSEL VISIBILITY OPTIMIZATION - Pause animation when not visible
+        // REMOVED: initCarouselOptimisation - Orchestrator handles visibility
+        // REMOVED: initMobileWowFactor - Now in Masterpiece Soul
         // ═══════════════════════════════════════════════════════════════════════
-        function initCarouselOptimisation() {
-            const carouselTrack = document.querySelector('.carousel-track');
-            if (!carouselTrack) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // Pause animation when not visible
-                    carouselTrack.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(carouselTrack.parentElement);
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // MOBILE WOW FACTOR - Touch Interactions
-        // ═══════════════════════════════════════════════════════════════════════
-        function initMobileWowFactor() {
-            if (window.innerWidth > 768) return;
-
-            // Create touch ripple container
-            const rippleContainer = document.createElement('div');
-            rippleContainer.className = 'mobile-particles';
-            document.body.appendChild(rippleContainer);
-
-            // Create floating particles
-            const particles = [];
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'mobile-particle';
-                rippleContainer.appendChild(particle);
-                particles.push({
-                    el: particle,
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    opacity: 0
-                });
-            }
-
-            // Animate floating particles (with visibility check for performance)
-            let particleAnimationId = null;
-            function animateParticles() {
-                // PERFORMANCE: Skip animation when tab is hidden
-                if (!pageVisible) {
-                    particleAnimationId = requestAnimationFrame(animateParticles);
-                    return;
-                }
-
-                particles.forEach((p, i) => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    // Wrap around screen
-                    if (p.x < 0) p.x = window.innerWidth;
-                    if (p.x > window.innerWidth) p.x = 0;
-                    if (p.y < 0) p.y = window.innerHeight;
-                    if (p.y > window.innerHeight) p.y = 0;
-
-                    // Fade in/out
-                    p.opacity = 0.3 + Math.sin(Date.now() * 0.001 + i) * 0.2;
-
-                    p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
-                    p.el.style.opacity = p.opacity;
-                });
-                particleAnimationId = requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            // Touch ripple effect
-            document.addEventListener('touchstart', function(e) {
-                const touch = e.touches[0];
-                const ripple = document.createElement('div');
-                ripple.className = 'touch-ripple';
-                ripple.style.left = (touch.clientX - 75) + 'px';
-                ripple.style.top = (touch.clientY - 75) + 'px';
-                ripple.style.width = '150px';
-                ripple.style.height = '150px';
-                document.body.appendChild(ripple);
-
-                requestAnimationFrame(() => {
-                    ripple.classList.add('active');
-                });
-
-                setTimeout(() => ripple.remove(), 600);
-
-                // Attract particles to touch point
-                particles.forEach(p => {
-                    const dx = touch.clientX - p.x;
-                    const dy = touch.clientY - p.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 200) {
-                        p.vx += dx * 0.01;
-                        p.vy += dy * 0.01;
-                    }
-                });
-            }, { passive: true });
-
-            // Device orientation for particles (iOS)
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', function(e) {
-                    if (e.gamma && e.beta) {
-                        particles.forEach(p => {
-                            p.vx += e.gamma * 0.001;
-                            p.vy += e.beta * 0.001;
-                            // Damping
-                            p.vx *= 0.99;
-                            p.vy *= 0.99;
-                        });
-                    }
-                }, { passive: true });
-            }
-
-            // console.log('✨ Mobile WOW factor enabled');
-        }
 
         // ═══════════════════════════════════════════════════════════════════════
         // APPLE-GRADE EFFECTS - Performance Optimized (Step 3)
@@ -34743,68 +34650,10 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // MAGNETIC CURSOR EFFECT
+        // REMOVED: initMagneticElements - Duplicate (GSAP version in masterpiece-soul)
+        // REMOVED: initCursorGlow - Superseded by God Cursor
+        // REMOVED: initAppleLenis - Duplicate (Lenis in masterpiece-soul)
         // ═══════════════════════════════════════════════════════════════════════
-        function initMagneticElements() {
-            const magneticElements = document.querySelectorAll('.magnetic, .hero-cta, .cta-button, .tripath-cta');
-
-            magneticElements.forEach(el => {
-                el.addEventListener('mousemove', (e) => {
-                    const rect = el.getBoundingClientRect();
-                    const centreX = rect.left + rect.width / 2;
-                    const centreY = rect.top + rect.height / 2;
-
-                    const deltaX = (e.clientX - centreX) * 0.15; // Magnetic strength
-                    const deltaY = (e.clientY - centreY) * 0.15;
-
-                    el.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    el.style.transform = 'translate(0, 0)';
-                    el.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-                });
-
-                el.addEventListener('mouseenter', () => {
-                    el.style.transition = 'transform 0.15s ease-out';
-                });
-            });
-
-            // console.log('✨ Magnetic cursor enabled');
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // CURSOR-FOLLOWING GLOW ON CARDS
-        // ═══════════════════════════════════════════════════════════════════════
-        function initCursorGlow() {
-            const glowCards = document.querySelectorAll('.idea-card, .evidence-card, .expert-card, .timeline-event');
-
-            glowCards.forEach(card => {
-                // Add the glow class
-                card.classList.add('card-with-glow');
-
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    card.style.setProperty('--glow-x', `${x}px`);
-                    card.style.setProperty('--glow-y', `${y}px`);
-                });
-            });
-
-            // console.log('✨ Cursor glow enabled');
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // ENHANCED LENIS CONFIGURATION
-        // ═══════════════════════════════════════════════════════════════════════
-        // REMOVED: Duplicate Lenis initialization - using PHASE 9 instead
-        function initAppleLenis() {
-            // Lenis now handled by PHASE 9: LIQUID REALITY SCROLL
-            // This prevents duplicate animation loops
-            return;
-        }
 
         // ═══════════════════════════════════════════════════════════════════════
         // IMAGE ERROR HANDLER - Graceful fallbacks for broken images
@@ -34838,38 +34687,18 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // NUCLEAR FIX: ANIMATION PAUSE CONTROLLER
+        // REMOVED: initAnimationPauser - Orchestrator handles this
         // ═══════════════════════════════════════════════════════════════════════
-        function initAnimationPauser() {
-            if (!('IntersectionObserver' in window)) return;
-
-            const animationPauser = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const section = entry.target;
-
-                    // Toggle animation-paused class on the entire section
-                    // This uses the CSS rule that pauses all descendant animations
-                    if (entry.isIntersecting) {
-                        section.classList.remove('animation-paused');
-                    } else {
-                        section.classList.add('animation-paused');
-                    }
-                });
-            }, { threshold: 0.05 }); // Lower threshold to catch animations near edge of viewport
-
-            // Observe all major sections
-            document.querySelectorAll('.snap-section, [data-animate-section]').forEach(section => {
-                animationPauser.observe(section);
-            });
-        }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // INITIALIZE ALL ENHANCEMENTS
+        // INITIALIZE ALL ENHANCEMENTS (Phase 1 Purge - Jan 2026)
+        // Removed: initAnimationPauser, initCarouselOptimisation, initMobileWowFactor,
+        //          initMagneticElements, initCursorGlow, initAppleLenis,
+        //          initStaggerReveal, initAmbientOrbs
+        // Reason: Superseded by Orchestrator, Apple-Grade Reveal, and Masterpiece Soul
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
             initImageErrorHandlers();
-            initAnimationPauser();
-            // REMOVED: initVideoManager - Centralized in Orchestrator to fix jolting
             addRippleStyles();
             initReadingProgress();
             initNewsletter();
@@ -34877,17 +34706,7 @@ main.content, #main-content {
             initCookieConsent();
             initMobileCTA();
             initMobileEnhancements();
-            initCarouselOptimisation();
-            initMobileWowFactor();
             initAppleGradeEffects();
-            initMagneticElements();
-            // DEFERRED: Heavy visual animations - wait for loader
-            deferUntilSiteReady(function() {
-                initCursorGlow();
-                initAppleLenis();
-                initStaggerReveal();
-                initAmbientOrbs();
-            }, 100);
         });
 
         // ═══════════════════════════════════════════════════════════════════════

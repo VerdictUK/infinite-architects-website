@@ -2019,8 +2019,29 @@ window.ShadowLayer = new ShadowLayer();
                 window.lenisInstance.resize();
             }
 
+            // REANIMATION: Plug Genius features into the Lifecycle (Proper Fix)
+            this.initGeniusFeatures();
+
             // Trigger the TITAN SLAM
             this.triggerTitanSlam();
+        },
+
+        initGeniusFeatures() {
+            console.log('🧠 Lifecycle: Reanimating Genius Features...');
+            
+            // 1. Reanimate Fluid Simulation (The Void)
+            const fluidCanvas = document.getElementById('fluid-canvas');
+            if (fluidCanvas && window.FluidSimulation) {
+                window.fluidEngine = new FluidSimulation(window.mainScene, window.mainRenderer, window.mainCamera);
+                console.log('🌌 Genius: Fluid Simulation Active');
+            }
+
+            // 2. Reanimate 3D Book (The Artifact)
+            const bookContainer = document.getElementById('hero-book-container');
+            if (bookContainer && window.Book3D) {
+                window.bookEngine = new Book3D(bookContainer, window.mainScene, window.mainRenderer, window.mainCamera);
+                console.log('📚 Genius: 3D Book Active');
+            }
         },
 
         triggerTitanSlam() {
