@@ -131,6 +131,38 @@
 
 ---
 
+# CLAUDE OPUS 4.5 SESSION - 2026-01-15 (Performance Fixes)
+
+### Completed Performance Fixes (This Session):
+
+| Fix | Line(s) | Impact |
+|-----|---------|--------|
+| **Fluid Simulation DISABLED** | ~31294 | 24B GPU ops/sec saved - effect was 100% invisible (z-index -10) |
+| **Nav backdrop-filter STATIC** | 4325-4331 | Removed blur(12px)→blur(20px) change on scroll (major jank source) |
+| **Lenis parallax handler REMOVED** | 37285-37293 | Was querying DOM 30+ times per frame |
+| **updateScrollProperties parallax REMOVED** | 34654-34660 | Another duplicate getBoundingClientRect() loop |
+| **Enhanced parallax OPTIMISED** | 34141 | Added early-exit when no elements found |
+| **Book Portal Glow FIXED** | 24094-24114 | Was dead code (opacity:0, z-index:-1) - now visible |
+| **Cosmic Pulse FIXED** | 4176-4235 | Was hidden after 5s - now runs at reduced intensity |
+| **Film Grain opacity FIXED** | 4197 | Increased from 0.012 to 0.020 |
+
+### Audit Findings (For Gemini Reference):
+
+| Issue | Status | Notes |
+|-------|--------|-------|
+| 22 scroll listeners | IDENTIFIED | 3 duplicates removed, rest need consolidation into ScrollManager |
+| Lenis vs scroll-snap conflict | IDENTIFIED | Tablet (768-1023px) has both active - needs fix at line 23852 |
+| 11KB dead CSS (duplicate @keyframes) | IDENTIFIED | 17 animations defined 2-3 times each |
+| Loader video no pause | NOT FIXED | Gemini's SiteLifecycle may handle this - coordinating |
+| Book cover video no viewport | NOT FIXED | Awaiting Gemini's Orchestrator integration |
+
+### Coordination Notes:
+- ⚠️ Gemini implementing SiteLifecycle + Orchestrator in masterpiece-soul.js
+- ⚠️ Claude NOT adding CSS overrides - only removing dead code and optimizing JS
+- ⚠️ Both agents aligned on "PROPER FIXES ONLY" approach
+
+---
+
 # CLAUDE COMPLETE IMPLEMENTATION LOG
 
 [Existing content from Claude...]
