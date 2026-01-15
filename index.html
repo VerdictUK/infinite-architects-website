@@ -4,69 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- NUCLEAR VISIBILITY FIX v3.0 - Clean approach that respects layouts -->
+    <!-- SOVEREIGN VISIBILITY ENGINE v4.0 (Rule 15 - Hardcode Fix) -->
     <style>
-        /* 1. Force ALL 34 sections visible - explicit IDs */
-        #hero, #the-mind, #origin, #methodology, #book, #quote-carousel,
-        #equation, #ideas, #evidence-locker, #bbc-timeline, #predictions,
-        #falsification, #predictions-validated, #hrih, #religion, #chokepoint,
-        #window, #architecture, #predictions-summary, #future-born, #stakes,
-        #expert-validation, #reviews, #chapters, #comparison, #get-the-book,
-        #cta, #newsletter, #paradise, #faq, #glossary, #ai-timeline, #press {
-            opacity: 1 !important;
-            visibility: visible !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        /* 2. Main content containers */
-        main, #main-content, .content {
-            opacity: 1 !important;
-            visibility: visible !important;
-            max-height: none !important;
-            overflow: visible !important;
-        }
-
-        /* 3. Global Scroll Unlock */
+        /* Force ALL content containers to respect their intended layout but remain visible */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-        }
-
-        /* 4. Kill opacity/visibility traps on reveal elements */
-        .reveal, [class*="reveal"] {
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-
-        /* 5. Loader Bypass */
-        #loader, .loader, #cinematic-loader {
-            display: none !important;
-        }
-
-        /* 6. Intentional hides stay hidden */
-        .hidden { display: none !important; }
-    </style>
-    <title>Infinite Architects | Michael Darius Eastwood</title>
-    
-    <!-- CRITICAL: Hardcoded Scroll Fix (Rule 15) -->
-    <style>
-        html, body {
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
-            height: auto !important;
-            min-height: 100vh;
+            min-height: 100dvh;
             position: relative !important;
             margin: 0;
             padding: 0;
         }
-        
-        /* Only lock if explicitly requested by loader */
-        body.loader-active {
+
+        /* Ensure all main sections and 'reveal' elements are visible by default */
+        section, main, article, .reveal, [class*="reveal"], .entering {
+            opacity: 1 !important;
+            visibility: visible !important;
+            max-height: none !important;
             overflow: visible !important;
+            transform: none !important;
+            transition: none !important;
         }
+
+        /* Explicitly hide the loader so it doesn't block the site */
+        #loader, .loader, #cinematic-loader {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        /* Allow intended hidden elements to stay hidden */
+        .hidden { display: none !important; }
     </style>
+    <title>Infinite Architects | Michael Darius Eastwood</title>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
     <meta name="author" content="Michael Darius Eastwood">
