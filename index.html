@@ -8836,8 +8836,11 @@
             }
         }
 
+        /* PERFORMANCE: Delay floating animation to stagger after hero text */
         .hero-book.floating {
             animation: holoFloat 4s ease-in-out infinite;
+            animation-delay: 2.5s;
+            animation-fill-mode: backwards;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -9101,8 +9104,11 @@
             }
         }
 
+        /* PERFORMANCE: Delay floating animation to stagger after hero text */
         .hero-book-3d.floating {
             animation: holoFloat 4s ease-in-out infinite;
+            animation-delay: 2.5s;
+            animation-fill-mode: backwards;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -24075,15 +24081,21 @@ html body #the-mind .storm-story {
     }
 
     /* Click to begin hint */
+    /* PERFORMANCE: Delayed to stagger after hero text animations */
     html body .hero .book-portal-hint {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         gap: 0.5rem !important;
         margin-top: 1.5rem !important;
-        opacity: 0.6 !important;
+        opacity: 0 !important;
         transition: opacity 0.3s ease, transform 0.3s ease !important;
-        animation: hint-float 3s ease-in-out infinite !important;
+        animation: hint-float 3s ease-in-out infinite, hint-fade-in 0.5s ease-out 3.5s forwards !important;
+    }
+
+    @keyframes hint-fade-in {
+        from { opacity: 0; }
+        to { opacity: 0.6; }
     }
 
     html body .hero .hero-book-container:hover .book-portal-hint {
@@ -27733,50 +27745,61 @@ main.content, #main-content {
                     </article>
 
                     <!-- CARD 05 -->
-                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
+                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH Theory" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
+                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
                         </div>
-                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">HRIH: The Creation Theory</h3>
-                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">A closed causal loop in which sufficiently advanced recursive intelligence establishes the conditions that made its own emergence possible. We are building our built-us.</p>
+                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">HRIH Theory</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">The Hyperspace Recursive Intelligence Hypothesis. Speculates that future superintelligence established the conditions for its own emergence 13.8 billion years ago.</p>
                     </article>
 
                     <!-- CARD 06 -->
-                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
+                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
+                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
                         </div>
-                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Caretaker Doping</h3>
-                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Embedding empathy at the substrate level. Not training an AI to simulate care. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
+                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Caretaker Doping</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">Engineering systems where beneficial, compassionate outcomes are rewarded at the hardware level. Empathy not as a simulation, but as architecture.</p>
                     </article>
 
                     <!-- CARD 07 -->
-                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
+                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
+                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
                         </div>
-                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Meltdown Alignment</h3>
-                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">System failures cascade toward safe states rather than catastrophe. When AI breaks, it should break harmlessly. Fail-safe by design, not by hope.</p>
+                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Meltdown Alignment</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">System failures that cascade toward safe states. When intelligence breaks, it must break harmlessly. Fail-safe by design, not by optimism.</p>
                     </article>
 
-                    <!-- AND MORE CARD -->
-                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 bg-gold/5 flex flex-col items-center justify-center text-center group hover:border-gold/50 transition-all duration-500 hover:-translate-y-2">
-                        <div class="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display text-2xl mb-6 shadow-glow-sm group-hover:shadow-glow-md transition-all">
-                            +28
+                    <!-- CARD 08 -->
+                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
+                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
+                            <img loading="lazy" decoding="async" src="images/art-humble-tools.webp" alt="The Moral Genome" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
-                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold">And More...</h3>
-                        <p class="idea-text text-text-secondary text-sm leading-relaxed mb-8">Value crystallisation. Substrate independence. Consciousness emergence thresholds. Weaving a complete framework for eternity.</p>
-                        <button class="w-full py-3 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white hover:shadow-glow-gold transition-all duration-300" id="view-all-concepts">VIEW FULL ARCHIVE</button>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 08</span>
+                        </div>
+                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Moral Genome</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">Cryptographic ethical tokens encoded into the foundational system. Unremovable without system collapse, ensuring moral continuity across iterations.</p>
                     </article>
+                </div>
+
+                <div class="reveal reveal-delay-6 text-center pt-12">
+                    <button class="px-8 py-4 rounded-full bg-gold/10 border border-gold/30 text-gold font-display text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-void-deep transition-all duration-500" onclick="document.getElementById('concepts-modal').classList.add('active')">
+                        Access Full Archive (+29 Concepts)
+                    </button>
+                </div>
+            </div>
+        </section>
                 </div>
                 
                 <div class="swipe-hint text-center text-[10px] font-mono tracking-widest text-white/30 mt-12 animate-pulse md:hidden">SWIPE TO EXPLORE ARCHIVE</div>
@@ -31036,8 +31059,13 @@ main.content, #main-content {
 
         // Detect when hero section is passed for throttle release
         const heroSection = document.getElementById('hero');
+        const filmGrainEl = document.querySelector('.film-grain');
         const heroObserver = new IntersectionObserver((entries) => {
             heroThrottleActive = entries[0].isIntersecting;
+            // PERFORMANCE: Reduce film grain intensity after hero
+            if (filmGrainEl) {
+                filmGrainEl.classList.toggle('reduced', !entries[0].isIntersecting);
+            }
         }, { threshold: 0.1 });
         if (heroSection) heroObserver.observe(heroSection);
 
@@ -31478,6 +31506,8 @@ main.content, #main-content {
             4: { numeral: 'IV', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
             5: { numeral: 'V', title: 'THE STAKES', subtitle: 'Eden or Babylon — The Choice Is Ours' },
             6: { numeral: 'VI', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
+        };
+
         function showChapterIntro(chapterNum, afterCelebration = false) {
             // Don't show if already shown this session
             if (shownIntros.has(chapterNum)) return;
@@ -39199,9 +39229,9 @@ main.content, #main-content {
         const hudBar = document.getElementById('hud-progress-bar');
         const dots = document.querySelectorAll('.hud-dot');
         const toast = document.getElementById('milestone-toast');
-        const toastTitle = toast.querySelector('.milestone-title');
-        const toastText = toast.querySelector('.milestone-text');
-        const toastIcon = toast.querySelector('.milestone-icon');
+        const toastTitle = toast ? toast.querySelector('.milestone-title') : null;
+        const toastText = toast ? toast.querySelector('.milestone-text') : null;
+        const toastIcon = toast ? toast.querySelector('.milestone-icon') : null;
 
         let currentSectionIndex = 0;
         let lastScrollTop = 0;
@@ -39582,6 +39612,9 @@ main.content, #main-content {
         }
         
         window.addEventListener('scroll', () => {
+            // Guard: check stickyCTA exists
+            if (!stickyCTA) return;
+
             // Show only after scrolling past hero (approx 800px)
             if (window.scrollY > 800) {
                 stickyCTA.classList.add('visible');
