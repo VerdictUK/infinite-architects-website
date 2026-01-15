@@ -3659,6 +3659,58 @@
         body.cinematic-active .hero-subtitle-secondary { transition-delay: 0.9s; }
 
         /* ═══════════════════════════════════════════════════════════════════════
+           2026 OPTICAL PHYSICS ENGINE
+           Premium "lens focus" reveal - content materializes like camera focusing
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* 1. THE "EXPENSIVE" EASING CURVE (Quintic Out - heavy glass door feel) */
+        :root {
+            --ease-apple-pro: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* 2. THE LENS REVEAL CLASS - Initial state: blurry, zoomed, transparent */
+        .optical-reveal {
+            opacity: 0;
+            filter: blur(12px);
+            transform: scale(1.03) translateY(30px);
+
+            /* Hardware Acceleration Hints (Crucial for 60fps on mobile) */
+            will-change: opacity, transform, filter;
+
+            /* The Transition Configuration */
+            transition:
+                opacity 1.6s ease-out,
+                transform 1.6s var(--ease-apple-pro),
+                filter 1.6s ease-out;
+        }
+
+        /* 3. THE TRIGGER STATE - Content snaps into focus */
+        body.cinematic-active .optical-reveal {
+            opacity: 1;
+            filter: blur(0px);
+            transform: scale(1) translateY(0);
+        }
+
+        /* 4. MICRO-STAGGERING - The "Domino" effect for visual flow */
+        body.cinematic-active .hero-book-container.optical-reveal { transition-delay: 0.1s; }
+        body.cinematic-active .hero-proof-bar.optical-reveal { transition-delay: 0.25s; }
+        body.cinematic-active #hero-title.optical-reveal,
+        body.cinematic-active .hero-title.optical-reveal { transition-delay: 0.4s; }
+        body.cinematic-active .hero-subtitle.optical-reveal { transition-delay: 0.55s; }
+        body.cinematic-active .hero-author.optical-reveal { transition-delay: 0.65s; }
+        body.cinematic-active .hero-cta.optical-reveal { transition-delay: 0.75s; }
+        body.cinematic-active .hero-cta-stack.optical-reveal { transition-delay: 0.7s; }
+
+        /* 5. REDUCED MOTION SAFETY - Respect user preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .optical-reveal {
+                filter: none;
+                transform: none;
+                transition: opacity 0.3s ease-out;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
            MOBILE LOADER ANIMATION OPTIMIZATIONS
            Scale down cosmic awakening and titan drop for smaller screens
            ═══════════════════════════════════════════════════════════════════════ */
@@ -27252,7 +27304,7 @@ main.content, #main-content {
                 <a href="#predictions-validated" class="pill-link">Watch proof →</a>
             </div>
             <!-- Holographic Book Container - CLICK TO ENTER PORTAL -->
-            <div class="hero-book-container flex justify-center items-center lg:justify-end">
+            <div class="hero-book-container optical-reveal flex justify-center items-center lg:justify-end">
                 <div class="hero-book book-portal relative z-5 cursor-pointer transition-all duration-600 ease-out" id="hero-book" role="button" tabindex="0" aria-label="Click to enter and explore the book">
                     <!-- Animated Video Book Cover -->
                     <video preload="metadata"
@@ -27296,10 +27348,10 @@ main.content, #main-content {
             </div>
             
             <div class="hero-content-right flex flex-col items-center lg:items-start">
-                <h1 class="hero-title font-display text-h1 lg:hidden" id="hero-title"><span class="brand-word shimmer-text">Infinite</span> <span class="brand-word shimmer-text">Architects</span></h1>
-                <p class="hero-subtitle font-serif text-body-lg lg:text-body-xl italic text-dim max-w-[600px] leading-relaxed mb-8">We're not building tools anymore. We're raising something.<br><span class="hero-subtitle-emphasis block mt-2 text-gold-pale not-italic text-[0.9em]">A framework for embedding love in intelligence. Before we lose the chance.</span></p>
-                <p class="hero-author font-display text-sm tracking-widest-plus uppercase text-gold mb-10">Michael Darius Eastwood</p>
-                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="hero-cta glass-living px-12 py-5 bg-gold-gradient text-void font-display text-sm tracking-wide rounded font-semibold transition-all duration-400 hover:-translate-y-1 hover:shadow-gold-lg">
+                <h1 class="hero-title optical-reveal font-display text-h1 lg:hidden" id="hero-title"><span class="brand-word shimmer-text">Infinite</span> <span class="brand-word shimmer-text">Architects</span></h1>
+                <p class="hero-subtitle optical-reveal font-serif text-body-lg lg:text-body-xl italic text-dim max-w-[600px] leading-relaxed mb-8">We're not building tools anymore. We're raising something.<br><span class="hero-subtitle-emphasis block mt-2 text-gold-pale not-italic text-[0.9em]">A framework for embedding love in intelligence. Before we lose the chance.</span></p>
+                <p class="hero-author optical-reveal font-display text-sm tracking-widest-plus uppercase text-gold mb-10">Michael Darius Eastwood</p>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="hero-cta optical-reveal glass-living px-12 py-5 bg-gold-gradient text-void font-display text-sm tracking-wide rounded font-semibold transition-all duration-400 hover:-translate-y-1 hover:shadow-gold-lg">
                     <span class="cta-icon-wrapper">
                         <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <!-- Book icon -->
@@ -30407,6 +30459,17 @@ main.content, #main-content {
 
                 // Phase 2: Trigger the Titan Drop & Loader Exit
                 setTimeout(() => {
+                    // OPTICAL PHYSICS: Pre-paint GPU promotion before animation
+                    // Tells GPU "Get ready, these are about to move" - prevents first-frame jerk
+                    const heroTitle = document.getElementById('hero-title') || document.querySelector('.hero-title');
+                    const heroBook = document.getElementById('hero-book');
+                    const heroSubtitle = document.querySelector('.hero-subtitle');
+                    const heroCTA = document.querySelector('.hero-cta-stack');
+
+                    [heroTitle, heroBook, heroSubtitle, heroCTA].forEach(el => {
+                        if (el) el.style.willChange = 'opacity, transform, filter';
+                    });
+
                     document.body.classList.add('cinematic');
                     loader.classList.add('hidden'); // Trigger the slide-up
                 }, cinematicDelay);
@@ -30514,6 +30577,19 @@ main.content, #main-content {
                         window.lenisInstance.resize();
                     }
                 }, safetyDelay); // Uses faster timing when manually skipped
+
+                // OPTICAL PHYSICS CLEANUP: Remove will-change after animations settle (saves RAM)
+                setTimeout(() => {
+                    const heroTitle = document.getElementById('hero-title') || document.querySelector('.hero-title');
+                    const heroBook = document.getElementById('hero-book');
+                    const heroSubtitle = document.querySelector('.hero-subtitle');
+                    const heroCTA = document.querySelector('.hero-cta-stack');
+
+                    [heroTitle, heroBook, heroSubtitle, heroCTA].forEach(el => {
+                        if (el) el.style.willChange = 'auto';
+                    });
+                    console.log('[OPTICAL] GPU layer promotion cleaned up');
+                }, readyDelay + 2500); // 2.5s after cinematic-active triggers
             }
 
             function animate() {
