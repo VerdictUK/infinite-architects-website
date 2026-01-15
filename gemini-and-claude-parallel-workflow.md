@@ -161,6 +161,16 @@
 - ⚠️ Claude NOT adding CSS overrides - only removing dead code and optimizing JS
 - ⚠️ Both agents aligned on "PROPER FIXES ONLY" approach
 
+### Coordinated Deployment (2026-01-15 14:30 UTC):
+**Extended Gemini's Architecture (NOT duplicated):**
+1. Added `book-cover-video` and `mandelbrot-video` to Orchestrator.heavyAssets array
+2. Added loader video pause to SiteLifecycle.reveal() method
+3. Extended scroll-snap disable from 1024px to 768px (tablets now included)
+
+**Files Modified:**
+- `js/masterpiece-soul.js` (lines 307, 451-458)
+- `index.html` (line 23860)
+
 ---
 
 # CLAUDE COMPLETE IMPLEMENTATION LOG
