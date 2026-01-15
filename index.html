@@ -19,14 +19,27 @@
             padding: 0 !important;
         }
 
-        /* 2. THE CONTENT: 100% Render Guarantee */
-        section, main, article, footer, header, div, span, h1, h2, h3, h4, p, a, button, canvas, video, img {
+        /* 2. THE CONTENT: 100% Render Guarantee (excludes overlays) */
+        section, main, article, footer, header, span, h1, h2, h3, h4, p, a, button, canvas, video, img {
             visibility: visible !important;
             opacity: 1 !important;
             max-height: none !important;
             transform: none !important;
             filter: none !important;
             pointer-events: auto !important;
+        }
+
+        /* 2b. OVERLAY EXCEPTIONS: These should control their own visibility */
+        #chapter-intro-overlay:not(.active),
+        #welcome-back-overlay:not(.active),
+        #celebration-overlay:not(.active),
+        #section-intro-overlay:not(.active),
+        .chapter-intro-overlay:not(.active),
+        .welcome-back-overlay:not(.active),
+        .celebration-overlay:not(.active) {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
 
         /* 3. THE LAYOUT: Preserve essential structures while forcing height */
@@ -27283,7 +27296,6 @@ main.content, #main-content {
                         <p class="origin-story-insight text-text-secondary leading-relaxed text-lg italic">"What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it."</p>
                     </article>
 
-                        <blockquote class="origin-story-quote">
                     <!-- Story 2: The Meniscus -->
                     <article class="origin-story-card reveal reveal-delay-4">
                         <span class="origin-story-age">
