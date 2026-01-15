@@ -222,7 +222,12 @@ async function networkFirstWithCacheFallback(request, cacheName) {
     } catch (error) {
         const cachedResponse = await caches.match(request);
         if (cachedResponse) return cachedResponse;
-        throw error;
+        
+        // Return a valid empty response if both fail to prevent TypeError
+        return new Response(JSON.stringify({ error: 'Offline and not cached' }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
+        });
     }
 }
 
@@ -238,7 +243,10 @@ async function staleWhileRevalidate(request, cacheName) {
             await safeCachePut(request, networkResponse, cacheName);
             return networkResponse;
         })
-        .catch(() => cachedResponse);
+        .catch(() => {
+            if (cachedResponse) return cachedResponse;
+            return new Response('Network and cache failed', { status: 503 });
+        });
 
     return cachedResponse || fetchPromise;
 }
