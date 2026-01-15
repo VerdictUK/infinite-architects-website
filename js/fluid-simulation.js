@@ -31,6 +31,9 @@ class FluidSimulation {
     }
 
     init() {
+        // PERF: Define internal resolution cap (Proper Fix - Step 4)
+        this.internalRes = new THREE.Vector2(256, 256);
+        
         // Full screen plane for shader
         const geometry = new THREE.PlaneGeometry(2, 2);
         
@@ -140,7 +143,9 @@ class FluidSimulation {
     }
 
     onResize(width, height) {
-        this.uniforms.u_resolution.value.set(width, height);
+        // PERF: Downsample resolution for calculation (Step 4)
+        const ratio = width / height;
+        this.uniforms.u_resolution.value.set(this.internalRes.x, this.internalRes.x / ratio);
     }
 
     // Cleanup method to prevent memory leaks

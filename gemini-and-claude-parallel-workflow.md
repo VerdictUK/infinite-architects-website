@@ -152,9 +152,11 @@
 |-------|--------|-------|
 | 22 scroll listeners | IDENTIFIED | 3 duplicates removed, rest need consolidation into ScrollManager |
 | Lenis vs scroll-snap conflict | IDENTIFIED | Tablet (768-1023px) has both active - needs fix at line 23852 |
-| 11KB dead CSS (duplicate @keyframes) | IDENTIFIED | 17 animations defined 2-3 times each |
-| Loader video no pause | NOT FIXED | Gemini's SiteLifecycle may handle this - coordinating |
-| Book cover video no viewport | NOT FIXED | Awaiting Gemini's Orchestrator integration |
+| 11KB dead CSS (duplicate @keyframes) | PARTIAL FIX | Removed 4 safe duplicates (holoFloat, twinkle, splashEnter, splashProgress). Others are responsive variants. |
+| Loader video no pause | FIXED | Added to SiteLifecycle.reveal() |
+| Book cover video no viewport | FIXED | Added to Orchestrator.heavyAssets |
+| Duplicate initDissolveText | FIXED | Removed duplicate PHASE 12 block (lines 37534-37617) |
+| Deprecated slideshow script | IDENTIFIED | Lines 36792-37841 contains duplicate PHASES 10,11,13,14,17 - marked deprecated but kept for mobile fallback |
 
 ### Coordination Notes:
 - ⚠️ Gemini implementing SiteLifecycle + Orchestrator in masterpiece-soul.js
@@ -170,6 +172,40 @@
 **Files Modified:**
 - `js/masterpiece-soul.js` (lines 307, 451-458)
 - `index.html` (line 23860)
+
+---
+
+# CLAUDE SESSION 2026-01-15 (Continued)
+
+### Fixes Completed This Session:
+
+| Fix | Lines | Details |
+|-----|-------|---------|
+| Duplicate @keyframes holoFloat | 9188-9195 (deleted) | Identical to lines 8920-8927 |
+| Duplicate @keyframes twinkle | 9277-9280 (deleted) | Identical to lines 9008-9011 |
+| Duplicate @keyframes splashEnter | 18603-18606 (deleted) | Identical to lines 18487-18490 |
+| Duplicate @keyframes splashProgress | 18608-18611 (deleted) | Identical to lines 18492-18495 |
+| Duplicate initDissolveText | 37534-37617 (deleted) | 84 lines - complete duplicate of PHASE 12 |
+
+### Remaining Issues (For Gemini Review):
+
+**1. Deprecated Slideshow Script (lines 36792-37841)**
+- Contains duplicate PHASES: 10 (Sonic), 11 (Holo), 13 (Time), 14 (Neural), 17 (Quantum)
+- Early returns on desktop (line 36807-36813) and chapter-nav (line 36798-36801)
+- Marked "(DEPRECATED - kept for fallback)"
+- **Recommendation:** Review if mobile fallback is still needed. If not, remove entire block (saves ~1000 lines)
+
+**2. Scroll Listeners (21 remaining)**
+- main.js and sovereign-core.js have ScrollManager but are NOT loaded by index.html
+- All 21 scroll listeners are inline and not consolidated
+- No immediate performance issue (most use RAF throttling)
+- **Recommendation:** Consider loading main.js to enable ScrollManager consolidation
+
+**3. Parallax Code Querying Non-existent Elements**
+- `[data-parallax]` selector used in CSS and JS but NO HTML elements have this attribute
+- `.hrih-visual` class queried but doesn't exist
+- Code is properly guarded with early returns so no runtime cost
+- **Recommendation:** Remove dead parallax CSS/JS or add data-parallax attributes to elements
 
 ---
 

@@ -64,14 +64,25 @@ class Book3D {
     }
 
     addEventListeners() {
+        // PERF: Throttled Input Handling (Proper Fix - Step 5)
+        let isTicking = false;
+        
         window.addEventListener('mousemove', (e) => {
-            this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            
-            // Interaction logic: only if near the hero book
-            if (window.innerWidth > 1024) {
-                this.targetRotation.y = this.mouse.x * 0.5 - 0.4;
-                this.targetRotation.x = -this.mouse.y * 0.3 + 0.2;
+            this.mouse.rawX = e.clientX;
+            this.mouse.rawY = e.clientY;
+
+            if (!isTicking) {
+                requestAnimationFrame(() => {
+                    this.mouse.x = (this.mouse.rawX / window.innerWidth) * 2 - 1;
+                    this.mouse.y = -(this.mouse.rawY / window.innerHeight) * 2 + 1;
+                    
+                    if (window.innerWidth > 1024) {
+                        this.targetRotation.y = this.mouse.x * 0.5 - 0.4;
+                        this.targetRotation.x = -this.mouse.y * 0.3 + 0.2;
+                    }
+                    isTicking = false;
+                });
+                isTicking = true;
             }
         });
 
