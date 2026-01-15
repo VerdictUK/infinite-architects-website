@@ -18145,16 +18145,21 @@
             transition: height 0.3s ease;
         }
 
-        /* Desktop: Show sidebar, hide bottom bar */
+        /* Desktop: Show sidebar (override inline hiding) - REMOVED FOR NOW
+           Since we've disabled both chapter-sidebar and chapter-nav completely
+           to fix mobile overflow issues, keep them disabled until needed.
         @media (min-width: 1024px) {
             .chapter-sidebar {
-                display: block;
+                display: block !important;
+                visibility: visible !important;
             }
 
             .chapter-nav {
                 display: flex !important;
+                visibility: visible !important;
             }
         }
+        */
 
         /* ═══════════════════════════════════════════════════════════════════════════
            DESKTOP ENHANCEMENTS (769-1023px) - Tablet/small desktop - bottom bar
@@ -26752,24 +26757,25 @@ main.content,
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
 @media screen and (max-width: 768px) {
-    /* 1. PART PROGRESS INDICATOR ON MOBILE - Position above nav bars */
+    /* NUCLEAR HIDE: All navigation overlays on mobile */
+    .chapter-sidebar,
+    #chapterSidebar,
+    .chapter-nav,
+    #chapterNav,
+    .slideshow-nav,
+    #slideshowNav,
     .part-progress-indicator,
-    #part-progress-indicator,
-    [id="part-progress-indicator"] {
-        /* Enabled on mobile - positioned center-bottom above mobile nav */
-        bottom: 140px !important; /* Above chapter-nav (70px) + mobile-buy-bar (60px) + gap */
-        left: 50% !important;
-        right: auto !important;
-        top: auto !important;
-        transform: translateX(-50%) !important;
-        z-index: 9980 !important;
-    }
-
-    .part-progress-indicator.visible {
-        display: flex !important;
-        
-        
-        transform: translateX(-50%) translateY(0) !important;
+    #part-progress-indicator {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
     }
 
     /* 2. HIDE STICKY CTA ON MOBILE - We already have mobile-buy-bar */
@@ -36667,7 +36673,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════════
          DESKTOP CHAPTER SIDEBAR - Left side vertical navigation (1024px+)
          ═══════════════════════════════════════════════════════════════════════════ -->
-    <aside class="chapter-sidebar fixed left-0 top-36 z-[9990] bg-[rgba(2,3,10,0.75)] backdrop-blur-md border-r border-gold/10 rounded-r-lg py-3 px-2" id="chapterSidebar" aria-label="Chapter navigation">
+    <aside class="chapter-sidebar fixed left-0 top-36 z-[9990] bg-[rgba(2,3,10,0.75)] backdrop-blur-md border-r border-gold/10 rounded-r-lg py-3 px-2" id="chapterSidebar" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
         <ul class="chapter-sidebar-list" role="list">
             <li class="chapter-sidebar-item active" data-chapter="1">
                 <span class="chapter-sidebar-num">I</span>
@@ -36700,7 +36706,7 @@ main.content, #main-content {
          CHAPTER-BASED NAVIGATION - Mobile/Tablet Bottom Bar (<1024px)
          ═══════════════════════════════════════════════════════════════════════════ -->
 
-    <nav class="chapter-nav safe-bottom fixed bottom-0 left-0 right-0 z-[9991] bg-[rgba(2,3,10,0.92)] backdrop-blur-xl border-t border-gold/20" id="chapterNav" aria-label="Chapter navigation">
+    <nav class="chapter-nav safe-bottom fixed bottom-0 left-0 right-0 z-[9991] bg-[rgba(2,3,10,0.92)] backdrop-blur-xl border-t border-gold/20" id="chapterNav" aria-label="Chapter navigation" style="display:none !important; visibility:hidden !important;">
         <div class="chapter-nav-main">
             <!-- Chapter selector (tappable to open menu) -->
             <button type="button" class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
