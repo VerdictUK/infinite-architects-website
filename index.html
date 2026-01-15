@@ -3605,14 +3605,22 @@
            Triggers when body receives 'cinematic' class from loader
            ═══════════════════════════════════════════════════════════════════════ */
 
+        /* ═══════════════════════════════════════════════════════════════════════
+           DISABLED: OLD ANIMATION SYSTEM (was fighting with optical-reveal)
+           The .optical-reveal class now handles ALL hero reveals via transitions
+           Keeping heroRevealSlide keyframe for non-optical elements if needed
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* DISABLED - optical-reveal handles book container now
         body.cinematic .hero-book,
         body.cinematic #hero-book,
         body.cinematic .hero-book-container {
             animation: titanDrop 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation-delay: 0.2s;
         }
+        */
 
-        /* Hero content entrance - staggered reveal after titan drop */
+        /* DISABLED - optical-reveal handles these elements now
         body.cinematic .hero-content-right,
         body.cinematic .hero-subtitle,
         body.cinematic .hero-title,
@@ -3620,14 +3628,11 @@
             opacity: 0;
             animation: heroRevealSlide 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
-
-        /* Staggered hero reveals - TIMING FIX: Start after loader fully fades (1.7s)
-           Loader adds 'cinematic' at 400ms + 800ms transform + 500ms opacity = 1700ms total
-           Previous 1.2s delay meant hero revealed at 1600ms (before loader finished) */
-        body.cinematic .hero-title { animation-delay: 1.5s; }  /* Was 1.2s - now waits for loader opacity */
-        body.cinematic .hero-subtitle { animation-delay: 2s; } /* Was 1.8s */
-        body.cinematic .hero-cta { animation-delay: 2.5s; }    /* Was 2.4s */
+        body.cinematic .hero-title { animation-delay: 1.5s; }
+        body.cinematic .hero-subtitle { animation-delay: 2s; }
+        body.cinematic .hero-cta { animation-delay: 2.5s; }
         body.cinematic .hero-author { animation-delay: 2.9s; opacity: 0; animation: heroRevealSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        */
 
         @keyframes heroRevealSlide {
             0% { opacity: 0; transform: translateY(40px); filter: blur(10px); }
@@ -21600,6 +21605,7 @@
         box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
         border-color 0.3s ease-out;
 }
+*/
 
 /* Focus-visible states for accessibility - Apple-style ring */
 .idea-card:focus-visible,
@@ -21618,6 +21624,7 @@
         0 8px 16px rgba(0, 0, 0, 0.15);
     border-color: var(--gold-alpha-40);
 }
+*/
 
 /* Enhanced hover for pointer devices */
 @media (hover: hover) and (pointer: fine) {
@@ -21638,6 +21645,7 @@
         border-color: var(--gold-alpha-25);
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    37 CONCEPTS MODAL - Premium Presentation
@@ -21658,11 +21666,13 @@
     transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0.4s;
 }
+*/
 
 .concepts-modal-overlay.active {
     opacity: 1;
     visibility: visible;
 }
+*/
 
 .concepts-modal {
     background: var(--void-surface);
@@ -21680,10 +21690,12 @@
     transform: scale(0.95) translateY(20px);
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+*/
 
 .concepts-modal-overlay.active .concepts-modal {
     transform: scale(1) translateY(0);
 }
+*/
 
 .concepts-modal-header {
     padding: 1.5rem 2rem;
@@ -21692,6 +21704,7 @@
     justify-content: space-between;
     align-items: center;
 }
+*/
 
 .concepts-modal-title {
     font-family: var(--font-display);
@@ -21699,6 +21712,7 @@
     color: var(--gold);
     letter-spacing: 0.05em;
 }
+*/
 
 .concepts-modal-close {
     width: 40px;
@@ -21714,24 +21728,28 @@
     justify-content: center;
     transition: all 0.3s ease;
 }
+*/
 
 .concepts-modal-close:hover {
     background: var(--gold-alpha-10);
     border-color: var(--gold-alpha-40);
     color: var(--gold);
 }
+*/
 
 .concepts-modal-body {
     padding: 1.5rem 2rem 2rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
+*/
 
 .concepts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 1rem;
 }
+*/
 
 .concept-mini-card {
     padding: 1rem 1.25rem;
@@ -21741,12 +21759,14 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
+*/
 
 .concept-mini-card:hover {
     background: var(--gold-alpha-10);
     border-color: var(--gold-alpha-25);
     transform: translateY(-2px);
 }
+*/
 
 .concept-mini-number {
     font-family: var(--font-display);
@@ -21755,6 +21775,7 @@
     opacity: 0.6;
     margin-bottom: 0.25rem;
 }
+*/
 
 .concept-mini-title {
     font-family: var(--font-display);
@@ -21762,6 +21783,7 @@
     color: var(--text-primary);
     letter-spacing: 0.02em;
 }
+*/
 
 /* Mobile modal adjustments */
 @media (max-width: 768px) {
@@ -21784,6 +21806,7 @@
         gap: 0.75rem;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SOCIAL SHARE BUTTONS - Viral Quote Sharing
@@ -21797,12 +21820,14 @@
     transform: translateY(8px);
     transition: all 0.3s ease;
 }
+*/
 
 .carousel-quote:hover .quote-share-actions,
 .carousel-quote:focus-within .quote-share-actions {
     opacity: 1;
     transform: translateY(0);
 }
+*/
 
 .share-btn {
     width: 36px;
@@ -21818,28 +21843,33 @@
     transition: all 0.3s ease;
     font-size: 0.9rem;
 }
+*/
 
 .share-btn:hover {
     background: var(--gold-alpha-20);
     border-color: var(--gold-alpha-40);
     transform: scale(1.1);
 }
+*/
 
 .share-btn--twitter:hover {
     background: rgba(29, 161, 242, 0.2);
     border-color: rgba(29, 161, 242, 0.5);
     color: #1da1f2;
 }
+*/
 
 .share-btn--linkedin:hover {
     background: rgba(0, 119, 181, 0.2);
     border-color: rgba(0, 119, 181, 0.5);
     color: #0077b5;
 }
+*/
 
 .share-btn--copy:hover {
     background: var(--gold-alpha-20);
 }
+*/
 
 /* Copy success feedback */
 .share-btn--copy.copied {
@@ -21847,6 +21877,7 @@
     border-color: rgba(0, 200, 100, 0.5);
     color: #00c864;
 }
+*/
 
 /* Mobile: always show share buttons */
 @media (max-width: 768px) {
@@ -21856,6 +21887,7 @@
         justify-content: center;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    VIEW ALL CONCEPTS BUTTON - Ideas Section Enhancement
@@ -21878,6 +21910,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
+*/
 
 .view-all-concepts-btn:hover {
     background: var(--gold-alpha-10);
@@ -21885,16 +21918,19 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 20px var(--gold-alpha-15);
 }
+*/
 
 .view-all-concepts-btn svg {
     width: 16px;
     height: 16px;
     transition: transform 0.3s ease;
 }
+*/
 
 .view-all-concepts-btn:hover svg {
     transform: translateX(3px);
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EMERGENCY VISUAL FIX BLOCK
@@ -21913,12 +21949,14 @@
     min-height: auto !important;
     
 }
+*/
 
 /* Sections expand to fit content - no forced viewport height */
 .snap-section {
     min-height: auto !important;
     
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    2. REMOVE OVERFLOW HIDDEN - Stop clipping content
@@ -21936,12 +21974,14 @@
 [class*="-content"] {
     
 }
+*/
 
 /* Only hide horizontal overflow on the main sections */
 .snap-section {
     overflow-x: hidden !important;
     overflow-y: visible !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    3. FIX Z-INDEX STACKING - Proper layer order
@@ -21956,6 +21996,7 @@ canvas {
     z-index: 0 !important;
     pointer-events: none !important;
 }
+*/
 
 /* Content layers */
 .section-inner,
@@ -21965,6 +22006,7 @@ canvas {
     position: relative;
     z-index: 2 !important;
 }
+*/
 
 /* Interactive elements */
 .hero-cta,
@@ -21976,16 +22018,19 @@ a {
     position: relative;
     z-index: 3 !important;
 }
+*/
 
 /* Navigation and overlays */
 .nav,
 .ticker {
     z-index: 100 !important;
 }
+*/
 
 .mobile-buy-bar {
     z-index: 1000 !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    4. FIX FLEXBOX ALIGNMENT - Consistent layout
@@ -21999,6 +22044,7 @@ a {
     align-items: center !important;
     gap: 1rem;
 }
+*/
 
 /* Sections with headers: align to top */
 .ideas-section.snap-section,
@@ -22007,6 +22053,7 @@ a {
     justify-content: flex-start !important;
     padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 2rem) !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    5. FIX GRID LAYOUTS - Proper card display
@@ -22020,6 +22067,7 @@ a {
     width: 100% !important;
     max-width: 1400px !important;
 }
+*/
 
 /* Evidence grid - desktop - CLEAN Apple-grade layout */
 @media (min-width: 1025px) {
@@ -22047,6 +22095,7 @@ a {
         
     }
 }
+*/
 
 /* Predictions grid */
 .predictions-grid {
@@ -22054,6 +22103,7 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
     gap: 0.5rem !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    6. FIX CARD VISIBILITY - Ensure all cards display properly
@@ -22071,10 +22121,12 @@ a {
     border-radius: 8px !important;
     min-height: 150px;
 }
+*/
 
 .idea-card--featured {
     grid-column: span 1 !important; /* Don't span multiple columns */
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    7. FIX TYPOGRAPHY - Consistent text sizing
@@ -22087,18 +22139,21 @@ a {
     color: var(--gold, #d4a84b) !important;
     margin-bottom: 0.5rem !important;
 }
+*/
 
 .section-title {
     font-size: clamp(1.5rem, 4vw, 2.5rem) !important;
     line-height: 1.2 !important;
     margin-bottom: 1rem !important;
 }
+*/
 
 .section-subtitle {
     font-size: clamp(1rem, 2vw, 1.25rem) !important;
     line-height: 1.5 !important;
     color: var(--text-dim, rgba(240, 235, 227, 0.7)) !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    8. FIX BBC EVIDENCE CARD LAYOUT
@@ -22112,18 +22167,21 @@ a {
     max-width: 1200px !important;
     margin: 0 auto !important;
 }
+*/
 
 .bbc-evidence-card__video {
     width: 100% !important;
     max-height: 400px !important;
     border-radius: 8px !important;
 }
+*/
 
 .bbc-evidence-card__content {
     display: flex !important;
     flex-direction: column !important;
     gap: 0.5rem !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    9. FIX HRIH SECTION
@@ -22134,12 +22192,14 @@ a {
     margin: 0 auto !important;
     padding: 2rem !important;
 }
+*/
 
 .hrih-visual-wrapper {
     position: absolute !important;
     inset: 0 !important;
     z-index: 0 !important;
 }
+*/
 
 .hrih-visual {
     width: 100% !important;
@@ -22147,6 +22207,7 @@ a {
     object-fit: cover !important;
     opacity: 0.5 !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    10. FIX RELIGION SECTION GRID
@@ -22160,6 +22221,7 @@ a {
     align-items: center !important;
     max-width: 1200px !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    11. MOBILE OVERRIDES - Clean mobile experience
@@ -22238,6 +22300,7 @@ a {
         margin-top: 0.75rem;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    12. SMALL MOBILE (iPhone SE, etc.)
@@ -22263,6 +22326,7 @@ a {
         font-size: 1.25rem !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    13. ENSURE CONTENT NEVER HIDDEN
@@ -22274,12 +22338,14 @@ h1, h2, h3, h4, h5, h6, p, span, blockquote {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+*/
 
 /* Ensure images don't break layout */
 img {
     max-width: 100%;
     height: auto;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    14. PERFORMANCE OPTIMIZATIONS
@@ -22308,6 +22374,7 @@ img {
         transition-duration: 0.2s !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    CHAPTER TITLE DIVIDERS
@@ -22319,6 +22386,7 @@ img {
     padding: 2rem 1rem;
     margin-bottom: 1rem;
 }
+*/
 
 .chapter-title-divider__numeral {
     display: block;
@@ -22330,6 +22398,7 @@ img {
     margin-bottom: 0.5rem;
     text-shadow: 0 0 30px rgba(212, 168, 75, 0.4);
 }
+*/
 
 .chapter-title-divider__name {
     display: block;
@@ -22341,6 +22410,7 @@ img {
     text-transform: uppercase;
     opacity: 0.9;
 }
+*/
 
 .chapter-title-divider__line {
     display: block;
@@ -22349,11 +22419,13 @@ img {
     background: linear-gradient(90deg, transparent, var(--gold, #d4a84b), transparent);
     margin: 1rem auto 0;
 }
+*/
 
 /* First section of each chapter gets the title */
 .chapter-start {
     padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
 }
+*/
 
 @media (max-width: 768px) {
     .chapter-title-divider {
@@ -22369,6 +22441,7 @@ img {
         letter-spacing: 0.3em;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    PART PROGRESS INDICATOR - Always visible, shows current Part and progress
@@ -22393,11 +22466,13 @@ img {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
 }
+*/
 
 .part-progress-indicator.visible {
     opacity: 1;
     transform: translateX(0);
 }
+*/
 
 .part-progress-numeral {
     font-family: var(--font-display, 'Cinzel', serif);
@@ -22406,12 +22481,14 @@ img {
     color: var(--gold-primary, #d4a84b);
     letter-spacing: 0.05em;
 }
+*/
 
 .part-progress-divider {
     width: 1px;
     height: 12px;
     background: rgba(212, 168, 75, 0.35);
 }
+*/
 
 .part-progress-name {
     font-family: var(--font-mono, 'Space Mono', monospace);
@@ -22421,6 +22498,7 @@ img {
     letter-spacing: 0.12em;
     text-transform: uppercase;
 }
+*/
 
 /* Mobile - HIDE the badge to reduce clutter */
 @media (max-width: 768px) {
@@ -22430,16 +22508,19 @@ img {
         opacity: 0 !important;
     }
 }
+*/
 
 /* Hide during scroll for cleaner experience */
 .part-progress-indicator.scrolling {
     opacity: 0.3;
 }
+*/
 
 /* Chapter Toast Animation - Fires when entering new chapter */
 .part-progress-indicator.transitioning {
     animation: chapterToast 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+*/
 
 @keyframes chapterToast {
     0% {
@@ -22466,6 +22547,7 @@ img {
         box-shadow: none;
     }
 }
+*/
 
 /* Desktop toast - from left */
 @media (min-width: 769px) {
@@ -22498,6 +22580,7 @@ img {
         }
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    ADDITIONAL FIXES
@@ -22515,6 +22598,7 @@ img {
         pointer-events: none !important;
     }
 }
+*/
 
 /* NUCLEAR HIDE - ALL UNWANTED UI ELEMENTS */
 .slideshow-nav,
@@ -22560,6 +22644,7 @@ div[class*="audio-toggle"] {
     position: absolute !important;
     left: -9999px !important;
 }
+*/
 
 /* Also prevent slideshow-mode from being applied */
 html.slideshow-mode .slideshow-nav,
@@ -22568,6 +22653,7 @@ html.slideshow-mode .slideshow-controls,
 html.slideshow-mode .slideshow-dots {
     display: flex !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    NUCLEAR HIDE: Navigation elements that overlap hero content
@@ -22599,6 +22685,7 @@ html body .part-progress-dots {
     top: -9999px !important;
     z-index: -9999 !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    FIX: Remove all borders, outlines, and visual artifacts from hero
@@ -22611,6 +22698,7 @@ html body section#hero {
     outline: none !important;
     box-shadow: none !important;
 }
+*/
 
 html body .hero::before,
 html body .hero::after,
@@ -22621,6 +22709,7 @@ html body #hero::after {
     border: none !important;
     outline: none !important;
 }
+*/
 
 /* FIX: Ensure Mandelbrot video covers full viewport with NO gaps */
 html body .hero .mandelbrot-bg,
@@ -22638,6 +22727,7 @@ html body .hero #mandelbrot-bg {
     margin-left: calc(-50vw + 50%) !important;
     
 }
+*/
 
 html body .hero .mandelbrot-video,
 html body .hero #mandelbrot-video {
@@ -22652,11 +22742,13 @@ html body .hero #mandelbrot-video {
     
     object-fit: cover !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TITAN SLAM ANIMATION - Ensure book entrance animation triggers
    Forces the hero-book to animate when cinematic mode is active
    ═══════════════════════════════════════════════════════════════════════════ */
+/* DISABLED - optical-reveal handles this now
 html body.cinematic .hero-book,
 html body.cinematic #hero-book,
 html body.cinematic .hero-book-container,
@@ -22666,6 +22758,7 @@ html body.cinematic .book-portal {
     
     
 }
+*/
 
 /* FIX: Remove ALL max-height constraints that clip content */
 .ideas-grid,
@@ -22678,6 +22771,7 @@ html body.cinematic .book-portal {
     
     
 }
+*/
 
 /* FIX: Navigation menu iOS Safari 100vh bug */
 .nav-menu {
@@ -22685,12 +22779,14 @@ html body.cinematic .book-portal {
     height: -webkit-fill-available !important;
     padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0)) !important;
 }
+*/
 
 /* FIX: Carousel gradient too wide on small phones */
 .carousel-section::before,
 .carousel-section::after {
     width: clamp(40px, 15vw, 150px) !important;
 }
+*/
 
 /* FIX: Evidence locker mobile - horizontal scroll */
 @media (max-width: 768px) {
@@ -22708,6 +22804,7 @@ html body.cinematic .book-portal {
         scroll-snap-align: center !important;
     }
 }
+*/
 
 /* FIX: Hero book landscape constraint */
 @media (max-width: 768px) and (orientation: landscape) {
@@ -22722,6 +22819,7 @@ html body.cinematic .book-portal {
         padding: 1rem !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    COSMIC BACKGROUND SYSTEM - NO BLACK BACKGROUNDS ANYWHERE
@@ -22736,6 +22834,7 @@ html body.cinematic .book-portal {
         radial-gradient(ellipse at 50% 80%, rgba(0, 77, 64, 0.1) 0%, transparent 50%),
         linear-gradient(180deg, rgba(4, 5, 15, 0.95) 0%, rgba(10, 12, 25, 0.9) 50%, rgba(4, 5, 15, 0.95) 100%) !important;
 }
+*/
 
 /* Hero Section - Deep space with gold accent */
 .hero.snap-section,
@@ -22747,6 +22846,7 @@ html body.cinematic .book-portal {
         radial-gradient(ellipse at 10% 90%, rgba(0, 77, 64, 0.1) 0%, transparent 40%),
         linear-gradient(180deg, rgba(2, 3, 10, 0.85) 0%, rgba(8, 10, 20, 0.9) 100%) !important;
 }
+*/
 
     </style>
 
@@ -23463,6 +23563,7 @@ html body.cinematic .book-portal {
         width: 100% !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SOVEREIGN DESKTOP FIXES - Comprehensive Desktop Layout Improvements
@@ -23557,12 +23658,14 @@ html body.cinematic .book-portal {
         z-index: 10 !important;
     }
 }
+*/
 
 /* 4. SECTION CONTAINMENT - Prevent content bleeding */
 html body .snap-section {
     position: relative !important;
     contain: paint !important;
 }
+*/
 
 /* Allow visible overflow only for specific elements that need it */
 html body .hero.snap-section,
@@ -23571,6 +23674,7 @@ html body .about-section.snap-section {
     
     contain: none !important; /* Remove paint containment for about section */
 }
+*/
 
 /* 5. FIX Z-INDEX HIERARCHY - Proper layering from bottom to top */
 /* Layer 1: Background (particles/mandelbrot) */
@@ -23578,15 +23682,18 @@ html body .hero .mandelbrot-bg {
     z-index: 1 !important;
     pointer-events: none !important;
 }
+*/
 
 html body .hero .mandelbrot-bg * {
     pointer-events: none !important;
 }
+*/
 
 html body .hero .mandelbrot-overlay {
     z-index: 2 !important;
     pointer-events: none !important;
 }
+*/
 
 /* Layer 5: Video portal (decorative, non-blocking) */
 html body .video-portal,
@@ -23594,11 +23701,13 @@ html body #video-portal {
     z-index: 5 !important;
     pointer-events: none !important;
 }
+*/
 
 html body .video-portal *,
 html body #video-portal * {
     pointer-events: none !important;
 }
+*/
 
 /* Layer 10: Hero content container */
 html body .hero .hero-book-container,
@@ -23607,6 +23716,7 @@ html body .hero .hero-status-pill {
     z-index: 10 !important;
     position: relative !important;
 }
+*/
 
 /* Layer 11: Book cover - above container, clickable */
 html body .hero .hero-book,
@@ -23616,12 +23726,14 @@ html body .hero .book-portal {
     position: relative !important;
     pointer-events: auto !important;
 }
+*/
 
 /* Layer 12: Hero text and CTAs - topmost content layer */
 html body .hero .hero-content-right {
     z-index: 12 !important;
     position: relative !important;
 }
+*/
 
 html body .hero .hero-title,
 html body .hero .hero-subtitle,
@@ -23629,6 +23741,7 @@ html body .hero .hero-author {
     position: relative !important;
     z-index: 12 !important;
 }
+*/
 
 /* Layer 12: CTA buttons - ensure clickability */
 html body .hero .hero-cta,
@@ -23640,6 +23753,7 @@ html body .hero button {
     pointer-events: auto !important;
     cursor: pointer !important;
 }
+*/
 
 /* 6. ENSURE NAV IS ABOVE EVERYTHING */
 html body .header-nav,
@@ -23647,6 +23761,7 @@ html body .nav-glass,
 html body nav[role="navigation"] {
     z-index: 1000 !important;
 }
+*/
 
 /* 7. CLEAN UP BOTTOM MOBILE NAV ON DESKTOP */
 @media (min-width: 1024px) {
@@ -23657,23 +23772,27 @@ html body nav[role="navigation"] {
         
     }
 }
+*/
 
 /* 8. VALIDATION TIMELINE - Proper containment */
 html body .timeline-evidence-section {
     position: relative !important;
 }
+*/
 
 html body .validation-timeline,
 html body .timeline-events {
     position: relative !important;
     z-index: 1 !important;
 }
+*/
 
 /* 9. EVIDENCE LOCKER - Contained layout */
 html body .evidence-locker {
     position: relative !important;
     
 }
+*/
 
 /* 10. IDEAS GRID - Clean desktop layout */
 @media (min-width: 1024px) {
@@ -23685,6 +23804,7 @@ html body .evidence-locker {
         padding: 0 2rem !important;
     }
 }
+*/
 
 /* 11. DESKTOP TYPOGRAPHY REFINEMENTS */
 @media (min-width: 1024px) {
@@ -23697,6 +23817,7 @@ html body .evidence-locker {
         font-size: clamp(2rem, 3.5vw, 3rem) !important;
     }
 }
+*/
 
 /* HIDE MOBILE BUY BAR ON DESKTOP - Not needed on large screens */
 @media (min-width: 1024px) {
@@ -23706,6 +23827,7 @@ html body .evidence-locker {
         
     }
 }
+*/
 
 /* 12. DESKTOP QUOTE SECTION */
 @media (min-width: 1024px) {
@@ -23719,6 +23841,7 @@ html body .evidence-locker {
         margin: 0 auto !important;
     }
 }
+*/
 
 /* 13. DESKTOP EQUATION SECTION */
 @media (min-width: 1024px) {
@@ -23739,6 +23862,7 @@ html body .evidence-locker {
         flex: 1 !important;
     }
 }
+*/
 
 /* 14. DESKTOP EVIDENCE CARDS */
 @media (min-width: 1024px) {
@@ -23757,6 +23881,7 @@ html body .evidence-locker {
         flex: 1 !important;
     }
 }
+*/
 
 /* 15. FIX CONCEPTS MODAL ON DESKTOP */
 @media (min-width: 1024px) {
@@ -23775,6 +23900,7 @@ html body .evidence-locker {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    AUTHOR SECTION - APPLE-GRADE COMPLETE REWRITE
@@ -23789,6 +23915,7 @@ html body .about-section {
     padding: 4rem 2rem !important;
     
 }
+*/
 
 html body .about-section .about-inner,
 html body #the-mind .about-inner {
@@ -23800,6 +23927,7 @@ html body #the-mind .about-inner {
     align-items: start !important;
     padding: 0 2rem !important;
 }
+*/
 
 /* Visual container - author photo + tesseract */
 html body .about-section .about-visual,
@@ -23815,6 +23943,7 @@ html body #the-mind .about-visual {
     grid-row: 1 !important;
     
 }
+*/
 
 /* Author photo - prominent */
 html body .about-section .author-photo-wrapper,
@@ -23828,6 +23957,7 @@ html body #the-mind .author-photo-wrapper {
     border: 4px solid var(--gold) !important;
     box-shadow: 0 0 50px rgba(212, 168, 75, 0.35) !important;
 }
+*/
 
 html body .about-section .author-photo,
 html body #the-mind .author-photo {
@@ -23836,6 +23966,7 @@ html body #the-mind .author-photo {
     object-fit: cover !important;
     object-position: center 15% !important; /* Force face focus in override block */
 }
+*/
 
 /* Tesseract - BEHIND the photo as decoration, NOT overlapping content */
 html body .about-section .tesseract-container,
@@ -23850,12 +23981,14 @@ html body #the-mind .tesseract-container {
     opacity: 0.5 !important;
     pointer-events: none !important;
 }
+*/
 
 html body .about-section #tesseract-canvas,
 html body #the-mind #tesseract-canvas {
     width: 100% !important;
     height: 100% !important;
 }
+*/
 
 /* Text content - clean typography */
 html body .about-section .about-text,
@@ -23866,6 +23999,7 @@ html body #the-mind .about-text {
     grid-column: 1 !important; /* FORCE text to LEFT column */
     grid-row: 1 !important;
 }
+*/
 
 html body .about-section .about-text .section-label,
 html body #the-mind .about-text .section-label {
@@ -23876,6 +24010,7 @@ html body #the-mind .about-text .section-label {
     text-transform: uppercase !important;
     margin-bottom: 0.5rem !important;
 }
+*/
 
 html body .about-section .about-text .section-title,
 html body #the-mind .about-text .section-title {
@@ -23885,6 +24020,7 @@ html body #the-mind .about-text .section-title {
     margin-bottom: 1rem !important;
     line-height: 1.2 !important;
 }
+*/
 
 html body .about-section .about-text p,
 html body #the-mind .about-text p {
@@ -23895,6 +24031,7 @@ html body #the-mind .about-text p {
     margin-bottom: 1.25rem !important;
     max-width: none !important;
 }
+*/
 
 html body .about-section .about-text p:first-of-type,
 html body #the-mind .about-text p:first-of-type {
@@ -23902,6 +24039,7 @@ html body #the-mind .about-text p:first-of-type {
     font-style: italic !important;
     font-size: 1.1rem !important;
 }
+*/
 
 /* Career progression bar - prominent and clear */
 html body .about-section .about-text p[style*="font-family: var(--font-mono)"],
@@ -23919,6 +24057,7 @@ html body #the-mind .about-text p[style*="font-family: var(--font-mono)"] {
     border-bottom: 1px solid rgba(212, 168, 75, 0.2) !important;
     letter-spacing: 0.15em !important;
 }
+*/
 
 /* Storm Story section - clearly separated */
 html body .about-section .storm-story,
@@ -23929,6 +24068,7 @@ html body #the-mind .storm-story {
     border-left: 3px solid var(--gold) !important;
     border-radius: 0 12px 12px 0 !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    HERO MASTERPIECE - DESKTOP VISUAL PERFECTION
@@ -23973,6 +24113,7 @@ html body #the-mind .storm-story {
         
     }
 }
+*/
 
 /* DESKTOP HERO - Full viewport, 3-row layout with banner on top */
 @media (min-width: 1024px) {
@@ -24330,6 +24471,7 @@ html body #the-mind .storm-story {
         50% { transform: translateY(5px); }
     }
 }
+*/
 
 /* MOBILE BOOK PORTAL - Click to Enter */
 @media (max-width: 1023px) {
@@ -24384,6 +24526,7 @@ html body #the-mind .storm-story {
         50% { transform: translateY(4px); }
     }
 }
+*/
 
 /* EXTRA LARGE SCREENS - Maintain proportions */
 @media (min-width: 1600px) {
@@ -24410,6 +24553,7 @@ html body #the-mind .storm-story {
         font-size: 1.5rem !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SOVEREIGN MOBILE FIXES - iPhone 15 Pro Max & All Mobile Devices
@@ -24446,6 +24590,7 @@ html body #the-mind .storm-story {
         padding: 3rem 0 !important;
     }
 }
+*/
 
 /* 3. FIX TEXT BLEEDING - Ensure proper containment */
 @media (max-width: 1023px) {
@@ -24467,6 +24612,7 @@ html body #the-mind .storm-story {
         
     }
 }
+*/
 
 /* 4. FIX COMPARISON TABLE - Ensure columns fit on mobile */
 @media (max-width: 768px) {
@@ -24488,6 +24634,7 @@ html body #the-mind .storm-story {
         min-width: 90px !important;
     }
 }
+*/
 
 /* 5. MOBILE TYPOGRAPHY SCALING */
 @media (max-width: 768px) {
@@ -24502,6 +24649,7 @@ html body #the-mind .storm-story {
         letter-spacing: 0.15em !important;
     }
 }
+*/
 
 /* 6. MOBILE CARD SIZING */
 @media (max-width: 768px) {
@@ -24518,6 +24666,7 @@ html body #the-mind .storm-story {
         padding: 1.5rem !important;
     }
 }
+*/
 
 /* 7. FIX BOTTOM NAV SPACING */
 @media (max-width: 1023px) {
@@ -24535,6 +24684,7 @@ html body #the-mind .storm-story {
         margin-bottom: 80px !important;
     }
 }
+*/
 
 /* 8. FIX VIDEO CONTAINERS ON MOBILE */
 @media (max-width: 768px) {
@@ -24547,6 +24697,7 @@ html body #the-mind .storm-story {
         aspect-ratio: 16/9 !important;
     }
 }
+*/
 
 /* 9. ENSURE IMAGES ARE RESPONSIVE */
 @media (max-width: 768px) {
@@ -24557,6 +24708,7 @@ html body #the-mind .storm-story {
 
     /* Book sizing handled in comprehensive mobile hero block above */
 }
+*/
 
 /* 10. FIX PURCHASE CARDS ON MOBILE */
 @media (max-width: 768px) {
@@ -24572,6 +24724,7 @@ html body #the-mind .storm-story {
         font-size: 2rem !important;
     }
 }
+*/
 
 /* 11. REDUCE DECORATIVE ELEMENTS ON SMALL SCREENS */
 @media (max-width: 480px) {
@@ -24581,6 +24734,7 @@ html body #the-mind .storm-story {
         opacity: 0.3 !important;
     }
 }
+*/
 
 /* 12. FIX SWIPE INDICATORS */
 @media (max-width: 1023px) {
@@ -24591,6 +24745,7 @@ html body #the-mind .storm-story {
         margin: 1rem 0 !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    MOBILE EVIDENCE BOARD - Clean, Apple-grade layout
@@ -24708,6 +24863,7 @@ html body #the-mind .storm-story {
         font-size: 0.65rem !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    RESPONSIVE DESIGN CONSOLIDATION ZONE
@@ -24775,6 +24931,7 @@ html body #ask-book-toggle {
     left: auto !important;
     top: auto !important;
 }
+*/
 
 .ask-book-toggle:hover {
     transform: scale(1.1) !important;
@@ -24784,16 +24941,19 @@ html body #ask-book-toggle {
     
     
 }
+*/
 
 .ask-book-toggle svg {
     width: 28px;
     height: 28px;
     fill: var(--void-deep);
 }
+*/
 
 .ask-book-toggle.active svg {
     transform: rotate(45deg);
 }
+*/
 
 /* MOBILE: Smaller chat button */
 @media (max-width: 768px) {
@@ -24811,6 +24971,7 @@ html body #ask-book-toggle {
         height: 22px !important;
     }
 }
+*/
 @media (max-width: 480px) {
     html body .ask-book-toggle,
     html body #ask-book-toggle {
@@ -24824,11 +24985,13 @@ html body #ask-book-toggle {
         height: 20px !important;
     }
 }
+*/
 
 @keyframes ask-book-pulse {
     0%, 100% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.5), 0 0 40px rgba(212, 168, 75, 0.3); }
     50% { box-shadow: 0 8px 32px rgba(212, 168, 75, 0.7), 0 0 60px rgba(212, 168, 75, 0.5); }
 }
+*/
 
 /* Chat Widget Container */
 .ask-book-widget {
@@ -24857,12 +25020,14 @@ html body #ask-book-toggle {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
+*/
 
 .ask-book-widget.visible {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
 }
+*/
 
 /* Chat Header */
 .ask-book-header {
@@ -24875,6 +25040,7 @@ html body #ask-book-toggle {
     align-items: center;
     gap: 12px;
 }
+*/
 
 .ask-book-header-icon {
     width: 40px;
@@ -24886,12 +25052,14 @@ html body #ask-book-toggle {
     justify-content: center;
     box-shadow: 0 4px 12px rgba(212, 168, 75, 0.3);
 }
+*/
 
 .ask-book-header-icon svg {
     width: 22px;
     height: 22px;
     fill: var(--void-deep);
 }
+*/
 
 .ask-book-header-text h3 {
     font-family: var(--font-display);
@@ -24901,6 +25069,7 @@ html body #ask-book-toggle {
     margin: 0;
     letter-spacing: 0.03em;
 }
+*/
 
 .ask-book-header-text p {
     font-size: 0.75rem;
@@ -24908,6 +25077,7 @@ html body #ask-book-toggle {
     margin: 2px 0 0 0;
     letter-spacing: 0.02em;
 }
+*/
 
 /* Chat Messages Area */
 .ask-book-messages {
@@ -24920,15 +25090,18 @@ html body #ask-book-toggle {
     min-height: 200px;
     max-height: 350px;
 }
+*/
 
 .ask-book-messages::-webkit-scrollbar {
     width: 6px;
 }
+*/
 
 .ask-book-messages::-webkit-scrollbar-thumb {
     background: rgba(212, 168, 75, 0.3);
     border-radius: 3px;
 }
+*/
 
 /* Message Bubbles */
 .ask-book-message {
@@ -24939,11 +25112,13 @@ html body #ask-book-toggle {
     line-height: 1.5;
     animation: message-appear 0.3s ease-out;
 }
+*/
 
 @keyframes message-appear {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
 }
+*/
 
 .ask-book-message.user {
     align-self: flex-end;
@@ -24951,6 +25126,7 @@ html body #ask-book-toggle {
     color: var(--void-deep);
     border-bottom-right-radius: 4px;
 }
+*/
 
 .ask-book-message.assistant {
     align-self: flex-start;
@@ -24959,15 +25135,18 @@ html body #ask-book-toggle {
     color: var(--text-primary);
     border-bottom-left-radius: 4px;
 }
+*/
 
 .ask-book-message.assistant strong {
     color: var(--gold-bright);
 }
+*/
 
 .ask-book-message.assistant em {
     color: var(--gold-pale);
     font-style: italic;
 }
+*/
 
 /* Typing Indicator */
 .ask-book-typing {
@@ -24976,6 +25155,7 @@ html body #ask-book-toggle {
     padding: 16px;
     align-self: flex-start;
 }
+*/
 
 .ask-book-typing span {
     width: 8px;
@@ -24984,6 +25164,7 @@ html body #ask-book-toggle {
     border-radius: 50%;
     animation: typing-bounce 1.4s infinite ease-in-out;
 }
+*/
 
 .ask-book-typing span:nth-child(1) { animation-delay: 0s; }
 .ask-book-typing span:nth-child(2) { animation-delay: 0.2s; }
@@ -24993,6 +25174,7 @@ html body #ask-book-toggle {
     0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
     40% { transform: scale(1.2); opacity: 1; }
 }
+*/
 
 /* Source Citations */
 .ask-book-sources {
@@ -25002,6 +25184,7 @@ html body #ask-book-toggle {
     font-size: 0.75rem;
     color: var(--text-dim);
 }
+*/
 
 .ask-book-sources span {
     display: inline-block;
@@ -25011,6 +25194,7 @@ html body #ask-book-toggle {
     margin: 2px 4px 2px 0;
     color: var(--gold-pale);
 }
+*/
 
 /* Chat Input Area */
 .ask-book-input-area {
@@ -25021,6 +25205,7 @@ html body #ask-book-toggle {
     gap: 10px;
     align-items: center;
 }
+*/
 
 .ask-book-input {
     flex: 1;
@@ -25034,15 +25219,18 @@ html body #ask-book-toggle {
     transition: all 0.3s ease;
     font-family: inherit;
 }
+*/
 
 .ask-book-input::placeholder {
     color: var(--text-dim);
 }
+*/
 
 .ask-book-input:focus {
     border-color: #d4a84b;
     box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.15);
 }
+*/
 
 .ask-book-send {
     width: 44px;
@@ -25057,23 +25245,27 @@ html body #ask-book-toggle {
     transition: all 0.3s ease;
     flex-shrink: 0;
 }
+*/
 
 .ask-book-send:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 16px rgba(212, 168, 75, 0.4);
 }
+*/
 
 .ask-book-send:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
 }
+*/
 
 .ask-book-send svg {
     width: 20px;
     height: 20px;
     fill: var(--void-deep);
 }
+*/
 
 /* Quick Questions */
 .ask-book-quick {
@@ -25083,6 +25275,7 @@ html body #ask-book-toggle {
     gap: 8px;
     border-bottom: 1px solid rgba(212, 168, 75, 0.1);
 }
+*/
 
 .ask-book-quick-btn {
     background: rgba(212, 168, 75, 0.1);
@@ -25095,11 +25288,13 @@ html body #ask-book-toggle {
     transition: all 0.2s ease;
     white-space: nowrap;
 }
+*/
 
 .ask-book-quick-btn:hover {
     background: rgba(212, 168, 75, 0.2);
     border-color: #d4a84b;
 }
+*/
 
 /* Model Badge */
 .ask-book-model-badge {
@@ -25110,6 +25305,7 @@ html body #ask-book-toggle {
     color: var(--text-dim);
     margin-top: 6px;
 }
+*/
 
 .ask-book-model-badge::before {
     content: '';
@@ -25118,6 +25314,7 @@ html body #ask-book-toggle {
     background: #d4a84b;
     border-radius: 50%;
 }
+*/
 
 /* Mobile Responsive - Chat Widget */
 @media (max-width: 768px) {
@@ -25140,6 +25337,7 @@ html body #ask-book-toggle {
         max-height: 280px !important;
     }
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    ██████  NUCLEAR FIX: METHODOLOGY SECTION - ABSOLUTE FINAL OVERRIDE  ██████
@@ -25159,11 +25357,13 @@ html body section#methodology.methodology-section {
     padding: 5rem 2rem !important;
     margin: 0 !important;
 }
+*/
 
 /* Reset ALL transforms and positioning for elements inside methodology section */
 html body section#methodology * {
     
 }
+*/
 
 html body section#methodology .reveal,
 html body section#methodology [class*="reveal"] {
@@ -25171,6 +25371,7 @@ html body section#methodology [class*="reveal"] {
     
     
 }
+*/
 
 html body section#methodology .methodology-inner {
     display: flex !important;
@@ -25183,6 +25384,7 @@ html body section#methodology .methodology-inner {
     justify-content: space-between !important;
     position: relative !important;
 }
+*/
 
 html body section#methodology .methodology-content {
     display: block !important;
@@ -25201,6 +25403,7 @@ html body section#methodology .methodology-content {
     top: auto !important;
     bottom: auto !important;
 }
+*/
 
 html body section#methodology .methodology-visual {
     display: flex !important;
@@ -25221,6 +25424,7 @@ html body section#methodology .methodology-visual {
     top: auto !important;
     bottom: auto !important;
 }
+*/
 
 html body section#methodology .ai-model-grid {
     display: grid !important;
@@ -25229,6 +25433,7 @@ html body section#methodology .ai-model-grid {
     position: relative !important;
     z-index: 1 !important;
 }
+*/
 
 html body section#methodology .ai-model-node {
     position: relative !important;
@@ -25240,6 +25445,7 @@ html body section#methodology .ai-model-node {
     border: 1px solid rgba(0, 200, 150, 0.15) !important;
     border-radius: 12px !important;
 }
+*/
 
 html body section#methodology .convergence-box {
     position: relative !important;
@@ -25250,6 +25456,7 @@ html body section#methodology .convergence-box {
     border-radius: 12px !important;
     text-align: center !important;
 }
+*/
 
 html body section#methodology .methodology-closing {
     display: block !important;
@@ -25259,6 +25466,7 @@ html body section#methodology .methodology-closing {
     text-align: center !important;
     grid-column: 1 / -1 !important;
 }
+*/
 
 /* === TABLET: Single column (768px - 900px) === */
 @media (max-width: 900px) {
@@ -25281,6 +25489,7 @@ html body section#methodology .methodology-closing {
         order: 2 !important;
     }
 }
+*/
 
 /* === MOBILE: Stacked layout (768px and below) === */
 @media (max-width: 768px) {
@@ -25365,6 +25574,7 @@ html body section#methodology .methodology-closing {
         padding-top: 1rem !important;
     }
 }
+*/
 
 /* === SMALL PHONES (480px and below) === */
 @media (max-width: 480px) {
@@ -25394,6 +25604,7 @@ html body section#methodology .methodology-closing {
         height: 16px !important;
     }
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    ██████  NUCLEAR FIX: MOBILE SECTION SPACING - ELIMINATE BLANK SPACE  ██████
@@ -25580,6 +25791,7 @@ html body section#methodology .methodology-closing {
         gap: 1.5rem !important;
     }
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    END NUCLEAR FIX - MOBILE SPACING
@@ -25747,6 +25959,7 @@ html body section#methodology .methodology-closing {
 
     /* REMOVED: Dangerous *:empty rule that was hiding valid content */
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    END ULTIMATE NUCLEAR FIX
@@ -25866,6 +26079,7 @@ html body section#methodology .methodology-closing {
         margin-bottom: 0 !important;
     }
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    END FINAL OVERRIDE
@@ -25881,12 +26095,14 @@ html body section#methodology .methodology-closing {
     align-items: center;
     justify-content: center;
 }
+*/
 
 .predictions-inner {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
 }
+*/
 
 .predictions-intro {
     font-family: var(--font-serif);
@@ -25896,6 +26112,7 @@ html body section#methodology .methodology-closing {
     max-width: 700px;
     margin: 0 auto 3rem;
 }
+*/
 
 .predictions-grid {
     display: grid;
@@ -25904,6 +26121,7 @@ html body section#methodology .methodology-closing {
     text-align: left;
     margin-bottom: 3rem;
 }
+*/
 
 .prediction-card {
     background: rgba(212, 168, 75, 0.03);
@@ -25912,17 +26130,20 @@ html body section#methodology .methodology-closing {
     padding: 2rem;
     transition: all 0.3s ease;
 }
+*/
 
 .prediction-card:hover {
     border-color: rgba(212, 168, 75, 0.3);
     transform: translateY(-3px);
 }
+*/
 
 .prediction-card--evidence {
     background: rgba(100, 150, 0, 0.05);
     border-color: rgba(100, 150, 0, 0.3);
     grid-column: span 2;
 }
+*/
 
 .prediction-header {
     display: flex;
@@ -25930,12 +26151,14 @@ html body section#methodology .methodology-closing {
     align-items: center;
     margin-bottom: 1rem;
 }
+*/
 
 .prediction-num {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--gold);
 }
+*/
 
 .prediction-status {
     font-family: var(--font-mono);
@@ -25943,16 +26166,19 @@ html body section#methodology .methodology-closing {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
 }
+*/
 
 .prediction-status--pending {
     background: rgba(212, 168, 75, 0.1);
     color: var(--gold);
 }
+*/
 
 .prediction-status--evidence {
     background: rgba(100, 200, 100, 0.15);
     color: #7cb342;
 }
+*/
 
 .prediction-title {
     font-family: var(--font-display);
@@ -25960,6 +26186,7 @@ html body section#methodology .methodology-closing {
     color: var(--text);
     margin-bottom: 0.5rem;
 }
+*/
 
 .prediction-timeline {
     font-family: var(--font-mono);
@@ -25967,6 +26194,7 @@ html body section#methodology .methodology-closing {
     color: var(--gold);
     margin-bottom: 1rem;
 }
+*/
 
 .prediction-text {
     font-family: var(--font-serif);
@@ -25974,12 +26202,14 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     line-height: 1.6;
 }
+*/
 
 .prediction-evidence {
     margin-top: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(100, 200, 100, 0.2);
 }
+*/
 
 .evidence-label {
     font-family: var(--font-mono);
@@ -25989,6 +26219,7 @@ html body section#methodology .methodology-closing {
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
+*/
 
 .evidence-text {
     font-family: var(--font-serif);
@@ -25996,6 +26227,7 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     line-height: 1.6;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════
    FALSIFICATION CRITERIA
@@ -26007,12 +26239,14 @@ html body section#methodology .methodology-closing {
     align-items: center;
     justify-content: center;
 }
+*/
 
 .falsification-inner {
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
 }
+*/
 
 .falsification-intro {
     font-family: var(--font-serif);
@@ -26020,6 +26254,7 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     margin-bottom: 3rem;
 }
+*/
 
 .falsification-grid {
     display: grid;
@@ -26027,6 +26262,7 @@ html body section#methodology .methodology-closing {
     text-align: left;
     margin-bottom: 3rem;
 }
+*/
 
 .falsification-item {
     display: flex;
@@ -26036,12 +26272,14 @@ html body section#methodology .methodology-closing {
     border: 1px solid rgba(139, 0, 0, 0.15);
     border-radius: 8px;
 }
+*/
 
 .falsification-icon {
     font-size: 1.2rem;
     color: #c62828;
     flex-shrink: 0;
 }
+*/
 
 .falsification-item p {
     font-family: var(--font-serif);
@@ -26049,10 +26287,12 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     line-height: 1.6;
 }
+*/
 
 .falsification-item strong {
     color: var(--text);
 }
+*/
 
 .falsification-footer {
     font-family: var(--font-serif);
@@ -26060,6 +26300,7 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     line-height: 1.8;
 }
+*/
 
 @media (max-width: 768px) {
     .prediction-card--evidence {
@@ -26069,6 +26310,7 @@ html body section#methodology .methodology-closing {
         padding: 4rem 1rem;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════
    MASTER OVERRIDE: Evidence Cards - Content-Sized (No Stretching)
@@ -26079,6 +26321,7 @@ html body section#methodology .methodology-closing {
     align-items: start !important;
     grid-auto-rows: auto !important;
 }
+*/
 
 .evidence-card,
 .evidence-locker .evidence-card {
@@ -26086,12 +26329,14 @@ html body section#methodology .methodology-closing {
     min-height: unset !important;
     align-self: start !important;
 }
+*/
 
 /* Featured cards can still span columns but not stretch vertically */
 .evidence-card--featured {
     
     align-self: start !important;
 }
+*/
 
 /* Desktop 3-column layout - content-sized rows */
 @media (min-width: 769px) {
@@ -26114,6 +26359,7 @@ html body section#methodology .methodology-closing {
         grid-row: span 1 !important;
     }
 }
+*/
 
 /* Mobile single-column - stack naturally */
 @media (max-width: 768px) {
@@ -26129,18 +26375,21 @@ html body section#methodology .methodology-closing {
         
     }
 }
+*/
 
 /* Also fix ideas-grid to use content-sized cards */
 .ideas-grid {
     align-items: start !important;
     grid-auto-rows: auto !important;
 }
+*/
 
 .idea-card {
     
     min-height: unset !important;
     align-self: start !important;
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════
    37 CONCEPTS MODAL
@@ -26158,11 +26407,13 @@ html body section#methodology .methodology-closing {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
+*/
 
 .concepts-modal-overlay.active {
     opacity: 1;
     visibility: visible;
 }
+*/
 
 .concepts-modal {
     border: 1px solid rgba(212, 168, 75, 0.2);
@@ -26175,10 +26426,12 @@ html body section#methodology .methodology-closing {
     transform: scale(0.95) translateY(20px);
     transition: transform 0.4s var(--ease-out-expo);
 }
+*/
 
 .concepts-modal-overlay.active .concepts-modal {
     transform: scale(1) translateY(0);
 }
+*/
 
 .concepts-modal-close {
     position: absolute;
@@ -26197,17 +26450,20 @@ html body section#methodology .methodology-closing {
     transition: all 0.3s ease;
     z-index: 10;
 }
+*/
 
 .concepts-modal-close:hover {
     background: rgba(212, 168, 75, 0.1);
     border-color: var(--gold);
 }
+*/
 
 .concepts-modal-header {
     padding: 3rem 3rem 2rem;
     border-bottom: 1px solid rgba(212, 168, 75, 0.1);
     text-align: center;
 }
+*/
 
 .concepts-modal-title {
     font-family: var(--font-display);
@@ -26215,6 +26471,7 @@ html body section#methodology .methodology-closing {
     color: var(--gold);
     margin-bottom: 0.5rem;
 }
+*/
 
 .concepts-modal-subtitle {
     font-family: var(--font-mono);
@@ -26222,14 +26479,17 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     letter-spacing: 0.05em;
 }
+*/
 
 .concepts-modal-content {
     padding: 2rem 3rem;
 }
+*/
 
 .concepts-category {
     margin-bottom: 3rem;
 }
+*/
 
 .concepts-category-title {
     font-family: var(--font-display);
@@ -26240,12 +26500,14 @@ html body section#methodology .methodology-closing {
     padding-bottom: 0.5rem;
     border-bottom: 1px solid rgba(212, 168, 75, 0.2);
 }
+*/
 
 .concepts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
 }
+*/
 
 .concept-item {
     background: rgba(212, 168, 75, 0.03);
@@ -26254,12 +26516,14 @@ html body section#methodology .methodology-closing {
     padding: 1.5rem;
     transition: all 0.3s ease;
 }
+*/
 
 .concept-item:hover {
     background: rgba(212, 168, 75, 0.06);
     border-color: rgba(212, 168, 75, 0.3);
     transform: translateY(-2px);
 }
+*/
 
 .concept-num {
     font-family: var(--font-mono);
@@ -26269,6 +26533,7 @@ html body section#methodology .methodology-closing {
     display: block;
     margin-bottom: 0.5rem;
 }
+*/
 
 .concept-item h4 {
     font-family: var(--font-display);
@@ -26277,6 +26542,7 @@ html body section#methodology .methodology-closing {
     margin-bottom: 0.75rem;
     letter-spacing: 0.02em;
 }
+*/
 
 .concept-item p {
     font-family: var(--font-serif);
@@ -26284,12 +26550,14 @@ html body section#methodology .methodology-closing {
     color: var(--text-dim);
     line-height: 1.6;
 }
+*/
 
 .concepts-modal-footer {
     padding: 2rem 3rem 3rem;
     border-top: 1px solid rgba(212, 168, 75, 0.1);
     text-align: center;
 }
+*/
 
 .concepts-modal-footer p {
     font-family: var(--font-mono);
@@ -26297,6 +26565,7 @@ html body section#methodology .methodology-closing {
     color: var(--text-faint);
     margin-bottom: 1.5rem;
 }
+*/
 
 .concepts-cta {
     display: inline-flex;
@@ -26312,12 +26581,14 @@ html body section#methodology .methodology-closing {
     text-decoration: none;
     transition: all 0.3s ease;
 }
+*/
 
 .concepts-cta:hover {
     background: var(--gold-bright);
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
 }
+*/
 
 /* View All Button */
 .view-all-concepts-btn {
@@ -26335,11 +26606,13 @@ html body section#methodology .methodology-closing {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+*/
 
 .view-all-concepts-btn:hover {
     background: rgba(212, 168, 75, 0.1);
     transform: translateY(-2px);
 }
+*/
 
 @media (max-width: 768px) {
     .concepts-modal-content {
@@ -26349,6 +26622,7 @@ html body section#methodology .methodology-closing {
         padding: 2rem 1.5rem 1.5rem;
     }
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    ███████  EMERGENCY FIX: FORCE ALL SECTIONS VISIBLE  ███████
@@ -26392,6 +26666,7 @@ body.cinematic-ready footer {
     
     pointer-events: auto;
 }
+*/
 
 /* Ensure main content flows properly */
 main,
@@ -26402,12 +26677,14 @@ main.content,
     
     
 }
+*/
 
 /* Fix any z-index issues that might hide content */
 #bbc-timeline ~ section,
 #bbc-timeline ~ * {
     z-index: auto !important;
 }
+*/
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
    ███████  MOBILE DISPLAY FIX - JANUARY 2026  ███████
@@ -26721,6 +26998,7 @@ main.content,
         padding-bottom: 100px !important;
     }
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════════
    NUCLEAR OVERRIDE: ASK THE BOOK BUTTON - ALWAYS VISIBLE
@@ -26744,6 +27022,7 @@ body.cinematic-ready .ask-book-toggle {
     clip: auto !important;
     clip-path: none !important;
 }
+*/
 
 html body button#ask-book-toggle svg {
     display: block !important;
@@ -26751,6 +27030,7 @@ html body button#ask-book-toggle svg {
     height: 28px !important;
     fill: #02030a !important;
 }
+*/
 
 @media (max-width: 768px) {
     html body button#ask-book-toggle {
@@ -26763,6 +27043,7 @@ html body button#ask-book-toggle svg {
         position: fixed !important;
     }
 }
+*/
 
 /* FINAL VISIBILITY GUARANTEE */
 html body #ask-book-toggle, 
@@ -26771,6 +27052,7 @@ html body .ask-book-toggle {
     
     
 }
+*/
 
 /* ═══════════════════════════════════════════════════════════════════════════════════
    SOVEREIGN FRAMING GUARD - Universal Clipping & Alignment
@@ -26778,6 +27060,7 @@ html body .ask-book-toggle {
 *, *::before, *::after {
     box-sizing: border-box !important;
 }
+*/
 
 html, body {
     width: 100% !important;
@@ -26785,12 +27068,14 @@ html, body {
     margin: 0 !important;
     padding: 0 !important;
 }
+*/
 
 main.content, #main-content {
     width: 100% !important;
     max-width: 100vw !important;
     overflow-x: clip !important;
 }
+*/
 
 /* Ensure all immersive visuals are framed inside the screen */
 .tesseract-container, 
@@ -26800,6 +27085,7 @@ main.content, #main-content {
 .idea-card {
     max-width: 100% !important;
 }
+*/
 
 /* Fixed Margins for UI Elements */
 .milestone-toast { left: 20px !important; }
@@ -26812,6 +27098,7 @@ main.content, #main-content {
         width: calc(100% - 20px) !important; 
     }
 }
+*/
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -30476,11 +30763,12 @@ main.content, #main-content {
 
                 // Phase 3: Allow scroll and reveal content
                 setTimeout(() => {
-                    // Trigger SVG distortion animation trigger (skip if manual for cleaner exit)
-                    if (!isManualSkip) {
-                        const distort = document.getElementById('distort-anim');
-                        if (distort) distort.beginElement();
-                    }
+                    // DISABLED: SVG distortion was causing "screen shake" and "random colors"
+                    // The 0→100→0 displacement scale creates chaotic visual - not orchestrated art
+                    // if (!isManualSkip) {
+                    //     const distort = document.getElementById('distort-anim');
+                    //     if (distort) distort.beginElement();
+                    // }
 
                     // FORCE UNLOCK SCROLL
                     document.body.classList.add('cinematic-ready');
@@ -40245,15 +40533,11 @@ main.content, #main-content {
 
                 <!-- Ask the Book JavaScript -->
 
-                <!-- Performance Core - Central performance management (load first) -->
-                <script src="js/performance-core.js"></script>
-
-                <!-- Animation Scheduler - Phase-based animation loading -->
-                <script src="js/animation-scheduler.js"></script>
-
-                <!-- Load the Sovereign Constitution (Brain & Rules) -->
-
-                <script src="js/sovereign-constitution.js"></script>
+                <!-- APP BUNDLE - All 10 external JS modules combined -->
+                <!-- Contains: performance-core, animation-scheduler, sovereign-constitution,
+                     fluid-simulation, book-3d, temporal-sync, oracle-interface,
+                     shadow-layer, slideshow, masterpiece-soul -->
+                <script src="js/app-bundle.js"></script>
 
                 <script>
 
@@ -41103,27 +41387,7 @@ main.content, #main-content {
          CORE SCRIPTS - The Nervous System
          ═══════════════════════════════════════════════════════════════════════ -->
 
-    <!-- GENIUS FEATURES: Digital Psychophysics Layer -->
-    <!-- 2a. Sentient Void - GLSL Fluid Simulation -->
-    <script src="js/fluid-simulation.js" defer></script>
-
-    <!-- 2b. The Artifact - 3D Book Model -->
-    <script src="js/book-3d.js" defer></script>
-
-    <!-- 2c. Temporal Sync - Environmental Reality -->
-    <script src="js/temporal-sync.js" defer></script>
-
-    <!-- 2d. Oracle Interface - Voice-to-Voice AI -->
-    <script src="js/oracle-interface.js" defer></script>
-
-    <!-- 2e. Shadow Layer - Steganographic Mystery -->
-    <script src="js/shadow-layer.js" defer></script>
-
-    <!-- 3. Mobile Slideshow Experience -->
-    <script src="js/slideshow.js" defer></script>
-
-    <!-- 4. MASTERPIECE SOUL (Audio, Interactions, Scramble, Physics) -->
-    <script src="js/masterpiece-soul.js" defer></script>
+    <!-- All JS modules now loaded via js/app-bundle.js -->
 
 </body>
 </html>
