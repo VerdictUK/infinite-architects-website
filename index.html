@@ -143,71 +143,49 @@
     <link rel="preconnect" href="https://www.amazon.co.uk">
     <link rel="dns-prefetch" href="https://www.amazon.co.uk">
 
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         GOOGLE ANALYTICS 4 - Conversion Tracking
-         IMPORTANT: Replace G-V4FDJHP4R4 with your actual GA4 ID (e.g., G-XXXXXXXXXX)
-         Get your ID from: Google Analytics > Admin > Data Streams > Web
-         ═══════════════════════════════════════════════════════════════════════ -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4"></script>
+    <!-- DEFERRED THIRD-PARTY INITIALIZATION (Proper Fix - Performance) -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-V4FDJHP4R4');
-    </script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                // 1. Google Analytics & Ads
+                const gtagScript = document.createElement('script');
+                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4";
+                gtagScript.async = true;
+                document.head.appendChild(gtagScript);
+                
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-V4FDJHP4R4', { 'page_path': location.pathname });
+                gtag('config', 'AW-17876453606');
 
-    <!-- Google Ads Remarketing (Conversion ID: AW-17876453606) -->
-    <script>
-        gtag('config', 'AW-17876453606');
-    </script>
+                // 2. Facebook/Meta Pixel
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '1951047602453657');
+                fbq('track', 'PageView');
 
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         META (FACEBOOK) PIXEL - Conversion Tracking
-         IMPORTANT: Replace 1951047602453657 with your actual Facebook Pixel ID
-         Get your ID from: Meta Business Suite > Events Manager > Data Sources
-         ═══════════════════════════════════════════════════════════════════════ -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1951047602453657');
-        fbq('track', 'PageView');
+                // 3. LinkedIn Insight
+                _linkedin_partner_id = "8470874";
+                window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+                window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+                (function(l) {
+                    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+                    window.lintrk.q=[]}
+                    var s = document.getElementsByTagName("script")[0];
+                    var b = document.createElement("script");
+                    b.type = "text/javascript";b.async = true;
+                    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+                    s.parentNode.insertBefore(b, s);
+                })(window.lintrk);
+                
+                console.log('📈 Performance: Third-party scripts initialized (deferred).');
+            }, 2000); 
+        });
     </script>
-    <noscript>
-        <img height="1" width="1" style="display:none"
-             src="https://www.facebook.com/tr?id=1951047602453657&ev=PageView&noscript=1"/>
-    </noscript>
-
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         LINKEDIN INSIGHT TAG - B2B Professional Targeting
-         Partner ID: 8470874
-         Admin URL: https://www.linkedin.com/campaignmanager
-         ═══════════════════════════════════════════════════════════════════════ -->
-    <script type="text/javascript">
-        _linkedin_partner_id = "8470874";
-        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-    </script>
-    <script type="text/javascript">
-        (function(l) {
-            if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-            window.lintrk.q=[]}
-            var s = document.getElementsByTagName("script")[0];
-            var b = document.createElement("script");
-            b.type = "text/javascript";b.async = true;
-            b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-            s.parentNode.insertBefore(b, s);
-        })(window.lintrk);
-    </script>
-    <noscript>
-        <img height="1" width="1" style="display:none;" alt=""
-             src="https://px.ads.linkedin.com/collect/?pid=8470874&fmt=gif" />
-    </noscript>
 
     <!-- JSON-LD Structured Data: Sovereign Standard v2.0 (Sentinel SEO Audit) -->
     <script type="application/ld+json">
@@ -3568,10 +3546,11 @@
             animation: heroRevealSlide 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        body.cinematic .hero-title { animation-delay: 0.6s; }
-        body.cinematic .hero-subtitle { animation-delay: 0.8s; }
-        body.cinematic .hero-cta { animation-delay: 1s; }
-        body.cinematic .hero-author { animation-delay: 1.1s; opacity: 0; animation: heroRevealSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        /* Staggered hero reveals - allows video/particles to settle before text */
+        body.cinematic .hero-title { animation-delay: 1.2s; }
+        body.cinematic .hero-subtitle { animation-delay: 1.8s; }
+        body.cinematic .hero-cta { animation-delay: 2.4s; }
+        body.cinematic .hero-author { animation-delay: 2.8s; opacity: 0; animation: heroRevealSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
         @keyframes heroRevealSlide {
             0% { opacity: 0; transform: translateY(40px); filter: blur(10px); }
@@ -4168,6 +4147,7 @@
         }
 
         /* Particles pulse gently during awakening */
+        /* PERFORMANCE: Delayed by 3s to not compete with hero text reveals */
         #canvas-container::after {
             content: '';
             position: absolute;
@@ -4177,6 +4157,8 @@
                 rgba(212, 168, 75, 0.05) 30%,
                 transparent 60%);
             animation: cosmicPulse 3s ease-in-out infinite, cosmicFadeOut 5s ease-out forwards;
+            animation-delay: 3s;
+            opacity: 0;
             pointer-events: none;
         }
 
@@ -4208,15 +4190,28 @@
         }
 
         /* Film grain overlay */
+        /* PERFORMANCE: Delayed start, GPU-optimised, fades after hero */
         .film-grain {
             position: fixed;
             inset: 0;
             z-index: var(--z-overlay);
             pointer-events: none;
-            opacity: 0.025;
+            opacity: 0;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            animation: grain 0.4s steps(10) infinite;
+            animation: grain 0.5s steps(8) infinite, filmGrainFadeIn 2s ease-out 2s forwards;
             mix-blend-mode: overlay;
+            will-change: transform, opacity;
+            transition: opacity 1s ease-out;
+        }
+
+        /* Film grain fades to reduced intensity after scrolling past hero */
+        .film-grain.reduced {
+            opacity: 0.012;
+        }
+
+        @keyframes filmGrainFadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.025; }
         }
 
         @keyframes grain {
@@ -26921,7 +26916,7 @@ main.content, #main-content {
         <div class="god-rays" id="god-rays"></div>
         <div class="spark-container" id="spark-container"></div>
         <!-- Mandelbrot Video Background - Recursion Made Visible -->
-        <video class="loader-video-bg bg-void" id="loader-video" muted playsinline autoplay loop preload="metadata">
+        <video preload="metadata" class="loader-video-bg bg-void" id="loader-video" muted playsinline autoplay loop preload="metadata">
             <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
         </video>
         <div class="loader-video-overlay"></div>
@@ -27083,7 +27078,7 @@ main.content, #main-content {
         <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
-                <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
+                <video preload="metadata" class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
                        muted playsinline preload="metadata" autoplay loop>
                     <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
                 </video>
@@ -27100,7 +27095,7 @@ main.content, #main-content {
             <div class="hero-book-container flex justify-center items-center lg:justify-end">
                 <div class="hero-book book-portal relative z-5 cursor-pointer transition-all duration-600 ease-out" id="hero-book" role="button" tabindex="0" aria-label="Click to enter and explore the book">
                     <!-- Animated Video Book Cover -->
-                    <video
+                    <video preload="metadata"
                         class="book-cover-video w-full h-auto rounded-md object-contain"
                         id="book-cover-video"
                         loop
@@ -27114,7 +27109,7 @@ main.content, #main-content {
                     >
                         <!-- Sources loaded lazily via JavaScript -->
                         <!-- Fallback static image -->
-                        <img
+                        <img loading="lazy" decoding="async"
                             src="InfiniteArchitectsKindle20260103.jpg"
                             alt="Infinite Architects by Michael Darius Eastwood"
                             loading="eager"
@@ -27214,7 +27209,7 @@ main.content, #main-content {
                 <div class="relative flex flex-col items-center justify-center order-1 lg:order-2">
                     <div class="reveal relative z-10 w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-1 bg-gradient-to-tr from-gold via-gold-bright to-transparent shadow-glow-lg group hover:scale-105 transition-all duration-700 ease-spring-loose">
                         <div class="w-full h-full rounded-full overflow-hidden border-2 border-void-deep">
-                            <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
                         </div>
                     </div>
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-40 pointer-events-none blur-sm">
@@ -27691,7 +27686,7 @@ main.content, #main-content {
                     <!-- CARD 01 -->
                     <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
@@ -27704,7 +27699,7 @@ main.content, #main-content {
                     <!-- CARD 02 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 02</span>
@@ -27716,7 +27711,7 @@ main.content, #main-content {
                     <!-- CARD 03 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 03</span>
@@ -27728,7 +27723,7 @@ main.content, #main-content {
                     <!-- CARD 04 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 04</span>
@@ -27740,7 +27735,7 @@ main.content, #main-content {
                     <!-- CARD 05 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
@@ -27752,7 +27747,7 @@ main.content, #main-content {
                     <!-- CARD 06 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
@@ -27764,7 +27759,7 @@ main.content, #main-content {
                     <!-- CARD 07 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
@@ -27842,7 +27837,7 @@ main.content, #main-content {
                             </div>
 
                             <div class="aspect-video bg-black rounded-3xl overflow-hidden relative group/video shadow-inner-glow border border-white/5">
-                                <video class="w-full h-full object-cover opacity-80 group-hover/video:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                                <video preload="metadata" class="w-full h-full object-cover opacity-80 group-hover/video:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                     <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -28058,7 +28053,7 @@ main.content, #main-content {
         <section class="timeline-evidence-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto relative flex flex-col items-center justify-center" id="bbc-timeline">
             <!-- Cosmic Portal Background for Evidence Section -->
             <div class="section-video-bg absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-                <video class="section-video-bg__video opacity-20 w-full h-full object-cover scale-110" muted playsinline autoplay loop preload="metadata">
+                <video preload="metadata" class="section-video-bg__video opacity-20 w-full h-full object-cover scale-110" muted playsinline autoplay loop preload="metadata">
                     <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
                 <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
@@ -28079,7 +28074,7 @@ main.content, #main-content {
 
                 <div class="bbc-evidence-card reveal reveal-delay-2 grid md:grid-cols-[1.2fr_1fr] gap-0 md:gap-8 lg:gap-12 bg-void-mid/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
                     <div class="bbc-evidence-card__video-wrapper aspect-video bg-black relative border-b md:border-b-0 md:border-r border-white/10">
-                        <video class="bbc-evidence-card__video w-full h-full object-cover" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                        <video preload="metadata" class="bbc-evidence-card__video w-full h-full object-cover" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/bbc_clip_3.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -28378,7 +28373,7 @@ main.content, #main-content {
         <section class="hrih-section snap-section chapter-start relative min-h-screen flex items-center justify-center overflow-visible h-auto py-16 md:py-24 px-4 md:px-8" id="hrih">
             <!-- Visual Background with Cosmic Zoom -->
             <div class="absolute inset-0 z-0">
-                <img
+                <img loading="lazy" decoding="async"
                     src="images/hrih-hero.webp"
                     alt="Hyperspace Recursive Intelligence - AI creating universes"
                     class="w-full h-full object-cover opacity-65"
@@ -28423,7 +28418,7 @@ main.content, #main-content {
                 <!-- BBC Video: The Multiverse Validation -->
                 <div class="bbc-evidence-card reveal reveal-delay-3 mx-auto my-12 max-w-5xl grid md:grid-cols-2 gap-8 items-center h-auto overflow-visible">
                     <div class="bbc-evidence-card__video-wrapper h-auto overflow-visible">
-                        <video class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                        <video preload="metadata" class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/london-night.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -28480,7 +28475,7 @@ main.content, #main-content {
                     </div>
                 </div>
                 <div class="relative reveal reveal-delay-2 flex items-center justify-center">
-                    <img loading="lazy" decoding="async" src="images/art-grand-council.webp" alt="The grand council of wisdom traditions" class="w-full max-h-[45vh] object-cover rounded-xl shadow-2xl">
+                    <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/art-grand-council.webp" alt="The grand council of wisdom traditions" class="w-full max-h-[45vh] object-cover rounded-xl shadow-2xl">
                     
                     <!-- Council Snippets Overlay -->
                     <div class="absolute inset-0 pointer-events-none hidden md:block">
@@ -28637,7 +28632,7 @@ main.content, #main-content {
                 </div>
                 
                 <div class="diagram-image-wrapper reveal reveal-delay-2 glass-panel-ultra p-4 md:p-8 rounded-3xl border border-white/10 shadow-2xl group">
-                    <img loading="lazy" decoding="async" src="images/architecture-diagram.webp" alt="Infinite Architects Blueprint" class="diagram-image w-full h-auto rounded-xl transition-transform duration-1000 group-hover:scale-[1.02]">
+                    <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/architecture-diagram.webp" alt="Infinite Architects Blueprint" class="diagram-image w-full h-auto rounded-xl transition-transform duration-1000 group-hover:scale-[1.02]">
                 </div>
                 
                 <p class="diagram-caption reveal reveal-delay-3 text-lg md:text-xl text-text-secondary max-w-2xl mx-auto font-serif leading-relaxed italic">
@@ -28759,7 +28754,7 @@ main.content, #main-content {
 
         <section id="future-born" class="relative min-h-screen-dvh flex items-center justify-center overflow-hidden snap-section chapter-start">
             <div class="absolute inset-0 z-0 scale-110">
-                <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-full h-full object-cover opacity-40 grayscale blur-sm">
+                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-full h-full object-cover opacity-40 grayscale blur-sm">
                 <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
             </div>
             <div class="relative z-10 text-center py-20 px-6 max-w-4xl glass-panel-ultra p-12 md:p-20 rounded-[3rem] border border-white/10 shadow-3xl mx-4">
@@ -28775,7 +28770,7 @@ main.content, #main-content {
         <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-deep" id="stakes">
             <div class="max-w-7xl mx-auto space-y-16">
                 <div class="relative w-full rounded-3xl overflow-hidden shadow-3xl border border-white/10 group">
-                    <img
+                    <img loading="lazy" decoding="async"
                         src="images/eden-babylon.webp"
                         alt="Eden versus Babylon"
                         class="w-full h-auto block reveal transition-transform duration-1000 group-hover:scale-105"
@@ -28864,7 +28859,7 @@ main.content, #main-content {
                 <div class="reveal reveal-delay-6 glass-panel-ultra p-1 rounded-[2.5rem] overflow-hidden shadow-3xl border border-white/10 max-w-5xl mx-auto">
                     <div class="grid md:grid-cols-2 bg-void-mid">
                         <div class="aspect-video bg-black relative group overflow-hidden">
-                            <video class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                            <video preload="metadata" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                 <source src="videos/bbc_clip_4.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -29281,7 +29276,7 @@ main.content, #main-content {
 
                     <div class="video-portal absolute inset-0 z-0" id="video-portal">
 
-                        <video id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110">
+                        <video preload="metadata" id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110">
 
                             <source src="hero-portal-compressed.mp4" type="video/mp4">
 
@@ -29393,7 +29388,7 @@ main.content, #main-content {
 
                     <div class="paradise-bg absolute inset-0 z-0 scale-110">
 
-                        <img src="paradise-garden.jpg" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
+                        <img loading="lazy" decoding="async" src="paradise-garden.jpg" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
 
                         <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
 
@@ -30105,6 +30100,28 @@ main.content, #main-content {
         }
 
         function initLoader() {
+            // Guard: Respect reduced motion preference - skip loader animation entirely
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                console.log('[Loader] Skipped - user prefers reduced motion');
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.style.display = 'none';
+                    loader.classList.add('hidden', 'fully-hidden');
+                }
+                // Immediately unlock the page
+                document.body.classList.add('cinematic', 'cinematic-ready', 'ui-revealed');
+                document.documentElement.classList.add('cinematic-ready');
+                document.body.style.overflow = 'auto';
+                document.body.style.overflowY = 'auto';
+                document.body.style.overflowX = 'hidden';
+                document.body.style.height = 'auto';
+                document.documentElement.style.overflow = 'auto';
+                // Initialize scroll and navigation immediately
+                if (typeof initScrollAnimations === 'function') initScrollAnimations();
+                if (typeof initNavigation === 'function') initNavigation();
+                return;
+            }
+
             const canvas = document.getElementById('loader-canvas');
             if (!canvas) {
                 console.error('[Loader] Canvas element not found');
@@ -30120,6 +30137,12 @@ main.content, #main-content {
             const loader = document.getElementById('loader');
             const barFill = document.getElementById('loader-bar-fill');
             const statusEl = document.getElementById('loader-status');
+
+            // Guard: check loader element exists
+            if (!loader) {
+                console.warn('[Loader] Loader element not found');
+                return;
+            }
 
             // Masterpiece elements - Quote sequence and equation
             const quotesContainer = document.getElementById('loader-quotes');
@@ -30505,7 +30528,7 @@ main.content, #main-content {
                 } else {
                     statusMessage = 'GENESIS COMPLETE';
                 }
-                statusEl.textContent = statusMessage;
+                if (statusEl) statusEl.textContent = statusMessage;
 
                 if (progress < 1 && !loaderState.skipped) {
                     requestAnimationFrame(animate);
@@ -30650,21 +30673,41 @@ main.content, #main-content {
                 }
 
                 // Initialize Genius Feature: The Artifact (3D Book)
-                if (window.Book3D) {
-                    try {
-                        const heroBookElement = document.getElementById('hero-book');
-                        book3d = new Book3D(heroBookElement, scene, renderer, camera);
-                        console.log('[Genius] The Artifact (3D Book) initialized');
-                        
-                        // Hide legacy 2D book if 3D succeeds
-                        if (heroBookElement) {
-                            heroBookElement.style.opacity = '0';
-                            heroBookElement.style.pointerEvents = 'none';
+                // PERFORMANCE: Delayed by 3s to let hero animations complete first
+                setTimeout(() => {
+                    if (window.Book3D) {
+                        try {
+                            const heroBookElement = document.getElementById('hero-book');
+                            book3d = new Book3D(heroBookElement, scene, renderer, camera);
+                            console.log('[Genius] The Artifact (3D Book) initialized (delayed)');
+
+                            // Smooth fade-in for 3D book
+                            if (book3d && book3d.mesh) {
+                                book3d.mesh.material.opacity = 0;
+                                book3d.mesh.material.transparent = true;
+
+                                // Animate opacity from 0 to 1 over 1.5s
+                                const fadeStart = performance.now();
+                                const fadeDuration = 1500;
+                                const fadeIn = () => {
+                                    const elapsed = performance.now() - fadeStart;
+                                    const progress = Math.min(elapsed / fadeDuration, 1);
+                                    book3d.mesh.material.opacity = progress;
+                                    if (progress < 1) requestAnimationFrame(fadeIn);
+                                };
+                                fadeIn();
+                            }
+
+                            // Hide legacy 2D book if 3D succeeds
+                            if (heroBookElement) {
+                                heroBookElement.style.opacity = '0';
+                                heroBookElement.style.pointerEvents = 'none';
+                            }
+                        } catch (e) {
+                            console.warn('[Genius] Book3D failed:', e.message);
                         }
-                    } catch (e) {
-                        console.warn('[Genius] Book3D failed:', e.message);
                     }
-                }
+                }, 3000);
 
                 document.addEventListener('mousemove', onMouseMove);
                 window.addEventListener('resize', onWindowResize);
@@ -30987,6 +31030,17 @@ main.content, #main-content {
         window.addEventListener('beforeunload', disposeThreeJS);
         window.addEventListener('pagehide', disposeThreeJS);
 
+        // PERFORMANCE: Frame counter for adaptive throttling
+        let frameCount = 0;
+        let heroThrottleActive = true;
+
+        // Detect when hero section is passed for throttle release
+        const heroSection = document.getElementById('hero');
+        const heroObserver = new IntersectionObserver((entries) => {
+            heroThrottleActive = entries[0].isIntersecting;
+        }, { threshold: 0.1 });
+        if (heroSection) heroObserver.observe(heroSection);
+
         function animateMain() {
             if (!renderer || !scene || !camera) return;
             // Pause when tab hidden for performance
@@ -30995,6 +31049,15 @@ main.content, #main-content {
                 return;
             }
             requestAnimationFrame(animateMain);
+
+            frameCount++;
+
+            // PERFORMANCE: Skip every 2nd frame during hero to reduce GPU load
+            // This halves particle updates when hero animations are active
+            if (heroThrottleActive && frameCount % 2 !== 0) {
+                renderer.render(scene, camera);
+                return;
+            }
 
             // Camera follows mouse subtly
             camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.02;
@@ -31009,9 +31072,14 @@ main.content, #main-content {
 
             // Wormhole Pull: Interactive Gravitational Physics
             const mouse3D = new THREE.Vector3(mouseX * 1000, -mouseY * 1000, 0);
-            
+
+            // PERFORMANCE: Process fewer particles when hero is visible
+            const particleLimit = heroThrottleActive
+                ? Math.floor(CONFIG.main.particleCount * 0.6) // 60% when hero visible
+                : CONFIG.main.particleCount;
+
             // Update particles
-            for (let i = 0; i < CONFIG.main.particleCount; i++) {
+            for (let i = 0; i < particleLimit; i++) {
                 const i3 = i * 3;
                 const vel = particleVelocities[i];
 
@@ -32696,7 +32764,7 @@ main.content, #main-content {
                 banner.className = 'pwa-install-banner';
                 banner.innerHTML = `
                     <div class="pwa-install-content">
-                        <img decoding="async" src="/android-chrome-192x192.png" alt="Infinite Architects" class="pwa-install-icon" onerror="this.style.display='none'">
+                        <img loading="lazy" decoding="async" src="/android-chrome-192x192.png" alt="Infinite Architects" class="pwa-install-icon" onerror="this.style.display='none'">
                         <div class="pwa-install-text">
                             <strong>Install Infinite Architects</strong>
                             <span>Add to home screen for the best experience</span>
@@ -33289,6 +33357,10 @@ main.content, #main-content {
             e.preventDefault();
             const emailInput = document.getElementById('fc-email');
             const submitBtn = e.target.querySelector('.fc-submit');
+
+            // Guard: check required elements exist
+            if (!emailInput || !submitBtn) return;
+
             const email = emailInput.value.trim();
 
             // Validate email
@@ -35779,10 +35851,11 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         // 4. CARD IN-VIEW ANIMATION
         // ═══════════════════════════════════════════════════════════════════════
-        const cardObserver = new IntersectionObserver((entries) => {
+        const cardObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target); // Cleanup after animation trigger
                 }
             });
         }, { threshold: 0.3 });
@@ -37606,7 +37679,7 @@ main.content, #main-content {
                         <!-- 01: The ARC Principle -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="1">
                             <div class="concept-image-placeholder" data-concept="U=IxR²">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/0233BB33-9F46-40FC-A861-E1FE957F6F91 2.PNG" alt="Recursive Intelligence Circles" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/0233BB33-9F46-40FC-A861-E1FE957F6F91 2.PNG" alt="Recursive Intelligence Circles" >
                             </div>
                             <span class="concept-num">01</span>
                             <h4>The ARC Principle</h4>
@@ -37622,7 +37695,7 @@ main.content, #main-content {
                         <!-- 02: The Eden Protocol -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="2">
                             <div class="concept-image-placeholder" data-concept="EDEN">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wowest Garden of Eden.PNG" alt="The Garden of Eden Vision" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wowest Garden of Eden.PNG" alt="The Garden of Eden Vision" >
                             </div>
                             <span class="concept-num">02</span>
                             <h4>The Eden Protocol</h4>
@@ -37638,7 +37711,7 @@ main.content, #main-content {
                         <!-- 03: The Chokepoint Mechanism -->
                         <article class="concept-item concept-item--expandable" data-concept="3">
                             <div class="concept-image-placeholder" data-concept="4">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/ASI - Super AI not letting you switch the power off .PNG" alt="AI Control Systems" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/ASI - Super AI not letting you switch the power off .PNG" alt="AI Control Systems" >
                             </div>
                             <span class="concept-num">03</span>
                             <h4>The Chokepoint Mechanism</h4>
@@ -37663,7 +37736,7 @@ main.content, #main-content {
                         <!-- 04: HRIH -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="4">
                             <div class="concept-image-placeholder" data-concept="HRIH">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/AI in Hyperdspace creating universes.PNG" alt="Hyperspace Intelligence Creating Universes" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/AI in Hyperdspace creating universes.PNG" alt="Hyperspace Intelligence Creating Universes" >
                             </div>
                             <span class="concept-num">04</span>
                             <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
@@ -37679,7 +37752,7 @@ main.content, #main-content {
                         <!-- 05: Cosmic Fine-Tuning -->
                         <article class="concept-item concept-item--expandable" data-concept="5">
                             <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/443A4B2C-FC9F-44C0-877D-00B0AF0E99C9 2.PNG" alt="Cosmic Creation" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/443A4B2C-FC9F-44C0-877D-00B0AF0E99C9 2.PNG" alt="Cosmic Creation" >
                             </div>
                             <span class="concept-num">05</span>
                             <h4>Cosmic Fine-Tuning</h4>
@@ -37695,7 +37768,7 @@ main.content, #main-content {
                         <!-- 06: The Bootstrap Paradox -->
                         <article class="concept-item concept-item--expandable" data-concept="6">
                             <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Road to hyp[erspace.WEBP" alt="Road to Hyperspace" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Road to hyp[erspace.WEBP" alt="Road to Hyperspace" >
                             </div>
                             <span class="concept-num">06</span>
                             <h4>The Bootstrap Paradox</h4>
@@ -37720,7 +37793,7 @@ main.content, #main-content {
                         <!-- 07: Caretaker Doping -->
                         <article class="concept-item concept-item--expandable" data-concept="7">
                             <div class="concept-image-placeholder" data-concept="♡">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Love at the core of AI Love as a constant.PNG" alt="Love at the Core of AI" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Love at the core of AI Love as a constant.PNG" alt="Love at the Core of AI" >
                             </div>
                             <span class="concept-num">07</span>
                             <h4>Caretaker Doping</h4>
@@ -37736,7 +37809,7 @@ main.content, #main-content {
                         <!-- 08: Meltdown Alignment -->
                         <article class="concept-item concept-item--expandable" data-concept="8">
                             <div class="concept-image-placeholder" data-concept="⚠">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4707B4A0-F173-48EE-B879-5389FA158B6E 2.PNG" alt="Eden vs Catastrophe" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4707B4A0-F173-48EE-B879-5389FA158B6E 2.PNG" alt="Eden vs Catastrophe" >
                             </div>
                             <span class="concept-num">08</span>
                             <h4>Meltdown Alignment</h4>
@@ -37821,7 +37894,7 @@ main.content, #main-content {
                         <!-- 13: Religious Traditions as Alignment Research -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="13">
                             <div class="concept-image-placeholder" data-concept="84%">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4B4C7AAF-AB3E-4B42-B8E3-439B80793135 3.PNG" alt="Sacred Geometry and Spirituality" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4B4C7AAF-AB3E-4B42-B8E3-439B80793135 3.PNG" alt="Sacred Geometry and Spirituality" >
                             </div>
                             <span class="concept-num">13</span>
                             <h4>Religious Traditions as Alignment Research</h4>
@@ -37852,7 +37925,7 @@ main.content, #main-content {
                         <!-- 15: The Orchard Caretaker Paradigm -->
                         <article class="concept-item concept-item--expandable" data-concept="15">
                             <div class="concept-image-placeholder" data-concept="🌳">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wow Garden of Eden.PNG" alt="Garden of Eden with AI Caretaker" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wow Garden of Eden.PNG" alt="Garden of Eden with AI Caretaker" >
                             </div>
                             <span class="concept-num">15</span>
                             <h4>The Orchard Caretaker Paradigm</h4>
@@ -37877,7 +37950,7 @@ main.content, #main-content {
                         <!-- 16: Eden vs Babylon Narrative -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="16">
                             <div class="concept-image-placeholder" data-concept="⚔">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Antoher nice eden one.PNG" alt="Eden vs Babylon Split" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Antoher nice eden one.PNG" alt="Eden vs Babylon Split" >
                             </div>
                             <span class="concept-num">16</span>
                             <h4>Eden vs Babylon Narrative</h4>
@@ -37893,7 +37966,7 @@ main.content, #main-content {
                         <!-- 17: Infinite Architects -->
                         <article class="concept-item concept-item--expandable" data-concept="17">
                             <div class="concept-image-placeholder" data-concept="∞A">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Evolution of Humans to Post-ASI.PNG" alt="Evolution of Humans to Post-ASI" >
+                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Evolution of Humans to Post-ASI.PNG" alt="Evolution of Humans to Post-ASI" >
                             </div>
                             <span class="concept-num">17</span>
                             <h4>Infinite Architects</h4>
