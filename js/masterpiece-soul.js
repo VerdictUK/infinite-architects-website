@@ -276,11 +276,92 @@
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // 5. THE LIFECYCLE MANAGER (The Conductor)
+    // 5. THE RESOURCE ORCHESTRATOR (Proper Fix - Performance)
+    // ─────────────────────────────────────────────────────────────────────────────
+    const Orchestrator = {
+        targets: new Map(),
+        
+        init() {
+            console.log('🎻 Orchestrator: Setting up Resource Management...');
+            
+            const observerOptions = {
+                root: null,
+                threshold: 0.01, // Trigger as soon as 1% is visible
+                rootMargin: '100px' // Pre-warm slightly before arrival
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.id;
+                    const isVisible = entry.isIntersecting;
+                    
+                    if (isVisible) {
+                        this.activateEffect(id);
+                    } else {
+                        this.deactivateEffect(id);
+                    }
+                });
+            }, observerOptions);
+
+            // Register Heavy Assets
+            const heavyAssets = ['neural-canvas', 'tesseract-canvas', 'portal-video', 'bbc-evidence-video'];
+            heavyAssets.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+
+            // Monitor Modals to pause everything behind them
+            this.watchModals();
+        },
+
+        activateEffect(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            console.log(`🚀 Orchestrator: Activating ${id}`);
+            el.style.display = 'block';
+            
+            if (el.tagName === 'VIDEO') el.play().catch(() => {});
+            
+            // Hook for custom engines (Fluid, Neural, etc)
+            if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.resume();
+        },
+
+        deactivateEffect(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            console.log(`💤 Orchestrator: Hibernating ${id}`);
+            if (el.tagName === 'VIDEO') el.pause();
+            else el.style.display = 'none'; // Completely stop rendering paint
+            
+            if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.pause();
+        },
+
+        watchModals() {
+            const modalObserver = new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    if (mutation.attributeName === 'class') {
+                        const isAnyModalActive = !!document.querySelector('.active[id*="modal"], .active[id*="overlay"]');
+                        document.body.classList.toggle('modal-open', isAnyModalActive);
+                        
+                        // If modal is open, pause the most expensive background effect (Fluid)
+                        const fluid = document.getElementById('fluid-canvas');
+                        if (fluid) fluid.style.opacity = isAnyModalActive ? '0' : '1';
+                    }
+                });
+            });
+
+            const config = { attributes: true, subtree: true, attributeFilter: ['class'] };
+            modalObserver.observe(document.body, config);
+        }
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // 6. THE LIFECYCLE MANAGER (The Conductor)
     // ─────────────────────────────────────────────────────────────────────────────
     const SiteLifecycle = {
         isInitialized: false,
-        criticalAssetsLoaded: false,
         
         async init() {
             if (this.isInitialized) return;
@@ -292,6 +373,7 @@
             AudioSoul.init();
             initInteractions();
             initScramble();
+            Orchestrator.init(); // NEW: Active Resource Management
 
             // Wait for everything
             if (document.readyState === 'complete') {
@@ -300,13 +382,8 @@
                 window.addEventListener('load', () => this.reveal());
             }
 
-            // Proper Fix: Fail-safe is now a backup, not the primary method
-            setTimeout(() => {
-                if (!document.body.classList.contains('site-ready')) {
-                    console.warn('⚠️ Lifecycle: Reveal forced by fail-safe.');
-                    this.reveal();
-                }
-            }, 5000);
+            // Fail-safe
+            setTimeout(() => this.reveal(), 5000);
         },
 
         reveal() {

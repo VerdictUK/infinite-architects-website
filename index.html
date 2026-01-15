@@ -6,66 +6,59 @@
 
     <!-- CORE ARCHITECTURAL FOUNDATION (Proper Fix - Production Standard) -->
     <style>
-        /* 1. Reset & Foundation */
+        :root {
+            /* Z-Index Registry (The 'Place for Everything') */
+            --z-void: -10;        /* Pure background (Fluid Sim) */
+            --z-neural: -5;      /* Secondary background (Neural/Tesseract) */
+            --z-content: 10;     /* Actual reading material */
+            --z-cursor: 50;      /* God Cursor */
+            --z-ui: 100;         /* Navigation / Audio Toggles */
+            --z-modal: 1000;     /* Overlays / Chapters */
+            --z-loader: 10000;   /* Initial entry */
+        }
+
         html {
             scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
             background-color: #02030a;
         }
         
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: #02030a;
             color: #ffffff;
             font-family: 'Cinzel', serif;
             overflow-x: hidden;
             min-height: 100dvh;
-            position: relative;
-            /* Initially hidden to allow Masterpiece Soul to control the reveal */
             opacity: 0;
-            transition: opacity 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: opacity 1.5s ease;
         }
 
-        body.site-ready {
-            opacity: 1;
+        body.site-ready { opacity: 1; }
+        body.loader-active { overflow: hidden !important; }
+
+        /* Assign Slots to Engines */
+        #fluid-canvas { position: fixed; inset: 0; z-index: var(--z-void); pointer-events: none; }
+        #neural-canvas { position: absolute; inset: 0; z-index: var(--z-neural); pointer-events: none; opacity: 0.3; }
+        #tesseract-canvas { z-index: var(--z-neural); pointer-events: none; }
+        
+        main, section { position: relative; z-index: var(--z-content); }
+        
+        #cursor-dot, #cursor-ring { z-index: var(--z-cursor); pointer-events: none; }
+        .nav-fixed { z-index: var(--z-ui); }
+
+        /* Modal / Overlay Proper Fix */
+        [id*="modal"], [id*="overlay"] { 
+            z-index: var(--z-modal); 
+            display: none; 
+        }
+        [id*="modal"].active, [id*="overlay"].active { 
+            display: flex !important; 
         }
 
-        /* 2. Scroll Lock Paradigm */
-        body.loader-active {
-            overflow: hidden !important;
-            touch-action: none;
-        }
-
-        /* 3. Global Section Alignment */
-        section {
-            position: relative;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* 4. Infrastructure Cleanup (Remove UI Blockers) */
-        #cinematic-loader, .loader-video-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100000;
-            background: #02030a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        body.site-ready #cinematic-loader {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        /* 5. Utility Safety Net */
+        /* Video Performance Safety */
+        video { background: #000; }
+        
         .hidden { display: none !important; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
     <!-- CRITICAL SEO META TAGS (Restored from git history) -->
