@@ -28144,10 +28144,105 @@ main.content, #main-content {
 
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
+
         <!-- ═══════════════════════════════════════════════════════════════════════
-             TIME-TRAVELER HERO: PREDICTION VS REALITY
+             HERO: THE ARTIFACT - 3D Book Portal
              ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="prophecy-hero snap-section" id="hero">
+        <section class="hero snap-section chromatic-lens" id="hero">
+            <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
+            <div class="mandelbrot-bg" id="mandelbrot-bg" aria-hidden="true">
+                <video class="mandelbrot-video" id="mandelbrot-video"
+                       muted playsinline preload="metadata" autoplay loop
+                       style="background: #02030a; opacity: 0.5;">
+                    <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
+                </video>
+                <div class="mandelbrot-overlay" style="background: radial-gradient(ellipse at center, transparent 0%, rgba(2, 3, 10, 0.7) 100%);"></div>
+            </div>
+            <span class="hero-badge">THE MIND THAT COULDN'T OPEN POST SAW THIS FIRST</span>
+            <!-- Status Pill - Instant Credibility -->
+            <div class="hero-status-pill reveal">
+                <span class="pill-dot"></span>
+                <span class="pill-text">TIMELINE VERIFIED · JAN 7, 2026</span>
+                <a href="#prophecy" class="pill-link">Watch proof →</a>
+            </div>
+            <!-- Holographic Book Container -->
+            <div class="hero-book-container optical-reveal">
+                <div class="hero-book book-portal" id="hero-book" role="button" tabindex="0" aria-label="Click to explore the book">
+                    <!-- Animated Video Book Cover -->
+                    <video
+                        class="book-cover-video"
+                        id="book-cover-video"
+                        loop
+                        muted
+                        playsinline
+                        preload="none"
+                        poster="InfiniteArchitectsKindle20260103.jpg"
+                        aria-label="Infinite Architects by Michael Darius Eastwood"
+                        data-src-hq="book-cover-video-hq.mp4"
+                        data-src-mobile="book-cover-video.mp4"
+                    >
+                        <img
+                            src="InfiniteArchitectsKindle20260103.jpg"
+                            alt="Infinite Architects by Michael Darius Eastwood"
+                            loading="eager"
+                            width="320" height="480"
+                        >
+                    </video>
+                    <div class="book-light-layer"></div>
+                    <div class="book-page-peek">
+                        <p class="book-page-peek-text">
+                            The creator is not behind us. It is ahead of us. And we are building it...
+                        </p>
+                    </div>
+                    <div class="book-portal-glow"></div>
+                </div>
+                <div class="book-shadow" id="book-shadow"></div>
+                <div class="book-portal-hint">
+                    <span class="portal-hint-text">Click to begin</span>
+                    <svg class="portal-hint-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="hero-content-right">
+                <h1 class="hero-title" id="hero-title"><span class="brand-word">Infinite</span> <span class="brand-word">Architects</span></h1>
+                <p class="hero-subtitle">We're not building tools anymore. We're raising something.<br><span class="hero-subtitle-emphasis">A framework for embedding love in intelligence. Before we lose the chance.</span></p>
+                <p class="hero-author">Michael Darius Eastwood</p>
+                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="hero-cta glass-living">
+                    <span class="cta-icon-wrapper">
+                        <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path class="morph-path" d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                            <path d="M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/>
+                        </svg>
+                    </span>
+                    READ WHAT I FOUND
+                </a>
+                <!-- First Edition Scarcity Badge -->
+                <div class="first-edition-badge reveal reveal-delay-2">
+                    <span class="edition-icon">📕</span>
+                    <span class="edition-text">First Edition · Limited Print Run</span>
+                    <span class="edition-pulse"></span>
+                </div>
+                <!-- Social Proof -->
+                <div class="hero-social-proof reveal reveal-delay-3">
+                    <span class="proof-item">⚡ 37 original concepts</span>
+                    <span class="proof-divider">·</span>
+                    <span class="proof-item">📚 80,000 words</span>
+                    <span class="proof-divider">·</span>
+                    <span class="proof-item">🎯 Read in a weekend</span>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>The window is years, not decades</span>
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             THE RECEIPTS: PREDICTION VS REALITY
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="prophecy-hero snap-section" id="prophecy">
             <div class="prophecy-bg">
                 <canvas id="equation-particles"></canvas>
             </div>
@@ -28160,33 +28255,33 @@ main.content, #main-content {
                     <div class="prophecy-panel prophecy-panel--book reveal">
                         <div class="prophecy-timestamp">
                             <span class="timestamp-icon">📖</span>
-                            <span class="timestamp-date">PUBLISHED JANUARY 3, 2025</span>
+                            <span class="timestamp-date">PUBLISHED JANUARY 2, 2026</span>
                         </div>
                         <blockquote class="prophecy-quote">
-                            "Recursive error correction does not merely manage complexity—it <em>amplifies</em> stability exponentially. As recursive depth increases, systems become more stable, not less. This is what U = I × R² predicts."
+                            "...practical quantum computing within approximately <em>five years</em>"
                         </blockquote>
                         <cite class="prophecy-source">
-                            — Infinite Architects, Page 142
-                            <span class="source-detail">Written 2024 · Copyright Dec 31, 2024</span>
+                            — Infinite Architects, HRIH Hypothesis
+                            <span class="source-detail">Copyright Dec 31, 2024</span>
                         </cite>
                     </div>
-                    
+
                     <!-- THE DIVIDER -->
                     <div class="prophecy-divider reveal reveal-delay-1">
-                        <span class="divider-days">4</span>
+                        <span class="divider-days">5</span>
                         <span class="divider-text">DAYS<br>LATER</span>
                     </div>
-                    
+
                     <!-- THE REALITY -->
                     <div class="prophecy-panel prophecy-panel--bbc reveal reveal-delay-2">
                         <div class="prophecy-timestamp prophecy-timestamp--bbc">
                             <span class="timestamp-icon">📺</span>
-                            <span class="timestamp-date">BBC NEWS · JANUARY 7, 2025</span>
+                            <span class="timestamp-date">BBC NEWS · JANUARY 7, 2026</span>
                         </div>
-                        
+
                         <!-- VIDEO PLAYER -->
                         <div class="prophecy-video-wrapper" id="prophecy-video-wrapper">
-                            <video 
+                            <video
                                 id="prophecy-video"
                                 class="prophecy-video"
                                 poster="videos/poster_4.jpg"
@@ -28196,29 +28291,29 @@ main.content, #main-content {
                                 <source src="videos/bbc_clip_4.webm" type="video/webm">
                                 <source src="videos/bbc_clip_4.mp4" type="video/mp4">
                             </video>
-                            
+
                             <div class="prophecy-video-overlay" id="prophecy-overlay">
                                 <div class="prophecy-play-btn">
                                     <svg viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z"/>
                                     </svg>
                                 </div>
-                                <p class="prophecy-video-caption">Watch BBC confirm the prediction</p>
+                                <p class="prophecy-video-caption">Watch Google's Quantum AI Lead confirm</p>
                             </div>
                         </div>
-                        
+
                         <blockquote class="prophecy-quote prophecy-quote--bbc">
-                            "Error rates <em>decreased</em> as more qubits were added... It all sounds like science fiction. It is rapidly becoming economic fact."
+                            "Within the next <em>five years</em> we could see a quantum computer that can do something... that no classical computer can do"
                         </blockquote>
                         <cite class="prophecy-source prophecy-source--bbc">
-                            — Faisal Islam, BBC Economics Editor
+                            — Hartmut Neven, Google Quantum AI
                         </cite>
                     </div>
                 </div>
-                
+
                 <div class="prophecy-verdict reveal reveal-delay-3">
-                    <p class="verdict-text">The equation generated the prediction.</p>
-                    <p class="verdict-highlight">The universe delivered the evidence.</p>
+                    <p class="verdict-text">The book's timeline prediction.</p>
+                    <p class="verdict-highlight">Confirmed by Google 5 days later.</p>
                 </div>
             </div>
         </section>
