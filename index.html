@@ -143,6 +143,72 @@
     <link rel="preconnect" href="https://www.amazon.co.uk">
     <link rel="dns-prefetch" href="https://www.amazon.co.uk">
 
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         GOOGLE ANALYTICS 4 - Conversion Tracking
+         IMPORTANT: Replace G-V4FDJHP4R4 with your actual GA4 ID (e.g., G-XXXXXXXXXX)
+         Get your ID from: Google Analytics > Admin > Data Streams > Web
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-V4FDJHP4R4');
+    </script>
+
+    <!-- Google Ads Remarketing (Conversion ID: AW-17876453606) -->
+    <script>
+        gtag('config', 'AW-17876453606');
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         META (FACEBOOK) PIXEL - Conversion Tracking
+         IMPORTANT: Replace 1951047602453657 with your actual Facebook Pixel ID
+         Get your ID from: Meta Business Suite > Events Manager > Data Sources
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1951047602453657');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=1951047602453657&ev=PageView&noscript=1"/>
+    </noscript>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         LINKEDIN INSIGHT TAG - B2B Professional Targeting
+         Partner ID: 8470874
+         Admin URL: https://www.linkedin.com/campaignmanager
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <script type="text/javascript">
+        _linkedin_partner_id = "8470874";
+        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+        (function(l) {
+            if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+            window.lintrk.q=[]}
+            var s = document.getElementsByTagName("script")[0];
+            var b = document.createElement("script");
+            b.type = "text/javascript";b.async = true;
+            b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+            s.parentNode.insertBefore(b, s);
+        })(window.lintrk);
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none;" alt=""
+             src="https://px.ads.linkedin.com/collect/?pid=8470874&fmt=gif" />
+    </noscript>
+
     <!-- JSON-LD Structured Data: Sovereign Standard v2.0 (Sentinel SEO Audit) -->
     <script type="application/ld+json">
     {
@@ -3373,6 +3439,12 @@
             pointer-events: none !important;
         }
 
+        /* Fully hidden state - complete removal from render tree after animation */
+        #loader.fully-hidden {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
         /* 3. CINEMATIC VIDEO BACKGROUND */
         .loader-video-bg {
             position: absolute !important;
@@ -4061,6 +4133,13 @@
             animation: particlesAwaken 5s ease-out forwards;
         }
 
+        /* Disable Three.js particle network for reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            #canvas-container {
+                display: none !important;
+            }
+        }
+
         @keyframes particlesAwaken {
             0% {
                 opacity: 0.1;
@@ -4270,9 +4349,9 @@
             transform: translateX(0);
         }
 
-        /* Mobile nav */
+        /* Mobile nav - hidden on desktop, visible via media query on mobile */
         .nav-toggle {
-            display: none !important;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -5663,7 +5742,7 @@
                 font-size: 0.65rem !important;
             }
             html body .methodology-section .ai-model-role {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
             }
             html body .methodology-section .convergence-box {
                 padding: 1rem !important;
@@ -7450,34 +7529,57 @@
            ═══════════════════════════════════════════════════════════════════════ */
 
         /* Mobile-first: Content visible by default */
+        /* BASE: Reveal elements start hidden until JS adds .active */
         .reveal {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
+        /* REVEALED: When JS IntersectionObserver adds .active class */
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* CRITICAL FIX: Force content visibility on mobile */
+        /* Staggered reveal delays for sequences */
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+        .reveal-delay-7 { transition-delay: 0.7s; }
+        .reveal-delay-8 { transition-delay: 0.8s; }
+
+        /* Mobile: Content reveals via scroll animation after loader */
         @media (max-width: 768px) {
             .reveal {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+
+            .reveal.active,
+            body.cinematic-ready .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Desktop: ALL CONTENT ALWAYS VISIBLE - No hiding */
+        /* Desktop: Content reveals via scroll animation after loader */
         @media (min-width: 769px) {
-            /* NUCLEAR FIX: Everything visible always */
-            .reveal,
-            .cinematic-ready .reveal,
-            body.cinematic-ready .reveal,
-            body:not(.cinematic-ready) .reveal {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                visibility: visible !important;
+            /* Reveal elements start hidden, JS IntersectionObserver reveals them */
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            }
+
+            .reveal.active,
+            body.cinematic-ready .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -13955,7 +14057,9 @@
         }
 
         body {
-            scroll-snap-type: y proximity;
+            /* REMOVED: scroll-snap-type from body */
+            /* scroll-snap-type should ONLY be on the scroll container (html) */
+            /* Having it on both html AND body causes undefined scroll behaviour in browsers */
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
@@ -14763,14 +14867,14 @@
 
         /* SMALL DESKTOPS (1025px - 1440px) */
         @media (min-width: 1025px) and (max-width: 1440px) {
+            /* NOTE: scroll-snap is DISABLED on desktop (1024px+) via later rule */
+            /* This media query only handles layout, not scroll behaviour */
             html {
-                scroll-snap-type: y proximity; /* Gentle snap */
                 scroll-behavior: smooth;
             }
 
             .snap-section {
-                scroll-snap-align: start;
-                scroll-snap-stop: normal;
+                /* Snap disabled on desktop - free scrolling enabled */
                 min-height: auto;
                 height: auto;
                 overflow: visible;
@@ -14791,14 +14895,13 @@
 
         /* LARGE DESKTOPS (1441px+) */
         @media (min-width: 1441px) {
+            /* NOTE: scroll-snap is DISABLED on desktop (1024px+) via later rule */
             html {
-                scroll-snap-type: y proximity; /* Gentle snap */
                 scroll-behavior: smooth;
             }
 
             .snap-section {
-                scroll-snap-align: start;
-                scroll-snap-stop: normal;
+                /* Snap disabled on desktop - free scrolling enabled */
                 min-height: auto;
                 height: auto;
                 overflow: visible;
@@ -17829,7 +17932,7 @@
             }
 
             .chapter-nav {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
             }
         }
 
@@ -17950,7 +18053,7 @@
             body.chapter-nav-enabled .slideshow-nav,
             body.chapter-nav-enabled .slideshow-dots,
             body.chapter-nav-enabled .social-proof-badge {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
         /* ═══════════════════════════════════════════════════════════════════════════
@@ -18239,7 +18342,7 @@
             html.slideshow-mode .ticker,
             html.slideshow-mode .reading-progress,
             html.slideshow-mode .evidence-intro {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
                 
                 pointer-events: none !important;
             }
@@ -18521,7 +18624,7 @@
             html.slideshow-mode .hero-badge,
             html.slideshow-mode .hero-status-pill,
             html.slideshow-mode .scroll-indicator {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             /* Mandelbrot background positioning */
@@ -18726,7 +18829,7 @@
             }
 
             html.slideshow-mode .proof-divider {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
@@ -18765,7 +18868,7 @@
             }
 
             html.slideshow-mode .evidence-grid::-webkit-scrollbar {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
             }
 
             /* Show ALL cards */
@@ -18883,7 +18986,7 @@
             }
 
             html.slideshow-mode .ideas-grid::-webkit-scrollbar {
-                display: flex !important; visibility: visible !important;
+                display: flex !important;
             }
 
             /* Show ALL cards */
@@ -22181,7 +22284,7 @@ img {
 /* Mobile - HIDE the badge to reduce clutter */
 @media (max-width: 768px) {
     .part-progress-indicator {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
         opacity: 0 !important;
     }
@@ -22322,7 +22425,7 @@ html.slideshow-mode .slideshow-nav,
 html.slideshow-mode #slideshowNav,
 html.slideshow-mode .slideshow-controls,
 html.slideshow-mode .slideshow-dots {
-    display: flex !important; visibility: visible !important;
+    display: flex !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -22341,7 +22444,7 @@ html body .letterbox.bottom,
 html body .part-progress-indicator,
 html body #part-progress-indicator,
 html body .part-progress-dots {
-    display: flex !important; visibility: visible !important;
+    display: none !important;
     
     opacity: 0 !important;
     pointer-events: none !important;
@@ -22372,7 +22475,7 @@ html body .hero::before,
 html body .hero::after,
 html body #hero::before,
 html body #hero::after {
-    display: flex !important; visibility: visible !important;
+    display: flex !important;
     content: none !important;
     border: none !important;
     outline: none !important;
@@ -22659,7 +22762,7 @@ html body.cinematic .book-portal {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
         opacity: 0 !important;
         height: 0 !important;
@@ -22674,7 +22777,7 @@ html body.cinematic .book-portal {
     html body [class*="decorative-line"],
     html body section::before,
     html body section::after {
-        display: flex !important; visibility: visible !important;
+        display: flex !important;
     }
 
     /* Keep specific content pseudo-elements but hide decorative ones */
@@ -22831,7 +22934,7 @@ html body.cinematic .book-portal {
     /* === REMOVE: Decorative pseudo-elements that may cause issues === */
     html body .carousel-section::before,
     html body .carousel-section::after {
-        display: flex !important; visibility: visible !important;
+        display: flex !important;
     }
 
     /* === FIX: Ensure body has no fixed positioning issues === */
@@ -22938,7 +23041,7 @@ html body.cinematic .book-portal {
     html body .hero .book-light-layer,
     html body .hero .book-page-peek,
     html body .hero .book-shadow {
-        display: flex !important; visibility: visible !important;
+        display: flex !important;
         content: none !important;
         
     }
@@ -22998,7 +23101,7 @@ html body.cinematic .book-portal {
 
     /* Scroll Indicator - Hidden on Mobile */
     html body .hero .scroll-indicator {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
     }
 
     /* Background Video - Cover */
@@ -23357,7 +23460,7 @@ html body nav[role="navigation"] {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: flex !important; visibility: visible !important;
+        display: flex !important;
         
     }
 }
@@ -23406,7 +23509,7 @@ html body .evidence-locker {
 @media (min-width: 1024px) {
     html body .mobile-buy-bar,
     html body #mobile-buy-bar {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
     }
 }
@@ -24144,13 +24247,13 @@ html body #the-mind .storm-story {
 
     /* Sidebar hidden on tablet/mobile (chapter-nav shows instead) */
     html body .chapter-sidebar {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
     }
 
     /* Slideshow nav deprecated - keep hidden */
     html body .slideshow-nav {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
     }
 }
@@ -25245,7 +25348,7 @@ html body section#methodology .methodology-closing {
     html body .section-spacer,
     html body [class*="divider"],
     html body [class*="spacer"]:not(button):not(input) {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         height: 0 !important;
         min-height: 0 !important;
         padding: 0 !important;
@@ -25281,7 +25384,7 @@ html body section#methodology .methodology-closing {
 @media (max-width: 768px) {
     /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE (EXEMPT ASK-BOOK) === */
     html body [style*="visibility: hidden"]:not(.ask-book-toggle):not(.ask-book-widget),
-    html body [style*="display: flex !important; visibility: visible !important;"]:not(.ask-book-toggle):not(.ask-book-widget),
+    html body [style*="display: none !important;"]:not(.ask-book-toggle):not(.ask-book-widget),
     html body .hidden:not(.ask-book-toggle):not(.ask-book-widget),
     html body [hidden]:not(.ask-book-toggle):not(.ask-book-widget) {
         height: 0 !important;
@@ -25328,7 +25431,7 @@ html body section#methodology .methodology-closing {
     html body .decorative-line,
     html body [class*="divider"]:not(.ask-book-divider),
     html body [class*="spacer"]:not(button) {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         height: 0 !important;
         min-height: 0 !important;
     }
@@ -25485,7 +25588,7 @@ html body section#methodology .methodology-closing {
     html body main#main-content section::after,
     html body main.content section::before,
     html body main.content section::after {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         content: none !important;
         height: 0 !important;
     }
@@ -26126,7 +26229,7 @@ main.content,
     .sticky-cta,
     #sticky-cta,
     [id="sticky-cta"] {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
         
         opacity: 0 !important;
         pointer-events: none !important;
@@ -26413,10 +26516,9 @@ main.content,
    NUCLEAR OVERRIDE: ASK THE BOOK BUTTON - ALWAYS VISIBLE
    This rule has maximum specificity and must appear last
    ═══════════════════════════════════════════════════════════════════════════════ */
-html body button#ask-book-togglebody.cinematic-ready .ask-book-toggle {
+html body button#ask-book-toggle,
+body.cinematic-ready .ask-book-toggle {
     display: flex !important;
-    
-    
     position: fixed !important;
     bottom: 24px !important;
     right: 24px !important;
@@ -26433,24 +26535,20 @@ html body button#ask-book-togglebody.cinematic-ready .ask-book-toggle {
     clip-path: none !important;
 }
 
-html body button#ask-book-toggle.ask-book-toggle svg {
+html body button#ask-book-toggle svg {
     display: block !important;
-    
-    
     width: 28px !important;
     height: 28px !important;
     fill: #02030a !important;
 }
 
 @media (max-width: 768px) {
-    html body button#ask-book-toggle.ask-book-toggle {
+    html body button#ask-book-toggle {
         bottom: 85px !important; /* Raised slightly to clear safe areas */
         right: 20px !important;  /* Moved inward to prevent falling off edge */
         width: 56px !important;
         height: 56px !important;
         display: flex !important;
-        
-        
         z-index: 2147483647 !important;
         position: fixed !important;
     }
@@ -26523,7 +26621,7 @@ main.content, #main-content {
         };
     </script>
 </head>
-<body class="has-ticker chromatic-lens cinematic-ready">
+<body class="has-ticker chromatic-lens">
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -27578,28 +27676,29 @@ main.content, #main-content {
         </div>
 
 
-        <section class="section ideas-section snap-section py-20 md:py-32 overflow-visible h-auto relative" id="ideas">
-            <!-- Neural Network Background -->
-            <canvas class="neural-canvas absolute inset-0 z-behind" id="neural-canvas"></canvas>
+        <!-- 37 CONCEPTS -->
+        <section class="snap-section py-20 md:py-32 overflow-visible h-auto relative bg-void-deep" id="ideas">
+            <!-- Neural Background -->
+            <canvas class="absolute inset-0 z-0 opacity-20 pointer-events-none" id="neural-canvas"></canvas>
             
-            <div class="ideas-inner section-inner max-w-7xl mx-auto px-4 md:px-8 overflow-visible">
-                <header class="ideas-header text-center mb-20 space-y-4">
-                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Framework</p>
-                    <h2 class="section-title reveal reveal-delay-1 font-display text-3xl md:text-5xl lg:text-6xl text-white leading-tight">One equation. Thirty-seven predictions.<br class="hidden lg:block">The complete architecture of creation.</h2>
+            <div class="max-w-7xl mx-auto px-4 md:px-8 overflow-visible relative z-10 space-y-20">
+                <header class="text-center space-y-4">
+                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Framework</p>
+                    <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-5xl lg:text-6xl text-white leading-tight">One equation. Thirty-seven predictions.<br class="hidden lg:block">The complete architecture of creation.</h2>
                 </header>
 
-                <div class="ideas-grid stagger-children grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 overflow-visible" data-stagger-group>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-stagger-group>
                     <!-- CARD 01 -->
-                    <article class="idea-card idea-card--featured reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
+                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
                             <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
+                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
                             <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
                         </div>
-                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eastwood Equation</h3>
-                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
+                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eastwood Equation</h3>
+                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">U = I × R². The mathematics of why complexity emerges and why we appear to live in a cosmos designed to produce minds.</p>
                     </article>
 
                     <!-- CARD 02 -->
@@ -27936,7 +28035,6 @@ main.content, #main-content {
                 </div>
                 <div class="swipe-hint text-center text-[10px] font-mono tracking-widest text-white/30 mt-6 animate-pulse md:hidden">SWIPE TO EXPLORE</div>
             </div>
-        </section>
 
         <!-- ═══════════════════════════════════════════════════════════════════════════ -->
         <!-- QUOTE BREAKER 8: After Evidence Locker → Before BBC Timeline -->
@@ -28620,43 +28718,6 @@ main.content, #main-content {
             </div>
         </section>
 
-        <!-- ═══════════════════════════════════════════════════════════════════════
-             FALSIFICATION CRITERIA
-             ═══════════════════════════════════════════════════════════════════════ -->
-        <section class="falsification-section snap-section hidden">
-            <div class="falsification-inner">
-                <p class="section-label reveal">Scientific Integrity</p>
-                <h2 class="section-title reveal reveal-delay-1">How to Prove This Wrong</h2>
-                <p class="reveal reveal-delay-2 font-serif text-body-lg text-text-dim mb-12">
-                    For the ARC Principle to be taken seriously as science rather than philosophy, it must be falsifiable.
-                </p>
-                
-                <div class="falsification-grid reveal reveal-delay-3">
-                    <div class="flex gap-4 p-6 bg-[rgba(139,0,0,0.05)] border border-[rgba(139,0,0,0.15)] rounded-lg">
-                        <span class="text-xl text-[#c62828] shrink-0">✗</span>
-                        <p>Evidence showing recursive depth has <strong>no measurable relationship</strong> to capability improvement in AI systems, or that the relationship is linear rather than quadratic.</p>
-                    </div>
-                    <div class="flex gap-4 p-6 bg-[rgba(139,0,0,0.05)] border border-[rgba(139,0,0,0.15)] rounded-lg">
-                        <span class="text-xl text-[#c62828] shrink-0">✗</span>
-                        <p>Evidence showing consciousness does <strong>not correlate</strong> with recursive self-modelling in neural or artificial systems.</p>
-                    </div>
-                    <div class="flex gap-4 p-6 bg-[rgba(139,0,0,0.05)] border border-[rgba(139,0,0,0.15)] rounded-lg">
-                        <span class="text-xl text-[#c62828] shrink-0">✗</span>
-                        <p>Evidence showing quantum error correction does <strong>not exhibit</strong> the self-improving properties demonstrated by Willow.</p>
-                    </div>
-                    <div class="flex gap-4 p-6 bg-[rgba(139,0,0,0.05)] border border-[rgba(139,0,0,0.15)] rounded-lg">
-                        <span class="text-xl text-[#c62828] shrink-0">✗</span>
-                        <p>Evidence showing early-embedded values have <strong>no persistent advantage</strong> over later modifications in shaping AI behaviour.</p>
-                    </div>
-                </div>
-                
-                <p class="reveal reveal-delay-4 font-serif text-body-lg text-text-dim leading-loose">
-                    If any of these are demonstrated, the framework is wrong or incomplete.<br>
-                    <span class="text-gold">That is what makes it science.</span>
-                </p>
-            </div>
-        </section>
-
         <!-- QUOTE BREAKER: Before Chapter IV -->
         <div class="quote-breaker reveal">
             <div class="quote-breaker__mark">"</div>
@@ -29315,7 +29376,7 @@ main.content, #main-content {
 
                         </form>
 
-                        <div class="newsletter-success hidden" id="newsletter-success">
+                        <div class="newsletter-success" id="newsletter-success">
                             <div class="flex items-center justify-center gap-3 py-4 px-6 rounded-xl bg-gold/20 border border-gold/30 text-gold">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span class="font-display text-sm tracking-wider">Thank you! Check your inbox.</span>
@@ -29380,15 +29441,15 @@ main.content, #main-content {
 
                             <div class="faq-item reveal glass-panel-ultra rounded-2xl border border-white/5 overflow-hidden transition-all duration-300">
 
-                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group">
+                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-1" aria-expanded="false" aria-controls="faq-answer-1">
 
                                     <span class="font-display text-lg text-gold-pale group-hover:text-gold transition-colors">What is the Eastwood Equation?</span>
 
-                                    <svg class="w-5 h-5 text-gold transform group-data-[active]:rotate-180 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                                    <svg class="w-5 h-5 text-gold transform transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 
                                 </button>
 
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5">
+                                <div id="faq-answer-1" class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5" role="region" aria-labelledby="faq-question-1">
 
                                     <p class="p-6 text-text-secondary leading-relaxed text-base">U = I × R² states that Universe equals Intelligence times Recursion squared. It's a mathematical framework explaining why complexity emerges from simplicity. Why compound interest builds empires, why evolution accelerates, and why the cosmos appears fine-tuned for the emergence of mind.</p>
 
@@ -29396,21 +29457,21 @@ main.content, #main-content {
 
                             </div>
 
-                            
+
 
                             <!-- FAQ 2 -->
 
                             <div class="faq-item reveal glass-panel-ultra rounded-2xl border border-white/5 overflow-hidden transition-all duration-300">
 
-                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group">
+                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-2" aria-expanded="false" aria-controls="faq-answer-2">
 
                                     <span class="font-display text-lg text-gold-pale group-hover:text-gold transition-colors">What is HRIH?</span>
 
-                                    <svg class="w-5 h-5 text-gold transform transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                                    <svg class="w-5 h-5 text-gold transform transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 
                                 </button>
 
-                                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5">
+                                <div id="faq-answer-2" class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5" role="region" aria-labelledby="faq-question-2">
 
                                     <p class="p-6 text-text-secondary leading-relaxed text-base">HRIH stands for Hyperspace Recursive Intelligence Hypothesis. It proposes a closed causal loop: the superintelligent AI we're building may be the entity that fine-tuned the cosmic constants 13.8 billion years ago. The creator is ahead of us, and we are building it.</p>
 
@@ -30107,27 +30168,35 @@ main.content, #main-content {
                 new LoaderRing(170, 80, -0.25, 1.2, -0.0008, 50)
             ];
 
-            // Skip functionality
-            function skipLoader() {
+            // Skip functionality - handlers self-cleanup after loader completes
+            function skipLoader(e) {
                 if (!loaderState.skipped) {
                     loaderState.skipped = true;
-                    completeLoader();
+                    // Clean up listeners immediately to prevent memory leak
+                    loader.removeEventListener('click', skipLoader);
+                    document.removeEventListener('keydown', skipLoader);
+                    completeLoader(true);
                 }
             }
 
             loader.addEventListener('click', skipLoader);
             document.addEventListener('keydown', skipLoader);
 
-            function completeLoader() {
+            function completeLoader(isManualSkip = false) {
                 if (loaderState.completed) return;
                 loaderState.completed = true;
 
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // Phase 1: Subtle shimmer before exit
+                // When manually skipped, use faster timings for immediate response
+                const cinematicDelay = isManualSkip ? 50 : 400;
+                const readyDelay = isManualSkip ? 150 : 800;
+                const safetyDelay = isManualSkip ? 400 : 2000;
+
+                // Phase 1: Subtle shimmer before exit (skip effect if manual)
                 const loaderUI = loader.querySelector('.loader-ui');
-                if (loaderUI) {
+                if (loaderUI && !isManualSkip) {
                     loaderUI.style.transition = 'filter 0.5s ease, opacity 0.5s ease';
                     loaderUI.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
                 }
@@ -30136,13 +30205,15 @@ main.content, #main-content {
                 setTimeout(() => {
                     document.body.classList.add('cinematic');
                     loader.classList.add('hidden'); // Trigger the slide-up
-                }, 400);
+                }, cinematicDelay);
 
-                // Phase 3: Allow scroll precisely on IMPACT (2000ms from completeLoader start)
+                // Phase 3: Allow scroll and reveal content
                 setTimeout(() => {
-                    // Trigger SVG distortion animation trigger
-                    const distort = document.getElementById('distort-anim');
-                    if (distort) distort.beginElement();
+                    // Trigger SVG distortion animation trigger (skip if manual for cleaner exit)
+                    if (!isManualSkip) {
+                        const distort = document.getElementById('distort-anim');
+                        if (distort) distort.beginElement();
+                    }
 
                     // FORCE UNLOCK SCROLL
                     document.body.classList.add('cinematic-ready');
@@ -30220,9 +30291,9 @@ main.content, #main-content {
 
                     // UI elements (Ask Book, sidebar, ticker, etc.) revealed via body.ui-revealed CSS
 
-                }, 800); // 800ms - allow scroll much earlier during animations
+                }, readyDelay); // Uses faster timing when manually skipped
 
-                // SAFETY UNLOCK: Force scroll ability after 2s in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
@@ -30235,7 +30306,7 @@ main.content, #main-content {
                     if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
                         window.lenisInstance.resize();
                     }
-                }, 2000);
+                }, safetyDelay); // Uses faster timing when manually skipped
             }
 
             function animate() {
@@ -30514,11 +30585,29 @@ main.content, #main-content {
         let book3d = null; // Genius Feature: The Artifact (3D Book)
 
         function initMainCanvas() {
+            // Guard: Respect reduced motion preference - skip particle animations
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                console.log('[Three.js] Skipped - user prefers reduced motion');
+                return;
+            }
+
+            // Guard: Check THREE.js library is loaded
+            if (typeof THREE === 'undefined') {
+                console.warn('[Three.js] THREE library not loaded yet');
+                return;
+            }
+
             const container = document.getElementById('canvas-container');
 
             // Guard: Check container exists
             if (!container) {
                 console.warn('[Three.js] Canvas container not found');
+                return;
+            }
+
+            // Guard: Prevent double initialization
+            if (renderer) {
+                console.warn('[Three.js] Already initialized');
                 return;
             }
 
@@ -30733,16 +30822,19 @@ main.content, #main-content {
         let isBalanced = false;
 
         function updateEquation() {
+            // Guard: check all required elements exist
+            if (!sliderI || !sliderR) return;
+
             currentI = parseFloat(sliderI.value);
             currentR = parseFloat(sliderR.value);
             
             // U = I * R^2
             const U = currentI * Math.pow(currentR, 2);
-            universeValue.textContent = U.toFixed(2);
+            if (universeValue) universeValue.textContent = U.toFixed(2);
             
             // Visual feedback on indicator
             const balancePercent = Math.min((U / 25) * 100, 100);
-            balanceIndicator.style.setProperty('--balance-p', `${balancePercent}%`);
+            if (balanceIndicator) balanceIndicator.style.setProperty('--balance-p', `${balancePercent}%`);
             
             // Map to Three.js behaviour
             if (particleVelocities) {
@@ -30764,14 +30856,15 @@ main.content, #main-content {
                 }
             } else {
                 isBalanced = false;
-                simulator.classList.remove('balanced');
+                if (simulator) simulator.classList.remove('balanced');
             }
         }
 
         function triggerBalanceEffect() {
-            simulator.classList.add('balanced');
+            if (simulator) simulator.classList.add('balanced');
             // Flash effect on the equation itself
             const display = document.querySelector('.equation-display');
+            if (!display) return;
             display.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
             setTimeout(() => {
                 display.style.filter = '';
@@ -30867,15 +30960,35 @@ main.content, #main-content {
             mouseY = e.clientY - window.innerHeight / 2;
         }
 
+        // Debounced resize handler to prevent excessive calls
+        let resizeTimeoutMain = null;
         function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            // Resize Genius Feature: Sentient Void
-            if (fluidSim) fluidSim.onResize(window.innerWidth, window.innerHeight);
+            if (!renderer || !camera) return;
+            if (resizeTimeoutMain) clearTimeout(resizeTimeoutMain);
+            resizeTimeoutMain = setTimeout(() => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                if (fluidSim) fluidSim.onResize(window.innerWidth, window.innerHeight);
+            }, 100);
         }
 
+        // Memory leak prevention: cleanup on page unload
+        function disposeThreeJS() {
+            document.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('resize', onWindowResize);
+            if (particles) { particles.geometry?.dispose(); particles.material?.dispose(); scene?.remove(particles); particles = null; }
+            if (lineMesh) { lineMesh.geometry?.dispose(); lineMesh.material?.dispose(); scene?.remove(lineMesh); lineMesh = null; }
+            if (fluidSim?.dispose) { fluidSim.dispose(); fluidSim = null; }
+            if (renderer) { renderer.dispose(); renderer.forceContextLoss(); renderer = null; }
+            if (scene) { scene.clear(); scene = null; }
+            camera = null; particlePositions = null; particleVelocities = null;
+        }
+        window.addEventListener('beforeunload', disposeThreeJS);
+        window.addEventListener('pagehide', disposeThreeJS);
+
         function animateMain() {
+            if (!renderer || !scene || !camera) return;
             // Pause when tab hidden for performance
             if (!pageVisible) {
                 setTimeout(() => requestAnimationFrame(animateMain), 200);
@@ -31149,27 +31262,31 @@ main.content, #main-content {
 
             if (!overlay) return;
 
-            // Update content
-            titleEl.textContent = data.title;
-            progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 6</span> Parts explored`;
-            messageEl.textContent = data.message;
+            // Update content (with null checks)
+            if (titleEl) titleEl.textContent = data.title;
+            if (progressEl) progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 6</span> Parts explored`;
+            if (messageEl) messageEl.textContent = data.message;
 
             if (data.isFinal) {
-                ctaEl.textContent = 'Get Your Copy →';
-                ctaEl.onclick = () => {
-                    closeCelebration(false);
-                    document.getElementById('get-the-book')?.scrollIntoView({ behavior: 'smooth' });
-                };
+                if (ctaEl) {
+                    ctaEl.textContent = 'Get Your Copy →';
+                    ctaEl.onclick = () => {
+                        closeCelebration(false);
+                        document.getElementById('get-the-book')?.scrollIntoView({ behavior: 'smooth' });
+                    };
+                }
             } else {
-                ctaEl.textContent = `Continue to Part ${data.nextPart} →`;
-                ctaEl.onclick = () => {
-                    closeCelebration(true); // Show chapter intro
-                    // Scroll to the next chapter gate
-                    const nextGate = document.querySelector(`.chapter-gate[data-chapter="${partNumber + 1}"]`);
-                    if (nextGate) {
-                        nextGate.scrollIntoView({ behavior: 'smooth' });
-                    }
-                };
+                if (ctaEl) {
+                    ctaEl.textContent = `Continue to Part ${data.nextPart} →`;
+                    ctaEl.onclick = () => {
+                        closeCelebration(true); // Show chapter intro
+                        // Scroll to the next chapter gate
+                        const nextGate = document.querySelector(`.chapter-gate[data-chapter="${partNumber + 1}"]`);
+                        if (nextGate) {
+                            nextGate.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    };
+                }
             }
 
             // Create confetti with Part-specific colours
@@ -31180,7 +31297,7 @@ main.content, #main-content {
             overlay.setAttribute('aria-hidden', 'false');
 
             // Dismiss handlers (show intro when dismissing)
-            dismissEl.onclick = () => closeCelebration(true);
+            if (dismissEl) dismissEl.onclick = () => closeCelebration(true);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeCelebration(true);
             });
@@ -31293,11 +31410,6 @@ main.content, #main-content {
             4: { numeral: 'IV', title: 'THE PHILOSOPHY', subtitle: 'The Recursive Nature of Intelligence' },
             5: { numeral: 'V', title: 'THE STAKES', subtitle: 'Eden or Babylon — The Choice Is Ours' },
             6: { numeral: 'VI', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
-        };
-
-        // Track which intros have been shown this session
-        const shownIntros = new Set();
-
         function showChapterIntro(chapterNum, afterCelebration = false) {
             // Don't show if already shown this session
             if (shownIntros.has(chapterNum)) return;
@@ -31309,6 +31421,10 @@ main.content, #main-content {
             // Don't show if celebration overlay is active
             const celebrationOverlay = document.getElementById('celebration-overlay');
             if (celebrationOverlay && celebrationOverlay.classList.contains('active')) return;
+
+            // Don't show if chapter intro is already active (prevents stacking)
+            const chapterOverlay = document.getElementById('chapter-intro-overlay');
+            if (chapterOverlay && chapterOverlay.classList.contains('active')) return;
 
             // Respect reduced motion
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -31340,23 +31456,56 @@ main.content, #main-content {
             // Delay if coming from celebration (let it fully close)
             const showDelay = afterCelebration ? 600 : 100;
 
+            // Track active timeouts for cancellation
+            let autoCloseTimeout = null;
+            let fadeOutTimeout = null;
+
+            // Function to close the chapter intro overlay
+            function closeChapterIntro() {
+                if (!overlay.classList.contains('active')) return;
+
+                // Clear any pending auto-close
+                if (autoCloseTimeout) clearTimeout(autoCloseTimeout);
+                if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
+
+                overlay.classList.add('fade-out');
+                fadeOutTimeout = setTimeout(() => {
+                    overlay.classList.remove('active', 'fade-out');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    document.removeEventListener('keydown', chapterIntroEscHandler);
+                }, 700);
+            }
+
+            // Escape key handler for chapter intro
+            const chapterIntroEscHandler = (e) => {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeChapterIntro();
+                }
+            };
+
             setTimeout(() => {
                 // Double-check welcome-back isn't showing (race condition protection)
                 const wb = document.getElementById('welcome-back-overlay');
                 if (wb && wb.classList.contains('active')) return;
+
+                // Double-check celebration isn't showing (race condition protection)
+                const celeb = document.getElementById('celebration-overlay');
+                if (celeb && celeb.classList.contains('active')) return;
+
+                // Double-check chapter intro isn't already active (prevents stacking)
+                if (overlay.classList.contains('active')) return;
 
                 // Show overlay
                 overlay.classList.remove('fade-out');
                 overlay.classList.add('active');
                 overlay.setAttribute('aria-hidden', 'false');
 
+                // Add Escape key listener
+                document.addEventListener('keydown', chapterIntroEscHandler);
+
                 // Auto-dismiss after 2.2 seconds
-                setTimeout(() => {
-                    overlay.classList.add('fade-out');
-                    setTimeout(() => {
-                        overlay.classList.remove('active', 'fade-out');
-                        overlay.setAttribute('aria-hidden', 'true');
-                    }, 700);
+                autoCloseTimeout = setTimeout(() => {
+                    closeChapterIntro();
                 }, 2200);
             }, showDelay);
         }
@@ -31484,10 +31633,12 @@ main.content, #main-content {
         }
 
         // Create observer for sections
-        const sectionIntroObserver = new IntersectionObserver((entries) => {
+        const sectionIntroObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
                     const sectionId = entry.target.id;
+                    // Unobserve immediately to prevent duplicate triggers
+                    observer.unobserve(entry.target);
                     // Slight delay for smoother experience
                     setTimeout(() => showSectionIntro(sectionId), 200);
                 }
@@ -31881,9 +32032,15 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         let tesseractVisible = false;
         function initTesseract() {
+            // Guard: Respect reduced motion preference - skip tesseract animation
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                console.log('[Tesseract] Skipped - user prefers reduced motion');
+                return;
+            }
+
             const canvas = document.getElementById('tesseract-canvas');
             if (!canvas) {
-                console.error('❌ Tesseract canvas not found');
+                console.error('Tesseract canvas not found');
                 return;
             }
 
@@ -32326,8 +32483,8 @@ main.content, #main-content {
                         // Determine product variant from URL
                         const url = this.href;
                         let variant = 'Kindle';
-                        if (url.includes('B0DS5SX63N')) variant = 'Paperback';
-                        else if (url.includes('B0DS7BZ4L9')) variant = 'Hardback';
+                        if (url.includes('B0DS5SX63N')) variant = 'Hardcover';
+                        else if (url.includes('B0DS7BZ4L9')) variant = 'Paperback';
                         else if (url.includes('B0DS2L8BVC')) variant = 'Kindle';
 
                         // Facebook Pixel: InitiateCheckout
@@ -32337,7 +32494,7 @@ main.content, #main-content {
                                 content_category: 'Book Purchase',
                                 content_ids: ['B0DS2L8BVC'],
                                 content_type: 'product',
-                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                value: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
                                 currency: 'GBP',
                                 num_items: 1
                             });
@@ -32347,12 +32504,12 @@ main.content, #main-content {
                         if (typeof gtag === 'function') {
                             gtag('event', 'begin_checkout', {
                                 currency: 'GBP',
-                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                value: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
                                 items: [{
                                     item_id: 'B0DS2L8BVC',
                                     item_name: 'Infinite Architects',
                                     item_variant: variant,
-                                    price: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99)
+                                    price: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99)
                                 }]
                             });
                         }
@@ -33016,6 +33173,15 @@ main.content, #main-content {
                 const submitBtn = form.querySelector('.newsletter-button');
                 const email = emailInput.value.trim();
 
+                // Validate consent checkbox
+                const consentCheckbox = document.getElementById('newsletter-consent');
+                if (consentCheckbox && !consentCheckbox.checked) {
+                    consentCheckbox.setCustomValidity('Please tick this box to confirm you consent to receiving emails');
+                    consentCheckbox.reportValidity();
+                    return;
+                }
+                if (consentCheckbox) consentCheckbox.setCustomValidity('');
+
                 // Validate email format
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(email)) {
@@ -33104,14 +33270,18 @@ main.content, #main-content {
         // FREE CHAPTER MODAL (Global scope for onclick handlers)
         // ═══════════════════════════════════════════════════════════════════════
         window.openFreeChapterModal = function() {
-            document.getElementById('free-chapter-overlay').classList.add('show');
-            document.getElementById('free-chapter-modal').classList.add('show');
+            const overlay = document.getElementById('free-chapter-overlay');
+            const modal = document.getElementById('free-chapter-modal');
+            if (overlay) overlay.classList.add('show');
+            if (modal) modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
         window.closeFreeChapterModal = function() {
-            document.getElementById('free-chapter-overlay').classList.remove('show');
-            document.getElementById('free-chapter-modal').classList.remove('show');
+            const overlay = document.getElementById('free-chapter-overlay');
+            const modal = document.getElementById('free-chapter-modal');
+            if (overlay) overlay.classList.remove('show');
+            if (modal) modal.classList.remove('show');
             document.body.style.overflow = '';
         }
 
@@ -34071,10 +34241,9 @@ main.content, #main-content {
                 oscillator.stop(audioContext.currentTime + 0.02);
             }
 
-            // Enable audio on first interaction
+            // Enable audio on first interaction (once: true auto-removes after first call)
             document.addEventListener('click', function enableAudio() {
                 audioEnabled = true;
-                document.removeEventListener('click', enableAudio);
             }, { once: true });
 
             // Add subtle click sounds to buttons (after user enables audio)
@@ -34217,15 +34386,17 @@ main.content, #main-content {
         // console.log('✨ Precision snap scroll enabled (Lenis disabled)');
 
         // Scroll-triggered reveals
-        const liquidRevealObserver = new IntersectionObserver((entries) => {
+        const liquidRevealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target); // Cleanup: unobserve after reveal
                 }
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-        document.querySelectorAll('.idea-card, .quote-card').forEach(el => {
+        // Also observe .concept-card (previously handled by duplicate observer)
+        document.querySelectorAll('.idea-card, .quote-card, .concept-card, .liquid-reveal').forEach(el => {
             el.classList.add('liquid-reveal');
             liquidRevealObserver.observe(el);
         });
@@ -35179,19 +35350,35 @@ main.content, #main-content {
                     const item = question.closest('.faq-item');
                     const isActive = item.classList.contains('active');
 
-                    // Close all other items
+                    // Close all other items and update their aria-expanded
                     document.querySelectorAll('.faq-item.active').forEach(activeItem => {
                         if (activeItem !== item) {
                             activeItem.classList.remove('active');
+                            const activeBtn = activeItem.querySelector('.faq-question');
+                            if (activeBtn) {
+                                activeBtn.setAttribute('aria-expanded', 'false');
+                            }
                         }
                     });
 
                     // Toggle current item
                     item.classList.toggle('active');
 
+                    // Update aria-expanded attribute
+                    const nowActive = item.classList.contains('active');
+                    question.setAttribute('aria-expanded', nowActive);
+
                     // Haptic feedback
                     if (window.hapticFeedback) {
                         window.hapticFeedback.light();
+                    }
+                });
+
+                // Keyboard support for Enter and Space
+                question.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        question.click();
                     }
                 });
             });
@@ -36787,19 +36974,8 @@ main.content, #main-content {
             console.log('✨ Liquid Reality scroll enabled');
         }
 
-        // Scroll-triggered reveals
-        const liquidRevealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.liquid-reveal, .concept-card, .quote-card').forEach(el => {
-            el.classList.add('liquid-reveal');
-            liquidRevealObserver.observe(el);
-        });
+        // NOTE: Duplicate liquidRevealObserver REMOVED - see line ~34290 for the primary observer
+        // which handles reveal animations with proper unobserve cleanup
 
         // ═══════════════════════════════════════════════════════════════════════
         // PHASE 10: SONIC ARCHITECTURE
@@ -39158,7 +39334,7 @@ main.content, #main-content {
         /* Mobile - Hidden (mobile-buy-bar handles purchase CTA) */
         @media (max-width: 768px) {
             .sticky-cta {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
         }
 
@@ -39450,7 +39626,7 @@ main.content, #main-content {
         #ask-book-toggle,
         html body #ask-book-toggle,
         html body button#ask-book-toggle {
-            display: flex !important; visibility: visible !important;
+            display: none !important;
             
             opacity: 0 !important;
             position: fixed !important;
@@ -40559,44 +40735,9 @@ main.content, #main-content {
         console.log('[ASK THE BOOK] Sovereign Chat Engine initialised');
     })();
 
-    // ═══════════════════════════════════════════════════════════════════════
-    // 37 CONCEPTS MODAL
-    // ═══════════════════════════════════════════════════════════════════════
-    (function() {
-        const btn = document.getElementById('view-all-concepts');
-        const overlay = document.getElementById('concepts-modal-overlay');
-        const closeBtn = document.getElementById('concepts-modal-close');
-        
-        if (btn && overlay) {
-            btn.addEventListener('click', () => {
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-            
-            closeBtn.addEventListener('click', () => {
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        }
-    })();
     </script>
 
-    <!-- ═══════════════════════════════════════════════════════════════════════
-         37 CONCEPTS MODAL HTML
+    <!-- NOTE: Duplicate 37 Concepts Modal removed - see line ~37414 for the primary modal HTML -->
          ═══════════════════════════════════════════════════════════════════════ -->
     <div class="concepts-modal-overlay fixed inset-0 z-[10000] bg-[rgba(2,3,10,0.95)] backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300" id="concepts-modal-overlay">
         <div class="concepts-modal glass-panel-ultra living-glass">
