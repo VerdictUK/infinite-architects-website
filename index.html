@@ -102,6 +102,22 @@
         }
 
         .hidden { display: none !important; }
+
+        /* Page Visibility - Pause CSS animations when tab is hidden */
+        .page-hidden *,
+        .page-hidden *::before,
+        .page-hidden *::after {
+            animation-play-state: paused !important;
+            transition: none !important;
+        }
+
+        /* PERFORMANCE: Viewport visibility - Pause animations when element is not in viewport */
+        .animation-paused,
+        .animation-paused *,
+        .animation-paused *::before,
+        .animation-paused *::after {
+            animation-play-state: paused !important;
+        }
     </style>
 
     <!-- CRITICAL SEO META TAGS (Restored from git history) -->
@@ -710,6 +726,13 @@
             --nav-height: 60px;
             --section-safe-padding: calc(var(--ticker-height) + var(--nav-height) + 2rem);
             --section-content-max: calc(100vh - var(--ticker-height) - var(--nav-height) - 6rem);
+
+            /* BACKDROP-FILTER PERFORMANCE - Optimised blur values */
+            --blur-xs: 4px;
+            --blur-sm: 8px;
+            --blur-md: 12px;
+            --blur-lg: 16px;
+            --blur-xl: 20px;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -1622,8 +1645,8 @@
             align-items: center;
             justify-content: center;
             background: rgba(2, 3, 10, 0.95);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(var(--blur-xl));
+            -webkit-backdrop-filter: blur(var(--blur-xl));
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.6s ease, visibility 0.6s ease;
@@ -2116,7 +2139,7 @@
         .section-intro-overlay {
             position: fixed;
             inset: 0;
-            z-index: 9998;
+            z-index: 400;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2405,7 +2428,7 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
-            z-index: 9997; /* Above content, below mobile buy bar */
+            z-index: 300; /* Above content, below mobile buy bar */
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -2518,7 +2541,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            z-index: 10000;
+            z-index: 700;
             transform: translateY(100%);
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
@@ -2612,7 +2635,7 @@
             align-items: center;
             justify-content: center;
             gap: 1rem;
-            z-index: 10001;
+            z-index: 750;
             transform: translateY(-100%);
             transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             font-weight: 500;
@@ -2720,7 +2743,7 @@
             background: var(--gold);
             color: var(--void);
             padding: 8px 16px;
-            z-index: 10000;
+            z-index: 9500;
             font-family: var(--font-mono);
             font-size: 0.9rem;
             transition: top 0.3s ease;
@@ -3494,7 +3517,7 @@
 
         /* 5. IMPACT FX: THE SUPERNOVA */
         .impact-flash {
-            position: fixed; inset: -50%; z-index: 200000; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0;
+            position: fixed; inset: -50%; z-index: 5200; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0;
             background: radial-gradient(circle at center, white 0%, var(--gold) 30%, #000000 70%);
         }
         body.cinematic .impact-flash { animation: impactFlash 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards; }
@@ -3520,11 +3543,11 @@
         body.cinematic .space-streaks::before { content: ''; position: absolute; inset: 0; background-size: 100% 200%; animation: lightSpeed 0.8s linear infinite; background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px); }
         @keyframes lightSpeed { from { background-position: 0 0; } to { background-position: 0 100%; } }
 
-        .plasma-trail { position: fixed; top: 0; left: 50%; width: 4px; height: 100vh; height: 100dvh; z-index: 99999; filter: blur(5px); opacity: 0; background: linear-gradient(to top, white, var(--gold), transparent); transform: translateX(-50%) translateY(-100%); }
+        .plasma-trail { position: fixed; top: 0; left: 50%; width: 4px; height: 100vh; height: 100dvh; z-index: 5100; filter: blur(5px); opacity: 0; background: linear-gradient(to top, white, var(--gold), transparent); transform: translateX(-50%) translateY(-100%); }
         body.cinematic .plasma-trail { animation: plasmaDrop 1.5s ease-in forwards; }
         @keyframes plasmaDrop { 0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; } 100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; } }
 
-        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); pointer-events: none; }
+        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 6100; transition: height 1.8s var(--ease-out-expo); pointer-events: none; }
         .letterbox.top { top: 0; } .letterbox.bottom { bottom: 0; }
         body.cinematic .letterbox { height: 6vh; }
 
@@ -7133,7 +7156,7 @@
         .chapter-vignette-flash {
             position: fixed;
             inset: 0;
-            z-index: 9998;
+            z-index: 450;
             pointer-events: none;
             background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.6) 100%);
             opacity: 0;
@@ -8675,7 +8698,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 9990;
+            z-index: 300;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
@@ -9315,7 +9338,7 @@
                 background: var(--gold);
                 border-radius: 50%;
                 pointer-events: none;
-                z-index: 999999;
+                z-index: var(--z-cursor); /* Cursor should be z-index 50 per z-index registry */
                 transform: translate(-50%, -50%);
                 transition: transform 0.1s ease, background 0.2s ease, width 0.2s ease, height 0.2s ease;
                 mix-blend-mode: difference;
@@ -9332,7 +9355,7 @@
                 border: 1px solid rgba(212, 168, 75, 0.5);
                 border-radius: 50%;
                 pointer-events: none;
-                z-index: 999998;
+                z-index: var(--z-cursor); /* Cursor should be z-index 50 per z-index registry */
                 transform: translate(-50%, -50%);
                 transition: all 0.15s ease;
                 opacity: 1;
@@ -10378,7 +10401,7 @@
             position: fixed;
             inset: 0;
             background: rgba(2, 3, 10, 0.95);
-            z-index: 10000;
+            z-index: 1500;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -12973,7 +12996,7 @@
             border: 1px solid rgba(212, 168, 75, 0.4);
             border-radius: 50px;
             padding: 8px 8px 8px 20px;
-            z-index: 9999;
+            z-index: 600;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 168, 75, 0.1) inset, 0 0 30px rgba(212, 168, 75, 0.1);
             align-items: center;
             justify-content: space-between;
@@ -15758,7 +15781,7 @@
             border-radius: 0 0 12px 12px;
             font-family: var(--font-mono);
             font-size: 0.85rem;
-            z-index: 99999;
+            z-index: 99000; /* Skip-link - highest except loader (100000) */
             transition: top 0.3s ease;
         }
 
@@ -15859,7 +15882,7 @@
             inset: 0;
             background: rgba(0, 0, 0, 0);
             backdrop-filter: blur(0px);
-            z-index: 99998;
+            z-index: 9400; /* Modal backdrop - just below modal (9500) */
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -15885,7 +15908,7 @@
             width: calc(100% - 4rem);
             max-height: calc(100vh - 8rem);
             overflow-y: auto;
-            z-index: 99999;
+            z-index: 9500; /* Modal - same level as free-chapter-modal */
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -16592,7 +16615,7 @@
             border-top: 1px solid rgba(212, 168, 75, 0.3);
             border-bottom: 1px solid rgba(212, 168, 75, 0.15);
             padding: 0.5rem 1rem; /* Reduced padding */
-            z-index: 9990; /* Below chapter nav */
+            z-index: 150; /* Below chapter nav */
             backdrop-filter: blur(15px);
             transform: translateY(100%);
             transition: transform 0.3s ease;
@@ -17639,10 +17662,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 9991;
+            z-index: 200;
             background: rgba(2, 3, 10, 0.92);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(var(--blur-xl));
+            -webkit-backdrop-filter: blur(var(--blur-xl));
             border-top: 1px solid rgba(212, 168, 75, 0.2);
             padding-bottom: env(safe-area-inset-bottom, 0px);
             transform: translateY(100%);
@@ -18117,8 +18140,8 @@
                 margin: 0 auto;
                 z-index: 9990;
                 background: rgba(2, 3, 10, 0.85);
-                backdrop-filter: blur(25px);
-                -webkit-backdrop-filter: blur(25px);
+                backdrop-filter: blur(var(--blur-xl));
+                -webkit-backdrop-filter: blur(var(--blur-xl));
                 padding: 0.75rem 1rem calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
                 flex-direction: column;
                 align-items: center;
@@ -18392,7 +18415,7 @@
                 position: fixed;
                 inset: 0;
                 background: #02030a;
-                z-index: 100000;
+                z-index: 9500;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -21292,7 +21315,7 @@
             top: -100%;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 100000;
+            z-index: 9500;
             background: linear-gradient(135deg, var(--gold), var(--gold-bright));
             color: var(--void-deep);
             padding: 1rem 2rem;
@@ -24653,7 +24676,7 @@ html body #ask-book-toggle {
         0 0 40px rgba(212, 168, 75, 0.3),
         inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
     cursor: pointer !important;
-    z-index: 99999 !important;
+    z-index: 800 !important; /* Chat toggle - above nav, below modals */
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -24737,10 +24760,10 @@ html body #ask-book-toggle {
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 40px rgba(212, 168, 75, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-    z-index: 99998 !important;
+    z-index: 9000 !important; /* Chat widget - below all overlays */
     display: flex !important;
     flex-direction: column !important;
-    
+
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px) scale(0.95);
@@ -26625,7 +26648,7 @@ body.cinematic-ready .ask-book-toggle {
     right: 24px !important;
     width: 64px !important;
     height: 64px !important;
-    z-index: 2147483647 !important; /* Maximum possible z-index */
+    z-index: 800 !important; /* Chat widget - above nav, below modals */
     pointer-events: auto;
     background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
     border: 2px solid #f4c856 !important;
@@ -26650,7 +26673,7 @@ html body button#ask-book-toggle svg {
         width: 56px !important;
         height: 56px !important;
         display: flex !important;
-        z-index: 2147483647 !important;
+        z-index: 800 !important;
         position: fixed !important;
     }
 }
@@ -26945,9 +26968,6 @@ main.content, #main-content {
     <div class="night-stars" aria-hidden="true"></div>
     <div class="time-glow" aria-hidden="true"></div>
 
-    <!-- Sentient Cursor (Phase 16 - Desktop) -->
-    <div class="cursor-dot fixed pointer-events-none z-max" id="cursor-dot"></div>
-    <div class="cursor-ring fixed pointer-events-none" id="cursor-ring"></div>
 
     <!-- Cookie Consent Banner -->
     <div class="cookie-banner fixed bottom-0 inset-x-0 z-overlay safe-bottom" id="cookie-banner">
@@ -28976,7 +28996,7 @@ main.content, #main-content {
                 <div class="reveal reveal-delay-6 glass-panel-ultra p-1 rounded-[2.5rem] overflow-hidden shadow-3xl border border-white/10 max-w-5xl mx-auto">
                     <div class="grid md:grid-cols-2 bg-void-mid">
                         <div class="aspect-video bg-black relative group overflow-hidden">
-                            <video preload="metadata" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                            <video class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                 <source src="videos/bbc_clip_4.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -29559,8 +29579,6 @@ main.content, #main-content {
 
                                     <svg class="w-5 h-5 text-gold transform transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
 
-                                </button>
-
                                 <div id="faq-answer-1" class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5" role="region" aria-labelledby="faq-question-1">
 
                                     <p class="p-6 text-text-secondary leading-relaxed text-base">U = I × R² states that Universe equals Intelligence times Recursion squared. It's a mathematical framework explaining why complexity emerges from simplicity. Why compound interest builds empires, why evolution accelerates, and why the cosmos appears fine-tuned for the emergence of mind.</p>
@@ -29580,8 +29598,6 @@ main.content, #main-content {
                                     <span class="font-display text-lg text-gold-pale group-hover:text-gold transition-colors">What is HRIH?</span>
 
                                     <svg class="w-5 h-5 text-gold transform transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-
-                                </button>
 
                                 <div id="faq-answer-2" class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-spring-tight bg-white/5" role="region" aria-labelledby="faq-question-2">
 
@@ -31189,8 +31205,13 @@ main.content, #main-content {
 
         function animateMain() {
             if (!renderer || !scene || !camera) return;
-            // Pause when tab hidden for performance
-            if (!pageVisible) {
+            // Pause when tab hidden (check both pageVisible and PageVisibilityController)
+            if (!pageVisible || (window.PageVisibilityController && window.PageVisibilityController.threeJsPaused)) {
+                setTimeout(() => requestAnimationFrame(animateMain), 200);
+                return;
+            }
+            // PERFORMANCE: Pause when canvas is not visible in viewport (saves GPU cycles)
+            if (!canvasVisible) {
                 setTimeout(() => requestAnimationFrame(animateMain), 200);
                 return;
             }
@@ -32508,8 +32529,10 @@ main.content, #main-content {
             console.log('[CINEMATIC] Premium scroll effects initialized');
         }
 
-        // Initialize cinematic effects after DOM ready
-        document.addEventListener('DOMContentLoaded', initCinematicScrollEffects);
+        // Initialize cinematic effects after loader completes
+        document.addEventListener('DOMContentLoaded', function() {
+            deferUntilSiteReady(initCinematicScrollEffects, 150);
+        });
 
         // ═══════════════════════════════════════════════════════════════════════
         // NAVIGATION
@@ -33190,7 +33213,6 @@ main.content, #main-content {
         document.addEventListener('DOMContentLoaded', initLoader);
 
         // Export to window for cross-IIFE access (needed by enhancement scripts)
-        // NOTE: deferUntilSiteReady added below
         window.PERF = PERF;
         window.Features = Features;
         window.pageVisible = pageVisible;
@@ -34272,17 +34294,19 @@ main.content, #main-content {
             const animationPauser = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     const section = entry.target;
-                    const animations = section.querySelectorAll('[class*="animate"], .ticker-track, .carousel-track');
 
+                    // Toggle animation-paused class on the entire section
+                    // This uses the CSS rule that pauses all descendant animations
                     if (entry.isIntersecting) {
-                        animations.forEach(el => el.style.animationPlayState = 'running');
+                        section.classList.remove('animation-paused');
                     } else {
-                        animations.forEach(el => el.style.animationPlayState = 'paused');
+                        section.classList.add('animation-paused');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.05 }); // Lower threshold to catch animations near edge of viewport
 
-            document.querySelectorAll('.snap-section').forEach(section => {
+            // Observe all major sections
+            document.querySelectorAll('.snap-section, [data-animate-section]').forEach(section => {
                 animationPauser.observe(section);
             });
         }
@@ -34589,12 +34613,14 @@ main.content, #main-content {
             // console.log('✨ Motion reveals enabled');
         }
 
-        // Initialize all Phase 16-25 features
+        // Initialize Phase 16-25 features (visual effects deferred)
         document.addEventListener('DOMContentLoaded', function() {
-            initCardTilt();
-            initSpatialAudio();
             initProgressiveImages();
-            initMotionReveals();
+            deferUntilSiteReady(function() {
+                initCardTilt();
+                initSpatialAudio();
+                initMotionReveals();
+            }, 200);
         });
 
         // ═══════════════════════════════════════════════════════════════════════════════
@@ -35844,7 +35870,23 @@ main.content, #main-content {
                 }
             }
 
+            let equationVisible = true;
+
+            // PERFORMANCE: Pause when canvas is not visible in viewport
+            if ('IntersectionObserver' in window) {
+                const equationObserver = new IntersectionObserver((entries) => {
+                    equationVisible = entries[0].isIntersecting;
+                }, { threshold: 0 });
+                equationObserver.observe(canvas);
+            }
+
             function animate() {
+                // PERFORMANCE: Pause when tab hidden or canvas not visible
+                if (!pageVisible || !equationVisible) {
+                    setTimeout(() => requestAnimationFrame(animate), 200);
+                    return;
+                }
+
                 ctx.clearRect(0, 0, width, height);
 
                 particles.forEach(p => {
@@ -35914,7 +35956,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          MOBILE STICKY BUY BAR - Always-visible purchase option
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="mobile-buy-bar safe-bottom fixed bottom-14 left-0 right-0 z-[9990] border-t border-b border-gold/30 py-2 px-4 backdrop-blur-md" id="mobile-buy-bar">
+    <div class="mobile-buy-bar safe-bottom fixed bottom-14 left-0 right-0 z-[1000] border-t border-b border-gold/30 py-2 px-4 backdrop-blur-md" id="mobile-buy-bar">
         <div class="mobile-buy-bar-inner">
             <div>
                 <div class="mobile-buy-bar-text">Infinite Architects</div>
@@ -36117,6 +36159,11 @@ main.content, #main-content {
             }, { passive: true });
 
             function animateDesktopParallax() {
+                // PERFORMANCE: Pause when tab hidden
+                if (!pageVisible) {
+                    setTimeout(() => requestAnimationFrame(animateDesktopParallax), 200);
+                    return;
+                }
                 // Smooth interpolation (like gyroscope)
                 currentX += (mouseX - currentX) * 0.05;
                 currentY += (mouseY - currentY) * 0.05;
@@ -36197,8 +36244,6 @@ main.content, #main-content {
                 <svg class="chapter-chevron" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 10l5 5 5-5z"/>
                 </svg>
-            </button>
-
             <!-- Navigation arrows -->
             <div class="chapter-arrows">
                 <button class="chapter-arrow prev disabled" id="chapterPrev" aria-label="Previous section">
@@ -37221,8 +37266,13 @@ main.content, #main-content {
                 infinite: false,
             });
 
-            // Animation frame loop
+            // Animation frame loop with visibility check
             function lenisRaf(time) {
+                // PERFORMANCE: Pause Lenis when tab hidden
+                if (!pageVisible) {
+                    setTimeout(() => requestAnimationFrame(lenisRaf), 200);
+                    return;
+                }
                 window.lenisInstance.raf(time);
                 requestAnimationFrame(lenisRaf);
             }
@@ -37839,11 +37889,16 @@ main.content, #main-content {
                     pair.line.style.width = length + 'px';
                     pair.line.style.transform = `rotate(${angle}deg)`;
                 });
-                
+
+                // PERFORMANCE: Pause when tab hidden
+                if (!pageVisible) {
+                    setTimeout(() => requestAnimationFrame(() => this.animate()), 200);
+                    return;
+                }
                 requestAnimationFrame(() => this.animate());
             }
         };
-        
+
         // Initialize quantum field
         if (window.innerWidth > 768) { // Desktop only
             setTimeout(() => QuantumField.init(), 2000);
@@ -39083,19 +39138,6 @@ main.content, #main-content {
          Living Glass Refraction & Z-Axis Cinematic Transitions
          ═══════════════════════════════════════════════════════════════════════ -->
     
-    <!-- SVG Filters for Living Glass Refraction -->
-    <svg style="display: none !important;">
-        <defs>
-            <filter id="glass-refraction">
-                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-            <filter id="ripple-filter">
-                <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="2" result="turbulence" />
-                <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="10" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-        </defs>
-    </svg>
 
     <!-- Phase 3 Logic -->
     <script>
@@ -39191,17 +39233,18 @@ main.content, #main-content {
             const style = document.createElement('style');
             style.textContent = `
                 .glass-living, .evidence-card, .idea-card {
-                    /* Refraction Filter */
-                    backdrop-filter: blur(12px) saturate(160%) !important;
-                    -webkit-backdrop-filter: blur(12px) saturate(160%) !important;
+                    /* Refraction Filter - optimised */
+                    backdrop-filter: blur(var(--blur-md, 12px)) saturate(150%);
+                    -webkit-backdrop-filter: blur(var(--blur-md, 12px)) saturate(150%);
+                    contain: layout style paint;
                     
                     /* Optical Border */
-                    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-                    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-                    border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
-                    box-shadow: 
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-top: 1px solid rgba(255, 255, 255, 0.15);
+                    border-left: 1px solid rgba(255, 255, 255, 0.15);
+                    box-shadow:
                         0 20px 40px rgba(0, 0, 0, 0.4),
-                        inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
                         
                     /* Dynamic Shine */
                     position: relative;
@@ -39525,7 +39568,7 @@ main.content, #main-content {
             bottom: 100px; /* Above chat button (64px + 24px gap + 12px buffer) */
             right: 24px; /* Aligned with chat button */
             left: auto;
-            z-index: 9990; /* Below chat widget (99999) */
+            z-index: 999; /* Below mobile-buy-bar (1000), below chat widget (9000) */
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -39617,7 +39660,7 @@ main.content, #main-content {
             inset: 0;
             background: rgba(2, 3, 10, 0.85);
             backdrop-filter: blur(8px);
-            z-index: 99999; /* Below celebration (100000) and welcome-back (100001) */
+            z-index: 1000; /* Below celebration (2000) and welcome-back (2100) */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -39881,21 +39924,11 @@ main.content, #main-content {
     </script>
 
 
-    <!-- Audio Toggle -->
-    <button class="audio-toggle" id="audio-toggle" aria-label="Toggle ambient sound">
-        <div class="audio-waves">
-            <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <span class="audio-toggle-tooltip">Enable Ambient Sound</span>
-    </button>
-
     <!-- Chat Toggle Button - HIDDEN DURING LOADING, SHOWN WHEN READY -->
-    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:2147483647; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
+    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:800; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block !important; visibility:visible !important; width:28px !important; height:28px !important; fill:#02030a !important;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97c1.31.61 2.75.97 4.29.97 5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.33 0-2.58-.32-3.69-.89L5 20l.89-3.31C5.32 15.58 5 14.33 5 13c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
         </svg>
-    </button>
-
     <!-- Force Ask Book Button Visibility ONLY AFTER LOADER COMPLETES -->
     <style id="ask-book-force-visible">
         /* HIDDEN by default during loading */
@@ -39906,7 +39939,7 @@ main.content, #main-content {
             
             opacity: 0 !important;
             position: fixed !important;
-            z-index: 2147483647 !important;
+            z-index: 800 !important;
             pointer-events: none !important;
             background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
             border: 2px solid #f4c856 !important;
@@ -39989,7 +40022,7 @@ main.content, #main-content {
                 btn.style.setProperty('visibility', 'visible', 'important');
                 btn.style.setProperty('opacity', '1', 'important');
                 btn.style.setProperty('position', 'fixed', 'important');
-                btn.style.setProperty('z-index', '2147483647', 'important');
+                btn.style.setProperty('z-index', '800', 'important'); // Chat widget - above nav, below modals
                 btn.style.setProperty('pointer-events', 'auto', 'important');
                 btn.style.setProperty('background', 'linear-gradient(145deg, #d4a84b, #a67c35)', 'important');
                 btn.style.setProperty('border', '2px solid #f4c856', 'important');
@@ -40121,7 +40154,7 @@ main.content, #main-content {
     </script>
 
     <!-- Chat Widget -->
-    <div class="ask-book-widget fixed bottom-24 right-6 w-[min(420px,calc(100vw-48px))] max-h-[min(600px,calc(100vh-140px))] z-[99998] rounded-2xl glass-panel-ultra flex flex-col overflow-hidden opacity-0 invisible transition-all duration-400 ease-spring-loose mobile-safe-padding shadow-2xl" id="ask-book-widget">
+    <div class="ask-book-widget fixed bottom-24 right-6 w-[min(420px,calc(100vw-48px))] max-h-[min(600px,calc(100vh-140px))] z-[9000] rounded-2xl glass-panel-ultra flex flex-col overflow-hidden opacity-0 invisible transition-all duration-400 ease-spring-loose mobile-safe-padding shadow-2xl" id="ask-book-widget">
         <!-- Header -->
         <div class="ask-book-header p-4 border-b border-white/10 flex items-center gap-3 bg-white/5 backdrop-blur-md">
             <div class="ask-book-header-icon w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold">
@@ -40171,6 +40204,9 @@ main.content, #main-content {
     </div>
 
                 <!-- Ask the Book JavaScript -->
+
+                <!-- Animation Scheduler - Phase-based animation loading -->
+                <script src="js/animation-scheduler.js"></script>
 
                 <!-- Load the Sovereign Constitution (Brain & Rules) -->
 
