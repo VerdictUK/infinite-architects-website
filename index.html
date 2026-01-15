@@ -1,74 +1,141 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en-GB" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- ULTRATHINK NUCLEAR VISIBILITY v15.0 - ABSOLUTE ALIGNMENT (Rule 15) -->
+    <!-- CORE ARCHITECTURAL FOUNDATION (Proper Fix - Production Standard) -->
     <style>
-        /* 1. SCROLL AUTHORITY */
-        html, body {
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
-            height: auto !important;
-            min-height: 100vh !important;
-            position: relative !important;
-            display: block !important;
-            background-color: #02030a !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            scroll-behavior: smooth !important;
+        /* 1. Reset & Foundation */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            background-color: #02030a;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #02030a;
+            color: #ffffff;
+            font-family: 'Cinzel', serif;
+            overflow-x: hidden;
+            min-height: 100dvh;
+            position: relative;
+            /* Initially hidden to allow Masterpiece Soul to control the reveal */
+            opacity: 0;
+            transition: opacity 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* 2. CONTENT GUARANTEE - Force render without breaking layout types */
-        * {
-            visibility: visible !important;
-            opacity: 1 !important;
-            max-height: none !important;
-            filter: none !important;
+        body.site-ready {
+            opacity: 1;
         }
 
-        /* 3. LAYOUT PROTECTION - Sections must flow vertically, but inner grids must stay grids */
-        section, main, article, footer, header {
-            display: flex !important;
-            flex-direction: column !important;
-            height: auto !important;
-            min-height: auto !important;
-            position: relative !important;
-            transform: none !important;
-            overflow: visible !important;
+        /* 2. Scroll Lock Paradigm */
+        body.loader-active {
+            overflow: hidden !important;
+            touch-action: none;
         }
 
-        /* 4. PROTECT THE ENGINE - Do NOT force flex on things that need to be grids */
-        .grid, [class*="grid"], .grid-cols-1, .grid-cols-2, .grid-cols-12 { 
-            display: grid !important; 
-        }
-        .flex, [class*="flex"], .inline-flex { 
-            display: flex !important; 
-        }
-
-        /* 5. ANIMATION NEUTRALISATION - Immediate presence */
-        .reveal, .active, .entering, [class*="reveal"], [class*="active"], [class*="entering"] {
-            transform: none !important;
-            transition: none !important;
-            animation: none !important;
+        /* 3. Global Section Alignment */
+        section {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* 6. LOADER & BLOCKER REMOVAL */
-        #loader, .loader, #cinematic-loader, .loader-video-overlay, .cosmic-awakening, .letterbox {
-            display: none !important;
-            pointer-events: none !important;
+        /* 4. Infrastructure Cleanup (Remove UI Blockers) */
+        #cinematic-loader, .loader-video-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: #02030a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
         }
 
-        /* 7. OVERLAY PROTECTION - Functional elements must stay hidden until needed */
-        [id*="modal"]:not(.active):not(.show), 
-        [id*="overlay"]:not(.active):not(.show),
-        #chapter-intro-overlay:not(.active),
-        #welcome-back-overlay:not(.active),
-        .hidden { 
-            display: none !important; 
+        body.site-ready #cinematic-loader {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
+
+        /* 5. Utility Safety Net */
+        .hidden { display: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
+
+    <!-- CRITICAL SEO META TAGS (Restored from git history) -->
+    <title>Infinite Architects | Michael Darius Eastwood</title>
+    <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
+    <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
+    <meta name="author" content="Michael Darius Eastwood">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph - Complete for optimal social sharing -->
+    <meta property="og:title" content="Infinite Architects | Michael Darius Eastwood">
+    <meta property="og:description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything.">
+    <meta property="og:type" content="book">
+    <meta property="og:url" content="https://www.michaeldariuseastwood.com/">
+    <meta property="og:image" content="https://www.michaeldariuseastwood.com/InfiniteArchitectsKindle20260103.jpg">
+    <meta property="og:image:width" content="868">
+    <meta property="og:image:height" content="1400">
+    <meta property="og:image:alt" content="Infinite Architects book cover - Intelligence, Recursion, and the Creation of Everything">
+    <meta property="og:site_name" content="Infinite Architects">
+    <meta property="og:locale" content="en_GB">
+    <meta property="book:author" content="Michael Darius Eastwood">
+    <meta property="book:isbn" content="B0DS2L8BVC">
+    <meta property="book:release_date" content="2026-01">
+
+    <!-- Twitter Card - Complete for optimal display -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@MichaelDEastwood">
+    <meta name="twitter:title" content="Infinite Architects | Michael Darius Eastwood">
+    <meta name="twitter:description" content="What if the god we're building is the god that built us? 37 original concepts for understanding AI.">
+    <meta name="twitter:image" content="https://www.michaeldariuseastwood.com/InfiniteArchitectsKindle20260103.jpg">
+    <meta name="twitter:image:alt" content="Infinite Architects book cover">
+    <meta name="twitter:creator" content="@MichaelDEastwood">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.michaeldariuseastwood.com/">
+
+    <!-- Favicons and PWA -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#02030a">
+    <meta name="msapplication-TileColor" content="#02030a">
+
+    <!-- APP-LIKE MOBILE EXPERIENCE -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Infinite Architects">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Preconnects for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+    <!-- Critical font: Preload + load immediately -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap">
+
+    <!-- Non-critical fonts: Load async -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap"></noscript>
+
+    <!-- Tailwind CSS - Compiled Design System -->
+    <link rel="stylesheet" href="dist/styles.css">
 
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
@@ -348,8 +415,7 @@
         #section-indicator,
         .milestone-toast,
         #milestone-toast {
-            display: flex !important; visibility: visible !important;
-            
+            display: none !important;
             opacity: 0 !important;
             pointer-events: none !important;
             position: absolute !important;
@@ -728,7 +794,7 @@
             }
             /* Hide any browser-like elements in standalone */
             .browser-only {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
         }
 
@@ -814,12 +880,12 @@
 
         /* Removed shimmer animation - too distracting */
         .glass-living::before {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         /* Removed chromatic lens effect - unnecessary */
         .chromatic-lens::after {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -1458,7 +1524,7 @@
             }
             .confetti-piece {
                 animation: none;
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -2006,7 +2072,7 @@
 
         .section-intro-label {
             /* Hidden - chapter gates already show part info */
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         .section-intro-title {
@@ -2139,7 +2205,7 @@
         }
 
         @media (max-width: 768px) {
-            .council-snippets { display: flex !important; visibility: visible !important;; }
+            .council-snippets { display: none !important; }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -2245,7 +2311,7 @@
            NATIVE SHARE BUTTON STYLING
            ═══════════════════════════════════════════════════════════════════════ */
         .native-share-btn {
-            display: flex !important; visibility: visible !important;; /* Hidden by default, shown via JS if supported */
+            display: none !important; /* Hidden by default, shown via JS if supported */
             position: fixed;
             bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
             right: 20px;
@@ -2996,11 +3062,11 @@
         /* Hide video on reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .loader-video-bg {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
             .loader-equation,
             .loader-quotes {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -3392,7 +3458,7 @@
 
         /* Force loader to STAY HIDDEN after cinematic completes */
         body.cinematic-ready #loader {
-            display: flex !important; visibility: visible !important;
+            display: none !important;
             opacity: 0 !important;
             visibility: hidden !important;
             pointer-events: none !important;
@@ -3738,16 +3804,13 @@
             /* HIDE: Chapter sidebar on mobile - too intrusive */
             .chapter-sidebar,
             #chapterSidebar {
-                display: flex !important; visibility: visible !important;
-                
-                opacity: 0 !important;
+                display: none !important;
             }
 
             /* HIDE: PART I badge that overlaps content */
             .part-progress-indicator,
             #part-progress-indicator {
-                display: flex !important; visibility: visible !important;
-                
+                display: none !important;
             }
 
             /* SMALLER: Ask book toggle - 48px instead of 64px */
@@ -3957,7 +4020,7 @@
 
             /* Skip loader entirely */
             #loader {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
         }
 
@@ -4062,7 +4125,7 @@
         }
 
         body.ui-revealed #canvas-container::after {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         /* Film grain overlay */
@@ -4209,7 +4272,7 @@
 
         /* Mobile nav */
         .nav-toggle {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -4357,7 +4420,7 @@
             .hero-content-right { grid-area: content; display: flex; flex-direction: column; align-items: flex-start; }
             .hero-status-pill { grid-area: pill; justify-self: center; margin-bottom: 2rem; }
             .scroll-indicator { grid-area: scroll; }
-            .hero-title { display: flex !important; visibility: visible !important;; } /* Logo/Cover sufficient on desktop */
+            .hero-title { display: none !important; } /* Logo/Cover sufficient on desktop */
         }
 
         /* 3. THE BOOK: Cinematic Portal */
@@ -4615,7 +4678,7 @@
         }
 
         .carousel-track::-webkit-scrollbar {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         /* No-scrollbar utility class */
@@ -4624,7 +4687,7 @@
             scrollbar-width: none;
         }
         .no-scrollbar::-webkit-scrollbar {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         .carousel-quote {
@@ -6690,7 +6753,7 @@
         }
 
         .newsletter-success {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             padding: 1.25rem;
             background: rgba(76, 175, 80, 0.08);
             border: 1px solid rgba(76, 175, 80, 0.25);
@@ -7216,7 +7279,7 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .mobile-cta {
             /* Positioning handled by Tailwind: fixed bottom-0 inset-x-0 z-sticky safe-bottom */
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             background: rgba(2, 3, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -7463,7 +7526,7 @@
             }
 
             .scroll-indicator {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
 
             .hero::after {
@@ -7598,7 +7661,7 @@
             }
 
             .film-grain {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -8014,7 +8077,7 @@
            SOCIAL PROOF BAR (Legacy - hidden)
            ═══════════════════════════════════════════════════════════════════════ */
         .proof-bar {
-            display: flex !important; visibility: visible !important;; /* Hidden - now integrated into equation section */
+            display: none !important; /* Hidden - now integrated into equation section */
             background: rgba(212, 168, 75, 0.03);
             border-top: 1px solid rgba(212, 168, 75, 0.1);
             border-bottom: 1px solid rgba(212, 168, 75, 0.1);
@@ -8398,7 +8461,7 @@
             }
 
             .equation-tagline br {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
 
             .proof-inner {
@@ -8406,7 +8469,7 @@
             }
 
             .proof-divider {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
 
             .countdown-marker .marker-label {
@@ -8869,7 +8932,7 @@
 
         .hero-book-3d::after {
             /* DISABLED - was showing white page edges */
-            display: flex !important; visibility: visible !important;
+            display: none !important;
             content: none;
         }
 
@@ -8909,16 +8972,14 @@
 
         .book-page-peek {
             /* DISABLED - white panel was showing on hover */
-            display: flex !important; visibility: visible !important;
-            
+            display: none !important;
             opacity: 0 !important;
             pointer-events: none;
         }
 
         .hero-book-3d:hover .book-page-peek {
             /* Keep disabled on hover too */
-            display: flex !important; visibility: visible !important;
-            
+            display: none !important;
             opacity: 0 !important;
         }
 
@@ -9158,7 +9219,7 @@
 
         @media (pointer: coarse) {
             .cursor-dot, .cursor-ring {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
         }
 
@@ -10421,7 +10482,7 @@
         }
 
         .concept-details {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             padding-top: 1rem;
             border-top: 1px solid rgba(212, 168, 75, 0.1);
             margin-top: 1rem;
@@ -10506,7 +10567,7 @@
         }
 
         .concept-item--expandable.expanded .concept-expand-btn span:first-child {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         /* Concept card share buttons */
@@ -11462,13 +11523,13 @@
         /* Hide section video bg on mobile for performance */
         @media (max-width: 768px) {
             .section-video-bg {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .section-video-bg {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -12729,7 +12790,7 @@
             }
 
             .timeline-markers {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
 
             .verdict-line {
@@ -12745,7 +12806,7 @@
            COMPLETE WEAPON: STICKY MISSION BAR (Mobile Conversion Engine)
            ═══════════════════════════════════════════════════════════════════════ */
         .mission-bar {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             position: fixed;
             bottom: 20px;
             left: 50%;
@@ -12831,7 +12892,7 @@
            THE MONUMENT: SWIPE HINTS (Mobile UX)
            ═══════════════════════════════════════════════════════════════════════ */
         .swipe-hint {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             justify-content: center;
             align-items: center;
             gap: 0.35rem;
@@ -13209,7 +13270,7 @@
 
             /* Hide scrollbars but keep functionality */
             .ideas-grid::-webkit-scrollbar,
-            .predictions-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important;; }
+            .predictions-grid::-webkit-scrollbar { display: none !important; }
 
             .ideas-grid,
             .predictions-grid {
@@ -13336,7 +13397,7 @@
             pointer-events: none;
             z-index: 50;
             overflow: visible;
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
         }
 
         @media (max-width: 768px) {
@@ -15826,7 +15887,7 @@
             .particle-field,
             video,
             canvas {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             body {
@@ -16300,17 +16361,17 @@
 
             /* Disable Three.js particle network on mobile */
             #canvas-container {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             /* Disable film grain overlay on mobile */
             .film-grain {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             /* Reduce animation complexity */
             .floating-particles {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             /* Simplify quote carousel */
@@ -16376,7 +16437,7 @@
 
         /* 2. STICKY MOBILE BUY BAR - Always accessible purchase option */
         .mobile-buy-bar {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             position: fixed;
             bottom: 56px; /* Position above chapter nav */
             left: 0;
@@ -16827,7 +16888,7 @@
             .film-grain,
             .ambient-orbs,
             .quantum-container {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
                 pointer-events: none !important;
             }
 
@@ -16858,7 +16919,7 @@
 
             /* HIDE MOBILE BUY BAR - Simplify experience */
             .mobile-buy-bar {
-                display: flex !important; visibility: visible !important;
+                display: none !important;
             }
 
             /* ENSURE CONTENT IS VISIBLE */
@@ -17647,7 +17708,7 @@
            Shows only Roman numerals by default, expands on hover
            ═══════════════════════════════════════════════════════════════════════════ */
         .chapter-sidebar {
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             position: fixed;
             left: 0;
             top: 140px; /* Below header - doesn't overlap logo */
@@ -17898,7 +17959,7 @@
            ═══════════════════════════════════════════════════════════════════════════ */
 
         .slideshow-nav {
-            display: flex !important; visibility: visible !important;; /* Hidden by default, shown on mobile */
+            display: none !important; /* Hidden by default, shown on mobile */
         }
 
         @media (max-width: 768px) {
@@ -18098,7 +18159,7 @@
                 0% { opacity: 0; }
                 10% { opacity: 1; }
                 80% { opacity: 1; }
-                100% { opacity: 0; display: flex !important; visibility: visible !important;; }
+                100% { opacity: 0; }
             }
 
             @keyframes swipeDotMove {
@@ -18161,7 +18222,7 @@
             }
 
             html.slideshow-mode::-webkit-scrollbar {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
 
             html.slideshow-mode body {
@@ -19103,7 +19164,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
+            html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: none !important; }
 
             html.slideshow-mode .prediction-card {
                 flex: 0 0 82vw !important;
@@ -19439,7 +19500,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .expert-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
+            html.slideshow-mode .expert-grid::-webkit-scrollbar { display: none !important; }
 
             html.slideshow-mode .expert-card {
                 flex: 0 0 85vw !important;
@@ -19500,7 +19561,7 @@
             }
 
             html.slideshow-mode .validated-grid::-webkit-scrollbar,
-            html.slideshow-mode .predictions-validated-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
+            html.slideshow-mode .predictions-validated-grid::-webkit-scrollbar { display: none !important; }
 
             html.slideshow-mode .validated-card,
             html.slideshow-mode .validated-prediction-card {
@@ -19552,7 +19613,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
+            html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: none !important; }
 
             html.slideshow-mode .review-card {
                 flex: 0 0 85vw !important;
@@ -19899,7 +19960,7 @@
             position: fixed;
             inset: 0;
             z-index: 10000;
-            display: flex !important; visibility: visible !important;;
+            display: none !important;
             align-items: center;
             justify-content: center;
             padding: 1rem;
@@ -20904,7 +20965,7 @@
 
         @media (max-width: 768px) {
             .section-indicator {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -21243,7 +21304,7 @@
             .evidence-card::after,
             .chapter-card::after,
             .concept-card::after {
-                display: flex !important; visibility: visible !important;;
+                display: none !important;
             }
         }
 
@@ -21986,9 +22047,9 @@ img {
 
 /* Mobile performance optimisations - keep particles, disable heavy effects */
 @media (max-width: 768px) {
-    /* Keep particles visible but disable film grain for performance */
+    /* Disable film grain for performance on mobile */
     .film-grain {
-        display: flex !important; visibility: visible !important;
+        display: none !important;
     }
 
     /* Reduce particle opacity for better readability */
@@ -22249,14 +22310,9 @@ div[id*="slideshow"],
 div[class*="social-proof"],
 div[class*="reading-progress"],
 div[class*="audio-toggle"] {
-    display: flex !important; visibility: visible !important;
-    
+    display: none !important;
     pointer-events: none !important;
     opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    max-height: 0 !important;
-    
     position: absolute !important;
     left: -9999px !important;
 }
@@ -23655,7 +23711,7 @@ html body #the-mind .storm-story {
 
     /* Hide elements that should be repositioned */
     html body .hero .hero-badge {
-        display: flex !important; visibility: visible !important; /* Too cluttered - book cover says it all */
+        display: none !important; /* Too cluttered - book cover says it all */
     }
 
     /* BOOK CONTAINER - Left side, perfectly sized */
@@ -23695,12 +23751,12 @@ html body #the-mind .storm-story {
     }
 
     html body .hero .book-shadow {
-        display: flex !important; visibility: visible !important; /* CSS shadow is cleaner */
+        display: none !important; /* CSS shadow is cleaner */
     }
 
     html body .hero .book-light-layer,
     html body .hero .book-page-peek {
-        display: flex !important; visibility: visible !important; /* Simplify for clarity */
+        display: none !important; /* Simplify for clarity */
     }
 
     /* CONTENT - Right side, perfectly balanced */
@@ -23983,7 +24039,7 @@ html body #the-mind .storm-story {
     }
 
     .hero .book-portal-glow {
-        display: flex !important; visibility: visible !important; /* Simpler on mobile */
+        display: none !important; /* Simpler on mobile */
     }
 
     .hero .book-portal-hint {
@@ -26804,7 +26860,7 @@ main.content, #main-content {
 
         <!-- Main UI -->
         <div class="loader-ui">
-            <h1 class="loader-title"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></h1>
+            <p class="loader-title" role="heading" aria-level="2"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></p>
             <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
             <p class="loader-author">Michael Darius Eastwood</p>
             <div class="loader-progress">
@@ -26848,10 +26904,10 @@ main.content, #main-content {
         </button>
     </div>
 
-    <!-- Masterpiece Engines -->
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <!-- Masterpiece Engines (defer for performance - no render blocking) -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" defer></script>
 
     <!-- Navigation -->
     <nav class="nav fixed top-4 left-4 right-4 z-nav px-6 py-4 flex justify-between items-center rounded-2xl transition-all duration-400 ease-spring-loose glass-panel-ultra safe-top" id="nav">
@@ -27116,54 +27172,42 @@ main.content, #main-content {
             </div>
         </section>
 
-        <section class="origin-story py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-mid/30" id="origin">
-            <div class="origin-story-inner max-w-7xl mx-auto">
-                <header class="origin-story-header text-center mb-20 space-y-4">
-                    <span class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Pattern-Seer</span>
-                    <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">Where It Began</h2>
-                    <p class="section-subtitle reveal reveal-delay-2 text-xl text-text-secondary max-w-2xl mx-auto">Some minds are born asking questions that philosophers take centuries to name.</p>
+        <!-- ORIGIN STORY -->
+        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-visible relative bg-void-mid/30" id="origin">
+            <div class="max-w-7xl mx-auto space-y-20">
+                <header class="text-center space-y-4">
+                    <span class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Pattern-Seer</span>
+                    <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white leading-tight">Where It Began</h2>
+                    <p class="reveal reveal-delay-2 text-xl text-text-secondary max-w-2xl mx-auto font-serif italic leading-relaxed">Some minds are born asking questions that philosophers take centuries to name.</p>
                 </header>
 
-                <div class="origin-stories-grid grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                    <!-- Story 1: The Inverted Spectrum -->
-                    <article class="origin-story-card reveal reveal-delay-3 glass-panel-ultra p-10 rounded-2xl border border-white/10 hover:border-gold/30 transition-all duration-500 ease-spring-loose group">
-                        <span class="origin-story-age flex items-center gap-3 text-gold text-xs font-mono uppercase tracking-widest mb-6">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" data-stagger-group>
+                    <!-- Age 6 -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group shadow-2xl flex flex-col h-full hover:-translate-y-2">
+                        <span class="flex items-center gap-3 text-gold text-xs font-mono uppercase tracking-widest mb-8">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             Age 6
                         </span>
-                        <h3 class="origin-story-title font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Inverted Spectrum</h3>
-                        <p class="origin-story-scene text-gold-pale/60 italic text-sm mb-6">Lying on my back in the grass at school, staring at the sky.</p>
-                        <p class="origin-story-insight text-text-secondary leading-relaxed text-lg italic">"What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it."</p>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Inverted Spectrum</h3>
+                        <p class="text-gold-pale/60 italic text-sm mb-8">Lying on my back in the grass at school, staring at the sky.</p>
+                        <p class="text-text-secondary leading-relaxed text-lg font-serif italic flex-grow">"What if everyone sees colours differently? What if the blue I perceive is what you would call yellow? We might all share the same favourite colour without ever knowing it."</p>
                     </article>
 
-                    <!-- Story 2: The Meniscus -->
-                    <article class="origin-story-card reveal reveal-delay-4">
-                        <span class="origin-story-age">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
+                    <!-- Age 9 -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group shadow-2xl flex flex-col h-full hover:-translate-y-2">
+                        <span class="flex items-center gap-3 text-gold text-xs font-mono uppercase tracking-widest mb-8">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                             Age 9
                         </span>
-                        <h3 class="origin-story-title">The Meniscus</h3>
-                        <p class="origin-story-scene">
-                            Standing in the kitchen when the toaster popped. A plain glass of water on the counter. Sun shining at just the right angle.
-                        </p>
-                        <p class="origin-story-insight">
-                            I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation.
-                        </p>
-                        <blockquote class="origin-story-quote">
-                            An invitation from the universe whispering: look more closely, because even the simplest things hold secrets.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            The meniscus. Surface tension making the invisible visible. A child's first glimpse of physics hiding in plain sight.
-                        </p>
+                        <h3 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Meniscus</h3>
+                        <p class="text-gold-pale/60 italic text-sm mb-8">Standing in the kitchen. A plain glass of water on the counter. Sun at the right angle.</p>
+                        <p class="text-text-secondary leading-relaxed text-lg font-serif italic flex-grow">"I noticed the surface of the water was not flat. It curved at the edges where it met the glass. This tiny arc felt like a revelation. The world isn't flat; it's recursive."</p>
                     </article>
                 </div>
 
-                <div class="origin-story-coda reveal reveal-delay-5">
-                    <p>
-                        These are not stories of exceptional intelligence. They are stories of a mind that <span class="highlight">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths, quantum mechanics, and the recursive architectures now emerging in artificial intelligence. <span class="highlight">The pattern-seer was always there.</span>
+                <div class="reveal reveal-delay-5 max-w-4xl mx-auto text-center pt-12">
+                    <p class="text-lg text-text-secondary leading-relaxed italic font-serif">
+                        These are not stories of intelligence. They are stories of a mind that <span class="text-white font-semibold border-b border-gold/30">could not stop noticing</span>. The same mind that, decades later, saw connections between ancient creation myths and quantum mechanics.
                     </p>
                 </div>
             </div>
@@ -38591,7 +38635,7 @@ main.content, #main-content {
          ═══════════════════════════════════════════════════════════════════════ -->
     
     <!-- SVG Filters for Living Glass Refraction -->
-    <svg style="display: flex !important; visibility: visible !important;;">
+    <svg style="display: none !important;">
         <defs>
             <filter id="glass-refraction">
                 <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
@@ -38877,7 +38921,7 @@ main.content, #main-content {
         }
 
         @media (max-width: 1024px) {
-            .deep-dive-hud { display: flex !important; visibility: visible !important;; }
+            .deep-dive-hud { display: none !important; }
             .section-indicator { top: 10px; padding: 6px 16px; }
             .indicator-title { font-size: 0.8rem; }
         }

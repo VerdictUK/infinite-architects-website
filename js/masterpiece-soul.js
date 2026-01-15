@@ -276,36 +276,82 @@
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // BOOTSTRAP
+    // 5. THE LIFECYCLE MANAGER (The Conductor)
     // ─────────────────────────────────────────────────────────────────────────────
-    window.addEventListener('load', () => {
-        initPhysics();
-        AudioSoul.init();
-        initInteractions();
-        initScramble();
+    const SiteLifecycle = {
+        isInitialized: false,
+        criticalAssetsLoaded: false,
         
-        // FAIL-SAFE UNLOCK (Rule 15)
-        // Ensure site is scrollable and visible after 4 seconds regardless of loader state
-        setTimeout(() => {
-            document.body.classList.remove('loader-active');
-            document.body.classList.add('scroll-unlocked');
-            console.log('🔓 Fail-safe: Scroll and Intro forced.');
+        async init() {
+            if (this.isInitialized) return;
+            this.isInitialized = true;
+
+            console.log('🏗️ Lifecycle: Initializing Masterpiece Engine...');
             
-            // Force Lenis to wake up
+            initPhysics();
+            AudioSoul.init();
+            initInteractions();
+            initScramble();
+
+            // Wait for everything
+            if (document.readyState === 'complete') {
+                this.reveal();
+            } else {
+                window.addEventListener('load', () => this.reveal());
+            }
+
+            // Proper Fix: Fail-safe is now a backup, not the primary method
+            setTimeout(() => {
+                if (!document.body.classList.contains('site-ready')) {
+                    console.warn('⚠️ Lifecycle: Reveal forced by fail-safe.');
+                    this.reveal();
+                }
+            }, 5000);
+        },
+
+        reveal() {
+            if (document.body.classList.contains('site-ready')) return;
+
+            console.log('✨ Lifecycle: Site Ready. Commencing Cinematic Reveal.');
+            
+            document.body.classList.remove('loader-active');
+            document.body.classList.add('site-ready');
+            
+            // Force Lenis to wake up and sync
             if (window.lenisInstance) {
                 window.lenisInstance.start();
                 window.lenisInstance.resize();
-                console.log('✨ Lenis forced start (Local Fix)');
             }
-            
-            // Trigger Titan Slam if it hasn't fired
-            const book = document.getElementById('hero-book');
-            if (book && !book.classList.contains('titan-drop')) {
-                book.classList.add('titan-drop');
-            }
-        }, 4000);
 
-        console.log('🚀 MASTERPIECE SOUL ACTIVATED: All enhancements live.');
-    });
+            // Trigger the TITAN SLAM
+            this.triggerTitanSlam();
+        },
+
+        triggerTitanSlam() {
+            const book = document.getElementById('hero-book');
+            if (book) {
+                // Ensure small delay for opacity transition to finish
+                setTimeout(() => {
+                    book.classList.add('titan-drop');
+                    console.log('🔨 Lifecycle: Titan Slam executed.');
+                    
+                    // Subtle haptic feedback feel via screen shake (optional effect)
+                    document.body.classList.add('slam-impact');
+                    setTimeout(() => document.body.classList.remove('slam-impact'), 500);
+                }, 300);
+            }
+        }
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // BOOTSTRAP
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Standardizing the entry point
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => SiteLifecycle.init());
+    } else {
+        SiteLifecycle.init();
+    }
+
 
 })();
