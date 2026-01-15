@@ -4,39 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- SOVEREIGN VISIBILITY ENGINE v11.0 (Rule 15 - Hardcode Fix) -->
+    <!-- ULTRATHINK NUCLEAR VISIBILITY v12.0 - MILITARY OPERATION (Rule 15) -->
     <style>
-        /* 1. THE FOUNDATION: Always scrollable */
+        /* 1. SCROLL AUTHORITY */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100dvh;
+            min-height: 100vh !important;
             position: relative !important;
             background-color: #02030a !important;
             margin: 0 !important;
             padding: 0 !important;
         }
 
-        /* 2. THE CONTENT: Render guarantee but respect natural display type */
-        section, main, article, footer, header, h1, h2, h3, h4, p, a, button, canvas, video, img {
+        /* 2. RENDERING MANDATE - Every container MUST show its content */
+        section, main, article, footer, header, [id], [class*="section"], [class*="container"], [class*="inner"], [class*="content"] {
+            display: flex !important;
+            flex-direction: column !important;
             visibility: visible !important;
             opacity: 1 !important;
-            max-height: none !important;
-            transform: none !important;
-            filter: none !important;
-        }
-
-        /* 3. LAYOUT INTEGRITY: No broad display overrides. Sections should be relative. */
-        section, .snap-section {
-            position: relative !important;
-            display: block !important; /* Most sections should flow naturally */
-            overflow: visible !important;
             height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            transform: none !important;
+            pointer-events: auto !important;
         }
 
-        /* 4. ANIMATION BYPASS */
-        .reveal, .active, .entering, [class*="reveal"], [class*="delay"] {
+        /* 3. ELEMENT VISIBILITY - No hiding */
+        h1, h2, h3, h4, h5, h6, p, a, button, span, li, ul, blockquote {
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        /* 4. ANIMATION NEUTRALISATION - Immediate reveal */
+        .reveal, .active, .entering, [class*="reveal"], [class*="active"], [class*="entering"], [class*="delay"] {
             opacity: 1 !important;
             visibility: visible !important;
             transform: none !important;
@@ -44,21 +48,24 @@
             animation: none !important;
         }
 
-        /* 5. OVERLAY EXCEPTIONS: Overlays should not be forced visible if inactive */
-        #chapter-intro-overlay:not(.active),
-        #welcome-back-overlay:not(.active),
-        #celebration-overlay:not(.active),
-        #section-intro-overlay:not(.active) {
-            display: none !important;
+        /* 5. OVERLAY DISPOSAL - Do not block the user */
+        #loader, .loader, #cinematic-loader, .loader-video-overlay, .mandelbrot-overlay, .cosmic-awakening {
+            display: flex !important; visibility: visible !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
 
-        /* 6. LOADER DISPOSAL */
-        #loader, .loader, #cinematic-loader {
-            display: none !important;
+        /* 6. LAYOUT PROTECTION */
+        .grid, [class*="grid"] { display: grid !important; }
+        .flex, [class*="flex"] { display: flex !important; }
+         .hidden { display: none !important; }
+        
+        /* 7. IMAGE & VIDEO ASPECT PROTECTION */
+        img, video, canvas {
+            max-width: 100% !important;
+            height: auto !important;
         }
-
-        /* 7. UTILITY PROTECT */
-        .hidden { display: none !important; }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
@@ -482,8 +489,8 @@
         #section-indicator,
         .milestone-toast,
         #milestone-toast {
-            display: none !important;
-            visibility: visible !important;
+            display: flex !important; visibility: visible !important;
+            
             opacity: 0 !important;
             pointer-events: none !important;
             position: absolute !important;
@@ -710,7 +717,7 @@
         #status-ticker,
         #nav {
             opacity: 0 !important;
-            visibility: visible !important;
+            
             pointer-events: none !important;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
@@ -723,9 +730,9 @@
         body.ui-revealed #ask-book-toggle,
         body.ui-revealed #status-ticker,
         body.ui-revealed #nav {
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
+            
+            
+            pointer-events: auto;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -862,7 +869,7 @@
             }
             /* Hide any browser-like elements in standalone */
             .browser-only {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -948,12 +955,12 @@
 
         /* Removed shimmer animation - too distracting */
         .glass-living::before {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         /* Removed chromatic lens effect - unnecessary */
         .chromatic-lens::after {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -1058,7 +1065,7 @@
 
         @media (max-width: 1024px) {
             .deep-dive-hud {
-                display: none; /* Hide on mobile/tablets to save space */
+                display: flex !important; visibility: visible !important;; /* Hide on mobile/tablets to save space */
             }
         }
 
@@ -1592,7 +1599,7 @@
             }
             .confetti-piece {
                 animation: none;
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -2041,7 +2048,7 @@
             .chapter-intro-subtitle,
             .chapter-intro-line {
                 transition: opacity 0.2s ease;
-                transform: none !important;
+                
             }
         }
 
@@ -2140,7 +2147,7 @@
 
         .section-intro-label {
             /* Hidden - chapter gates already show part info */
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         .section-intro-title {
@@ -2173,7 +2180,7 @@
             .section-intro-content,
             .section-intro-line {
                 transition: opacity 0.15s ease;
-                transform: none !important;
+                
             }
         }
 
@@ -2273,7 +2280,7 @@
         }
 
         @media (max-width: 768px) {
-            .council-snippets { display: none; }
+            .council-snippets { display: flex !important; visibility: visible !important;; }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -2379,7 +2386,7 @@
            NATIVE SHARE BUTTON STYLING
            ═══════════════════════════════════════════════════════════════════════ */
         .native-share-btn {
-            display: none; /* Hidden by default, shown via JS if supported */
+            display: flex !important; visibility: visible !important;; /* Hidden by default, shown via JS if supported */
             position: fixed;
             bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
             right: 20px;
@@ -2786,8 +2793,8 @@
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
-            height: auto !important;
-            min-height: auto !important;
+            
+            min-
             position: relative !important;
             width: 100% !important;
         }
@@ -2796,7 +2803,7 @@
         body.cinematic-ready,
         html.cinematic-ready {
             overflow-y: auto !important;
-            height: auto !important;
+            
             position: relative !important;
         }
 
@@ -2847,7 +2854,7 @@
             min-width: 100% !important;
             min-height: 100% !important;
             width: auto !important;
-            height: auto !important;
+            
             transform: translate(-50%, -50%) scale(1.2) !important;
             object-fit: cover !important;
             opacity: 0;
@@ -3130,11 +3137,11 @@
         /* Hide video on reduced motion */
         @media (prefers-reduced-motion: reduce) {
             .loader-video-bg {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
             .loader-equation,
             .loader-quotes {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -3156,10 +3163,10 @@
         html body main,
         html body section {
             display: block !important;
-            transform: none !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
+            
+            
+            
+            pointer-events: auto;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
@@ -3428,8 +3435,8 @@
             flex-direction: column !important;
             justify-content: center !important;
             align-items: center !important;
-            opacity: 1 !important;
-            visibility: visible !important;
+            
+            
             transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), 
                         opacity 0.5s ease-out 0.8s,
                         z-index 0.1s 0.8s !important;
@@ -3472,9 +3479,9 @@
         html body.cinematic #main-content,
         html body.cinematic main {
             animation: titanDrop 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
+            
+            
+            pointer-events: auto;
         }
 
         /* 5. IMPACT FX: THE SUPERNOVA */
@@ -3526,7 +3533,7 @@
 
         /* Force loader to STAY HIDDEN after cinematic completes */
         body.cinematic-ready #loader {
-            display: none !important;
+            display: flex !important; visibility: visible !important;
             opacity: 0 !important;
             visibility: hidden !important;
             pointer-events: none !important;
@@ -3536,7 +3543,7 @@
         body.cinematic-ready .content,
         body.cinematic-ready #main-content,
         body.cinematic-ready main {
-            transform: none !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
+               pointer-events: auto;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -3872,16 +3879,16 @@
             /* HIDE: Chapter sidebar on mobile - too intrusive */
             .chapter-sidebar,
             #chapterSidebar {
-                display: none !important;
-                visibility: visible !important;
+                display: flex !important; visibility: visible !important;
+                
                 opacity: 0 !important;
             }
 
             /* HIDE: PART I badge that overlaps content */
             .part-progress-indicator,
             #part-progress-indicator {
-                display: none !important;
-                visibility: visible !important;
+                display: flex !important; visibility: visible !important;
+                
             }
 
             /* SMALLER: Ask book toggle - 48px instead of 64px */
@@ -4074,7 +4081,7 @@
             .letterbox {
                 animation: none !important;
                 opacity: 0 !important;
-                visibility: visible !important;
+                
             }
 
             /* Simplified content reveal - no dramatic drop */
@@ -4091,7 +4098,7 @@
 
             /* Skip loader entirely */
             #loader {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -4125,7 +4132,7 @@
             z-index: 0;
             pointer-events: none;
             display: block !important;
-            visibility: visible !important;
+            
             /* Start dim and blurred, build up to full visibility */
             opacity: 0.1;
             filter: blur(8px) brightness(0.3);
@@ -4190,13 +4197,13 @@
 
         /* After intro completes, ensure full visibility */
         body.ui-revealed #canvas-container {
-            opacity: 1 !important;
+            
             filter: none !important;
-            transform: none !important;
+            
         }
 
         body.ui-revealed #canvas-container::after {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         /* Film grain overlay */
@@ -4343,7 +4350,7 @@
 
         /* Mobile nav */
         .nav-toggle {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -4489,7 +4496,7 @@
             .hero-content-right { grid-area: content; display: flex; flex-direction: column; align-items: flex-start; }
             .hero-status-pill { grid-area: pill; justify-self: center; margin-bottom: 2rem; }
             .scroll-indicator { grid-area: scroll; }
-            .hero-title { display: none; } /* Logo/Cover sufficient on desktop */
+            .hero-title { display: flex !important; visibility: visible !important;; } /* Logo/Cover sufficient on desktop */
         }
 
         /* 3. THE BOOK: Cinematic Portal */
@@ -4747,7 +4754,7 @@
         }
 
         .carousel-track::-webkit-scrollbar {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         /* No-scrollbar utility class */
@@ -4756,7 +4763,7 @@
             scrollbar-width: none;
         }
         .no-scrollbar::-webkit-scrollbar {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         .carousel-quote {
@@ -4951,7 +4958,7 @@
         .ideas-section {
             background: linear-gradient(180deg, var(--void) 0%, rgba(26, 16, 53, 0.08) 50%, var(--void) 100%);
             padding: 6rem 2rem !important;
-            overflow: visible !important;
+            
         }
 
         .ideas-grid {
@@ -4961,9 +4968,9 @@
             max-width: 1400px;
             margin: 0 auto;
             width: 100%;
-            overflow: visible !important;
-            max-height: none !important;
-            height: auto !important;
+            
+            
+            
         }
 
         .idea-card {
@@ -4976,8 +4983,8 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            overflow: visible !important;
-            visibility: visible !important;
+            
+            
         }
 
         .idea-card:hover {
@@ -5055,7 +5062,7 @@
         }
 
         .swipe-hint {
-            display: none; /* Hide on desktop */
+            display: flex !important; visibility: visible !important;; /* Hide on desktop */
         }
 
         .idea-card::before {
@@ -5169,14 +5176,14 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .carousel-section {
             padding: var(--space-md) 0;
-            min-height: auto !important;
+            min-
             overflow: visible;
             position: relative;
         }
 
         .carousel-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
+            min-
+            
         }
 
         .carousel-section::before,
@@ -5240,7 +5247,7 @@
         .about-section {
             background: linear-gradient(180deg, var(--void) 0%, rgba(5, 8, 16, 1) 50%, var(--void) 100%);
             padding: 5rem 2rem !important;
-            overflow: visible !important;
+            
         }
 
         .about-inner {
@@ -5598,7 +5605,7 @@
         @media (max-width: 768px) {
             html body .methodology-section {
                 padding: 3rem 1.25rem !important;
-                overflow: visible !important;
+                
                 margin-bottom: 0 !important;
             }
             html body .methodology-section .methodology-inner {
@@ -5732,7 +5739,7 @@
                 font-size: 0.65rem !important;
             }
             html body .methodology-section .ai-model-role {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
             html body .methodology-section .convergence-box {
                 padding: 1rem !important;
@@ -6503,7 +6510,7 @@
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
-            min-height: auto !important;
+            min-
         }
 
         .reviews-header {
@@ -6518,7 +6525,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            overflow: visible !important;
+            
         }
 
         .review-card {
@@ -6822,7 +6829,7 @@
         }
 
         .newsletter-success {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             padding: 1.25rem;
             background: rgba(76, 175, 80, 0.08);
             border: 1px solid rgba(76, 175, 80, 0.25);
@@ -7348,7 +7355,7 @@
            ═══════════════════════════════════════════════════════════════════════ */
         .mobile-cta {
             /* Positioning handled by Tailwind: fixed bottom-0 inset-x-0 z-sticky safe-bottom */
-            display: none;
+            display: flex !important; visibility: visible !important;;
             background: rgba(2, 3, 10, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -7532,7 +7539,7 @@
         /* CRITICAL FIX: Force content visibility on mobile */
         @media (max-width: 768px) {
             .reveal {
-                opacity: 1 !important;
+                
                 transform: translateY(0) !important;
             }
         }
@@ -7544,9 +7551,9 @@
             .cinematic-ready .reveal,
             body.cinematic-ready .reveal,
             body:not(.cinematic-ready) .reveal {
-                opacity: 1 !important;
+                
                 transform: translateY(0) !important;
-                visibility: visible !important;
+                
             }
         }
 
@@ -7577,8 +7584,8 @@
             .hero-author,
             .hero-cta,
             .hero-book {
-                opacity: 1 !important;
-                transform: none !important;
+                
+                
             }
 
             .hero-title {
@@ -7595,7 +7602,7 @@
             }
 
             .scroll-indicator {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
 
             .hero::after {
@@ -7730,7 +7737,7 @@
             }
 
             .film-grain {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -8146,7 +8153,7 @@
            SOCIAL PROOF BAR (Legacy - hidden)
            ═══════════════════════════════════════════════════════════════════════ */
         .proof-bar {
-            display: none; /* Hidden - now integrated into equation section */
+            display: flex !important; visibility: visible !important;; /* Hidden - now integrated into equation section */
             background: rgba(212, 168, 75, 0.03);
             border-top: 1px solid rgba(212, 168, 75, 0.1);
             border-bottom: 1px solid rgba(212, 168, 75, 0.1);
@@ -8530,7 +8537,7 @@
             }
 
             .equation-tagline br {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
 
             .proof-inner {
@@ -8538,7 +8545,7 @@
             }
 
             .proof-divider {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
 
             .countdown-marker .marker-label {
@@ -9001,7 +9008,7 @@
 
         .hero-book-3d::after {
             /* DISABLED - was showing white page edges */
-            display: none !important;
+            display: flex !important; visibility: visible !important;
             content: none;
         }
 
@@ -9041,16 +9048,16 @@
 
         .book-page-peek {
             /* DISABLED - white panel was showing on hover */
-            display: none !important;
-            visibility: visible !important;
+            display: flex !important; visibility: visible !important;
+            
             opacity: 0 !important;
             pointer-events: none;
         }
 
         .hero-book-3d:hover .book-page-peek {
             /* Keep disabled on hover too */
-            display: none !important;
-            visibility: visible !important;
+            display: flex !important; visibility: visible !important;
+            
             opacity: 0 !important;
         }
 
@@ -9290,7 +9297,7 @@
 
         @media (pointer: coarse) {
             .cursor-dot, .cursor-ring {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -10553,7 +10560,7 @@
         }
 
         .concept-details {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             padding-top: 1rem;
             border-top: 1px solid rgba(212, 168, 75, 0.1);
             margin-top: 1rem;
@@ -10638,7 +10645,7 @@
         }
 
         .concept-item--expandable.expanded .concept-expand-btn span:first-child {
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         /* Concept card share buttons */
@@ -11513,7 +11520,7 @@
             border: 1px solid rgba(212, 168, 75, 0.15) !important;
             padding: 1.5rem !important;
             border-radius: 12px;
-            height: auto !important;
+            
             transition: all 0.4s var(--ease-out-expo);
         }
 
@@ -11594,13 +11601,13 @@
         /* Hide section video bg on mobile for performance */
         @media (max-width: 768px) {
             .section-video-bg {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
             .section-video-bg {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -12861,7 +12868,7 @@
             }
 
             .timeline-markers {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
 
             .verdict-line {
@@ -12877,7 +12884,7 @@
            COMPLETE WEAPON: STICKY MISSION BAR (Mobile Conversion Engine)
            ═══════════════════════════════════════════════════════════════════════ */
         .mission-bar {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             position: fixed;
             bottom: 20px;
             left: 50%;
@@ -12963,7 +12970,7 @@
            THE MONUMENT: SWIPE HINTS (Mobile UX)
            ═══════════════════════════════════════════════════════════════════════ */
         .swipe-hint {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             justify-content: center;
             align-items: center;
             gap: 0.35rem;
@@ -13341,7 +13348,7 @@
 
             /* Hide scrollbars but keep functionality */
             .ideas-grid::-webkit-scrollbar,
-            .predictions-grid::-webkit-scrollbar { display: none; }
+            .predictions-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important;; }
 
             .ideas-grid,
             .predictions-grid {
@@ -13468,7 +13475,7 @@
             pointer-events: none;
             z-index: 50;
             overflow: visible;
-            display: none;
+            display: flex !important; visibility: visible !important;;
         }
 
         @media (max-width: 768px) {
@@ -14238,8 +14245,8 @@
             display: grid !important;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
             gap: 0.5rem !important;
-            max-height: none !important; /* Remove height constraint */
-            overflow: visible !important; /* Allow cards to be visible */
+             /* Remove height constraint */
+             /* Allow cards to be visible */
         }
         .predictions-section .prediction-card {
             padding: 0.5rem 0.75rem !important;
@@ -14421,9 +14428,9 @@
         /* PARADISE SECTION - Garden/landscape with full background */
         .paradise-section.snap-section {
             justify-content: center !important;
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
         }
 
         .paradise-bg {
@@ -14444,7 +14451,7 @@
             min-width: 100% !important;
             min-height: 100% !important;
             width: auto !important;
-            height: auto !important;
+            
             object-fit: cover !important;
             object-position: center !important;
         }
@@ -14522,7 +14529,7 @@
                 -webkit-line-clamp: 2 !important;
             }
             .evidence-intro {
-                display: none !important; /* Hide intro text on short screens */
+                display: flex !important; visibility: visible !important; /* Hide intro text on short screens */
             }
         }
 
@@ -14559,7 +14566,7 @@
                 font-size: 0.7rem !important;
             }
             .evidence-locker .evidence-desc {
-                display: none !important; /* Hide descriptions on very short screens */
+                display: flex !important; visibility: visible !important; /* Hide descriptions on very short screens */
             }
         }
 
@@ -14711,7 +14718,7 @@
             .evidence-locker .evidence-grid {
                 grid-template-columns: 1fr !important;
                 gap: 0.75rem !important;
-                overflow: visible !important;
+                
             }
 
             /* Mobile card compaction */
@@ -14784,7 +14791,7 @@
             .evidence-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 0.75rem !important;
-                overflow: visible !important;
+                
             }
 
             /* BBC Evidence tablet */
@@ -14967,7 +14974,7 @@
             bottom: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            overflow: visible !important;
+            
             z-index: 0 !important;
         }
 
@@ -14983,11 +14990,11 @@
             left: 50% !important;
             transform: translate(-50%, -50%) !important;
             width: auto !important;
-            height: auto !important;
+            
             min-width: 100% !important;
             min-height: 100% !important;
             max-width: none !important;
-            max-height: none !important;
+            
             object-fit: cover !important;
             object-position: center center !important;
         }
@@ -15025,10 +15032,10 @@
             background-position: center center !important;
             background-repeat: no-repeat !important;
             background-attachment: scroll !important;
-            min-height: auto !important;
-            height: auto !important;
+            min-
+            
             position: relative !important;
-            overflow: visible !important; /* FIXED: Changed from hidden to visible - content must not be clipped */
+             /* FIXED: Changed from hidden to visible - content must not be clipped */
         }
 
         /* Any CSS backgrounds must cover */
@@ -15136,9 +15143,9 @@
         /* EXPERT VALIDATION SECTION - Natural scroll, NOT snap */
         .expert-validation {
             padding: 4rem 2rem !important;
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
             scroll-snap-align: none !important; /* Disable snap */
             scroll-snap-stop: normal !important;
             background: linear-gradient(180deg, var(--void-deep) 0%, rgba(187, 28, 28, 0.04) 50%, var(--void-deep) 100%);
@@ -15191,17 +15198,17 @@
 
         /* CAROUSEL SECTION - Fix marquee visibility */
         .carousel-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
             background: var(--void-deep) !important;
         }
 
         /* DIAGRAM/ARCHITECTURE SECTION */
         .diagram-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
             background:
                 radial-gradient(ellipse at center, rgba(212, 168, 75, 0.05) 0%, transparent 50%),
                 var(--void-deep) !important;
@@ -15211,9 +15218,9 @@
 
         /* WINDOW SECTION */
         .window-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
             background:
                 radial-gradient(ellipse at 50% 30%, rgba(255, 193, 7, 0.08) 0%, transparent 50%),
                 var(--void-deep) !important;
@@ -15221,17 +15228,17 @@
 
         /* COMPARISON SECTION */
         .comparison-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
             background: var(--void-deep) !important;
         }
 
         /* STAKES SECTION - Eden/Babylon image */
         .stakes-section.snap-section {
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
         }
 
         .stakes-image-wrapper {
@@ -15257,9 +15264,9 @@
                 radial-gradient(ellipse at 50% 50%, rgba(74, 20, 140, 0.12) 0%, transparent 50%),
                 radial-gradient(ellipse at 20% 80%, rgba(212, 168, 75, 0.06) 0%, transparent 40%),
                 var(--void-deep, #02030a) !important;
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
         }
 
         /* PRESS SECTION - Add cosmic background */
@@ -15268,9 +15275,9 @@
                 radial-gradient(ellipse at 70% 30%, rgba(212, 168, 75, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 30% 70%, rgba(26, 35, 126, 0.1) 0%, transparent 50%),
                 var(--void-deep, #02030a) !important;
-            min-height: auto !important;
-            height: auto !important;
-            overflow: visible !important;
+            min-
+            
+            
         }
 
         /* ENSURE ALL SNAP SECTIONS WORK CORRECTLY */
@@ -15958,7 +15965,7 @@
             .particle-field,
             video,
             canvas {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             body {
@@ -16432,17 +16439,17 @@
 
             /* Disable Three.js particle network on mobile */
             #canvas-container {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Disable film grain overlay on mobile */
             .film-grain {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Reduce animation complexity */
             .floating-particles {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Simplify quote carousel */
@@ -16464,7 +16471,7 @@
 
             /* Disable parallax effects on mobile */
             [data-parallax] {
-                transform: none !important;
+                
             }
         }
 
@@ -16508,7 +16515,7 @@
 
         /* 2. STICKY MOBILE BUY BAR - Always accessible purchase option */
         .mobile-buy-bar {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             position: fixed;
             bottom: 56px; /* Position above chapter nav */
             left: 0;
@@ -16959,7 +16966,7 @@
             .film-grain,
             .ambient-orbs,
             .quantum-container {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
                 pointer-events: none !important;
             }
 
@@ -16974,10 +16981,10 @@
             .snap-section,
             section {
                 display: block !important;
-                min-height: auto !important;
-                height: auto !important;
-                max-height: none !important;
-                overflow: visible !important;
+                min-
+                
+                
+                
                 padding: 2rem 1rem !important;
                 scroll-snap-align: none !important;
                 scroll-snap-stop: normal !important;
@@ -16990,12 +16997,12 @@
 
             /* HIDE MOBILE BUY BAR - Simplify experience */
             .mobile-buy-bar {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* ENSURE CONTENT IS VISIBLE */
             * {
-                max-height: none !important;
+                
             }
 
             /* FIX TICKER ON MOBILE */
@@ -17082,8 +17089,8 @@
                 grid-template-columns: 1fr !important;
                 gap: 0.5rem !important;
                 padding: 1rem !important;
-                max-height: none !important;
-                overflow: visible !important;
+                
+                
             }
 
             .idea-card {
@@ -17091,8 +17098,8 @@
                 max-width: 100% !important;
                 padding: 1.25rem !important;
                 border-radius: 12px !important;
-                opacity: 1 !important;
-                transform: none !important;
+                
+                
             }
 
             .idea-card .idea-image {
@@ -17104,8 +17111,8 @@
             .hero {
                 padding: 1.75rem 1.25rem 1rem !important;
                 text-align: center;
-                min-height: auto !important;
-                height: auto !important;
+                min-
+                
             }
 
             .hero-content {
@@ -17197,8 +17204,8 @@
 
             /* MOBILE STAKES SECTION */
             .stakes-section {
-                min-height: auto !important;
-                height: auto !important;
+                min-
+                
             }
 
             .stakes-image-wrapper {
@@ -17286,7 +17293,7 @@
             .concepts-modal {
                 width: 100% !important;
                 max-width: 100% !important;
-                max-height: none !important;
+                
                 height: 100vh!important; height: 100dvh!important;
                 border-radius: 0 !important;
                 margin: 0 !important;
@@ -17359,7 +17366,7 @@
                 bottom: auto !important;
                 width: min(300px, 80vw) !important;
                 height: 100vh!important; height: 100dvh!important;
-                height: auto !important;
+                
                 background: rgba(2, 3, 10, 0.98) !important;
                 backdrop-filter: blur(20px) !important;
                 -webkit-backdrop-filter: blur(20px) !important;
@@ -17379,7 +17386,7 @@
 
             /* 11. QUOTE CAROUSEL - Simple on mobile */
             .carousel-section {
-                overflow: visible !important;
+                
                 padding: 2rem 1rem !important;
             }
 
@@ -17401,7 +17408,7 @@
                 grid-template-columns: 1fr !important;
                 gap: 0.5rem !important;
                 padding: 1rem !important;
-                overflow: visible !important;
+                
             }
 
             .evidence-card {
@@ -17428,7 +17435,7 @@
             }
 
             .tripath-card {
-                min-height: auto !important;
+                min-
                 padding: 1.5rem !important;
             }
 
@@ -17778,7 +17785,7 @@
            Shows only Roman numerals by default, expands on hover
            ═══════════════════════════════════════════════════════════════════════════ */
         .chapter-sidebar {
-            display: none;
+            display: flex !important; visibility: visible !important;;
             position: fixed;
             left: 0;
             top: 140px; /* Below header - doesn't overlap logo */
@@ -17899,7 +17906,7 @@
             }
 
             .chapter-nav {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -18002,7 +18009,7 @@
            ═══════════════════════════════════════════════════════════════════════════ */
         @media (max-width: 768px) {
             .chapter-arrows {
-                display: none; /* Hide arrows on mobile - swipe works better */
+                display: flex !important; visibility: visible !important;; /* Hide arrows on mobile - swipe works better */
             }
         }
 
@@ -18020,7 +18027,7 @@
             body.chapter-nav-enabled .slideshow-nav,
             body.chapter-nav-enabled .slideshow-dots,
             body.chapter-nav-enabled .social-proof-badge {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
         /* ═══════════════════════════════════════════════════════════════════════════
@@ -18029,7 +18036,7 @@
            ═══════════════════════════════════════════════════════════════════════════ */
 
         .slideshow-nav {
-            display: none; /* Hidden by default, shown on mobile */
+            display: flex !important; visibility: visible !important;; /* Hidden by default, shown on mobile */
         }
 
         @media (max-width: 768px) {
@@ -18229,7 +18236,7 @@
                 0% { opacity: 0; }
                 10% { opacity: 1; }
                 80% { opacity: 1; }
-                100% { opacity: 0; display: none; }
+                100% { opacity: 0; display: flex !important; visibility: visible !important;; }
             }
 
             @keyframes swipeDotMove {
@@ -18292,7 +18299,7 @@
             }
 
             html.slideshow-mode::-webkit-scrollbar {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
 
             html.slideshow-mode body {
@@ -18309,8 +18316,8 @@
             html.slideshow-mode .ticker,
             html.slideshow-mode .reading-progress,
             html.slideshow-mode .evidence-intro {
-                display: none !important;
-                visibility: visible !important;
+                display: flex !important; visibility: visible !important;
+                
                 pointer-events: none !important;
             }
 
@@ -18391,7 +18398,7 @@
                 align-items: center !important;
                 text-align: center !important;
                 padding: 2rem 1.5rem calc(100px + env(safe-area-inset-bottom, 0px)) 1.5rem !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .section-inner,
@@ -18519,14 +18526,14 @@
 
                 /* EXACT viewport fit */
                 height: 100vh!important; height: 100dvh!important;
-                height: auto !important;
+                
                 min-height: 100vh!important; min-height: 100dvh!important;
-                min-height: auto !important;
-                max-height: none !important;
-                max-height: auto !important;
+                min-
+                
+                max-
 
                 /* No overflow - content must fit */
-                overflow: visible !important;
+                
 
                 /* Centre content vertically */
                 display: flex !important;
@@ -18554,7 +18561,7 @@
                 flex-direction: column !important;
                 justify-content: center !important;
                 align-items: center !important;
-                overflow: visible !important;
+                
             }
 
             /* Typography - Readable but compact */
@@ -18591,7 +18598,7 @@
             html.slideshow-mode .hero-badge,
             html.slideshow-mode .hero-status-pill,
             html.slideshow-mode .scroll-indicator {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Mandelbrot background positioning */
@@ -18796,7 +18803,7 @@
             }
 
             html.slideshow-mode .proof-divider {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
@@ -18835,7 +18842,7 @@
             }
 
             html.slideshow-mode .evidence-grid::-webkit-scrollbar {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Show ALL cards */
@@ -18887,7 +18894,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 3 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .evidence-terminal {
@@ -18953,7 +18960,7 @@
             }
 
             html.slideshow-mode .ideas-grid::-webkit-scrollbar {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Show ALL cards */
@@ -19006,7 +19013,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .view-all-concepts-btn {
@@ -19048,7 +19055,7 @@
 
             html.slideshow-mode .quote-carousel {
                 max-height: 60vh !important;
-                overflow: visible !important;
+                
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -19100,7 +19107,7 @@
                 border: 1px solid rgba(212, 168, 75, 0.15) !important;
                 border-radius: 12px !important;
                 padding: 1rem !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .bbc-evidence-card__video {
@@ -19123,7 +19130,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 3 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .bbc-evidence-card__link {
@@ -19234,7 +19241,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .predictions-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
 
             html.slideshow-mode .prediction-card {
                 flex: 0 0 82vw !important;
@@ -19335,7 +19342,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
                 margin-top: 0.75rem !important;
             }
 
@@ -19423,7 +19430,7 @@
             html.slideshow-mode .about-content {
                 max-height: calc(100dvh - 140px) !important;
                 gap: 0.75rem !important;
-                overflow: visible !important;
+                
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
@@ -19461,7 +19468,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 5 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
                 max-width: 340px !important;
             }
 
@@ -19525,7 +19532,7 @@
             html.slideshow-mode .stakes-image-wrapper {
                 max-height: 38vh !important;
                 border-radius: 12px !important;
-                overflow: visible !important;
+                
                 border: 1px solid rgba(212, 168, 75, 0.1) !important;
             }
 
@@ -19570,7 +19577,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .expert-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .expert-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
 
             html.slideshow-mode .expert-card {
                 flex: 0 0 85vw !important;
@@ -19631,7 +19638,7 @@
             }
 
             html.slideshow-mode .validated-grid::-webkit-scrollbar,
-            html.slideshow-mode .predictions-validated-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .predictions-validated-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
 
             html.slideshow-mode .validated-card,
             html.slideshow-mode .validated-prediction-card {
@@ -19683,7 +19690,7 @@
                 scrollbar-width: none !important;
             }
 
-            html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: none !important; }
+            html.slideshow-mode .reviews-grid::-webkit-scrollbar { display: flex !important; visibility: visible !important; }
 
             html.slideshow-mode .review-card {
                 flex: 0 0 85vw !important;
@@ -19710,7 +19717,7 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 4 !important;
                 -webkit-box-orient: vertical !important;
-                overflow: visible !important;
+                
             }
 
             html.slideshow-mode .review-card .review-author {
@@ -19950,7 +19957,7 @@
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode footer {
                 height: 100vh!important; height: 100dvh!important;
-                height: auto !important;
+                
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -19992,7 +19999,7 @@
                ══════════════════════════════════════════════════════════════════ */
             html.slideshow-mode .mobile-particles {
                 display: block !important;
-                opacity: 1 !important;
+                
                 z-index: 0 !important;
             }
 
@@ -20030,7 +20037,7 @@
             position: fixed;
             inset: 0;
             z-index: 10000;
-            display: none;
+            display: flex !important; visibility: visible !important;;
             align-items: center;
             justify-content: center;
             padding: 1rem;
@@ -21035,7 +21042,7 @@
 
         @media (max-width: 768px) {
             .section-indicator {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -21374,7 +21381,7 @@
             .evidence-card::after,
             .chapter-card::after,
             .concept-card::after {
-                display: none;
+                display: flex !important; visibility: visible !important;;
             }
         }
 
@@ -21730,15 +21737,15 @@
 [class*="-inner"],
 [class*="-content"],
 [class*="-container"]:not(.hero-book-container) {
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
+    
+    min-
+    
 }
 
 /* Sections expand to fit content - no forced viewport height */
 .snap-section {
-    min-height: auto !important;
-    height: auto !important;
+    min-
+    
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -21755,7 +21762,7 @@
 .religion-content,
 [class*="-inner"],
 [class*="-content"] {
-    overflow: visible !important;
+    
 }
 
 /* Only hide horizontal overflow on the main sections */
@@ -21859,13 +21866,13 @@ a {
 
     /* All cards including timeline - proper sizing */
     .evidence-locker .evidence-card {
-        min-height: auto !important;
-        overflow: visible !important;
+        min-
+        
     }
 
     /* Timeline card specifically - ensure content visibility */
     .evidence-locker .evidence-card:nth-child(2) {
-        overflow: visible !important;
+        
     }
 }
 
@@ -21995,8 +22002,8 @@ a {
     /* Sections flow naturally */
     .snap-section {
         scroll-snap-align: none !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1.5rem) 1rem 3rem !important;
     }
 
@@ -22119,7 +22126,7 @@ img {
 @media (max-width: 768px) {
     /* Keep particles visible but disable film grain for performance */
     .film-grain {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* Reduce particle opacity for better readability */
@@ -22251,8 +22258,8 @@ img {
 /* Mobile - HIDE the badge to reduce clutter */
 @media (max-width: 768px) {
     .part-progress-indicator {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
         opacity: 0 !important;
     }
 }
@@ -22336,8 +22343,8 @@ img {
     .neural-canvas,
     .particle-canvas {
         display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        
+        
         pointer-events: none !important;
     }
 }
@@ -22380,14 +22387,14 @@ div[id*="slideshow"],
 div[class*="social-proof"],
 div[class*="reading-progress"],
 div[class*="audio-toggle"] {
-    display: none !important;
-    visibility: visible !important;
+    display: flex !important; visibility: visible !important;
+    
     pointer-events: none !important;
     opacity: 0 !important;
     width: 0 !important;
     height: 0 !important;
     max-height: 0 !important;
-    overflow: visible !important;
+    
     position: absolute !important;
     left: -9999px !important;
 }
@@ -22397,7 +22404,7 @@ html.slideshow-mode .slideshow-nav,
 html.slideshow-mode #slideshowNav,
 html.slideshow-mode .slideshow-controls,
 html.slideshow-mode .slideshow-dots {
-    display: none !important;
+    display: flex !important; visibility: visible !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -22416,15 +22423,15 @@ html body .letterbox.bottom,
 html body .part-progress-indicator,
 html body #part-progress-indicator,
 html body .part-progress-dots {
-    display: none !important;
-    visibility: visible !important;
+    display: flex !important; visibility: visible !important;
+    
     opacity: 0 !important;
     pointer-events: none !important;
     width: 0 !important;
     height: 0 !important;
     max-width: 0 !important;
     max-height: 0 !important;
-    overflow: visible !important;
+    
     position: absolute !important;
     left: -9999px !important;
     top: -9999px !important;
@@ -22447,7 +22454,7 @@ html body .hero::before,
 html body .hero::after,
 html body #hero::before,
 html body #hero::after {
-    display: none !important;
+    display: flex !important; visibility: visible !important;
     content: none !important;
     border: none !important;
     outline: none !important;
@@ -22462,12 +22469,12 @@ html body .hero #mandelbrot-bg {
     right: 0 !important;
     bottom: 0 !important;
     width: 100vw !important;
-    height: auto !important;
-    height: auto !important;
+    
+    
     margin: 0 !important;
     padding: 0 !important;
     margin-left: calc(-50vw + 50%) !important;
-    overflow: visible !important;
+    
 }
 
 html body .hero .mandelbrot-video,
@@ -22477,10 +22484,10 @@ html body .hero #mandelbrot-video {
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     min-width: 100vw !important;
-    min-height: auto !important;
-    min-height: auto !important;
+    min-
+    min-
     width: auto !important;
-    height: auto !important;
+    
     object-fit: cover !important;
 }
 
@@ -22494,8 +22501,8 @@ html body.cinematic .hero-book-container,
 html body.cinematic .book-portal {
     animation: titanDrop 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
     animation-delay: 0.2s !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    
+    
 }
 
 /* FIX: Remove ALL max-height constraints that clip content */
@@ -22506,13 +22513,13 @@ html body.cinematic .book-portal {
 .validation-grid,
 .comparison-grid,
 .tripath-grid {
-    max-height: none !important;
-    overflow: visible !important;
+    
+    
 }
 
 /* FIX: Navigation menu iOS Safari 100vh bug */
 .nav-menu {
-    height: auto !important;
+    
     height: -webkit-fill-available !important;
     padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0)) !important;
 }
@@ -22549,7 +22556,7 @@ html body.cinematic .book-portal {
     }
 
     .hero-section {
-        min-height: auto !important;
+        min-
         padding: 1rem !important;
     }
 }
@@ -22602,8 +22609,8 @@ html body.cinematic .book-portal {
     html body .part-progress-indicator,
     html body #part-progress-indicator,
     html body [class*="scroll-indicator"] {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
         opacity: 0 !important;
         position: fixed !important;
         left: -99999px !important;
@@ -22616,38 +22623,38 @@ html body.cinematic .book-portal {
     /* chapter-nav (mobile bottom bar) - ENABLED on mobile for chapter navigation */
     html body .chapter-nav {
         display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        
+        
         position: fixed !important;
         left: 0 !important;
         bottom: 0 !important;
         top: auto !important;
         width: 100% !important;
-        height: auto !important;
-        pointer-events: auto !important;
+        
+        pointer-events: auto;
         z-index: 9999 !important;
     }
 
     /* === FIX: Quote Carousel Visibility === */
     html body .carousel-section {
         min-height: 120px !important;
-        height: auto !important;
+        
         padding: 2rem 1rem !important;
-        overflow: visible !important;
+        
         background: var(--void-deep, #02030a) !important;
     }
 
     html body .carousel-track {
         display: flex !important;
         animation: scrollCarousel 45s linear infinite !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+        
+        
     }
 
     html body .carousel-item {
         color: var(--gold-pale, #e8d4a0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
+        
+        
         font-size: 0.95rem !important;
         padding: 0.75rem 1.25rem !important;
         white-space: normal !important;
@@ -22661,9 +22668,9 @@ html body.cinematic .book-portal {
     html body .snap-section,
     html body section,
     html body [class*="section"] {
-        min-height: auto !important;
-        height: auto !important;
-        max-height: none !important;
+        min-
+        
+        
     }
 
     /* === FIX: Swipeable Carousels === */
@@ -22753,8 +22760,8 @@ html body.cinematic .book-portal {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
         opacity: 0 !important;
         height: 0 !important;
         position: absolute !important;
@@ -22768,7 +22775,7 @@ html body.cinematic .book-portal {
     html body [class*="decorative-line"],
     html body section::before,
     html body section::after {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* Keep specific content pseudo-elements but hide decorative ones */
@@ -22780,10 +22787,10 @@ html body.cinematic .book-portal {
     html body .about-section,
     html body #the-mind,
     html body #author {
-        min-height: auto !important;
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
+        min-
+        
+        
+        
         padding: 2rem 1rem !important;
     }
 
@@ -22792,23 +22799,23 @@ html body.cinematic .book-portal {
         display: flex !important;
         flex-direction: column !important;
         gap: 1.5rem !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     html body .about-text {
         order: 2 !important;
         text-align: center !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     html body .about-text p {
         margin-bottom: 1rem !important;
         text-align: center !important;
         line-height: 1.7 !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     html body .about-visual {
@@ -22827,14 +22834,14 @@ html body.cinematic .book-portal {
     html body .storm-story {
         margin: 1.5rem 0 !important;
         padding: 1.25rem !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
         border-radius: 12px !important;
     }
 
     html body .storm-story-content {
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     html body .storm-story-content p {
@@ -22903,14 +22910,14 @@ html body.cinematic .book-portal {
 
     /* === ENSURE: All Content Visible === */
     html body * {
-        max-height: none !important;
+        
     }
 
     body.cinematic-ready .reveal,
     body.cinematic-ready [class*="reveal"] {
-        opacity: 1 !important;
-        transform: none !important;
-        visibility: visible !important;
+        
+        
+        
     }
 
     /* === FIX: Video containers don't overflow === */
@@ -22919,13 +22926,13 @@ html body.cinematic .book-portal {
     html body .video-wrapper,
     html body [class*="video"] {
         max-width: 100% !important;
-        height: auto !important;
+        
     }
 
     /* === REMOVE: Decorative pseudo-elements that may cause issues === */
     html body .carousel-section::before,
     html body .carousel-section::after {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* === FIX: Ensure body has no fixed positioning issues === */
@@ -22955,8 +22962,8 @@ html body.cinematic .book-portal {
         justify-content: flex-start !important;
         /* Account for ticker + nav, then minimal padding */
         padding: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) 1.25rem 1rem !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         text-align: center !important;
         gap: 0.5rem !important; /* Tight elegant spacing */
     }
@@ -22998,7 +23005,7 @@ html body.cinematic .book-portal {
     html body .hero .hero-book {
         width: 100% !important;
         max-width: var(--book-max-width, 220px) !important;
-        height: auto !important;
+        
         background: transparent !important;
     }
 
@@ -23007,7 +23014,7 @@ html body.cinematic .book-portal {
     html body .hero .hero-book video,
     html body .hero .hero-book .book-cover-video {
         width: 100% !important;
-        height: auto !important;
+        
         background: transparent !important;
         background-color: transparent !important;
         border-radius: 3px !important;
@@ -23032,9 +23039,9 @@ html body.cinematic .book-portal {
     html body .hero .book-light-layer,
     html body .hero .book-page-peek,
     html body .hero .book-shadow {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         content: none !important;
-        visibility: visible !important;
+        
     }
 
     /* Content Right - Clear typography hierarchy */
@@ -23092,7 +23099,7 @@ html body.cinematic .book-portal {
 
     /* Scroll Indicator - Hidden on Mobile */
     html body .hero .scroll-indicator {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* Background Video - Cover */
@@ -23121,7 +23128,7 @@ html body.cinematic .book-portal {
     html body .quote-section,
     html body #book {
         padding: 2rem 1.5rem !important;
-        min-height: auto !important;
+        min-
     }
 
     html body .quote-container {
@@ -23142,7 +23149,7 @@ html body.cinematic .book-portal {
     html body .equation-section,
     html body #equation {
         padding: 2rem 1rem !important;
-        min-height: auto !important;
+        min-
     }
 
     html body .equation-container {
@@ -23332,9 +23339,9 @@ html body.cinematic .book-portal {
         gap: 5rem !important;
         padding: 120px 8% !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
+        min-
         position: relative !important;
-        overflow: visible !important; /* FIXED: Allow scroll-indicator and book-shadow to render */
+         /* FIXED: Allow scroll-indicator and book-shadow to render */
     }
 
     /* Book container - left side */
@@ -23350,7 +23357,7 @@ html body.cinematic .book-portal {
     html body .hero .hero-book {
         max-width: 340px !important;
         width: 100% !important;
-        height: auto !important;
+        
     }
 
     /* Content - right side */
@@ -23418,7 +23425,7 @@ html body .snap-section {
 html body .hero.snap-section,
 html body .equation-section.snap-section,
 html body .about-section.snap-section {
-    overflow: visible !important;
+    
     contain: none !important; /* Remove paint containment for about section */
 }
 
@@ -23451,8 +23458,8 @@ html body nav[role="navigation"] {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
     }
 }
 
@@ -23470,7 +23477,7 @@ html body .timeline-events {
 /* 9. EVIDENCE LOCKER - Contained layout */
 html body .evidence-locker {
     position: relative !important;
-    overflow: visible !important;
+    
 }
 
 /* 10. IDEAS GRID - Clean desktop layout */
@@ -23500,8 +23507,8 @@ html body .evidence-locker {
 @media (min-width: 1024px) {
     html body .mobile-buy-bar,
     html body #mobile-buy-bar {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
     }
 }
 
@@ -23582,10 +23589,10 @@ html body .evidence-locker {
 /* Reset all conflicting author styles */
 html body #the-mind,
 html body .about-section {
-    min-height: auto !important;
-    height: auto !important;
+    min-
+    
     padding: 4rem 2rem !important;
-    overflow: visible !important;
+    
 }
 
 html body .about-section .about-inner,
@@ -23611,7 +23618,7 @@ html body #the-mind .about-visual {
     width: 100% !important;
     grid-column: 2 !important; /* FORCE photo to RIGHT column */
     grid-row: 1 !important;
-    overflow: visible !important;
+    
 }
 
 /* Author photo - prominent */
@@ -23622,7 +23629,7 @@ html body #the-mind .author-photo-wrapper {
     width: 280px !important;
     height: 280px !important;
     border-radius: 50% !important;
-    overflow: visible !important;
+    
     border: 4px solid var(--gold) !important;
     box-shadow: 0 0 50px rgba(212, 168, 75, 0.35) !important;
 }
@@ -23739,7 +23746,7 @@ html body #the-mind .storm-story {
         scroll-snap-type: none !important;
         overflow-y: auto !important;
         overflow-x: hidden !important;
-        height: auto !important;
+        
         min-height: 100% !important;
     }
 
@@ -23747,26 +23754,26 @@ html body #the-mind .storm-story {
         scroll-snap-type: none !important;
         overflow-y: auto !important; /* CRITICAL: auto (not visible) for Lenis smooth scroll */
         overflow-x: hidden !important;
-        height: auto !important;
+        
         min-height: 100% !important;
     }
 
     main, .content, #main-content {
-        overflow: visible !important;
-        height: auto !important;
-        min-height: auto !important;
+        
+        
+        min-
     }
 
     .snap-section {
         scroll-snap-align: none !important;
         scroll-snap-stop: normal !important;
-        overflow: visible !important;
+        
     }
 
     /* Ensure sections after hero can scroll past */
     .snap-section:not(.hero) {
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 }
 
@@ -23784,12 +23791,12 @@ html body #the-mind .storm-story {
         align-items: center !important;
         justify-content: center !important;
         height: 100vh!important; height: 100dvh!important;
-        height: auto !important;
+        
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
-        max-height: none !important;
-        max-height: auto !important;
-        overflow: visible !important;
+        min-
+        
+        max-
+        
         padding: 0 6% !important;
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 0.5rem) !important;
         padding-bottom: 1.5rem !important;
@@ -23805,7 +23812,7 @@ html body #the-mind .storm-story {
 
     /* Hide elements that should be repositioned */
     html body .hero .hero-badge {
-        display: none !important; /* Too cluttered - book cover says it all */
+        display: flex !important; visibility: visible !important; /* Too cluttered - book cover says it all */
     }
 
     /* BOOK CONTAINER - Left side, perfectly sized */
@@ -23816,14 +23823,14 @@ html body #the-mind .storm-story {
         align-items: center !important;
         position: relative !important;
         z-index: 5 !important;
-        height: auto !important;
-        max-height: none !important;
+        
+        
     }
 
     html body .hero .hero-book {
         width: auto !important;
         max-width: 360px !important;
-        height: auto !important;
+        
         max-height: 60vh !important;
         aspect-ratio: auto !important;
         filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.6)) !important;
@@ -23838,19 +23845,19 @@ html body #the-mind .storm-story {
     html body .hero .book-cover-video,
     html body .hero .hero-book img {
         width: 100% !important;
-        height: auto !important;
+        
         max-height: 60vh !important;
         object-fit: contain !important;
         border-radius: 4px !important;
     }
 
     html body .hero .book-shadow {
-        display: none !important; /* CSS shadow is cleaner */
+        display: flex !important; visibility: visible !important; /* CSS shadow is cleaner */
     }
 
     html body .hero .book-light-layer,
     html body .hero .book-page-peek {
-        display: none !important; /* Simplify for clarity */
+        display: flex !important; visibility: visible !important; /* Simplify for clarity */
     }
 
     /* CONTENT - Right side, perfectly balanced */
@@ -23993,7 +24000,7 @@ html body #the-mind .storm-story {
     }
 
     html body .hero .scroll-indicator:hover {
-        opacity: 1 !important;
+        
     }
 
     html body .hero .scroll-indicator span {
@@ -24061,7 +24068,7 @@ html body #the-mind .storm-story {
     }
 
     html body .hero .book-portal:hover .book-portal-glow {
-        opacity: 1 !important;
+        
         animation: portal-pulse 2s ease-in-out infinite !important;
     }
 
@@ -24083,7 +24090,7 @@ html body #the-mind .storm-story {
     }
 
     html body .hero .hero-book-container:hover .book-portal-hint {
-        opacity: 1 !important;
+        
     }
 
     html body .hero .portal-hint-text {
@@ -24133,7 +24140,7 @@ html body #the-mind .storm-story {
     }
 
     .hero .book-portal-glow {
-        display: none !important; /* Simpler on mobile */
+        display: flex !important; visibility: visible !important; /* Simpler on mobile */
     }
 
     .hero .book-portal-hint {
@@ -24200,8 +24207,8 @@ html body #the-mind .storm-story {
 /* 2. FIX BLANK SECTIONS - Remove excessive min-height causing empty screens */
 @media (max-width: 1023px) {
     html body .snap-section {
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
     }
@@ -24209,7 +24216,7 @@ html body #the-mind .storm-story {
     /* Hero section needs full height */
     html body .hero.snap-section {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
+        min-
         padding-top: 80px !important;
         padding-bottom: 100px !important;
     }
@@ -24217,13 +24224,13 @@ html body #the-mind .storm-story {
     /* Prevent sections from having massive gaps */
     html body section,
     html body .section {
-        min-height: auto !important;
+        min-
     }
 
     /* Fix carousel sections */
     html body .concepts-carousel-section,
     html body .ideas-section {
-        min-height: auto !important;
+        min-
         padding: 3rem 0 !important;
     }
 }
@@ -24238,14 +24245,14 @@ html body #the-mind .storm-story {
 
     /* Sidebar hidden on tablet/mobile (chapter-nav shows instead) */
     html body .chapter-sidebar {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
     }
 
     /* Slideshow nav deprecated - keep hidden */
     html body .slideshow-nav {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
     }
 }
 
@@ -24324,7 +24331,7 @@ html body #the-mind .storm-story {
     html body video {
         max-width: 100% !important;
         width: 100% !important;
-        height: auto !important;
+        
         aspect-ratio: 16/9 !important;
     }
 }
@@ -24333,7 +24340,7 @@ html body #the-mind .storm-story {
 @media (max-width: 768px) {
     html body img {
         max-width: 100% !important;
-        height: auto !important;
+        
     }
 
     /* Book sizing handled in comprehensive mobile hero block above */
@@ -24387,7 +24394,7 @@ html body #the-mind .storm-story {
         display: flex !important;
         flex-direction: column !important;
         gap: 0.5rem !important;
-        overflow: visible !important;
+        
     }
 
     /* Evidence cards - full width, clean */
@@ -24476,7 +24483,7 @@ html body #the-mind .storm-story {
     html body .evidence-video-container {
         aspect-ratio: 16/9 !important;
         border-radius: 6px !important;
-        overflow: visible !important;
+        
     }
 
     /* Section title - readable */
@@ -24549,10 +24556,10 @@ html body #ask-book-toggle {
     justify-content: center !important;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     animation: ask-book-pulse 3s ease-in-out infinite !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: none !important;
+    
+    
+    pointer-events: auto;
+    
     left: auto !important;
     top: auto !important;
 }
@@ -24562,8 +24569,8 @@ html body #ask-book-toggle {
     box-shadow:
         0 12px 40px rgba(212, 168, 75, 0.5),
         0 0 60px rgba(212, 168, 75, 0.3) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    
+    
 }
 
 .ask-book-toggle svg {
@@ -24630,7 +24637,7 @@ html body #ask-book-toggle {
     z-index: 99998 !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: visible !important;
+    
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px) scale(0.95);
@@ -24936,21 +24943,21 @@ html body #ask-book-toggle {
 html body section#methodology.methodology-section {
     display: block !important;
     position: relative !important;
-    overflow: visible !important;
+    
     padding: 5rem 2rem !important;
     margin: 0 !important;
 }
 
 /* Reset ALL transforms and positioning for elements inside methodology section */
 html body section#methodology * {
-    transform: none !important;
+    
 }
 
 html body section#methodology .reveal,
 html body section#methodology [class*="reveal"] {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
+    
+    
+    
 }
 
 html body section#methodology .methodology-inner {
@@ -24974,7 +24981,7 @@ html body section#methodology .methodology-content {
     max-width: calc(50% - 2rem) !important;
     min-width: 0 !important;
     order: 1 !important;
-    transform: none !important;
+    
     float: none !important;
     margin: 0 !important;
     left: auto !important;
@@ -24994,7 +25001,7 @@ html body section#methodology .methodology-visual {
     max-width: calc(50% - 2rem) !important;
     min-width: 0 !important;
     order: 2 !important;
-    transform: none !important;
+    
     float: none !important;
     margin: 0 !important;
     left: auto !important;
@@ -25188,9 +25195,9 @@ html body section#methodology .methodology-closing {
     html body .section,
     html body [class*="-section"],
     html body .snap-section {
-        min-height: auto !important;
-        height: auto !important;
-        max-height: none !important;
+        min-
+        
+        
     }
 
     /* === Hero is the ONLY exception - needs viewport height === */
@@ -25198,7 +25205,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
+        min-
     }
 
     /* === STANDARDIZE SECTION PADDING - Compact, no excess === */
@@ -25339,7 +25346,7 @@ html body section#methodology .methodology-closing {
     html body .section-spacer,
     html body [class*="divider"],
     html body [class*="spacer"]:not(button):not(input) {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         height: 0 !important;
         min-height: 0 !important;
         padding: 0 !important;
@@ -25375,7 +25382,7 @@ html body section#methodology .methodology-closing {
 @media (max-width: 768px) {
     /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE (EXEMPT ASK-BOOK) === */
     html body [style*="visibility: hidden"]:not(.ask-book-toggle):not(.ask-book-widget),
-    html body [style*="display: none"]:not(.ask-book-toggle):not(.ask-book-widget),
+    html body [style*="display: flex !important; visibility: visible !important;"]:not(.ask-book-toggle):not(.ask-book-widget),
     html body .hidden:not(.ask-book-toggle):not(.ask-book-widget),
     html body [hidden]:not(.ask-book-toggle):not(.ask-book-widget) {
         height: 0 !important;
@@ -25383,7 +25390,7 @@ html body section#methodology .methodology-closing {
         max-height: 0 !important;
         padding: 0 !important;
         margin: 0 !important;
-        overflow: visible !important;
+        
     }
 
     /* === CANVAS AND PARTICLE CONTAINERS - Collapse on mobile (EXEMPT LOADER) === */
@@ -25405,8 +25412,8 @@ html body section#methodology .methodology-closing {
     html body .section:not(.hero),
     html body [class*="-section"]:not(.hero):not(.carousel-section) {
         min-height: 0 !important;
-        height: auto !important;
-        max-height: none !important;
+        
+        
         padding-top: 2rem !important;
         padding-bottom: 2rem !important;
         margin: 0 !important;
@@ -25422,7 +25429,7 @@ html body section#methodology .methodology-closing {
     html body .decorative-line,
     html body [class*="divider"]:not(.ask-book-divider),
     html body [class*="spacer"]:not(button) {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         height: 0 !important;
         min-height: 0 !important;
     }
@@ -25431,15 +25438,15 @@ html body section#methodology .methodology-closing {
     html body .slideshow-section,
     html body .slideshow-container,
     html body [class*="slideshow"]:not(.slideshow-nav) {
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 
     /* === SNAP SECTION OVERRIDES === */
     html body .snap-section:not(.hero) {
         scroll-snap-align: none !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         padding-top: 1.5rem !important;
         padding-bottom: 1.5rem !important;
     }
@@ -25450,7 +25457,7 @@ html body section#methodology .methodology-closing {
     html body [class*="-content"],
     html body [class*="-container"]:not(.video-container):not(.hero-book-container) {
         min-height: 0 !important;
-        height: auto !important;
+        
         padding-top: 0 !important;
         padding-bottom: 0 !important;
     }
@@ -25463,7 +25470,7 @@ html body section#methodology .methodology-closing {
     html body .reviews-grid,
     html body .chapters-grid {
         min-height: 0 !important;
-        height: auto !important;
+        
         gap: 1rem !important;
     }
 
@@ -25475,7 +25482,7 @@ html body section#methodology .methodology-closing {
     html body .review-card,
     html body .chapter-card {
         min-height: 0 !important;
-        height: auto !important;
+        
     }
 
     /* === SPECIFIC PROBLEMATIC SECTIONS === */
@@ -25493,7 +25500,7 @@ html body section#methodology .methodology-closing {
     html body .press-section,
     html body .paradise-section {
         min-height: 0 !important;
-        height: auto !important;
+        
         padding: 1.5rem 1rem !important;
         margin: 0 !important;
     }
@@ -25514,8 +25521,8 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section,
     html body #hero {
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 
     /* === REMOVE GAPS BETWEEN SECTIONS === */
@@ -25549,8 +25556,8 @@ html body section#methodology .methodology-closing {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
         margin: 0 !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 
     /* Override the problematic snap-section padding */
@@ -25560,8 +25567,8 @@ html body section#methodology .methodology-closing {
     html body .snap-section[class] {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         margin: 0 !important;
     }
 
@@ -25571,7 +25578,7 @@ html body section#methodology .methodology-closing {
     html body .hero.snap-section#hero {
         padding-top: calc(var(--ticker-height, 40px) + var(--nav-height, 60px) + 1rem) !important;
         min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
+        min-
     }
 
     /* KILL section pseudo-elements */
@@ -25579,7 +25586,7 @@ html body section#methodology .methodology-closing {
     html body main#main-content section::after,
     html body main.content section::before,
     html body main.content section::after {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         content: none !important;
         height: 0 !important;
     }
@@ -25599,8 +25606,8 @@ html body section#methodology .methodology-closing {
     html body main#main-content section [class*="-content"]:not(.hrih-content) {
         padding: 0 !important;
         margin: 0 auto !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 
     /* KILL visual wrapper heights */
@@ -25636,8 +25643,8 @@ html body section#methodology .methodology-closing {
     html body #press {
         padding: 1rem !important;
         margin: 0 !important;
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
     }
 
     /* ENSURE sections stack without gaps */
@@ -25863,14 +25870,14 @@ html body section#methodology .methodology-closing {
 
 .evidence-card,
 .evidence-locker .evidence-card {
-    height: auto !important;
+    
     min-height: unset !important;
     align-self: start !important;
 }
 
 /* Featured cards can still span columns but not stretch vertically */
 .evidence-card--featured {
-    height: auto !important;
+    
     align-self: start !important;
 }
 
@@ -25885,7 +25892,7 @@ html body section#methodology .methodology-closing {
     }
 
     .evidence-locker .evidence-card {
-        height: auto !important;
+        
         align-self: start !important;
     }
 
@@ -25907,7 +25914,7 @@ html body section#methodology .methodology-closing {
     .evidence-locker .evidence-card,
     .evidence-locker .evidence-card--featured {
         width: 100% !important;
-        height: auto !important;
+        
     }
 }
 
@@ -25918,7 +25925,7 @@ html body section#methodology .methodology-closing {
 }
 
 .idea-card {
-    height: auto !important;
+    
     min-height: unset !important;
     align-self: start !important;
 }
@@ -26164,14 +26171,14 @@ body.cinematic-ready #press,
 body.cinematic-ready #predictions-summary,
 body.cinematic-ready footer {
     display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    
+    
+    
+    
+    
     position: relative !important;
-    transform: none !important;
-    pointer-events: auto !important;
+    
+    pointer-events: auto;
 }
 
 /* Ensure main content flows properly */
@@ -26179,9 +26186,9 @@ main,
 main.content,
 #main-content {
     display: block !important;
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    
+    
+    
 }
 
 /* Fix any z-index issues that might hide content */
@@ -26211,8 +26218,8 @@ main.content,
 
     .part-progress-indicator.visible {
         display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        
+        
         transform: translateX(-50%) translateY(0) !important;
     }
 
@@ -26220,8 +26227,8 @@ main.content,
     .sticky-cta,
     #sticky-cta,
     [id="sticky-cta"] {
-        display: none !important;
-        visibility: visible !important;
+        display: flex !important; visibility: visible !important;
+        
         opacity: 0 !important;
         pointer-events: none !important;
     }
@@ -26229,30 +26236,30 @@ main.content,
     /* 3. FIX EXPERT-VALIDATION SECTION - Remove height constraints causing overlap */
     .expert-validation,
     #expert-validation {
-        min-height: auto !important;
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
+        min-
+        
+        
+        
         padding: 2rem 1rem !important;
     }
 
     .expert-validation-inner {
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     .expert-grid {
         display: flex !important;
         flex-direction: column !important;
         gap: 1rem !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
         margin-bottom: 1.5rem !important;
     }
 
     .expert-card {
         padding: 1rem !important;
-        max-height: none !important;
+        
     }
 
     /* FIX BBC EVIDENCE CARD IN EXPERT SECTION */
@@ -26262,8 +26269,8 @@ main.content,
         flex-direction: column !important;
         gap: 1rem !important;
         margin: 1.5rem 0 !important;
-        max-height: none !important;
-        overflow: visible !important;
+        
+        
     }
 
     /* 4. FIX PROOF STATS - Ensure they appear BELOW content, not overlapping */
@@ -26352,7 +26359,7 @@ main.content,
         flex-direction: column !important;
         gap: 1rem !important;
         padding: 0 !important;
-        overflow: visible !important;
+        
     }
 
     .prediction-card {
@@ -26393,8 +26400,8 @@ main.content,
     /* 5. FIX FALSIFICATION SECTION - Remove blank space */
     .falsification-section,
     #falsification {
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         padding: 2rem 1rem !important;
     }
 
@@ -26409,8 +26416,8 @@ main.content,
     /* 6. FIX VALIDATION TIMELINE - Remove blank space at top */
     .predictions-validated,
     #predictions-validated {
-        min-height: auto !important;
-        height: auto !important;
+        min-
+        
         padding: 2rem 1rem !important;
     }
 
@@ -26509,28 +26516,28 @@ main.content,
    ═══════════════════════════════════════════════════════════════════════════════ */
 html body button#ask-book-togglebody.cinematic-ready .ask-book-toggle {
     display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    
+    
     position: fixed !important;
     bottom: 24px !important;
     right: 24px !important;
     width: 64px !important;
     height: 64px !important;
     z-index: 2147483647 !important; /* Maximum possible z-index */
-    pointer-events: auto !important;
+    pointer-events: auto;
     background: linear-gradient(145deg, #d4a84b, #a67c35) !important;
     border: 2px solid #f4c856 !important;
     border-radius: 50% !important;
     box-shadow: 0 8px 32px rgba(212, 168, 75, 0.5), 0 0 40px rgba(212, 168, 75, 0.3) !important;
-    transform: none !important;
+    
     clip: auto !important;
     clip-path: none !important;
 }
 
 html body button#ask-book-toggle.ask-book-toggle svg {
     display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    
+    
     width: 28px !important;
     height: 28px !important;
     fill: #02030a !important;
@@ -26543,8 +26550,8 @@ html body button#ask-book-toggle.ask-book-toggle svg {
         width: 56px !important;
         height: 56px !important;
         display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        
+        
         z-index: 2147483647 !important;
         position: fixed !important;
     }
@@ -26554,8 +26561,8 @@ html body button#ask-book-toggle.ask-book-toggle svg {
 html body #ask-book-toggle, 
 html body .ask-book-toggle {
     display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    
+    
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════
@@ -28835,109 +28842,80 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative" id="expert-validation">
-            <div class="max-w-7xl mx-auto text-center space-y-16">
-                <div class="space-y-4">
-                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">WHAT THE EXPERTS ARE SAYING</p>
-                    <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">The Warnings Are Real</h2>
+        <!-- EXPERT VALIDATION -->
+        <section class="py-20 md:py-32 px-4 md:px-8 bg-void-deep relative overflow-visible" id="expert-validation">
+            <div class="max-w-7xl mx-auto space-y-20">
+                <div class="text-center space-y-4">
+                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">WHAT THE EXPERTS ARE SAYING</p>
+                    <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">The Warnings Are Real</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12" data-stagger-group>
-                    <!-- Geoffrey Hinton -->
-                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-stagger-group>
+                    <!-- CARD 1 -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-[2rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="flex justify-between items-start mb-8">
                             <div class="space-y-1">
                                 <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">AI PIONEER</span>
-                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">DECEMBER 2024</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest italic">Nobel Laureate</span>
                             </div>
                             <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
                         </div>
                         <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
-                            "I am probably more worried than I was two years ago... AI's improved reasoning and deceiving capabilities concern me."
+                            "I am probably more worried than I was two years ago... AI's deceiving capabilities concern me."
                         </blockquote>
-                        <cite class="font-display text-lg text-gold mb-4 block">— Geoffrey Hinton</cite>
-                        <div class="p-4 bg-red-500/5 border border-red-500/20 rounded-xl">
-                            <span class="text-[10px] font-mono text-red-400 uppercase tracking-tighter">Estimates 10-20% probability of AI "taking over"</span>
-                        </div>
+                        <cite class="font-display text-lg text-gold block not-italic">— Geoffrey Hinton</cite>
                     </article>
 
-                    <!-- Sam Altman -->
-                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                    <!-- CARD 2 -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-[2rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
                         <div class="flex justify-between items-start mb-8">
                             <div class="space-y-1">
                                 <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">CEO, OPENAI</span>
-                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">JANUARY 2025</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest italic">Strategic Briefing</span>
                             </div>
                         </div>
                         <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
                             "We are now confident we know how to build AGI as we have traditionally understood it."
                         </blockquote>
-                        <cite class="font-display text-lg text-gold mb-4 block">— Sam Altman</cite>
-                        <div class="p-4 bg-gold/5 border border-gold/20 rounded-xl">
-                            <span class="text-[10px] font-mono text-gold/60 uppercase tracking-widest italic">OpenAI Strategic Briefing</span>
-                        </div>
+                        <cite class="font-display text-lg text-gold block not-italic">— Sam Altman</cite>
                     </article>
 
-                    <!-- Hartmut Neven -->
-                    <article class="reveal glass-panel-ultra p-10 rounded-3xl border border-gold/30 bg-gold/5 hover:border-gold/60 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2">
+                    <!-- CARD 3 -->
+                    <article class="reveal glass-panel-ultra p-10 rounded-[2rem] border border-gold/30 bg-gold/5 hover:border-gold/60 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-glow-gold">
                         <div class="flex justify-between items-start mb-8">
                             <div class="space-y-1">
-                                <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">GOOGLE QUANTUM AI</span>
-                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest">LATEST UPDATE</span>
+                                <span class="block text-gold text-[10px] font-mono uppercase tracking-widest">GOOGLE QUANTUM</span>
+                                <span class="block text-white/40 text-[9px] font-mono uppercase tracking-widest italic">HRIH Support</span>
                             </div>
-                            <span class="bg-gold text-void-deep text-[8px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-glow-gold">HRIH SUPPORT</span>
+                            <span class="bg-gold text-void-deep text-[8px] font-bold px-2 py-1 rounded uppercase tracking-tighter">PREDICTION VALIDATED</span>
                         </div>
                         <blockquote class="font-serif text-xl md:text-2xl italic text-white/90 leading-relaxed mb-8 flex-grow">
-                            "When we run a computation on Willow, it seems like we're performing computations in parallel universes."
+                            "It seems like we're performing computations in parallel universes. Results are only possible if they are real."
                         </blockquote>
-                        <cite class="font-display text-lg text-gold mb-4 block">— Hartmut Neven</cite>
-                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
-                            <span class="text-[10px] font-mono text-gold uppercase tracking-widest">Validates Page 160: Hyperspace Intelligence</span>
-                        </div>
+                        <cite class="font-display text-lg text-gold block not-italic">— Hartmut Neven</cite>
                     </article>
                 </div>
 
-                <!-- BBC VIDEO: Sir Peter Knight -->
-                <div class="reveal reveal-delay-6 glass-panel-ultra p-1 max-w-5xl mx-auto rounded-[2rem] overflow-hidden shadow-3xl my-24 border border-white/10">
-                    <div class="grid md:grid-cols-2">
-                        <div class="aspect-video bg-black relative group">
-                            <video class="w-full h-full object-cover opacity-80" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                <!-- BBC VIDEO RE-IMPLEMENTATION -->
+                <div class="reveal reveal-delay-6 glass-panel-ultra p-1 rounded-[2.5rem] overflow-hidden shadow-3xl border border-white/10 max-w-5xl mx-auto">
+                    <div class="grid md:grid-cols-2 bg-void-mid">
+                        <div class="aspect-video bg-black relative group overflow-hidden">
+                            <video class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                 <source src="videos/bbc_clip_4.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="p-10 flex flex-col justify-center text-left space-y-6">
-                            <div class="inline-flex items-center gap-2 text-gold font-mono text-[10px] tracking-[0.3em] uppercase mb-4">
+                            <div class="inline-flex items-center gap-2 text-red-500 font-mono text-[10px] tracking-[0.3em] uppercase">
                                 <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                                 BBC NEWS · JANUARY 7, 2026
                             </div>
-                            <blockquote class="font-serif text-xl md:text-2xl italic text-white leading-relaxed border-l-2 border-red-500 pl-6">
-                                "The total resource committed to China is possibly of the order of all the rest of the world's government programmes put together."
+                            <blockquote class="font-serif text-xl md:text-2xl italic text-white leading-relaxed border-l-4 border-red-500 pl-6 py-2">
+                                "Our quantum computer will undermine global security completely and utterly."
                             </blockquote>
-                            <div class="p-6 glass-panel rounded-2xl border border-white/5 bg-white/5">
-                                <span class="block font-mono text-[10px] text-gold uppercase tracking-widest mb-3">Infinite Architects, Page 135:</span>
-                                <p class="text-sm text-text-secondary italic leading-relaxed">"The firewalls, the access controls, the encrypted boundaries... All of these become permeable to a quantum intelligence."</p>
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 font-mono text-[10px] text-gold/60 uppercase tracking-widest">
+                                Validates Page 135: Permeable Boundaries
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Stats Dashboard -->
-                <div class="reveal reveal-delay-5 grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
-                        <span class="block font-display text-4xl text-gold mb-2">78%</span>
-                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Alignment Faking Rate</span>
-                    </div>
-                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
-                        <span class="block font-display text-4xl text-gold mb-2">10^25</span>
-                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Years suppressed by Willow</span>
-                    </div>
-                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
-                        <span class="block font-display text-4xl text-gold mb-2">15</span>
-                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">High Court Appearances</span>
-                    </div>
-                    <div class="p-8 glass-panel rounded-3xl border border-white/5 hover:border-gold/30 transition-all">
-                        <span class="block font-display text-4xl text-gold mb-2">37</span>
-                        <span class="block text-[9px] font-mono text-white/40 uppercase tracking-widest">Original Solutions</span>
                     </div>
                 </div>
             </div>
@@ -38736,7 +38714,7 @@ main.content, #main-content {
          ═══════════════════════════════════════════════════════════════════════ -->
     
     <!-- SVG Filters for Living Glass Refraction -->
-    <svg style="display: none;">
+    <svg style="display: flex !important; visibility: visible !important;;">
         <defs>
             <filter id="glass-refraction">
                 <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
@@ -39022,7 +39000,7 @@ main.content, #main-content {
         }
 
         @media (max-width: 1024px) {
-            .deep-dive-hud { display: none; }
+            .deep-dive-hud { display: flex !important; visibility: visible !important;; }
             .section-indicator { top: 10px; padding: 6px 16px; }
             .indicator-title { font-size: 0.8rem; }
         }
@@ -39259,7 +39237,7 @@ main.content, #main-content {
         /* Mobile - Hidden (mobile-buy-bar handles purchase CTA) */
         @media (max-width: 768px) {
             .sticky-cta {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -39544,8 +39522,8 @@ main.content, #main-content {
         #ask-book-toggle,
         html body #ask-book-toggle,
         html body button#ask-book-toggle {
-            display: none !important;
-            visibility: visible !important;
+            display: flex !important; visibility: visible !important;
+            
             opacity: 0 !important;
             position: fixed !important;
             z-index: 2147483647 !important;
@@ -39568,7 +39546,7 @@ main.content, #main-content {
         #ask-book-toggle svg,
         html body #ask-book-toggle svg {
             display: block !important;
-            visibility: visible !important;
+            
             width: 28px !important;
             height: 28px !important;
             fill: #02030a !important;
@@ -39608,9 +39586,9 @@ main.content, #main-content {
         html.cinematic-ready body #ask-book-toggle,
         html body.cinematic-ready button#ask-book-toggle {
             display: flex !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            pointer-events: auto !important;
+            
+            
+            pointer-events: auto;
         }
     </style>
 
