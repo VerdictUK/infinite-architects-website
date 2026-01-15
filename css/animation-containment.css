@@ -161,3 +161,49 @@ section.overflow-visible#chapters {
     position: relative;
     z-index: 1;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ADDITIONAL CONTAINMENT FOR TRANSFORM-BASED ANIMATIONS
+   Prevent any transformed elements from escaping section bounds
+   ═══════════════════════════════════════════════════════════════════ */
+#hero,
+#equation,
+#ideas,
+#evidence-locker,
+#the-mind,
+#chapters {
+    /* Contain paint operations to section boundaries */
+    contain: paint;
+    /* Ensure transforms don't escape */
+    isolation: isolate;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARD ANIMATION CONTAINMENT
+   Prevent card hover/reveal animations from escaping grid containers
+   ═══════════════════════════════════════════════════════════════════ */
+#ideas .idea-card,
+#evidence-locker .evidence-card,
+#chapters .chapter-card {
+    position: relative;
+    z-index: 1;
+    /* Contain transform/opacity animations within card bounds */
+    transform-style: flat;
+}
+
+/* Card hover states stay within bounds */
+#ideas .idea-card:hover,
+#evidence-locker .evidence-card:hover,
+#chapters .chapter-card:hover {
+    z-index: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLL REVEAL ANIMATION CONTAINMENT
+   Ensure reveal animations don't cause horizontal overflow
+   ═══════════════════════════════════════════════════════════════════ */
+.reveal,
+[class*="reveal-"] {
+    /* Prevent horizontal overflow during reveal animations */
+    max-width: 100%;
+}

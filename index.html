@@ -28535,7 +28535,7 @@ main.content, #main-content {
                 <!-- BBC Video: The Multiverse Validation -->
                 <div class="bbc-evidence-card reveal reveal-delay-3 mx-auto my-12 max-w-5xl grid md:grid-cols-2 gap-8 items-center h-auto overflow-visible">
                     <div class="bbc-evidence-card__video-wrapper h-auto overflow-visible">
-                        <video preload="metadata" class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                        <video class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/london-night.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -29393,7 +29393,7 @@ main.content, #main-content {
 
                     <div class="video-portal absolute inset-0 z-0 pointer-events-none" id="video-portal">
 
-                        <video preload="metadata" id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110 pointer-events-none">
+                        <video id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110 pointer-events-none">
 
                             <source src="hero-portal-compressed.mp4" type="video/mp4">
 
@@ -33194,11 +33194,12 @@ main.content, #main-content {
         window.PERF = PERF;
         window.Features = Features;
         window.pageVisible = pageVisible;
+        window.windowFocused = windowFocused;
 
-        // Keep pageVisible synced on window
-        document.addEventListener('visibilitychange', () => {
-            window.pageVisible = !document.hidden;
-        });
+        // Keep pageVisible and windowFocused synced on window
+        document.addEventListener('visibilitychange', () => { window.pageVisible = !document.hidden; });
+        window.addEventListener('focus', () => { window.windowFocused = true; });
+        window.addEventListener('blur', () => { window.windowFocused = false; });
 
         // ═══════════════════════════════════════════════════════════════════════════
         // DEFERRED ANIMATION UTILITY - Wait for loader to complete
@@ -34351,12 +34352,13 @@ main.content, #main-content {
             initMobileWowFactor();
             initAppleGradeEffects();
             initMagneticElements();
-            initCursorGlow();
-            initAppleLenis();
-
-            // New Phase 7-14 Initializations
-            initStaggerReveal();
-            initAmbientOrbs();
+            // DEFERRED: Heavy visual animations - wait for loader
+            deferUntilSiteReady(function() {
+                initCursorGlow();
+                initAppleLenis();
+                initStaggerReveal();
+                initAmbientOrbs();
+            }, 100);
         });
 
         // ═══════════════════════════════════════════════════════════════════════
