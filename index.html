@@ -3,6 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    
+    <!-- SOVEREIGN VISIBILITY ENGINE - FORCE RENDER ALL CONTENT (Rule 15) -->
+    <style>
+        /* 1. Force All Content Visible */
+        * {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: inherit; /* Don't force flex on everything, just inherit */
+        }
+        
+        /* 2. Force Section Display */
+        section, main, article, div[id], div[class*="section"] {
+            display: flex !important;
+            flex-direction: column !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+            transform: none !important;
+        }
+
+        /* 3. Global Scroll Unlock */
+        html, body {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            height: auto !important;
+            min-height: 100vh !important;
+            position: relative !important;
+        }
+
+        /* 4. Kill Reveal Traps */
+        .reveal, .entering, .active, [class*="reveal"] {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+            transition: none !important;
+        }
+
+        /* 5. Loader Hider */
+        #loader, .loader, #cinematic-loader {
+            display: none !important;
+            pointer-events: none !important;
+        }
+    </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
     
     <!-- CRITICAL: Hardcoded Scroll Fix (Rule 15) -->
@@ -3334,17 +3380,19 @@
            One block to rule the void. No overrides needed.
            ═══════════════════════════════════════════════════════════════════════ */
 
-        /* 1. INITIAL STATE: The Void before creation */
-        html body:not(.cinematic) .content,
-        html body:not(.cinematic) #main-content,
-        html body:not(.cinematic) main,
-        html body:not(.cinematic) section {
+        /* 1. INITIAL STATE: DISABLED - Content always visible
+           Previously this hid all sections until .cinematic class was added.
+           This caused content to be hidden permanently if JS failed.
+           NOW: All content visible always. */
+        html body .content,
+        html body #main-content,
+        html body main,
+        html body section {
             display: block !important;
-            transform: translateY(-120vh) !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            will-change: transform, opacity;
+            transform: none !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
         }
 
         /* ═══════════════════════════════════════════════════════════════════
