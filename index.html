@@ -4439,8 +4439,13 @@
         .nav-toggle {
             display: none;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 5px;
-            width: 24px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
             cursor: pointer;
             z-index: calc(var(--z-nav) + 1);
         }
@@ -7626,26 +7631,27 @@
             }
         }
 
-        /* Desktop: Reveal elements visible by default when cinematic-ready
-           Scroll animations only trigger before cinematic-ready state */
+        /* Desktop: Scroll reveal animations when cinematic-ready */
         @media (min-width: 769px) {
-            /* When page is ready, all reveals are visible */
+            /* Default state: hidden, waiting to animate in */
             .cinematic-ready .reveal,
             body.cinematic-ready .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+            }
+
+            /* Active state: revealed with smooth animation */
+            .cinematic-ready .reveal.active,
+            body.cinematic-ready .reveal.active {
                 opacity: 1;
                 transform: translateY(0);
             }
 
-            /* Only hide reveals BEFORE cinematic-ready (during loader) */
+            /* During loader (before cinematic-ready): keep hidden */
             body:not(.cinematic-ready) .reveal {
                 opacity: 0;
                 transform: translateY(30px);
-                transition: all 0.8s var(--ease-out-expo);
-            }
-
-            body:not(.cinematic-ready) .reveal.active {
-                opacity: 1;
-                transform: translateY(0);
             }
 
             /* Tighter stagger delays - Apple-grade timing */
@@ -26614,7 +26620,7 @@ main.content, #main-content {
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer integrity="sha384-JpWlSgE3J/L03d8OJvFVJlJ5TPRO6GhDcYz6uxGaY5mNE5Cl8YY32oBvgdT3lLkR" crossorigin="anonymous">
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer integrity="sha384-JpWlSgE3J/L03d8OJvFVJlJ5TPRO6GhDcYz6uxGaY5mNE5Cl8YY32oBvgdT3lLkR" crossorigin="anonymous"></script>
 
     <!-- Tone.js for Professional Audio (Phase 10) - Deferred, loads on demand -->
     <script>
@@ -29552,7 +29558,7 @@ main.content, #main-content {
 
                     <div class="paradise-bg absolute inset-0 z-0 scale-110">
 
-                        <img src="paradise-garden.png" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
+                        <img src="paradise-garden.jpg" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
 
                         <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
 
