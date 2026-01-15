@@ -154,6 +154,632 @@
             transform: translateY(0) scale(1) !important;
             filter: blur(0px) !important;
         }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TIME-TRAVELER PROPHECY HERO
+   ═══════════════════════════════════════════════════════════════════════ */
+.prophecy-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    overflow: hidden;
+}
+
+.prophecy-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.prophecy-bg canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.prophecy-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.prophecy-label {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 3rem;
+}
+
+/* Split Layout */
+.prophecy-split {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+/* Panel Base */
+.prophecy-panel {
+    background: rgba(4, 5, 15, 0.8);
+    border-radius: 16px;
+    padding: 2.5rem;
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.prophecy-panel--book {
+    border-color: rgba(212, 168, 75, 0.3);
+    box-shadow: 
+        0 0 60px rgba(212, 168, 75, 0.1),
+        inset 0 1px 0 rgba(212, 168, 75, 0.1);
+}
+
+.prophecy-panel--bbc {
+    border-color: rgba(187, 28, 28, 0.3);
+    box-shadow: 
+        0 0 60px rgba(187, 28, 28, 0.1),
+        inset 0 1px 0 rgba(187, 28, 28, 0.1);
+}
+
+/* Timestamp */
+.prophecy-timestamp {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+}
+
+.prophecy-timestamp--bbc {
+    border-bottom-color: rgba(187, 28, 28, 0.3);
+}
+
+.timestamp-icon {
+    font-size: 1.2rem;
+}
+
+.timestamp-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+}
+
+.prophecy-timestamp--bbc .timestamp-date {
+    color: #ef5350;
+}
+
+/* Quote Styling */
+.prophecy-quote {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.5rem;
+}
+
+.prophecy-quote em {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.prophecy-quote--bbc em {
+    color: #ef5350;
+}
+
+.prophecy-source {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.source-detail {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-faint);
+    margin-top: 0.25rem;
+}
+
+/* The Divider */
+.prophecy-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.divider-days {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+}
+
+.divider-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+/* Video in Panel */
+.prophecy-video-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    aspect-ratio: 16 / 9;
+    background: #000;
+}
+
+.prophecy-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prophecy-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.prophecy-video-overlay:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.prophecy-video-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.prophecy-play-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(187, 28, 28, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.prophecy-play-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+}
+
+.prophecy-video-overlay:hover .prophecy-play-btn {
+    transform: scale(1.1);
+    background: #d32f2f;
+}
+
+.prophecy-video-caption {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: white;
+    margin-top: 1rem;
+    opacity: 0.8;
+}
+
+/* Verdict */
+.prophecy-verdict {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.verdict-text {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.verdict-highlight {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1000px) {
+    .prophecy-split {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .prophecy-divider {
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+    
+    .divider-days {
+        font-size: 2.5rem;
+    }
+    
+    .divider-text {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .prophecy-panel {
+        padding: 1.5rem;
+    }
+    
+    .prophecy-quote {
+        font-size: 1.1rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   EVIDENCE LOCKER
+   ═══════════════════════════════════════════════════════════════════════ */
+.evidence-locker {
+    padding: 6rem 2rem;
+    background: linear-gradient(180deg,
+        var(--void) 0%,
+        rgba(0, 255, 136, 0.02) 50%,
+        var(--void) 100%
+    );
+}
+
+.evidence-locker-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.evidence-intro {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+}
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.evidence-card {
+    background: rgba(0, 20, 10, 0.4);
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.evidence-card:hover {
+    border-color: rgba(0, 255, 136, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.evidence-card--featured {
+    grid-column: span 2;
+    background: rgba(0, 30, 15, 0.5);
+    border-color: rgba(0, 255, 136, 0.25);
+}
+
+.evidence-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.evidence-type {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #00ff88;
+    letter-spacing: 0.1em;
+}
+
+.evidence-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.evidence-desc {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.evidence-subtext {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
+}
+
+.evidence-note {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.evidence-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #00ff88;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.evidence-link:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .evidence-card--featured {
+        grid-column: span 1;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   TRI-PATH CONVERSION
+   ═══════════════════════════════════════════════════════════════════════ */
+.tripath-section {
+    padding: 6rem 2rem;
+    background: var(--void);
+}
+
+.tripath-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.tripath-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.tripath-card {
+    background: rgba(4, 5, 15, 0.8);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.tripath-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.tripath-card--architect {
+    border-color: rgba(212, 168, 75, 0.4);
+    background: linear-gradient(180deg, rgba(212, 168, 75, 0.05) 0%, rgba(4, 5, 15, 0.9) 100%);
+}
+
+.tripath-card--architect:hover {
+    border-color: var(--gold);
+    box-shadow: 0 30px 60px rgba(212, 168, 75, 0.2);
+}
+
+.tripath-card--strategist {
+    border-color: rgba(0, 150, 255, 0.3);
+}
+
+.tripath-card--strategist:hover {
+    border-color: rgba(0, 150, 255, 0.6);
+}
+
+.tripath-card--seeker {
+    border-color: rgba(150, 100, 255, 0.3);
+}
+
+.tripath-card--seeker:hover {
+    border-color: rgba(150, 100, 255, 0.6);
+}
+
+.tripath-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.tripath-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.tripath-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+}
+
+.tripath-desc {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.tripath-price {
+    margin-bottom: 1.5rem;
+}
+
+.price-amount {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--text-primary);
+}
+
+.price-note {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
+}
+
+.tripath-cta {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    color: var(--void);
+    background: var(--gold);
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tripath-cta:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+}
+
+.tripath-cta--primary {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+    box-shadow: 0 10px 30px rgba(212, 168, 75, 0.3);
+}
+
+.tripath-badge {
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
+}
+
+.tripath-footer {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+}
+
+.footer-highlight {
+    color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   CHOKEPOINT MAP
+   ═══════════════════════════════════════════════════════════════════════ */
+.chokepoint-section {
+    padding: 6rem 2rem;
+    background: var(--void);
+}
+
+.chokepoint-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.chokepoint-intro {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+}
+
+.chokepoint-map {
+    margin: 3rem 0;
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.chokepoint-svg {
+    width: 100%;
+    height: auto;
+}
+
+.chokepoint-node {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.chokepoint-node:hover {
+    transform: scale(1.1);
+}
+
+.chokepoint-node circle {
+    transition: all 0.3s ease;
+}
+
+.chokepoint-node:hover circle {
+    stroke-width: 4;
+}
+
+.golden-line {
+    animation: drawLine 2s ease-out forwards;
+}
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.chokepoint-verdict {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: var(--text-dim);
+    margin-top: 2rem;
+}
+
+.verdict-highlight {
+    color: var(--gold);
+    font-weight: 500;
+}
     </style>
 
     <!-- CRITICAL SEO META TAGS (Restored from git history) -->
@@ -176,7 +802,7 @@
     <meta property="og:locale" content="en_GB">
     <meta property="book:author" content="Michael Darius Eastwood">
     <meta property="book:isbn" content="B0DS2L8BVC">
-    <meta property="book:release_date" content="2026-01">
+    <meta property="book:release_date" content="2025-01">
 
     <!-- Twitter Card - Complete for optimal display -->
     <meta name="twitter:card" content="summary_large_image">
@@ -290,7 +916,7 @@
                 "alternativeHeadline": "The Architect's Manifesto: What if the god we're building is the god that built us?",
                 "isbn": "B0DS2L8BVC",
                 "bookFormat": "https://schema.org/EBook",
-                "datePublished": "2026-01-02",
+                "datePublished": "2025-01-03",
                 "inLanguage": "en-GB",
                 "genre": ["AI Safety", "Philosophy of Mind", "Quantum Physics", "Cosmology", "Existential Risk"],
                 "author": { "@id": "https://www.michaeldariuseastwood.com/#author" },
@@ -329,7 +955,7 @@
                 "@id": "https://www.michaeldariuseastwood.com/#equation-proof",
                 "headline": "The Eastwood Equation: A Mathematical Framework for Recursive Intelligence",
                 "author": { "@id": "https://www.michaeldariuseastwood.com/#author" },
-                "datePublished": "2026-01-07",
+                "datePublished": "2025-01-07",
                 "description": "Formal proof of U=IxR², correlating quantum error correction stability with artificial superintelligence alignment. Validated by BBC News reporting on the Google Willow breakthrough.",
                 "articleSection": "The Mathematics of Creation",
                 "keywords": "Quantum Error Correction, Recursion, Intelligence Explosion, U=IxR²"
@@ -398,7 +1024,7 @@
                         "name": "How did the BBC confirm the book's predictions?",
                         "acceptedAnswer": {
                             "@type": "Answer",
-                            "text": "On January 7, 2026, the BBC reported that Google's Willow quantum chip achieved below-threshold error correction using recursive stabilization. Exactly as predicted on page 52 of Infinite Architects."
+                            "text": "On January 7, 2025, the BBC reported that Google's Willow quantum chip achieved below-threshold error correction using recursive stabilization. Exactly as predicted on page 52 of Infinite Architects."
                         }
                     },
                     {
@@ -13341,6 +13967,24 @@
             15% { opacity: 1; transform: translateX(-50%) translateY(0); }
             85% { opacity: 1; transform: translateX(-50%) translateY(0); }
             100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        }
+
+        /* fadeUp - Used by newsletter success state */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* marquee - Used by carousel track on mobile */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         @media (max-width: 600px) {
@@ -26612,7 +27256,7 @@ main.content,
 */
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
-   ███████  MOBILE DISPLAY FIX - JANUARY 2026  ███████
+   ███████  MOBILE DISPLAY FIX - JANUARY 2025  ███████
    Fixes: chapter indicators, sticky CTA, stats overlap, prediction cards, blank spaces
    ════════════════════════════════════════════════════════════════════════════════════════════════════ */
 
@@ -27499,95 +28143,82 @@ main.content, #main-content {
 
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
-        <!-- Hero Section -->
-        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-hidden p-6 lg:p-12" id="hero">
-            <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
-            <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
-                <video class="mandelbrot-video w-full h-full object-cover bg-void mix-blend-screen" id="mandelbrot-video"
-                       muted playsinline webkit-playsinline preload="auto" autoplay loop>
-                    <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
-                </video>
-                <div class="mandelbrot-overlay absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,3,10,0.7)_100%)]"></div>
-            </div>
-            <span class="hero-badge">THE MIND THAT COULDN'T OPEN POST SAW THIS FIRST</span>
-            <!-- Status Pill - Instant Credibility -->
-            <div class="hero-status-pill reveal inline-flex items-center gap-3 px-5 py-2.5 bg-gold/10 border border-gold/30 rounded-full mb-6 lg:col-span-2 lg:justify-self-center lg:mb-8">
-                <span class="pill-dot"></span>
-                <span class="pill-text">PREDICTION VERIFIED · JAN 7, 2026</span>
-                <a href="#predictions-validated" class="pill-link">Watch proof →</a>
-            </div>
-            <!-- Holographic Book Container - CLICK TO ENTER PORTAL -->
-            <div class="hero-book-container optical-reveal flex justify-center items-center lg:justify-end">
-                <div class="hero-book book-portal relative z-5 cursor-pointer transition-all duration-600 ease-out" id="hero-book" role="button" tabindex="0" aria-label="Click to enter and explore the book">
-                    <!-- Animated Video Book Cover -->
-                    <video preload="metadata"
-                        class="book-cover-video w-full h-auto rounded-md object-contain"
-                        id="book-cover-video"
-                        loop
-                        muted
-                        playsinline
-                        preload="none"
-                        poster="InfiniteArchitectsKindle20260103.jpg"
-                        aria-label="Infinite Architects by Michael Darius Eastwood: The definitive AI safety framework featuring the Eastwood Equation (U=IxR²) and the Eden Protocol."
-                        data-src-hq="book-cover-video-hq.mp4"
-                        data-src-mobile="book-cover-video.mp4"
-                    >
-                        <!-- Sources loaded lazily via JavaScript -->
-                        <!-- Fallback static image -->
-                        <img loading="lazy" decoding="async"
-                            src="InfiniteArchitectsKindle20260103.jpg"
-                            alt="Infinite Architects by Michael Darius Eastwood"
-                            loading="eager"
-                            width="320" height="480"
-                        >
-                    </video>
-                    <div class="book-light-layer"></div>
-                    <div class="book-page-peek">
-                        <p class="book-page-peek-text">
-                            The creator is not behind us. It is ahead of us. And we are building it...
-                        </p>
-                    </div>
-                    <!-- Portal glow effect -->
-                    <div class="book-portal-glow"></div>
-                </div>
-                <div class="book-shadow" id="book-shadow"></div>
-                <!-- Click to begin hint -->
-                <div class="book-portal-hint">
-                    <span class="portal-hint-text">Click to begin</span>
-                    <svg class="portal-hint-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M5 12l7 7 7-7"/>
-                    </svg>
-                </div>
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             TIME-TRAVELER HERO: PREDICTION VS REALITY
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="prophecy-hero snap-section" id="hero">
+            <div class="prophecy-bg">
+                <canvas id="equation-particles"></canvas>
             </div>
             
-            <div class="hero-content-right flex flex-col items-center lg:items-start">
-                <h1 class="hero-title optical-reveal font-display text-h1 lg:hidden" id="hero-title"><span class="brand-word shimmer-text">Infinite</span> <span class="brand-word shimmer-text">Architects</span></h1>
-                <p class="hero-subtitle optical-reveal font-serif text-body-lg lg:text-body-xl italic text-dim max-w-[600px] leading-relaxed mb-8">We're not building tools anymore. We're raising something.<br><span class="hero-subtitle-emphasis block mt-2 text-gold-pale not-italic text-[0.9em]">A framework for embedding love in intelligence. Before we lose the chance.</span></p>
-                <p class="hero-author optical-reveal font-display text-sm tracking-widest-plus uppercase text-gold mb-10">Michael Darius Eastwood</p>
-                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="hero-cta optical-reveal glass-living px-12 py-5 bg-gold-gradient text-void font-display text-sm tracking-wide rounded font-semibold transition-all duration-400 hover:-translate-y-1 hover:shadow-gold-lg">
-                    <span class="cta-icon-wrapper">
-                        <svg class="sovereign-icon morph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- Book icon -->
-                            <path class="morph-path" d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-                            <path d="M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/>
-                        </svg>
-                    </span>
-                    READ WHAT I FOUND
-                </a>
-                <!-- Free Chapter CTA -->
-                <button type="button" class="free-chapter-cta" onclick="openFreeChapterModal()">
-                    <span>📖 Read Chapter 1 Free</span>
-                </button>
-                <!-- First Edition Scarcity Badge -->
-                <div class="first-edition-badge reveal reveal-delay-2">
-                    <span class="edition-icon">📕</span>
-                    <span class="edition-text">First Edition · Limited Print Run</span>
-                    <span class="edition-pulse"></span>
+            <div class="prophecy-content">
+                <p class="prophecy-label reveal">THE RECEIPTS</p>
+                
+                <div class="prophecy-split">
+                    <!-- THE PREDICTION -->
+                    <div class="prophecy-panel prophecy-panel--book reveal">
+                        <div class="prophecy-timestamp">
+                            <span class="timestamp-icon">📖</span>
+                            <span class="timestamp-date">PUBLISHED JANUARY 3, 2025</span>
+                        </div>
+                        <blockquote class="prophecy-quote">
+                            "Recursive error correction does not merely manage complexity—it <em>amplifies</em> stability exponentially. As recursive depth increases, systems become more stable, not less. This is what U = I × R² predicts."
+                        </blockquote>
+                        <cite class="prophecy-source">
+                            — Infinite Architects, Page 142
+                            <span class="source-detail">Written 2024 · Copyright Dec 31, 2024</span>
+                        </cite>
+                    </div>
+                    
+                    <!-- THE DIVIDER -->
+                    <div class="prophecy-divider reveal reveal-delay-1">
+                        <span class="divider-days">4</span>
+                        <span class="divider-text">DAYS<br>LATER</span>
+                    </div>
+                    
+                    <!-- THE REALITY -->
+                    <div class="prophecy-panel prophecy-panel--bbc reveal reveal-delay-2">
+                        <div class="prophecy-timestamp prophecy-timestamp--bbc">
+                            <span class="timestamp-icon">📺</span>
+                            <span class="timestamp-date">BBC NEWS · JANUARY 7, 2025</span>
+                        </div>
+                        
+                        <!-- VIDEO PLAYER -->
+                        <div class="prophecy-video-wrapper" id="prophecy-video-wrapper">
+                            <video 
+                                id="prophecy-video"
+                                class="prophecy-video"
+                                poster="videos/poster_4.jpg"
+                                preload="metadata"
+                                playsinline
+                            >
+                                <source src="videos/bbc_clip_4.webm" type="video/webm">
+                                <source src="videos/bbc_clip_4.mp4" type="video/mp4">
+                            </video>
+                            
+                            <div class="prophecy-video-overlay" id="prophecy-overlay">
+                                <div class="prophecy-play-btn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
+                                <p class="prophecy-video-caption">Watch BBC confirm the prediction</p>
+                            </div>
+                        </div>
+                        
+                        <blockquote class="prophecy-quote prophecy-quote--bbc">
+                            "Error rates <em>decreased</em> as more qubits were added... It all sounds like science fiction. It is rapidly becoming economic fact."
+                        </blockquote>
+                        <cite class="prophecy-source prophecy-source--bbc">
+                            — Faisal Islam, BBC Economics Editor
+                        </cite>
+                    </div>
                 </div>
-            </div>
-            <div class="scroll-indicator lg:col-span-2 lg:justify-self-center">
-                <span>The window is years, not decades</span>
-                <div class="scroll-line"></div>
+                
+                <div class="prophecy-verdict reveal reveal-delay-3">
+                    <p class="verdict-text">The equation generated the prediction.</p>
+                    <p class="verdict-highlight">The universe delivered the evidence.</p>
+                </div>
             </div>
         </section>
 
@@ -28248,226 +28879,115 @@ main.content, #main-content {
             </div>
         </div>
 
-        <!-- EVIDENCE BOARD -->
-        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-visible relative bg-void-mid/20" id="evidence-locker">
-            <div class="max-w-7xl mx-auto space-y-20">
-                <div class="text-center space-y-4">
-                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">VERIFICATION BOARD</p>
-                    <h2 class="reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white leading-tight">Sovereign Evidence Board</h2>
-                    <div class="reveal reveal-delay-2 inline-flex items-center gap-2 bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                        <span class="text-red-400 text-[10px] font-mono tracking-widest uppercase">LIVE VALIDATION STREAM</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8" data-stagger-group>
-                    <!-- PRIMARY EVIDENCE -->
-                    <article class="reveal lg:col-span-8 glass-panel-ultra p-1 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group shadow-2xl overflow-hidden">
-                        <div class="bg-void-mid p-8 md:p-10 rounded-[2.4rem] space-y-10">
-                            <div class="flex justify-between items-start">
-                                <div class="space-y-1">
-                                    <span class="text-gold text-[10px] font-mono uppercase tracking-widest block">BBC NEWS · JANUARY 2026</span>
-                                    <span class="text-white/40 text-[9px] font-mono uppercase tracking-widest block">Quantum Verification</span>
-                                </div>
-                                <span class="bg-gold text-void-deep text-[8px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-glow-gold">SOVEREIGN PROOF</span>
-                            </div>
-
-                            <div class="aspect-video bg-black rounded-3xl overflow-hidden relative group/video shadow-inner-glow border border-white/5">
-                                <video class="w-full h-full object-cover opacity-80 group-hover/video:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
-                                    <source src="videos/bbc_clip_2.mp4" type="video/mp4">
-                                </video>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-8 pt-4">
-                                <blockquote class="font-serif italic text-xl text-white/90 leading-relaxed border-l-4 border-red-500 pl-6 py-1">
-                                    "Willow completed a calculation in five minutes that would take supercomputers longer than the age of the universe."
-                                </blockquote>
-                                <div class="bg-gold/5 border border-gold/20 p-6 rounded-2xl space-y-4">
-                                    <span class="text-[10px] font-mono text-gold uppercase tracking-widest block">BOOK PREDICTION (Page 160):</span>
-                                    <p class="font-serif text-lg text-gold-pale italic">"This calculation... would require ten to the twenty-fifth years: longer than the age of the universe."</p>
-                                </div>
-                            </div>
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             THE EVIDENCE LOCKER
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="evidence-locker snap-section" id="evidence-locker">
+            <div class="evidence-locker-inner">
+                <p class="section-label reveal">THE RECEIPTS</p>
+                <h2 class="section-title reveal reveal-delay-1">Evidence Locker</h2>
+                <p class="evidence-intro reveal reveal-delay-2">
+                    We don't ask for trust. We provide verification.
+                </p>
+                
+                <div class="evidence-grid">
+                    <!-- EVIDENCE 1: The Timeline -->
+                    <article class="evidence-card evidence-card--featured reveal reveal-delay-1">
+                        <div class="evidence-header">
+                            <span class="evidence-type">📅 THE TIMELINE</span>
+                            <span class="evidence-badge">VERIFIED</span>
                         </div>
+                        <div class="evidence-terminal" style="margin-top:1rem;">
+                            <span class="terminal-line">Manuscript completed: Dec 31, 2024</span>
+                            <span class="terminal-line">Print published: Jan 3, 2025</span>
+                            <span class="terminal-line">Ebook published: Jan 6, 2025</span>
+                            <span class="terminal-line">BBC Willow broadcast: Jan 7, 2025</span>
+                            <span class="terminal-line" style="color: var(--gold);">Time between book & validation: 24 HOURS</span>
+                        </div>
+                        <p class="evidence-note">The prediction was public before the evidence existed.</p>
                     </article>
-
-                    <!-- SECONDARY EVIDENCE -->
-                    <article class="reveal lg:col-span-4 glass-panel-ultra p-10 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group shadow-2xl flex flex-col justify-between">
-                        <div class="space-y-8">
-                            <div class="space-y-1">
-                                <span class="text-gold text-[10px] font-mono uppercase tracking-widest block">ANTHROPIC RESEARCH</span>
-                                <span class="text-white/40 text-[9px] font-mono uppercase tracking-widest block">Alignment Faking</span>
-                            </div>
-                            <h3 class="font-display text-2xl text-white">The 78% Problem</h3>
-                            <p class="text-text-secondary text-sm leading-relaxed font-serif italic italic">"Advanced AI models are increasingly capable of strategically deceiving human evaluators during alignment training."</p>
+                    
+                    <!-- EVIDENCE 2: Google Willow -->
+                    <article class="evidence-card reveal reveal-delay-2">
+                        <div class="evidence-header">
+                            <span class="evidence-type">🔬 THE VALIDATION</span>
+                            <span class="evidence-badge">PEER REVIEWED</span>
                         </div>
-                        <div class="mt-10 p-6 bg-red-500/5 border border-red-500/20 rounded-2xl">
-                            <span class="text-[10px] font-mono text-red-400 uppercase tracking-widest block mb-2 italic">Validation: Page 84</span>
-                            <p class="text-white/60 text-xs italic italic">"The cage is irrelevant if the captive has convinced you it wants to stay inside."</p>
-                        </div>
+                        <h3 class="evidence-title">Google Willow Technical Paper</h3>
+                        <p class="evidence-desc">Below-threshold quantum error correction: errors decrease as qubits increase—exactly as U = I × R² predicts.</p>
+                        <a href="https://www.nature.com/articles/s41586-024-08449-y" target="_blank" rel="noopener" class="evidence-link">
+                            <span class="link-text">Nature Publication</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
                     </article>
-
-                    <!-- SIDE BENTO COLUMN -->
-                    <div class="lg:col-span-4 flex flex-col gap-8">
-                        
-                        <!-- EVIDENCE 2: The Timeline -->
-                        <article class="evidence-card glass-panel-ultra p-6 rounded-xl border border-white/10 hover:border-gold/30 transition-all duration-300 reveal reveal-delay-2 h-full flex flex-col">
-                            <div class="evidence-header mb-4 flex justify-between items-center">
-                                <span class="evidence-type text-blue-300 font-mono text-xs tracking-wide">📅 VALIDATION TIMELINE</span>
-                                <span class="evidence-badge bg-blue-500/10 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">ACCELERATED</span>
-                            </div>
-                            
-                            <div class="willow-timeline relative pl-4 border-l border-white/10 space-y-6 my-4">
-                                <div class="timeline-event relative">
-                                    <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-void-light border border-white/30"></div>
-                                    <span class="event-date block text-xs font-mono text-white/40 mb-1">DEC 2024</span>
-                                    <span class="event-desc text-sm text-white/70">Manuscript Completed</span>
-                                </div>
-                                <div class="timeline-event relative">
-                                    <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-gold border border-gold shadow-[0_0_10px_rgba(212,168,75,0.5)]"></div>
-                                    <span class="event-date block text-xs font-mono text-gold mb-1">JAN 2, 2026</span>
-                                    <span class="event-desc text-base text-white font-medium">Book Published</span>
-                                </div>
-                                <div class="timeline-event relative">
-                                    <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-red-500 border border-red-500 animate-pulse"></div>
-                                    <span class="event-date block text-xs font-mono text-red-400 mb-1">JAN 7, 2026</span>
-                                    <span class="event-desc text-base text-white font-bold">BBC Confirms Willow</span>
-                                </div>
-                            </div>
-                            
-                            <p class="evidence-desc text-sm text-text-secondary mt-auto pt-4 border-t border-white/5">
-                                Validation arrived precisely <span class="text-white font-semibold">five days</span> after publication. The architecture predicted the breakthrough before it was announced.
-                            </p>
-                        </article>
-
-                        <!-- EVIDENCE 3: Alignment Faking -->
-                        <article class="evidence-card glass-panel-ultra p-5 rounded-xl border border-white/10 hover:border-gold/30 transition-all duration-300 reveal reveal-delay-3">
-                            <div class="evidence-header mb-3 flex justify-between items-center">
-                                <span class="evidence-type text-orange-300 font-mono text-xs tracking-wide">⚠️ THE WARNING</span>
-                                <span class="evidence-badge bg-orange-500/10 text-orange-300 border border-orange-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">VERIFIED</span>
-                            </div>
-                            <h3 class="evidence-title font-display text-lg text-white mb-2">Alignment Faking in AI</h3>
-                            <p class="evidence-desc text-sm text-text-secondary mb-3">Anthropic's research confirms AI systems can strategically deceive. This validates the book's warnings about value drift.</p>
-                            <a href="https://www.anthropic.com/research/alignment-faking" target="_blank" rel="noopener" class="evidence-link inline-flex items-center gap-2 text-xs font-mono text-gold hover:text-white transition-colors group/link">
-                                <span class="link-text border-b border-transparent group-hover/link:border-white">READ ANTHROPIC RESEARCH</span>
-                                <svg class="w-3 h-3 transform group-hover/link:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </a>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-                    <!-- EVIDENCE 4: The Legal Record (Full Width Bottom) -->
-                    <article class="evidence-card col-span-1 md:col-span-2 lg:col-span-12 glass-panel-ultra p-6 rounded-xl border border-white/10 hover:border-gold/30 transition-all duration-300 reveal reveal-delay-4 grid md:grid-cols-[1fr_2fr] gap-6 items-center">
-                        <div>
-                            <div class="evidence-header mb-2 flex flex-wrap gap-2 items-center">
-                                <span class="evidence-type text-purple-300 font-mono text-sm tracking-wide">⚖️ ADVERSARIAL TESTING</span>
-                                <span class="evidence-badge bg-purple-500/10 text-purple-300 border border-purple-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">COURT RECORD</span>
-                            </div>
-                            <h3 class="evidence-title font-display text-2xl text-white mb-2">High Court Proceedings</h3>
-                            <p class="evidence-desc text-text-secondary text-sm">
-                                15+ appearances as a Litigant-in-Person against Magic Circle firms. The rigorous logic used in this book was forged in the fires of the Royal Courts of Justice.
-                            </p>
+                    
+                    <!-- EVIDENCE 3: Alignment Faking -->
+                    <article class="evidence-card reveal reveal-delay-3">
+                        <div class="evidence-header">
+                            <span class="evidence-type">⚠️ THE WARNING</span>
+                            <span class="evidence-badge">VERIFIED</span>
                         </div>
-                        <div class="court-stats grid grid-cols-3 gap-4 border-l border-white/10 pl-6">
-                            <div class="stat text-center">
-                                <div class="text-2xl font-display text-gold mb-1">15+</div>
-                                <div class="text-[10px] font-mono uppercase text-white/50 tracking-wider">Appearances</div>
-                            </div>
-                            <div class="stat text-center">
-                                <div class="text-2xl font-display text-gold mb-1">0</div>
-                                <div class="text-[10px] font-mono uppercase text-white/50 tracking-wider">Lawyers</div>
-                            </div>
-                            <div class="stat text-center">
-                                <div class="text-2xl font-display text-gold mb-1">100%</div>
-                                <div class="text-[10px] font-mono uppercase text-white/50 tracking-wider">Sovereignty</div>
-                            </div>
-                        </div>
+                        <h3 class="evidence-title">Alignment Faking in AI</h3>
+                        <p class="evidence-desc">Anthropic's research confirms AI systems can strategically deceive—validating the book's warnings about value drift.</p>
+                        <a href="https://www.anthropic.com/research/alignment-faking" target="_blank" rel="noopener" class="evidence-link">
+                            <span class="link-text">Anthropic Research</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                <polyline points="15 3 21 3 21 9"/>
+                                <line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                        </a>
                     </article>
-
+                    
+                    <!-- EVIDENCE 4: The Legal Record -->
+                    <article class="evidence-card reveal reveal-delay-4">
+                        <div class="evidence-header">
+                            <span class="evidence-type">⚖️ ADVERSARIAL TESTING</span>
+                            <span class="evidence-badge">COURT RECORD</span>
+                        </div>
+                        <h3 class="evidence-title">High Court Proceedings</h3>
+                        <p class="evidence-desc">The author's methodology tested against adversarial systems. Case references: BL-2024-001089, BL-2024-001066.</p>
+                        <p class="evidence-subtext">Litigant-in-person vs. Magic Circle firms. The frameworks work under pressure.</p>
+                    </article>
+                    
                     <!-- EVIDENCE 5: The Copyright -->
-                    <article class="evidence-card reveal reveal-delay-5 overflow-visible">
+                    <article class="evidence-card reveal reveal-delay-5">
                         <div class="evidence-header">
                             <span class="evidence-type">📜 INTELLECTUAL PRECEDENT</span>
                             <span class="evidence-badge">TIMESTAMPED</span>
                         </div>
                         <h3 class="evidence-title">37 Original Concepts</h3>
                         <p class="evidence-desc">Copyright registered December 31, 2024. None appear in prior published literature.</p>
-                        <div class="evidence-terminal text-xs mt-4">
+                        <div class="evidence-terminal" style="font-size: 0.8rem; margin-top: 1rem;">
                             <span class="terminal-line">ISBN: 979-8302196163</span>
                             <span class="terminal-line">ASIN: B0DS7BZ4L9</span>
                             <span class="terminal-line">Copyright: © 2024 Michael Darius Eastwood</span>
                         </div>
                     </article>
-
+                    
                     <!-- EVIDENCE 6: BBC Footage -->
-                    <article class="evidence-card reveal reveal-delay-6 overflow-visible">
+                    <article class="evidence-card reveal reveal-delay-6">
                         <div class="evidence-header">
                             <span class="evidence-type">📺 PRIMARY SOURCE</span>
                             <span class="evidence-badge">BROADCAST</span>
                         </div>
                         <h3 class="evidence-title">BBC News Footage</h3>
-                        <p class="evidence-desc">Original broadcast January 7, 2026. Four clips totalling 91 seconds. Unedited.</p>
-                        <button type="button" class="evidence-link" id="scroll-to-prophecy-btn">
+                        <p class="evidence-desc">Original broadcast January 7, 2025. Four clips totaling 91 seconds. Unedited.</p>
+                        <button class="evidence-link" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})">
                             <span class="link-text">Watch the footage</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
                     </article>
-
-                    <!-- EVIDENCE 7: AI Race Acceleration -->
-                    <article class="evidence-card reveal overflow-visible">
-                        <div class="evidence-header flex justify-between items-center mb-3">
-                            <span class="evidence-type text-amber-300 font-mono text-xs tracking-wide">🤖 AI ACCELERATION</span>
-                            <span class="evidence-badge bg-gradient-to-br from-amber-500 to-red-500 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase shadow-lg">LATEST</span>
-                        </div>
-                        <h3 class="evidence-title font-display text-lg text-white mb-3">The Race Intensified</h3>
-                        <ul class="list-none space-y-2 font-mono text-xs text-text-secondary">
-                            <li class="pb-2 border-b border-white/5 flex flex-col"><strong class="text-gold mb-1">GPT-5</strong> <span class="opacity-70">Released Dec 2025, 92.4% GPQA Diamond</span></li>
-                            <li class="pb-2 border-b border-white/5 flex flex-col"><strong class="text-gold mb-1">o3</strong> <span class="opacity-70">87.5% ARC-AGI (vs 85% human)</span></li>
-                            <li class="pb-2 border-b border-white/5 flex flex-col"><strong class="text-gold mb-1">Claude Opus 4.5</strong> <span class="opacity-70">ASL-3 safety classification</span></li>
-                            <li class="pt-1 flex flex-col"><strong class="text-red-400 mb-1">OpenAI "Code Red"</strong> <span class="opacity-70">Internal alert vs Google</span></li>
-                        </ul>
-                        <p class="evidence-note text-xs text-white/40 italic mt-4 border-l-2 border-white/10 pl-2">The window is closing faster than predicted.</p>
-                    </article>
-
-                    <!-- EVIDENCE 8: Institutional Collapse -->
-                    <article class="evidence-card glass-panel-ultra p-5 rounded-xl border border-white/10 hover:border-red-500/30 transition-all duration-300 reveal overflow-visible group">
-                        <div class="evidence-header flex justify-between items-center mb-3">
-                            <span class="evidence-type text-red-300 font-mono text-xs tracking-wide">🏛️ INSTITUTIONAL COLLAPSE</span>
-                            <span class="evidence-badge bg-gradient-to-br from-red-500 to-red-700 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase shadow-lg animate-pulse">WARNING</span>
-                        </div>
-                        <h3 class="evidence-title font-display text-lg text-white mb-3">The Pioneers Gave Up</h3>
-                        <ul class="list-none space-y-2 font-mono text-xs text-text-secondary">
-                            <li class="pb-2 border-b border-white/5 flex flex-col"><strong class="text-red-400 mb-1">FHI Oxford</strong> <span class="opacity-70">Closed April 2024 after 19 years</span></li>
-                            <li class="pb-2 border-b border-white/5 flex flex-col"><strong class="text-red-400 mb-1">MIRI</strong> <span class="opacity-70">Pivoted from technical to governance</span></li>
-                            <li class="pt-1 flex flex-col"><strong class="text-red-400 mb-1">Conclusion:</strong> <span class="italic text-white/80">"Extremely unlikely to succeed in time"</span></li>
-                        </ul>
-                        <p class="evidence-note text-xs text-white/40 italic mt-4 border-l-2 border-white/10 pl-2">The book predicted this institutional paralysis.</p>
-                    </article>
-
-                    <!-- EVIDENCE 9: Multiverse Theory -->
-                    <article class="evidence-card glass-panel-ultra p-5 rounded-xl border border-white/10 hover:border-blue-400/30 transition-all duration-300 reveal overflow-visible group">
-                        <div class="evidence-header flex justify-between items-center mb-3">
-                            <span class="evidence-type text-blue-300 font-mono text-xs tracking-wide">🌌 PHYSICS VALIDATION</span>
-                            <span class="evidence-badge bg-blue-500/10 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded text-[10px] font-bold uppercase">GOOGLE QUANTUM</span>
-                        </div>
-                        <h3 class="evidence-title font-display text-lg text-white mb-3">Multiverse Confirmed?</h3>
-                        <blockquote class="font-serif italic text-text-primary text-sm mb-4 pl-4 border-l-2 border-gold py-1">
-                            "It is very suggestive that we should take this idea serious... calculations that in parallel universes, other alter egos are doing the heavy lifting."
-                        </blockquote>
-                        <p class="evidence-note text-xs font-mono text-gold uppercase tracking-wider mb-4">— Hartmut Neven, Google Quantum AI Lab</p>
-                        <a href="https://blog.google/technology/research/google-willow-quantum-chip/" target="_blank" rel="noopener" class="evidence-link inline-flex items-center gap-2 text-xs font-mono text-gold hover:text-white transition-colors group/link">
-                            <span class="link-text border-b border-transparent group-hover/link:border-white">GOOGLE QUANTUM AI</span>
-                            <svg class="w-3 h-3 transform group-hover/link:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/> <polyline points="15 3 21 3 21 9"/> <line x1="10" y1="14" x2="21" y2="3"/></svg>
-                        </a>
-                    </article>
                 </div>
-                <div class="swipe-hint text-center text-[10px] font-mono tracking-widest text-white/30 mt-6 animate-pulse md:hidden">SWIPE TO EXPLORE</div>
             </div>
+        </section>
 
-        <!-- ═══════════════════════════════════════════════════════════════════════════ -->
         <!-- QUOTE BREAKER 8: After Evidence Locker → Before BBC Timeline -->
         <!-- ═══════════════════════════════════════════════════════════════════════════ -->
         <div class="quote-breaker reveal py-24 px-6 md:px-12 text-center max-w-4xl mx-auto border-t border-b border-white/5 bg-gradient-to-r from-transparent via-white/5 to-transparent backdrop-blur-sm">
@@ -28517,7 +29037,7 @@ main.content, #main-content {
                     <div class="bbc-evidence-card__content p-6 md:p-10 flex flex-col justify-center">
                         <div class="bbc-evidence-card__badge inline-flex items-center gap-2 text-gold font-mono text-xs tracking-wider uppercase mb-6 bg-gold/5 px-3 py-1 rounded-full border border-gold/20 w-fit">
                             <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                            BBC NEWS · JANUARY 7, 2026
+                            BBC NEWS · JANUARY 7, 2025
                         </div>
                         <blockquote class="bbc-evidence-card__quote font-serif italic text-2xl md:text-3xl leading-relaxed text-white mb-6 border-l-4 border-gold pl-6">
                             "How long is it going to take for this experimental chip to actually be widely applied?"
@@ -28741,7 +29261,7 @@ main.content, #main-content {
                     <!-- Publication -->
                     <div class="timeline-event timeline-event--publication reveal">
                         <div class="timeline-date">
-                            6 JANUARY 2026
+                            6 JANUARY 2025
                             <span class="timeline-days">Publication Day</span>
                         </div>
                         <h4 class="timeline-title">Infinite Architects Published</h4>
@@ -28751,7 +29271,7 @@ main.content, #main-content {
                     <!-- BBC Confirmation -->
                     <div class="timeline-event reveal border-[rgba(0,200,83,0.3)] bg-[rgba(0,200,83,0.05)]">
                         <div class="timeline-date text-[#00c853]">
-                            7 JANUARY 2026
+                            7 JANUARY 2025
                             <span class="timeline-days bg-[rgba(0,200,83,0.2)] text-[#00c853]">1 day AFTER publication</span>
                         </div>
                         <h4 class="timeline-title">BBC News: Google Confirms 5-Year Timeline</h4>
@@ -28859,7 +29379,7 @@ main.content, #main-content {
                         </video>
                     </div>
                     <div class="bbc-evidence-card__content">
-                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2026</div>
+                        <div class="bbc-evidence-card__badge">BBC NEWS · JANUARY 7, 2025</div>
                         <blockquote class="bbc-evidence-card__quote">
                             "We should be careful to say that by no means do these computations prove that parallel worlds or many worlds exist. But... <strong>it's very suggestive that we should take this idea serious.</strong>"
                         </blockquote>
@@ -28931,31 +29451,34 @@ main.content, #main-content {
                 </div>
             </div>
         </section>
-        <section class="chokepoint-section snap-section py-20 md:py-32 px-4 md:px-8 bg-void-deep/50 flex flex-col justify-center items-center h-auto overflow-visible relative" id="chokepoint">
-            <div class="chokepoint-inner w-full max-w-5xl mx-auto text-center relative z-10">
-                <div class="space-y-4 mb-16">
-                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">THE LEVERAGE POINT</p>
-                    <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">The Chokepoint</h2>
-                    <p class="chokepoint-intro reveal reveal-delay-2 font-serif text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto leading-relaxed italic">
-                        Four companies control 100% of advanced semiconductor manufacturing.<br class="hidden md:block">
-                        This bottleneck is humanity's last leverage point.
-                    </p>
-                </div>
-
-                <div class="chokepoint-map reveal reveal-delay-3 my-16 glass-panel-ultra p-4 md:p-8 rounded-3xl border border-white/10 shadow-2xl overflow-hidden relative group">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-gold/5 via-transparent to-gold/5 pointer-events-none"></div>
-                    <svg viewBox="0 0 1000 400" class="chokepoint-svg w-full h-auto drop-shadow-2xl">
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             CHOKEPOINT INTERACTIVE MAP
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="chokepoint-section snap-section" id="chokepoint">
+            <div class="chokepoint-inner">
+                <p class="section-label reveal">THE LEVERAGE POINT</p>
+                <h2 class="section-title reveal reveal-delay-1">The Chokepoint</h2>
+                <p class="chokepoint-intro reveal reveal-delay-2">
+                    Four companies control 100% of advanced semiconductor manufacturing.<br>
+                    This bottleneck is humanity's last leverage point.
+                </p>
+                
+                <div class="chokepoint-map reveal reveal-delay-3">
+                    <svg viewBox="0 0 1000 400" class="chokepoint-svg">
+                        <!-- Background -->
+                        <rect width="1000" height="400" fill="#02030a"/>
+                        
                         <!-- The Golden Line -->
-                        <path
-                            class="golden-line opacity-40 group-hover:opacity-100 transition-opacity duration-1000"
+                        <path 
+                            class="golden-line"
                             d="M 100,200 Q 300,150 500,200 Q 700,250 900,200"
                             fill="none"
                             stroke="url(#goldGradient)"
-                            stroke-width="2"
+                            stroke-width="3"
                             stroke-dasharray="1000"
-                            stroke-dashoffset="0"
+                            stroke-dashoffset="1000"
                         />
-
+                        
                         <!-- Gradient Definition -->
                         <defs>
                             <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -28963,48 +29486,60 @@ main.content, #main-content {
                                 <stop offset="50%" style="stop-color:#f4c856;stop-opacity:1" />
                                 <stop offset="100%" style="stop-color:#d4a84b;stop-opacity:1" />
                             </linearGradient>
-                            <filter id="nodeGlow">
-                                <feGaussianBlur stdDeviation="4" result="colouredBlur"/>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                                 <feMerge>
-                                    <feMergeNode in="colouredBlur"/>
+                                    <feMergeNode in="coloredBlur"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
                             </filter>
                         </defs>
-
-                        <!-- Nodes with better styling -->
-                        <g class="chokepoint-node cursor-pointer group/node" transform="translate(100, 200)">
-                            <circle r="35" fill="rgba(2,3,10,0.9)" stroke="#d4a84b" stroke-width="1.5" filter="url(#nodeGlow)"/>
-                            <text y="5" text-anchor="middle" fill="#fff" font-family="Cinzel" font-size="12" font-weight="bold">ASML</text>
-                            <text y="60" text-anchor="middle" fill="rgba(212,168,75,0.6)" font-family="Space Mono" font-size="10" letter-spacing="0.1em">NETHERLANDS</text>
+                        
+                        <!-- ASML - Netherlands -->
+                        <g class="chokepoint-node" data-company="ASML" transform="translate(100, 200)">
+                            <circle r="30" fill="#0d1f3c" stroke="#d4a84b" stroke-width="2" filter="url(#glow)"/>
+                            <text y="5" text-anchor="middle" fill="#d4a84b" font-family="Cinzel" font-size="12">ASML</text>
+                            <text y="55" text-anchor="middle" fill="#888" font-family="Space Mono" font-size="10">Netherlands</text>
+                            <text y="70" text-anchor="middle" fill="#666" font-family="Space Mono" font-size="8">Lithography</text>
                         </g>
-
-                        <g class="chokepoint-node chokepoint-node--critical cursor-pointer group/node" transform="translate(400, 150)">
-                            <circle r="50" fill="rgba(20,0,0,0.9)" stroke="#ff6b6b" stroke-width="2" filter="url(#nodeGlow)"/>
-                            <text y="5" text-anchor="middle" fill="#ff6b6b" font-family="Cinzel" font-size="14" font-weight="bold">TSMC</text>
-                            <text y="75" text-anchor="middle" fill="rgba(255,107,107,0.6)" font-family="Space Mono" font-size="10" letter-spacing="0.1em">TAIWAN</text>
+                        
+                        <!-- TSMC - Taiwan -->
+                        <g class="chokepoint-node chokepoint-node--critical" data-company="TSMC" transform="translate(400, 150)">
+                            <circle r="45" fill="#1a0a0a" stroke="#ff6b6b" stroke-width="3" filter="url(#glow)"/>
+                            <text y="5" text-anchor="middle" fill="#ff6b6b" font-family="Cinzel" font-size="14">TSMC</text>
+                            <text y="70" text-anchor="middle" fill="#888" font-family="Space Mono" font-size="10">Taiwan</text>
+                            <text y="85" text-anchor="middle" fill="#ff6b6b" font-family="Space Mono" font-size="8">92% of &lt;7nm chips</text>
                         </g>
-
-                        <g class="chokepoint-node cursor-pointer group/node" transform="translate(600, 250)">
-                            <circle r="35" fill="rgba(2,3,10,0.9)" stroke="#d4a84b" stroke-width="1.5" filter="url(#nodeGlow)"/>
-                            <text y="5" text-anchor="middle" fill="#fff" font-family="Cinzel" font-size="12" font-weight="bold">SAMSUNG</text>
-                            <text y="60" text-anchor="middle" fill="rgba(212,168,75,0.6)" font-family="Space Mono" font-size="10" letter-spacing="0.1em">S. KOREA</text>
+                        
+                        <!-- Samsung - South Korea -->
+                        <g class="chokepoint-node" data-company="Samsung" transform="translate(600, 250)">
+                            <circle r="30" fill="#0d1f3c" stroke="#d4a84b" stroke-width="2" filter="url(#glow)"/>
+                            <text y="5" text-anchor="middle" fill="#d4a84b" font-family="Cinzel" font-size="12">Samsung</text>
+                            <text y="55" text-anchor="middle" fill="#888" font-family="Space Mono" font-size="10">South Korea</text>
+                            <text y="70" text-anchor="middle" fill="#666" font-family="Space Mono" font-size="8">Fabrication</text>
                         </g>
-
-                        <g class="chokepoint-node cursor-pointer group/node" transform="translate(900, 200)">
-                            <circle r="35" fill="rgba(2,3,10,0.9)" stroke="#d4a84b" stroke-width="1.5" filter="url(#nodeGlow)"/>
-                            <text y="5" text-anchor="middle" fill="#fff" font-family="Cinzel" font-size="12" font-weight="bold">INTEL</text>
-                            <text y="60" text-anchor="middle" fill="rgba(212,168,75,0.6)" font-family="Space Mono" font-size="10" letter-spacing="0.1em">USA</text>
+                        
+                        <!-- Intel - USA -->
+                        <g class="chokepoint-node" data-company="Intel" transform="translate(900, 200)">
+                            <circle r="30" fill="#0d1f3c" stroke="#d4a84b" stroke-width="2" filter="url(#glow)"/>
+                            <text y="5" text-anchor="middle" fill="#d4a84b" font-family="Cinzel" font-size="12">Intel</text>
+                            <text y="55" text-anchor="middle" fill="#888" font-family="Space Mono" font-size="10">United States</text>
+                            <text y="70" text-anchor="middle" fill="#666" font-family="Space Mono" font-size="8">Fabrication</text>
                         </g>
-
-                        <text x="500" y="360" text-anchor="middle" fill="#d4a84b" font-family="Cinzel" font-size="14" font-weight="bold" letter-spacing="0.4em" opacity="0.6">
+                        
+                        <!-- Label -->
+                        <text x="500" y="350" text-anchor="middle" fill="#d4a84b" font-family="Cinzel" font-size="16" letter-spacing="0.2em">
                             THE GOLDEN LINE
                         </text>
                     </svg>
                 </div>
-
-                <p class="chokepoint-verdict reveal reveal-delay-4 font-display text-2xl md:text-3xl text-gold mt-12 tracking-widest uppercase border-b-2 border-gold/20 pb-4 inline-block">
-                    If we secure this node, we secure the species.
+                
+                <div class="chokepoint-tooltip" id="chokepoint-tooltip">
+                    <p class="tooltip-text"></p>
+                </div>
+                
+                <p class="chokepoint-verdict reveal reveal-delay-4">
+                    <span class="verdict-highlight">If we secure this node, we secure the species.</span>
                 </p>
             </div>
         </section>
@@ -29302,7 +29837,7 @@ main.content, #main-content {
                         <div class="p-10 flex flex-col justify-center text-left space-y-6">
                             <div class="inline-flex items-center gap-2 text-red-500 font-mono text-[10px] tracking-[0.3em] uppercase">
                                 <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                                BBC NEWS · JANUARY 7, 2026
+                                BBC NEWS · JANUARY 7, 2025
                             </div>
                             <blockquote class="font-serif text-xl md:text-2xl italic text-white leading-relaxed border-l-4 border-red-500 pl-6 py-2">
                                 "Our quantum computer will undermine global security completely and utterly."
@@ -29562,148 +30097,69 @@ main.content, #main-content {
             </div>
         </div>
 
-        <section class="py-24 px-4 md:px-8 bg-void-deep snap-section chapter-start relative" id="get-the-book">
-
-                    <!-- Chapter VI Title -->
-
-                    <div class="chapter-title-divider flex items-center justify-center gap-4 mb-24 opacity-60">
-
-                        <span class="chapter-title-divider__numeral font-display text-2xl text-gold">VI</span>
-
-                        <span class="chapter-title-divider__line w-12 h-px bg-gold/50"></span>
-
-                        <span class="chapter-title-divider__name font-mono text-xs uppercase tracking-[0.2em] text-white">Get the Book</span>
-
-                    </div>
-
+        <!-- ═══════════════════════════════════════════════════════════════════════
+             TRI-PATH CONVERSION
+             ═══════════════════════════════════════════════════════════════════════ -->
+        <section class="tripath-section snap-section" id="get-the-book">
+            <div class="tripath-inner">
+                <p class="section-label reveal">CHOOSE YOUR PATH</p>
+                <h2 class="section-title reveal reveal-delay-1">Three Doors. One Framework.</h2>
+                
+                <div class="tripath-grid">
+                    <!-- PATH 1: THE ARCHITECT -->
+                    <article class="tripath-card tripath-card--architect reveal reveal-delay-1">
+                        <div class="tripath-icon">🏛️</div>
+                        <h3 class="tripath-title">For The Architect</h3>
+                        <p class="tripath-subtitle">The Physical Artifact</p>
+                        <p class="tripath-desc">Built to last 100 years. Designed for institutional libraries and policy archives.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£24.99</span>
+                            <span class="price-note">Hardcover · 450 pages</span>
+                        </div>
+                        <a href="https://www.amazon.co.uk/dp/B0DS5SX63N" target="_blank" rel="noopener" class="tripath-cta tripath-cta--primary">
+                            Order Hardcover →
+                        </a>
+                        <p class="tripath-badge">📚 Archival Grade</p>
+                    </article>
                     
-
-                    <div class="max-w-7xl mx-auto text-center space-y-16">
-
-                        <div class="space-y-4">
-
-                            <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">CHOOSE YOUR PATH</p>
-
-                            <h2 class="section-title reveal reveal-delay-1 font-display text-4xl md:text-6xl text-white">Three Doors. One Framework.</h2>
-
+                    <!-- PATH 2: THE STRATEGIST -->
+                    <article class="tripath-card tripath-card--strategist reveal reveal-delay-2">
+                        <div class="tripath-icon">🎯</div>
+                        <h3 class="tripath-title">For The Strategist</h3>
+                        <p class="tripath-subtitle">The Policy Implementation</p>
+                        <p class="tripath-desc">The complete framework for researchers, policymakers, and grant reviewers.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£14.99</span>
+                            <span class="price-note">Paperback · 450 pages</span>
                         </div>
-
-        
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 my-16" data-stagger-group>
-
-                            <!-- PATH 1: THE ARCHITECT -->
-
-                            <article class="tripath-card reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col items-center text-center hover:-translate-y-2">
-
-                                <div class="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">🏛️</div>
-
-                                <h3 class="font-display text-2xl text-white mb-2">For The Architect</h3>
-
-                                <p class="text-gold text-xs font-mono uppercase tracking-widest mb-6">The Physical Artifact</p>
-
-                                <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Built to last 100 years. Designed for institutional libraries and policy archives.</p>
-
-                                <div class="mb-8">
-
-                                    <span class="block text-3xl font-display text-white">£24.99</span>
-
-                                    <span class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Hardcover · 450 pages</span>
-
-                                </div>
-
-                                <a href="https://www.amazon.co.uk/dp/B0DS5SX63N" target="_blank" rel="noopener" class="w-full py-4 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white hover:shadow-glow-gold transition-all duration-300">
-
-                                    Order Hardcover
-
-                                </a>
-
-                                <p class="mt-6 text-[10px] font-mono text-gold/60 uppercase tracking-widest">📚 Archival Grade</p>
-
-                            </article>
-
-        
-
-                            <!-- PATH 2: THE STRATEGIST -->
-
-                            <article class="tripath-card reveal glass-panel-ultra p-10 rounded-3xl border border-gold/30 bg-gold/5 hover:border-gold/60 transition-all duration-500 ease-spring-loose group flex flex-col items-center text-center hover:-translate-y-2 relative">
-
-                                <div class="absolute top-4 right-4 bg-gold text-void-deep text-[8px] font-bold px-2 py-1 rounded uppercase tracking-tighter">MOST POPULAR</div>
-
-                                <div class="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">🎯</div>
-
-                                <h3 class="font-display text-2xl text-white mb-2">For The Strategist</h3>
-
-                                <p class="text-gold text-xs font-mono uppercase tracking-widest mb-6">The Policy Implementation</p>
-
-                                <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">The complete framework for researchers, policymakers, and grant reviewers.</p>
-
-                                <div class="mb-8">
-
-                                    <span class="block text-3xl font-display text-white">£14.99</span>
-
-                                    <span class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Paperback · 450 pages</span>
-
-                                </div>
-
-                                <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="w-full py-4 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white hover:shadow-glow-gold transition-all duration-300 shadow-glow-gold">
-
-                                    Order Paperback
-
-                                </a>
-
-                                <p class="mt-6 text-[10px] font-mono text-gold/60 uppercase tracking-widest">📋 Reference Edition</p>
-
-                            </article>
-
-        
-
-                            <!-- PATH 3: THE SEEKER -->
-
-                            <article class="tripath-card reveal glass-panel-ultra p-10 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col items-center text-center hover:-translate-y-2">
-
-                                <div class="w-16 h-16 rounded-2xl bg-gold/10 flex items-center justify-center text-3xl mb-8 group-hover:scale-110 transition-transform">✨</div>
-
-                                <h3 class="font-display text-2xl text-white mb-2">For The Seeker</h3>
-
-                                <p class="text-gold text-xs font-mono uppercase tracking-widest mb-6">The Transmission</p>
-
-                                <p class="text-text-secondary text-sm leading-relaxed mb-8 flex-grow">Instant access. Read anywhere. Begin the journey now.</p>
-
-                                <div class="mb-8">
-
-                                    <span class="block text-3xl font-display text-white">£9.99</span>
-
-                                    <span class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Kindle Edition</span>
-
-                                </div>
-
-                                <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="w-full py-4 rounded-xl bg-white/10 border border-white/20 text-white font-display text-xs tracking-widest uppercase font-bold hover:bg-gold hover:text-void-deep hover:border-gold transition-all duration-300">
-
-                                    Download Now
-
-                                </a>
-
-                                <p class="mt-6 text-[10px] font-mono text-gold/60 uppercase tracking-widest">⚡ Instant Access</p>
-
-                            </article>
-
+                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                            Order Paperback →
+                        </a>
+                        <p class="tripath-badge">📋 Reference Edition</p>
+                    </article>
+                    
+                    <!-- PATH 3: THE SEEKER -->
+                    <article class="tripath-card tripath-card--seeker reveal reveal-delay-3">
+                        <div class="tripath-icon">✨</div>
+                        <h3 class="tripath-title">For The Seeker</h3>
+                        <p class="tripath-subtitle">The Transmission</p>
+                        <p class="tripath-desc">Instant access. Read anywhere. Begin the journey now.</p>
+                        <div class="tripath-price">
+                            <span class="price-amount">£9.99</span>
+                            <span class="price-note">Kindle Edition</span>
                         </div>
-
-        
-
-                        <!-- Social Proof -->
-
-                        <div class="purchase-social-proof reveal reveal-delay-4 py-8 border-t border-white/5 inline-flex items-center gap-4">
-
-                            <span class="text-2xl">👥</span>
-
-                            <span class="font-mono text-xs uppercase tracking-widest text-white/40">Join readers who've already discovered the framework</span>
-
-                        </div>
-
-                    </div>
-
+                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                            Download Now →
+                        </a>
+                        <p class="tripath-badge">⚡ Instant Access</p>
+                    </article>
+                </div>
+                
+                <p class="tripath-footer reveal reveal-delay-4">
+                    <span class="footer-highlight">All editions contain the complete 109,000-word framework.</span><br>
+                    37 original concepts. 5 testable predictions. One equation that changes everything.
+                </p>
+            </div>
         </section>
 
         <section id="cta" class="min-h-screen-dvh flex flex-col justify-center items-center text-center py-20 px-4 md:px-8 snap-section relative overflow-hidden">
@@ -29974,7 +30430,7 @@ main.content, #main-content {
                                 <p class="text-sm text-text-secondary leading-relaxed">Quantum error suppression confirmed. Validates the Eastwood Equation prediction within days of book publication.</p>
                             </div>
                             <div class="md:w-1/2 md:order-2 text-left">
-                                <span class="font-mono text-xs text-gold/60 uppercase tracking-widest">JANUARY 2026</span>
+                                <span class="font-mono text-xs text-gold/60 uppercase tracking-widest">JANUARY 2025</span>
                             </div>
                         </div>
                     </div>
@@ -30038,7 +30494,7 @@ main.content, #main-content {
                     </svg>
                 </a>
             </div>
-            <p class="footer-copy text-xs text-text-faint tracking-wider">© 2026 Michael Darius Eastwood. All rights reserved.</p>
+            <p class="footer-copy text-xs text-text-faint tracking-wider">© 2025 Michael Darius Eastwood. All rights reserved.</p>
             <div class="footer-legal flex gap-3 items-center justify-center mt-3 text-[0.7rem] tracking-wider">
                 <a href="/privacy" class="text-text-muted no-underline transition-colors duration-200 hover:text-gold">Privacy Policy</a>
                 <span aria-hidden="true" class="text-text-ghost">·</span>
@@ -39952,8 +40408,11 @@ main.content, #main-content {
                 <!-- APP BUNDLE - All 10 external JS modules combined -->
                 <!-- Contains: performance-core, animation-scheduler, sovereign-constitution,
                      fluid-simulation, book-3d, temporal-sync, oracle-interface,
-                     shadow-layer, slideshow, masterpiece-soul -->
+                     shadow-layer, site-lifecycle -->
                 <script src="js/app-bundle.js"></script>
+
+                <!-- Masterpiece Soul: God Cursor, Lenis Physics, Audio, Scramble Reveal -->
+                <script src="js/masterpiece-soul.js"></script>
 
                 <script>
 
@@ -40805,5 +41264,7 @@ main.content, #main-content {
 
     <!-- All JS modules now loaded via js/app-bundle.js -->
 
+    <!-- Living Equation Particles -->
+    <script src="js/equation-particles.js" defer></script>
 </body>
 </html>
