@@ -69,16 +69,6 @@
             if (id === 'hero' || id === 'canvas-container') {
                 window.PERF_STATE.isHeroVisible = isVisible;
 
-                // Pause/play hero videos
-                const videos = entry.target.querySelectorAll('video');
-                videos.forEach(video => {
-                    if (isVisible && video.paused && !video.ended) {
-                        video.play().catch(() => {}); // Ignore autoplay restrictions
-                    } else if (!isVisible && !video.paused) {
-                        video.pause();
-                    }
-                });
-
                 // Log for debugging
                 if (window.DEBUG_PERF) {
                     console.log(`[PERF] Hero visible: ${isVisible}`);
@@ -96,14 +86,6 @@
             // Evidence section (BBC videos)
             if (id === 'evidence-locker' || id === 'bbc-timeline') {
                 window.PERF_STATE.isEvidenceVisible = isVisible;
-
-                // Pause evidence videos when off-screen
-                const videos = entry.target.querySelectorAll('video');
-                videos.forEach(video => {
-                    if (!isVisible && !video.paused) {
-                        video.pause();
-                    }
-                });
             }
         });
     }, observerOptions);
@@ -213,17 +195,7 @@
             });
         });
 
-        // Also observe any videos for auto-pause
-        document.querySelectorAll('video').forEach(video => {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting && !entry.target.paused) {
-                        entry.target.pause();
-                    }
-                });
-            }, { threshold: 0 });
-            videoObserver.observe(video);
-        });
+        // REMOVED: Redundant video observer - Centralized in Orchestrator to fix jolting
 
         console.log('[PERF] Performance Core initialized', {
             lowPowerMode: window.PERF_STATE.isLowPowerMode
@@ -2066,13 +2038,18 @@ window.ShadowLayer = new ShadowLayer();
 
             osc.start();
             
-            // Modulate drone based on scroll
+            // PERF: Throttled scroll listener
+            let ticking = false;
             window.addEventListener('scroll', () => {
-                if (!this.isPlaying) return;
-                const scrollY = window.scrollY;
-                const freq = 40 + (scrollY * 0.05);
-                osc.frequency.setTargetAtTime(freq, this.ctx.currentTime, 0.1);
-            });
+                if (!this.isPlaying || ticking) return;
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    const freq = 40 + (scrollY * 0.05);
+                    osc.frequency.setTargetAtTime(freq, this.ctx.currentTime, 0.1);
+                    ticking = false;
+                });
+                ticking = true;
+            }, { passive: true });
         },
 
         playChime() {
@@ -2253,61 +2230,75 @@ window.ShadowLayer = new ShadowLayer();
             
             const observerOptions = {
                 root: null,
-                threshold: 0.01, // Trigger as soon as 1% is visible
-                rootMargin: '100px' // Pre-warm slightly before arrival
+                threshold: 0.01,
+                rootMargin: '300px' // High margin for smooth pre-reveal
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    const id = entry.target.id;
+                    const el = entry.target;
+                    const id = el.id || 'video-' + Math.random();
                     const isVisible = entry.isIntersecting;
                     
                     if (isVisible) {
-                        this.activateEffect(id);
+                        this.activateEffect(el, id);
                     } else {
-                        this.deactivateEffect(id);
+                        this.deactivateEffect(el, id);
                     }
                 });
             }, observerOptions);
 
-            // Register Heavy Assets (Coordinated: Claude added book-cover-video, mandelbrot-video 2026-01-15)
-            const heavyAssets = [
+            // Register Specific Heavy Assets
+            const heavyIds = [
                 'neural-canvas',
                 'tesseract-canvas',
                 'portal-video',
                 'bbc-evidence-video',
-                'book-cover-video',    // Added by Claude - hero book animation
-                'mandelbrot-video'     // Added by Claude - background fractal
+                'book-cover-video',
+                'mandelbrot-video'
             ];
-            heavyAssets.forEach(id => {
+            heavyIds.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) observer.observe(el);
+            });
+
+            // Register ALL generic videos for performance management
+            document.querySelectorAll('video').forEach(video => {
+                // Skip if already tracked via heavyIds
+                if (!heavyIds.includes(video.id)) {
+                    observer.observe(video);
+                }
             });
 
             // Monitor Modals to pause everything behind them
             this.watchModals();
         },
 
-        activateEffect(id) {
-            const el = document.getElementById(id);
+        activateEffect(el, id) {
             if (!el) return;
             
-            console.log(`🚀 Orchestrator: Activating ${id}`);
-            el.style.display = 'block';
+            if (window.DEBUG_PERF) console.log(`🚀 Orchestrator: Activating ${id}`);
             
-            if (el.tagName === 'VIDEO') el.play().catch(() => {});
+            if (el.tagName === 'VIDEO') {
+                if (el.paused) el.play().catch(() => {});
+            } else {
+                el.style.display = 'block';
+            }
             
-            // Hook for custom engines (Fluid, Neural, etc)
+            // Hook for custom engines
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.resume();
         },
 
-        deactivateEffect(id) {
-            const el = document.getElementById(id);
+        deactivateEffect(el, id) {
             if (!el) return;
             
-            console.log(`💤 Orchestrator: Hibernating ${id}`);
-            if (el.tagName === 'VIDEO') el.pause();
-            else el.style.display = 'none'; // Completely stop rendering paint
+            if (window.DEBUG_PERF) console.log(`💤 Orchestrator: Hibernating ${id}`);
+            
+            if (el.tagName === 'VIDEO') {
+                if (!el.paused) el.pause();
+            } else {
+                el.style.display = 'none'; 
+            }
             
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.pause();
         },

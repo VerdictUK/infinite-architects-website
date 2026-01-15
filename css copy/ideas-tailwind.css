@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   TAILWIND-ALIGNED IDEAS SECTION - VISIBILITY FIX
+   This CSS ensures all concept cards are visible without clipping
+   Include this file AFTER your main styles for highest specificity
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Section and container overflow visibility */
+#ideas,
+.ideas-section,
+#ideas .section-inner,
+.ideas-section .section-inner {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+}
+
+/* Ideas grid - Tailwind equivalent: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible max-h-none h-auto */
+#ideas .ideas-grid,
+.ideas-section .ideas-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 1.5rem !important;
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    align-items: start !important;
+    grid-auto-rows: auto !important;
+}
+
+/* Idea card - Tailwind equivalent: relative flex flex-col gap-4 p-6 rounded-card border border-gold-alpha-15 bg-void-surface/95 transition-all duration-600 */
+#ideas .idea-card,
+.ideas-section .idea-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    padding: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    border: 1px solid rgba(212, 168, 75, 0.15) !important;
+    background: rgba(10, 12, 20, 0.95) !important;
+    position: relative !important;
+    height: auto !important;
+    min-height: unset !important;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Hover state - Tailwind equivalent: hover:-translate-y-2 hover:border-gold hover:shadow-card-hover */
+#ideas .idea-card:hover,
+.ideas-section .idea-card:hover {
+    transform: translateY(-8px) !important;
+    border-color: #d4a84b !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.15) !important;
+}
+
+/* Title - Tailwind equivalent: font-display text-gold text-body-lg tracking-wide */
+#ideas .idea-title,
+.ideas-section .idea-title {
+    font-family: 'Cinzel', serif !important;
+    color: #d4a84b !important;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem) !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Text - Tailwind equivalent: font-serif text-text-dim text-body leading-relaxed */
+#ideas .idea-text,
+.ideas-section .idea-text {
+    font-family: 'Cormorant Garamond', serif !important;
+    color: rgba(240, 235, 227, 0.72) !important;
+    font-size: clamp(0.85rem, 1vw, 1rem) !important;
+    line-height: 1.6 !important;
+}
+
+/* Number badge - Tailwind equivalent: absolute top-4 right-4 font-display text-gold opacity-10 text-2xl */
+#ideas .idea-number,
+.ideas-section .idea-number {
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    font-family: 'Cinzel', serif !important;
+    color: #d4a84b !important;
+    opacity: 0.1 !important;
+    font-size: 1.5rem !important;
+}
+
+/* Image in cards */
+#ideas .idea-image,
+.ideas-section .idea-image {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 200px !important;
+    object-fit: cover !important;
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+    margin: -1.5rem -1.5rem 0.5rem -1.5rem !important;
+}
+
+/* Mobile responsive - horizontal scroll */
+@media (max-width: 768px) {
+    #ideas .ideas-grid,
+    .ideas-section .ideas-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 1rem !important;
+        padding: 1rem 0 !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    #ideas .idea-card,
+    .ideas-section .idea-card {
+        flex: 0 0 280px !important;
+        min-width: 280px !important;
+        scroll-snap-align: center !important;
+    }
+}
+
+/* Tablet responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #ideas .ideas-grid,
+    .ideas-section .ideas-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Desktop responsive */
+@media (min-width: 1025px) {
+    #ideas .ideas-grid,
+    .ideas-section .ideas-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* Large desktop */
+@media (min-width: 1400px) {
+    #ideas .ideas-grid,
+    .ideas-section .ideas-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    }
+}

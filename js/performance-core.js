@@ -43,16 +43,6 @@
             if (id === 'hero' || id === 'canvas-container') {
                 window.PERF_STATE.isHeroVisible = isVisible;
 
-                // Pause/play hero videos
-                const videos = entry.target.querySelectorAll('video');
-                videos.forEach(video => {
-                    if (isVisible && video.paused && !video.ended) {
-                        video.play().catch(() => {}); // Ignore autoplay restrictions
-                    } else if (!isVisible && !video.paused) {
-                        video.pause();
-                    }
-                });
-
                 // Log for debugging
                 if (window.DEBUG_PERF) {
                     console.log(`[PERF] Hero visible: ${isVisible}`);
@@ -70,14 +60,6 @@
             // Evidence section (BBC videos)
             if (id === 'evidence-locker' || id === 'bbc-timeline') {
                 window.PERF_STATE.isEvidenceVisible = isVisible;
-
-                // Pause evidence videos when off-screen
-                const videos = entry.target.querySelectorAll('video');
-                videos.forEach(video => {
-                    if (!isVisible && !video.paused) {
-                        video.pause();
-                    }
-                });
             }
         });
     }, observerOptions);
@@ -187,17 +169,7 @@
             });
         });
 
-        // Also observe any videos for auto-pause
-        document.querySelectorAll('video').forEach(video => {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (!entry.isIntersecting && !entry.target.paused) {
-                        entry.target.pause();
-                    }
-                });
-            }, { threshold: 0 });
-            videoObserver.observe(video);
-        });
+        // REMOVED: Redundant video observer - Centralized in Orchestrator to fix jolting
 
         console.log('[PERF] Performance Core initialized', {
             lowPowerMode: window.PERF_STATE.isLowPowerMode

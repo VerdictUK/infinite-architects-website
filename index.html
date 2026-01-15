@@ -136,6 +136,24 @@
         .animation-paused *::after {
             animation-play-state: paused !important;
         }
+
+        /* APPLE-GRADE REVEAL ENGINE */
+        h2, h3, .book-quote, .quote-text, .apple-reveal {
+            opacity: 0.15;
+            transform: translateY(20px) scale(0.97);
+            filter: blur(3px);
+            transition: 
+                opacity 1.2s cubic-bezier(0.2, 0, 0.2, 1),
+                transform 1.2s cubic-bezier(0.2, 0, 0.2, 1),
+                filter 1.2s cubic-bezier(0.2, 0, 0.2, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .apple-visible {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+            filter: blur(0px) !important;
+        }
     </style>
 
     <!-- CRITICAL SEO META TAGS (Restored from git history) -->
@@ -3728,6 +3746,33 @@
                 transform: none;
                 transition: opacity 0.3s ease-out;
             }
+        }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           ORCHESTRATED REVEAL: SMOOTH ASSET HAND-OFF
+           Fixes the "freeze/jolt" by fading in heavy assets only when ready
+           Video and canvas start invisible, fade in after playing
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* 1. Video & Canvas start INVISIBLE but active (prevents startup stutter) */
+        #mandelbrot-video,
+        #canvas-container canvas {
+            opacity: 0;
+            transition: opacity 2.0s cubic-bezier(0.4, 0, 0.2, 1); /* Long, slow fade */
+            will-change: opacity;
+        }
+
+        /* 2. Ready State: Triggered only when assets are actually playing */
+        #mandelbrot-video.asset-ready,
+        #canvas-container canvas.asset-ready {
+            opacity: 0.6; /* Fade to visible - matches original opacity-60 class */
+        }
+
+        /* 3. Loader Exit: Slower fade to cover any remaining stutter */
+        body.cinematic #loader {
+            transition: transform 1.0s cubic-bezier(0.7, 0, 0.3, 1),
+                        opacity 0.8s ease-out 0.5s,
+                        visibility 0.1s linear 1.3s !important;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -27592,8 +27637,8 @@ main.content, #main-content {
         <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-hidden p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
-                <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
-                       muted playsinline preload="metadata" autoplay loop>
+                <video class="mandelbrot-video w-full h-full object-cover bg-void mix-blend-screen" id="mandelbrot-video"
+                       muted playsinline webkit-playsinline preload="auto" autoplay loop>
                     <source src="Creating_a_Mind_Blowing_Mandelbrot_Loop.mp4" type="video/mp4">
                 </video>
                 <div class="mandelbrot-overlay absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(2,3,10,0.7)_100%)]"></div>
@@ -30742,17 +30787,43 @@ main.content, #main-content {
 
             function completeLoader(isManualSkip = false) {
                 if (loaderState.completed) return;
+
+                // ═══════════════════════════════════════════════════════════════════════
+                // ORCHESTRATED REVEAL: Check if heavy assets are ACTUALLY ready
+                // This prevents the "freeze/jolt" by waiting for video buffer
+                // ═══════════════════════════════════════════════════════════════════════
+                const bgVideo = document.getElementById('mandelbrot-video');
+
+                // If video exists but isn't ready (readyState < 3 = HAVE_FUTURE_DATA)
+                // Loop and wait - don't lift the curtain until stage is set
+                if (bgVideo && bgVideo.readyState < 3 && !isManualSkip) {
+                    console.log('⏳ [ORCHESTRATOR] Waiting for video buffer... readyState:', bgVideo.readyState);
+                    // Try to play (needed for iOS which won't buffer without play attempt)
+                    bgVideo.play().catch(() => {});
+                    // Check again in 300ms
+                    setTimeout(() => completeLoader(isManualSkip), 300);
+                    return;
+                }
+
                 loaderState.completed = true;
+                console.log('✅ [ORCHESTRATOR] Assets ready - beginning reveal sequence');
 
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
                 // When manually skipped, use faster timings for immediate response
-                // TIMING FIX: Reduced gap between cinematic (loader exit) and cinematic-active (hero reveal)
-                // This ensures hero starts revealing AS loader slides away, not after
-                const cinematicDelay = isManualSkip ? 50 : 400;  // Loader starts sliding
-                const readyDelay = isManualSkip ? 100 : 500;     // Was 800ms - reduced to 500ms for smoother handoff
-                const safetyDelay = isManualSkip ? 400 : 2000;
+                const cinematicDelay = isManualSkip ? 50 : 400;
+                const readyDelay = isManualSkip ? 100 : 600;     // Slightly longer for asset fade-in
+                const safetyDelay = isManualSkip ? 400 : 2500;
+
+                // ═══════════════════════════════════════════════════════════════════════
+                // Phase 0: START HEAVY ASSETS NOW (behind the curtain)
+                // Initialize particles while loader still visible - they'll fade in smoothly
+                // ═══════════════════════════════════════════════════════════════════════
+                if (window.THREE && typeof initMainCanvas === 'function' && !window.mainCanvasInitialized) {
+                    initMainCanvas();
+                    window.mainCanvasInitialized = true;
+                }
 
                 // Phase 1: Subtle shimmer before exit (skip effect if manual)
                 const loaderUI = loader.querySelector('.loader-ui');
@@ -30761,10 +30832,25 @@ main.content, #main-content {
                     loaderUI.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
                 }
 
-                // Phase 2: Trigger the Titan Drop & Loader Exit
+                // ═══════════════════════════════════════════════════════════════════════
+                // Phase 1.5: FADE IN BACKGROUND ASSETS (video is playing, now show it)
+                // This happens BEFORE loader lifts - assets stabilize behind curtain
+                // ═══════════════════════════════════════════════════════════════════════
+                setTimeout(() => {
+                    if (bgVideo) {
+                        bgVideo.classList.add('asset-ready');
+                        console.log('[ORCHESTRATOR] Video fading in');
+                    }
+                    const canvas = document.querySelector('#canvas-container canvas');
+                    if (canvas) {
+                        canvas.classList.add('asset-ready');
+                        console.log('[ORCHESTRATOR] Canvas fading in');
+                    }
+                }, 200);
+
+                // Phase 2: Trigger Loader Exit (assets are now fading in behind it)
                 setTimeout(() => {
                     // OPTICAL PHYSICS: Pre-paint GPU promotion before animation
-                    // Tells GPU "Get ready, these are about to move" - prevents first-frame jerk
                     const heroTitle = document.getElementById('hero-title') || document.querySelector('.hero-title');
                     const heroBook = document.getElementById('hero-book');
                     const heroSubtitle = document.querySelector('.hero-subtitle');
@@ -30793,6 +30879,19 @@ main.content, #main-content {
 
                     // CINEMATIC-ACTIVE: Trigger transition-based reveals (cross-dissolve effect)
                     document.body.classList.add('cinematic-active');
+
+                    // CLEANUP: Remove will-change after animation ends to save RAM (Step 2 - Ultra Premium)
+                    setTimeout(() => {
+                        const heroTitle = document.getElementById('hero-title') || document.querySelector('.hero-title');
+                        const heroBook = document.getElementById('hero-book');
+                        const heroSubtitle = document.querySelector('.hero-subtitle');
+                        const heroCTA = document.querySelector('.hero-cta-stack');
+
+                        [heroTitle, heroBook, heroSubtitle, heroCTA].forEach(el => {
+                            if (el) el.style.willChange = 'auto';
+                        });
+                        console.log('[PERF] Reveal will-change cleaned up');
+                    }, 2500);
 
                     // Inline styles as backup
                     document.body.style.overflow = 'auto';
@@ -34542,93 +34641,62 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // APPLE-GRADE EFFECTS - Complete System
+        // APPLE-GRADE EFFECTS - Performance Optimized (Step 3)
         // ═══════════════════════════════════════════════════════════════════════
         function initAppleGradeEffects() {
-            // Skip if reduced motion preferred
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-            // 1. ENHANCED SCROLLYTELLING TYPOGRAPHY with blur
-            const textReveals = document.querySelectorAll('h2, h3, .book-quote, .quote-text, .apple-reveal');
+            // 1. REVEAL OBSERVER - Replaces expensive getBoundingClientRect on scroll
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -100px 0px'
+            };
 
-            function updateTextReveals() {
-                const windowHeight = window.innerHeight;
-
-                textReveals.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    const elementCentre = rect.top + rect.height / 2;
-
-                    // Calculate progress (0 = below viewport, 1 = at center)
-                    let progress = 1 - (elementCentre - windowHeight / 2) / (windowHeight / 2);
-                    progress = Math.max(0, Math.min(1, progress));
-
-                    // Apply easing
-                    const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-
-                    // Interpolate values
-                    const opacity = 0.15 + (eased * 0.85);
-                    const y = 20 - (eased * 20);
-                    const scale = 0.97 + (eased * 0.03);
-                    const blur = 3 - (eased * 3);
-
-                    el.style.opacity = opacity;
-                    el.style.transform = `translateY(${y}px) scale(${scale})`;
-                    el.style.filter = `blur(${blur}px)`;
-                });
-            }
-
-            // 2. ENHANCED PARALLAX with data attributes
-            // PERFORMANCE: Cache elements once, skip if none found
-            const parallaxElements = document.querySelectorAll('[data-parallax], .hrih-visual');
-            const hasParallaxElements = parallaxElements.length > 0;
-
-            function updateParallax() {
-                if (!hasParallaxElements) return; // Skip if no elements
-                const scrollY = window.scrollY;
-
-                parallaxElements.forEach(el => {
-                    const speed = parseFloat(el.dataset?.parallax) || 0.08;
-                    const direction = el.dataset?.parallaxDir || 'y';
-                    const baseScale = parseFloat(el.dataset?.parallaxScale) || 1.05;
-
-                    const rect = el.getBoundingClientRect();
-                    const elementTop = rect.top + scrollY;
-                    const distanceFromTop = scrollY - elementTop + window.innerHeight;
-
-                    // Only animate when in view
-                    if (distanceFromTop > 0 && scrollY < elementTop + rect.height + window.innerHeight) {
-                        const offset = distanceFromTop * speed;
-
-                        if (direction === 'x') {
-                            el.style.transform = `translateX(${offset}px) scale(${baseScale})`;
-                        } else {
-                            el.style.transform = `translateY(${offset}px) scale(${baseScale})`;
-                        }
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('apple-visible');
+                        // Once visible, we can stop observing if it's a one-way reveal
+                        // revealObserver.unobserve(entry.target); 
+                    } else {
+                        // Optional: remove class when out of view for re-reveal
+                        entry.target.classList.remove('apple-visible');
                     }
                 });
+            }, revealOptions);
+
+            const textReveals = document.querySelectorAll('h2, h3, .book-quote, .quote-text, .apple-reveal');
+            textReveals.forEach(el => revealObserver.observe(el));
+
+            // 2. PARALLAX - Highly Optimized
+            const parallaxElements = document.querySelectorAll('[data-parallax], .hrih-visual');
+            if (parallaxElements.length === 0) return;
+
+            let ticking = false;
+            function updateParallax() {
+                const scrollY = window.pageYOffset;
+                const winH = window.innerHeight;
+
+                parallaxElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const elementTop = rect.top + scrollY;
+                    
+                    // Only calculate if in/near viewport
+                    if (rect.top < winH && rect.bottom > 0) {
+                        const speed = parseFloat(el.dataset?.parallax) || 0.05;
+                        const offset = (scrollY - elementTop + winH) * speed;
+                        el.style.transform = `translate3d(0, ${offset}px, 0)`;
+                    }
+                });
+                ticking = false;
             }
 
-            // 3. COMBINED SCROLL HANDLER
-            let ticking = false;
-
-            function onScroll() {
+            window.addEventListener('scroll', () => {
                 if (!ticking) {
-                    requestAnimationFrame(() => {
-                        updateTextReveals();
-                        updateParallax();
-                        ticking = false;
-                    });
+                    requestAnimationFrame(updateParallax);
                     ticking = true;
                 }
-            }
-
-            window.addEventListener('scroll', onScroll, { passive: true });
-
-            // Initial call
-            updateTextReveals();
-            updateParallax();
-
-            // console.log('✨ Apple-grade effects enabled');
+            }, { passive: true });
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -34753,59 +34821,12 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // NUCLEAR FIX: VIDEO PERFORMANCE MANAGER
-        // ═══════════════════════════════════════════════════════════════════════
-        function initVideoManager() {
-            if (!('IntersectionObserver' in window)) return;
-            const videos = document.querySelectorAll('video');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            // If reduced motion is preferred, pause all videos and show poster/first frame
-            if (prefersReducedMotion) {
-                console.log('[VideoManager] Reduced motion detected - pausing all videos');
-                videos.forEach(video => {
-                    video.pause();
-                    video.removeAttribute('autoplay');
-                    // Set to first frame as static poster
-                    video.currentTime = 0;
-                });
-                return;
-            }
-
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const video = entry.target;
-
-                    if (entry.isIntersecting) {
-                        if (video.paused && video.hasAttribute('autoplay')) {
-                            video.play().catch(() => {});
-                        }
-                    } else {
-                        if (!video.paused) {
-                            video.pause();
-                        }
-                    }
-                });
-            }, { threshold: 0.3 });
-
-            videos.forEach(video => {
-                video.addEventListener('error', () => {
-                    const parent = video.parentElement;
-                    if (parent) {
-                        parent.classList.add('video-error');
-                    }
-                });
-                videoObserver.observe(video);
-            });
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
         // INITIALIZE ALL ENHANCEMENTS
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
             initImageErrorHandlers();
             initAnimationPauser();
-            initVideoManager();
+            // REMOVED: initVideoManager - Centralized in Orchestrator to fix jolting
             addRippleStyles();
             initReadingProgress();
             initNewsletter();
