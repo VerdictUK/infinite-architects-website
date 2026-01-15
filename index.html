@@ -25,7 +25,8 @@
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
     <meta name="author" content="Michael Darius Eastwood">
-    
+    <meta name="robots" content="index, follow">
+
     <!-- Open Graph - Complete for optimal social sharing -->
     <meta property="og:title" content="Infinite Architects | Michael Darius Eastwood">
     <meta property="og:description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything.">
@@ -104,6 +105,18 @@
 
     <!-- Tailwind CSS - Compiled Design System -->
     <link rel="stylesheet" href="dist/styles.css">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            page_title: 'Infinite Architects',
+            send_page_view: true
+        });
+    </script>
 
     <!-- CRITICAL FIXES - NUCLEAR OVERRIDE v2.0 for visibility -->
     <style id="sovereign-critical-fixes">
@@ -313,13 +326,6 @@
                 "publisher": { "@id": "https://www.michaeldariuseastwood.com/#author" },
                 "image": "https://www.michaeldariuseastwood.com/InfiniteArchitectsKindle20260103.jpg",
                 "description": "Infinite Architects presents the Eastwood Equation (U=IxR²), the definitive framework for AI alignment. Predicted Google's Willow quantum chip and synthesises 5,000 years of religious wisdom with hardware-level ethics (The Eden Protocol).",
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.8",
-                    "reviewCount": "124",
-                    "bestRating": "5",
-                    "worstRating": "1"
-                },
                 "offers": [
                     {
                         "@type": "Offer",
@@ -402,12 +408,7 @@
                 "url": "https://www.michaeldariuseastwood.com",
                 "name": "Infinite Architects Official Website",
                 "description": "The command centre for the Infinite Architects movement.",
-                "publisher": { "@id": "https://www.michaeldariuseastwood.com/#author" },
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://www.michaeldariuseastwood.com/?s={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
+                "publisher": { "@id": "https://www.michaeldariuseastwood.com/#author" }
             },
             {
                 "@type": "FAQPage",
@@ -26613,7 +26614,7 @@ main.content, #main-content {
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer integrity="sha384-JpWlSgE3J/L03d8OJvFVJlJ5TPRO6GhDcYz6uxGaY5mNE5Cl8YY32oBvgdT3lLkR" crossorigin="anonymous">
 
     <!-- Tone.js for Professional Audio (Phase 10) - Deferred, loads on demand -->
     <script>
@@ -27011,16 +27012,16 @@ main.content, #main-content {
     </div>
 
     <!-- Masterpiece Engines -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer integrity="sha512-16ber01kD8bzFPq7iGHT+GZa9ggJHNLyM/gYw6e3Y7g/HBZ1YF2AomAtKHLlYuU3A5kxCJg1EW/k1XFZLv3FYg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js" defer integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXnwGyIEaWV2Cg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Lenis already loaded with defer at line 26616 -->
 
     <!-- Navigation -->
     <nav class="nav fixed top-4 left-4 right-4 z-nav px-6 py-4 flex justify-between items-center rounded-2xl transition-all duration-400 ease-spring-loose glass-panel-ultra safe-top" id="nav">
         <a href="#hero" class="nav-logo font-display text-xs tracking-[0.2em] text-gold transition-opacity duration-300 hover:opacity-70 flex items-center gap-2">
             <span class="brand-word font-bold">INFINITE</span> <span class="brand-word font-normal opacity-80">ARCHITECTS</span>
         </a>
-        <button class="nav-toggle lg:hidden flex flex-col gap-[5px] w-6 h-6 cursor-pointer z-[101] relative" id="nav-toggle" aria-label="Toggle navigation">
+        <button class="nav-toggle lg:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 min-w-[44px] min-h-[44px] cursor-pointer z-[101] relative" id="nav-toggle" aria-label="Toggle navigation">
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
@@ -27044,7 +27045,7 @@ main.content, #main-content {
                     </a>
                 </li>
                 <li>
-                    <a href="#author" class="nav-link-iconic flex items-center gap-2 font-display text-[0.7rem] tracking-[0.15em] text-text-dim hover:text-gold transition-all duration-300 group">
+                    <a href="#the-mind" class="nav-link-iconic flex items-center gap-2 font-display text-[0.7rem] tracking-[0.15em] text-text-dim hover:text-gold transition-all duration-300 group">
                         <svg class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 01-4-4V5a4 4 0 118 0v2a4 4 0 01-4 4z"/>
                         </svg>
@@ -27102,7 +27103,7 @@ main.content, #main-content {
             <div class="hero-status-pill reveal inline-flex items-center gap-3 px-5 py-2.5 bg-gold/10 border border-gold/30 rounded-full mb-6 lg:col-span-2 lg:justify-self-center lg:mb-8">
                 <span class="pill-dot"></span>
                 <span class="pill-text">PREDICTION VERIFIED · JAN 7, 2026</span>
-                <a href="#prophecy" class="pill-link">Watch proof →</a>
+                <a href="#predictions-validated" class="pill-link">Watch proof →</a>
             </div>
             <!-- Holographic Book Container - CLICK TO ENTER PORTAL -->
             <div class="hero-book-container flex justify-center items-center lg:justify-end">
@@ -28042,8 +28043,8 @@ main.content, #main-content {
                             "It is very suggestive that we should take this idea serious... calculations that in parallel universes, other alter egos are doing the heavy lifting."
                         </blockquote>
                         <p class="evidence-note text-xs font-mono text-gold uppercase tracking-wider mb-4">— Hartmut Neven, Google Quantum AI Lab</p>
-                        <a href="https://www.bbc.co.uk/news/articles/cy9jr3vn3z7o" target="_blank" rel="noopener" class="evidence-link inline-flex items-center gap-2 text-xs font-mono text-gold hover:text-white transition-colors group/link">
-                            <span class="link-text border-b border-transparent group-hover/link:border-white">BBC COVERAGE</span>
+                        <a href="https://blog.google/technology/research/google-willow-quantum-chip/" target="_blank" rel="noopener" class="evidence-link inline-flex items-center gap-2 text-xs font-mono text-gold hover:text-white transition-colors group/link">
+                            <span class="link-text border-b border-transparent group-hover/link:border-white">GOOGLE QUANTUM AI</span>
                             <svg class="w-3 h-3 transform group-hover/link:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/> <polyline points="15 3 21 3 21 9"/> <line x1="10" y1="14" x2="21" y2="3"/></svg>
                         </a>
                     </article>
@@ -29519,15 +29520,25 @@ main.content, #main-content {
 
         
 
-                        <form class="newsletter-form reveal reveal-delay-5 flex flex-col md:row gap-4 max-w-md mx-auto" id="newsletter-form">
+                        <form class="newsletter-form reveal reveal-delay-5 flex flex-col gap-4 max-w-md mx-auto" id="newsletter-form">
 
                             <input type="email" class="flex-1 px-6 py-4 rounded-xl glass-panel-ultra border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-gold/50 transition-all" id="newsletter-email" placeholder="Your email address" required aria-label="Email address">
 
-                            <button type="submit" class="px-8 py-4 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white transition-all duration-300 shadow-glow-gold">FOLLOW THE JOURNEY</button>
+                            <label class="flex items-start gap-3 text-left cursor-pointer group">
+                                <input type="checkbox" id="newsletter-consent" required class="mt-1 w-4 h-4 rounded border-white/30 bg-transparent checked:bg-gold checked:border-gold focus:ring-gold/50 focus:ring-offset-0 cursor-pointer">
+                                <span class="text-xs text-white/50 group-hover:text-white/70 transition-colors leading-relaxed">I consent to receiving emails about Infinite Architects and future work. I understand I can unsubscribe at any time.</span>
+                            </label>
+
+                            <button type="submit" class="px-8 py-4 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white transition-all duration-300 shadow-glow-gold disabled:opacity-50 disabled:cursor-not-allowed">FOLLOW THE JOURNEY</button>
 
                         </form>
 
-                        
+                        <div class="newsletter-success hidden" id="newsletter-success">
+                            <div class="flex items-center justify-center gap-3 py-4 px-6 rounded-xl bg-gold/20 border border-gold/30 text-gold">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="font-display text-sm tracking-wider">Thank you! Check your inbox.</span>
+                            </div>
+                        </div>
 
                         <p class="newsletter-privacy reveal reveal-delay-6 text-[10px] font-mono text-white/30 uppercase tracking-widest">I cannot promise certainty. I can promise honesty.<br>Unsubscribe anytime. Your data stays private.</p>
 
@@ -29832,7 +29843,7 @@ main.content, #main-content {
                 </a>
             </div>
             <div class="footer-social flex justify-center gap-8 mb-6">
-                <a href="https://x.com/MichaelDEastwd" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                <a href="https://x.com/MichaelDEastwood" target="_blank" rel="noopener" aria-label="X (Twitter)">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
