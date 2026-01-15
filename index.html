@@ -4,64 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- ULTRATHINK NUCLEAR VISIBILITY v14.0 - PRECISION MISSION (Rule 15) -->
+    <!-- SOVEREIGN MASTERPIECE VISIBILITY - Production Standard (Rule 15) -->
     <style>
-        /* 1. SCROLL AUTHORITY - Never let the browser lock up */
+        /* 1. SCROLL FOUNDATION */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100vh !important;
+            min-height: 100dvh !important;
             position: relative !important;
-            display: block !important;
             background-color: #02030a !important;
             margin: 0 !important;
             padding: 0 !important;
             scroll-behavior: smooth !important;
         }
 
-        /* 2. VISIBILITY MANDATE - Force render but respect display types */
-        section, main, article, footer, header, div, span, h1, h2, h3, h4, p, a, button, canvas, video, img {
-            visibility: visible !important;
+        /* 2. VISIBILITY GUARANTEE - Safe implementation that respects layout types */
+        .reveal, .active, .entering, 
+        [class*="reveal"], [class*="active"], [class*="entering"],
+        section, main, article, footer, header {
             opacity: 1 !important;
+            visibility: visible !important;
             max-height: none !important;
-            transform: none !important;
             filter: none !important;
-            pointer-events: auto !important;
-        }
-
-        /* 3. LAYOUT INTEGRITY - Don't break flex/grid containers */
-        [class*="section"], [class*="container"], [class*="inner"], [class*="content"], [id] {
-            height: auto !important;
-            min-height: auto !important;
-            overflow: visible !important;
-        }
-
-        /* 4. ANIMATION BYPASS - Kill the 'wait' state */
-        .reveal, .active, .entering, [class*="reveal"], [class*="active"], [class*="entering"] {
-            opacity: 1 !important;
-            visibility: visible !important;
             transform: none !important;
             transition: none !important;
             animation: none !important;
         }
 
-        /* 5. LOADER BYPASS - Immediate Entry */
-        #loader, .loader, #cinematic-loader, .loader-video-overlay, .cosmic-awakening {
-            display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
+        /* 3. LAYOUT INTEGRITY - Sections should be relative blocks to prevent overlap */
+        section, .snap-section {
+            display: block !important;
+            position: relative !important;
+            width: 100% !important;
+            overflow: visible !important;
         }
 
-        /* 6. UTILITY PROTECT - Preserve Tailwind layout utility power */
-        .flex { display: flex !important; }
-        .grid { display: grid !important; }
-        .hidden { display: none !important; }
-        
-        /* 7. SAFE AREA & PADDING FIXES */
-        body.has-ticker { padding-top: 0 !important; }
-        .nav { top: 0 !important; }
+        /* 4. OVERLAY PROTECTION - Functional elements must stay hidden until needed */
+        [id*="modal"]:not(.active):not(.show), 
+        [id*="overlay"]:not(.active):not(.show),
+        #chapter-intro-overlay:not(.active),
+        #welcome-back-overlay:not(.active),
+        .hidden { 
+            display: none !important; 
+        }
+
+        /* 5. LOADER BYPASS */
+        #loader, .loader, #cinematic-loader, .loader-video-overlay {
+            display: none !important;
+            pointer-events: none !important;
+        }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
