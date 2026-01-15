@@ -3525,30 +3525,45 @@
             100% { transform: translateY(0) scale(1); opacity: 1; filter: none; }
         }
 
+        /* DISABLED - titanDrop uses #heat-distortion filter with animated seed
+           This was causing "random colors" and visual chaos during page entrance
+           The optical-reveal system now handles content reveals
         html body.cinematic .content,
         html body.cinematic #main-content,
         html body.cinematic main {
             animation: titanDrop 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-            
-            
+            pointer-events: auto;
+        }
+        */
+        html body.cinematic .content,
+        html body.cinematic #main-content,
+        html body.cinematic main {
             pointer-events: auto;
         }
 
-        /* 5. IMPACT FX: THE SUPERNOVA */
+        /* ═══════════════════════════════════════════════════════════════════════
+           DISABLED: IMPACT FX - These were causing "screen shake" and "random colors"
+           The impactFlash creates a supernova burst, impactShake shakes the whole page
+           These looked like technical glitches, not orchestrated art
+           ═══════════════════════════════════════════════════════════════════════ */
         .impact-flash {
             position: fixed; inset: -50%; z-index: 5200; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0;
             background: radial-gradient(circle at center, white 0%, var(--gold) 30%, #000000 70%);
         }
+        /* DISABLED - flash effect was jarring
         body.cinematic .impact-flash { animation: impactFlash 1.8s cubic-bezier(0.23, 1, 0.32, 1) 1.57s forwards; }
+        */
         @keyframes impactFlash {
             0% { opacity: 0; transform: scale(0.5); }
             10% { opacity: 1; transform: scale(1.2); filter: blur(20px) contrast(2); }
             100% { opacity: 0; transform: scale(4); filter: blur(100px); }
         }
 
+        /* DISABLED - screen shake was chaotic, used SVG distortion filter
         body.cinematic #main-content, body.cinematic .content, body.cinematic main {
             animation: impactShake 1.5s cubic-bezier(.36,.07,.19,.97) 1.57s forwards;
         }
+        */
         @keyframes impactShake {
             0% { transform: translate(0, 0) scale(1); filter: none; }
             1% { transform: translate(-40px, -50px) scale(1.15) rotate(-3deg); filter: url(#impact-distortion); }
@@ -30733,8 +30748,10 @@ main.content, #main-content {
                 window.scrollTo(0, 0);
 
                 // When manually skipped, use faster timings for immediate response
-                const cinematicDelay = isManualSkip ? 50 : 400;
-                const readyDelay = isManualSkip ? 150 : 800;
+                // TIMING FIX: Reduced gap between cinematic (loader exit) and cinematic-active (hero reveal)
+                // This ensures hero starts revealing AS loader slides away, not after
+                const cinematicDelay = isManualSkip ? 50 : 400;  // Loader starts sliding
+                const readyDelay = isManualSkip ? 100 : 500;     // Was 800ms - reduced to 500ms for smoother handoff
                 const safetyDelay = isManualSkip ? 400 : 2000;
 
                 // Phase 1: Subtle shimmer before exit (skip effect if manual)
