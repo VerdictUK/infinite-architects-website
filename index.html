@@ -115,6 +115,30 @@
         gtag('config', 'G-V4FDJHP4R4');
     </script>
 
+    <!-- Facebook/Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1951047602453657');
+    fbq('track', 'PageView');
+    // Track ViewContent for the book
+    fbq('track', 'ViewContent', {
+        content_name: 'Infinite Architects Book',
+        content_category: 'Book',
+        content_type: 'product',
+        content_ids: ['B0DS2L8BVC'],
+        value: 9.99,
+        currency: 'GBP'
+    });
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.net/tr?id=1951047602453657&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook/Meta Pixel Code -->
+
     <!-- CRITICAL FIXES - NUCLEAR OVERRIDE v2.0 for visibility -->
     <style id="sovereign-critical-fixes">
     /* ═══════════════════════════════════════════════════════════════════════
@@ -32599,6 +32623,50 @@ main.content, #main-content {
             });
 
             // ─────────────────────────────────────────────────────────────────
+            // FACEBOOK PIXEL: Track Amazon/Buy Button Clicks
+            // ─────────────────────────────────────────────────────────────────
+            document.addEventListener('DOMContentLoaded', () => {
+                // Track all Amazon link clicks as InitiateCheckout
+                document.querySelectorAll('a[href*="amazon.co.uk"], a[href*="amazon.com"]').forEach(link => {
+                    link.addEventListener('click', function() {
+                        // Determine product variant from URL
+                        const url = this.href;
+                        let variant = 'Kindle';
+                        if (url.includes('B0DS5SX63N')) variant = 'Paperback';
+                        else if (url.includes('B0DS7BZ4L9')) variant = 'Hardback';
+                        else if (url.includes('B0DS2L8BVC')) variant = 'Kindle';
+
+                        // Facebook Pixel: InitiateCheckout
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'InitiateCheckout', {
+                                content_name: 'Infinite Architects - ' + variant,
+                                content_category: 'Book Purchase',
+                                content_ids: ['B0DS2L8BVC'],
+                                content_type: 'product',
+                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                currency: 'GBP',
+                                num_items: 1
+                            });
+                        }
+
+                        // Google Analytics: track as event
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'begin_checkout', {
+                                currency: 'GBP',
+                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                items: [{
+                                    item_id: 'B0DS2L8BVC',
+                                    item_name: 'Infinite Architects',
+                                    item_variant: variant,
+                                    price: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99)
+                                }]
+                            });
+                        }
+                    });
+                });
+            });
+
+            // ─────────────────────────────────────────────────────────────────
             // NATIVE SHARE API - Use device share sheet
             // ─────────────────────────────────────────────────────────────────
             document.addEventListener('DOMContentLoaded', () => {
@@ -33302,6 +33370,13 @@ main.content, #main-content {
                         gtag('event', 'newsletter_signup', {
                             email_domain: email.split('@')[1],
                             method: 'convertkit'
+                        });
+                    }
+                    // Facebook Pixel: Lead Event
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'Lead', {
+                            content_name: 'Newsletter Signup',
+                            content_category: 'Email Subscription'
                         });
                     }
 
