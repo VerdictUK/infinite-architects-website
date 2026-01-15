@@ -5,7 +5,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'ia-v1.0.7';
+const CACHE_VERSION = 'ia-v1.0.8';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -92,17 +92,42 @@ self.addEventListener('fetch', (event) => {
     // Skip chrome-extension and other non-http(s) requests
     if (!url.protocol.startsWith('http')) return;
 
-    // CRITICAL: Let external CDN requests pass through directly (don't intercept)
-    // This avoids CSP issues with service worker context
-    if (
-        url.hostname === 'fonts.googleapis.com' ||
-        url.hostname === 'fonts.gstatic.com' ||
-        url.hostname === 'cdnjs.cloudflare.com' ||
-        url.hostname === 'unpkg.com' ||
-        url.hostname === 'www.googletagmanager.com' ||
-        url.hostname === 'www.google-analytics.com' ||
-        url.hostname === 'analytics.google.com'
-    ) {
+    // CRITICAL: Let external CDN and tracking requests pass through directly
+    // Don't intercept these - let browser handle to avoid CSP issues
+    const bypassHostnames = [
+        // CDN & Fonts
+        'fonts.googleapis.com',
+        'fonts.gstatic.com',
+        'cdnjs.cloudflare.com',
+        'unpkg.com',
+        // Google Analytics & Ads
+        'www.googletagmanager.com',
+        'www.google-analytics.com',
+        'analytics.google.com',
+        'region1.google-analytics.com',
+        'region2.google-analytics.com',
+        'region3.google-analytics.com',
+        'www.google.com',
+        'googleads.g.doubleclick.net',
+        'www.googleadservices.com',
+        'td.doubleclick.net',
+        // Facebook/Meta
+        'connect.facebook.net',
+        'www.facebook.com',
+        // LinkedIn
+        'snap.licdn.com',
+        'px.ads.linkedin.com',
+        // Weather API (Temporal Sync)
+        'wttr.in',
+        // AI APIs
+        'api.anthropic.com',
+        'api.openai.com',
+        // ConvertKit
+        'app.convertkit.com',
+        'api.convertkit.com'
+    ];
+
+    if (bypassHostnames.some(hostname => url.hostname === hostname || url.hostname.endsWith('.' + hostname))) {
         // Don't intercept - let browser handle directly
         return;
     }
