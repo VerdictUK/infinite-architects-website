@@ -17260,7 +17260,7 @@
 
         /* 2. STICKY MOBILE BUY BAR - Always accessible purchase option */
         .mobile-buy-bar {
-            display: none !important;
+            display: none; /* Hidden on desktop, shown on mobile via media query */
             position: fixed;
             bottom: 56px; /* Position above chapter nav */
             left: 0;
@@ -17322,7 +17322,7 @@
 
         @media (max-width: 768px) {
             .mobile-buy-bar {
-                display: block;
+                display: block !important;
             }
         }
 
@@ -17742,9 +17742,9 @@
                 padding-bottom: 80px !important;
             }
 
-            /* HIDE MOBILE BUY BAR - Simplify experience */
+            /* MOBILE BUY BAR - Show on mobile for conversions */
             .mobile-buy-bar {
-                display: none !important;
+                display: block !important;
             }
 
             /* ENSURE CONTENT IS VISIBLE */
@@ -28965,7 +28965,7 @@ main.content, #main-content {
                         <p class="evidence-desc">Copyright registered December 31, 2024. None appear in prior published literature.</p>
                         <div class="evidence-terminal" style="font-size: 0.8rem; margin-top: 1rem;">
                             <span class="terminal-line">ISBN: 979-8302196163</span>
-                            <span class="terminal-line">ASIN: B0DS7BZ4L9</span>
+                            <span class="terminal-line">ASIN: B0DS2L8BVC</span>
                             <span class="terminal-line">Copyright: © 2024 Michael Darius Eastwood</span>
                         </div>
                     </article>
@@ -30149,7 +30149,7 @@ main.content, #main-content {
                             <span class="price-amount">£9.99</span>
                             <span class="price-note">Kindle Edition</span>
                         </div>
-                        <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="tripath-cta">
+                        <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="tripath-cta">
                             Download Now →
                         </a>
                         <p class="tripath-badge">⚡ Instant Access</p>
@@ -34624,8 +34624,8 @@ main.content, #main-content {
                 const footerTop = document.querySelector('footer')?.offsetTop || Infinity;
                 const windowBottom = scrollY + window.innerHeight;
 
-                // Show after scrolling past hero, hide near footer
-                if (scrollY > heroHeight * 0.8 && windowBottom < footerTop - 100) {
+                // Show after scrolling past 30% of hero, hide near footer
+                if (scrollY > heroHeight * 0.3 && windowBottom < footerTop - 100) {
                     cta.classList.add('show');
                 } else {
                     cta.classList.remove('show');
@@ -36401,8 +36401,8 @@ main.content, #main-content {
 
         function updateBar() {
             const scrollY = window.scrollY;
-            // Show bar after scrolling past hero section (roughly 100vh)
-            if (scrollY > window.innerHeight * 0.8) {
+            // Show bar after scrolling past hero section (30% of viewport)
+            if (scrollY > window.innerHeight * 0.3) {
                 bar.classList.add('visible');
             } else {
                 bar.classList.remove('visible');
