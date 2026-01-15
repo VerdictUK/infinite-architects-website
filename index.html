@@ -200,7 +200,45 @@
         margin: 0 !important;
         padding: 0 !important;
     }
-    
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       NUCLEAR CONTENT VISIBILITY - ALL CONTENT ALWAYS VISIBLE
+       ═══════════════════════════════════════════════════════════════════════ */
+    section,
+    .reveal,
+    [class*="reveal"],
+    .section-cinematic,
+    .hero-section,
+    .ideas-section,
+    .evidence-section,
+    .predictions-section,
+    .religion-section,
+    .chokepoint-section,
+    .author-section,
+    .book-section,
+    .newsletter-section,
+    .cta-section,
+    .faq-section,
+    .glossary-section,
+    article,
+    main,
+    div {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: block;
+    }
+
+    /* Flex containers stay flex */
+    .flex, [class*="flex"] {
+        display: flex !important;
+    }
+
+    /* Grid containers stay grid */
+    .grid, [class*="grid"] {
+        display: grid !important;
+    }
+
     /* Only lock if explicitly requested by loader */
     body.loader-active {
         overflow: hidden !important;
@@ -7676,37 +7714,17 @@
             }
         }
 
-        /* Desktop: Scroll reveal animations when cinematic-ready */
+        /* Desktop: ALL CONTENT ALWAYS VISIBLE - No hiding */
         @media (min-width: 769px) {
-            /* Default state: hidden, waiting to animate in */
+            /* NUCLEAR FIX: Everything visible always */
+            .reveal,
             .cinematic-ready .reveal,
-            body.cinematic-ready .reveal {
-                opacity: 0;
-                transform: translateY(30px);
-                transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-            }
-
-            /* Active state: revealed with smooth animation */
-            .cinematic-ready .reveal.active,
-            body.cinematic-ready .reveal.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            /* During loader (before cinematic-ready): keep hidden */
+            body.cinematic-ready .reveal,
             body:not(.cinematic-ready) .reveal {
-                opacity: 0;
-                transform: translateY(30px);
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                visibility: visible !important;
             }
-
-            /* Tighter stagger delays - Apple-grade timing */
-            .reveal-delay-1 { transition-delay: 0.05s; }
-            .reveal-delay-2 { transition-delay: 0.1s; }
-            .reveal-delay-3 { transition-delay: 0.15s; }
-            .reveal-delay-4 { transition-delay: 0.2s; }
-            .reveal-delay-5 { transition-delay: 0.25s; }
-            .reveal-delay-6 { transition-delay: 0.3s; }
-            .reveal-delay-7 { transition-delay: 0.35s; }
         }
 
         /* Ripple Effect Animation */
@@ -22559,6 +22577,104 @@ html.slideshow-mode .slideshow-dots {
     display: none !important;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   NUCLEAR HIDE: Navigation elements that overlap hero content
+   These must be hidden regardless of body class or scroll position
+   ═══════════════════════════════════════════════════════════════════════════ */
+html body .chapter-sidebar,
+html body #chapterSidebar,
+html body .chapter-nav,
+html body #chapterNav,
+html body .slideshow-nav,
+html body #slideshowNav,
+html body .letterbox,
+html body .letterbox.top,
+html body .letterbox.bottom,
+html body .part-progress-indicator,
+html body #part-progress-indicator,
+html body .part-progress-dots {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    max-width: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    z-index: -9999 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FIX: Remove all borders, outlines, and visual artifacts from hero
+   ═══════════════════════════════════════════════════════════════════════════ */
+html body .hero,
+html body #hero,
+html body section.hero,
+html body section#hero {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+html body .hero::before,
+html body .hero::after,
+html body #hero::before,
+html body #hero::after {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+/* FIX: Ensure Mandelbrot video covers full viewport with NO gaps */
+html body .hero .mandelbrot-bg,
+html body .hero #mandelbrot-bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-left: calc(-50vw + 50%) !important;
+    overflow: hidden !important;
+}
+
+html body .hero .mandelbrot-video,
+html body .hero #mandelbrot-video {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TITAN SLAM ANIMATION - Ensure book entrance animation triggers
+   Forces the hero-book to animate when cinematic mode is active
+   ═══════════════════════════════════════════════════════════════════════════ */
+html body.cinematic .hero-book,
+html body.cinematic #hero-book,
+html body.cinematic .hero-book-container,
+html body.cinematic .book-portal {
+    animation: titanDrop 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    animation-delay: 0.2s !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 /* FIX: Remove ALL max-height constraints that clip content */
 .ideas-grid,
 .evidence-grid,
@@ -27140,7 +27256,7 @@ main.content, #main-content {
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero snap-section chromatic-lens min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
+        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
                 <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
