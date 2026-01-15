@@ -23856,8 +23856,10 @@ html body #the-mind .storm-story {
    PRIORITY: SUPREME - Apple-grade hero that fits one viewport perfectly
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* DESKTOP: Nuclear scroll fix - ensure free scrolling works WITH Lenis */
-@media (min-width: 1024px) {
+/* TABLET+DESKTOP: Nuclear scroll fix - ensure free scrolling works WITH Lenis */
+/* CLAUDE FIX: Changed from 1024px to 768px to include tablets (2026-01-15) */
+/* Lenis is active on tablets but scroll-snap was fighting it - now disabled */
+@media (min-width: 768px) {
     html {
         scroll-snap-type: none !important;
         overflow-y: auto !important;

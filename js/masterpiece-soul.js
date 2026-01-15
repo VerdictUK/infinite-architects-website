@@ -303,8 +303,15 @@
                 });
             }, observerOptions);
 
-            // Register Heavy Assets
-            const heavyAssets = ['neural-canvas', 'tesseract-canvas', 'portal-video', 'bbc-evidence-video'];
+            // Register Heavy Assets (Coordinated: Claude added book-cover-video, mandelbrot-video 2026-01-15)
+            const heavyAssets = [
+                'neural-canvas',
+                'tesseract-canvas',
+                'portal-video',
+                'bbc-evidence-video',
+                'book-cover-video',    // Added by Claude - hero book animation
+                'mandelbrot-video'     // Added by Claude - background fractal
+            ];
             heavyAssets.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) observer.observe(el);
@@ -452,7 +459,15 @@
             if (document.body.classList.contains('site-ready')) return;
 
             console.log('✨ Lifecycle: Site Ready. Commencing Cinematic Reveal.');
-            
+
+            // CLAUDE FIX: Explicitly stop loader video to free GPU (2026-01-15)
+            const loaderVideo = document.getElementById('loader-video');
+            if (loaderVideo && !loaderVideo.paused) {
+                loaderVideo.pause();
+                loaderVideo.currentTime = 0;
+                console.log('🎬 Lifecycle: Loader video stopped.');
+            }
+
             document.body.classList.remove('loader-active');
             document.body.classList.add('site-ready');
             
