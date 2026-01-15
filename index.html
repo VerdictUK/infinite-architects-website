@@ -248,41 +248,59 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════════
-       NUCLEAR CONTENT VISIBILITY - ALL CONTENT ALWAYS VISIBLE
+       ULTRATHINK NUCLEAR VISIBILITY - COGNITIVE ACCESSIBILITY PROTOCOL
+       Priority: 100% content visibility for ADHD/Autism Focus
        ═══════════════════════════════════════════════════════════════════════ */
-    section,
-    .reveal,
-    [class*="reveal"],
-    .section-cinematic,
-    .hero-section,
-    .ideas-section,
-    .evidence-section,
-    .predictions-section,
-    .religion-section,
-    .chokepoint-section,
-    .author-section,
-    .book-section,
-    .newsletter-section,
-    .cta-section,
-    .faq-section,
-    .glossary-section,
-    article,
-    main,
-    div {
+    
+    /* 1. FORCE SCROLL ON EVERYTHING */
+    html, body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        position: relative !important;
+    }
+
+    /* 2. KILL ALL HIDDEN STATES FOR SECTIONS & CONTAINERS */
+    section, 
+    article, 
+    main, 
+    header, 
+    footer,
+    [id],
+    [class*="section"],
+    [class*="container"],
+    [class*="inner"],
+    [class*="content"] {
+        visibility: visible !important;
+        opacity: 1 !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    /* 3. BYPASS ALL REVEAL ANIMATIONS IMMEDIATELY */
+    .reveal, 
+    .reveal.active, 
+    [class*="reveal"], 
+    [class*="active"], 
+    [class*="entering"],
+    [class*="reveal-delay"] {
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
-        display: block;
+        transition: none !important;
     }
 
-    /* Flex containers stay flex */
-    .flex, [class*="flex"] {
-        display: flex !important;
-    }
+    /* 4. PROTECT LAYOUT ENGINES (Don't force display:block on flex/grid) */
+    .flex, [class*="flex"] { display: flex !important; }
+    .grid, [class*="grid"] { display: grid !important; }
+    .hidden { display: none !important; } /* Only keep intentional 'hidden' class */
 
-    /* Grid containers stay grid */
-    .grid, [class*="grid"] {
-        display: grid !important;
+    /* 5. REMOVE BLOCKING OVERLAYS */
+    .loader-video-overlay, .mandelbrot-overlay, .glass-overlay, .overlay {
+        pointer-events: none !important;
     }
 
     /* Only lock if explicitly requested by loader */
