@@ -3488,6 +3488,7 @@
         body.cinematic #loader {
             transform: translateY(-100%) !important;
             opacity: 0 !important;
+            visibility: hidden !important; /* IRONCLAD: Removes from hit-test immediately */
             pointer-events: none !important;
         }
 
@@ -3632,6 +3633,30 @@
             0% { opacity: 0; transform: translateY(40px); filter: blur(10px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
+
+        /* ═══════════════════════════════════════════════════════════════════════
+           CINEMATIC-ACTIVE: Alternative transition-based reveal system
+           Provides smoother "cross-dissolve" effect with transition timing
+           ═══════════════════════════════════════════════════════════════════════ */
+
+        /* Initial hidden state for cinematic-active elements */
+        .hero-proof-bar,
+        .hero-subtitle-secondary {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Active state - triggered by cinematic-active class */
+        body.cinematic-active .hero-proof-bar,
+        body.cinematic-active .hero-subtitle-secondary {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered transition delays for cross-dissolve effect */
+        body.cinematic-active .hero-proof-bar { transition-delay: 0.3s; }
+        body.cinematic-active .hero-subtitle-secondary { transition-delay: 0.9s; }
 
         /* ═══════════════════════════════════════════════════════════════════════
            MOBILE LOADER ANIMATION OPTIMIZATIONS
@@ -4583,7 +4608,14 @@
             }
 
             .hero-book-container { grid-area: book; display: flex; justify-content: flex-end; align-items: center; }
-            .hero-content-right { grid-area: content; display: flex; flex-direction: column; align-items: flex-start; }
+            .hero-content-right {
+                grid-area: content;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                position: relative;
+                z-index: 30; /* IRONCLAD: Above book (z:20), ensures CTA buttons clickable */
+            }
             .hero-status-pill { grid-area: pill; justify-self: center; margin-bottom: 2rem; }
             .scroll-indicator { grid-area: scroll; }
             .hero-title { display: none !important; } /* Logo/Cover sufficient on desktop */
@@ -8803,6 +8835,9 @@
             perspective: 1200px;
             perspective-origin: center center;
             transform-style: preserve-3d;
+            will-change: transform; /* GPU acceleration for smooth float */
+            position: relative;
+            z-index: 20; /* Above particles, below text */
         }
 
         .hero-book {
@@ -30387,6 +30422,9 @@ main.content, #main-content {
                     // FORCE UNLOCK SCROLL
                     document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
+
+                    // CINEMATIC-ACTIVE: Trigger transition-based reveals (cross-dissolve effect)
+                    document.body.classList.add('cinematic-active');
 
                     // Inline styles as backup
                     document.body.style.overflow = 'auto';
