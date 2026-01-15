@@ -11,6 +11,12 @@ function lerp(a, b, t) {
 
 class FluidSimulation {
     constructor(scene, renderer, camera) {
+        // Guard: Check THREE.js library is loaded
+        if (typeof THREE === 'undefined') {
+            console.warn('[FluidSimulation] THREE library not loaded');
+            return;
+        }
+
         this.scene = scene;
         this.renderer = renderer;
         this.camera = camera;
@@ -135,6 +141,35 @@ class FluidSimulation {
 
     onResize(width, height) {
         this.uniforms.u_resolution.value.set(width, height);
+    }
+
+    // Cleanup method to prevent memory leaks
+    dispose() {
+        if (this.mesh) {
+            // Remove from scene
+            if (this.scene) {
+                this.scene.remove(this.mesh);
+            }
+
+            // Dispose of geometry
+            if (this.mesh.geometry) {
+                this.mesh.geometry.dispose();
+            }
+
+            this.mesh = null;
+        }
+
+        // Dispose of material
+        if (this.material) {
+            this.material.dispose();
+            this.material = null;
+        }
+
+        // Clear references
+        this.scene = null;
+        this.renderer = null;
+        this.camera = null;
+        this.uniforms = null;
     }
 }
 

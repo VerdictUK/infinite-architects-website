@@ -5,7 +5,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-const CACHE_VERSION = 'ia-v1.0.8';
+const CACHE_VERSION = 'ia-v1.0.9';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const IMAGE_CACHE = `${CACHE_VERSION}-images`;
@@ -14,6 +14,7 @@ const IMAGE_CACHE = `${CACHE_VERSION}-images`;
 const PRECACHE_ASSETS = [
     '/',
     '/index.html',
+    '/offline.html',
     '/InfiniteArchitectsKindle20260103.jpg',
     '/site.webmanifest',
     '/favicon.ico'

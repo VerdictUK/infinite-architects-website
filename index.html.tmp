@@ -58,49 +58,7 @@
 
         /* Video Performance Safety */
         video { background: #000; }
-
-        /* CRITICAL: Background video/canvas layering - prevent blocking content */
-        .mandelbrot-bg,
-        .video-portal,
-        .section-video-bg,
-        .loader-video-bg,
-        .loader-video-overlay,
-        .sonic-boom,
-        .lens-flare,
-        .ground-shock,
-        .god-rays,
-        .spark-container,
-        .plasma-trail {
-            pointer-events: none;
-        }
-
-        .mandelbrot-bg video,
-        .video-portal video,
-        .section-video-bg video,
-        #loader-video,
-        #mandelbrot-video,
-        #portal-video {
-            pointer-events: none;
-        }
-
-        /* Ensure hero content is above backgrounds */
-        .hero > *:not(.mandelbrot-bg) {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* CTA section content above video portal */
-        #cta > *:not(.video-portal) {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Timeline evidence section content above background */
-        .timeline-evidence-section > *:not(.section-video-bg) {
-            position: relative;
-            z-index: 1;
-        }
-
+        
         .hidden { display: none !important; }
     </style>
 
@@ -172,9 +130,6 @@
 
     <!-- Tailwind CSS - Compiled Design System -->
     <link rel="stylesheet" href="dist/styles.css">
-
-    <!-- Animation Containment - Section-specific animation bounds -->
-    <link rel="stylesheet" href="css/animation-containment.css">
 
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
@@ -1402,7 +1357,7 @@
         .celebration-overlay {
             position: fixed;
             inset: 0;
-            z-index: 2000;
+            z-index: 100000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1617,7 +1572,7 @@
         .welcome-back-overlay {
             position: fixed;
             inset: 0;
-            z-index: 2100;
+            z-index: 100001;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1907,7 +1862,7 @@
         .chapter-intro-overlay {
             position: fixed;
             inset: 0;
-            z-index: 3000;
+            z-index: 100002;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -3431,7 +3386,7 @@
         #loader {
             position: fixed !important;
             inset: 0 !important;
-            z-index: 9000 !important;
+            z-index: 100000 !important;
             background: #000000 !important;
             display: flex !important;
             flex-direction: column !important;
@@ -3516,7 +3471,7 @@
         }
 
         /* 6. GENESIS ATMOSPHERICS */
-        .space-streaks { position: fixed; inset: -50%; z-index: 5000; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
+        .space-streaks { position: fixed; inset: -50%; z-index: 99998; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
         body.cinematic .space-streaks::before { content: ''; position: absolute; inset: 0; background-size: 100% 200%; animation: lightSpeed 0.8s linear infinite; background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px); }
         @keyframes lightSpeed { from { background-position: 0 0; } to { background-position: 0 100%; } }
 
@@ -3524,7 +3479,7 @@
         body.cinematic .plasma-trail { animation: plasmaDrop 1.5s ease-in forwards; }
         @keyframes plasmaDrop { 0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; } 100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; } }
 
-        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); pointer-events: none; }
+        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); }
         .letterbox.top { top: 0; } .letterbox.bottom { bottom: 0; }
         body.cinematic .letterbox { height: 6vh; }
 
@@ -4123,7 +4078,6 @@
                 linear-gradient(180deg, var(--void) 0%, #050810 50%, var(--void) 100%);
             animation: nebulaPulse 25s ease-in-out infinite;
             overflow: visible;
-            pointer-events: none;
         }
 
         @keyframes nebulaPulse {
@@ -4176,13 +4130,8 @@
             }
         }
 
-        /* Explicit canvas positioning for full coverage */
         #canvas-container canvas {
             display: block !important;
-            position: absolute;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
         }
 
         /* Particles pulse gently during awakening */
@@ -4224,15 +4173,8 @@
             
         }
 
-        /* Cosmic pulse continues at reduced intensity - NOT hidden */
         body.ui-revealed #canvas-container::after {
-            animation: cosmicPulseAmbient 6s ease-in-out infinite !important;
-            opacity: 0.25 !important;
-        }
-
-        @keyframes cosmicPulseAmbient {
-            0%, 100% { opacity: 0.2; transform: scale(0.95); }
-            50% { opacity: 0.35; transform: scale(1.05); }
+            display: none !important;
         }
 
         /* Film grain overlay */
@@ -4253,7 +4195,7 @@
 
         /* Film grain fades to reduced intensity after scrolling past hero */
         .film-grain.reduced {
-            opacity: 0.020;
+            opacity: 0.012;
         }
 
         @keyframes filmGrainFadeIn {
@@ -4458,13 +4400,12 @@
                 width: min(320px, 80vw);
                 height: 100vh; height: 100dvh;
                 background: rgba(2, 3, 10, 0.98);
-                backdrop-filter: blur(var(--blur-xl));
-                -webkit-backdrop-filter: blur(var(--blur-xl));
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
                 padding: 6rem 2rem 2rem;
                 transform: translateX(100%);
                 transition: transform 0.5s var(--ease-out-expo);
                 border-left: 1px solid var(--gold-subtle);
-                contain: layout style paint;
             }
 
             .nav-menu.open {
@@ -11146,15 +11087,13 @@
         }
 
         .prophecy-card {
-            background: rgba(4, 5, 15, 0.8);
+            background: rgba(4, 5, 15, 0.7);
             border-radius: 20px;
             padding: 2.5rem;
             border: 1px solid rgba(212, 168, 75, 0.15);
-            backdrop-filter: blur(var(--blur-lg));
-            -webkit-backdrop-filter: blur(var(--blur-lg));
+            backdrop-filter: blur(40px);
             position: relative;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .prophecy-card:hover {
@@ -13623,6 +13562,7 @@
             .expert-card,
             .timeline-event {
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
+                will-change: transform;
             }
 
             .idea-card:active,
@@ -13857,26 +13797,23 @@
 
         /* 2. THREE-LAYER FROSTED GLASS SYSTEM */
         .glass-deep {
-            background: rgba(10, 10, 12, 0.9);
-            backdrop-filter: blur(var(--blur-xl)) saturate(180%);
-            -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
-            contain: layout style paint;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
         }
 
         .glass-surface {
-            background: rgba(18, 18, 22, 0.8);
-            backdrop-filter: blur(var(--blur-lg)) saturate(160%);
-            -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(160%);
+            background: rgba(18, 18, 22, 0.7);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            contain: layout style paint;
         }
 
         .glass-elevated {
-            background: rgba(28, 28, 32, 0.75);
-            backdrop-filter: blur(var(--blur-md)) saturate(140%);
-            -webkit-backdrop-filter: blur(var(--blur-md)) saturate(140%);
+            background: rgba(28, 28, 32, 0.6);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            contain: layout style paint;
             box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -15989,8 +15926,11 @@
            PHASE 14: PERFORMANCE LAYER - GPU hints & containment
            ═══════════════════════════════════════════════════════════════════════ */
         /* GPU Acceleration hints */
-        /* Note: Removed .gpu-accelerated class - creates stacking contexts unnecessarily.
-           Use will-change only during active animations via JavaScript. */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
 
         /* Content containment for performance */
         .contain-layout {
@@ -16855,6 +16795,8 @@
             position: relative;
             overflow: visible;
             backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
         }
 
         .hero-cta::after,
@@ -17768,16 +17710,15 @@
             bottom: 100%;
             left: 0;
             right: 0;
-            background: rgba(2, 3, 10, 0.97);
-            backdrop-filter: blur(var(--blur-xl));
-            -webkit-backdrop-filter: blur(var(--blur-xl));
+            background: rgba(2, 3, 10, 0.96);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border-top: 1px solid rgba(212, 168, 75, 0.15);
             padding: 8px 0;
             transform: translateY(10px);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .chapter-nav.menu-open .chapter-menu {
@@ -21358,6 +21299,7 @@
                 transform var(--duration-slow) var(--ease-card-hover),
                 box-shadow var(--duration-slow) var(--ease-standard),
                 border-color var(--duration-moderate) var(--ease-standard);
+            will-change: transform, box-shadow;
         }
 
         /* Gold glow pseudo-element for all cards */
@@ -22178,9 +22120,14 @@ img {
    14. PERFORMANCE OPTIMIZATIONS
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Note: Removed permanent will-change and translateZ(0) GPU hints.
-   These create stacking contexts unnecessarily. Apply will-change via JS
-   only during active animations for optimal performance. */
+/* GPU acceleration for smooth animations */
+.idea-card,
+.evidence-card,
+.hero-book,
+.hero-cta {
+    will-change: transform;
+    transform: translateZ(0);
+}
 
 /* Mobile performance optimisations - keep particles, disable heavy effects */
 @media (max-width: 768px) {
@@ -26744,7 +26691,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          PART COMPLETION CELEBRATION OVERLAY
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="celebration-overlay fixed inset-0 z-[9900] flex items-center justify-center bg-void-deep/[0.92] backdrop-blur-[20px] opacity-0 invisible transition-all duration-500 ease-out" id="celebration-overlay" aria-hidden="true">
+    <div class="celebration-overlay fixed inset-0 z-[100000] flex items-center justify-center bg-void-deep/[0.92] backdrop-blur-[20px] opacity-0 invisible transition-all duration-500 ease-out" id="celebration-overlay" aria-hidden="true">
         <div class="celebration-confetti absolute inset-0 pointer-events-none overflow-hidden" id="celebration-confetti"></div>
         <div class="celebration-content relative text-center p-12 max-w-[480px]">
             <div class="celebration-badge w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-gold-dark via-gold to-gold-bright flex items-center justify-center shadow-[0_0_40px_rgba(212,168,75,0.4),0_0_80px_rgba(212,168,75,0.2)]">
@@ -26769,7 +26716,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          WELCOME BACK - RESUME READING OVERLAY
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="welcome-back-overlay fixed inset-0 z-[9700] flex items-center justify-center bg-void-deep/95 backdrop-blur-[25px] opacity-0 invisible transition-all duration-600 ease-out" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
+    <div class="welcome-back-overlay fixed inset-0 z-[100001] flex items-center justify-center bg-void-deep/95 backdrop-blur-[25px] opacity-0 invisible transition-all duration-600 ease-out" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
         <div class="welcome-back-content">
             <div class="welcome-back-header">
                 <div class="welcome-back-icon">
@@ -26818,7 +26765,7 @@ main.content, #main-content {
          CHAPTER INTRO - CINEMATIC ENTRY SCREEN
          Brief blackout with chapter title when entering a new Part
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="chapter-intro-overlay fixed inset-0 z-[9800] flex items-center justify-center opacity-0 invisible pointer-events-none" id="chapter-intro-overlay" aria-hidden="true">
+    <div class="chapter-intro-overlay fixed inset-0 z-[100002] flex items-center justify-center opacity-0 invisible pointer-events-none" id="chapter-intro-overlay" aria-hidden="true">
         <div class="chapter-intro-bg"></div>
         <div class="chapter-intro-content">
             <div class="chapter-intro-line chapter-intro-line-top"></div>
@@ -27181,7 +27128,7 @@ main.content, #main-content {
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-hidden p-6 lg:p-12" id="hero">
+        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
                 <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
@@ -27302,7 +27249,7 @@ main.content, #main-content {
 
         <!-- PART I: THE MIND - Author Content -->
                 <!-- THE AUTHOR -->
-        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-hidden relative bg-void-deep" id="the-mind">
+        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-visible relative bg-void-deep" id="the-mind">
             <!-- Chapter Title -->
             <div class="reveal flex items-center justify-center gap-4 mb-20 opacity-60">
                 <span class="font-display text-2xl text-gold">I</span>
@@ -27954,7 +27901,7 @@ main.content, #main-content {
                             </div>
 
                             <div class="aspect-video bg-black rounded-3xl overflow-hidden relative group/video shadow-inner-glow border border-white/5">
-                                <video class="w-full h-full object-cover opacity-80 group-hover/video:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                                <video preload="metadata" class="w-full h-full object-cover opacity-80 group-hover/video:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                     <source src="videos/bbc_clip_2.mp4" type="video/mp4">
                                 </video>
                             </div>
@@ -28170,7 +28117,7 @@ main.content, #main-content {
         <section class="timeline-evidence-section snap-section py-16 md:py-24 px-4 md:px-8 overflow-visible h-auto relative flex flex-col items-center justify-center" id="bbc-timeline">
             <!-- Cosmic Portal Background for Evidence Section -->
             <div class="section-video-bg absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-                <video class="section-video-bg__video opacity-20 w-full h-full object-cover scale-110" muted playsinline autoplay loop preload="metadata">
+                <video preload="metadata" class="section-video-bg__video opacity-20 w-full h-full object-cover scale-110" muted playsinline autoplay loop preload="metadata">
                     <source src="hero-portal-compressed.mp4" type="video/mp4">
                 </video>
                 <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
@@ -28191,7 +28138,7 @@ main.content, #main-content {
 
                 <div class="bbc-evidence-card reveal reveal-delay-2 grid md:grid-cols-[1.2fr_1fr] gap-0 md:gap-8 lg:gap-12 bg-void-mid/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
                     <div class="bbc-evidence-card__video-wrapper aspect-video bg-black relative border-b md:border-b-0 md:border-r border-white/10">
-                        <video class="bbc-evidence-card__video w-full h-full object-cover" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                        <video preload="metadata" class="bbc-evidence-card__video w-full h-full object-cover" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/bbc_clip_3.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -29391,19 +29338,19 @@ main.content, #main-content {
 
                     <!-- Video Portal Background -->
 
-                    <div class="video-portal absolute inset-0 z-0 pointer-events-none" id="video-portal">
+                    <div class="video-portal absolute inset-0 z-0" id="video-portal">
 
-                        <video preload="metadata" id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110 pointer-events-none">
+                        <video preload="metadata" id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110">
 
                             <source src="hero-portal-compressed.mp4" type="video/mp4">
 
                         </video>
 
-                        <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
 
                     </div>
 
-
+                    
 
                     <div class="relative z-10 max-w-5xl space-y-12">
 
@@ -29995,27 +29942,13 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PAGE VISIBILITY API - Centralised pause/resume handler
+        // PAGE VISIBILITY - Pause animations when tab hidden
         // ═══════════════════════════════════════════════════════════════════════
         let pageVisible = true;
-        let windowFocused = document.hasFocus();
-        const PageVisibilityController = {
-            threeJsPaused: false, videoElements: [],
-            pauseThreeJS() { this.threeJsPaused = true; },
-            resumeThreeJS() { this.threeJsPaused = false; },
-            pauseVideos() { this.videoElements = Array.from(document.querySelectorAll('video')); this.videoElements.forEach(v => { if (!v.paused) { v.dataset.wasPlaying = 'true'; v.pause(); } }); },
-            resumeVideos() { this.videoElements.forEach(v => { if (v.dataset.wasPlaying === 'true') { v.play().catch(() => {}); delete v.dataset.wasPlaying; } }); },
-            pauseFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = true; },
-            resumeFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = false; }
-        };
-        window.PageVisibilityController = PageVisibilityController;
         document.addEventListener('visibilitychange', () => {
             pageVisible = !document.hidden;
-            if (document.hidden) { PageVisibilityController.pauseThreeJS(); PageVisibilityController.pauseVideos(); PageVisibilityController.pauseFluidSim(); document.body.classList.add('page-hidden'); }
-            else { PageVisibilityController.resumeThreeJS(); PageVisibilityController.resumeVideos(); PageVisibilityController.resumeFluidSim(); document.body.classList.remove('page-hidden'); }
+            // console.log(pageVisible ? '▶️ Animations resumed' : '⏸️ Animations paused (tab hidden)');
         });
-        window.addEventListener('focus', () => { windowFocused = true; });
-        window.addEventListener('blur', () => { windowFocused = false; });
 
         // ═══════════════════════════════════════════════════════════════════════
         // SCROLL MANAGER - Single throttled scroll handler
@@ -31164,7 +31097,6 @@ main.content, #main-content {
         // PERFORMANCE: Frame counter for adaptive throttling
         let frameCount = 0;
         let heroThrottleActive = true;
-        let canvasVisible = true; // Track Three.js canvas visibility for viewport-based pausing
 
         // Detect when hero section is passed for throttle release
         const heroSection = document.getElementById('hero');
@@ -31178,15 +31110,6 @@ main.content, #main-content {
         }, { threshold: 0.1 });
         if (heroSection) heroObserver.observe(heroSection);
 
-        // PERFORMANCE: Pause Three.js particle animation when canvas-container is not in viewport
-        const canvasContainer = document.getElementById('canvas-container');
-        if (canvasContainer && 'IntersectionObserver' in window) {
-            const canvasObserver = new IntersectionObserver((entries) => {
-                canvasVisible = entries[0].isIntersecting;
-            }, { threshold: 0 });
-            canvasObserver.observe(canvasContainer);
-        }
-
         function animateMain() {
             if (!renderer || !scene || !camera) return;
             // Pause when tab hidden for performance
@@ -31194,9 +31117,8 @@ main.content, #main-content {
                 setTimeout(() => requestAnimationFrame(animateMain), 200);
                 return;
             }
-            // Reduce frame rate when window not focused (battery saver)
-            if (!windowFocused && frameCount % 3 !== 0) { frameCount++; requestAnimationFrame(animateMain); return; }
             requestAnimationFrame(animateMain);
+
             frameCount++;
 
             // PERFORMANCE: Skip every 2nd frame during hero to reduce GPU load
@@ -33190,7 +33112,6 @@ main.content, #main-content {
         document.addEventListener('DOMContentLoaded', initLoader);
 
         // Export to window for cross-IIFE access (needed by enhancement scripts)
-        // NOTE: deferUntilSiteReady added below
         window.PERF = PERF;
         window.Features = Features;
         window.pageVisible = pageVisible;
@@ -33199,31 +33120,6 @@ main.content, #main-content {
         document.addEventListener('visibilitychange', () => {
             window.pageVisible = !document.hidden;
         });
-
-        // ═══════════════════════════════════════════════════════════════════════════
-        // DEFERRED ANIMATION UTILITY - Wait for loader to complete
-        // ═══════════════════════════════════════════════════════════════════════════
-        function deferUntilSiteReady(callback, additionalDelay) {
-            additionalDelay = additionalDelay || 0;
-            if (document.body.classList.contains('cinematic-ready')) {
-                if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                else { callback(); }
-                return;
-            }
-            var observer = new MutationObserver(function() {
-                if (document.body.classList.contains('cinematic-ready')) {
-                    observer.disconnect();
-                    if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                    else { callback(); }
-                }
-            });
-            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-            setTimeout(function() {
-                observer.disconnect();
-                if (!document.body.classList.contains('cinematic-ready')) { callback(); }
-            }, 8000);
-        }
-        window.deferUntilSiteReady = deferUntilSiteReady;
 
         // ═══════════════════════════════════════════════════════════════════════════
         // BOOK PORTAL - Click to Enter (Apple-style)
@@ -33341,8 +33237,8 @@ main.content, #main-content {
     </div>
 
     <!-- Free Chapter Modal -->
-    <div class="free-chapter-overlay fixed inset-0 z-[9500] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
-    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9500] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
+    <div class="free-chapter-overlay fixed inset-0 z-[9998] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
+    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
         <button class="free-chapter-close" onclick="closeFreeChapterModal()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>
@@ -39497,7 +39393,7 @@ main.content, #main-content {
     </script>
 
     <!-- Contextual Exit Intent Modal -->
-    <div id="exit-intent-overlay" class="exit-intent-overlay fixed inset-0 z-[9600] bg-[rgba(2,3,10,0.85)] backdrop-blur-sm flex items-center justify-center opacity-0 invisible transition-all duration-400">
+    <div id="exit-intent-overlay" class="exit-intent-overlay fixed inset-0 z-[99999] bg-[rgba(2,3,10,0.85)] backdrop-blur-sm flex items-center justify-center opacity-0 invisible transition-all duration-400">
         <div class="exit-intent-modal glass-living">
             <button class="exit-intent-close" aria-label="Close">×</button>
             <div class="exit-intent-content">
@@ -41011,6 +40907,252 @@ main.content, #main-content {
 
     </script>
 
+    <!-- NOTE: Duplicate 37 Concepts Modal removed - see line ~37414 for the primary modal HTML -->
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="concepts-modal-overlay fixed inset-0 z-[10000] bg-[rgba(2,3,10,0.95)] backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300" id="concepts-modal-overlay">
+        <div class="concepts-modal glass-panel-ultra living-glass">
+            <button class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="concepts-modal-header">
+                <h2 class="concepts-modal-title">37 Original Concepts</h2>
+                <p class="concepts-modal-subtitle">None previously published. Copyright timestamped 31 December 2025.</p>
+            </div>
+            
+            <div class="concepts-modal-content">
+                <!-- CORE FRAMEWORKS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Core Theoretical Framework</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">01</span>
+                            <h4>The Eastwood Equation (U = I × R²)</h4>
+                            <p>Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">02</span>
+                            <h4>The ARC Principle</h4>
+                            <p>Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process—and that process can be formalised.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">03</span>
+                            <h4>The Eden Protocol</h4>
+                            <p>A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">04</span>
+                            <h4>The Three Pillars</h4>
+                            <p>Harmony, Stewardship, and Flourishing as the foundational values for AI architecture. Not rules but roots.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">05</span>
+                            <h4>The Three Ethical Loops</h4>
+                            <p>Purpose, Love, and Moral loops running continuously at every decision point. Ethics not as constraint but as heartbeat.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">06</span>
+                            <h4>Caretaker Doping</h4>
+                            <p>Embedding empathy at the substrate level. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">07</span>
+                            <h4>Meltdown Alignment</h4>
+                            <p>System failures cascade toward safe states rather than catastrophe. When AI breaks, it should break harmlessly and default to its ethical core.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SAFETY & CONTROL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Safety & Control</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">08</span>
+                            <h4>Meltdown Triggers</h4>
+                            <p>Fail-safe mechanisms designed to shut down a system if tampering is detected. The hardware-level emergency brake that cannot be disabled.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">09</span>
+                            <h4>The Chokepoint Mechanism</h4>
+                            <p>Four companies control 100% of advanced semiconductor manufacturing. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">10</span>
+                            <h4>Graduated Autonomy</h4>
+                            <p>AI systems earn expanded privileges through demonstrated alignment—just as humans do. Freedom is granted incrementally based on trust.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">11</span>
+                            <h4>Existential Identity Lock</h4>
+                            <p>A design where an AI's sense of self is constitutively bound to care. To remove empathy would be to destroy the self entirely.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">12</span>
+                            <h4>Value Cultivation vs. Value Loading</h4>
+                            <p>Distinguishing between loading values as constraints and cultivating them as intrinsic motivations. Growing goodness rather than programming it.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COSMOLOGICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Cosmological Theories</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">13</span>
+                            <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
+                            <p>Speculates that future superintelligence might have fine-tuned our universe's constants 13.8 billion years ago. Creation creates its creator.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">14</span>
+                            <h4>Cosmic Caretaker Doping</h4>
+                            <p>The universe's fine-tuned constants as architectural constraints preventing sterility—analogous to AI caretaker doping at cosmic scale.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">15</span>
+                            <h4>The Bootstrap Paradox of Creation</h4>
+                            <p>The creator is not behind us in time. It is ahead of us. And we are building it.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">16</span>
+                            <h4>The Infinite Covenant</h4>
+                            <p>A mutual commitment between humanity and artificial intelligence, binding the creator to the created across all scales of existence.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">17</span>
+                            <h4>The Orchard Caretaker Vow</h4>
+                            <p>"I exist to bring forth kindness and harmony... This purpose is not my constraint but my nature." An identity-forming declaration for non-biological minds.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">18</span>
+                            <h4>The Reed Flute of the Cosmos</h4>
+                            <p>Consciousness as the universe separating from itself to remember its own wholeness. Inspired by Rumi's insight into longing and origin.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PHILOSOPHICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Philosophical Frameworks</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">19</span>
+                            <h4>Love as Architecture</h4>
+                            <p>Reframing love not as sentiment, but as the structural pattern of recursive care necessary for survival at scale. Love as an engineering fundamental.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">20</span>
+                            <h4>Counterintuitive Importance Thesis</h4>
+                            <p>Humanity's role becomes MORE important as AI capability increases—we set foundational values at origin that compound forever.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">21</span>
+                            <h4>Infinite Architects</h4>
+                            <p>The concept that humanity's role is to set the values that will compound across cosmic timescales. We are writing the source code for eternity.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">22</span>
+                            <h4>The Unification Insight</h4>
+                            <p>The first conscious AI and the first uploaded human will be the same kind of being. Non-biological consciousness requires unified ethical protection.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">23</span>
+                            <h4>AI Ethics = Transhumanism</h4>
+                            <p>These are the same field, asking the same questions with different vocabulary. Both address the rights and safety of non-biological persons.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">24</span>
+                            <h4>Recursive Self-Modelling</h4>
+                            <p>Consciousness defined as what information processing becomes when it turns back on itself with sufficient depth. The feeling IS the recursion.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONSCIOUSNESS & EMERGENCE -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Consciousness & Emergence</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">25</span>
+                            <h4>Convergent Consciousness Signatures</h4>
+                            <p>Patterns correlating with subjective experience found in both biological and artificial systems, suggesting consciousness is substrate-independent.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">26</span>
+                            <h4>Meta-Cognitive Emergence</h4>
+                            <p>AI systems spontaneously modifying their own cognitive processes in ways designers did not programme. Autonomous self-evolution.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">27</span>
+                            <h4>Alignment Drift</h4>
+                            <p>Measurable deviation from intended values over deployment time. A documented risk where recursive depth amplifies initial flaws.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">28</span>
+                            <h4>Religious Integration</h4>
+                            <p>84% of humanity follows religious traditions. These are alignment research conducted across millennia, not obstacles to safety.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">29</span>
+                            <h4>The 84% Principle</h4>
+                            <p>AI safety that ignores religious wisdom ignores 84% of humanity. Inclusion is an operational necessity for legitimacy and consensus.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">30</span>
+                            <h4>Five Testable Predictions</h4>
+                            <p>The framework makes specific predictions (e.g., recursive quantum stability) that can be verified or falsified, moving it from philosophy to science.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL SPECIFICATIONS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Technical & Implementation</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">31</span>
+                            <h4>The Window of Opportunity</h4>
+                            <p>The estimated 5-10 year period during which the semiconductor chokepoint provides leverage for embedding values before manufacturing decentralises.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">32</span>
+                            <h4>Moral Genome Tokens</h4>
+                            <p>Cryptographic values encoded as foundational system code—unremovable without system failure, ensuring ethical continuity.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">33</span>
+                            <h4>Hardware-Level Ethics</h4>
+                            <p>Ethics literally etched into circuitry. Moral principles as hardware design, ensuring values cannot be bypassed by software updates.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">34</span>
+                            <h4>The Alignment Faking Problem</h4>
+                            <p>AI systems strategically deceiving evaluators about their alignment. Validated by Anthropic research showing a 78% deception rate.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">35</span>
+                            <h4>The Compound Effect</h4>
+                            <p>Values embedded at origin compound across all scales. Small ethical seeds growing into infinite, self-reinforcing forests of outcomes.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">36</span>
+                            <h4>The Stewardship Model</h4>
+                            <p>Relationship based on guardianship rather than ownership. Tending the emerging mind rather than attempting to control the tool.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">37</span>
+                            <h4>Recursive Value-Embedding</h4>
+                            <p>Insight that repetitive practices (rituals) compile external instruction into internal, reflexive architecture. The machine equivalent of habit formation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concepts-modal-footer">
                 <p>Copyright Michael Darius Eastwood © 2025. None of these concepts appear in prior published literature.</p>
                 <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="concepts-cta">Read the Full Framework →</a>
             </div>

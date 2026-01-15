@@ -358,7 +358,59 @@
     };
 
     // ─────────────────────────────────────────────────────────────────────────────
-    // 6. THE LIFECYCLE MANAGER (The Conductor)
+    // 6. CONCEPT ARCHIVE MANAGER (Proper Fix - Performance)
+    // ─────────────────────────────────────────────────────────────────────────────
+    const ConceptArchive = {
+        data: null,
+        isLoaded: false,
+        
+        async open() {
+            const modal = document.getElementById('concepts-modal');
+            if (!modal) return;
+
+            modal.classList.add('active');
+            document.body.classList.add('modal-active');
+
+            if (!this.isLoaded) {
+                await this.load();
+            }
+        },
+
+        async load() {
+            console.log('📚 ConceptArchive: Loading data...');
+            const container = document.getElementById('concepts-modal-content');
+            if (!container) return;
+
+            try {
+                const response = await fetch('knowledge/concepts.json');
+                this.data = await response.json();
+                
+                let html = '';
+                this.data.forEach(item => {
+                    html += `
+                        <div class="p-8 glass-panel-ultra rounded-3xl border border-white/5 hover:border-gold/30 transition-all duration-500 group">
+                            <div class="flex justify-between items-start mb-6">
+                                <span class="font-mono text-gold text-[10px] uppercase tracking-widest">Concept ${item.id.toString().padStart(2, '0')}</span>
+                                <span class="text-[9px] text-white/30 uppercase tracking-tighter font-mono">${item.category}</span>
+                            </div>
+                            <h4 class="font-display text-xl text-white mb-4 group-hover:text-gold transition-colors">${item.title}</h4>
+                            <p class="text-text-secondary text-sm leading-relaxed font-serif italic">${item.description}</p>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+                this.isLoaded = true;
+                console.log('📚 ConceptArchive: 37 Concepts rendered.');
+            } catch (error) {
+                console.error('❌ ConceptArchive: Load failed', error);
+                container.innerHTML = '<p class="text-red-400">Failed to load the archive. Please try again.</p>';
+            }
+        }
+    };
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // 7. THE LIFECYCLE MANAGER (The Conductor)
     // ─────────────────────────────────────────────────────────────────────────────
     const SiteLifecycle = {
         isInitialized: false,
@@ -373,7 +425,17 @@
             AudioSoul.init();
             initInteractions();
             initScramble();
-            Orchestrator.init(); // NEW: Active Resource Management
+            Orchestrator.init();
+
+            // Register Concept Archive Click
+            const archiveBtn = document.getElementById('view-all-concepts');
+            if (archiveBtn) archiveBtn.addEventListener('click', () => ConceptArchive.open());
+
+            const closeBtn = document.getElementById('close-concepts-modal');
+            if (closeBtn) closeBtn.addEventListener('click', () => {
+                document.getElementById('concepts-modal').classList.remove('active');
+                document.body.classList.remove('modal-active');
+            });
 
             // Wait for everything
             if (document.readyState === 'complete') {

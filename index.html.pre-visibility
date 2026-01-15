@@ -3516,7 +3516,7 @@
         }
 
         /* 6. GENESIS ATMOSPHERICS */
-        .space-streaks { position: fixed; inset: -50%; z-index: 5000; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
+        .space-streaks { position: fixed; inset: -50%; z-index: 99998; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
         body.cinematic .space-streaks::before { content: ''; position: absolute; inset: 0; background-size: 100% 200%; animation: lightSpeed 0.8s linear infinite; background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px); }
         @keyframes lightSpeed { from { background-position: 0 0; } to { background-position: 0 100%; } }
 
@@ -4458,13 +4458,12 @@
                 width: min(320px, 80vw);
                 height: 100vh; height: 100dvh;
                 background: rgba(2, 3, 10, 0.98);
-                backdrop-filter: blur(var(--blur-xl));
-                -webkit-backdrop-filter: blur(var(--blur-xl));
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
                 padding: 6rem 2rem 2rem;
                 transform: translateX(100%);
                 transition: transform 0.5s var(--ease-out-expo);
                 border-left: 1px solid var(--gold-subtle);
-                contain: layout style paint;
             }
 
             .nav-menu.open {
@@ -11146,15 +11145,13 @@
         }
 
         .prophecy-card {
-            background: rgba(4, 5, 15, 0.8);
+            background: rgba(4, 5, 15, 0.7);
             border-radius: 20px;
             padding: 2.5rem;
             border: 1px solid rgba(212, 168, 75, 0.15);
-            backdrop-filter: blur(var(--blur-lg));
-            -webkit-backdrop-filter: blur(var(--blur-lg));
+            backdrop-filter: blur(40px);
             position: relative;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .prophecy-card:hover {
@@ -13623,6 +13620,7 @@
             .expert-card,
             .timeline-event {
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
+                will-change: transform;
             }
 
             .idea-card:active,
@@ -13872,11 +13870,10 @@
         }
 
         .glass-elevated {
-            background: rgba(28, 28, 32, 0.75);
-            backdrop-filter: blur(var(--blur-md)) saturate(140%);
-            -webkit-backdrop-filter: blur(var(--blur-md)) saturate(140%);
+            background: rgba(28, 28, 32, 0.6);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            contain: layout style paint;
             box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -15989,8 +15986,11 @@
            PHASE 14: PERFORMANCE LAYER - GPU hints & containment
            ═══════════════════════════════════════════════════════════════════════ */
         /* GPU Acceleration hints */
-        /* Note: Removed .gpu-accelerated class - creates stacking contexts unnecessarily.
-           Use will-change only during active animations via JavaScript. */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
 
         /* Content containment for performance */
         .contain-layout {
@@ -17768,16 +17768,15 @@
             bottom: 100%;
             left: 0;
             right: 0;
-            background: rgba(2, 3, 10, 0.97);
-            backdrop-filter: blur(var(--blur-xl));
-            -webkit-backdrop-filter: blur(var(--blur-xl));
+            background: rgba(2, 3, 10, 0.96);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border-top: 1px solid rgba(212, 168, 75, 0.15);
             padding: 8px 0;
             transform: translateY(10px);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .chapter-nav.menu-open .chapter-menu {
@@ -29995,24 +29994,12 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PAGE VISIBILITY API - Centralised pause/resume handler
+        // PAGE VISIBILITY - Pause animations when tab hidden
         // ═══════════════════════════════════════════════════════════════════════
         let pageVisible = true;
         let windowFocused = document.hasFocus();
-        const PageVisibilityController = {
-            threeJsPaused: false, videoElements: [],
-            pauseThreeJS() { this.threeJsPaused = true; },
-            resumeThreeJS() { this.threeJsPaused = false; },
-            pauseVideos() { this.videoElements = Array.from(document.querySelectorAll('video')); this.videoElements.forEach(v => { if (!v.paused) { v.dataset.wasPlaying = 'true'; v.pause(); } }); },
-            resumeVideos() { this.videoElements.forEach(v => { if (v.dataset.wasPlaying === 'true') { v.play().catch(() => {}); delete v.dataset.wasPlaying; } }); },
-            pauseFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = true; },
-            resumeFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = false; }
-        };
-        window.PageVisibilityController = PageVisibilityController;
         document.addEventListener('visibilitychange', () => {
             pageVisible = !document.hidden;
-            if (document.hidden) { PageVisibilityController.pauseThreeJS(); PageVisibilityController.pauseVideos(); PageVisibilityController.pauseFluidSim(); document.body.classList.add('page-hidden'); }
-            else { PageVisibilityController.resumeThreeJS(); PageVisibilityController.resumeVideos(); PageVisibilityController.resumeFluidSim(); document.body.classList.remove('page-hidden'); }
         });
         window.addEventListener('focus', () => { windowFocused = true; });
         window.addEventListener('blur', () => { windowFocused = false; });
@@ -31178,15 +31165,6 @@ main.content, #main-content {
         }, { threshold: 0.1 });
         if (heroSection) heroObserver.observe(heroSection);
 
-        // PERFORMANCE: Pause Three.js particle animation when canvas-container is not in viewport
-        const canvasContainer = document.getElementById('canvas-container');
-        if (canvasContainer && 'IntersectionObserver' in window) {
-            const canvasObserver = new IntersectionObserver((entries) => {
-                canvasVisible = entries[0].isIntersecting;
-            }, { threshold: 0 });
-            canvasObserver.observe(canvasContainer);
-        }
-
         function animateMain() {
             if (!renderer || !scene || !camera) return;
             // Pause when tab hidden for performance
@@ -31194,9 +31172,8 @@ main.content, #main-content {
                 setTimeout(() => requestAnimationFrame(animateMain), 200);
                 return;
             }
-            // Reduce frame rate when window not focused (battery saver)
-            if (!windowFocused && frameCount % 3 !== 0) { frameCount++; requestAnimationFrame(animateMain); return; }
             requestAnimationFrame(animateMain);
+
             frameCount++;
 
             // PERFORMANCE: Skip every 2nd frame during hero to reduce GPU load
@@ -33201,31 +33178,6 @@ main.content, #main-content {
         });
 
         // ═══════════════════════════════════════════════════════════════════════════
-        // DEFERRED ANIMATION UTILITY - Wait for loader to complete
-        // ═══════════════════════════════════════════════════════════════════════════
-        function deferUntilSiteReady(callback, additionalDelay) {
-            additionalDelay = additionalDelay || 0;
-            if (document.body.classList.contains('cinematic-ready')) {
-                if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                else { callback(); }
-                return;
-            }
-            var observer = new MutationObserver(function() {
-                if (document.body.classList.contains('cinematic-ready')) {
-                    observer.disconnect();
-                    if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                    else { callback(); }
-                }
-            });
-            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-            setTimeout(function() {
-                observer.disconnect();
-                if (!document.body.classList.contains('cinematic-ready')) { callback(); }
-            }, 8000);
-        }
-        window.deferUntilSiteReady = deferUntilSiteReady;
-
-        // ═══════════════════════════════════════════════════════════════════════════
         // BOOK PORTAL - Click to Enter (Apple-style)
         // ═══════════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', () => {
@@ -33341,8 +33293,8 @@ main.content, #main-content {
     </div>
 
     <!-- Free Chapter Modal -->
-    <div class="free-chapter-overlay fixed inset-0 z-[9500] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
-    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9500] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
+    <div class="free-chapter-overlay fixed inset-0 z-[9998] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
+    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
         <button class="free-chapter-close" onclick="closeFreeChapterModal()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>

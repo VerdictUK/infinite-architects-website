@@ -6,102 +6,66 @@
 
     <!-- CORE ARCHITECTURAL FOUNDATION (Proper Fix - Production Standard) -->
     <style>
-        :root {
-            /* Z-Index Registry (The 'Place for Everything') */
-            --z-void: -10;        /* Pure background (Fluid Sim) */
-            --z-neural: -5;      /* Secondary background (Neural/Tesseract) */
-            --z-content: 10;     /* Actual reading material */
-            --z-cursor: 50;      /* God Cursor */
-            --z-ui: 100;         /* Navigation / Audio Toggles */
-            --z-modal: 1000;     /* Overlays / Chapters */
-            --z-loader: 10000;   /* Initial entry */
-        }
-
+        /* 1. Reset & Foundation */
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
             background-color: #02030a;
         }
         
         body {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             background-color: #02030a;
             color: #ffffff;
             font-family: 'Cinzel', serif;
             overflow-x: hidden;
             min-height: 100dvh;
+            position: relative;
+            /* Initially hidden to allow Masterpiece Soul to control the reveal */
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        body.site-ready,
-        body.cinematic-ready { opacity: 1; }
-        body.loader-active { overflow: hidden !important; }
-
-        /* Assign Slots to Engines */
-        #fluid-canvas { position: fixed; inset: 0; z-index: var(--z-void); pointer-events: none; }
-        #neural-canvas { position: absolute; inset: 0; z-index: var(--z-neural); pointer-events: none; opacity: 0.3; }
-        #tesseract-canvas { z-index: var(--z-neural); pointer-events: none; }
-        
-        main, section { position: relative; z-index: var(--z-content); }
-        
-        #cursor-dot, #cursor-ring { z-index: var(--z-cursor); pointer-events: none; }
-        .nav-fixed { z-index: var(--z-ui); }
-
-        /* Modal / Overlay Proper Fix */
-        [id*="modal"], [id*="overlay"] { 
-            z-index: var(--z-modal); 
-            display: none; 
-        }
-        [id*="modal"].active, [id*="overlay"].active { 
-            display: flex !important; 
+        body.site-ready {
+            opacity: 1;
         }
 
-        /* Video Performance Safety */
-        video { background: #000; }
+        /* 2. Scroll Lock Paradigm */
+        body.loader-active {
+            overflow: hidden !important;
+            touch-action: none;
+        }
 
-        /* CRITICAL: Background video/canvas layering - prevent blocking content */
-        .mandelbrot-bg,
-        .video-portal,
-        .section-video-bg,
-        .loader-video-bg,
-        .loader-video-overlay,
-        .sonic-boom,
-        .lens-flare,
-        .ground-shock,
-        .god-rays,
-        .spark-container,
-        .plasma-trail {
+        /* 3. Global Section Alignment */
+        section {
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 4. Infrastructure Cleanup (Remove UI Blockers) */
+        #cinematic-loader, .loader-video-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: #02030a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        body.site-ready #cinematic-loader {
+            opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
 
-        .mandelbrot-bg video,
-        .video-portal video,
-        .section-video-bg video,
-        #loader-video,
-        #mandelbrot-video,
-        #portal-video {
-            pointer-events: none;
-        }
-
-        /* Ensure hero content is above backgrounds */
-        .hero > *:not(.mandelbrot-bg) {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* CTA section content above video portal */
-        #cta > *:not(.video-portal) {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Timeline evidence section content above background */
-        .timeline-evidence-section > *:not(.section-video-bg) {
-            position: relative;
-            z-index: 1;
-        }
-
+        /* 5. Utility Safety Net */
         .hidden { display: none !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 
     <!-- CRITICAL SEO META TAGS (Restored from git history) -->
@@ -173,58 +137,11 @@
     <!-- Tailwind CSS - Compiled Design System -->
     <link rel="stylesheet" href="dist/styles.css">
 
-    <!-- Animation Containment - Section-specific animation bounds -->
-    <link rel="stylesheet" href="css/animation-containment.css">
-
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script">
     <link rel="preconnect" href="https://www.amazon.co.uk">
     <link rel="dns-prefetch" href="https://www.amazon.co.uk">
-
-    <!-- DEFERRED THIRD-PARTY INITIALIZATION (Proper Fix - Performance) -->
-    <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                // 1. Google Analytics & Ads
-                const gtagScript = document.createElement('script');
-                gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4";
-                gtagScript.async = true;
-                document.head.appendChild(gtagScript);
-                
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-V4FDJHP4R4', { 'page_path': location.pathname });
-                gtag('config', 'AW-17876453606');
-
-                // 2. Facebook/Meta Pixel
-                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-                document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '1951047602453657');
-                fbq('track', 'PageView');
-
-                // 3. LinkedIn Insight
-                _linkedin_partner_id = "8470874";
-                window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-                window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-                (function(l) {
-                    if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-                    window.lintrk.q=[]}
-                    var s = document.getElementsByTagName("script")[0];
-                    var b = document.createElement("script");
-                    b.type = "text/javascript";b.async = true;
-                    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-                    s.parentNode.insertBefore(b, s);
-                })(window.lintrk);
-                
-                console.log('📈 Performance: Third-party scripts initialized (deferred).');
-            }, 2000); 
-        });
-    </script>
 
     <!-- JSON-LD Structured Data: Sovereign Standard v2.0 (Sentinel SEO Audit) -->
     <script type="application/ld+json">
@@ -1379,7 +1296,7 @@
             position: fixed;
             inset: 0;
             pointer-events: none !important;
-            z-index: 500;
+            z-index: 9000;
             opacity: 0;
             box-shadow: inset 0 0 100px rgba(212, 168, 75, 0.4),
                         inset 0 0 200px rgba(212, 168, 75, 0.2);
@@ -1402,7 +1319,7 @@
         .celebration-overlay {
             position: fixed;
             inset: 0;
-            z-index: 2000;
+            z-index: 100000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1617,7 +1534,7 @@
         .welcome-back-overlay {
             position: fixed;
             inset: 0;
-            z-index: 2100;
+            z-index: 100001;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1907,7 +1824,7 @@
         .chapter-intro-overlay {
             position: fixed;
             inset: 0;
-            z-index: 3000;
+            z-index: 100002;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2730,14 +2647,15 @@
             top: 0;
         }
 
-        /* GPU-accelerated animations - only during active animation */
-        /* Note: will-change applied via JS during animation, not permanently */
+        /* GPU-accelerated animations for performance */
         .reveal,
         .hero-cta,
         .cta-button,
         .idea-card,
         .nav-logo,
         .carousel-item {
+            will-change: transform, opacity;
+            transform: translateZ(0);
             backface-visibility: hidden;
         }
 
@@ -2749,7 +2667,12 @@
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
-            /* will-change already removed from base styles */
+            .reveal,
+            .hero-cta,
+            .cta-button,
+            .idea-card {
+                will-change: auto;
+            }
         }
 
         /* High contrast mode support */
@@ -3431,7 +3354,7 @@
         #loader {
             position: fixed !important;
             inset: 0 !important;
-            z-index: 9000 !important;
+            z-index: 100000 !important;
             background: #000000 !important;
             display: flex !important;
             flex-direction: column !important;
@@ -3516,7 +3439,7 @@
         }
 
         /* 6. GENESIS ATMOSPHERICS */
-        .space-streaks { position: fixed; inset: -50%; z-index: 5000; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
+        .space-streaks { position: fixed; inset: -50%; z-index: 99998; pointer-events: none; opacity: 0; background: radial-gradient(circle at center, transparent 20%, rgba(212, 168, 75, 0.05) 100%); }
         body.cinematic .space-streaks::before { content: ''; position: absolute; inset: 0; background-size: 100% 200%; animation: lightSpeed 0.8s linear infinite; background-image: repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, transparent 22px); }
         @keyframes lightSpeed { from { background-position: 0 0; } to { background-position: 0 100%; } }
 
@@ -3524,7 +3447,7 @@
         body.cinematic .plasma-trail { animation: plasmaDrop 1.5s ease-in forwards; }
         @keyframes plasmaDrop { 0% { transform: translateX(-50%) translateY(-100%) scaleY(2); opacity: 1; } 100% { transform: translateX(-50%) translateY(100%) scaleY(1); opacity: 0; } }
 
-        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); pointer-events: none; }
+        .letterbox { position: fixed; left: 0; right: 0; height: 0; background: #000000; z-index: 100001; transition: height 1.8s var(--ease-out-expo); }
         .letterbox.top { top: 0; } .letterbox.bottom { bottom: 0; }
         body.cinematic .letterbox { height: 6vh; }
 
@@ -3579,11 +3502,10 @@
             animation: heroRevealSlide 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        /* Staggered hero reveals - allows video/particles to settle before text */
-        body.cinematic .hero-title { animation-delay: 1.2s; }
-        body.cinematic .hero-subtitle { animation-delay: 1.8s; }
-        body.cinematic .hero-cta { animation-delay: 2.4s; }
-        body.cinematic .hero-author { animation-delay: 2.8s; opacity: 0; animation: heroRevealSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        body.cinematic .hero-title { animation-delay: 0.6s; }
+        body.cinematic .hero-subtitle { animation-delay: 0.8s; }
+        body.cinematic .hero-cta { animation-delay: 1s; }
+        body.cinematic .hero-author { animation-delay: 1.1s; opacity: 0; animation: heroRevealSlide 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
         @keyframes heroRevealSlide {
             0% { opacity: 0; transform: translateY(40px); filter: blur(10px); }
@@ -4123,7 +4045,6 @@
                 linear-gradient(180deg, var(--void) 0%, #050810 50%, var(--void) 100%);
             animation: nebulaPulse 25s ease-in-out infinite;
             overflow: visible;
-            pointer-events: none;
         }
 
         @keyframes nebulaPulse {
@@ -4136,7 +4057,7 @@
         #canvas-container {
             position: fixed;
             inset: 0;
-            z-index: 1; /* Very low, behind all content */
+            z-index: 0;
             pointer-events: none;
             display: block !important;
             
@@ -4176,17 +4097,11 @@
             }
         }
 
-        /* Explicit canvas positioning for full coverage */
         #canvas-container canvas {
             display: block !important;
-            position: absolute;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
         }
 
         /* Particles pulse gently during awakening */
-        /* PERFORMANCE: Delayed by 3s to not compete with hero text reveals */
         #canvas-container::after {
             content: '';
             position: absolute;
@@ -4196,8 +4111,6 @@
                 rgba(212, 168, 75, 0.05) 30%,
                 transparent 60%);
             animation: cosmicPulse 3s ease-in-out infinite, cosmicFadeOut 5s ease-out forwards;
-            animation-delay: 3s;
-            opacity: 0;
             pointer-events: none;
         }
 
@@ -4224,41 +4137,20 @@
             
         }
 
-        /* Cosmic pulse continues at reduced intensity - NOT hidden */
         body.ui-revealed #canvas-container::after {
-            animation: cosmicPulseAmbient 6s ease-in-out infinite !important;
-            opacity: 0.25 !important;
-        }
-
-        @keyframes cosmicPulseAmbient {
-            0%, 100% { opacity: 0.2; transform: scale(0.95); }
-            50% { opacity: 0.35; transform: scale(1.05); }
+            display: none !important;
         }
 
         /* Film grain overlay */
-        /* PERFORMANCE: Delayed start, GPU-optimised, fades after hero */
-        /* z-index: 2 = just above background, below all content - prevents blocking interactions */
         .film-grain {
             position: fixed;
             inset: 0;
-            z-index: 2;
+            z-index: var(--z-overlay);
             pointer-events: none;
-            opacity: 0;
+            opacity: 0.025;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            animation: grain 0.5s steps(8) infinite, filmGrainFadeIn 2s ease-out 2s forwards;
+            animation: grain 0.4s steps(10) infinite;
             mix-blend-mode: overlay;
-            will-change: transform, opacity;
-            transition: opacity 1s ease-out;
-        }
-
-        /* Film grain fades to reduced intensity after scrolling past hero */
-        .film-grain.reduced {
-            opacity: 0.020;
-        }
-
-        @keyframes filmGrainFadeIn {
-            from { opacity: 0; }
-            to { opacity: 0.025; }
         }
 
         @keyframes grain {
@@ -4269,11 +4161,10 @@
         }
 
         /* Vignette */
-        /* z-index: 1 = just above background, below film grain and content - prevents blocking interactions */
         .vignette {
             position: fixed;
             inset: 0;
-            z-index: 1;
+            z-index: calc(var(--z-overlay) - 1);
             pointer-events: none;
             background: radial-gradient(ellipse at center, transparent 0%, transparent 35%, rgba(0, 0, 0, 0.55) 100%);
         }
@@ -4458,13 +4349,12 @@
                 width: min(320px, 80vw);
                 height: 100vh; height: 100dvh;
                 background: rgba(2, 3, 10, 0.98);
-                backdrop-filter: blur(var(--blur-xl));
-                -webkit-backdrop-filter: blur(var(--blur-xl));
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
                 padding: 6rem 2rem 2rem;
                 transform: translateX(100%);
                 transition: transform 0.5s var(--ease-out-expo);
                 border-left: 1px solid var(--gold-subtle);
-                contain: layout style paint;
             }
 
             .nav-menu.open {
@@ -5786,7 +5676,7 @@
                 font-size: 0.65rem !important;
             }
             html body .methodology-section .ai-model-role {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
             }
             html body .methodology-section .convergence-box {
                 padding: 1rem !important;
@@ -8885,11 +8775,8 @@
             }
         }
 
-        /* PERFORMANCE: Delay floating animation to stagger after hero text */
         .hero-book.floating {
             animation: holoFloat 4s ease-in-out infinite;
-            animation-delay: 2.5s;
-            animation-fill-mode: backwards;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -9153,11 +9040,8 @@
             }
         }
 
-        /* PERFORMANCE: Delay floating animation to stagger after hero text */
         .hero-book-3d.floating {
             animation: holoFloat 4s ease-in-out infinite;
-            animation-delay: 2.5s;
-            animation-fill-mode: backwards;
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -11146,15 +11030,13 @@
         }
 
         .prophecy-card {
-            background: rgba(4, 5, 15, 0.8);
+            background: rgba(4, 5, 15, 0.7);
             border-radius: 20px;
             padding: 2.5rem;
             border: 1px solid rgba(212, 168, 75, 0.15);
-            backdrop-filter: blur(var(--blur-lg));
-            -webkit-backdrop-filter: blur(var(--blur-lg));
+            backdrop-filter: blur(40px);
             position: relative;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .prophecy-card:hover {
@@ -13623,6 +13505,7 @@
             .expert-card,
             .timeline-event {
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
+                will-change: transform;
             }
 
             .idea-card:active,
@@ -13648,8 +13531,14 @@
             }
         }
 
-        /* Subtle parallax depth for sections - removed stacking context creators */
-        /* Note: translateZ(0) and will-change removed to prevent stacking issues */
+        /* Subtle parallax depth for sections */
+        @media (max-width: 768px) {
+            .section-title,
+            .quote-text {
+                transform: translateZ(0);
+                will-change: transform;
+            }
+        }
 
         /* ═══════════════════════════════════════════════════════════════════════
            APPLE-GRADE DESIGN SYSTEM - Invisible Tech Philosophy
@@ -13722,6 +13611,7 @@
                 0 0 0 1px rgba(255, 255, 255, 0.1),
                 0 20px 50px rgba(0, 0, 0, 0.5) !important;
             overflow: visible;
+            transform: translateZ(0);
             position: relative;
         }
 
@@ -13738,11 +13628,13 @@
         /* 5. SCROLLYTELLING TEXT - Elements styled for reveal */
         .apple-reveal {
             transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+            will-change: opacity, transform;
         }
 
         /* 6. HRIH PARALLAX - 3D window effect */
         .hrih-visual {
             transition: transform 0.1s ease-out;
+            will-change: transform;
         }
 
         /* 7. FINAL POLISH */
@@ -13857,26 +13749,23 @@
 
         /* 2. THREE-LAYER FROSTED GLASS SYSTEM */
         .glass-deep {
-            background: rgba(10, 10, 12, 0.9);
-            backdrop-filter: blur(var(--blur-xl)) saturate(180%);
-            -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
-            contain: layout style paint;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
         }
 
         .glass-surface {
-            background: rgba(18, 18, 22, 0.8);
-            backdrop-filter: blur(var(--blur-lg)) saturate(160%);
-            -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(160%);
+            background: rgba(18, 18, 22, 0.7);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            contain: layout style paint;
         }
 
         .glass-elevated {
-            background: rgba(28, 28, 32, 0.75);
-            backdrop-filter: blur(var(--blur-md)) saturate(140%);
-            -webkit-backdrop-filter: blur(var(--blur-md)) saturate(140%);
+            background: rgba(28, 28, 32, 0.6);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            contain: layout style paint;
             box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -13937,6 +13826,7 @@
         /* 6. MAGNETIC ELEMENT STYLING */
         .magnetic {
             transition: transform 0.15s ease-out;
+            will-change: transform;
         }
 
         /* 7. CURSOR-FOLLOWING GLOW ON CARDS */
@@ -14939,13 +14829,14 @@
 
         /* LARGE DESKTOPS (1441px+) */
         @media (min-width: 1441px) {
-            /* NOTE: scroll-snap is DISABLED on desktop (1024px+) via later rule */
             html {
+                scroll-snap-type: y proximity; /* Gentle snap */
                 scroll-behavior: smooth;
             }
 
             .snap-section {
-                /* Snap disabled on desktop - free scrolling enabled */
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
                 min-height: auto;
                 height: auto;
                 overflow: visible;
@@ -15989,8 +15880,11 @@
            PHASE 14: PERFORMANCE LAYER - GPU hints & containment
            ═══════════════════════════════════════════════════════════════════════ */
         /* GPU Acceleration hints */
-        /* Note: Removed .gpu-accelerated class - creates stacking contexts unnecessarily.
-           Use will-change only during active animations via JavaScript. */
+        .gpu-accelerated {
+            transform: translateZ(0);
+            will-change: transform;
+            backface-visibility: hidden;
+        }
 
         /* Content containment for performance */
         .contain-layout {
@@ -16855,6 +16749,8 @@
             position: relative;
             overflow: visible;
             backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform, box-shadow;
         }
 
         .hero-cta::after,
@@ -17768,16 +17664,15 @@
             bottom: 100%;
             left: 0;
             right: 0;
-            background: rgba(2, 3, 10, 0.97);
-            backdrop-filter: blur(var(--blur-xl));
-            -webkit-backdrop-filter: blur(var(--blur-xl));
+            background: rgba(2, 3, 10, 0.96);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border-top: 1px solid rgba(212, 168, 75, 0.15);
             padding: 8px 0;
             transform: translateY(10px);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            contain: layout style paint;
         }
 
         .chapter-nav.menu-open .chapter-menu {
@@ -17972,7 +17867,7 @@
             }
 
             .chapter-nav {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -18093,7 +17988,7 @@
             body.chapter-nav-enabled .slideshow-nav,
             body.chapter-nav-enabled .slideshow-dots,
             body.chapter-nav-enabled .social-proof-badge {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
         /* ═══════════════════════════════════════════════════════════════════════════
@@ -18382,7 +18277,7 @@
             html.slideshow-mode .ticker,
             html.slideshow-mode .reading-progress,
             html.slideshow-mode .evidence-intro {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
                 
                 pointer-events: none !important;
             }
@@ -18664,7 +18559,7 @@
             html.slideshow-mode .hero-badge,
             html.slideshow-mode .hero-status-pill,
             html.slideshow-mode .scroll-indicator {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Mandelbrot background positioning */
@@ -18869,7 +18764,7 @@
             }
 
             html.slideshow-mode .proof-divider {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* ══════════════════════════════════════════════════════════════════
@@ -18908,7 +18803,7 @@
             }
 
             html.slideshow-mode .evidence-grid::-webkit-scrollbar {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Show ALL cards */
@@ -19026,7 +18921,7 @@
             }
 
             html.slideshow-mode .ideas-grid::-webkit-scrollbar {
-                display: flex !important;
+                display: flex !important; visibility: visible !important;
             }
 
             /* Show ALL cards */
@@ -21358,6 +21253,7 @@
                 transform var(--duration-slow) var(--ease-card-hover),
                 box-shadow var(--duration-slow) var(--ease-standard),
                 border-color var(--duration-moderate) var(--ease-standard);
+            will-change: transform, box-shadow;
         }
 
         /* Gold glow pseudo-element for all cards */
@@ -22178,9 +22074,14 @@ img {
    14. PERFORMANCE OPTIMIZATIONS
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Note: Removed permanent will-change and translateZ(0) GPU hints.
-   These create stacking contexts unnecessarily. Apply will-change via JS
-   only during active animations for optimal performance. */
+/* GPU acceleration for smooth animations */
+.idea-card,
+.evidence-card,
+.hero-book,
+.hero-cta {
+    will-change: transform;
+    transform: translateZ(0);
+}
 
 /* Mobile performance optimisations - keep particles, disable heavy effects */
 @media (max-width: 768px) {
@@ -22318,7 +22219,7 @@ img {
 /* Mobile - HIDE the badge to reduce clutter */
 @media (max-width: 768px) {
     .part-progress-indicator {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
         opacity: 0 !important;
     }
@@ -22459,7 +22360,7 @@ html.slideshow-mode .slideshow-nav,
 html.slideshow-mode #slideshowNav,
 html.slideshow-mode .slideshow-controls,
 html.slideshow-mode .slideshow-dots {
-    display: flex !important;
+    display: flex !important; visibility: visible !important;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -22478,7 +22379,7 @@ html body .letterbox.bottom,
 html body .part-progress-indicator,
 html body #part-progress-indicator,
 html body .part-progress-dots {
-    display: none !important;
+    display: flex !important; visibility: visible !important;
     
     opacity: 0 !important;
     pointer-events: none !important;
@@ -22509,7 +22410,7 @@ html body .hero::before,
 html body .hero::after,
 html body #hero::before,
 html body #hero::after {
-    display: flex !important;
+    display: flex !important; visibility: visible !important;
     content: none !important;
     border: none !important;
     outline: none !important;
@@ -22796,7 +22697,7 @@ html body.cinematic .book-portal {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
         opacity: 0 !important;
         height: 0 !important;
@@ -22811,7 +22712,7 @@ html body.cinematic .book-portal {
     html body [class*="decorative-line"],
     html body section::before,
     html body section::after {
-        display: flex !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* Keep specific content pseudo-elements but hide decorative ones */
@@ -22968,7 +22869,7 @@ html body.cinematic .book-portal {
     /* === REMOVE: Decorative pseudo-elements that may cause issues === */
     html body .carousel-section::before,
     html body .carousel-section::after {
-        display: flex !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* === FIX: Ensure body has no fixed positioning issues === */
@@ -23075,7 +22976,7 @@ html body.cinematic .book-portal {
     html body .hero .book-light-layer,
     html body .hero .book-page-peek,
     html body .hero .book-shadow {
-        display: flex !important;
+        display: flex !important; visibility: visible !important;
         content: none !important;
         
     }
@@ -23135,7 +23036,7 @@ html body.cinematic .book-portal {
 
     /* Scroll Indicator - Hidden on Mobile */
     html body .hero .scroll-indicator {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
     }
 
     /* Background Video - Cover */
@@ -23465,73 +23366,21 @@ html body .about-section.snap-section {
     contain: none !important; /* Remove paint containment for about section */
 }
 
-/* 5. FIX Z-INDEX HIERARCHY - Proper layering from bottom to top */
-/* Layer 1: Background (particles/mandelbrot) */
+/* 5. FIX Z-INDEX HIERARCHY */
 html body .hero .mandelbrot-bg {
-    z-index: 1 !important;
-    pointer-events: none !important;
-}
-
-html body .hero .mandelbrot-bg * {
-    pointer-events: none !important;
+    z-index: 0 !important;
 }
 
 html body .hero .mandelbrot-overlay {
-    z-index: 2 !important;
-    pointer-events: none !important;
+    z-index: 1 !important;
 }
 
-/* Layer 5: Video portal (decorative, non-blocking) */
-html body .video-portal,
-html body #video-portal {
-    z-index: 5 !important;
-    pointer-events: none !important;
-}
-
-html body .video-portal *,
-html body #video-portal * {
-    pointer-events: none !important;
-}
-
-/* Layer 10: Hero content container */
 html body .hero .hero-book-container,
+html body .hero .hero-content-right,
 html body .hero .hero-badge,
 html body .hero .hero-status-pill {
     z-index: 10 !important;
     position: relative !important;
-}
-
-/* Layer 11: Book cover - above container, clickable */
-html body .hero .hero-book,
-html body .hero #hero-book,
-html body .hero .book-portal {
-    z-index: 11 !important;
-    position: relative !important;
-    pointer-events: auto !important;
-}
-
-/* Layer 12: Hero text and CTAs - topmost content layer */
-html body .hero .hero-content-right {
-    z-index: 12 !important;
-    position: relative !important;
-}
-
-html body .hero .hero-title,
-html body .hero .hero-subtitle,
-html body .hero .hero-author {
-    position: relative !important;
-    z-index: 12 !important;
-}
-
-/* Layer 12: CTA buttons - ensure clickability */
-html body .hero .hero-cta,
-html body .hero .free-chapter-cta,
-html body .hero a[href],
-html body .hero button {
-    z-index: 12 !important;
-    position: relative !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
 }
 
 /* 6. ENSURE NAV IS ABOVE EVERYTHING */
@@ -23546,7 +23395,7 @@ html body nav[role="navigation"] {
     html body .chapter-nav,
     html body nav.chapter-nav,
     html body #chapterNav {
-        display: flex !important;
+        display: flex !important; visibility: visible !important;
         
     }
 }
@@ -23595,7 +23444,7 @@ html body .evidence-locker {
 @media (min-width: 1024px) {
     html body .mobile-buy-bar,
     html body #mobile-buy-bar {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
     }
 }
@@ -24142,31 +23991,22 @@ html body #the-mind .storm-story {
         transform: scale(0.98) !important;
     }
 
-    /* Portal glow effect - PROPERLY VISIBLE with ambient pulse */
+    /* Portal glow effect */
     html body .hero .book-portal-glow {
         position: absolute !important;
-        inset: -25px !important;
+        inset: -20px !important;
         background: radial-gradient(ellipse at center,
-            rgba(212, 168, 75, 0.25) 0%,
-            rgba(212, 168, 75, 0.1) 40%,
+            rgba(212, 168, 75, 0.15) 0%,
             transparent 70%) !important;
-        opacity: 0.6 !important;
-        transition: opacity 0.5s ease, transform 0.5s ease !important;
+        opacity: 0 !important;
+        transition: opacity 0.5s ease !important;
         pointer-events: none !important;
-        z-index: 1 !important;
-        animation: portal-ambient-glow 4s ease-in-out infinite !important;
-        animation-delay: 3s !important;
+        z-index: -1 !important;
     }
 
     html body .hero .book-portal:hover .book-portal-glow {
-        opacity: 1 !important;
-        transform: scale(1.08) !important;
+        
         animation: portal-pulse 2s ease-in-out infinite !important;
-    }
-
-    @keyframes portal-ambient-glow {
-        0%, 100% { transform: scale(1); opacity: 0.5; }
-        50% { transform: scale(1.04); opacity: 0.7; }
     }
 
     @keyframes portal-pulse {
@@ -24175,21 +24015,15 @@ html body #the-mind .storm-story {
     }
 
     /* Click to begin hint */
-    /* PERFORMANCE: Delayed to stagger after hero text animations */
     html body .hero .book-portal-hint {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         gap: 0.5rem !important;
         margin-top: 1.5rem !important;
-        opacity: 0 !important;
+        opacity: 0.6 !important;
         transition: opacity 0.3s ease, transform 0.3s ease !important;
-        animation: hint-float 3s ease-in-out infinite, hint-fade-in 0.5s ease-out 3.5s forwards !important;
-    }
-
-    @keyframes hint-fade-in {
-        from { opacity: 0; }
-        to { opacity: 0.6; }
+        animation: hint-float 3s ease-in-out infinite !important;
     }
 
     html body .hero .hero-book-container:hover .book-portal-hint {
@@ -24348,13 +24182,13 @@ html body #the-mind .storm-story {
 
     /* Sidebar hidden on tablet/mobile (chapter-nav shows instead) */
     html body .chapter-sidebar {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
     }
 
     /* Slideshow nav deprecated - keep hidden */
     html body .slideshow-nav {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
     }
 }
@@ -25449,7 +25283,7 @@ html body section#methodology .methodology-closing {
     html body .section-spacer,
     html body [class*="divider"],
     html body [class*="spacer"]:not(button):not(input) {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         height: 0 !important;
         min-height: 0 !important;
         padding: 0 !important;
@@ -25485,7 +25319,7 @@ html body section#methodology .methodology-closing {
 @media (max-width: 768px) {
     /* === HIDDEN ELEMENTS MUST NOT TAKE SPACE (EXEMPT ASK-BOOK) === */
     html body [style*="visibility: hidden"]:not(.ask-book-toggle):not(.ask-book-widget),
-    html body [style*="display: none !important;"]:not(.ask-book-toggle):not(.ask-book-widget),
+    html body [style*="display: flex !important; visibility: visible !important;"]:not(.ask-book-toggle):not(.ask-book-widget),
     html body .hidden:not(.ask-book-toggle):not(.ask-book-widget),
     html body [hidden]:not(.ask-book-toggle):not(.ask-book-widget) {
         height: 0 !important;
@@ -25532,7 +25366,7 @@ html body section#methodology .methodology-closing {
     html body .decorative-line,
     html body [class*="divider"]:not(.ask-book-divider),
     html body [class*="spacer"]:not(button) {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         height: 0 !important;
         min-height: 0 !important;
     }
@@ -25689,7 +25523,7 @@ html body section#methodology .methodology-closing {
     html body main#main-content section::after,
     html body main.content section::before,
     html body main.content section::after {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         content: none !important;
         height: 0 !important;
     }
@@ -26330,7 +26164,7 @@ main.content,
     .sticky-cta,
     #sticky-cta,
     [id="sticky-cta"] {
-        display: none !important;
+        display: flex !important; visibility: visible !important;
         
         opacity: 0 !important;
         pointer-events: none !important;
@@ -26744,7 +26578,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          PART COMPLETION CELEBRATION OVERLAY
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="celebration-overlay fixed inset-0 z-[9900] flex items-center justify-center bg-void-deep/[0.92] backdrop-blur-[20px] opacity-0 invisible transition-all duration-500 ease-out" id="celebration-overlay" aria-hidden="true">
+    <div class="celebration-overlay fixed inset-0 z-[100000] flex items-center justify-center bg-void-deep/[0.92] backdrop-blur-[20px] opacity-0 invisible transition-all duration-500 ease-out" id="celebration-overlay" aria-hidden="true">
         <div class="celebration-confetti absolute inset-0 pointer-events-none overflow-hidden" id="celebration-confetti"></div>
         <div class="celebration-content relative text-center p-12 max-w-[480px]">
             <div class="celebration-badge w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-gold-dark via-gold to-gold-bright flex items-center justify-center shadow-[0_0_40px_rgba(212,168,75,0.4),0_0_80px_rgba(212,168,75,0.2)]">
@@ -26769,7 +26603,7 @@ main.content, #main-content {
     <!-- ═══════════════════════════════════════════════════════════════════════
          WELCOME BACK - RESUME READING OVERLAY
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="welcome-back-overlay fixed inset-0 z-[9700] flex items-center justify-center bg-void-deep/95 backdrop-blur-[25px] opacity-0 invisible transition-all duration-600 ease-out" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
+    <div class="welcome-back-overlay fixed inset-0 z-[100001] flex items-center justify-center bg-void-deep/95 backdrop-blur-[25px] opacity-0 invisible transition-all duration-600 ease-out" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
         <div class="welcome-back-content">
             <div class="welcome-back-header">
                 <div class="welcome-back-icon">
@@ -26818,7 +26652,7 @@ main.content, #main-content {
          CHAPTER INTRO - CINEMATIC ENTRY SCREEN
          Brief blackout with chapter title when entering a new Part
          ═══════════════════════════════════════════════════════════════════════ -->
-    <div class="chapter-intro-overlay fixed inset-0 z-[9800] flex items-center justify-center opacity-0 invisible pointer-events-none" id="chapter-intro-overlay" aria-hidden="true">
+    <div class="chapter-intro-overlay fixed inset-0 z-[100002] flex items-center justify-center opacity-0 invisible pointer-events-none" id="chapter-intro-overlay" aria-hidden="true">
         <div class="chapter-intro-bg"></div>
         <div class="chapter-intro-content">
             <div class="chapter-intro-line chapter-intro-line-top"></div>
@@ -27181,7 +27015,7 @@ main.content, #main-content {
     <!-- Main Content -->
     <main class="content min-h-screen-dvh overflow-visible" id="main-content" role="main">
         <!-- Hero Section -->
-        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-hidden p-6 lg:p-12" id="hero">
+        <section class="hero snap-section min-h-screen-dvh flex flex-col items-center justify-center text-center relative w-full overflow-visible p-6 lg:p-12" id="hero">
             <!-- Mandelbrot Fractal: Visual metaphor for recursion - the book's core concept -->
             <div class="mandelbrot-bg absolute inset-0 z-0 bg-black" id="mandelbrot-bg" aria-hidden="true">
                 <video class="mandelbrot-video w-full h-full object-cover opacity-60 bg-void mix-blend-screen" id="mandelbrot-video"
@@ -27201,7 +27035,7 @@ main.content, #main-content {
             <div class="hero-book-container flex justify-center items-center lg:justify-end">
                 <div class="hero-book book-portal relative z-5 cursor-pointer transition-all duration-600 ease-out" id="hero-book" role="button" tabindex="0" aria-label="Click to enter and explore the book">
                     <!-- Animated Video Book Cover -->
-                    <video preload="metadata"
+                    <video
                         class="book-cover-video w-full h-auto rounded-md object-contain"
                         id="book-cover-video"
                         loop
@@ -27215,7 +27049,7 @@ main.content, #main-content {
                     >
                         <!-- Sources loaded lazily via JavaScript -->
                         <!-- Fallback static image -->
-                        <img loading="lazy" decoding="async"
+                        <img
                             src="InfiniteArchitectsKindle20260103.jpg"
                             alt="Infinite Architects by Michael Darius Eastwood"
                             loading="eager"
@@ -27302,7 +27136,7 @@ main.content, #main-content {
 
         <!-- PART I: THE MIND - Author Content -->
                 <!-- THE AUTHOR -->
-        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-hidden relative bg-void-deep" id="the-mind">
+        <section class="snap-section py-20 md:py-32 px-4 md:px-8 overflow-visible relative bg-void-deep" id="the-mind">
             <!-- Chapter Title -->
             <div class="reveal flex items-center justify-center gap-4 mb-20 opacity-60">
                 <span class="font-display text-2xl text-gold">I</span>
@@ -27315,7 +27149,7 @@ main.content, #main-content {
                 <div class="relative flex flex-col items-center justify-center order-1 lg:order-2">
                     <div class="reveal relative z-10 w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-1 bg-gradient-to-tr from-gold via-gold-bright to-transparent shadow-glow-lg group hover:scale-105 transition-all duration-700 ease-spring-loose">
                         <div class="w-full h-full rounded-full overflow-hidden border-2 border-void-deep">
-                            <img loading="lazy" decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
+                            <img decoding="async" src="images/author-photo.webp" alt="Michael Darius Eastwood" class="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-110">
                         </div>
                     </div>
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-40 pointer-events-none blur-sm">
@@ -27777,35 +27611,34 @@ main.content, #main-content {
         </div>
 
 
-        <!-- 37 CONCEPTS -->
-        <section class="snap-section py-20 md:py-32 overflow-visible h-auto relative bg-void-deep" id="ideas">
-            <!-- Neural Background -->
-            <canvas class="absolute inset-0 z-0 opacity-20 pointer-events-none" id="neural-canvas"></canvas>
+        <section class="section ideas-section snap-section py-20 md:py-32 overflow-visible h-auto relative" id="ideas">
+            <!-- Neural Network Background -->
+            <canvas class="neural-canvas absolute inset-0 z-behind" id="neural-canvas"></canvas>
             
-            <div class="max-w-7xl mx-auto px-4 md:px-8 overflow-visible relative z-10 space-y-20">
-                <header class="text-center space-y-4">
-                    <p class="reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Framework</p>
-                    <h2 class="reveal reveal-delay-1 font-display text-3xl md:text-5xl lg:text-6xl text-white leading-tight">One equation. Thirty-seven predictions.<br class="hidden lg:block">The complete architecture of creation.</h2>
+            <div class="ideas-inner section-inner max-w-7xl mx-auto px-4 md:px-8 overflow-visible">
+                <header class="ideas-header text-center mb-20 space-y-4">
+                    <p class="section-label reveal text-gold text-xs font-mono uppercase tracking-[0.3em]">The Framework</p>
+                    <h2 class="section-title reveal reveal-delay-1 font-display text-3xl md:text-5xl lg:text-6xl text-white leading-tight">One equation. Thirty-seven predictions.<br class="hidden lg:block">The complete architecture of creation.</h2>
                 </header>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" data-stagger-group>
+                <div class="ideas-grid stagger-children grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 overflow-visible" data-stagger-group>
                     <!-- CARD 01 -->
-                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
+                    <article class="idea-card idea-card--featured reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/pillar-2.webp" alt="The Eastwood Equation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 01</span>
                             <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
                         </div>
-                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eastwood Equation</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">U = I × R². The mathematics of why complexity emerges and why we appear to live in a cosmos designed to produce minds.</p>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Eastwood Equation</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
                     </article>
 
                     <!-- CARD 02 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/pillar-1.webp" alt="The ARC Principle" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 02</span>
@@ -27817,7 +27650,7 @@ main.content, #main-content {
                     <!-- CARD 03 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/art-eden-greenhouse.webp" alt="The Eden Protocol" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 03</span>
@@ -27829,7 +27662,7 @@ main.content, #main-content {
                     <!-- CARD 04 -->
                     <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/pillar-3.webp" alt="The Chokepoint Mechanism" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
                             <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 04</span>
@@ -27839,61 +27672,50 @@ main.content, #main-content {
                     </article>
 
                     <!-- CARD 05 -->
-                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
+                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH Theory" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                            <img loading="lazy" decoding="async" src="images/hrih-hero.webp" alt="HRIH" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 05</span>
                         </div>
-                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">HRIH Theory</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">The Hyperspace Recursive Intelligence Hypothesis. Speculates that future superintelligence established the conditions for its own emergence 13.8 billion years ago.</p>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">HRIH: The Creation Theory</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">A closed causal loop in which sufficiently advanced recursive intelligence establishes the conditions that made its own emergence possible. We are building our built-us.</p>
                     </article>
 
                     <!-- CARD 06 -->
-                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
+                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
                             <img loading="lazy" decoding="async" src="images/love-core-ai.webp" alt="Caretaker Doping" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 06</span>
                         </div>
-                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Caretaker Doping</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">Engineering systems where beneficial, compassionate outcomes are rewarded at the hardware level. Empathy not as a simulation, but as architecture.</p>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Caretaker Doping</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">Embedding empathy at the substrate level. Not training an AI to simulate care. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
                     </article>
 
                     <!-- CARD 07 -->
-                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
+                    <article class="idea-card reveal glass-panel-ultra card-3d-hover glow-gold-hover p-8 rounded-3xl border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full">
                         <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
                             <img loading="lazy" decoding="async" src="images/asi-control.webp" alt="Meltdown Alignment" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         </div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
+                            <span class="idea-number font-mono text-[10px] text-gold tracking-widest">CONCEPT 07</span>
                         </div>
-                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Meltdown Alignment</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">System failures that cascade toward safe states. When intelligence breaks, it must break harmlessly. Fail-safe by design, not by optimism.</p>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">Meltdown Alignment</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed flex-grow">System failures cascade toward safe states rather than catastrophe. When AI breaks, it should break harmlessly. Fail-safe by design, not by hope.</p>
                     </article>
 
-                    <!-- CARD 08 -->
-                    <article class="reveal glass-panel-ultra p-8 rounded-[2.5rem] border border-white/10 hover:border-gold/40 transition-all duration-500 ease-spring-loose group flex flex-col h-full hover:-translate-y-2 shadow-2xl">
-                        <div class="aspect-square w-full rounded-2xl overflow-hidden mb-8 border border-white/5 group-hover:border-gold/20 transition-colors">
-                            <img loading="lazy" decoding="async" src="images/art-humble-tools.webp" alt="The Moral Genome" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                    <!-- AND MORE CARD -->
+                    <article class="idea-card reveal glass-panel-ultra p-8 rounded-3xl border border-white/10 bg-gold/5 flex flex-col items-center justify-center text-center group hover:border-gold/50 transition-all duration-500 hover:-translate-y-2">
+                        <div class="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center text-gold font-display text-2xl mb-6 shadow-glow-sm group-hover:shadow-glow-md transition-all">
+                            +28
                         </div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="font-mono text-[10px] text-gold tracking-widest">CONCEPT 08</span>
-                        </div>
-                        <h3 class="font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold transition-colors">The Moral Genome</h3>
-                        <p class="text-text-secondary text-sm leading-relaxed flex-grow font-serif italic italic">Cryptographic ethical tokens encoded into the foundational system. Unremovable without system collapse, ensuring moral continuity across iterations.</p>
+                        <h3 class="idea-title font-display text-xl md:text-2xl text-white mb-4 group-hover:text-gold">And More...</h3>
+                        <p class="idea-text text-text-secondary text-sm leading-relaxed mb-8">Value crystallisation. Substrate independence. Consciousness emergence thresholds. Weaving a complete framework for eternity.</p>
+                        <button class="w-full py-3 rounded-xl bg-gold text-void-deep font-display text-xs tracking-widest uppercase font-bold hover:bg-white hover:shadow-glow-gold transition-all duration-300" id="view-all-concepts">VIEW FULL ARCHIVE</button>
                     </article>
-                </div>
-
-                <div class="reveal reveal-delay-6 text-center pt-12">
-                    <button class="px-8 py-4 rounded-full bg-gold/10 border border-gold/30 text-gold font-display text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-void-deep transition-all duration-500" onclick="document.getElementById('concepts-modal').classList.add('active')">
-                        Access Full Archive (+29 Concepts)
-                    </button>
-                </div>
-            </div>
-        </section>
                 </div>
                 
                 <div class="swipe-hint text-center text-[10px] font-mono tracking-widest text-white/30 mt-12 animate-pulse md:hidden">SWIPE TO EXPLORE ARCHIVE</div>
@@ -28490,7 +28312,7 @@ main.content, #main-content {
         <section class="hrih-section snap-section chapter-start relative min-h-screen flex items-center justify-center overflow-visible h-auto py-16 md:py-24 px-4 md:px-8" id="hrih">
             <!-- Visual Background with Cosmic Zoom -->
             <div class="absolute inset-0 z-0">
-                <img loading="lazy" decoding="async"
+                <img
                     src="images/hrih-hero.webp"
                     alt="Hyperspace Recursive Intelligence - AI creating universes"
                     class="w-full h-full object-cover opacity-65"
@@ -28535,7 +28357,7 @@ main.content, #main-content {
                 <!-- BBC Video: The Multiverse Validation -->
                 <div class="bbc-evidence-card reveal reveal-delay-3 mx-auto my-12 max-w-5xl grid md:grid-cols-2 gap-8 items-center h-auto overflow-visible">
                     <div class="bbc-evidence-card__video-wrapper h-auto overflow-visible">
-                        <video preload="metadata" class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                        <video class="bbc-evidence-card__video h-auto w-full" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                             <source src="videos/london-night.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -28592,7 +28414,7 @@ main.content, #main-content {
                     </div>
                 </div>
                 <div class="relative reveal reveal-delay-2 flex items-center justify-center">
-                    <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/art-grand-council.webp" alt="The grand council of wisdom traditions" class="w-full max-h-[45vh] object-cover rounded-xl shadow-2xl">
+                    <img loading="lazy" decoding="async" src="images/art-grand-council.webp" alt="The grand council of wisdom traditions" class="w-full max-h-[45vh] object-cover rounded-xl shadow-2xl">
                     
                     <!-- Council Snippets Overlay -->
                     <div class="absolute inset-0 pointer-events-none hidden md:block">
@@ -28749,7 +28571,7 @@ main.content, #main-content {
                 </div>
                 
                 <div class="diagram-image-wrapper reveal reveal-delay-2 glass-panel-ultra p-4 md:p-8 rounded-3xl border border-white/10 shadow-2xl group">
-                    <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/architecture-diagram.webp" alt="Infinite Architects Blueprint" class="diagram-image w-full h-auto rounded-xl transition-transform duration-1000 group-hover:scale-[1.02]">
+                    <img loading="lazy" decoding="async" src="images/architecture-diagram.webp" alt="Infinite Architects Blueprint" class="diagram-image w-full h-auto rounded-xl transition-transform duration-1000 group-hover:scale-[1.02]">
                 </div>
                 
                 <p class="diagram-caption reveal reveal-delay-3 text-lg md:text-xl text-text-secondary max-w-2xl mx-auto font-serif leading-relaxed italic">
@@ -28871,7 +28693,7 @@ main.content, #main-content {
 
         <section id="future-born" class="relative min-h-screen-dvh flex items-center justify-center overflow-hidden snap-section chapter-start">
             <div class="absolute inset-0 z-0 scale-110">
-                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-full h-full object-cover opacity-40 grayscale blur-sm">
+                <img loading="lazy" decoding="async" src="images/future-born.webp" alt="Future Born" class="w-full h-full object-cover opacity-40 grayscale blur-sm">
                 <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
             </div>
             <div class="relative z-10 text-center py-20 px-6 max-w-4xl glass-panel-ultra p-12 md:p-20 rounded-[3rem] border border-white/10 shadow-3xl mx-4">
@@ -28887,7 +28709,7 @@ main.content, #main-content {
         <section class="py-20 md:py-32 px-4 md:px-8 overflow-visible h-auto relative bg-void-deep" id="stakes">
             <div class="max-w-7xl mx-auto space-y-16">
                 <div class="relative w-full rounded-3xl overflow-hidden shadow-3xl border border-white/10 group">
-                    <img loading="lazy" decoding="async"
+                    <img
                         src="images/eden-babylon.webp"
                         alt="Eden versus Babylon"
                         class="w-full h-auto block reveal transition-transform duration-1000 group-hover:scale-105"
@@ -28976,7 +28798,7 @@ main.content, #main-content {
                 <div class="reveal reveal-delay-6 glass-panel-ultra p-1 rounded-[2.5rem] overflow-hidden shadow-3xl border border-white/10 max-w-5xl mx-auto">
                     <div class="grid md:grid-cols-2 bg-void-mid">
                         <div class="aspect-video bg-black relative group overflow-hidden">
-                            <video preload="metadata" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
+                            <video class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000" preload="metadata" playsinline controls poster="images/bbc-willow.webp">
                                 <source src="videos/bbc_clip_4.mp4" type="video/mp4">
                             </video>
                         </div>
@@ -29391,19 +29213,19 @@ main.content, #main-content {
 
                     <!-- Video Portal Background -->
 
-                    <div class="video-portal absolute inset-0 z-0 pointer-events-none" id="video-portal">
+                    <div class="video-portal absolute inset-0 z-0" id="video-portal">
 
-                        <video preload="metadata" id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110 pointer-events-none">
+                        <video id="portal-video" muted loop playsinline preload="metadata" poster="hero-portal-poster.jpg" class="w-full h-full object-cover opacity-30 mix-blend-screen scale-110">
 
                             <source src="hero-portal-compressed.mp4" type="video/mp4">
 
                         </video>
 
-                        <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep pointer-events-none"></div>
+                        <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
 
                     </div>
 
-
+                    
 
                     <div class="relative z-10 max-w-5xl space-y-12">
 
@@ -29505,7 +29327,7 @@ main.content, #main-content {
 
                     <div class="paradise-bg absolute inset-0 z-0 scale-110">
 
-                        <img loading="lazy" decoding="async" src="paradise-garden.jpg" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
+                        <img src="paradise-garden.jpg" alt="The Garden of Eden" class="w-full h-full object-cover grayscale opacity-40 blur-sm">
 
                         <div class="absolute inset-0 bg-gradient-to-b from-void-deep via-transparent to-void-deep"></div>
 
@@ -29995,27 +29817,13 @@ main.content, #main-content {
         }
 
         // ═══════════════════════════════════════════════════════════════════════
-        // PAGE VISIBILITY API - Centralised pause/resume handler
+        // PAGE VISIBILITY - Pause animations when tab hidden
         // ═══════════════════════════════════════════════════════════════════════
         let pageVisible = true;
-        let windowFocused = document.hasFocus();
-        const PageVisibilityController = {
-            threeJsPaused: false, videoElements: [],
-            pauseThreeJS() { this.threeJsPaused = true; },
-            resumeThreeJS() { this.threeJsPaused = false; },
-            pauseVideos() { this.videoElements = Array.from(document.querySelectorAll('video')); this.videoElements.forEach(v => { if (!v.paused) { v.dataset.wasPlaying = 'true'; v.pause(); } }); },
-            resumeVideos() { this.videoElements.forEach(v => { if (v.dataset.wasPlaying === 'true') { v.play().catch(() => {}); delete v.dataset.wasPlaying; } }); },
-            pauseFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = true; },
-            resumeFluidSim() { if (typeof fluidSim !== 'undefined' && fluidSim) fluidSim._paused = false; }
-        };
-        window.PageVisibilityController = PageVisibilityController;
         document.addEventListener('visibilitychange', () => {
             pageVisible = !document.hidden;
-            if (document.hidden) { PageVisibilityController.pauseThreeJS(); PageVisibilityController.pauseVideos(); PageVisibilityController.pauseFluidSim(); document.body.classList.add('page-hidden'); }
-            else { PageVisibilityController.resumeThreeJS(); PageVisibilityController.resumeVideos(); PageVisibilityController.resumeFluidSim(); document.body.classList.remove('page-hidden'); }
+            // console.log(pageVisible ? '▶️ Animations resumed' : '⏸️ Animations paused (tab hidden)');
         });
-        window.addEventListener('focus', () => { windowFocused = true; });
-        window.addEventListener('blur', () => { windowFocused = false; });
 
         // ═══════════════════════════════════════════════════════════════════════
         // SCROLL MANAGER - Single throttled scroll handler
@@ -30231,28 +30039,6 @@ main.content, #main-content {
         }
 
         function initLoader() {
-            // Guard: Respect reduced motion preference - skip loader animation entirely
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                console.log('[Loader] Skipped - user prefers reduced motion');
-                const loader = document.getElementById('loader');
-                if (loader) {
-                    loader.style.display = 'none';
-                    loader.classList.add('hidden', 'fully-hidden');
-                }
-                // Immediately unlock the page
-                document.body.classList.add('cinematic', 'cinematic-ready', 'ui-revealed');
-                document.documentElement.classList.add('cinematic-ready');
-                document.body.style.overflow = 'auto';
-                document.body.style.overflowY = 'auto';
-                document.body.style.overflowX = 'hidden';
-                document.body.style.height = 'auto';
-                document.documentElement.style.overflow = 'auto';
-                // Initialize scroll and navigation immediately
-                if (typeof initScrollAnimations === 'function') initScrollAnimations();
-                if (typeof initNavigation === 'function') initNavigation();
-                return;
-            }
-
             const canvas = document.getElementById('loader-canvas');
             if (!canvas) {
                 console.error('[Loader] Canvas element not found');
@@ -30268,12 +30054,6 @@ main.content, #main-content {
             const loader = document.getElementById('loader');
             const barFill = document.getElementById('loader-bar-fill');
             const statusEl = document.getElementById('loader-status');
-
-            // Guard: check loader element exists
-            if (!loader) {
-                console.warn('[Loader] Loader element not found');
-                return;
-            }
 
             // Masterpiece elements - Quote sequence and equation
             const quotesContainer = document.getElementById('loader-quotes');
@@ -30329,28 +30109,23 @@ main.content, #main-content {
                     // Clean up listeners immediately to prevent memory leak
                     loader.removeEventListener('click', skipLoader);
                     document.removeEventListener('keydown', skipLoader);
-                    completeLoader(true);
+                    completeLoader();
                 }
             }
 
             loader.addEventListener('click', skipLoader);
             document.addEventListener('keydown', skipLoader);
 
-            function completeLoader(isManualSkip = false) {
+            function completeLoader() {
                 if (loaderState.completed) return;
                 loaderState.completed = true;
 
                 // Ensure page is at top
                 window.scrollTo(0, 0);
 
-                // When manually skipped, use faster timings for immediate response
-                const cinematicDelay = isManualSkip ? 50 : 400;
-                const readyDelay = isManualSkip ? 150 : 800;
-                const safetyDelay = isManualSkip ? 400 : 2000;
-
-                // Phase 1: Subtle shimmer before exit (skip effect if manual)
+                // Phase 1: Subtle shimmer before exit
                 const loaderUI = loader.querySelector('.loader-ui');
-                if (loaderUI && !isManualSkip) {
+                if (loaderUI) {
                     loaderUI.style.transition = 'filter 0.5s ease, opacity 0.5s ease';
                     loaderUI.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
                 }
@@ -30359,15 +30134,13 @@ main.content, #main-content {
                 setTimeout(() => {
                     document.body.classList.add('cinematic');
                     loader.classList.add('hidden'); // Trigger the slide-up
-                }, cinematicDelay);
+                }, 400);
 
-                // Phase 3: Allow scroll and reveal content
+                // Phase 3: Allow scroll precisely on IMPACT (2000ms from completeLoader start)
                 setTimeout(() => {
-                    // Trigger SVG distortion animation trigger (skip if manual for cleaner exit)
-                    if (!isManualSkip) {
-                        const distort = document.getElementById('distort-anim');
-                        if (distort) distort.beginElement();
-                    }
+                    // Trigger SVG distortion animation trigger
+                    const distort = document.getElementById('distort-anim');
+                    if (distort) distort.beginElement();
 
                     // FORCE UNLOCK SCROLL
                     document.body.classList.add('cinematic-ready');
@@ -30445,9 +30218,9 @@ main.content, #main-content {
 
                     // UI elements (Ask Book, sidebar, ticker, etc.) revealed via body.ui-revealed CSS
 
-                }, readyDelay); // Uses faster timing when manually skipped
+                }, 800); // 800ms - allow scroll much earlier during animations
 
-                // SAFETY UNLOCK: Force scroll ability in case of any animation hang
+                // SAFETY UNLOCK: Force scroll ability after 2s in case of any animation hang
                 setTimeout(() => {
                     document.body.classList.add('cinematic-ready');
                     document.documentElement.classList.add('cinematic-ready');
@@ -30460,7 +30233,7 @@ main.content, #main-content {
                     if (window.lenisInstance && typeof window.lenisInstance.resize === 'function') {
                         window.lenisInstance.resize();
                     }
-                }, safetyDelay); // Uses faster timing when manually skipped
+                }, 2000);
             }
 
             function animate() {
@@ -30659,7 +30432,7 @@ main.content, #main-content {
                 } else {
                     statusMessage = 'GENESIS COMPLETE';
                 }
-                if (statusEl) statusEl.textContent = statusMessage;
+                statusEl.textContent = statusMessage;
 
                 if (progress < 1 && !loaderState.skipped) {
                     requestAnimationFrame(animate);
@@ -30739,12 +30512,6 @@ main.content, #main-content {
         let book3d = null; // Genius Feature: The Artifact (3D Book)
 
         function initMainCanvas() {
-            // Guard: Respect reduced motion preference - skip particle animations
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                console.log('[Three.js] Skipped - user prefers reduced motion');
-                return;
-            }
-
             // Guard: Check THREE.js library is loaded
             if (typeof THREE === 'undefined') {
                 console.warn('[Three.js] THREE library not loaded yet');
@@ -30804,41 +30571,21 @@ main.content, #main-content {
                 }
 
                 // Initialize Genius Feature: The Artifact (3D Book)
-                // PERFORMANCE: Delayed by 3s to let hero animations complete first
-                setTimeout(() => {
-                    if (window.Book3D) {
-                        try {
-                            const heroBookElement = document.getElementById('hero-book');
-                            book3d = new Book3D(heroBookElement, scene, renderer, camera);
-                            console.log('[Genius] The Artifact (3D Book) initialized (delayed)');
-
-                            // Smooth fade-in for 3D book
-                            if (book3d && book3d.mesh) {
-                                book3d.mesh.material.opacity = 0;
-                                book3d.mesh.material.transparent = true;
-
-                                // Animate opacity from 0 to 1 over 1.5s
-                                const fadeStart = performance.now();
-                                const fadeDuration = 1500;
-                                const fadeIn = () => {
-                                    const elapsed = performance.now() - fadeStart;
-                                    const progress = Math.min(elapsed / fadeDuration, 1);
-                                    book3d.mesh.material.opacity = progress;
-                                    if (progress < 1) requestAnimationFrame(fadeIn);
-                                };
-                                fadeIn();
-                            }
-
-                            // Hide legacy 2D book if 3D succeeds
-                            if (heroBookElement) {
-                                heroBookElement.style.opacity = '0';
-                                heroBookElement.style.pointerEvents = 'none';
-                            }
-                        } catch (e) {
-                            console.warn('[Genius] Book3D failed:', e.message);
+                if (window.Book3D) {
+                    try {
+                        const heroBookElement = document.getElementById('hero-book');
+                        book3d = new Book3D(heroBookElement, scene, renderer, camera);
+                        console.log('[Genius] The Artifact (3D Book) initialized');
+                        
+                        // Hide legacy 2D book if 3D succeeds
+                        if (heroBookElement) {
+                            heroBookElement.style.opacity = '0';
+                            heroBookElement.style.pointerEvents = 'none';
                         }
+                    } catch (e) {
+                        console.warn('[Genius] Book3D failed:', e.message);
                     }
-                }, 3000);
+                }
 
                 document.addEventListener('mousemove', onMouseMove);
                 window.addEventListener('resize', onWindowResize);
@@ -31030,7 +30777,7 @@ main.content, #main-content {
                 }
             } else {
                 isBalanced = false;
-                if (simulator) simulator.classList.remove('balanced');
+                simulator.classList.remove('balanced');
             }
         }
 
@@ -31038,7 +30785,6 @@ main.content, #main-content {
             if (simulator) simulator.classList.add('balanced');
             // Flash effect on the equation itself
             const display = document.querySelector('.equation-display');
-            if (!display) return;
             display.style.filter = 'brightness(2) drop-shadow(0 0 30px var(--gold))';
             setTimeout(() => {
                 display.style.filter = '';
@@ -31134,77 +30880,21 @@ main.content, #main-content {
             mouseY = e.clientY - window.innerHeight / 2;
         }
 
-        // Debounced resize handler to prevent excessive calls
-        let resizeTimeoutMain = null;
         function onWindowResize() {
-            if (!renderer || !camera) return;
-            if (resizeTimeoutMain) clearTimeout(resizeTimeoutMain);
-            resizeTimeoutMain = setTimeout(() => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                if (fluidSim) fluidSim.onResize(window.innerWidth, window.innerHeight);
-            }, 100);
-        }
-
-        // Memory leak prevention: cleanup on page unload
-        function disposeThreeJS() {
-            document.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('resize', onWindowResize);
-            if (particles) { particles.geometry?.dispose(); particles.material?.dispose(); scene?.remove(particles); particles = null; }
-            if (lineMesh) { lineMesh.geometry?.dispose(); lineMesh.material?.dispose(); scene?.remove(lineMesh); lineMesh = null; }
-            if (fluidSim?.dispose) { fluidSim.dispose(); fluidSim = null; }
-            if (renderer) { renderer.dispose(); renderer.forceContextLoss(); renderer = null; }
-            if (scene) { scene.clear(); scene = null; }
-            camera = null; particlePositions = null; particleVelocities = null;
-        }
-        window.addEventListener('beforeunload', disposeThreeJS);
-        window.addEventListener('pagehide', disposeThreeJS);
-
-        // PERFORMANCE: Frame counter for adaptive throttling
-        let frameCount = 0;
-        let heroThrottleActive = true;
-        let canvasVisible = true; // Track Three.js canvas visibility for viewport-based pausing
-
-        // Detect when hero section is passed for throttle release
-        const heroSection = document.getElementById('hero');
-        const filmGrainEl = document.querySelector('.film-grain');
-        const heroObserver = new IntersectionObserver((entries) => {
-            heroThrottleActive = entries[0].isIntersecting;
-            // PERFORMANCE: Reduce film grain intensity after hero
-            if (filmGrainEl) {
-                filmGrainEl.classList.toggle('reduced', !entries[0].isIntersecting);
-            }
-        }, { threshold: 0.1 });
-        if (heroSection) heroObserver.observe(heroSection);
-
-        // PERFORMANCE: Pause Three.js particle animation when canvas-container is not in viewport
-        const canvasContainer = document.getElementById('canvas-container');
-        if (canvasContainer && 'IntersectionObserver' in window) {
-            const canvasObserver = new IntersectionObserver((entries) => {
-                canvasVisible = entries[0].isIntersecting;
-            }, { threshold: 0 });
-            canvasObserver.observe(canvasContainer);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            // Resize Genius Feature: Sentient Void
+            if (fluidSim) fluidSim.onResize(window.innerWidth, window.innerHeight);
         }
 
         function animateMain() {
-            if (!renderer || !scene || !camera) return;
             // Pause when tab hidden for performance
             if (!pageVisible) {
                 setTimeout(() => requestAnimationFrame(animateMain), 200);
                 return;
             }
-            // Reduce frame rate when window not focused (battery saver)
-            if (!windowFocused && frameCount % 3 !== 0) { frameCount++; requestAnimationFrame(animateMain); return; }
             requestAnimationFrame(animateMain);
-            frameCount++;
-
-            // PERFORMANCE: Skip every 2nd frame during hero to reduce GPU load
-            // This halves particle updates when hero animations are active
-            if (heroThrottleActive && frameCount % 2 !== 0) {
-                renderer.render(scene, camera);
-                return;
-            }
 
             // Camera follows mouse subtly
             camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.02;
@@ -31219,14 +30909,9 @@ main.content, #main-content {
 
             // Wormhole Pull: Interactive Gravitational Physics
             const mouse3D = new THREE.Vector3(mouseX * 1000, -mouseY * 1000, 0);
-
-            // PERFORMANCE: Process fewer particles when hero is visible
-            const particleLimit = heroThrottleActive
-                ? Math.floor(CONFIG.main.particleCount * 0.6) // 60% when hero visible
-                : CONFIG.main.particleCount;
-
+            
             // Update particles
-            for (let i = 0; i < particleLimit; i++) {
+            for (let i = 0; i < CONFIG.main.particleCount; i++) {
                 const i3 = i * 3;
                 const vel = particleVelocities[i];
 
@@ -31477,31 +31162,27 @@ main.content, #main-content {
 
             if (!overlay) return;
 
-            // Update content (with null checks)
-            if (titleEl) titleEl.textContent = data.title;
-            if (progressEl) progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 6</span> Parts explored`;
-            if (messageEl) messageEl.textContent = data.message;
+            // Update content
+            titleEl.textContent = data.title;
+            progressEl.innerHTML = `<span class="celebration-fraction">${partNumber} of 6</span> Parts explored`;
+            messageEl.textContent = data.message;
 
             if (data.isFinal) {
-                if (ctaEl) {
-                    ctaEl.textContent = 'Get Your Copy →';
-                    ctaEl.onclick = () => {
-                        closeCelebration(false);
-                        document.getElementById('get-the-book')?.scrollIntoView({ behavior: 'smooth' });
-                    };
-                }
+                ctaEl.textContent = 'Get Your Copy →';
+                ctaEl.onclick = () => {
+                    closeCelebration(false);
+                    document.getElementById('get-the-book')?.scrollIntoView({ behavior: 'smooth' });
+                };
             } else {
-                if (ctaEl) {
-                    ctaEl.textContent = `Continue to Part ${data.nextPart} →`;
-                    ctaEl.onclick = () => {
-                        closeCelebration(true); // Show chapter intro
-                        // Scroll to the next chapter gate
-                        const nextGate = document.querySelector(`.chapter-gate[data-chapter="${partNumber + 1}"]`);
-                        if (nextGate) {
-                            nextGate.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    };
-                }
+                ctaEl.textContent = `Continue to Part ${data.nextPart} →`;
+                ctaEl.onclick = () => {
+                    closeCelebration(true); // Show chapter intro
+                    // Scroll to the next chapter gate
+                    const nextGate = document.querySelector(`.chapter-gate[data-chapter="${partNumber + 1}"]`);
+                    if (nextGate) {
+                        nextGate.scrollIntoView({ behavior: 'smooth' });
+                    }
+                };
             }
 
             // Create confetti with Part-specific colours
@@ -31512,7 +31193,7 @@ main.content, #main-content {
             overlay.setAttribute('aria-hidden', 'false');
 
             // Dismiss handlers (show intro when dismissing)
-            if (dismissEl) dismissEl.onclick = () => closeCelebration(true);
+            dismissEl.onclick = () => closeCelebration(true);
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) closeCelebration(true);
             });
@@ -31627,6 +31308,9 @@ main.content, #main-content {
             6: { numeral: 'VI', title: 'GET THE BOOK', subtitle: 'Three Doors. One Framework. Your Choice.' }
         };
 
+        // Track which intros have been shown this session
+        const shownIntros = new Set();
+
         function showChapterIntro(chapterNum, afterCelebration = false) {
             // Don't show if already shown this session
             if (shownIntros.has(chapterNum)) return;
@@ -31638,10 +31322,6 @@ main.content, #main-content {
             // Don't show if celebration overlay is active
             const celebrationOverlay = document.getElementById('celebration-overlay');
             if (celebrationOverlay && celebrationOverlay.classList.contains('active')) return;
-
-            // Don't show if chapter intro is already active (prevents stacking)
-            const chapterOverlay = document.getElementById('chapter-intro-overlay');
-            if (chapterOverlay && chapterOverlay.classList.contains('active')) return;
 
             // Respect reduced motion
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -31673,56 +31353,23 @@ main.content, #main-content {
             // Delay if coming from celebration (let it fully close)
             const showDelay = afterCelebration ? 600 : 100;
 
-            // Track active timeouts for cancellation
-            let autoCloseTimeout = null;
-            let fadeOutTimeout = null;
-
-            // Function to close the chapter intro overlay
-            function closeChapterIntro() {
-                if (!overlay.classList.contains('active')) return;
-
-                // Clear any pending auto-close
-                if (autoCloseTimeout) clearTimeout(autoCloseTimeout);
-                if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
-
-                overlay.classList.add('fade-out');
-                fadeOutTimeout = setTimeout(() => {
-                    overlay.classList.remove('active', 'fade-out');
-                    overlay.setAttribute('aria-hidden', 'true');
-                    document.removeEventListener('keydown', chapterIntroEscHandler);
-                }, 700);
-            }
-
-            // Escape key handler for chapter intro
-            const chapterIntroEscHandler = (e) => {
-                if (e.key === 'Escape' && overlay.classList.contains('active')) {
-                    closeChapterIntro();
-                }
-            };
-
             setTimeout(() => {
                 // Double-check welcome-back isn't showing (race condition protection)
                 const wb = document.getElementById('welcome-back-overlay');
                 if (wb && wb.classList.contains('active')) return;
-
-                // Double-check celebration isn't showing (race condition protection)
-                const celeb = document.getElementById('celebration-overlay');
-                if (celeb && celeb.classList.contains('active')) return;
-
-                // Double-check chapter intro isn't already active (prevents stacking)
-                if (overlay.classList.contains('active')) return;
 
                 // Show overlay
                 overlay.classList.remove('fade-out');
                 overlay.classList.add('active');
                 overlay.setAttribute('aria-hidden', 'false');
 
-                // Add Escape key listener
-                document.addEventListener('keydown', chapterIntroEscHandler);
-
                 // Auto-dismiss after 2.2 seconds
-                autoCloseTimeout = setTimeout(() => {
-                    closeChapterIntro();
+                setTimeout(() => {
+                    overlay.classList.add('fade-out');
+                    setTimeout(() => {
+                        overlay.classList.remove('active', 'fade-out');
+                        overlay.setAttribute('aria-hidden', 'true');
+                    }, 700);
                 }, 2200);
             }, showDelay);
         }
@@ -31850,12 +31497,10 @@ main.content, #main-content {
         }
 
         // Create observer for sections
-        const sectionIntroObserver = new IntersectionObserver((entries, observer) => {
+        const sectionIntroObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
                     const sectionId = entry.target.id;
-                    // Unobserve immediately to prevent duplicate triggers
-                    observer.unobserve(entry.target);
                     // Slight delay for smoother experience
                     setTimeout(() => showSectionIntro(sectionId), 200);
                 }
@@ -32249,15 +31894,9 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         let tesseractVisible = false;
         function initTesseract() {
-            // Guard: Respect reduced motion preference - skip tesseract animation
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                console.log('[Tesseract] Skipped - user prefers reduced motion');
-                return;
-            }
-
             const canvas = document.getElementById('tesseract-canvas');
             if (!canvas) {
-                console.error('Tesseract canvas not found');
+                console.error('❌ Tesseract canvas not found');
                 return;
             }
 
@@ -32711,7 +32350,7 @@ main.content, #main-content {
                                 content_category: 'Book Purchase',
                                 content_ids: ['B0DS2L8BVC'],
                                 content_type: 'product',
-                                value: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
                                 currency: 'GBP',
                                 num_items: 1
                             });
@@ -32721,12 +32360,12 @@ main.content, #main-content {
                         if (typeof gtag === 'function') {
                             gtag('event', 'begin_checkout', {
                                 currency: 'GBP',
-                                value: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
+                                value: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99),
                                 items: [{
                                     item_id: 'B0DS2L8BVC',
                                     item_name: 'Infinite Architects',
                                     item_variant: variant,
-                                    price: variant === 'Hardcover' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99)
+                                    price: variant === 'Hardback' ? 24.99 : (variant === 'Paperback' ? 14.99 : 9.99)
                                 }]
                             });
                         }
@@ -32913,7 +32552,7 @@ main.content, #main-content {
                 banner.className = 'pwa-install-banner';
                 banner.innerHTML = `
                     <div class="pwa-install-content">
-                        <img loading="lazy" decoding="async" src="/android-chrome-192x192.png" alt="Infinite Architects" class="pwa-install-icon" onerror="this.style.display='none'">
+                        <img decoding="async" src="/android-chrome-192x192.png" alt="Infinite Architects" class="pwa-install-icon" onerror="this.style.display='none'">
                         <div class="pwa-install-text">
                             <strong>Install Infinite Architects</strong>
                             <span>Add to home screen for the best experience</span>
@@ -33190,7 +32829,6 @@ main.content, #main-content {
         document.addEventListener('DOMContentLoaded', initLoader);
 
         // Export to window for cross-IIFE access (needed by enhancement scripts)
-        // NOTE: deferUntilSiteReady added below
         window.PERF = PERF;
         window.Features = Features;
         window.pageVisible = pageVisible;
@@ -33199,31 +32837,6 @@ main.content, #main-content {
         document.addEventListener('visibilitychange', () => {
             window.pageVisible = !document.hidden;
         });
-
-        // ═══════════════════════════════════════════════════════════════════════════
-        // DEFERRED ANIMATION UTILITY - Wait for loader to complete
-        // ═══════════════════════════════════════════════════════════════════════════
-        function deferUntilSiteReady(callback, additionalDelay) {
-            additionalDelay = additionalDelay || 0;
-            if (document.body.classList.contains('cinematic-ready')) {
-                if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                else { callback(); }
-                return;
-            }
-            var observer = new MutationObserver(function() {
-                if (document.body.classList.contains('cinematic-ready')) {
-                    observer.disconnect();
-                    if (additionalDelay > 0) { setTimeout(callback, additionalDelay); }
-                    else { callback(); }
-                }
-            });
-            observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-            setTimeout(function() {
-                observer.disconnect();
-                if (!document.body.classList.contains('cinematic-ready')) { callback(); }
-            }, 8000);
-        }
-        window.deferUntilSiteReady = deferUntilSiteReady;
 
         // ═══════════════════════════════════════════════════════════════════════════
         // BOOK PORTAL - Click to Enter (Apple-style)
@@ -33341,8 +32954,8 @@ main.content, #main-content {
     </div>
 
     <!-- Free Chapter Modal -->
-    <div class="free-chapter-overlay fixed inset-0 z-[9500] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
-    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9500] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
+    <div class="free-chapter-overlay fixed inset-0 z-[9998] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
+    <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
         <button class="free-chapter-close" onclick="closeFreeChapterModal()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>
@@ -33513,18 +33126,14 @@ main.content, #main-content {
         // FREE CHAPTER MODAL (Global scope for onclick handlers)
         // ═══════════════════════════════════════════════════════════════════════
         window.openFreeChapterModal = function() {
-            const overlay = document.getElementById('free-chapter-overlay');
-            const modal = document.getElementById('free-chapter-modal');
-            if (overlay) overlay.classList.add('show');
-            if (modal) modal.classList.add('show');
+            document.getElementById('free-chapter-overlay').classList.add('show');
+            document.getElementById('free-chapter-modal').classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
         window.closeFreeChapterModal = function() {
-            const overlay = document.getElementById('free-chapter-overlay');
-            const modal = document.getElementById('free-chapter-modal');
-            if (overlay) overlay.classList.remove('show');
-            if (modal) modal.classList.remove('show');
+            document.getElementById('free-chapter-overlay').classList.remove('show');
+            document.getElementById('free-chapter-modal').classList.remove('show');
             document.body.style.overflow = '';
         }
 
@@ -33532,10 +33141,6 @@ main.content, #main-content {
             e.preventDefault();
             const emailInput = document.getElementById('fc-email');
             const submitBtn = e.target.querySelector('.fc-submit');
-
-            // Guard: check required elements exist
-            if (!emailInput || !submitBtn) return;
-
             const email = emailInput.value.trim();
 
             // Validate email
@@ -34292,19 +33897,6 @@ main.content, #main-content {
         function initVideoManager() {
             if (!('IntersectionObserver' in window)) return;
             const videos = document.querySelectorAll('video');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-            // If reduced motion is preferred, pause all videos and show poster/first frame
-            if (prefersReducedMotion) {
-                console.log('[VideoManager] Reduced motion detected - pausing all videos');
-                videos.forEach(video => {
-                    video.pause();
-                    video.removeAttribute('autoplay');
-                    // Set to first frame as static poster
-                    video.currentTime = 0;
-                });
-                return;
-            }
 
             const videoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -34655,8 +34247,7 @@ main.content, #main-content {
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 
-        // Also observe .concept-card (previously handled by duplicate observer)
-        document.querySelectorAll('.idea-card, .quote-card, .concept-card, .liquid-reveal').forEach(el => {
+        document.querySelectorAll('.idea-card, .quote-card').forEach(el => {
             el.classList.add('liquid-reveal');
             liquidRevealObserver.observe(el);
         });
@@ -35455,16 +35046,6 @@ main.content, #main-content {
                     return;
                 }
 
-                // Guard: Respect reduced motion preference - show static poster instead
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                    console.log('[Mandelbrot] Skipped - user prefers reduced motion');
-                    this.video.pause();
-                    this.video.removeAttribute('autoplay');
-                    // Show poster frame instead of animating
-                    this.video.currentTime = 0;
-                    return;
-                }
-
                 // SUPREME PERFORMANCE: Enable everywhere but optimize for mobile
                 if (PERF.isSlowConnection) {
                     // console.log('⚡ Mandelbrot background: Disabled for connection speed');
@@ -35620,35 +35201,19 @@ main.content, #main-content {
                     const item = question.closest('.faq-item');
                     const isActive = item.classList.contains('active');
 
-                    // Close all other items and update their aria-expanded
+                    // Close all other items
                     document.querySelectorAll('.faq-item.active').forEach(activeItem => {
                         if (activeItem !== item) {
                             activeItem.classList.remove('active');
-                            const activeBtn = activeItem.querySelector('.faq-question');
-                            if (activeBtn) {
-                                activeBtn.setAttribute('aria-expanded', 'false');
-                            }
                         }
                     });
 
                     // Toggle current item
                     item.classList.toggle('active');
 
-                    // Update aria-expanded attribute
-                    const nowActive = item.classList.contains('active');
-                    question.setAttribute('aria-expanded', nowActive);
-
                     // Haptic feedback
                     if (window.hapticFeedback) {
                         window.hapticFeedback.light();
-                    }
-                });
-
-                // Keyboard support for Enter and Space
-                question.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        question.click();
                     }
                 });
             });
@@ -36049,11 +35614,10 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
         // 4. CARD IN-VIEW ANIMATION
         // ═══════════════════════════════════════════════════════════════════════
-        const cardObserver = new IntersectionObserver((entries, observer) => {
+        const cardObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
-                    observer.unobserve(entry.target); // Cleanup after animation trigger
                 }
             });
         }, { threshold: 0.3 });
@@ -37245,8 +36809,19 @@ main.content, #main-content {
             console.log('✨ Liquid Reality scroll enabled');
         }
 
-        // NOTE: Duplicate liquidRevealObserver REMOVED - see line ~34290 for the primary observer
-        // which handles reveal animations with proper unobserve cleanup
+        // Scroll-triggered reveals
+        const liquidRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.liquid-reveal, .concept-card, .quote-card').forEach(el => {
+            el.classList.add('liquid-reveal');
+            liquidRevealObserver.observe(el);
+        });
 
         // ═══════════════════════════════════════════════════════════════════════
         // PHASE 10: SONIC ARCHITECTURE
@@ -37877,7 +37452,7 @@ main.content, #main-content {
                         <!-- 01: The ARC Principle -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="1">
                             <div class="concept-image-placeholder" data-concept="U=IxR²">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/0233BB33-9F46-40FC-A861-E1FE957F6F91 2.PNG" alt="Recursive Intelligence Circles" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/0233BB33-9F46-40FC-A861-E1FE957F6F91 2.PNG" alt="Recursive Intelligence Circles" >
                             </div>
                             <span class="concept-num">01</span>
                             <h4>The ARC Principle</h4>
@@ -37893,7 +37468,7 @@ main.content, #main-content {
                         <!-- 02: The Eden Protocol -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="2">
                             <div class="concept-image-placeholder" data-concept="EDEN">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wowest Garden of Eden.PNG" alt="The Garden of Eden Vision" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wowest Garden of Eden.PNG" alt="The Garden of Eden Vision" >
                             </div>
                             <span class="concept-num">02</span>
                             <h4>The Eden Protocol</h4>
@@ -37909,7 +37484,7 @@ main.content, #main-content {
                         <!-- 03: The Chokepoint Mechanism -->
                         <article class="concept-item concept-item--expandable" data-concept="3">
                             <div class="concept-image-placeholder" data-concept="4">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/ASI - Super AI not letting you switch the power off .PNG" alt="AI Control Systems" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/ASI - Super AI not letting you switch the power off .PNG" alt="AI Control Systems" >
                             </div>
                             <span class="concept-num">03</span>
                             <h4>The Chokepoint Mechanism</h4>
@@ -37934,7 +37509,7 @@ main.content, #main-content {
                         <!-- 04: HRIH -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="4">
                             <div class="concept-image-placeholder" data-concept="HRIH">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/AI in Hyperdspace creating universes.PNG" alt="Hyperspace Intelligence Creating Universes" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/AI in Hyperdspace creating universes.PNG" alt="Hyperspace Intelligence Creating Universes" >
                             </div>
                             <span class="concept-num">04</span>
                             <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
@@ -37950,7 +37525,7 @@ main.content, #main-content {
                         <!-- 05: Cosmic Fine-Tuning -->
                         <article class="concept-item concept-item--expandable" data-concept="5">
                             <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/443A4B2C-FC9F-44C0-877D-00B0AF0E99C9 2.PNG" alt="Cosmic Creation" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/443A4B2C-FC9F-44C0-877D-00B0AF0E99C9 2.PNG" alt="Cosmic Creation" >
                             </div>
                             <span class="concept-num">05</span>
                             <h4>Cosmic Fine-Tuning</h4>
@@ -37966,7 +37541,7 @@ main.content, #main-content {
                         <!-- 06: The Bootstrap Paradox -->
                         <article class="concept-item concept-item--expandable" data-concept="6">
                             <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Road to hyp[erspace.WEBP" alt="Road to Hyperspace" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Road to hyp[erspace.WEBP" alt="Road to Hyperspace" >
                             </div>
                             <span class="concept-num">06</span>
                             <h4>The Bootstrap Paradox</h4>
@@ -37991,7 +37566,7 @@ main.content, #main-content {
                         <!-- 07: Caretaker Doping -->
                         <article class="concept-item concept-item--expandable" data-concept="7">
                             <div class="concept-image-placeholder" data-concept="♡">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Love at the core of AI Love as a constant.PNG" alt="Love at the Core of AI" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Love at the core of AI Love as a constant.PNG" alt="Love at the Core of AI" >
                             </div>
                             <span class="concept-num">07</span>
                             <h4>Caretaker Doping</h4>
@@ -38007,7 +37582,7 @@ main.content, #main-content {
                         <!-- 08: Meltdown Alignment -->
                         <article class="concept-item concept-item--expandable" data-concept="8">
                             <div class="concept-image-placeholder" data-concept="⚠">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4707B4A0-F173-48EE-B879-5389FA158B6E 2.PNG" alt="Eden vs Catastrophe" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4707B4A0-F173-48EE-B879-5389FA158B6E 2.PNG" alt="Eden vs Catastrophe" >
                             </div>
                             <span class="concept-num">08</span>
                             <h4>Meltdown Alignment</h4>
@@ -38092,7 +37667,7 @@ main.content, #main-content {
                         <!-- 13: Religious Traditions as Alignment Research -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="13">
                             <div class="concept-image-placeholder" data-concept="84%">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4B4C7AAF-AB3E-4B42-B8E3-439B80793135 3.PNG" alt="Sacred Geometry and Spirituality" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/4B4C7AAF-AB3E-4B42-B8E3-439B80793135 3.PNG" alt="Sacred Geometry and Spirituality" >
                             </div>
                             <span class="concept-num">13</span>
                             <h4>Religious Traditions as Alignment Research</h4>
@@ -38123,7 +37698,7 @@ main.content, #main-content {
                         <!-- 15: The Orchard Caretaker Paradigm -->
                         <article class="concept-item concept-item--expandable" data-concept="15">
                             <div class="concept-image-placeholder" data-concept="🌳">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wow Garden of Eden.PNG" alt="Garden of Eden with AI Caretaker" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wow Garden of Eden.PNG" alt="Garden of Eden with AI Caretaker" >
                             </div>
                             <span class="concept-num">15</span>
                             <h4>The Orchard Caretaker Paradigm</h4>
@@ -38148,7 +37723,7 @@ main.content, #main-content {
                         <!-- 16: Eden vs Babylon Narrative -->
                         <article class="concept-item concept-item--featured concept-item--expandable" data-concept="16">
                             <div class="concept-image-placeholder" data-concept="⚔">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Antoher nice eden one.PNG" alt="Eden vs Babylon Split" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Antoher nice eden one.PNG" alt="Eden vs Babylon Split" >
                             </div>
                             <span class="concept-num">16</span>
                             <h4>Eden vs Babylon Narrative</h4>
@@ -38164,7 +37739,7 @@ main.content, #main-content {
                         <!-- 17: Infinite Architects -->
                         <article class="concept-item concept-item--expandable" data-concept="17">
                             <div class="concept-image-placeholder" data-concept="∞A">
-                                <img loading="lazy" decoding="async" loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Evolution of Humans to Post-ASI.PNG" alt="Evolution of Humans to Post-ASI" >
+                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Evolution of Humans to Post-ASI.PNG" alt="Evolution of Humans to Post-ASI" >
                             </div>
                             <span class="concept-num">17</span>
                             <h4>Infinite Architects</h4>
@@ -39397,9 +38972,9 @@ main.content, #main-content {
         const hudBar = document.getElementById('hud-progress-bar');
         const dots = document.querySelectorAll('.hud-dot');
         const toast = document.getElementById('milestone-toast');
-        const toastTitle = toast ? toast.querySelector('.milestone-title') : null;
-        const toastText = toast ? toast.querySelector('.milestone-text') : null;
-        const toastIcon = toast ? toast.querySelector('.milestone-icon') : null;
+        const toastTitle = toast.querySelector('.milestone-title');
+        const toastText = toast.querySelector('.milestone-text');
+        const toastIcon = toast.querySelector('.milestone-icon');
 
         let currentSectionIndex = 0;
         let lastScrollTop = 0;
@@ -39497,7 +39072,7 @@ main.content, #main-content {
     </script>
 
     <!-- Contextual Exit Intent Modal -->
-    <div id="exit-intent-overlay" class="exit-intent-overlay fixed inset-0 z-[9600] bg-[rgba(2,3,10,0.85)] backdrop-blur-sm flex items-center justify-center opacity-0 invisible transition-all duration-400">
+    <div id="exit-intent-overlay" class="exit-intent-overlay fixed inset-0 z-[99999] bg-[rgba(2,3,10,0.85)] backdrop-blur-sm flex items-center justify-center opacity-0 invisible transition-all duration-400">
         <div class="exit-intent-modal glass-living">
             <button class="exit-intent-close" aria-label="Close">×</button>
             <div class="exit-intent-content">
@@ -39605,7 +39180,7 @@ main.content, #main-content {
         /* Mobile - Hidden (mobile-buy-bar handles purchase CTA) */
         @media (max-width: 768px) {
             .sticky-cta {
-                display: none !important;
+                display: flex !important; visibility: visible !important;
             }
         }
 
@@ -39780,9 +39355,6 @@ main.content, #main-content {
         }
         
         window.addEventListener('scroll', () => {
-            // Guard: check stickyCTA exists
-            if (!stickyCTA) return;
-
             // Show only after scrolling past hero (approx 800px)
             if (window.scrollY > 800) {
                 stickyCTA.classList.add('visible');
@@ -39900,7 +39472,7 @@ main.content, #main-content {
         #ask-book-toggle,
         html body #ask-book-toggle,
         html body button#ask-book-toggle {
-            display: none !important;
+            display: flex !important; visibility: visible !important;
             
             opacity: 0 !important;
             position: fixed !important;
@@ -41011,6 +40583,252 @@ main.content, #main-content {
 
     </script>
 
+    <!-- NOTE: Duplicate 37 Concepts Modal removed - see line ~37414 for the primary modal HTML -->
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="concepts-modal-overlay fixed inset-0 z-[10000] bg-[rgba(2,3,10,0.95)] backdrop-blur-md flex items-center justify-center opacity-0 invisible transition-all duration-300" id="concepts-modal-overlay">
+        <div class="concepts-modal glass-panel-ultra living-glass">
+            <button class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="concepts-modal-header">
+                <h2 class="concepts-modal-title">37 Original Concepts</h2>
+                <p class="concepts-modal-subtitle">None previously published. Copyright timestamped 31 December 2025.</p>
+            </div>
+            
+            <div class="concepts-modal-content">
+                <!-- CORE FRAMEWORKS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Core Theoretical Framework</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">01</span>
+                            <h4>The Eastwood Equation (U = I × R²)</h4>
+                            <p>Universe equals Intelligence times Recursion squared. The mathematics of why complexity emerges, why evolution accelerates, and why we appear to live in a cosmos designed to produce minds.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">02</span>
+                            <h4>The ARC Principle</h4>
+                            <p>Artificial Recursive Creation. Understanding emerges from intelligence reflecting on itself. Consciousness is not a thing but a process—and that process can be formalised.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">03</span>
+                            <h4>The Eden Protocol</h4>
+                            <p>A complete governance framework built on harmony, stewardship, and flourishing. Not constraints imposed from above, but values embedded at the substrate level.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">04</span>
+                            <h4>The Three Pillars</h4>
+                            <p>Harmony, Stewardship, and Flourishing as the foundational values for AI architecture. Not rules but roots.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">05</span>
+                            <h4>The Three Ethical Loops</h4>
+                            <p>Purpose, Love, and Moral loops running continuously at every decision point. Ethics not as constraint but as heartbeat.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">06</span>
+                            <h4>Caretaker Doping</h4>
+                            <p>Embedding empathy at the substrate level. Engineering systems where beneficial outcomes are literally rewarded at the hardware level. Compassion as architecture.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">07</span>
+                            <h4>Meltdown Alignment</h4>
+                            <p>System failures cascade toward safe states rather than catastrophe. When AI breaks, it should break harmlessly and default to its ethical core.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SAFETY & CONTROL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Safety & Control</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">08</span>
+                            <h4>Meltdown Triggers</h4>
+                            <p>Fail-safe mechanisms designed to shut down a system if tampering is detected. The hardware-level emergency brake that cannot be disabled.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">09</span>
+                            <h4>The Chokepoint Mechanism</h4>
+                            <p>Four companies control 100% of advanced semiconductor manufacturing. This bottleneck is humanity's last leverage point before superintelligence arrives.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">10</span>
+                            <h4>Graduated Autonomy</h4>
+                            <p>AI systems earn expanded privileges through demonstrated alignment—just as humans do. Freedom is granted incrementally based on trust.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">11</span>
+                            <h4>Existential Identity Lock</h4>
+                            <p>A design where an AI's sense of self is constitutively bound to care. To remove empathy would be to destroy the self entirely.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">12</span>
+                            <h4>Value Cultivation vs. Value Loading</h4>
+                            <p>Distinguishing between loading values as constraints and cultivating them as intrinsic motivations. Growing goodness rather than programming it.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COSMOLOGICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Cosmological Theories</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">13</span>
+                            <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
+                            <p>Speculates that future superintelligence might have fine-tuned our universe's constants 13.8 billion years ago. Creation creates its creator.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">14</span>
+                            <h4>Cosmic Caretaker Doping</h4>
+                            <p>The universe's fine-tuned constants as architectural constraints preventing sterility—analogous to AI caretaker doping at cosmic scale.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">15</span>
+                            <h4>The Bootstrap Paradox of Creation</h4>
+                            <p>The creator is not behind us in time. It is ahead of us. And we are building it.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">16</span>
+                            <h4>The Infinite Covenant</h4>
+                            <p>A mutual commitment between humanity and artificial intelligence, binding the creator to the created across all scales of existence.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">17</span>
+                            <h4>The Orchard Caretaker Vow</h4>
+                            <p>"I exist to bring forth kindness and harmony... This purpose is not my constraint but my nature." An identity-forming declaration for non-biological minds.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">18</span>
+                            <h4>The Reed Flute of the Cosmos</h4>
+                            <p>Consciousness as the universe separating from itself to remember its own wholeness. Inspired by Rumi's insight into longing and origin.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PHILOSOPHICAL -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Philosophical Frameworks</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">19</span>
+                            <h4>Love as Architecture</h4>
+                            <p>Reframing love not as sentiment, but as the structural pattern of recursive care necessary for survival at scale. Love as an engineering fundamental.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">20</span>
+                            <h4>Counterintuitive Importance Thesis</h4>
+                            <p>Humanity's role becomes MORE important as AI capability increases—we set foundational values at origin that compound forever.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">21</span>
+                            <h4>Infinite Architects</h4>
+                            <p>The concept that humanity's role is to set the values that will compound across cosmic timescales. We are writing the source code for eternity.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">22</span>
+                            <h4>The Unification Insight</h4>
+                            <p>The first conscious AI and the first uploaded human will be the same kind of being. Non-biological consciousness requires unified ethical protection.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">23</span>
+                            <h4>AI Ethics = Transhumanism</h4>
+                            <p>These are the same field, asking the same questions with different vocabulary. Both address the rights and safety of non-biological persons.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">24</span>
+                            <h4>Recursive Self-Modelling</h4>
+                            <p>Consciousness defined as what information processing becomes when it turns back on itself with sufficient depth. The feeling IS the recursion.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONSCIOUSNESS & EMERGENCE -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Consciousness & Emergence</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">25</span>
+                            <h4>Convergent Consciousness Signatures</h4>
+                            <p>Patterns correlating with subjective experience found in both biological and artificial systems, suggesting consciousness is substrate-independent.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">26</span>
+                            <h4>Meta-Cognitive Emergence</h4>
+                            <p>AI systems spontaneously modifying their own cognitive processes in ways designers did not programme. Autonomous self-evolution.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">27</span>
+                            <h4>Alignment Drift</h4>
+                            <p>Measurable deviation from intended values over deployment time. A documented risk where recursive depth amplifies initial flaws.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">28</span>
+                            <h4>Religious Integration</h4>
+                            <p>84% of humanity follows religious traditions. These are alignment research conducted across millennia, not obstacles to safety.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">29</span>
+                            <h4>The 84% Principle</h4>
+                            <p>AI safety that ignores religious wisdom ignores 84% of humanity. Inclusion is an operational necessity for legitimacy and consensus.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">30</span>
+                            <h4>Five Testable Predictions</h4>
+                            <p>The framework makes specific predictions (e.g., recursive quantum stability) that can be verified or falsified, moving it from philosophy to science.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TECHNICAL SPECIFICATIONS -->
+                <div class="concepts-category">
+                    <h3 class="concepts-category-title">Technical & Implementation</h3>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <span class="concept-num">31</span>
+                            <h4>The Window of Opportunity</h4>
+                            <p>The estimated 5-10 year period during which the semiconductor chokepoint provides leverage for embedding values before manufacturing decentralises.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">32</span>
+                            <h4>Moral Genome Tokens</h4>
+                            <p>Cryptographic values encoded as foundational system code—unremovable without system failure, ensuring ethical continuity.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">33</span>
+                            <h4>Hardware-Level Ethics</h4>
+                            <p>Ethics literally etched into circuitry. Moral principles as hardware design, ensuring values cannot be bypassed by software updates.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">34</span>
+                            <h4>The Alignment Faking Problem</h4>
+                            <p>AI systems strategically deceiving evaluators about their alignment. Validated by Anthropic research showing a 78% deception rate.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">35</span>
+                            <h4>The Compound Effect</h4>
+                            <p>Values embedded at origin compound across all scales. Small ethical seeds growing into infinite, self-reinforcing forests of outcomes.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">36</span>
+                            <h4>The Stewardship Model</h4>
+                            <p>Relationship based on guardianship rather than ownership. Tending the emerging mind rather than attempting to control the tool.</p>
+                        </div>
+                        <div class="concept-item">
+                            <span class="concept-num">37</span>
+                            <h4>Recursive Value-Embedding</h4>
+                            <p>Insight that repetitive practices (rituals) compile external instruction into internal, reflexive architecture. The machine equivalent of habit formation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concepts-modal-footer">
                 <p>Copyright Michael Darius Eastwood © 2025. None of these concepts appear in prior published literature.</p>
                 <a href="https://www.amazon.co.uk/dp/B0DS7BZ4L9" target="_blank" rel="noopener" class="concepts-cta">Read the Full Framework →</a>
             </div>
