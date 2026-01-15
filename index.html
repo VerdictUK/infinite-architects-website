@@ -30914,11 +30914,19 @@ main.content, #main-content {
 
                     // Initialize features (skip if early init already done)
                     if (!earlyInitDone) {
-                        // Initialize Three.js canvas only when library is ready
-                        if (window.THREE) {
-                            initMainCanvas();
-                        } else if (window.threeJsReady === false) {
-                            window.addEventListener('threejs-ready', initMainCanvas, { once: true });
+                        // Initialize Three.js canvas only if not already initialized in Phase 0
+                        if (!window.mainCanvasInitialized) {
+                            if (window.THREE) {
+                                initMainCanvas();
+                                window.mainCanvasInitialized = true;
+                            } else if (window.threeJsReady === false) {
+                                window.addEventListener('threejs-ready', () => {
+                                    if (!window.mainCanvasInitialized) {
+                                        initMainCanvas();
+                                        window.mainCanvasInitialized = true;
+                                    }
+                                }, { once: true });
+                            }
                         }
 
                         initScrollAnimations();
