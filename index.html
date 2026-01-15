@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- SOVEREIGN VISIBILITY ENGINE v4.0 (Rule 15 - Hardcode Fix) -->
+    <!-- SOVEREIGN VISIBILITY ENGINE v5.0 (Rule 15 - Hardcode Fix) -->
     <style>
-        /* Force ALL content containers to respect their intended layout but remain visible */
+        /* Ensure the foundation is scrollable and alive */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
             min-height: 100dvh;
             position: relative !important;
-            margin: 0;
-            padding: 0;
+            background-color: #02030a !important; /* Ensure background isn't white */
         }
 
-        /* Ensure all main sections and 'reveal' elements are visible by default */
-        section, main, article, .reveal, [class*="reveal"], .entering {
+        /* Force visibility on everything that starts hidden, but don't touch the display/layout logic */
+        .reveal, [class*="reveal"], .entering, .active, 
+        section, main, article, div[id] {
             opacity: 1 !important;
             visibility: visible !important;
-            max-height: none !important;
-            overflow: visible !important;
             transform: none !important;
             transition: none !important;
+        }
+
+        /* Prevent height traps */
+        section, main {
+            max-height: none !important;
+            height: auto !important;
         }
 
         /* Explicitly hide the loader so it doesn't block the site */
@@ -35,7 +39,7 @@
             pointer-events: none !important;
         }
 
-        /* Allow intended hidden elements to stay hidden */
+        /* Keep intentional utilities */
         .hidden { display: none !important; }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
@@ -3728,16 +3732,24 @@
         .letterbox.top { top: 0; } .letterbox.bottom { bottom: 0; }
         body.cinematic .letterbox { height: 6vh; }
 
-        /* 7. CLEANUP: Return to Sovereignty */
+        /* 7. CLEANUP: Return to Sovereignty - Hide cinematic elements */
         body.cinematic-ready .letterbox,
-        body.cinematic-ready #loader,
         body.cinematic-ready .space-streaks,
         body.cinematic-ready .sonic-boom,
         body.cinematic-ready .lens-flare,
         body.cinematic-ready .ground-shock,
         body.cinematic-ready .impact-flash,
         body.cinematic-ready .plasma-trail {
-            display: block !important; opacity: 1 !important; visibility: visible !important; pointer-events: none !important;
+            opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+        }
+
+        /* Force loader to STAY HIDDEN after cinematic completes */
+        body.cinematic-ready #loader {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            z-index: -1 !important;
         }
 
         body.cinematic-ready .content,
@@ -25733,10 +25745,7 @@ html body section#methodology .methodology-closing {
         border-top: none !important;
     }
 
-    /* === COLLAPSE EMPTY CONTAINERS === */
-    html body *:empty:not(input):not(textarea):not(img):not(video):not(canvas):not(svg):not(br):not(hr) {
-        display: none !important;
-    }
+    /* REMOVED: Dangerous *:empty rule that was hiding valid content */
 }
 
 /* ════════════════════════════════════════════════════════════════════════════════════════════════════
