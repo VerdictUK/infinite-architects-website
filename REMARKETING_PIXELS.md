@@ -125,8 +125,9 @@ All pixels are installed in `/index.html` in the `<head>` section:
 
 ### CSP Configuration
 The Content Security Policy in `vercel.json` allows:
-- `script-src`: googletagmanager.com, google-analytics.com, connect.facebook.net, snap.licdn.com
-- `connect-src`: google-analytics.com, analytics.google.com, facebook.com, px.ads.linkedin.com
+- `script-src`: googletagmanager.com, google-analytics.com, googleads.g.doubleclick.net, googleadservices.com, connect.facebook.net, snap.licdn.com
+- `connect-src`: google-analytics.com, analytics.google.com, region1-3.google-analytics.com, www.google.com, facebook.com, px.ads.linkedin.com
+- `frame-src`: googletagmanager.com, td.doubleclick.net
 
 ---
 
