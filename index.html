@@ -4,54 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
 
-    <!-- ULTRATHINK NUCLEAR VISIBILITY v10.0 - ABSOLUTE ACCESS (Rule 15) -->
+    <!-- SOVEREIGN VISIBILITY ENGINE v11.0 (Rule 15 - Hardcode Fix) -->
     <style>
-        /* 1. THE FOUNDATION: Scroll or Death */
+        /* 1. THE FOUNDATION: Always scrollable */
         html, body {
             overflow-y: auto !important;
             overflow-x: hidden !important;
             height: auto !important;
-            min-height: 100vh !important;
+            min-height: 100dvh;
             position: relative !important;
-            display: block !important;
             background-color: #02030a !important;
             margin: 0 !important;
             padding: 0 !important;
         }
 
-        /* 2. THE CONTENT: 100% Render Guarantee (excludes overlays) */
-        section, main, article, footer, header, span, h1, h2, h3, h4, p, a, button, canvas, video, img {
+        /* 2. THE CONTENT: Render guarantee but respect natural display type */
+        section, main, article, footer, header, h1, h2, h3, h4, p, a, button, canvas, video, img {
             visibility: visible !important;
             opacity: 1 !important;
             max-height: none !important;
             transform: none !important;
             filter: none !important;
-            pointer-events: auto !important;
         }
 
-        /* 2b. OVERLAY EXCEPTIONS: These should control their own visibility */
-        #chapter-intro-overlay:not(.active),
-        #welcome-back-overlay:not(.active),
-        #celebration-overlay:not(.active),
-        #section-intro-overlay:not(.active),
-        .chapter-intro-overlay:not(.active),
-        .welcome-back-overlay:not(.active),
-        .celebration-overlay:not(.active) {
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-
-        /* 3. THE LAYOUT: Preserve essential structures while forcing height */
-        [class*="section"], [class*="container"], [class*="inner"], [class*="content"], [id] {
-            display: flex !important;
-            flex-direction: column !important;
-            height: auto !important;
-            min-height: auto !important;
+        /* 3. LAYOUT INTEGRITY: No broad display overrides. Sections should be relative. */
+        section, .snap-section {
+            position: relative !important;
+            display: block !important; /* Most sections should flow naturally */
             overflow: visible !important;
+            height: auto !important;
         }
 
-        /* 4. ANIMATION BYPASS: Skip the wait */
+        /* 4. ANIMATION BYPASS */
         .reveal, .active, .entering, [class*="reveal"], [class*="delay"] {
             opacity: 1 !important;
             visibility: visible !important;
@@ -60,17 +44,20 @@
             animation: none !important;
         }
 
-        /* 5. LOADER DISPOSAL: Site over Cinema */
-        #loader, .loader, #cinematic-loader, .loader-video-overlay {
+        /* 5. OVERLAY EXCEPTIONS: Overlays should not be forced visible if inactive */
+        #chapter-intro-overlay:not(.active),
+        #welcome-back-overlay:not(.active),
+        #celebration-overlay:not(.active),
+        #section-intro-overlay:not(.active) {
             display: none !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
         }
 
-        /* 6. UTILITY PROTECT */
-        .flex { display: flex !important; }
-        .grid { display: grid !important; }
+        /* 6. LOADER DISPOSAL */
+        #loader, .loader, #cinematic-loader {
+            display: none !important;
+        }
+
+        /* 7. UTILITY PROTECT */
         .hidden { display: none !important; }
     </style>
     <title>Infinite Architects | Michael Darius Eastwood</title>
