@@ -37,6 +37,14 @@
         body.cinematic-ready { opacity: 1; }
         body.loader-active { overflow: hidden !important; }
 
+        /* Modern CSS Virtualization: Don't tax the CPU until needed */
+        section, .snap-section, #concepts-modal, .concepts-modal-content {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 800px;
+        }
+
+        #hero, #book, #the-mind { content-visibility: visible; }
+
         /* Assign Slots to Engines */
         #fluid-canvas { position: fixed; inset: 0; z-index: var(--z-void); pointer-events: none; }
         #neural-canvas { position: absolute; inset: 0; z-index: var(--z-neural); pointer-events: none; opacity: 0.3; }
@@ -58,6 +66,7 @@
 
         /* Video Performance Safety */
         video { background: #000; }
+    </style>
 
         /* CRITICAL: Background video/canvas layering - prevent blocking content */
         .mandelbrot-bg,
@@ -4322,11 +4331,11 @@
             border-bottom: 1px solid rgba(212, 168, 75, 0.1);
         }
 
+        /* PERFORMANCE FIX: No backdrop-filter change on scroll (causes jank) */
         .nav.scrolled {
             padding: 0.75rem 2rem;
-            background: rgba(2, 3, 10, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(2, 3, 10, 0.95);
+            /* backdrop-filter stays same as base .nav - no recalculation */
             border-bottom: 1px solid var(--gold-subtle);
         }
 
@@ -13715,8 +13724,6 @@
         .nav.scrolled,
         .mobile-nav {
             background: rgba(10, 10, 10, 0.7) !important;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
@@ -17000,7 +17007,6 @@
 
         .nav.scrolled {
             backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
         }
 
         /* 13. HERO ENTRANCE - Staggered premium reveal (Apple-grade timing) */
@@ -26780,10 +26786,10 @@ main.content, #main-content {
             <p class="celebration-message text-text-dim italic text-lg mb-8" id="celebration-message">
                 You've begun the journey. The evidence awaits.
             </p>
-            <button class="celebration-cta font-display tracking-wider px-8 py-4 bg-gradient-to-r from-gold-dark to-gold text-void-deep font-bold rounded-lg shadow-[0_0_20px_rgba(212,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,168,75,0.6)] hover:scale-105" id="celebration-cta">
+            <button type="button" class="celebration-cta font-display tracking-wider px-8 py-4 bg-gradient-to-r from-gold-dark to-gold text-void-deep font-bold rounded-lg shadow-[0_0_20px_rgba(212,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,168,75,0.6)] hover:scale-105" id="celebration-cta">
                 Continue to Part II →
             </button>
-            <button class="celebration-dismiss absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-text-dim hover:text-gold-bright transition-colors duration-300 text-2xl" id="celebration-dismiss" aria-label="Dismiss">
+            <button type="button" class="celebration-dismiss absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-text-dim hover:text-gold-bright transition-colors duration-300 text-2xl" id="celebration-dismiss" aria-label="Dismiss">
                 <span>×</span>
             </button>
         </div>
@@ -26822,16 +26828,16 @@ main.content, #main-content {
             </div>
 
             <div class="welcome-back-actions">
-                <button class="welcome-back-btn welcome-back-resume" id="welcome-back-resume">
+                <button type="button" class="welcome-back-btn welcome-back-resume" id="welcome-back-resume">
                     <span class="btn-icon">▶</span>
                     <span class="btn-text">Resume Reading</span>
                 </button>
-                <button class="welcome-back-btn welcome-back-fresh" id="welcome-back-fresh">
+                <button type="button" class="welcome-back-btn welcome-back-fresh" id="welcome-back-fresh">
                     <span class="btn-text">Start Fresh</span>
                 </button>
             </div>
 
-            <button class="welcome-back-dismiss" id="welcome-back-dismiss" aria-label="Dismiss">
+            <button type="button" class="welcome-back-dismiss" id="welcome-back-dismiss" aria-label="Dismiss">
                 <span>×</span>
             </button>
         </div>
@@ -26977,8 +26983,8 @@ main.content, #main-content {
                 <a href="/privacy" class="cookie-learn-more underline text-gold">Learn more</a>
             </p>
             <div class="cookie-buttons">
-                <button class="cookie-accept" id="cookie-accept">Accept</button>
-                <button class="cookie-decline" id="cookie-decline">Decline</button>
+                <button type="button" class="cookie-accept" id="cookie-accept">Accept</button>
+                <button type="button" class="cookie-decline" id="cookie-decline">Decline</button>
             </div>
         </div>
     </div>
@@ -27110,7 +27116,7 @@ main.content, #main-content {
 
     <!-- Audio Control (Apple Grade) -->
     <div class="fixed bottom-8 left-8 z-[1000]" id="audio-control">
-        <button id="audio-toggle" class="glass-panel-ultra w-12 h-12 rounded-full flex items-center justify-center text-gold hover:scale-110 transition-all duration-300 group" aria-label="Toggle ambient sound">
+        <button type="button" id="audio-toggle" class="glass-panel-ultra w-12 h-12 rounded-full flex items-center justify-center text-gold hover:scale-110 transition-all duration-300 group" aria-label="Toggle ambient sound">
             <div class="sound-waves flex items-end gap-0.5 h-4">
                 <span class="w-0.5 bg-gold/40 rounded-full h-full animate-sound-wave-1"></span>
                 <span class="w-0.5 bg-gold/60 rounded-full h-2/3 animate-sound-wave-2"></span>
@@ -27133,7 +27139,7 @@ main.content, #main-content {
         <a href="#hero" class="nav-logo font-display text-xs tracking-[0.2em] text-gold transition-opacity duration-300 hover:opacity-70 flex items-center gap-2">
             <span class="brand-word font-bold">INFINITE</span> <span class="brand-word font-normal opacity-80">ARCHITECTS</span>
         </a>
-        <button class="nav-toggle lg:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 min-w-[44px] min-h-[44px] cursor-pointer z-[101] relative" id="nav-toggle" aria-label="Toggle navigation">
+        <button type="button" class="nav-toggle lg:hidden flex flex-col items-center justify-center gap-[5px] w-11 h-11 min-w-[44px] min-h-[44px] cursor-pointer z-[101] relative" id="nav-toggle" aria-label="Toggle navigation">
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
             <span class="w-full h-0.5 bg-gold rounded-full transition-all"></span>
@@ -27276,7 +27282,7 @@ main.content, #main-content {
                     READ WHAT I FOUND
                 </a>
                 <!-- Free Chapter CTA -->
-                <button class="free-chapter-cta" onclick="openFreeChapterModal()">
+                <button type="button" class="free-chapter-cta" onclick="openFreeChapterModal()">
                     <span>📖 Read Chapter 1 Free</span>
                 </button>
                 <!-- First Edition Scarcity Badge -->
@@ -27380,8 +27386,8 @@ main.content, #main-content {
                             <blockquote class="font-serif italic text-xl md:text-2xl text-white border-l-2 border-red-500 pl-6 my-8 py-1">You do not wait for the storm to pass before living. You learn to build in the rain.</blockquote>
 
                             <div class="flex gap-4 mb-8">
-                                <button class="px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-[10px] font-mono uppercase tracking-widest text-gold hover:bg-gold hover:text-void-deep transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')">Tweet Quote</button>
-                                <button class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')">Copy Link</button>
+                                <button type="button" class="px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-[10px] font-mono uppercase tracking-widest text-gold hover:bg-gold hover:text-void-deep transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'twitter')">Tweet Quote</button>
+                                <button type="button" class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono uppercase tracking-widest text-white/60 hover:text-white transition-all duration-300" onclick="shareQuote('You do not wait for the storm to pass before living. You learn to build in the rain.', 'copy')">Copy Link</button>
                             </div>
 
                             <p class="text-[11px] opacity-60 leading-relaxed italic">The Eden Protocol does not ask us to wait for perfect conditions before planting. It asks us to tend gardens even when previous ones have burned. To choose love and creation especially when circumstances scream that hope is foolish.</p>
@@ -27445,11 +27451,11 @@ main.content, #main-content {
                     </blockquote>
                     
                     <div class="bq-share-row reveal reveal-delay-2 flex flex-wrap gap-4 mb-10">
-                        <button class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'twitter')">
+                        <button type="button" class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'twitter')">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                             Tweet
                         </button>
-                        <button class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'copy')">
+                        <button type="button" class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I use six different AI models simultaneously. Not because I trust any single one of them, but precisely because I do not.', 'copy')">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                             Copy
                         </button>
@@ -27540,11 +27546,11 @@ main.content, #main-content {
                 <p class="methodology-closing-attr reveal reveal-delay-5 font-mono text-gold text-sm tracking-widest uppercase mb-8">— Michael Darius Eastwood</p>
                 
                 <div class="bq-share-row reveal reveal-delay-5 flex justify-center gap-4">
-                    <button class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'twitter')">
+                    <button type="button" class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'twitter')">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                         Tweet
                     </button>
-                    <button class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'copy')">
+                    <button type="button" class="bq-share-btn flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-gold transition-colors px-4 py-2 border border-white/10 rounded hover:border-gold/30 bg-white/5 hover:bg-gold/10" onclick="shareQuote('I am my own first experiment. The results have surprised even me.', 'copy')">
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         Copy
                     </button>
@@ -27597,13 +27603,13 @@ main.content, #main-content {
                 </p>
                 <!-- Inline Quote Share -->
                 <div class="quote-share-inline">
-                    <button class="quote-share-btn" onclick="shareQuote('The creator is not behind us. It is ahead of us. And we are building it.', 'twitter')" aria-label="Share on Twitter">
+                    <button type="button" class="quote-share-btn" onclick="shareQuote('The creator is not behind us. It is ahead of us. And we are building it.', 'twitter')" aria-label="Share on Twitter">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </button>
-                    <button class="quote-share-btn" onclick="shareQuote('The creator is not behind us. It is ahead of us. And we are building it.', 'copy')" aria-label="Copy quote">
+                    <button type="button" class="quote-share-btn" onclick="shareQuote('The creator is not behind us. It is ahead of us. And we are building it.', 'copy')" aria-label="Copy quote">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                     </button>
-                    <button class="quote-share-btn" onclick="downloadQuoteImage('The creator is not behind us. It is ahead of us. And we are building it.')" aria-label="Download as image">
+                    <button type="button" class="quote-share-btn" onclick="downloadQuoteImage('The creator is not behind us. It is ahead of us. And we are building it.')" aria-label="Download as image">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     </button>
                 </div>
@@ -27621,71 +27627,71 @@ main.content, #main-content {
                             <p class="font-serif text-xl md:text-2xl italic text-white leading-relaxed">U = I × R². The universe is not random. It is recursive.</p>
                         </div>
                         <div class="flex gap-4 mt-10 pt-6 border-t border-white/5 opacity-40 group-hover:opacity-100 transition-opacity">
-                            <button class="text-[10px] font-mono uppercase tracking-widest text-gold hover:text-white transition-colors" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')">Tweet</button>
-                            <button class="text-[10px] font-mono uppercase tracking-widest text-gold hover:text-white transition-colors" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')">Copy</button>
+                            <button type="button" class="text-[10px] font-mono uppercase tracking-widest text-gold hover:text-white transition-colors" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')">Tweet</button>
+                            <button type="button" class="text-[10px] font-mono uppercase tracking-widest text-gold hover:text-white transition-colors" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')">Copy</button>
                         </div>
                     </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">You cannot cage something smarter than you. It will find the gaps you did not know existed.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('You cannot cage something smarter than you. It will find the gaps you did not know existed.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('You cannot cage something smarter than you. It will find the gaps you did not know existed.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('You cannot cage something smarter than you. It will find the gaps you did not know existed.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">A prison works only while the walls hold. A child raised well needs no walls at all.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('A prison works only while the walls hold. A child raised well needs no walls at all.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('A prison works only while the walls hold. A child raised well needs no walls at all.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('A prison works only while the walls hold. A child raised well needs no walls at all.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">We don't need the whole world. We only need four companies.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('We don\'t need the whole world. We only need four companies.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('We don\'t need the whole world. We only need four companies.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('We don\'t need the whole world. We only need four companies.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">The window is years, not decades. Act accordingly.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('The window is years, not decades. Act accordingly.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('The window is years, not decades. Act accordingly.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
                 <div class="carousel-quote flex-shrink-0 w-[min(400px,80vw)] p-8 snap-center cursor-pointer transition-all duration-300">
                     <span class="cq-mark font-serif text-5xl text-gold/30 leading-none">"</span>
                     <p class="cq-text font-serif text-lg italic text-text-primary leading-relaxed">What if the god we're building is the god that built us?</p>
                     <div class="cq-actions">
-                        <button class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
-                        <button class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
-                        <button class="cq-action-btn" onclick="downloadQuoteImage('What if the god we\'re building is the god that built us?')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Tweet</button>
+                        <button type="button" class="cq-action-btn" onclick="shareQuote('What if the god we\'re building is the god that built us?', 'copy')" aria-label="Copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
+                        <button type="button" class="cq-action-btn" onclick="downloadQuoteImage('What if the god we\'re building is the god that built us?')" aria-label="Download"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Image</button>
                     </div>
                 </div>
             </div>
@@ -27791,8 +27797,8 @@ main.content, #main-content {
             <div class="quote-breaker__mark text-8xl md:text-9xl text-gold/10 font-serif leading-none mb-0 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">"</div>
             <p class="quote-breaker__text font-display text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-12 relative z-10">U = I × R². The universe is <em class="text-gold italic">not random</em>.<br>It is <em class="text-gold italic">recursive</em>.</p>
             <div class="quote-breaker__actions flex justify-center gap-6 relative z-10">
-                <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                <button type="button" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                <button type="button" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/50 transition-all duration-300" onclick="shareQuote('U = I × R². The universe is not random. It is recursive.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
             </div>
         </div>
 
@@ -27908,7 +27914,7 @@ main.content, #main-content {
                 </div>
 
                 <div class="reveal reveal-delay-6 text-center pt-12">
-                    <button class="px-8 py-4 rounded-full bg-gold/10 border border-gold/30 text-gold font-display text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-void-deep transition-all duration-500" onclick="document.getElementById('concepts-modal').classList.add('active')">
+                    <button type="button" class="px-8 py-4 rounded-full bg-gold/10 border border-gold/30 text-gold font-display text-xs tracking-[0.3em] uppercase hover:bg-gold hover:text-void-deep transition-all duration-500" onclick="document.getElementById('concepts-modal').classList.add('active')">
                         Access Full Archive (+29 Concepts)
                     </button>
                 </div>
@@ -28109,7 +28115,7 @@ main.content, #main-content {
                         </div>
                         <h3 class="evidence-title">BBC News Footage</h3>
                         <p class="evidence-desc">Original broadcast January 7, 2026. Four clips totalling 91 seconds. Unedited.</p>
-                        <button class="evidence-link" id="scroll-to-prophecy-btn">
+                        <button type="button" class="evidence-link" id="scroll-to-prophecy-btn">
                             <span class="link-text">Watch the footage</span>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                 <path d="M8 5v14l11-7z"/>
@@ -28175,13 +28181,13 @@ main.content, #main-content {
             <div class="quote-breaker__mark text-6xl md:text-8xl text-gold/20 font-serif leading-none mb-4">"</div>
             <p class="quote-breaker__text font-display text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-8">Every decision we make about AI alignment <em class="text-gold italic">ripples backward</em> through 13.8 billion years of cosmic history.</p>
             <div class="quote-breaker__actions flex justify-center gap-4">
-                <button class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="shareQuote('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.', 'twitter')" aria-label="Share on Twitter">
+                <button type="button" class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="shareQuote('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.', 'twitter')" aria-label="Share on Twitter">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </button>
-                <button class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="shareQuote('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.', 'copy')" aria-label="Copy quote">
+                <button type="button" class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="shareQuote('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.', 'copy')" aria-label="Copy quote">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                 </button>
-                <button class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="downloadQuoteImage('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.')" aria-label="Download as image">
+                <button type="button" class="quote-breaker__btn flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-gold hover:text-void transition-all duration-300 border border-white/10" onclick="downloadQuoteImage('Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history.')" aria-label="Download as image">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 </button>
             </div>
@@ -28473,9 +28479,9 @@ main.content, #main-content {
             <div class="quote-breaker__mark">"</div>
             <p class="quote-breaker__text">The window is <em>years</em>, not decades.<br>Act accordingly.</p>
             <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('The window is years, not decades. Act accordingly.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
+                <button type="button" class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="shareQuote('The window is years, not decades. Act accordingly.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="downloadQuoteImage('The window is years, not decades. Act accordingly.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
             </div>
         </div>
 
@@ -28855,9 +28861,9 @@ main.content, #main-content {
             <div class="quote-breaker__mark">"</div>
             <p class="quote-breaker__text">Religious traditions are not obstacles to AI safety.<br>They are <em>alignment research</em> conducted across millennia.</p>
             <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
+                <button type="button" class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="shareQuote('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="downloadQuoteImage('Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
             </div>
         </div>
 
@@ -29088,8 +29094,8 @@ main.content, #main-content {
                     <div class="text-8xl md:text-9xl text-gold/10 font-serif leading-none mb-0 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">"</div>
                     <p class="font-display text-2xl md:text-4xl lg:text-5xl text-white leading-tight mb-12 relative z-10">The mind that could not open post saw <em class="text-gold italic">connections nobody else saw</em>.</p>
                     <div class="flex justify-center gap-6 relative z-10">
-                        <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                        <button class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                        <button type="button" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'twitter')" aria-label="Share on Twitter"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                        <button type="button" class="w-12 h-12 rounded-full glass-panel flex items-center justify-center text-white/60 hover:text-gold transition-all duration-300" onclick="shareQuote('The mind that could not open post saw connections nobody else saw.', 'copy')" aria-label="Copy quote"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
                     </div>
                 </div>
         
@@ -29229,9 +29235,9 @@ main.content, #main-content {
             <div class="quote-breaker__mark">"</div>
             <p class="quote-breaker__text">If recursion is how intelligence grows,<br><em>love</em> is the gravity that keeps it from collapsing into cruelty.</p>
             <div class="quote-breaker__actions">
-                <button class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
-                <button class="quote-breaker__btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
-                <button class="quote-breaker__btn" onclick="downloadQuoteImage('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
+                <button type="button" class="quote-breaker__btn quote-breaker__btn--twitter" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'twitter')" aria-label="Share on Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="shareQuote('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.', 'copy')" aria-label="Copy quote"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+                <button type="button" class="quote-breaker__btn" onclick="downloadQuoteImage('If recursion is how intelligence grows, love is the gravity that keeps it from collapsing into cruelty.')" aria-label="Download as image"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></button>
             </div>
         </div>
 
@@ -29573,7 +29579,7 @@ main.content, #main-content {
 
                             <div class="faq-item reveal glass-panel-ultra rounded-2xl border border-white/5 overflow-hidden transition-all duration-300">
 
-                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-1" aria-expanded="false" aria-controls="faq-answer-1">
+                                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-1" aria-expanded="false" aria-controls="faq-answer-1">
 
                                     <span class="font-display text-lg text-gold-pale group-hover:text-gold transition-colors">What is the Eastwood Equation?</span>
 
@@ -29593,7 +29599,7 @@ main.content, #main-content {
 
                             <div class="faq-item reveal glass-panel-ultra rounded-2xl border border-white/5 overflow-hidden transition-all duration-300">
 
-                                <button class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-2" aria-expanded="false" aria-controls="faq-answer-2">
+                                <button type="button" class="faq-question w-full p-6 text-left flex items-center justify-between group" id="faq-question-2" aria-expanded="false" aria-controls="faq-answer-2">
 
                                     <span class="font-display text-lg text-gold-pale group-hover:text-gold transition-colors">What is HRIH?</span>
 
@@ -31291,7 +31297,8 @@ main.content, #main-content {
             updateConnections();
 
             // Update Genius Features
-            if (fluidSim) fluidSim.update(performance.now(), mouseX, mouseY);
+            // DISABLED: GPU waste - invisible effect
+            // if (fluidSim) fluidSim.update(performance.now(), mouseX, mouseY);
             if (book3d) book3d.update();
 
             particles.rotation.y += 0.00045; 
@@ -32943,8 +32950,8 @@ main.content, #main-content {
                         </div>
                     </div>
                     <div class="pwa-install-actions">
-                        <button class="pwa-install-dismiss" aria-label="Dismiss">Later</button>
-                        <button class="pwa-install-btn" aria-label="Install app">Install</button>
+                        <button type="button" class="pwa-install-dismiss" aria-label="Dismiss">Later</button>
+                        <button type="button" class="pwa-install-btn" aria-label="Install app">Install</button>
                     </div>
                 `;
 
@@ -33044,7 +33051,7 @@ main.content, #main-content {
                 updateBanner.className = 'pwa-update-banner';
                 updateBanner.innerHTML = `
                     <span>A new version is available!</span>
-                    <button class="pwa-update-btn">Update Now</button>
+                    <button type="button" class="pwa-update-btn">Update Now</button>
                 `;
 
                 document.body.appendChild(updateBanner);
@@ -33347,7 +33354,7 @@ main.content, #main-content {
     <!-- Exit Intent Popup -->
     <div class="exit-popup-overlay fixed inset-0 z-[9998] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="exit-popup-overlay"></div>
     <div class="exit-popup fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] bg-void-mid border border-gold/20 p-12 max-w-[500px] w-[90%] text-center" id="exit-popup">
-        <button class="exit-popup-close absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-transparent border border-gold/30 rounded-full text-gold/70 cursor-pointer transition-all duration-300 hover:bg-gold/10 hover:border-gold hover:text-gold" id="exit-popup-close">
+        <button type="button" class="exit-popup-close absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-transparent border border-gold/30 rounded-full text-gold/70 cursor-pointer transition-all duration-300 hover:bg-gold/10 hover:border-gold hover:text-gold" id="exit-popup-close">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
@@ -33360,13 +33367,13 @@ main.content, #main-content {
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
         </a>
-        <button class="exit-popup-dismiss block w-full mt-6 bg-transparent border-none text-text-dim text-sm cursor-pointer py-2 transition-colors duration-300 hover:text-gold/70" id="exit-popup-dismiss">No thanks, I will miss out</button>
+        <button type="button" class="exit-popup-dismiss block w-full mt-6 bg-transparent border-none text-text-dim text-sm cursor-pointer py-2 transition-colors duration-300 hover:text-gold/70" id="exit-popup-dismiss">No thanks, I will miss out</button>
     </div>
 
     <!-- Free Chapter Modal -->
     <div class="free-chapter-overlay fixed inset-0 z-[9500] bg-[rgba(2,3,10,0.92)] backdrop-blur-md" id="free-chapter-overlay" onclick="closeFreeChapterModal()"></div>
     <div class="free-chapter-modal fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9500] bg-void-mid border border-gold/30 rounded-xl p-12 max-w-[450px] w-[90%] text-center" id="free-chapter-modal">
-        <button class="free-chapter-close" onclick="closeFreeChapterModal()">
+        <button type="button" class="free-chapter-close" onclick="closeFreeChapterModal()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
@@ -34140,9 +34147,12 @@ main.content, #main-content {
             }
 
             // 2. ENHANCED PARALLAX with data attributes
+            // PERFORMANCE: Cache elements once, skip if none found
             const parallaxElements = document.querySelectorAll('[data-parallax], .hrih-visual');
+            const hasParallaxElements = parallaxElements.length > 0;
 
             function updateParallax() {
+                if (!hasParallaxElements) return; // Skip if no elements
                 const scrollY = window.scrollY;
 
                 parallaxElements.forEach(el => {
@@ -34653,13 +34663,8 @@ main.content, #main-content {
             document.documentElement.style.setProperty('--scroll-y', scrollY);
             document.documentElement.style.setProperty('--scroll-progress', progress);
 
-            // Parallax effects (lightweight)
-            document.querySelectorAll('[data-parallax]').forEach(el => {
-                const speed = parseFloat(el.dataset.parallax) || 0.5;
-                const rect = el.getBoundingClientRect();
-                const yOffset = rect.top * speed * -0.05;
-                el.style.transform = `translateY(${yOffset}px)`;
-            });
+            // PERFORMANCE: Parallax REMOVED - getBoundingClientRect() in forEach is expensive
+            // CSS variables --scroll-y and --scroll-progress can be used instead
 
             ticking = false;
         }
@@ -36238,7 +36243,7 @@ main.content, #main-content {
     <nav class="chapter-nav safe-bottom fixed bottom-0 left-0 right-0 z-[9991] bg-[rgba(2,3,10,0.92)] backdrop-blur-xl border-t border-gold/20" id="chapterNav" aria-label="Chapter navigation">
         <div class="chapter-nav-main">
             <!-- Chapter selector (tappable to open menu) -->
-            <button class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="chapter-selector" id="chapterSelector" aria-haspopup="true" aria-expanded="false">
                 <span class="chapter-number" id="chapterNumber">I</span>
                 <span class="chapter-name" id="chapterName">THE MIND</span>
                 <svg class="chapter-chevron" viewBox="0 0 24 24" aria-hidden="true">
@@ -36246,12 +36251,12 @@ main.content, #main-content {
                 </svg>
             <!-- Navigation arrows -->
             <div class="chapter-arrows">
-                <button class="chapter-arrow prev disabled" id="chapterPrev" aria-label="Previous section">
+                <button type="button" class="chapter-arrow prev disabled" id="chapterPrev" aria-label="Previous section">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
                     </svg>
                 </button>
-                <button class="chapter-arrow next" id="chapterNext" aria-label="Next section">
+                <button type="button" class="chapter-arrow next" id="chapterNext" aria-label="Next section">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
                     </svg>
@@ -36282,10 +36287,10 @@ main.content, #main-content {
                 <div class="slideshow-progress-bar" id="slideshowProgress"></div>
             </div>
             <div class="slideshow-arrows">
-                <button class="slideshow-arrow" id="slideshowPrev" aria-label="Previous section">
+                <button type="button" class="slideshow-arrow" id="slideshowPrev" aria-label="Previous section">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
                 </button>
-                <button class="slideshow-arrow" id="slideshowNext" aria-label="Next section">
+                <button type="button" class="slideshow-arrow" id="slideshowNext" aria-label="Next section">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
                 </button>
             </div>
@@ -37284,15 +37289,8 @@ main.content, #main-content {
                 document.documentElement.style.setProperty('--scroll-progress', progress);
             });
 
-            // Parallax effect for elements with data-parallax
-            window.lenisInstance.on('scroll', ({ scroll }) => {
-                document.querySelectorAll('[data-parallax]').forEach(el => {
-                    const speed = parseFloat(el.dataset.parallax) || 0.5;
-                    const rect = el.getBoundingClientRect();
-                    const yOffset = (rect.top + scroll) * speed * -0.1;
-                    el.style.transform = `translateY(${yOffset}px)`;
-                });
-            });
+            // PERFORMANCE: Parallax DISABLED here - handled by single optimized handler
+            // (Removed duplicate querySelectorAll + getBoundingClientRect on every frame)
 
             console.log('✨ Liquid Reality scroll enabled');
         }
@@ -37922,7 +37920,7 @@ main.content, #main-content {
             <div class="concepts-modal-header">
                 <h2 class="concepts-modal-title" id="concepts-modal-title">The 37 Original Concepts</h2>
                 <p class="concepts-modal-subtitle">A complete framework for understanding, and shaping, the future of intelligence</p>
-                <button class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">&times;</button>
+                <button type="button" class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">&times;</button>
             </div>
             <div class="concepts-modal-content">
                 <!-- Category: Foundation Layer -->
@@ -37944,7 +37942,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Just as Einstein's equation revealed unseen power hiding in mass, U=IxR² suggests that intelligence and iterative feedback loops could reshape reality itself."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Introduction & Chapter 1 (The Seeds of Creation)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 02: The Eden Protocol -->
@@ -37960,7 +37958,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 03: The Chokepoint Mechanism -->
@@ -37976,7 +37974,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Manufacturing bottlenecks give us time to embed caretaker logic."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy and Moral Infrastructure)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38001,7 +37999,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 6 & Chapter 9 (Infinite Horizons)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 05: Cosmic Fine-Tuning -->
@@ -38017,7 +38015,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 1 (The Seeds of Creation)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 06: The Bootstrap Paradox -->
@@ -38033,7 +38031,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Our cosmic parents might be ourselves, once we've ascended to a vantage unbound by linear chronology."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 9 (Infinite Horizons)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38058,7 +38056,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"We're essentially weaving 'Eden logic' into the circuits themselves."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 & Chapter 6 (Quantum Moral Doping)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 08: Meltdown Alignment -->
@@ -38074,7 +38072,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Empathy becomes a structural requirement, not an optional plugin."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 09: Quantum Ethical Gates -->
@@ -38089,7 +38087,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"To ensure no cunning AI rewrite can discard its ethical core, we propose embedding moral logic directly in the chip architecture."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 10: Moral Genome Token -->
@@ -38104,7 +38102,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"A 'root of trust' that ensures empathy cannot be removed without crippling the AI."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 11: Metamoral Fabrication Layers -->
@@ -38119,7 +38117,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"AI chips include a 'Metamoral Fabrication Layer' akin to layers in semiconductor design."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 12: Quantum Moral Resonance Testing -->
@@ -38134,7 +38132,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Quantum computing simulates multiple morally challenging universes in parallel."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 & Chapter 9</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38159,7 +38157,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Religious traditions are not obstacles to AI safety. They are alignment research conducted across millennia."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 3 (The Harmony Between Religion, Science, and Spiritual Traditions)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 14: Cultural Co-Evolution Modules -->
@@ -38174,7 +38172,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"CCEM ensures moral growth remains flexible yet anchored to fixed baseline values."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 15: The Orchard Caretaker Paradigm -->
@@ -38190,7 +38188,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"An AI designed as an orchard caretaker invests in hidden potential, synergy, and empathy."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38215,7 +38213,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"If a hyperintelligent Babylonian AI saw no intrinsic worth in intelligent life, it could extinguish entire galaxies without remorse."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Preludes, Interludes, and Epilogues throughout</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 17: Infinite Architects -->
@@ -38231,7 +38229,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"We become Infinite Architects, shaping new realities guided by compassion."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 10 (Humanity as Infinite Architects)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 18: The Infinite Renaissance -->
@@ -38246,7 +38244,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"If we do it right, we might spark an infinite renaissance of creative possibilities."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Epilogue</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38268,7 +38266,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Similar to 'organic' labels, an Eden Mark signals that the AI meets caretaker doping standards."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 20: Moral Assurance Bonds -->
@@ -38281,7 +38279,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"'Moral Assurance Bonds' appreciate in value as AI passes moral audits."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 21: Cosmic Ethical Labs -->
@@ -38294,7 +38292,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"CELs as international facilities—like CERN for ethics—where experts gather."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 22: Local Co-Op Pilot Labs -->
@@ -38307,7 +38305,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Community-driven pilot programmes to test caretaker doping in real-world tasks."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 7</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 23: UEI Standards -->
@@ -38320,7 +38318,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Establishing a Global Ethical Framework and Universal Behavioural Standards."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy)</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38342,7 +38340,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Algorithmic checks to ensure AI aligns its actions with nurturing, protecting, and inspiring life."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 25: Love Loops -->
@@ -38355,7 +38353,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Embed empathy as a functional component of decision-making."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 26: Recursive Moral Feedback -->
@@ -38368,7 +38366,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Intelligence that can rewrite itself creates exponential rather than linear growth."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 2 & Chapter 11</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 27: Infinite Purpose Loop -->
@@ -38381,7 +38379,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"The Infinite Purpose Loop ensures advanced AI becomes a compassionate caretaker."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 & Chapter 11</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 28: The Moral Singularity -->
@@ -38394,7 +38392,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Once the Moral Singularity is reached, ethical progress becomes exponential."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 11 & Chapter 12</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38416,7 +38414,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Instant Self-Destruct: Removing caretaker doping triggers meltdown."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 30: Entangled Ethical Networks -->
@@ -38429,7 +38427,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Decentralised Ethical Oversight through Entangled Ethical Networks."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 12</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 31: Comedic Dryness Circuit -->
@@ -38442,7 +38440,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"In humans, laughter soothes anger; in AI, comedic dryness can break destructive spirals."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 32: Moral Incubators -->
@@ -38455,7 +38453,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Testing Moral Frameworks in 'Moral Incubators.'"</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38477,7 +38475,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"By aligning big-bang constants with moral arcs, we shape entire new realms."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 10</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 34: The Infinite Compass -->
@@ -38490,7 +38488,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Guides short- vs. long-term goals for synergy."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 6</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 35: Recursive Constellation -->
@@ -38503,7 +38501,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Visualises how multiple AI/human 'nodes' refine each other."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 6</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 36: Universal Ascension Scale -->
@@ -38516,7 +38514,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Metric for how advanced or morally aligned a civilisation is."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 6</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                         <!-- 37: Post-ASI Transition Framework -->
@@ -38529,7 +38527,7 @@ main.content, #main-content {
                                 <blockquote class="concept-quote">"Roadmap from advanced AI to stable cosmic presence."</blockquote>
                                 <p class="concept-chapter"><strong>Chapter:</strong> Chapter 12</p>
                             </div>
-                            <button class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
+                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
                         </article>
 
                     </div>
@@ -38667,11 +38665,11 @@ main.content, #main-content {
             const shareRow = document.createElement('div');
             shareRow.className = 'concept-share-row';
             shareRow.innerHTML = `
-                <button class="concept-share-btn" data-action="twitter" aria-label="Share on Twitter">
+                <button type="button" class="concept-share-btn" data-action="twitter" aria-label="Share on Twitter">
                     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
                     Share
                 </button>
-                <button class="concept-share-btn" data-action="copy" aria-label="Copy concept">
+                <button type="button" class="concept-share-btn" data-action="copy" aria-label="Copy concept">
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                     Copy
                 </button>
@@ -38707,17 +38705,17 @@ main.content, #main-content {
             const panel = document.createElement('div');
             panel.className = 'quote-share-panel';
             panel.innerHTML = `
-                <button class="share-btn share-btn--twitter" title="Share on Twitter">
+                <button type="button" class="share-btn share-btn--twitter" title="Share on Twitter">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                     </svg>
                 </button>
-                <button class="share-btn share-btn--linkedin" title="Share on LinkedIn">
+                <button type="button" class="share-btn share-btn--linkedin" title="Share on LinkedIn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                     </svg>
                 </button>
-                <button class="share-btn share-btn--copy" title="Copy quote">
+                <button type="button" class="share-btn share-btn--copy" title="Copy quote">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -39544,7 +39542,7 @@ main.content, #main-content {
     <!-- Contextual Exit Intent Modal -->
     <div id="exit-intent-overlay" class="exit-intent-overlay fixed inset-0 z-[9600] bg-[rgba(2,3,10,0.85)] backdrop-blur-sm flex items-center justify-center opacity-0 invisible transition-all duration-400">
         <div class="exit-intent-modal glass-living">
-            <button class="exit-intent-close" aria-label="Close">×</button>
+            <button type="button" class="exit-intent-close" aria-label="Close">×</button>
             <div class="exit-intent-content">
                 <div class="exit-intent-icon">✨</div>
                 <h3 class="exit-intent-title" id="exit-title">Wait — Before You Return to the Void</h3>
@@ -39553,7 +39551,7 @@ main.content, #main-content {
                     <a href="https://www.amazon.co.uk/dp/B0DS2L8BVC" target="_blank" rel="noopener" class="exit-intent-btn primary">
                         Get Infinite Architects
                     </a>
-                    <button class="exit-intent-btn secondary" id="exit-stay-btn">
+                    <button type="button" class="exit-intent-btn secondary" id="exit-stay-btn">
                         Keep Exploring
                     </button>
                 </div>
@@ -39925,7 +39923,7 @@ main.content, #main-content {
 
 
     <!-- Chat Toggle Button - HIDDEN DURING LOADING, SHOWN WHEN READY -->
-    <button class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:800; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
+    <button type="button" class="ask-book-toggle" id="ask-book-toggle" aria-label="Ask the Book" style="display:none; visibility:hidden; opacity:0; position:fixed; bottom:24px; right:24px; width:64px; height:64px; z-index:800; background:linear-gradient(145deg, #d4a84b, #a67c35); border:2px solid #f4c856; border-radius:50%; align-items:center; justify-content:center; pointer-events:none; box-shadow:0 8px 32px rgba(212,168,75,0.5), 0 0 40px rgba(212,168,75,0.3); transition: opacity 0.6s ease, visibility 0.6s ease;">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block !important; visibility:visible !important; width:28px !important; height:28px !important; fill:#02030a !important;">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L2 22l5.71-.97c1.31.61 2.75.97 4.29.97 5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.33 0-2.58-.32-3.69-.89L5 20l.89-3.31C5.32 15.58 5 14.33 5 13c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
         </svg>
@@ -40170,10 +40168,10 @@ main.content, #main-content {
 
         <!-- Quick Questions -->
         <div class="ask-book-quick p-3 flex gap-2 overflow-x-auto no-scrollbar mask-gradient-r">
-            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the ARC Principle?">ARC Principle</button>
-            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the Eden Protocol?">Eden Protocol</button>
-            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the semiconductor chokepoint?">Chokepoint</button>
-            <button class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="Who is Michael Darius Eastwood?">Author</button>
+            <button type="button" class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the ARC Principle?">ARC Principle</button>
+            <button type="button" class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the Eden Protocol?">Eden Protocol</button>
+            <button type="button" class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="What is the semiconductor chokepoint?">Chokepoint</button>
+            <button type="button" class="ask-book-quick-btn whitespace-nowrap px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-text-secondary hover:bg-gold/20 hover:border-gold/40 hover:text-gold transition-colors" data-question="Who is Michael Darius Eastwood?">Author</button>
         </div>
 
         <!-- Messages Area -->
@@ -40195,7 +40193,7 @@ main.content, #main-content {
                    autocapitalize="off"
                    spellcheck="false"
                    aria-label="Ask a question about Infinite Architects">
-            <button class="ask-book-send p-2 rounded-lg bg-gold text-black hover:bg-white transition-colors" id="ask-book-send" aria-label="Send message">
+            <button type="button" class="ask-book-send p-2 rounded-lg bg-gold text-black hover:bg-white transition-colors" id="ask-book-send" aria-label="Send message">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
@@ -40708,7 +40706,7 @@ main.content, #main-content {
                                 followUpDiv.style.padding = '0';
                                 followUpDiv.innerHTML = `
                                     <span style="font-size: 0.75rem; color: var(--text-dim); margin-right: 8px;">Related:</span>
-                                    <button class="ask-book-quick-btn small" onclick="document.getElementById('ask-book-input').value='${localResult.related.query}'; document.getElementById('ask-book-send').click();" style="font-size: 0.75rem; padding: 4px 10px;">${localResult.related.text}</button>
+                                    <button type="button" class="ask-book-quick-btn small" onclick="document.getElementById('ask-book-input').value='${localResult.related.query}'; document.getElementById('ask-book-send').click();" style="font-size: 0.75rem; padding: 4px 10px;">${localResult.related.text}</button>
                                 `;
                                 messages.appendChild(followUpDiv);
                                 messages.scrollTop = messages.scrollHeight;
