@@ -203,243 +203,6 @@
     <!-- End LinkedIn Insight Tag -->
 
     <!-- CRITICAL FIXES - NUCLEAR OVERRIDE v2.0 for visibility -->
-    <style id="sovereign-critical-fixes">
-    /* ═══════════════════════════════════════════════════════════════════════
-       SOVEREIGN CRITICAL FIXES v2.0 - NUCLEAR OVERRIDE
-       These rules use MAXIMUM specificity + !important to guarantee visibility
-       PROBLEM: body:not(.cinematic-ready) locks page with position:fixed + height:100vh
-       SOLUTION: Override everything that hides content
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 1: BODY UNLOCK - Override the cinematic-ready lock
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    html {
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        height: auto;
-        min-height: 100%;
-        scroll-behavior: smooth !important;
-    }
-
-    /* NUCLEAR: Cancel body:not(.cinematic-ready) effects */
-    html body,
-    body:not(.cinematic-ready),
-    body.cinematic,
-    body {
-        position: relative !important;
-        height: auto;
-        min-height: auto !important;
-        min-height: auto !important;
-        max-height: none !important;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       ULTRATHINK NUCLEAR VISIBILITY - COGNITIVE ACCESSIBILITY PROTOCOL
-       Priority: 100% content visibility for ADHD/Autism Focus
-       ═══════════════════════════════════════════════════════════════════════ */
-    
-    /* 1. FORCE SCROLL ON EVERYTHING */
-    html, body {
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-        height: auto !important;
-        min-height: auto !important;
-        position: relative !important;
-    }
-
-    /* 2. KILL ALL HIDDEN STATES FOR SECTIONS & CONTAINERS */
-    section, 
-    article, 
-    main, 
-    header, 
-    footer,
-    [id],
-    [class*="section"],
-    [class*="container"],
-    [class*="inner"],
-    [class*="content"] {
-        visibility: visible !important;
-        opacity: 1 !important;
-        max-height: none !important;
-        height: auto !important;
-        overflow: visible !important;
-        transform: none !important;
-    }
-
-    /* 3. BYPASS ALL REVEAL ANIMATIONS IMMEDIATELY */
-    .reveal, 
-    .reveal.active, 
-    [class*="reveal"], 
-    [class*="active"], 
-    [class*="entering"],
-    [class*="reveal-delay"] {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        transition: none !important;
-    }
-
-    /* 4. PROTECT LAYOUT ENGINES (Don't force display:block on flex/grid) */
-    .flex, [class*="flex"] { display: flex !important; }
-    .grid, [class*="grid"] { display: grid !important; }
-    .hidden { display: none !important; } /* Only keep intentional 'hidden' class */
-
-    /* 5. REMOVE BLOCKING OVERLAYS */
-    .loader-video-overlay, .mandelbrot-overlay, .glass-overlay, .overlay {
-        pointer-events: none !important;
-    }
-
-    /* Only lock if explicitly requested by loader */
-    body.loader-active {
-        overflow: visible !important;
-        position: fixed !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 2: LOADER - Normal behaviour restored
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    /* Removed Instant Hide - Allow animation to play */
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 3: MAIN CONTENT - Synchronised with cinematic entrance
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    html body.cinematic main,
-    html body.cinematic .content,
-    html body.cinematic #main-content,
-    html body.cinematic-ready main,
-    html body.cinematic-ready .content,
-    html body.cinematic-ready #main-content {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        overflow: visible !important;
-        max-height: none !important;
-        min-height: auto !important;
-        position: relative !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 4: ALL SECTIONS - Conditional visibility
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    html body.cinematic main section:not(#hero),
-    html body.cinematic #main-content > section:not(#hero),
-    html body.cinematic .snap-section:not(#hero),
-    html body.cinematic-ready main section:not(#hero),
-    html body.cinematic-ready #main-content > section:not(#hero),
-    html body.cinematic-ready .snap-section:not(#hero) {
-        display: flex !important;
-        flex-direction: column !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        overflow: visible !important;
-        max-height: none !important;
-        position: relative !important;
-    }
-
-    /* Hero exception - full viewport allowed */
-    html body section.hero#hero,
-    html body #hero.snap-section,
-    #hero {
-        min-height: 100vh!important; min-height: 100dvh!important;
-        min-height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 5: ALL 35+ SECTIONS - Explicit visibility by ID
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    body.cinematic #hero, body.cinematic #the-mind, body.cinematic #origin, 
-    body.cinematic #methodology, body.cinematic #book, body.cinematic #quote-carousel,
-    body.cinematic #equation, body.cinematic #ideas, body.cinematic #evidence-locker, 
-    body.cinematic #bbc-timeline, body.cinematic #predictions,
-    body.cinematic #falsification, body.cinematic #predictions-validated, 
-    body.cinematic #hrih, body.cinematic #religion, body.cinematic #chokepoint,
-    body.cinematic #window, body.cinematic #architecture, body.cinematic #predictions-summary, 
-    body.cinematic #future-born, body.cinematic #stakes,
-    body.cinematic #expert-validation, body.cinematic #reviews, body.cinematic #chapters, 
-    body.cinematic #comparison, body.cinematic #get-the-book,
-    body.cinematic #cta, body.cinematic #newsletter, body.cinematic #paradise, 
-    body.cinematic #faq, body.cinematic #glossary, body.cinematic #ai-timeline, 
-    body.cinematic #press, body.cinematic #contact,
-    body.cinematic-ready #hero, body.cinematic-ready #the-mind, body.cinematic-ready #origin, 
-    body.cinematic-ready #methodology, body.cinematic-ready #book, body.cinematic-ready #quote-carousel,
-    body.cinematic-ready #equation, body.cinematic-ready #ideas, body.cinematic-ready #evidence-locker, 
-    body.cinematic-ready #bbc-timeline, body.cinematic-ready #predictions,
-    body.cinematic-ready #falsification, body.cinematic-ready #predictions-validated, 
-    body.cinematic-ready #hrih, body.cinematic-ready #religion, body.cinematic-ready #chokepoint,
-    body.cinematic-ready #window, body.cinematic-ready #architecture, body.cinematic-ready #predictions-summary, 
-    body.cinematic-ready #future-born, body.cinematic-ready #stakes,
-    body.cinematic-ready #expert-validation, body.cinematic-ready #reviews, body.cinematic-ready #chapters, 
-    body.cinematic-ready #comparison, body.cinematic-ready #get-the-book,
-    body.cinematic-ready #cta, body.cinematic-ready #newsletter, body.cinematic-ready #paradise, 
-    body.cinematic-ready #faq, body.cinematic-ready #glossary, body.cinematic-ready #ai-timeline, 
-    body.cinematic-ready #press, body.cinematic-ready #contact {
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        max-height: none !important;
-        overflow: visible !important;
-        position: relative !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 6: REVEAL ELEMENTS - Force all to visible
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    body.cinematic .reveal,
-    body.cinematic .reveal.active,
-    body.cinematic [class*="reveal"],
-    body.cinematic-ready .reveal,
-    body.cinematic-ready .reveal.active,
-    body.cinematic-ready [class*="reveal"] {
-        opacity: 1 !important;
-        transform: translateY(0) scale(1) !important;
-        visibility: visible !important;
-        transition: none !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 7: INNER CONTAINERS - No height constraints
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    .section-inner,
-    [class*="-inner"],
-    [class*="-content"]:not(.hero-content):not(.nav-content) {
-        overflow: visible !important;
-        max-height: none !important;
-        height: auto !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-
-    /* ═══════════════════════════════════════════════════════════════════════
-       PART 8: FOOTER & MOBILE CTA - Safe Areas
-       ═══════════════════════════════════════════════════════════════════════ */
-
-    html body footer,
-    html body .footer,
-    html body #contact {
-        padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0)) !important;
-    }
-
-    html body .mobile-cta,
-    html body #mobile-cta {
-        bottom: env(safe-area-inset-bottom, 0) !important;
-        padding-bottom: env(safe-area-inset-bottom, 0) !important;
-    }
-    </style>
 
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
@@ -27521,13 +27284,6 @@ main.content, #main-content {
                     </article>
 
                         <blockquote class="origin-story-quote">
-                            That feeling never left me. It is why, decades later, I find myself writing about artificial minds.
-                        </blockquote>
-                        <p class="origin-story-footnote">
-                            I did not know philosophers had wrestled with this for centuries. I did not know it was called "the inverted spectrum problem."
-                        </p>
-                    </article>
-
                     <!-- Story 2: The Meniscus -->
                     <article class="origin-story-card reveal reveal-delay-4">
                         <span class="origin-story-age">
@@ -28190,10 +27946,6 @@ main.content, #main-content {
                         </div>
                     </article>
 
-                        <p class="evidence-desc">The author's methodology tested against adversarial systems. Case references: BL-2024-001089, BL-2024-001066.</p>
-                        <p class="evidence-subtext">Litigant-in-person vs. Magic Circle firms. The frameworks work under pressure.</p>
-                    </article>
-
                     <!-- EVIDENCE 5: The Copyright -->
                     <article class="evidence-card reveal reveal-delay-5 overflow-visible">
                         <div class="evidence-header">
@@ -28331,8 +28083,7 @@ main.content, #main-content {
                         </div>
                         <blockquote class="bbc-evidence-card__quote font-serif italic text-2xl md:text-3xl leading-relaxed text-white mb-6 border-l-4 border-gold pl-6">
                             "How long is it going to take for this experimental chip to actually be widely applied?"
-                        </blockquote>
-
+                            <br><br>
                             <strong>"No, I think it's sooner... for drug discovery, it's probably within the next five years."</strong>
                         </blockquote>
                         <div class="bbc-evidence-card__attribution">
