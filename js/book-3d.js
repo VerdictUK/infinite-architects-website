@@ -53,6 +53,7 @@ class Book3D {
         this.pivot.position.set(400, 0, 0); // Positioned to the right for desktop
         
         this.scene.add(this.pivot);
+        this.isPaused = false;
 
         // Lights specifically for the book
         const bookLight = new THREE.SpotLight(0xd4a84b, 2, 2000);
@@ -94,8 +95,18 @@ class Book3D {
         }
     }
 
+    pause() {
+        this.isPaused = true;
+        if (this.pivot) this.pivot.visible = false;
+    }
+
+    resume() {
+        this.isPaused = false;
+        if (this.pivot) this.pivot.visible = true;
+    }
+
     update() {
-        if (!this.mesh) return;
+        if (!this.mesh || this.isPaused) return;
 
         // Smooth rotation following mouse
         this.pivot.rotation.y += (this.targetRotation.y - this.pivot.rotation.y) * 0.05;

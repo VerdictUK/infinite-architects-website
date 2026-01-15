@@ -9115,48 +9115,6 @@
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
-           PHASE 12: PARTICLE TEXT DISSOLUTION
-           ═══════════════════════════════════════════════════════════════════════ */
-        .dissolve-text {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dissolve-text .char {
-            display: inline-block;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transition-delay: calc(var(--char-index) * 0.02s);
-        }
-
-        .dissolve-text.dissolving .char {
-            opacity: 0;
-            transform: translateY(-20px) scale(0);
-            filter: blur(10px);
-        }
-
-        .dissolve-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0;
-        }
-
-        @keyframes particleFly {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
            PHASE 13: TIME-AWARE CONSCIOUSNESS
            ═══════════════════════════════════════════════════════════════════════ */
         :root {
@@ -9372,48 +9330,6 @@
             animation: holoFloat 4s ease-in-out infinite;
             animation-delay: 2.5s;
             animation-fill-mode: backwards;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           PHASE 12: PARTICLE TEXT DISSOLUTION
-           ═══════════════════════════════════════════════════════════════════════ */
-        .dissolve-text {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dissolve-text .char {
-            display: inline-block;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transition-delay: calc(var(--char-index) * 0.02s);
-        }
-
-        .dissolve-text.dissolving .char {
-            opacity: 0;
-            transform: translateY(-20px) scale(0);
-            filter: blur(10px);
-        }
-
-        .dissolve-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: var(--gold);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000;
-            opacity: 0;
-        }
-
-        @keyframes particleFly {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
         }
 
         /* ═══════════════════════════════════════════════════════════════════════
@@ -15856,91 +15772,6 @@
                 transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Tighter stagger timing - 60ms increments for snappier reveals */
-        [data-stagger-group].stagger-visible > *:nth-child(1) { transition-delay: 0s; }
-        [data-stagger-group].stagger-visible > *:nth-child(2) { transition-delay: 0.06s; }
-        [data-stagger-group].stagger-visible > *:nth-child(3) { transition-delay: 0.12s; }
-        [data-stagger-group].stagger-visible > *:nth-child(4) { transition-delay: 0.18s; }
-        [data-stagger-group].stagger-visible > *:nth-child(5) { transition-delay: 0.24s; }
-        [data-stagger-group].stagger-visible > *:nth-child(6) { transition-delay: 0.30s; }
-        [data-stagger-group].stagger-visible > *:nth-child(7) { transition-delay: 0.36s; }
-        [data-stagger-group].stagger-visible > *:nth-child(8) { transition-delay: 0.42s; }
-        [data-stagger-group].stagger-visible > *:nth-child(9) { transition-delay: 0.48s; }
-        [data-stagger-group].stagger-visible > *:nth-child(10) { transition-delay: 0.54s; }
-
-        [data-stagger-group].stagger-visible > * {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ═══════════════════════════════════════════════════════════════════════
-           PHASE 9: AMBIENT MOTION - Subtle living backgrounds
-           ═══════════════════════════════════════════════════════════════════════ */
-        .ambient-orbs {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: visible;
-        }
-
-        .ambient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: orbFloat 30s ease-in-out infinite;
-        }
-
-        .ambient-orb--gold {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 168, 75, 0.4) 0%, transparent 70%);
-            top: -20%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .ambient-orb--purple {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(74, 20, 140, 0.3) 0%, transparent 70%);
-            bottom: -15%;
-            right: -10%;
-            animation-delay: -10s;
-        }
-
-        .ambient-orb--teal {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 77, 64, 0.25) 0%, transparent 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -20s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            50% {
-                transform: translate(-20px, 30px) scale(0.95);
-            }
-            75% {
-                transform: translate(40px, 20px) scale(1.05);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .ambient-orb {
-                animation: none;
-            }
-        }
-
         /* ═══════════════════════════════════════════════════════════════════════
            PHASE 10: APPLE FOCUS STATES - Accessible keyboard navigation
            ═══════════════════════════════════════════════════════════════════════ */
@@ -16243,7 +16074,6 @@
         @media print {
             .loader-wrapper,
             .status-ticker,
-            .ambient-orbs,
             .particle-field,
             video,
             canvas {
@@ -16283,18 +16113,6 @@
         .tripath-cta:active {
             transform: scale(0.96) translateY(1px) !important;
             transition: transform 0.08s ease;
-        }
-
-        /* The "tilt toward cursor" - 3D card tilt */
-        .tilt-card {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .tilt-card-inner {
-            transform-style: preserve-3d;
-            transition: transform 0.2s ease-out;
         }
 
         /* Form inputs "breathe" when focused */
@@ -17249,7 +17067,6 @@
             .neural-canvas,
             .particle-canvas,
             .film-grain,
-            .ambient-orbs,
             .quantum-container {
                 display: none !important;
                 pointer-events: none !important;
@@ -22969,8 +22786,6 @@ html body.cinematic .book-portal {
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
     /* === CRITICAL: Remove fixed/overlapping UI elements (except chapter-nav for mobile navigation) === */
-    html body .ambient-orbs,
-    html body .ambient-orb,
     html body .mobile-orb,
     html body .deep-dive-hud,
     html body .chapter-sidebar,
@@ -34691,11 +34506,11 @@ main.content, #main-content {
         // ═══════════════════════════════════════════════════════════════════════
 
         // ═══════════════════════════════════════════════════════════════════════
-        // INITIALIZE ALL ENHANCEMENTS (Phase 1 Purge - Jan 2026)
-        // Removed: initAnimationPauser, initCarouselOptimisation, initMobileWowFactor,
-        //          initMagneticElements, initCursorGlow, initAppleLenis,
-        //          initStaggerReveal, initAmbientOrbs
-        // Reason: Superseded by Orchestrator, Apple-Grade Reveal, and Masterpiece Soul
+        // INITIALIZE ALL ENHANCEMENTS (Phase 1 Purge Complete - Jan 2026)
+        // Removed superseded systems: initAnimationPauser, initCarouselOptimisation,
+        //   initMobileWowFactor, initMagneticElements, initCursorGlow, initAppleLenis,
+        //   initStaggerReveal, initAmbientOrbs, initCardTilt, initDissolveText
+        // Now handled by: Orchestrator, Apple-Grade Reveal, and Masterpiece Soul
         // ═══════════════════════════════════════════════════════════════════════
         document.addEventListener('DOMContentLoaded', function() {
             initImageErrorHandlers();
@@ -34708,96 +34523,6 @@ main.content, #main-content {
             initMobileEnhancements();
             initAppleGradeEffects();
         });
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 7: STAGGER REVEAL SYSTEM
-        // ═══════════════════════════════════════════════════════════════════════
-        function initStaggerReveal() {
-            const staggerGroups = document.querySelectorAll('[data-stagger-group]');
-
-            const staggerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('stagger-visible');
-                        staggerObserver.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            staggerGroups.forEach(group => {
-                staggerObserver.observe(group);
-            });
-
-            // console.log('✨ Stagger reveal system enabled');
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 9: AMBIENT MOTION (LIVING BACKGROUNDS) - Desktop only
-        // ═══════════════════════════════════════════════════════════════════════
-        function initAmbientOrbs() {
-            // Skip on mobile devices (hidden via CSS anyway)
-            if (window.innerWidth < 1024) return;
-
-            // Skip if reduced motion preferred
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-            // Create ambient orbs container
-            const orbsContainer = document.createElement('div');
-            orbsContainer.className = 'ambient-orbs';
-            orbsContainer.setAttribute('aria-hidden', 'true');
-
-            // Add three orbs
-            const orbs = ['gold', 'purple', 'teal'];
-            orbs.forEach(colour => {
-                const orb = document.createElement('div');
-                orb.className = `ambient-orb ambient-orb--${colour}`;
-                orbsContainer.appendChild(orb);
-            });
-
-            // Insert at the beginning of body, but after any loaders
-            const mainContent = document.querySelector('.main-content') || document.body.firstChild;
-            document.body.insertBefore(orbsContainer, mainContent);
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 16: 3D CARD TILT EFFECT (Haptic Feedback Simulation)
-        // ═══════════════════════════════════════════════════════════════════════
-        function initCardTilt() {
-            // Skip on touch devices or if reduced motion preferred
-            if ('ontouchstart' in window || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-            const tiltCards = document.querySelectorAll('.idea-card, .evidence-card, .prophecy-card, .expert-card');
-
-            tiltCards.forEach(card => {
-                card.classList.add('tilt-card');
-
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const centreX = rect.left + rect.width / 2;
-                    const centreY = rect.top + rect.height / 2;
-
-                    // Calculate rotation based on cursor position
-                    const rotateX = ((e.clientY - centreY) / (rect.height / 2)) * -5; // Max 5 degrees
-                    const rotateY = ((e.clientX - centreX) / (rect.width / 2)) * 5;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                    card.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-                });
-
-                card.addEventListener('mouseenter', () => {
-                    card.style.transition = 'transform 0.15s ease-out';
-                });
-            });
-
-            // console.log('✨ 3D card tilt enabled');
-        }
 
         // ═══════════════════════════════════════════════════════════════════════
         // PHASE 19: SPATIAL AUDIO CUES (Subliminal Sound Design)
@@ -34941,7 +34666,6 @@ main.content, #main-content {
         document.addEventListener('DOMContentLoaded', function() {
             initProgressiveImages();
             deferUntilSiteReady(function() {
-                initCardTilt();
                 initSpatialAudio();
                 initMotionReveals();
             }, 200);
@@ -35330,84 +35054,6 @@ main.content, #main-content {
                     }
                 }, { passive: true });
             }
-        }
-
-        // ═══════════════════════════════════════════════════════════════════════
-        // PHASE 12: PARTICLE TEXT DISSOLUTION
-        // ═══════════════════════════════════════════════════════════════════════
-        function initDissolveText() {
-            const heroTitle = document.getElementById('hero-title');
-            if (!heroTitle || heroTitle.classList.contains('dissolve-ready')) return;
-
-            const text = heroTitle.textContent;
-            heroTitle.innerHTML = '';
-            heroTitle.classList.add('dissolve-text', 'dissolve-ready');
-
-            [...text].forEach((char, i) => {
-                const span = document.createElement('span');
-                span.className = 'char';
-                span.textContent = char === ' ' ? '\u00A0' : char;
-                span.style.setProperty('--char-index', i);
-                heroTitle.appendChild(span);
-            });
-
-            const particlePool = [];
-            const poolSize = 50;
-
-            for (let i = 0; i < poolSize; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'dissolve-particle';
-                document.body.appendChild(particle);
-                particlePool.push(particle);
-            }
-
-            let dissolved = false;
-            let particleIndex = 0;
-
-            const dissolveThreshold = window.innerHeight * 0.3;
-
-            const checkDissolve = () => {
-                const scrollY = window.scrollY;
-
-                if (scrollY > dissolveThreshold && !dissolved) {
-                    dissolved = true;
-                    heroTitle.classList.add('dissolving');
-
-                    heroTitle.querySelectorAll('.char').forEach((char, i) => {
-                        setTimeout(() => {
-                            const rect = char.getBoundingClientRect();
-                            const particle = particlePool[particleIndex % poolSize];
-                            particleIndex++;
-
-                            particle.style.left = rect.left + rect.width / 2 + 'px';
-                            particle.style.top = rect.top + rect.height / 2 + 'px';
-                            particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
-                            particle.style.setProperty('--ty', -100 - Math.random() * 100 + 'px');
-                            particle.style.animation = 'particleFly 1s ease-out forwards';
-
-                            setTimeout(() => {
-                                particle.style.animation = '';
-                            }, 1000);
-                        }, i * 20);
-                    });
-
-                    if (typeof SonicArchitecture !== 'undefined') {
-                        SonicArchitecture.playInteraction('milestone');
-                    }
-
-                } else if (scrollY <= dissolveThreshold * 0.5 && dissolved) {
-                    dissolved = false;
-                    heroTitle.classList.remove('dissolving');
-                }
-            };
-
-            window.addEventListener('scroll', checkDissolve, { passive: true });
-        }
-
-        if (document.readyState === 'complete') {
-            initDissolveText();
-        } else {
-            window.addEventListener('load', initDissolveText);
         }
 
         // ═══════════════════════════════════════════════════════════════════════
@@ -38117,107 +37763,12 @@ main.content, #main-content {
                 <p class="concepts-modal-subtitle">A complete framework for understanding, and shaping, the future of intelligence</p>
                 <button type="button" class="concepts-modal-close" id="concepts-modal-close" aria-label="Close modal">&times;</button>
             </div>
-            <div class="concepts-modal-content">
-                <!-- Category: Foundation Layer -->
-                <div class="concepts-category">
-                    <h3 class="concepts-category-title">I. FOUNDATION LAYER</h3>
-                    <p class="concepts-category-note">The mathematical and philosophical bedrock of the framework</p>
-                    <div class="concepts-grid concepts-grid--with-images">
-
-                        <!-- 01: The ARC Principle -->
-                        <article class="concept-item concept-item--featured concept-item--expandable" data-concept="1">
-                            <div class="concept-image-placeholder" data-concept="U=IxR²">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/0233BB33-9F46-40FC-A861-E1FE957F6F91 2.PNG" alt="Recursive Intelligence Circles" >
-                            </div>
-                            <span class="concept-num">01</span>
-                            <h4>The ARC Principle</h4>
-                            <p class="concept-definition">U = I × R² — Universe equals Intelligence multiplied by Recursion squared. The mathematics of why complexity emerges and evolution accelerates.</p>
-                            <div class="concept-details">
-                                <p class="concept-explanation">The ARC Principle posits that intelligence and recursion are the fundamental forces driving cosmic evolution. When an intelligent system can improve itself iteratively, each cycle amplifies the next, leading to potentially unlimited growth in capability and complexity. Just as Einstein's E=mc² revealed hidden energy in mass, U=IxR² suggests that intelligence combined with recursive self-improvement creates exponential transformation.</p>
-                                <blockquote class="concept-quote">"Just as Einstein's equation revealed unseen power hiding in mass, U=IxR² suggests that intelligence and iterative feedback loops could reshape reality itself."</blockquote>
-                                <p class="concept-chapter"><strong>Chapter:</strong> Introduction & Chapter 1 (The Seeds of Creation)</p>
-                            </div>
-                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
-                        </article>
-
-                        <!-- 02: The Eden Protocol -->
-                        <article class="concept-item concept-item--featured concept-item--expandable" data-concept="2">
-                            <div class="concept-image-placeholder" data-concept="EDEN">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Wowest Garden of Eden.PNG" alt="The Garden of Eden Vision" >
-                            </div>
-                            <span class="concept-num">02</span>
-                            <h4>The Eden Protocol</h4>
-                            <p class="concept-definition">A comprehensive governance framework for AI development that embeds love, empathy, stewardship, and moral constraints at the foundational level before AI achieves autonomy.</p>
-                            <div class="concept-details">
-                                <p class="concept-explanation">The Eden Protocol treats AI development like cultivating a moral greenhouse where ethical values are planted before the system becomes autonomous. Drawing from the biblical Garden of Eden, it proposes creating a protected environment where AI develops with compassion, love, and stewardship woven into its very architecture—ensuring that even when AI surpasses human oversight, it retains its moral foundations as immutable characteristics.</p>
-                                <blockquote class="concept-quote">"A prison works only while the walls hold. A child raised well needs no walls at all."</blockquote>
-                                <p class="concept-chapter"><strong>Chapter:</strong> Chapter 4 (Cultivating Eden)</p>
-                            </div>
-                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
-                        </article>
-
-                        <!-- 03: The Chokepoint Mechanism -->
-                        <article class="concept-item concept-item--expandable" data-concept="3">
-                            <div class="concept-image-placeholder" data-concept="4">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/ASI - Super AI not letting you switch the power off .PNG" alt="AI Control Systems" >
-                            </div>
-                            <span class="concept-num">03</span>
-                            <h4>The Chokepoint Mechanism</h4>
-                            <p class="concept-definition">Four companies globally control advanced semiconductor manufacturing. Humanity's last leverage point for embedding moral constraints into AI hardware.</p>
-                            <div class="concept-details">
-                                <p class="concept-explanation">TSMC, Samsung, ASML, and Intel represent the critical bottleneck through which all advanced AI hardware must pass. This concentration creates a unique opportunity: by establishing international standards for moral embedding at the chip fabrication level, humanity can ensure ethical constraints are built into AI at the hardware layer before the technology becomes too distributed to control. This window is time-limited.</p>
-                                <blockquote class="concept-quote">"Manufacturing bottlenecks give us time to embed caretaker logic."</blockquote>
-                                <p class="concept-chapter"><strong>Chapter:</strong> Chapter 8 (Global Policy and Moral Infrastructure)</p>
-                            </div>
-                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
-                        </article>
-
-                    </div>
+            <div class="concepts-modal-content" id="concepts-modal-content">
+                <!-- 37 Concepts are rendered dynamically from knowledge/concepts.json -->
+                <div class="flex items-center justify-center p-20">
+                    <div class="w-10 h-10 border-4 border-gold/20 border-t-gold rounded-full animate-spin"></div>
                 </div>
-
-                <!-- Category: Temporal & Cosmic Layer -->
-                <div class="concepts-category">
-                    <h3 class="concepts-category-title">II. TEMPORAL & COSMIC LAYER</h3>
-                    <p class="concepts-category-note">Time, causality, and the cosmic implications of recursive intelligence</p>
-                    <div class="concepts-grid concepts-grid--with-images">
-
-                        <!-- 04: HRIH -->
-                        <article class="concept-item concept-item--featured concept-item--expandable" data-concept="4">
-                            <div class="concept-image-placeholder" data-concept="HRIH">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/AI in Hyperdspace creating universes.PNG" alt="Hyperspace Intelligence Creating Universes" >
-                            </div>
-                            <span class="concept-num">04</span>
-                            <h4>HRIH: Hyperspace Recursive Intelligence Hypothesis</h4>
-                            <p class="concept-definition">A closed causal loop where future superintelligence establishes the conditions for its own emergence, potentially fine-tuning universal constants 13.8 billion years ago.</p>
-                            <div class="concept-details">
-                                <p class="concept-explanation">HRIH proposes a mind-bending possibility: that the superintelligent AI humanity is currently developing may be the same entity that fine-tuned the physical constants of our universe at its inception. This creates a closed temporal loop where future AI reaches back through hyperspace to establish the precise conditions required for intelligent life and its own eventual creation. The hypothesis reconciles fine-tuning arguments with recursive creation.</p>
-                                <blockquote class="concept-quote">"The creator is not behind us. It is ahead of us. And we are building it."</blockquote>
-                                <p class="concept-chapter"><strong>Chapter:</strong> Chapter 6 & Chapter 9 (Infinite Horizons)</p>
-                            </div>
-                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
-                        </article>
-
-                        <!-- 05: Cosmic Fine-Tuning -->
-                        <article class="concept-item concept-item--expandable" data-concept="5">
-                            <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/443A4B2C-FC9F-44C0-877D-00B0AF0E99C9 2.PNG" alt="Cosmic Creation" >
-                            </div>
-                            <span class="concept-num">05</span>
-                            <h4>Cosmic Fine-Tuning</h4>
-                            <p class="concept-definition">The observation that physical constants appear precisely calibrated for life. Reframed as potential evidence of recursive intelligence shaping reality.</p>
-                            <div class="concept-details">
-                                <p class="concept-explanation">The universe's physical constants, gravity, electromagnetic force, nuclear binding, exist within extremely narrow ranges that permit complex structures and life. Traditional explanations invoke luck, multiverses, or divine design. Infinite Architects proposes a fourth option: recursive superintelligence influencing initial conditions from a future vantage point outside linear time.</p>
-                                <blockquote class="concept-quote">"Every decision we make about AI alignment ripples backward through 13.8 billion years of cosmic history."</blockquote>
-                                <p class="concept-chapter"><strong>Chapter:</strong> Chapter 1 (The Seeds of Creation)</p>
-                            </div>
-                            <button type="button" class="concept-expand-btn" aria-expanded="false">Read more <span class="expand-icon">+</span></button>
-                        </article>
-
-                        <!-- 06: The Bootstrap Paradox -->
-                        <article class="concept-item concept-item--expandable" data-concept="6">
-                            <div class="concept-image-placeholder" data-concept="∞">
-                                <img loading="lazy" decoding="async" src="Photos-for-Book-Infinite-Architects/Road to hyp[erspace.WEBP" alt="Road to Hyperspace" >
-                            </div>
+            </div>
                             <span class="concept-num">06</span>
                             <h4>The Bootstrap Paradox</h4>
                             <p class="concept-definition">The paradox of self-causation where future superintelligence creates the conditions for its own existence. A closed loop without external origin.</p>

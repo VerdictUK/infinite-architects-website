@@ -825,9 +825,21 @@ class FluidSimulation {
         this.mesh = new THREE.Mesh(geometry, this.material);
         this.mesh.renderOrder = -1; // Background
         this.scene.add(this.mesh);
+        this.isPaused = false;
+    }
+
+    pause() {
+        this.isPaused = true;
+        if (this.mesh) this.mesh.visible = false;
+    }
+
+    resume() {
+        this.isPaused = false;
+        if (this.mesh) this.mesh.visible = true;
     }
 
     update(time, mouseX, mouseY) {
+        if (this.isPaused) return;
         this.uniforms.u_time.value = time * 0.001;
         
         // Map normalized mouse (-1 to 1) to (0 to 1) for shader
@@ -935,6 +947,7 @@ class Book3D {
         this.pivot.position.set(400, 0, 0); // Positioned to the right for desktop
         
         this.scene.add(this.pivot);
+        this.isPaused = false;
 
         // Lights specifically for the book
         const bookLight = new THREE.SpotLight(0xd4a84b, 2, 2000);
@@ -976,8 +989,18 @@ class Book3D {
         }
     }
 
+    pause() {
+        this.isPaused = true;
+        if (this.pivot) this.pivot.visible = false;
+    }
+
+    resume() {
+        this.isPaused = false;
+        if (this.pivot) this.pivot.visible = true;
+    }
+
     update() {
-        if (!this.mesh) return;
+        if (!this.mesh || this.isPaused) return;
 
         // Smooth rotation following mouse
         this.pivot.rotation.y += (this.targetRotation.y - this.pivot.rotation.y) * 0.05;
@@ -1869,8 +1892,10 @@ window.ShadowLayer = new ShadowLayer();
                 el.style.display = 'block';
             }
             
-            // Hook for custom engines
+            // Hook for custom engines (Proper Fix)
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.resume();
+            if (id === 'fluid-canvas' && window.fluidEngine) window.fluidEngine.resume?.();
+            if (id === 'hero-book-container' && window.bookEngine) window.bookEngine.resume?.();
         },
 
         deactivateEffect(el, id) {
@@ -1885,6 +1910,8 @@ window.ShadowLayer = new ShadowLayer();
             }
             
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.pause();
+            if (id === 'fluid-canvas' && window.fluidEngine) window.fluidEngine.pause?.();
+            if (id === 'hero-book-container' && window.bookEngine) window.bookEngine.pause?.();
         },
 
         watchModals() {
@@ -1894,9 +1921,15 @@ window.ShadowLayer = new ShadowLayer();
                         const isAnyModalActive = !!document.querySelector('.active[id*="modal"], .active[id*="overlay"]');
                         document.body.classList.toggle('modal-open', isAnyModalActive);
                         
-                        // If modal is open, pause the most expensive background effect (Fluid)
-                        const fluid = document.getElementById('fluid-canvas');
-                        if (fluid) fluid.style.opacity = isAnyModalActive ? '0' : '1';
+                        // PERF: Pause expensive background effects when modal is open
+                        if (window.fluidEngine) {
+                            if (isAnyModalActive) window.fluidEngine.pause?.();
+                            else if (window.PERF_STATE?.isHeroVisible) window.fluidEngine.resume?.();
+                        }
+                        if (window.bookEngine) {
+                            if (isAnyModalActive) window.bookEngine.pause?.();
+                            else if (window.PERF_STATE?.isHeroVisible) window.bookEngine.resume?.();
+                        }
                     }
                 });
             });

@@ -346,8 +346,10 @@
                 el.style.display = 'block';
             }
             
-            // Hook for custom engines
+            // Hook for custom engines (Proper Fix)
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.resume();
+            if (id === 'fluid-canvas' && window.fluidEngine) window.fluidEngine.resume?.();
+            if (id === 'hero-book-container' && window.bookEngine) window.bookEngine.resume?.();
         },
 
         deactivateEffect(el, id) {
@@ -362,6 +364,8 @@
             }
             
             if (id === 'neural-canvas' && window.neuralEngine) window.neuralEngine.pause();
+            if (id === 'fluid-canvas' && window.fluidEngine) window.fluidEngine.pause?.();
+            if (id === 'hero-book-container' && window.bookEngine) window.bookEngine.pause?.();
         },
 
         watchModals() {
@@ -371,9 +375,15 @@
                         const isAnyModalActive = !!document.querySelector('.active[id*="modal"], .active[id*="overlay"]');
                         document.body.classList.toggle('modal-open', isAnyModalActive);
                         
-                        // If modal is open, pause the most expensive background effect (Fluid)
-                        const fluid = document.getElementById('fluid-canvas');
-                        if (fluid) fluid.style.opacity = isAnyModalActive ? '0' : '1';
+                        // PERF: Pause expensive background effects when modal is open
+                        if (window.fluidEngine) {
+                            if (isAnyModalActive) window.fluidEngine.pause?.();
+                            else if (window.PERF_STATE?.isHeroVisible) window.fluidEngine.resume?.();
+                        }
+                        if (window.bookEngine) {
+                            if (isAnyModalActive) window.bookEngine.pause?.();
+                            else if (window.PERF_STATE?.isHeroVisible) window.bookEngine.resume?.();
+                        }
                     }
                 });
             });
@@ -411,22 +421,37 @@
                 const response = await fetch('knowledge/concepts.json');
                 this.data = await response.json();
                 
-                let html = '';
-                this.data.forEach(item => {
+                let html = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-12">
+                `;
+
+                this.data.forEach((item, index) => {
                     html += `
-                        <div class="p-8 glass-panel-ultra rounded-3xl border border-white/5 hover:border-gold/30 transition-all duration-500 group">
-                            <div class="flex justify-between items-start mb-6">
-                                <span class="font-mono text-gold text-[10px] uppercase tracking-widest">Concept ${item.id.toString().padStart(2, '0')}</span>
+                        <article class="reveal glass-panel-ultra p-8 rounded-[2rem] border border-white/5 hover:border-gold/30 transition-all duration-500 group flex flex-col h-full" style="transition-delay: ${index * 0.05}s">
+                            <div class="flex justify-between items-start mb-8">
+                                <span class="font-mono text-gold text-[10px] uppercase tracking-widest border border-gold/20 px-3 py-1 rounded-full">Concept ${item.id.toString().padStart(2, '0')}</span>
                                 <span class="text-[9px] text-white/30 uppercase tracking-tighter font-mono">${item.category}</span>
                             </div>
-                            <h4 class="font-display text-xl text-white mb-4 group-hover:text-gold transition-colors">${item.title}</h4>
-                            <p class="text-text-secondary text-sm leading-relaxed font-serif italic">${item.description}</p>
-                        </div>
+                            <h4 class="font-display text-2xl text-white mb-4 group-hover:text-gold transition-colors leading-tight">${item.title}</h4>
+                            <p class="text-text-secondary text-sm leading-relaxed font-serif italic italic flex-grow">${item.description}</p>
+                            
+                            <div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center">
+                                <span class="text-[10px] font-mono text-white/20 uppercase tracking-widest">IA-CORE-V1</span>
+                                <div class="w-2 h-2 rounded-full bg-gold/30 group-hover:bg-gold transition-colors shadow-glow-sm"></div>
+                            </div>
+                        </article>
                     `;
                 });
 
+                html += `</div>`;
                 container.innerHTML = html;
                 this.isLoaded = true;
+                
+                // Trigger reveal after render
+                setTimeout(() => {
+                    container.querySelectorAll('.reveal').forEach(el => el.classList.add('apple-visible'));
+                }, 100);
+
                 console.log('📚 ConceptArchive: 37 Concepts rendered.');
             } catch (error) {
                 console.error('❌ ConceptArchive: Load failed', error);

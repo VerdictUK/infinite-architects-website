@@ -126,12 +126,24 @@ class FluidSimulation {
             depthTest: false
         });
 
-        this.mesh = new THREE.Mesh(geometry, this.material);
+        this.material = new THREE.Mesh(geometry, this.material);
         this.mesh.renderOrder = -1; // Background
         this.scene.add(this.mesh);
+        this.isPaused = false;
+    }
+
+    pause() {
+        this.isPaused = true;
+        if (this.mesh) this.mesh.visible = false;
+    }
+
+    resume() {
+        this.isPaused = false;
+        if (this.mesh) this.mesh.visible = true;
     }
 
     update(time, mouseX, mouseY) {
+        if (this.isPaused) return;
         this.uniforms.u_time.value = time * 0.001;
         
         // Map normalized mouse (-1 to 1) to (0 to 1) for shader
