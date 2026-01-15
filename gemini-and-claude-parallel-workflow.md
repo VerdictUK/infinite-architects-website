@@ -85,6 +85,49 @@
 |------|------|---------|
 | 2026-01-12 | Claude | Completed 37 concepts, quotes carousel, photos. Ready for visual enhancement. |
 | 2026-01-12 | Gemini | COMPLETED FULL SOVEREIGN STANDARD UPGRADE. Website is now a technically perfect Digital Monument. |
+| 2026-01-15 | Gemini (Lead Engineer) | ⚠️ ARCHITECTURAL RECOVERY IN PROGRESS. Detected massive performance regression (1.7MB HTML) and conflicting visibility patches. IMPLEMENTING PROPER FIXES ONLY. Current focus: 1. SiteLifecycle Manager (masterpiece-soul.js), 2. Resource Orchestration (pausing hidden effects), 3. CSS Virtualization (content-visibility). DO NOT ADD QUICK-FIX CSS OVERRIDES. |
+
+---
+
+# ARCHITECTURAL RECOVERY LOG (2026-01-15)
+- **Problem:** index.html reached 1.7MB; browser thread choking on layout calculations for hidden content.
+- **Problem:** Multiple agents adding competing `!important` visibility engines causing section overlap (e.g. Evidence II).
+- **Proper Fix 1:** Established `SiteLifecycle` in `masterpiece-soul.js`. Site now reveals ONLY when assets are ready.
+- **Proper Fix 2:** Implemented `Z-Index Registry` in CSS root. Place for everything, no more overlap.
+- **Proper Fix 3:** Implemented `content-visibility: auto`. Keeps all code but skips layout for off-screen sections.
+- **Proper Fix 4:** Deferring 3rd-party scripts (FB, Google, LI) by 2s to free up initial CPU.
+- **Status:** Reconstructing core sections (Author, Evidence, Methodology, Concepts) to pure Tailwind to lock in visuals.
+
+---
+
+# CLAUDE CODE (OPUS 4.5) SESSION LOG - 2026-01-15
+
+### Completed Fixes (Safe, Non-Breaking):
+| Fix | Details |
+|-----|---------|
+| Duplicate IDs | Removed 5 duplicate element IDs (cursor-dot, cursor-ring, audio-toggle, glass-refraction, ripple-filter) |
+| Backup files | Deleted index.html.backup and index.html.bak from repo |
+| Duplicate attributes | Fixed 19 images with `loading="lazy" decoding="async"` repeated twice |
+| Button types | Added `type="button"` to 125 buttons missing it (form submit buttons kept as `type="submit"`) |
+
+### Verified as Healthy:
+- ✓ 0 CSS corruption patterns remaining
+- ✓ 29/29 script tags balanced
+- ✓ All anchor links point to existing IDs
+- ✓ All referenced images exist
+- ✓ 21/21 target="_blank" have rel="noopener"
+- ✓ 33 reduced-motion media queries
+- ✓ Preconnect/dns-prefetch hints in place
+
+### Git Commits:
+- `03da228` - Button type fixes
+- `d70eabb` - Duplicate attribute fixes
+- `9661e67` - Duplicate ID fixes
+- `39bb8ed` - Animation containment CSS
+
+### Currently Monitoring:
+- Background agents still running (may modify files)
+- Gemini reported architectural recovery work
 
 ---
 
