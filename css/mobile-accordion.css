@@ -8200,3 +8200,284 @@
 .expert-quote__reference a:hover {
   text-decoration: underline;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   MOBILE TYPOGRAPHY READABILITY UPGRADE
+   Strategic font size increases for mobile without losing authority
+   Wife's feedback: smallest text too small on mobile
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       SPACE MONO ELEMENTS (Technical Labels)
+       Increase from ~0.6rem to ~0.7rem (+16% increase)
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Section labels like "PART I", "SECTION 01" */
+    .section-label,
+    .part-label,
+    [class*="section-"] span:first-child,
+    .accordion-label,
+    .accordion-part-label {
+        font-size: 0.72rem !important;
+        letter-spacing: 0.12em !important;
+    }
+
+    /* Timestamps and dates */
+    .timestamp,
+    .date-label,
+    .verified-date,
+    time,
+    [class*="date"]:not(button):not(input) {
+        font-size: 0.75rem !important;
+    }
+
+    /* Source/citation tags */
+    .source-tag,
+    .ask-book-chat__source-tag,
+    [class*="source"] span,
+    .citation-tag {
+        font-size: 0.72rem !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Mode labels and checkboxes */
+    .ask-book-chat__mode-text,
+    .mode-label,
+    [class*="mode"] label {
+        font-size: 0.72rem !important;
+    }
+
+    /* "Powered by" and attribution text */
+    .ask-book-chat__powered,
+    .powered-by,
+    .attribution,
+    [class*="powered"] {
+        font-size: 0.68rem !important;
+    }
+
+    /* Feedback and action labels */
+    .ask-book-chat__feedback-label,
+    .feedback-label,
+    [class*="feedback"] span {
+        font-size: 0.68rem !important;
+    }
+
+    /* Suggestion labels */
+    .ask-book-chat__suggestions-label,
+    .suggestions-label,
+    [class*="suggestion"] .label {
+        font-size: 0.7rem !important;
+    }
+
+    /* Related questions label */
+    .ask-book-chat__related-label {
+        font-size: 0.68rem !important;
+    }
+
+    /* Model info text */
+    .ask-book-chat__model-info {
+        font-size: 0.65rem !important;
+    }
+
+    /* Chat subtitle */
+    .ask-book-chat__subtitle {
+        font-size: 0.72rem !important;
+    }
+
+    /* Copyright notice */
+    .copyright,
+    footer small,
+    .footer-copyright {
+        font-size: 0.72rem !important;
+    }
+
+    /* Stats section labels */
+    .stats-label,
+    .stat-label,
+    [class*="stat"] small {
+        font-size: 0.68rem !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       CONCEPT DESCRIPTIONS (Cormorant Garamond)
+       Slight increase for better mobile readability
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Concept card descriptions */
+    .concept-description,
+    .concept-card p,
+    [class*="concept"] .description {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* FAQ answer text */
+    .faq-answer,
+    .faq-content p,
+    [class*="faq"] .answer {
+        font-size: 1rem !important;
+        line-height: 1.65 !important;
+    }
+
+    /* Quote attribution */
+    cite,
+    .quote-attribution,
+    blockquote cite {
+        font-size: 0.82rem !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       BUTTON TEXT
+       Ensure touch-friendly sizes
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Suggestion buttons */
+    .ask-book-chat__suggestion {
+        font-size: 0.78rem !important;
+        padding: 12px 16px !important;
+    }
+
+    /* Related question buttons */
+    .ask-book-chat__related-btn {
+        font-size: 0.92rem !important;
+        padding: 12px 16px !important;
+    }
+
+    /* Action buttons (listen, copy, share) */
+    .ask-book-chat__listen-btn,
+    .ask-book-chat__copy-btn,
+    .ask-book-chat__share-btn {
+        font-size: 0.7rem !important;
+        padding: 6px 12px !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       ACCORDION SECTION HEADERS
+       Maintain authority while improving readability
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Section taglines/subtitles */
+    .section-tagline,
+    .accordion-tagline,
+    [class*="accordion"] .tagline {
+        font-size: 0.88rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Category range badges (e.g., "08-12", "13-18") */
+    .category-badge,
+    .range-badge,
+    [class*="badge"]:not(.evidence-verdict-hero__badge) {
+        font-size: 0.78rem !important;
+        padding: 8px 14px !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       EVIDENCE SECTION
+       Ensure BBC clips and timeline are readable
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Video labels */
+    .video-label,
+    .bbc-label,
+    [class*="video"] .label {
+        font-size: 0.72rem !important;
+    }
+
+    /* Timeline connector text (e.g., "5 DAYS") */
+    .timeline-connector,
+    .days-badge,
+    [class*="timeline"] .days,
+    .evidence-timeline-hero__gap-number {
+        font-size: 1.1rem !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       FORM INPUTS
+       Ensure inputs are readable
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Chat input */
+    .ask-book-chat__input {
+        font-size: 1.05rem !important;
+    }
+
+    .ask-book-chat__input::placeholder {
+        font-size: 1rem !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       LINE HEIGHT ADJUSTMENTS
+       Small text needs proportionally more line height for readability
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Small text needs more breathing room */
+    .small-text,
+    [class*="label"]:not(button):not(input),
+    [class*="subtitle"],
+    [class*="caption"],
+    small {
+        line-height: 1.5 !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       LETTER SPACING ADJUSTMENTS
+       Small caps and uppercase text needs more letter spacing at small sizes
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    /* Uppercase text needs more spacing */
+    .uppercase,
+    [style*="text-transform: uppercase"] {
+        letter-spacing: 0.12em !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   MINIMUM TOUCH TARGET SIZES
+   WCAG 2.2 recommends 44x44px minimum for touch targets
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* Exception for inline buttons that need to be smaller */
+    .ask-book-chat__copy-btn,
+    .ask-book-chat__share-btn,
+    .ask-book-chat__feedback-btn {
+        min-height: 36px;
+        min-width: 36px;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   HIGH CONTRAST MODE SUPPORT
+   For users who need extra readability
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-contrast: high) {
+    /* Increase contrast for small text */
+    [class*="label"],
+    [class*="powered"],
+    [class*="subtitle"],
+    small {
+        color: rgba(240, 235, 227, 0.85) !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   HIDE MOTION BUTTON AND STATUS INDICATOR ON MOBILE
+   Motion is now auto-enabled - manual toggle no longer needed
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1023px) {
+    .motion-enable-btn,
+    .motion-status {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+}
