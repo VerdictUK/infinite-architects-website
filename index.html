@@ -130,6 +130,14 @@
             --space-lg: 2rem;
             --space-xl: 4rem;
             --space-2xl: 8rem;
+
+            /* Minimum readable font sizes */
+            --font-size-min: 0.875rem;  /* 14px - minimum readable */
+            --font-size-xs: 0.8125rem;  /* 13px - small labels */
+            --font-size-sm: 0.875rem;   /* 14px - captions */
+            --font-size-base: 1rem;     /* 16px - body text */
+            --font-size-md: 1.125rem;   /* 18px - emphasis */
+            --font-size-lg: 1.25rem;    /* 20px - subheadings */
             
             /* Transitions */
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -289,6 +297,19 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Minimum readable font sizes for content */
+        p, li, td, th, label, span:not([class*="icon"]):not([class*="badge"]) {
+            font-size: max(0.875rem, 1em); /* At least 14px */
+        }
+
+        /* Ensure description text is readable */
+        .evidence-desc, .evidence-note, .evidence-subtext,
+        .prediction-desc, .timeline-desc, .idea-desc,
+        .tripath-desc, .comp-card p, .about-text p {
+            font-size: clamp(0.9375rem, 2.5vw, 1.0625rem); /* 15-17px */
+            line-height: 1.6;
         }
 
         /* Prevent scroll during loader - keeps page at top */
