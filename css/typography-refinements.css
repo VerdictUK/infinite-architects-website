@@ -465,3 +465,117 @@ a:not(.btn):not(.button):hover {
         widows: 3;
     }
 }
+
+/* ============================================================================
+   13. DESIGN FIXES - MOBILE NAVIGATION & CHAT
+   Hide problematic navigation elements, fix chat suggestions
+   ============================================================================ */
+
+/* CRITICAL FIX: Hide the huge gold circles (progress indicator / section nav)
+   These elements overlap content and look broken on mobile */
+.progress-indicator,
+.section-progress,
+.chapter-sidebar,
+.chapter-nav,
+.slideshow-nav,
+nav.progress-indicator {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Extra specificity for stubborn elements */
+html body .progress-indicator,
+html body .section-progress,
+html body .progress-dot,
+html body nav.progress-indicator,
+html body nav.progress-indicator .progress-dot {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* FIX: Ask Book Chat Suggestion Buttons - proper pills, not broken circles */
+.ask-book-chat__suggestions-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: center !important;
+}
+
+.ask-book-chat__suggestion {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 16px !important;
+    font-size: 0.75rem !important;
+    white-space: nowrap !important;
+    border-radius: 100px !important;
+    min-width: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 36px !important;
+    background: rgba(212, 168, 75, 0.1) !important;
+    border: 1px solid rgba(212, 168, 75, 0.25) !important;
+    color: rgba(240, 235, 227, 0.85) !important;
+    font-family: var(--font-mono, 'Space Mono', monospace) !important;
+    transition: all 0.2s ease !important;
+}
+
+.ask-book-chat__suggestion:hover {
+    background: rgba(212, 168, 75, 0.2) !important;
+    border-color: rgba(212, 168, 75, 0.5) !important;
+    color: #d4a84b !important;
+}
+
+/* Mobile-specific chat fixes */
+@media (max-width: 768px) {
+    .ask-book-chat__suggestions-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+    }
+
+    .ask-book-chat__suggestion {
+        white-space: normal !important;
+        text-align: center !important;
+        padding: 12px 10px !important;
+        font-size: 0.7rem !important;
+        line-height: 1.3 !important;
+        border-radius: 12px !important;
+        min-height: 48px !important;
+    }
+}
+
+/* ============================================================================
+   14. iOS VIEWPORT FIX - 100dvh fallback
+   ============================================================================ */
+
+/* iOS Safari viewport height fix */
+@supports (-webkit-touch-callout: none) {
+    .ask-book-chat__panel,
+    .modal,
+    .fullscreen {
+        height: 100dvh;
+        max-height: 100dvh;
+    }
+}
+
+/* ============================================================================
+   15. HIGH CONTRAST MODE SUPPORT
+   ============================================================================ */
+
+@media (prefers-contrast: high) {
+    .ask-book-chat__suggestion {
+        border-width: 2px !important;
+        border-color: #d4a84b !important;
+    }
+
+    .progress-dot,
+    .section-progress .progress-dot {
+        display: none !important;
+    }
+}
