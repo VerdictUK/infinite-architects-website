@@ -6,7 +6,7 @@
  * Models: Claude (primary), GPT-4o, Gemini, DeepSeek
  */
 
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -14,17 +14,78 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load knowledge base from JSON files
+// Load knowledge base from JSON files AND markdown chapters
 function loadKnowledgeBase() {
   const knowledgePath = join(__dirname, '..', 'knowledge');
 
   try {
-    // Load raw data
+    // Load raw data from JSON files
     const rawConcepts = JSON.parse(readFileSync(join(knowledgePath, 'concepts.json'), 'utf-8'));
     const rawChapters = JSON.parse(readFileSync(join(knowledgePath, 'chapters.json'), 'utf-8'));
     const rawQuotes = JSON.parse(readFileSync(join(knowledgePath, 'quotes.json'), 'utf-8'));
     const rawFaq = JSON.parse(readFileSync(join(knowledgePath, 'faq.json'), 'utf-8'));
     const rawEvidence = JSON.parse(readFileSync(join(knowledgePath, 'evidence.json'), 'utf-8'));
+
+    // Load markdown chapter files (full book content)
+    const bookContent = [];
+    const bookPath = join(knowledgePath, 'book');
+    if (existsSync(bookPath)) {
+      const bookFiles = readdirSync(bookPath).filter(f => f.endsWith('.md')).sort();
+      bookFiles.forEach(file => {
+        try {
+          const content = readFileSync(join(bookPath, file), 'utf-8');
+          const chapterNum = parseInt(file.split('_')[0]) || 0;
+          const title = file.replace(/^\d+_/, '').replace(/_/g, ' ').replace('.md', '');
+          bookContent.push({
+            chapter: chapterNum,
+            title: title,
+            content: content,
+            excerpt: content.slice(0, 800)
+          });
+        } catch (e) {
+          console.warn(`Failed to load book file ${file}:`, e.message);
+        }
+      });
+      console.log(`[ASK BOOK] Loaded ${bookContent.length} chapter markdown files`);
+    }
+
+    // Load notes files
+    const notesContent = [];
+    const notesPath = join(knowledgePath, 'notes');
+    if (existsSync(notesPath)) {
+      const noteFiles = readdirSync(notesPath).filter(f => f.endsWith('.md'));
+      noteFiles.forEach(file => {
+        try {
+          const content = readFileSync(join(notesPath, file), 'utf-8');
+          notesContent.push({
+            title: file.replace(/_/g, ' ').replace('.md', ''),
+            content: content,
+            excerpt: content.slice(0, 500)
+          });
+        } catch (e) {
+          console.warn(`Failed to load note ${file}:`, e.message);
+        }
+      });
+    }
+
+    // Load research files
+    const researchContent = [];
+    const researchPath = join(knowledgePath, 'research');
+    if (existsSync(researchPath)) {
+      const researchFiles = readdirSync(researchPath).filter(f => f.endsWith('.md'));
+      researchFiles.forEach(file => {
+        try {
+          const content = readFileSync(join(researchPath, file), 'utf-8');
+          researchContent.push({
+            title: file.replace(/_/g, ' ').replace('.md', ''),
+            content: content,
+            excerpt: content.slice(0, 500)
+          });
+        } catch (e) {
+          console.warn(`Failed to load research ${file}:`, e.message);
+        }
+      });
+    }
 
     // Normalize structures - handle both array and object formats
     return {
@@ -46,7 +107,11 @@ function loadKnowledgeBase() {
       faq: rawFaq,  // Already has correct structure with 'faqs' array
       evidence: {
         verifiedClaims: rawEvidence.verifiedClaims || rawEvidence.claims || (Array.isArray(rawEvidence) ? rawEvidence : [])
-      }
+      },
+      // NEW: Full book content from markdown files
+      bookContent: bookContent,
+      notesContent: notesContent,
+      researchContent: researchContent
     };
   } catch (error) {
     console.error('Failed to load knowledge base:', error);
@@ -55,7 +120,10 @@ function loadKnowledgeBase() {
       chapters: { chapters: [] },
       quotes: { quotes: [] },
       faq: { faqs: [] },
-      evidence: { verifiedClaims: [] }
+      evidence: { verifiedClaims: [] },
+      bookContent: [],
+      notesContent: [],
+      researchContent: []
     };
   }
 }
@@ -132,15 +200,58 @@ function searchFAQ(query) {
 }
 
 /**
- * Search knowledge base for relevant context
+ * Extract relevant excerpt from content based on query
+ */
+function extractRelevantExcerpt(content, query, maxLength = 600) {
+  const queryLower = query.toLowerCase();
+  const sentences = content.split(/[.!?]+/);
+
+  // Find sentence with highest relevance
+  let bestSentence = '';
+  let bestScore = 0;
+  let bestIndex = 0;
+
+  sentences.forEach((sentence, index) => {
+    const sLower = sentence.toLowerCase();
+    let score = 0;
+
+    if (sLower.includes(queryLower)) score += 10;
+
+    // Check for query words
+    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);
+    queryWords.forEach(word => {
+      if (sLower.includes(word)) score += 2;
+    });
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestIndex = index;
+      // Include surrounding sentences for context
+      const start = Math.max(0, index - 1);
+      const end = Math.min(sentences.length, index + 2);
+      bestSentence = sentences.slice(start, end).join('. ').trim();
+    }
+  });
+
+  if (bestSentence.length > maxLength) {
+    return bestSentence.slice(0, maxLength) + '...';
+  }
+
+  return bestSentence || content.slice(0, maxLength);
+}
+
+/**
+ * Search knowledge base for relevant context (including full book content)
  */
 function searchKnowledgeBase(query) {
   const queryLower = query.toLowerCase();
+  const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);
   const results = {
     concepts: [],
     chapters: [],
     quotes: [],
-    evidence: []
+    evidence: [],
+    bookExcerpts: []  // NEW: Relevant excerpts from full book
   };
 
   // Search concepts
@@ -159,7 +270,7 @@ function searchKnowledgeBase(query) {
   results.concepts.sort((a, b) => b.matchScore - a.matchScore);
   results.concepts = results.concepts.slice(0, 3);
 
-  // Search chapters
+  // Search chapters (JSON summaries)
   for (const chapter of chapters.chapters) {
     const keyConcepts = chapter.keyConcepts || [];
     const matchScore = keyConcepts.filter(c => queryLower.includes(c.toLowerCase())).length;
@@ -187,6 +298,55 @@ function searchKnowledgeBase(query) {
   }
   results.evidence = results.evidence.slice(0, 3);
 
+  // NEW: Search full book content for relevant excerpts
+  for (const chapter of kb.bookContent) {
+    const contentLower = chapter.content.toLowerCase();
+    let score = 0;
+
+    // Check for exact query match
+    if (contentLower.includes(queryLower)) score += 10;
+
+    // Check for query word matches
+    queryWords.forEach(word => {
+      if (contentLower.includes(word)) score += 2;
+    });
+
+    // Check title match
+    if (chapter.title.toLowerCase().includes(queryLower)) score += 5;
+
+    if (score > 3) {
+      const excerpt = extractRelevantExcerpt(chapter.content, query);
+      results.bookExcerpts.push({
+        chapter: chapter.chapter,
+        title: chapter.title,
+        excerpt: excerpt,
+        score: score
+      });
+    }
+  }
+
+  // Sort by relevance and limit
+  results.bookExcerpts.sort((a, b) => b.score - a.score);
+  results.bookExcerpts = results.bookExcerpts.slice(0, 2);
+
+  // Also search notes and research if needed
+  if (results.concepts.length === 0 && results.bookExcerpts.length === 0) {
+    // Search notes for fallback context
+    for (const note of kb.notesContent) {
+      const contentLower = note.content.toLowerCase();
+      if (queryWords.some(word => contentLower.includes(word))) {
+        const excerpt = extractRelevantExcerpt(note.content, query, 400);
+        results.bookExcerpts.push({
+          chapter: 'Notes',
+          title: note.title,
+          excerpt: excerpt,
+          score: 1
+        });
+        break;
+      }
+    }
+  }
+
   return results;
 }
 
@@ -210,6 +370,15 @@ function buildContext(kbResults) {
     for (const chapter of kbResults.chapters) {
       context += `\n**Chapter ${chapter.number}: ${chapter.title}**\n`;
       context += `${chapter.summary}\n`;
+    }
+  }
+
+  // NEW: Include relevant excerpts from full book content
+  if (kbResults.bookExcerpts && kbResults.bookExcerpts.length > 0) {
+    context += '\n\nDIRECT EXCERPTS FROM THE BOOK:\n';
+    for (const excerpt of kbResults.bookExcerpts) {
+      context += `\n**From Chapter ${excerpt.chapter}: ${excerpt.title}**\n`;
+      context += `"${excerpt.excerpt}"\n`;
     }
   }
 
