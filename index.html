@@ -950,12 +950,13 @@
             border-radius: 8px;
         }
 
-        /* Video-specific styling - crop black letterbox bars */
+        /* Video-specific styling - show full book, crop black bars from sides only */
         video.hero-book {
             background: transparent;
             object-fit: cover;
-            width: clamp(200px, 25vw, 280px);
-            aspect-ratio: 3 / 4;
+            object-position: top center;
+            width: clamp(220px, 28vw, 320px);
+            aspect-ratio: 2 / 3;
         }
 
         .hero-book:hover {
