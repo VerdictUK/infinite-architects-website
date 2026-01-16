@@ -1,0 +1,1217 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   TACTICAL INTELLIGENCE INTERFACE — MILITARY-GRADE CHAT SYSTEM
+   Infinite Architects · Beyond ChatGPT · Beyond Claude · Beyond All
+
+   VERSION: 1.0.0 CLASSIFIED
+   CLEARANCE: PUBLIC ACCESS AUTHORIZED
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   1. TACTICAL DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* Tactical Colors */
+    --tac-void: #050608;
+    --tac-surface: #0a0c12;
+    --tac-surface-elevated: #0f1218;
+    --tac-border: rgba(212, 168, 75, 0.15);
+    --tac-border-active: rgba(212, 168, 75, 0.4);
+
+    /* Status Colors */
+    --tac-gold: #d4a84b;
+    --tac-gold-glow: rgba(212, 168, 75, 0.5);
+    --tac-green: #00ff88;
+    --tac-green-dim: rgba(0, 255, 136, 0.6);
+    --tac-green-glow: rgba(0, 255, 136, 0.3);
+    --tac-amber: #ffaa00;
+    --tac-amber-glow: rgba(255, 170, 0, 0.3);
+    --tac-red: #ff4444;
+    --tac-red-glow: rgba(255, 68, 68, 0.3);
+    --tac-cyan: #00d4ff;
+    --tac-cyan-glow: rgba(0, 212, 255, 0.3);
+
+    /* Text */
+    --tac-text: #e8e4dc;
+    --tac-text-dim: rgba(232, 228, 220, 0.6);
+    --tac-text-faint: rgba(232, 228, 220, 0.35);
+
+    /* Typography */
+    --tac-font-display: 'Cinzel', serif;
+    --tac-font-mono: 'Space Mono', 'JetBrains Mono', monospace;
+    --tac-font-body: 'Cormorant Garamond', Georgia, serif;
+
+    /* Animation */
+    --tac-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --tac-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --tac-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   2. CONTAINER & BACKDROP
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--tac-ease), visibility 0.4s var(--tac-ease);
+}
+
+.ask-book-chat.active {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ask-book-chat__backdrop {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(5, 6, 8, 0.85) 0%, rgba(2, 3, 5, 0.95) 100%);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+
+/* Scan line effect on backdrop */
+.ask-book-chat__backdrop::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 136, 0.015) 2px,
+        rgba(0, 255, 136, 0.015) 4px
+    );
+    pointer-events: none;
+    animation: scanLines 8s linear infinite;
+}
+
+@keyframes scanLines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   3. MAIN PANEL — TACTICAL HUD FRAME
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__panel {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 85vh;
+    max-height: 720px;
+    background: linear-gradient(180deg, var(--tac-surface-elevated) 0%, var(--tac-surface) 100%);
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.5s var(--tac-ease);
+
+    /* Tactical glow */
+    box-shadow:
+        0 0 0 1px var(--tac-border),
+        0 0 60px rgba(0, 255, 136, 0.08),
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.ask-book-chat.active .ask-book-chat__panel {
+    transform: translateY(0) scale(1);
+}
+
+/* HUD Corner Brackets */
+.ask-book-chat__panel::before,
+.ask-book-chat__panel::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--tac-green);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.ask-book-chat__panel::before {
+    top: 8px;
+    left: 8px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.ask-book-chat__panel::after {
+    top: 8px;
+    right: 8px;
+    border-left: none;
+    border-bottom: none;
+}
+
+/* Bottom corners via pseudo-element on inner wrapper */
+.ask-book-chat__messages::before,
+.ask-book-chat__messages::after {
+    content: '';
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--tac-green);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   4. HEADER — COMMAND CENTER
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: linear-gradient(180deg, rgba(0, 255, 136, 0.05) 0%, transparent 100%);
+    border-bottom: 1px solid var(--tac-border);
+    position: relative;
+}
+
+/* Status LED strip */
+.ask-book-chat__header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--tac-green) 20%,
+        var(--tac-green) 80%,
+        transparent 100%
+    );
+    opacity: 0.8;
+    animation: headerPulse 3s ease-in-out infinite;
+}
+
+@keyframes headerPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.ask-book-chat__header-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Avatar — Tactical emblem */
+.ask-book-chat__avatar {
+    width: 44px;
+    height: 44px;
+    background: var(--tac-void);
+    border: 2px solid var(--tac-green);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tac-green);
+    position: relative;
+    box-shadow:
+        0 0 20px var(--tac-green-glow),
+        inset 0 0 15px rgba(0, 255, 136, 0.1);
+}
+
+.ask-book-chat__avatar::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 2px;
+}
+
+.ask-book-chat__avatar svg {
+    width: 22px;
+    height: 22px;
+    filter: drop-shadow(0 0 6px var(--tac-green));
+}
+
+/* Title block */
+.ask-book-chat__header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ask-book-chat__title {
+    font-family: var(--tac-font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--tac-text);
+    margin: 0;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.ask-book-chat__subtitle {
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    color: var(--tac-green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Status LED indicator */
+.ask-book-chat__subtitle::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--tac-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--tac-green);
+    animation: statusBlink 2s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* Header buttons */
+.ask-book-chat__clear-btn {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--tac-text-dim);
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 2px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.ask-book-chat__clear-btn:hover {
+    background: rgba(255, 68, 68, 0.1);
+    border-color: var(--tac-red);
+    color: var(--tac-red);
+}
+
+.ask-book-chat__close {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 2px;
+    color: var(--tac-text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-left: 8px;
+}
+
+.ask-book-chat__close:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--tac-text-dim);
+    color: var(--tac-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   5. MESSAGES CONTAINER — INTELLIGENCE FEED
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__messages {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background:
+        linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.02) 100%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(0, 255, 136, 0.02) 50px,
+            rgba(0, 255, 136, 0.02) 51px
+        );
+}
+
+/* Custom scrollbar */
+.ask-book-chat__messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ask-book-chat__messages::-webkit-scrollbar-track {
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.ask-book-chat__messages::-webkit-scrollbar-thumb {
+    background: var(--tac-green);
+    border-radius: 0;
+    box-shadow: 0 0 10px var(--tac-green-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   6. WELCOME SCREEN — BRIEFING INTERFACE
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__welcome {
+    text-align: center;
+    padding: 32px 24px 24px;
+    position: relative;
+}
+
+.ask-book-chat__welcome-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+    background: var(--tac-void);
+    border: 2px solid var(--tac-gold);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tac-gold);
+    position: relative;
+    box-shadow:
+        0 0 40px var(--tac-gold-glow),
+        inset 0 0 20px rgba(212, 168, 75, 0.1);
+}
+
+/* Rotating border animation */
+.ask-book-chat__welcome-icon::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: linear-gradient(var(--tac-void), var(--tac-void)) padding-box,
+                linear-gradient(45deg, var(--tac-gold), transparent, var(--tac-gold)) border-box;
+    animation: rotateBorder 4s linear infinite;
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ask-book-chat__welcome-icon svg {
+    width: 32px;
+    height: 32px;
+    filter: drop-shadow(0 0 10px var(--tac-gold));
+    position: relative;
+    z-index: 1;
+}
+
+.ask-book-chat__welcome-title {
+    font-family: var(--tac-font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--tac-gold);
+    margin: 0 0 16px 0;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px var(--tac-gold-glow);
+}
+
+.ask-book-chat__welcome-text {
+    font-family: var(--tac-font-body);
+    font-size: 1rem;
+    color: var(--tac-text-dim);
+    line-height: 1.7;
+    margin: 0 auto;
+    max-width: 340px;
+}
+
+.ask-book-chat__welcome-text strong {
+    color: var(--tac-gold);
+    font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   7. SUGGESTIONS — QUICK ACCESS PROTOCOLS
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__suggestions {
+    padding: 0;
+    margin-top: 8px;
+}
+
+.ask-book-chat__suggestions-label {
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--tac-green);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.ask-book-chat__suggestions-label::before {
+    content: '>';
+    color: var(--tac-green);
+}
+
+.ask-book-chat__suggestions-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--tac-border), transparent);
+}
+
+.ask-book-chat__suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.ask-book-chat__suggestion {
+    font-family: var(--tac-font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--tac-text);
+    background: rgba(0, 255, 136, 0.03);
+    border: 1px solid var(--tac-border);
+    border-left: 3px solid var(--tac-green);
+    border-radius: 0 4px 4px 0;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.25s var(--tac-ease);
+    text-align: left;
+    line-height: 1.4;
+    position: relative;
+    overflow: hidden;
+}
+
+.ask-book-chat__suggestion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 255, 136, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.ask-book-chat__suggestion:hover {
+    background: rgba(0, 255, 136, 0.08);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+    transform: translateX(4px);
+    box-shadow:
+        0 0 20px var(--tac-green-glow),
+        inset 0 0 20px rgba(0, 255, 136, 0.05);
+}
+
+.ask-book-chat__suggestion:hover::before {
+    transform: translateX(0);
+}
+
+.ask-book-chat__suggestion:active {
+    transform: translateX(2px) scale(0.98);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   8. MESSAGES — TACTICAL DATA BLOCKS
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__message {
+    max-width: 90%;
+    animation: messageEntry 0.4s var(--tac-ease) forwards;
+    opacity: 0;
+}
+
+@keyframes messageEntry {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* User message */
+.ask-book-chat__message--user {
+    align-self: flex-end;
+}
+
+.ask-book-chat__message--user .ask-book-chat__message-content {
+    background: linear-gradient(135deg, var(--tac-gold) 0%, #a67c35 100%);
+    color: var(--tac-void);
+    border: none;
+    border-radius: 4px 4px 0 4px;
+    position: relative;
+}
+
+.ask-book-chat__message--user .ask-book-chat__message-content::before {
+    content: 'QUERY';
+    position: absolute;
+    top: -18px;
+    right: 0;
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--tac-gold);
+    letter-spacing: 0.1em;
+}
+
+/* AI message */
+.ask-book-chat__message--ai {
+    align-self: flex-start;
+}
+
+.ask-book-chat__message--ai .ask-book-chat__message-content {
+    background: rgba(0, 255, 136, 0.03);
+    border: 1px solid var(--tac-border);
+    border-left: 3px solid var(--tac-green);
+    border-radius: 0 4px 4px 4px;
+    color: var(--tac-text);
+    position: relative;
+}
+
+.ask-book-chat__message--ai .ask-book-chat__message-content::before {
+    content: 'INTELLIGENCE RESPONSE';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--tac-green);
+    letter-spacing: 0.1em;
+}
+
+.ask-book-chat__message-content {
+    padding: 16px 18px;
+    font-family: var(--tac-font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.ask-book-chat__message-content strong {
+    color: var(--tac-gold);
+    font-weight: 600;
+}
+
+/* Message metadata */
+.ask-book-chat__message-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--tac-border);
+}
+
+.ask-book-chat__message-time {
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    color: var(--tac-text-faint);
+    letter-spacing: 0.1em;
+}
+
+.ask-book-chat__message-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ask-book-chat__message-action {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 2px;
+    color: var(--tac-text-faint);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__message-action:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+}
+
+.ask-book-chat__message-action svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   9. TYPING INDICATOR — PROCESSING ANIMATION
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__typing {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: rgba(0, 255, 136, 0.03);
+    border: 1px solid var(--tac-border);
+    border-left: 3px solid var(--tac-green);
+    border-radius: 0 4px 4px 4px;
+    animation: messageEntry 0.3s var(--tac-ease) forwards;
+}
+
+.ask-book-chat__typing-label {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--tac-green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ask-book-chat__typing-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.ask-book-chat__typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--tac-green);
+    border-radius: 50%;
+    animation: typingPulse 1.4s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--tac-green-glow);
+}
+
+.ask-book-chat__typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.ask-book-chat__typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingPulse {
+    0%, 60%, 100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    30% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   10. INPUT AREA — COMMAND LINE INTERFACE
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__input-area {
+    padding: 16px 20px 20px;
+    background: linear-gradient(0deg, rgba(0, 255, 136, 0.03) 0%, transparent 100%);
+    border-top: 1px solid var(--tac-border);
+}
+
+.ask-book-chat__input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--tac-void);
+    border: 2px solid var(--tac-border);
+    border-radius: 4px;
+    padding: 4px;
+    transition: all 0.3s ease;
+}
+
+.ask-book-chat__input-wrapper:focus-within {
+    border-color: var(--tac-green);
+    box-shadow:
+        0 0 0 4px rgba(0, 255, 136, 0.1),
+        0 0 30px var(--tac-green-glow);
+}
+
+.ask-book-chat__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-family: var(--tac-font-mono);
+    font-size: 0.85rem;
+    color: var(--tac-text);
+    padding: 12px 16px;
+    outline: none;
+}
+
+.ask-book-chat__input::placeholder {
+    color: var(--tac-text-faint);
+    font-style: normal;
+}
+
+/* Voice button */
+.ask-book-chat__mic-btn {
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    color: var(--tac-text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__mic-btn:hover {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--tac-cyan);
+    color: var(--tac-cyan);
+}
+
+.ask-book-chat__mic-btn.active {
+    background: rgba(255, 68, 68, 0.1);
+    border-color: var(--tac-red);
+    color: var(--tac-red);
+    animation: micPulse 1s ease-in-out infinite;
+}
+
+@keyframes micPulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--tac-red-glow); }
+    50% { box-shadow: 0 0 0 8px transparent; }
+}
+
+.ask-book-chat__mic-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Send button */
+.ask-book-chat__send {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--tac-gold) 0%, #a67c35 100%);
+    border: none;
+    border-radius: 4px;
+    color: var(--tac-void);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 20px var(--tac-gold-glow);
+}
+
+.ask-book-chat__send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--tac-gold-glow);
+}
+
+.ask-book-chat__send:active {
+    transform: scale(0.95);
+}
+
+.ask-book-chat__send svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Input hints */
+.ask-book-chat__input-hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding: 0 4px;
+}
+
+.ask-book-chat__mode-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.ask-book-chat__mode-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.ask-book-chat__mode-checkbox {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--tac-void);
+    border: 2px solid var(--tac-border);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__mode-checkbox:checked {
+    background: var(--tac-green);
+    border-color: var(--tac-green);
+    box-shadow: 0 0 10px var(--tac-green-glow);
+}
+
+.ask-book-chat__mode-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--tac-void);
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.ask-book-chat__mode-text {
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--tac-green);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.ask-book-chat__powered {
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    color: var(--tac-text-faint);
+    letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   11. SOURCES DISPLAY
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__sources {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--tac-border);
+}
+
+.ask-book-chat__sources-label {
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--tac-amber);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.ask-book-chat__sources-label::before {
+    content: '📎';
+    font-size: 0.7rem;
+}
+
+.ask-book-chat__source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    color: var(--tac-text-dim);
+    background: rgba(255, 170, 0, 0.08);
+    border: 1px solid rgba(255, 170, 0, 0.2);
+    border-radius: 2px;
+    padding: 4px 8px;
+    margin: 4px 4px 0 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   12. ERROR STATE
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__error {
+    background: rgba(255, 68, 68, 0.08);
+    border: 1px solid var(--tac-red);
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+}
+
+.ask-book-chat__error-icon {
+    color: var(--tac-red);
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.ask-book-chat__error-text {
+    font-family: var(--tac-font-mono);
+    font-size: 0.75rem;
+    color: var(--tac-red);
+}
+
+.ask-book-chat__error-retry {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    color: var(--tac-text);
+    background: var(--tac-red);
+    border: none;
+    border-radius: 2px;
+    padding: 8px 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__error-retry:hover {
+    background: #ff6666;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   13. FLOATING ACTION BUTTON — TACTICAL TRIGGER
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--tac-gold) 0%, #a67c35 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tac-void);
+    z-index: 9999;
+    transition: all 0.3s var(--tac-ease);
+    box-shadow:
+        0 0 30px var(--tac-gold-glow),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ask-book-fab:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 0 50px var(--tac-gold-glow),
+        0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.ask-book-fab:active {
+    transform: scale(0.95);
+}
+
+.ask-book-fab__icon {
+    width: 26px;
+    height: 26px;
+    transition: transform 0.3s ease;
+}
+
+.ask-book-fab:hover .ask-book-fab__icon {
+    transform: scale(1.1);
+}
+
+.ask-book-fab__pulse {
+    position: absolute;
+    inset: -4px;
+    border: 2px solid var(--tac-gold);
+    border-radius: 6px;
+    animation: fabPulse 2s ease-in-out infinite;
+}
+
+@keyframes fabPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0;
+        transform: scale(1.3);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   14. MOBILE RESPONSIVE — FIELD DEPLOYMENT MODE
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .ask-book-chat {
+        padding: 0;
+    }
+
+    .ask-book-chat__panel {
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+
+    .ask-book-chat__panel::before,
+    .ask-book-chat__panel::after {
+        display: none;
+    }
+
+    .ask-book-chat__header {
+        padding: 14px 16px;
+        padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    }
+
+    .ask-book-chat__avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .ask-book-chat__title {
+        font-size: 0.75rem;
+    }
+
+    .ask-book-chat__subtitle {
+        font-size: 0.55rem;
+    }
+
+    .ask-book-chat__clear-btn {
+        padding: 6px 10px;
+        font-size: 0.6rem;
+    }
+
+    .ask-book-chat__close {
+        width: 36px;
+        height: 36px;
+    }
+
+    .ask-book-chat__messages {
+        padding: 20px 16px;
+    }
+
+    .ask-book-chat__welcome {
+        padding: 24px 16px 20px;
+    }
+
+    .ask-book-chat__welcome-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .ask-book-chat__welcome-title {
+        font-size: 0.8rem;
+    }
+
+    .ask-book-chat__welcome-text {
+        font-size: 0.9rem;
+    }
+
+    .ask-book-chat__suggestions-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .ask-book-chat__suggestion {
+        padding: 12px 14px;
+        font-size: 0.65rem;
+    }
+
+    .ask-book-chat__message {
+        max-width: 95%;
+    }
+
+    .ask-book-chat__message-content {
+        padding: 14px 16px;
+        font-size: 0.9rem;
+    }
+
+    .ask-book-chat__input-area {
+        padding: 12px 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .ask-book-chat__input-wrapper {
+        gap: 8px;
+    }
+
+    .ask-book-chat__input {
+        padding: 10px 12px;
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+
+    .ask-book-chat__mic-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .ask-book-chat__send {
+        width: 44px;
+        height: 44px;
+    }
+
+    .ask-book-chat__input-hint {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    /* FAB positioning */
+    .ask-book-fab {
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   15. REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+    .ask-book-chat,
+    .ask-book-chat__panel,
+    .ask-book-fab,
+    .ask-book-chat__suggestion,
+    .ask-book-chat__message {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+
+    .ask-book-chat__backdrop::before,
+    .ask-book-fab__pulse,
+    .ask-book-chat__welcome-icon::before,
+    .ask-book-chat__header::before,
+    .ask-book-chat__subtitle::before,
+    .ask-book-chat__typing-dot {
+        animation: none !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   16. PRINT STYLES
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+    .ask-book-chat,
+    .ask-book-fab {
+        display: none !important;
+    }
+}
