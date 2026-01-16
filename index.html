@@ -2588,99 +2588,6 @@
         /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            COOKIE CONSENT BANNER
            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(2, 3, 10, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(212, 168, 75, 0.15);
-            padding: 1.5rem 2rem;
-            z-index: calc(var(--z-overlay) + 100);
-            transform: translateY(100%);
-            transition: transform 0.5s var(--ease-out-expo);
-        }
-
-        .cookie-banner.show {
-            transform: translateY(0);
-        }
-
-        .cookie-banner-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-
-        .cookie-text {
-            font-family: var(--font-serif);
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-        }
-
-        .cookie-text a {
-            color: var(--gold);
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
-        .cookie-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-shrink: 0;
-        }
-
-        .cookie-accept {
-            padding: 0.7rem 1.5rem;
-            background: var(--gold);
-            border: none;
-            color: var(--void);
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cookie-accept:hover {
-            background: var(--gold-bright);
-        }
-
-        .cookie-decline {
-            padding: 0.7rem 1.5rem;
-            background: transparent;
-            border: 1px solid rgba(212, 168, 75, 0.3);
-            color: var(--text-dim);
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cookie-decline:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        @media (max-width: 768px) {
-            .cookie-banner-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .cookie-buttons {
-                width: 100%;
-                justify-content: center;
-            }
-        }
 
         /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            STICKY MOBILE CTA
@@ -17731,34 +17638,7 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // COOKIE CONSENT
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-        function initCookieConsent() {
-            const banner = document.getElementById('cookie-banner');
-            const acceptBtn = document.getElementById('cookie-accept');
-            const declineBtn = document.getElementById('cookie-decline');
-
-            if (!banner) return;
-
-            // Check if already responded
-            if (localStorage.getItem('ia_cookies') !== null) return;
-
-            // Show banner shortly after loader completes (loader is 2.5-5s)
-            setTimeout(() => {
-                banner.classList.add('show');
-            }, 3500);
-
-            function handleResponse(accepted) {
-                localStorage.setItem('ia_cookies', accepted ? 'accepted' : 'declined');
-                banner.classList.remove('show');
-
-                if (accepted) {
-                    // Enable analytics (placeholder)
-                    // console.log('Cookies accepted - analytics enabled');
-                }
-            }
-
-            if (acceptBtn) acceptBtn.addEventListener('click', () => handleResponse(true));
-            if (declineBtn) declineBtn.addEventListener('click', () => handleResponse(false));
-        }
+        // Cookie consent is handled by the comprehensive system at the end of the file
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // STICKY MOBILE CTA
@@ -18562,7 +18442,7 @@
             initReadingProgress();
             initNewsletter();
             initExitIntent();
-            initCookieConsent();
+            // Cookie consent handled by comprehensive system (end of file)
             initMobileCTA();
             initMobileEnhancements();
             initCarouselOptimization();
@@ -24096,8 +23976,8 @@ window.CouncilViz = CouncilViz;
             </p>
         </div>
         <div class="cookie-consent__actions">
-            <button id="cookie-decline" class="cookie-consent__btn cookie-consent__btn--decline">Decline</button>
-            <button id="cookie-accept" class="cookie-consent__btn cookie-consent__btn--accept">Accept</button>
+            <button id="consent-decline" class="cookie-consent__btn cookie-consent__btn--decline">Decline</button>
+            <button id="consent-accept" class="cookie-consent__btn cookie-consent__btn--accept">Accept</button>
         </div>
     </div>
 </div>
@@ -24313,8 +24193,8 @@ window.CouncilViz = CouncilViz;
         }
 
         // Attach event listeners
-        const acceptBtn = document.getElementById('cookie-accept');
-        const declineBtn = document.getElementById('cookie-decline');
+        const acceptBtn = document.getElementById('consent-accept');
+        const declineBtn = document.getElementById('consent-decline');
 
         if (acceptBtn) acceptBtn.addEventListener('click', handleAccept);
         if (declineBtn) declineBtn.addEventListener('click', handleDecline);
