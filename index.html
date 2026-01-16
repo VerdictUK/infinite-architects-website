@@ -200,13 +200,13 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
 
-    <!-- Critical font: Preload + load immediately -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap">
+    <!-- Critical font: Preload + load immediately (full weight range per Typography Strategy) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap">
 
-    <!-- Non-critical fonts: Load async (print media trick) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
+    <!-- Non-critical fonts: Load async (print media trick) - Typography Strategy optimised -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap"></noscript>
 
     <!-- Preload critical assets -->
     <link rel="preload" href="InfiniteArchitectsKindle20260103.jpg" as="image" fetchpriority="high">
@@ -12482,6 +12482,9 @@
 
     <!-- Ideas Section - Larger thumbnails and readable text -->
     <link rel="stylesheet" href="css/ideas-tailwind.css">
+
+    <!-- Typography Refinements - Font rendering, spacing, scale -->
+    <link rel="stylesheet" href="css/typography-refinements.css">
 </head>
 <body class="has-ticker">
 
@@ -14815,19 +14818,6 @@
     <!-- Reading Progress Bar -->
     <div class="reading-progress" id="reading-progress"></div>
 
-    <!-- Cookie Consent Banner -->
-    <div class="cookie-banner" id="cookie-banner">
-        <div class="cookie-banner-inner">
-            <p class="cookie-text">
-                We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.
-                <span class="cookie-learn-more" style="text-decoration: underline; cursor: pointer;">Learn more</span>
-            </p>
-            <div class="cookie-buttons">
-                <button class="cookie-accept" id="cookie-accept">Accept</button>
-                <button class="cookie-decline" id="cookie-decline">Decline</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Sticky Mobile CTA -->
     <div class="mobile-cta" id="mobile-cta">
