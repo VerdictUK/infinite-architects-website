@@ -17045,6 +17045,9 @@
         // PHASE 8: SECTION PROGRESS DOTS
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         function initSectionProgress() {
+            // Desktop only - don't create on mobile (permanent fix, not CSS override)
+            if (window.innerWidth < 1024) return;
+
             // Define sections to track
             const sectionConfig = [
                 { id: 'hero', label: 'HOME' },

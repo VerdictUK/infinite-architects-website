@@ -96,24 +96,18 @@
 
 @media (max-width: 1023px) {
   .mobile-experience {
-    display: block !important;
-    visibility: visible !important;
+    display: block;
+    visibility: visible;
   }
 
   .desktop-experience {
-    display: none !important;
+    display: none;
   }
 
-  /* Hide desktop navigation dots on mobile */
-  .section-progress {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
+  /* section-progress not created on mobile (JS check) - no CSS override needed */
 
   html {
-    scroll-snap-type: none !important;
+    scroll-snap-type: none;
     scroll-behavior: smooth;
   }
 
@@ -126,16 +120,16 @@
 
 @media (min-width: 1024px) {
   .mobile-experience {
-    display: none !important;
+    display: none;
   }
-  
+
   .desktop-experience {
-    display: block !important;
+    display: block;
   }
-  
+
   .mobile-buy-bar,
   .cinema-overlay {
-    display: none !important;
+    display: none;
   }
 }
 
