@@ -21125,7 +21125,7 @@
         if ('vibrate' in navigator) {
             document.querySelectorAll('button, .hero-cta, .mobile-buy-bar-btn').forEach(btn => {
                 btn.addEventListener('touchstart', () => {
-                    navigator.vibrate(10); // Light tap
+                    triggerHaptic('light'); // Light tap
                 }, { passive: true });
             });
         }
@@ -23858,9 +23858,7 @@ const CouncilViz = {
         this.startStatusRotation();
 
         // Haptic feedback on mobile
-        if (navigator.vibrate) {
-            navigator.vibrate([50, 100, 50]);
-        }
+        triggerHaptic('medium');
     },
 
     /**
@@ -23969,9 +23967,7 @@ const CouncilViz = {
             }
 
             // Haptic feedback
-            if (navigator.vibrate) {
-                navigator.vibrate([100, 50, 200]);
-            }
+            triggerHaptic('heavy');
         }
     },
 
@@ -24211,7 +24207,7 @@ window.CouncilViz = CouncilViz;
             state.recognition.onstart = () => {
                 state.isListening = true;
                 if (elements.mic) elements.mic.classList.add('listening');
-                if (navigator.vibrate) navigator.vibrate(50);
+                triggerHaptic('medium');
             };
 
             state.recognition.onresult = (event) => {
@@ -24482,102 +24478,8 @@ window.CouncilViz = CouncilViz;
     };
 
     // ═══════════════════════════════════════════════════════════════════════
-    // COUNCIL VISUALISATION
-    // ═══════════════════════════════════════════════════════════════════════
-
-    const CouncilViz = {
-        statusMessages: {
-            claude: ['Analysing ethical implications...', 'Cross-referencing Chapter 4...', 'Evaluating Eden Protocol alignment...'],
-            gpt: ['Verifying timeline accuracy...', 'Checking prediction methodology...', 'Analysing quantum computing claims...'],
-            gemini: ['Searching recent developments...', 'Validating against BBC transcript...', 'Verifying expert quotes...']
-        },
-        state: { isActive: false, statusInterval: null },
-
-        show: function(container) {
-            if (this.state.isActive) return;
-            this.state.isActive = true;
-
-            container.innerHTML = `<div class="council" id="councilViz">
-                <div class="council__rings">
-                    <div class="council__ring council__ring--claude"></div>
-                    <div class="council__ring council__ring--gpt"></div>
-                    <div class="council__ring council__ring--gemini"></div>
-                    <div class="council__center"><div class="council__center-pulse"></div></div>
-                </div>
-                <div class="council__status"><span class="council__label">COUNCIL IN SESSION</span></div>
-                <div class="council__models">
-                    <div class="council__model active" data-model="claude">
-                        <span class="council__model-dot council__model-dot--claude"></span>
-                        <span class="council__model-name">Claude</span>
-                        <span class="council__model-status">Analysing...</span>
-                    </div>
-                    <div class="council__model" data-model="gpt">
-                        <span class="council__model-dot council__model-dot--gpt"></span>
-                        <span class="council__model-name">GPT-4</span>
-                        <span class="council__model-status">Waiting...</span>
-                    </div>
-                    <div class="council__model" data-model="gemini">
-                        <span class="council__model-dot council__model-dot--gemini"></span>
-                        <span class="council__model-name">Gemini</span>
-                        <span class="council__model-status">Waiting...</span>
-                    </div>
-                </div>
-                <div class="council__progress"><div class="council__progress-bar"></div><span class="council__progress-text">Building consensus...</span></div>
-            </div>`;
-
-            this.startStatusRotation();
-            if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
-        },
-
-        startStatusRotation: function() {
-            const models = ['claude', 'gpt', 'gemini'];
-            let mi = 0, si = 0;
-
-            this.state.statusInterval = setInterval(() => {
-                const m = models[mi];
-                const msgs = this.statusMessages[m];
-                const el = document.querySelector(`[data-model="${m}"] .council__model-status`);
-                if (el) el.textContent = msgs[si % msgs.length];
-                si++;
-                if (si >= 3) {
-                    si = 0;
-                    const prev = document.querySelector(`[data-model="${m}"]`);
-                    if (prev) { prev.classList.remove('active'); prev.classList.add('complete'); prev.querySelector('.council__model-status').textContent = 'Complete ✓'; }
-                    mi++;
-                    if (mi < models.length) {
-                        const next = document.querySelector(`[data-model="${models[mi]}"]`);
-                        if (next) next.classList.add('active');
-                    } else {
-                        clearInterval(this.state.statusInterval);
-                    }
-                }
-            }, 1200);
-        },
-
-        converge: function() {
-            const council = document.getElementById('councilViz');
-            if (council) {
-                council.classList.add('converging');
-                const label = council.querySelector('.council__label');
-                if (label) label.textContent = 'CONSENSUS REACHED';
-                if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
-            }
-        },
-
-        hide: function() {
-            if (this.state.statusInterval) clearInterval(this.state.statusInterval);
-            const council = document.getElementById('councilViz');
-            if (council) {
-                council.style.opacity = '0';
-                council.style.transform = 'scale(0.9)';
-                setTimeout(() => council.remove(), 300);
-            }
-            this.state.isActive = false;
-        }
-    };
-
-    // ═══════════════════════════════════════════════════════════════════════
     // UI COMPONENTS
+    // NOTE: CouncilViz is defined globally at window.CouncilViz (see earlier in file)
     // ═══════════════════════════════════════════════════════════════════════
 
     const UI = {
@@ -24724,17 +24626,31 @@ window.CouncilViz = CouncilViz;
             }
 
             elements.messages.appendChild(msgDiv);
-            elements.messages.scrollTop = elements.messages.scrollHeight;
 
-            // Ensure scroll after DOM updates complete
+            // Force instant scroll (bypass CSS scroll-behavior: smooth)
+            // This ensures the message is immediately visible after council animation
+            const scrollToMessage = () => {
+                if (msgDiv && elements.messages) {
+                    // Temporarily disable smooth scrolling
+                    elements.messages.style.scrollBehavior = 'auto';
+                    msgDiv.scrollIntoView({ behavior: 'instant', block: 'end' });
+                    // Re-enable smooth scrolling after a tick
+                    requestAnimationFrame(() => {
+                        if (elements.messages) {
+                            elements.messages.style.scrollBehavior = '';
+                        }
+                    });
+                }
+            };
+
+            // Immediate scroll
+            scrollToMessage();
+
+            // Re-scroll after DOM paint to handle any reflow
             requestAnimationFrame(() => {
-                elements.messages.scrollTop = elements.messages.scrollHeight;
-                // Additional delayed scroll for long messages that might reflow
-                setTimeout(() => {
-                    if (elements.messages) {
-                        elements.messages.scrollTop = elements.messages.scrollHeight;
-                    }
-                }, 100);
+                scrollToMessage();
+                // Final safety scroll for long messages
+                setTimeout(scrollToMessage, 150);
             });
 
             Memory.save({ text, type, sources, timestamp: Date.now() });
@@ -25565,7 +25481,7 @@ window.CouncilViz = CouncilViz;
             if (!voice) return;
 
             // Haptic feedback
-            if (navigator.vibrate) navigator.vibrate(10);
+            triggerHaptic('light');
 
             // Update the rotating quote display
             const quoteEl = document.getElementById('voiceQuote');
@@ -25660,7 +25576,7 @@ window.CouncilViz = CouncilViz;
 
             btn.addEventListener('click', function() {
                 // Haptic feedback
-                if (navigator.vibrate) navigator.vibrate(10);
+                triggerHaptic('light');
 
                 // Show a simple prompt (or integrate with your email system)
                 const email = prompt('Enter your email to be notified when predictions verify:');
