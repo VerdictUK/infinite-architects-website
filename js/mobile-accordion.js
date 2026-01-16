@@ -91,40 +91,40 @@
       criticalAccordions: ['accordion-evidence', 'accordion-get-book'],
       // Part data with UPGRADED titles from the audit
       partData: {
-        'accordion-mind': { 
-          part: 'PART I', 
-          title: 'THE MIND', 
-          hook: 'Why I see what others miss' 
+        'accordion-mind': {
+          part: 'PART I',
+          title: 'THE MIND',
+          hook: 'The pattern-finder who saw it coming'
         },
-        'accordion-equation': { 
-          part: 'PART II', 
-          title: 'THE THESIS', 
-          hook: 'What if E=mc² had a sequel?' 
+        'accordion-equation': {
+          part: 'PART II',
+          title: 'THE THESIS',
+          hook: 'One equation. All of creation.'
         },
-        'accordion-evidence': { 
-          part: 'PART III', 
-          title: 'THE EVIDENCE', 
-          hook: '5 days. From page to proof.' 
+        'accordion-evidence': {
+          part: 'PART III',
+          title: 'THE EVIDENCE',
+          hook: 'BBC confirmed this 5 days later'
         },
-        'accordion-concepts': { 
-          part: 'PART IV', 
-          title: 'THE PHILOSOPHY', 
-          hook: 'A new vocabulary for what\'s coming' 
+        'accordion-concepts': {
+          part: 'PART IV',
+          title: 'THE PHILOSOPHY',
+          hook: '37 concepts that exist nowhere else'
         },
-        'accordion-predictions': { 
-          part: 'PART V', 
-          title: 'THE CONVERGENCE', 
-          hook: 'When the loops close' 
+        'accordion-predictions': {
+          part: 'PART V',
+          title: 'THE CONVERGENCE',
+          hook: 'Multiple predictions. All validated.'
         },
-        'accordion-stakes': { 
-          part: 'PART VI', 
-          title: 'THE STAKES', 
-          hook: 'What happens if you look away' 
+        'accordion-stakes': {
+          part: 'PART VI',
+          title: 'THE STAKES',
+          hook: 'This isn\'t tomorrow. It\'s now.'
         },
-        'accordion-reviews': { 
-          part: 'PART VII', 
-          title: 'THE VERDICT', 
-          hook: 'They saw it too' 
+        'accordion-reviews': {
+          part: 'PART VII',
+          title: 'THE VERDICT',
+          hook: 'What early readers discovered'
         },
         'accordion-get-book': { 
           part: 'PART VIII', 
