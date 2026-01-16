@@ -2763,6 +2763,263 @@
             }
         }
 
+        /* ===================================================================
+           NASA COSMIC INSIGHT - Universe Watching Back
+           =================================================================== */
+        .cosmic-insight-trigger {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0a1628 0%, #1a1a2e 100%);
+            border: 2px solid rgba(212, 168, 75, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: cosmicPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes cosmicPulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.15); }
+            50% { box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 168, 75, 0.3); }
+        }
+
+        .cosmic-insight-trigger:hover {
+            transform: scale(1.1);
+            border-color: var(--gold);
+        }
+
+        .cosmic-insight-trigger.active {
+            animation: none;
+            border-color: var(--gold);
+        }
+
+        .cosmic-insight-panel {
+            position: fixed;
+            bottom: 170px;
+            left: 20px;
+            width: 340px;
+            max-height: 70vh;
+            background: linear-gradient(180deg, rgba(10, 12, 20, 0.98) 0%, rgba(5, 6, 10, 0.98) 100%);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            border-radius: 16px;
+            z-index: 999;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 168, 75, 0.08);
+        }
+
+        .cosmic-insight-panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .cosmic-insight-header {
+            padding: 16px;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cosmic-insight-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            color: rgba(212, 168, 75, 0.8);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cosmic-insight-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: cosmicDot 2s ease-in-out infinite;
+        }
+
+        @keyframes cosmicDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .cosmic-insight-close {
+            background: transparent;
+            border: none;
+            color: rgba(240, 235, 227, 0.5);
+            cursor: pointer;
+            padding: 4px;
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+
+        .cosmic-insight-close:hover {
+            color: var(--gold);
+        }
+
+        .cosmic-insight-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .cosmic-insight-body {
+            padding: 16px;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .cosmic-insight-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: #f0ebe3;
+            margin: 0 0 8px;
+            line-height: 1.3;
+        }
+
+        .cosmic-insight-date {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: rgba(240, 235, 227, 0.4);
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .cosmic-insight-explanation {
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            color: rgba(240, 235, 227, 0.7);
+            line-height: 1.6;
+            margin: 0 0 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .cosmic-insight-concept {
+            background: rgba(212, 168, 75, 0.08);
+            border-left: 2px solid var(--gold);
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .cosmic-insight-concept-label {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .cosmic-insight-concept-text {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: rgba(240, 235, 227, 0.85);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .cosmic-insight-footer {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(212, 168, 75, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cosmic-insight-credit {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            color: rgba(240, 235, 227, 0.35);
+        }
+
+        .cosmic-insight-nasa {
+            font-family: var(--font-mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.1em;
+            color: rgba(212, 168, 75, 0.6);
+            text-decoration: none;
+        }
+
+        .cosmic-insight-nasa:hover {
+            color: var(--gold);
+        }
+
+        .cosmic-insight-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            gap: 16px;
+        }
+
+        .cosmic-insight-loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid rgba(212, 168, 75, 0.2);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .cosmic-insight-loading-text {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: rgba(240, 235, 227, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        /* Mobile positioning */
+        @media (max-width: 768px) {
+            .cosmic-insight-trigger {
+                bottom: 160px;
+                left: 16px;
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+            }
+
+            .cosmic-insight-panel {
+                bottom: 220px;
+                left: 16px;
+                right: 16px;
+                width: auto;
+                max-width: calc(100vw - 32px);
+            }
+
+            .cosmic-insight-image {
+                height: 140px;
+            }
+
+            .cosmic-insight-body {
+                max-height: 220px;
+            }
+        }
+
         /*â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            FOOTER
            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
@@ -18795,7 +19052,123 @@
             initSectionProgress();
             initAmbientOrbs();
             initSectionListenButtons();
+            initCosmicInsight();
         });
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // NASA COSMIC INSIGHT - Universe Watching Back
+        // ═══════════════════════════════════════════════════════════════════════════
+        function initCosmicInsight() {
+            const trigger = document.getElementById('cosmicTrigger');
+            const panel = document.getElementById('cosmicPanel');
+            const closeBtn = document.getElementById('cosmicClose');
+            const contentEl = document.getElementById('cosmicContent');
+
+            if (!trigger || !panel) return;
+
+            let isLoaded = false;
+            let cosmicData = null;
+
+            // Toggle panel
+            trigger.addEventListener('click', async () => {
+                const isActive = panel.classList.contains('active');
+
+                if (isActive) {
+                    panel.classList.remove('active');
+                    trigger.classList.remove('active');
+                } else {
+                    panel.classList.add('active');
+                    trigger.classList.add('active');
+                    triggerHaptic('light');
+
+                    // Load data on first open
+                    if (!isLoaded) {
+                        await loadCosmicInsight();
+                    }
+                }
+            });
+
+            // Close button
+            closeBtn.addEventListener('click', () => {
+                panel.classList.remove('active');
+                trigger.classList.remove('active');
+            });
+
+            // Close on backdrop click
+            document.addEventListener('click', (e) => {
+                if (!panel.contains(e.target) && !trigger.contains(e.target)) {
+                    panel.classList.remove('active');
+                    trigger.classList.remove('active');
+                }
+            });
+
+            async function loadCosmicInsight() {
+                try {
+                    const response = await fetch('/api/nasa-cosmic');
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch cosmic data');
+                    }
+
+                    cosmicData = await response.json();
+                    isLoaded = true;
+                    renderCosmicInsight(cosmicData);
+
+                } catch (error) {
+                    console.error('[COSMIC] Error:', error);
+                    renderFallback();
+                }
+            }
+
+            function renderCosmicInsight(data) {
+                const imageUrl = data.media_type === 'video' ? data.thumbnail : data.url;
+
+                contentEl.innerHTML = `
+                    <img class="cosmic-insight-image" src="${imageUrl}" alt="${data.title}" loading="lazy" onerror="this.src='https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true'">
+                    <div class="cosmic-insight-body">
+                        <h4 class="cosmic-insight-title">${data.title}</h4>
+                        <p class="cosmic-insight-date">${formatDate(data.date)}</p>
+                        <p class="cosmic-insight-explanation">${data.explanation}</p>
+                        <div class="cosmic-insight-concept">
+                            <p class="cosmic-insight-concept-label">Infinite Architects Connection</p>
+                            <p class="cosmic-insight-concept-text">"${data.concept}"</p>
+                        </div>
+                    </div>
+                    <div class="cosmic-insight-footer">
+                        <span class="cosmic-insight-credit">${data.copyright || 'NASA / Public Domain'}</span>
+                        <a href="https://apod.nasa.gov/" target="_blank" rel="noopener" class="cosmic-insight-nasa">NASA APOD →</a>
+                    </div>
+                `;
+            }
+
+            function renderFallback() {
+                contentEl.innerHTML = `
+                    <div class="cosmic-insight-body" style="padding-top: 20px;">
+                        <h4 class="cosmic-insight-title">The Cosmic Perspective</h4>
+                        <p class="cosmic-insight-date">Daily Insight</p>
+                        <p class="cosmic-insight-explanation">Every atom in your body was forged in the heart of a star billions of years ago. You are the universe experiencing itself through recursive self-awareness.</p>
+                        <div class="cosmic-insight-concept">
+                            <p class="cosmic-insight-concept-label">Infinite Architects Connection</p>
+                            <p class="cosmic-insight-concept-text">"The cosmos is not out there. It is in here, observing itself through you."</p>
+                        </div>
+                    </div>
+                    <div class="cosmic-insight-footer">
+                        <span class="cosmic-insight-credit">Infinite Architects</span>
+                        <a href="https://apod.nasa.gov/" target="_blank" rel="noopener" class="cosmic-insight-nasa">NASA APOD →</a>
+                    </div>
+                `;
+            }
+
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                return date.toLocaleDateString('en-GB', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            }
+        }
 
         // ═══════════════════════════════════════════════════════════════════════════
         // SECTION LISTEN BUTTONS - Premium AI Voice for any section
@@ -21636,6 +22009,23 @@
         <path d="M8 9h8M8 13h6"/>
     </svg>
 </button>
+
+<!-- NASA Cosmic Insight - The Universe Watching Back -->
+<button class="cosmic-insight-trigger" id="cosmicTrigger" aria-label="View today's cosmic insight">
+    🌌
+</button>
+<div class="cosmic-insight-panel" id="cosmicPanel">
+    <div class="cosmic-insight-header">
+        <span class="cosmic-insight-label">NASA · Astronomy Picture of the Day</span>
+        <button class="cosmic-insight-close" id="cosmicClose" aria-label="Close">×</button>
+    </div>
+    <div id="cosmicContent">
+        <div class="cosmic-insight-loading">
+            <div class="cosmic-insight-loading-spinner"></div>
+            <span class="cosmic-insight-loading-text">Connecting to the cosmos...</span>
+        </div>
+    </div>
+</div>
 
 <!-- Ask Book Chat Panel -->
 <div class="ask-book-chat" id="askBookChat">
