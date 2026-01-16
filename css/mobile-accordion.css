@@ -10274,3 +10274,171 @@ input:focus:not(:focus-visible) {
     max-width: 55px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   CRITICAL FIX: CONVERGENCE SECTION OVERFLOW CONTAINMENT
+   Ensures all text wraps properly and nothing extends beyond viewport
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Master containment - force hard boundaries */
+.accordion-content,
+.accordion-content__inner {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure all convergence children respect boundaries */
+.accordion-content [class*="convergence-"] {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Discovery Timeline - CRITICAL fix for text overflow */
+.accordion-content .convergence-discovery {
+  padding-left: 0;
+  padding-right: 0;
+  overflow: hidden;
+}
+
+.accordion-content .convergence-discovery-timeline {
+  margin-left: 0;
+  margin-right: 0;
+  padding-right: 12px;
+  overflow: hidden;
+}
+
+.accordion-content .discovery-event {
+  padding-right: 4px;
+  overflow: hidden;
+}
+
+.accordion-content .discovery-event__desc {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  padding-right: 0;
+  max-width: 100%;
+}
+
+/* Convergence bridge text - prevent clipping */
+.accordion-content .convergence-bridge {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  max-width: 100%;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.accordion-content .convergence-bridge strong {
+  display: block;
+  word-wrap: break-word;
+}
+
+/* Discovery conclusion text */
+.accordion-content .convergence-discovery-conclusion {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.accordion-content .convergence-discovery-conclusion strong {
+  display: inline;
+}
+
+/* Prediction Tracker - fix status label overflow */
+.accordion-content .convergence-tracker {
+  overflow: hidden;
+}
+
+.accordion-content .convergence-tracker-list {
+  padding-right: 4px;
+}
+
+.accordion-content .convergence-tracker-item {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Stack status label below name on small screens for better fit */
+.accordion-content .convergence-tracker-state {
+  max-width: 60px;
+  min-width: 48px;
+  font-size: 0.5625rem; /* 9px - fit content */
+  word-wrap: break-word;
+  text-align: right;
+}
+
+/* Scientists carousel - contain within bounds */
+.accordion-content .convergence-scientists {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.accordion-content .convergence-scientists-carousel {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Rotating quote containment */
+.accordion-content .convergence-rotating-quote {
+  overflow: hidden;
+}
+
+.accordion-content .convergence-rotating-quote blockquote {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* 40 Voices section */
+.accordion-content .convergence-voices {
+  overflow: hidden;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Extra small screens - more aggressive containment */
+@media (max-width: 380px) {
+  .accordion-content .convergence-discovery-timeline {
+    padding-left: 42px;
+    padding-right: 8px;
+  }
+
+  .accordion-content .discovery-event__year {
+    left: -42px;
+    width: 26px;
+  }
+
+  .accordion-content .convergence-tracker-item {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .accordion-content .convergence-tracker-state {
+    flex-basis: 100%;
+    text-align: left;
+    max-width: 100%;
+    margin-left: 30px;
+    font-size: 0.5625rem;
+  }
+
+  .accordion-content .convergence-scientists-carousel {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .accordion-content .convergence-scientist-card {
+    flex: 0 0 calc(100vw - 56px);
+    min-width: calc(100vw - 56px);
+  }
+}
