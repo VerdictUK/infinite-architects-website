@@ -2761,6 +2761,125 @@
   color: var(--accordion-gold-bright);
 }
 
+/* Enhanced Reviews — World-Class Testimonials */
+
+.review-highlight {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.1) 0%, rgba(212, 168, 75, 0.03) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.25);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  text-align: center;
+  position: relative;
+}
+
+.review-highlight::before {
+  content: '"';
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-family: var(--accordion-font-display);
+  font-size: 4rem;
+  color: var(--accordion-gold);
+  opacity: 0.15;
+  line-height: 1;
+}
+
+.review-highlight__quote {
+  font-family: var(--accordion-font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--accordion-text);
+  line-height: 1.6;
+  margin: 0 0 var(--space-sm) 0;
+  position: relative;
+  z-index: 1;
+}
+
+.review-highlight__cite {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* Review Card Title */
+.review-card__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  color: var(--accordion-gold);
+  margin: 0 0 var(--space-xs) 0;
+  font-weight: 400;
+}
+
+/* Review Card Footer */
+.review-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-top: var(--space-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.review-card__date {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  color: var(--accordion-text-faint);
+}
+
+/* Reviews Stats Bar */
+.reviews-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.reviews-stats__item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reviews-stats__number {
+  font-family: var(--accordion-font-display);
+  font-size: 1.5rem;
+  color: var(--accordion-gold);
+  line-height: 1;
+}
+
+.reviews-stats__label {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+@media (max-width: 400px) {
+  .reviews-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .reviews-stats__item {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-sm);
+    align-items: baseline;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════════════
    SECTION 13: PART VIII — JOIN THE MOVEMENT (Pricing)
    ═══════════════════════════════════════════════════════════════════════════════════════ */
@@ -9357,4 +9476,210 @@
     background: rgba(239, 68, 68, 0.1);
     border-color: rgba(239, 68, 68, 0.3);
     color: #ef4444;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY: Skip Link
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accordion-gold);
+  color: #02030a;
+  padding: 12px 24px;
+  font-family: var(--accordion-font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  z-index: 100000;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 10px;
+  outline: 3px solid var(--accordion-gold-bright);
+  outline-offset: 2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   SOCIAL SHARE FLOATING ACTION BUTTON (FAB)
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.social-share-fab {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 90px);
+  right: 16px;
+  z-index: 900;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (min-width: 1024px) {
+  .social-share-fab {
+    bottom: 24px;
+    right: 24px;
+  }
+}
+
+.social-share-fab__toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-dark) 100%);
+  border: none;
+  color: #02030a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 168, 75, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-share-fab__toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.3);
+}
+
+.social-share-fab__toggle:focus {
+  outline: 3px solid var(--accordion-gold-bright);
+  outline-offset: 2px;
+}
+
+.social-share-fab__toggle[aria-expanded="true"] {
+  transform: rotate(45deg);
+}
+
+.social-share-fab__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-share-fab__toggle[aria-expanded="true"] + .social-share-fab__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.social-share-fab__btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.social-share-fab__btn:focus {
+  outline: 2px solid var(--accordion-gold);
+  outline-offset: 2px;
+}
+
+.social-share-fab__btn--twitter {
+  background: #000;
+  color: #fff;
+}
+
+.social-share-fab__btn--twitter:hover {
+  background: #333;
+}
+
+.social-share-fab__btn--linkedin {
+  background: #0077b5;
+  color: #fff;
+}
+
+.social-share-fab__btn--linkedin:hover {
+  background: #005582;
+}
+
+.social-share-fab__btn--facebook {
+  background: #1877f2;
+  color: #fff;
+}
+
+.social-share-fab__btn--facebook:hover {
+  background: #0d65d9;
+}
+
+.social-share-fab__btn--copy {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--accordion-text);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-share-fab__btn--copy:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accordion-gold);
+}
+
+/* Hide on mobile when buy bar is present */
+@media (max-width: 1023px) {
+  .social-share-fab {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY: Focus Indicators
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Enhanced focus indicators for interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accordion-gold);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .accordion-item,
+  .review-card,
+  .idea-card {
+    border-width: 2px;
+  }
+  
+  .accordion-gold,
+  .receipts__verified {
+    color: #fff;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .social-share-fab__toggle,
+  .social-share-fab__menu,
+  .social-share-fab__btn,
+  .skip-link {
+    transition: none;
+  }
 }
