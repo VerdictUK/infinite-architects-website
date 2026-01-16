@@ -430,13 +430,8 @@
         }
 
         .loader-status {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: rgba(212, 168, 75, 0.45);
-            margin-bottom: 0.8rem;
-            min-height: 1em;
+            /* Hidden for Apple-minimal aesthetic */
+            display: none;
         }
 
         .loader-bar {
@@ -471,14 +466,20 @@
 
         .loader-skip {
             position: absolute;
-            bottom: 25px;
+            bottom: max(25px, env(safe-area-inset-bottom, 25px));
             left: 50%;
             transform: translateX(-50%);
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.35em;
-            color: var(--text-faint);
-            animation: pulse 2s ease-in-out infinite;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         @keyframes pulse {
@@ -11704,6 +11705,26 @@
       ═══════════════════════════════════════════════════════════════════════════════════════════
     -->
 
+    <!-- ═══════════════════════════════════════════════════════════════════════════════════════
+         CINEMATIC LOADER (Visible on both mobile and desktop)
+         ═══════════════════════════════════════════════════════════════════════════════════════ -->
+    <div id="loader">
+        <canvas id="loader-canvas"></canvas>
+        <div class="letterbox top"></div>
+        <div class="letterbox bottom"></div>
+        <div class="loader-ui">
+            <h1 class="loader-title"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></h1>
+            <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
+            <div class="loader-progress">
+                <p class="loader-status" id="loader-status">Initializing...</p>
+                <div class="loader-bar">
+                    <div class="loader-bar-fill" id="loader-bar-fill"></div>
+                </div>
+            </div>
+        </div>
+        <p class="loader-skip">TAP TO SKIP</p>
+    </div>
+
     <!-- Mobile Experience Container -->
     <div class="mobile-experience">
 
@@ -12053,6 +12074,7 @@
                                 <div class="accordion-video-wrapper" data-loading="true">
                                     <video
                                         data-src="videos/bbc_clip_1.mp4"
+                                        poster="videos/poster_1.jpg"
                                         controls
                                         playsinline
                                         preload="metadata"
@@ -13283,26 +13305,6 @@
             </div>
             <a href="https://www.amazon.com/dp/B0GFD2GCCQ" target="_blank" rel="noopener" class="mobile-cta-button">SECURE FIRST EDITION</a>
         </div>
-    </div>
-
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         CINEMATIC LOADER
-         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-    <div id="loader">
-        <canvas id="loader-canvas"></canvas>
-        <div class="letterbox top"></div>
-        <div class="letterbox bottom"></div>
-        <div class="loader-ui">
-            <h1 class="loader-title"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></h1>
-            <p class="loader-subtitle">Intelligence, Recursion, and the Creation of Everything</p>
-            <div class="loader-progress">
-                <p class="loader-status" id="loader-status">Initializing consciousness...</p>
-                <div class="loader-bar">
-                    <div class="loader-bar-fill" id="loader-bar-fill"></div>
-                </div>
-            </div>
-        </div>
-        <p class="loader-skip">CLICK OR PRESS ANY KEY TO SKIP</p>
     </div>
 
     <!-- Visual Effects Layers -->
@@ -15034,10 +15036,11 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         const CONFIG = {
             loader: {
-                duration: PERF.isSlowConnection ? 3000 : 5000,
-                particleCount: Math.floor(250 * PERF.multiplier) || 50,
-                ringCount: PERF.isSlowConnection ? 2 : 4,
-                trailLength: PERF.isSlowConnection ? 6 : 12,
+                // Apple-subtle: shorter, fewer particles, elegant emergence
+                duration: PERF.isSlowConnection ? 2000 : 3000,
+                particleCount: Math.floor(120 * PERF.multiplier) || 40,
+                ringCount: PERF.isSlowConnection ? 1 : 2,
+                trailLength: PERF.isSlowConnection ? 4 : 8,
                 goldHue: 38
             },
             main: {
@@ -15164,12 +15167,13 @@
             skipped: false
         };
 
+        // Apple-subtle: minimal, elegant status messages
         const STATUS_PHASES = [
-            'Initializing consciousness...',
-            'Calibrating recursive pathways...',
-            'Assembling infinite architecture...',
-            'Achieving harmonic convergence...',
-            'GENESIS COMPLETE'
+            '',
+            '',
+            '',
+            '',
+            ''
         ];
 
         class LoaderParticle {

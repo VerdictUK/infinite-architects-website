@@ -3242,3 +3242,962 @@
     max-width: 450px;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════════
+   APPLE-GRADE DESIGN SYSTEM ENHANCEMENT v1.0
+   Premium visual polish for all accordion sections
+   Created: January 2026
+   
+   This enhancement adds:
+   - Refined glass morphism surfaces
+   - Premium video card styling with poster support
+   - Enhanced typography hierarchy
+   - Sophisticated animations and transitions
+   - Consistent visual language across all sections
+   ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   PREMIUM ACCORDION ITEMS — Apple-grade surface treatment
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-item {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02) 0%,
+    rgba(255, 255, 255, 0.005) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: 
+    border-color 0.4s var(--accordion-ease),
+    box-shadow 0.4s var(--accordion-ease),
+    transform 0.4s var(--accordion-ease);
+}
+
+.accordion-item:hover {
+  border-color: rgba(212, 168, 75, 0.15);
+}
+
+.accordion-item[open] {
+  border-color: rgba(212, 168, 75, 0.2);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(212, 168, 75, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ACCORDION HEADER — Premium interactive states
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.3s var(--accordion-ease);
+  position: relative;
+}
+
+.accordion-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 168, 75, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.accordion-item[open] .accordion-header::after {
+  opacity: 1;
+}
+
+.accordion-header::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-header__part {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  background: rgba(212, 168, 75, 0.08);
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: 
+    background 0.3s ease,
+    transform 0.3s var(--accordion-ease);
+}
+
+.accordion-item[open] .accordion-header__part {
+  background: rgba(212, 168, 75, 0.15);
+}
+
+.accordion-header__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+}
+
+.accordion-header__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--accordion-text);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  transition: color 0.3s ease;
+}
+
+.accordion-item:hover .accordion-header__title,
+.accordion-item[open] .accordion-header__title {
+  color: var(--accordion-gold-pale);
+}
+
+.accordion-header__hook {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accordion-text-dim);
+  display: block;
+}
+
+.accordion-header__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accordion-gold);
+  flex-shrink: 0;
+  transition: transform 0.4s var(--accordion-ease);
+  opacity: 0.6;
+}
+
+.accordion-item[open] .accordion-header__icon {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ACCORDION CONTENT — Smooth reveal with padding
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-content {
+  overflow: hidden;
+}
+
+.accordion-content__inner {
+  padding: 0 20px 24px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   PREMIUM VIDEO WRAPPER — Cinematic with poster support
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-video-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 12, 20, 1) 0%,
+    rgba(5, 8, 16, 1) 100%
+  );
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  transition: 
+    box-shadow 0.4s var(--accordion-ease),
+    transform 0.4s var(--accordion-ease);
+}
+
+.accordion-video-wrapper:hover {
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 0 40px rgba(212, 168, 75, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transform: translateY(-2px);
+}
+
+.accordion-video-wrapper video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  background: #000;
+}
+
+/* Video with poster - ensure poster displays properly */
+.accordion-video-wrapper video[poster] {
+  object-fit: cover;
+}
+
+/* Small video variant for grid */
+.accordion-video-wrapper--small {
+  border-radius: 10px;
+}
+
+.accordion-video-wrapper--small video {
+  border-radius: 10px;
+}
+
+/* Loading state */
+.accordion-video-wrapper[data-loading="true"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 2px solid rgba(212, 168, 75, 0.2);
+  border-top-color: var(--accordion-gold);
+  border-radius: 50%;
+  animation: videoLoaderSpin 1s linear infinite;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@keyframes videoLoaderSpin {
+  to { transform: rotate(360deg); }
+}
+
+.accordion-video-wrapper[data-loading="false"]::before {
+  display: none;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   BBC LABEL — Premium badge styling
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.bbc-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.bbc-label__text {
+  display: inline-block;
+  background: linear-gradient(
+    135deg,
+    rgba(204, 0, 0, 0.95) 0%,
+    rgba(180, 0, 0, 0.95) 100%
+  );
+  color: #fff;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 
+    0 2px 8px rgba(204, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.bbc-label--small {
+  top: 8px;
+  left: 8px;
+}
+
+.bbc-label--small .bbc-label__text {
+  font-size: 0.5rem;
+  padding: 4px 8px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   EVIDENCE VIDEO GRID — Premium card layout
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.evidence-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.evidence-video-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s var(--accordion-ease);
+}
+
+.evidence-video-card:hover {
+  border-color: rgba(212, 168, 75, 0.2);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(212, 168, 75, 0.06);
+  transform: translateY(-3px);
+}
+
+.evidence-video-card__info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.evidence-video-card__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--accordion-text);
+  line-height: 1.3;
+}
+
+.evidence-video-card__desc {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.7rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.4;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   MOTION BADGE — Premium animated indicator
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.motion-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 100px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+}
+
+.motion-badge__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accordion-gold);
+  border-radius: 50%;
+  animation: motionBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes motionBadgePulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   PREMIUM CARD SURFACES — Used across sections
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+/* Generic content card */
+.premium-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.008) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.premium-card:hover {
+  border-color: rgba(212, 168, 75, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Highlighted card (featured content) */
+.premium-card--highlight {
+  border-color: rgba(212, 168, 75, 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(212, 168, 75, 0.04) 0%,
+    rgba(212, 168, 75, 0.01) 100%
+  );
+}
+
+/* Success/Verified card */
+.premium-card--verified {
+  border-color: rgba(74, 222, 128, 0.2);
+  background: linear-gradient(
+    180deg,
+    rgba(74, 222, 128, 0.04) 0%,
+    rgba(74, 222, 128, 0.01) 100%
+  );
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ENHANCED SECTION LABELS
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.section-label__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(212, 168, 75, 0.08);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 100px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+}
+
+.section-label__badge svg {
+  width: 12px;
+  height: 12px;
+}
+
+.section-label__badge--verified {
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.2);
+  color: var(--accordion-verified);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   TYPOGRAPHY REFINEMENTS
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+/* Section intro text */
+.section-intro {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--accordion-text-dim);
+  margin-bottom: 20px;
+}
+
+/* Large quote styling */
+.premium-quote {
+  font-family: var(--accordion-font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--accordion-text);
+  position: relative;
+  padding-left: 20px;
+  margin: 20px 0;
+}
+
+.premium-quote::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--accordion-gold) 0%,
+    rgba(212, 168, 75, 0.3) 100%
+  );
+  border-radius: 3px;
+}
+
+.premium-quote em {
+  color: var(--accordion-gold);
+  font-style: italic;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   INTERACTIVE ELEMENTS — Premium buttons and links
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+/* Primary action button */
+.premium-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: linear-gradient(
+    135deg,
+    var(--accordion-gold) 0%,
+    var(--accordion-gold-dark) 100%
+  );
+  color: var(--accordion-void);
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 
+    transform 0.3s var(--accordion-ease),
+    box-shadow 0.3s var(--accordion-ease);
+  box-shadow: 
+    0 4px 16px rgba(212, 168, 75, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.premium-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px rgba(212, 168, 75, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.premium-btn:active {
+  transform: translateY(0);
+}
+
+/* Outline button variant */
+.premium-btn--outline {
+  background: transparent;
+  color: var(--accordion-gold);
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  box-shadow: none;
+}
+
+.premium-btn--outline:hover {
+  background: rgba(212, 168, 75, 0.08);
+  border-color: var(--accordion-gold);
+  box-shadow: 0 4px 16px rgba(212, 168, 75, 0.15);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ENHANCED CONCEPT CARDS — Philosophy section
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.concept-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  border: 1px solid rgba(212, 168, 75, 0.1);
+  border-radius: 14px;
+  padding: 18px;
+  min-width: 240px;
+  scroll-snap-align: center;
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s var(--accordion-ease);
+}
+
+.concept-card:hover {
+  border-color: rgba(212, 168, 75, 0.25);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 0 30px rgba(212, 168, 75, 0.08);
+  transform: translateY(-3px);
+}
+
+.concept-card__number {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.concept-card__name {
+  display: block;
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--accordion-gold-pale);
+  margin-bottom: 10px;
+}
+
+.concept-card__description {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--accordion-text-dim);
+  margin: 0;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ENHANCED REVIEW CARDS — Verdict section
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.review-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.008) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 12px;
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.review-card:hover {
+  border-color: rgba(212, 168, 75, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.review-card__stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+
+.review-card__star {
+  width: 14px;
+  height: 14px;
+  color: var(--accordion-gold);
+}
+
+.review-card__quote {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--accordion-text);
+  margin: 0 0 14px;
+}
+
+.review-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.review-card__author {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text-dim);
+}
+
+.review-card__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-verified);
+}
+
+.review-card__verified svg {
+  width: 12px;
+  height: 12px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ENHANCED PRICING CARDS — Join section
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.accordion-pricing-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025) 0%,
+    rgba(255, 255, 255, 0.008) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  transition: 
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s var(--accordion-ease);
+}
+
+.accordion-pricing-card:hover {
+  border-color: rgba(212, 168, 75, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px);
+}
+
+.accordion-pricing-card--featured {
+  border-color: rgba(212, 168, 75, 0.3);
+  background: linear-gradient(
+    180deg,
+    rgba(212, 168, 75, 0.06) 0%,
+    rgba(212, 168, 75, 0.02) 100%
+  );
+}
+
+.accordion-pricing-card__badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accordion-gold);
+  color: var(--accordion-void);
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 100px;
+  text-transform: uppercase;
+}
+
+.accordion-pricing-card__format {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--accordion-text-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.accordion-pricing-card__price {
+  display: block;
+  font-family: var(--accordion-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--accordion-gold);
+  margin-bottom: 4px;
+}
+
+.accordion-pricing-card__note {
+  display: block;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.75rem;
+  color: var(--accordion-text-faint);
+  margin-bottom: 16px;
+}
+
+.accordion-pricing-card__cta {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(
+    135deg,
+    var(--accordion-gold) 0%,
+    var(--accordion-gold-dark) 100%
+  );
+  color: var(--accordion-void);
+  font-family: var(--accordion-font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 10px;
+  transition: 
+    transform 0.3s var(--accordion-ease),
+    box-shadow 0.3s var(--accordion-ease);
+  box-shadow: 0 4px 12px rgba(212, 168, 75, 0.25);
+}
+
+.accordion-pricing-card__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 168, 75, 0.35);
+}
+
+.accordion-pricing-card__cta--outline {
+  background: transparent;
+  color: var(--accordion-gold);
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  box-shadow: none;
+}
+
+.accordion-pricing-card__cta--outline:hover {
+  background: rgba(212, 168, 75, 0.08);
+  border-color: var(--accordion-gold);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   ENHANCED FAQ ITEMS
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-faq-item {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.accordion-faq-item:hover,
+.accordion-faq-item[open] {
+  border-color: rgba(212, 168, 75, 0.15);
+}
+
+.accordion-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.9rem;
+  color: var(--accordion-text);
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s ease;
+}
+
+.accordion-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq-item[open] summary {
+  color: var(--accordion-gold-pale);
+}
+
+.accordion-faq-answer {
+  padding: 0 16px 16px;
+}
+
+.accordion-faq-answer p {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--accordion-text-dim);
+  margin: 0;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   SMOOTH ANIMATIONS — Consistent reveal effects
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations to accordion content when opened */
+.accordion-item[open] .accordion-content__inner > * {
+  animation: fadeSlideUp 0.5s var(--accordion-ease) forwards;
+}
+
+.accordion-item[open] .accordion-content__inner > *:nth-child(1) { animation-delay: 0ms; }
+.accordion-item[open] .accordion-content__inner > *:nth-child(2) { animation-delay: 50ms; }
+.accordion-item[open] .accordion-content__inner > *:nth-child(3) { animation-delay: 100ms; }
+.accordion-item[open] .accordion-content__inner > *:nth-child(4) { animation-delay: 150ms; }
+.accordion-item[open] .accordion-content__inner > *:nth-child(5) { animation-delay: 200ms; }
+
+
+/* ───────────────────────────────────────────────────────────────────────────────────────────────────
+   REDUCED MOTION — Accessibility respect
+   ─────────────────────────────────────────────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════════
+   END APPLE-GRADE DESIGN SYSTEM ENHANCEMENT
+   ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
