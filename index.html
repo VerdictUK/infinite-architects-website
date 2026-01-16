@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- AGGRESSIVE SCROLL RESET — Force fresh start on every page load (mobile Safari fix) -->
     <script>
@@ -365,10 +365,11 @@
             --nebula-teal: #0d2a2a;
             --nebula-magenta: rgba(138, 43, 96, 0.15);
             
-            /* Text */
+            /* Text - WCAG AA compliant contrast ratios */
             --text: #f0ebe3;
-            --text-dim: rgba(240, 235, 227, 0.55);
-            --text-faint: rgba(240, 235, 227, 0.25);
+            --text-dim: rgba(240, 235, 227, 0.75);      /* Was 0.55 - now meets 4.5:1 */
+            --text-faint: rgba(240, 235, 227, 0.45);    /* Was 0.25 - now meets 3:1 for large text */
+            --text-decorative: rgba(240, 235, 227, 0.25); /* For purely decorative elements only */
             
             /* Typography */
             --font-display: 'Cinzel', serif;
@@ -433,8 +434,8 @@
         }
 
         html {
-            scroll-behavior: auto; /* Precision snap - no smooth drift */
-            scroll-snap-type: y mandatory; /* Force snap lock */
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity; /* Less aggressive - respects user control */
             -webkit-text-size-adjust: 100%;
             scrollbar-width: thin;
             scrollbar-color: var(--gold-dark) var(--void);
@@ -22846,6 +22847,554 @@ input:focus-visible {
     .hero,
     .section {
         page-break-inside: avoid;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. SKELETON LOADING SHIMMER
+   Visual feedback while content loads
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes skeletonShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton-loading,
+[data-loading="true"]::before {
+    background: linear-gradient(
+        90deg,
+        rgba(212, 168, 75, 0.05) 0%,
+        rgba(212, 168, 75, 0.12) 50%,
+        rgba(212, 168, 75, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.accordion-video-wrapper[data-loading="true"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.skeleton-text {
+    background: linear-gradient(
+        90deg,
+        rgba(240, 235, 227, 0.08) 0%,
+        rgba(240, 235, 227, 0.15) 50%,
+        rgba(240, 235, 227, 0.08) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+    border-radius: 4px;
+    height: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. GLASSMORPHISM FOR MOBILE ACCORDIONS
+   Premium frosted glass effect
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .accordion-item,
+    details.accordion-item {
+        background: rgba(12, 12, 16, 0.75);
+        backdrop-filter: blur(20px) saturate(150%);
+        -webkit-backdrop-filter: blur(20px) saturate(150%);
+        border: 1px solid rgba(212, 168, 75, 0.12);
+        border-radius: 16px;
+        margin-bottom: 8px;
+        overflow: hidden;
+        box-shadow:
+            0 4px 24px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .accordion-item[open],
+    details.accordion-item[open] {
+        background: rgba(18, 18, 22, 0.85);
+        border-color: rgba(212, 168, 75, 0.25);
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(212, 168, 75, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Reduce blur on low-powered devices */
+@media (prefers-reduced-motion: reduce) {
+    .accordion-item,
+    details.accordion-item {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(12, 12, 16, 0.95);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. ENHANCED HERO CTA WITH GLOW AND PULSE
+   Drive conversions with attention-grabbing button
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes ctaGlowPulse {
+    0%, 100% {
+        box-shadow:
+            0 4px 16px rgba(212, 168, 75, 0.4),
+            0 0 0 0 rgba(212, 168, 75, 0.3);
+    }
+    50% {
+        box-shadow:
+            0 6px 24px rgba(212, 168, 75, 0.5),
+            0 0 0 8px rgba(212, 168, 75, 0);
+    }
+}
+
+.hero-cta,
+.mobile-hero__cta,
+.cta-primary {
+    position: relative;
+    background: linear-gradient(135deg, #f4c856 0%, #d4a84b 50%, #a67c35 100%);
+    box-shadow:
+        0 4px 16px rgba(212, 168, 75, 0.4),
+        0 1px 3px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    animation: ctaGlowPulse 3s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.hero-cta:hover,
+.mobile-hero__cta:hover,
+.cta-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+        0 8px 28px rgba(212, 168, 75, 0.5),
+        0 2px 6px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: none;
+}
+
+.hero-cta:active,
+.mobile-hero__cta:active,
+.cta-primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   14. CONTEXTUAL VISUAL EFFECTS REDUCTION
+   Reduce particle/effect opacity when reading content
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* When user is scrolling through content, reduce background distractions */
+html:has(.accordion-item[open]) #canvas-container {
+    opacity: 0.15;
+    transition: opacity 0.5s ease;
+}
+
+html:has(.accordion-item[open]) .film-grain {
+    opacity: 0;
+}
+
+html:has(.accordion-item[open]) .cosmic-bg {
+    opacity: 0.3;
+}
+
+/* Restore effects when at hero */
+html:not(:has(.accordion-item[open])) #canvas-container {
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   15. VIDEO ERROR STATES
+   Graceful fallback when videos fail to load
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.video-error {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2, 3, 10, 0.9);
+    border-radius: 12px;
+    text-align: center;
+    padding: 2rem;
+    z-index: 5;
+}
+
+.video-wrapper.error .video-error,
+[data-video-error="true"] .video-error {
+    display: flex;
+}
+
+.video-wrapper.error video,
+[data-video-error="true"] video {
+    opacity: 0;
+}
+
+.video-error__icon {
+    width: 48px;
+    height: 48px;
+    stroke: var(--text-faint);
+    margin-bottom: 1rem;
+}
+
+.video-error__text {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.video-error__link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   16. CAROUSEL PAUSE CONTROL
+   Accessibility - allow users to pause auto-scrolling
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.carousel-pause {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+    background: rgba(2, 3, 10, 0.8);
+    border: 1px solid rgba(212, 168, 75, 0.3);
+    border-radius: 50%;
+    color: var(--gold);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.carousel-section:hover .carousel-pause,
+.carousel-pause:focus {
+    opacity: 1;
+}
+
+.carousel-pause:hover {
+    background: rgba(212, 168, 75, 0.15);
+    border-color: var(--gold);
+}
+
+.carousel-pause svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Pause carousel on button activation */
+.carousel-section:has(.carousel-pause[aria-pressed="true"]) .carousel-track,
+.carousel-track:focus-within {
+    animation-play-state: paused;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   17. UNIFIED BUTTON SYSTEM
+   Consistent button styles across the site
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Base button */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Primary - Gold filled */
+.btn--primary {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #f4c856 0%, #d4a84b 100%);
+    color: var(--void);
+    font-size: 0.8rem;
+    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.35);
+}
+
+.btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 168, 75, 0.45);
+}
+
+/* Secondary - Gold outline */
+.btn--secondary {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.75rem;
+}
+
+.btn--secondary:hover {
+    background: var(--gold);
+    color: var(--void);
+}
+
+/* Tertiary - Text link style */
+.btn--tertiary {
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--gold);
+    font-size: 0.75rem;
+}
+
+.btn--tertiary:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Size variants */
+.btn--sm { padding: 10px 20px; font-size: 0.7rem; }
+.btn--lg { padding: 18px 36px; font-size: 0.9rem; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   18. PARALLAX SCROLLING FOR BACKGROUND
+   Subtle depth effect for premium feel
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.cosmic-bg {
+    transform: translate3d(0, calc(var(--scroll-y, 0) * 0.3), 0);
+    will-change: transform;
+}
+
+#canvas-container {
+    transform: translate3d(0, calc(var(--scroll-y, 0) * 0.15), 0);
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cosmic-bg,
+    #canvas-container {
+        transform: none;
+        will-change: auto;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   19. NEWSLETTER FORM VALIDATION
+   Visual feedback for form inputs
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.newsletter-input:invalid:not(:placeholder-shown) {
+    border-color: #ef5350;
+    background: rgba(239, 83, 80, 0.08);
+}
+
+.newsletter-input:valid:not(:placeholder-shown) {
+    border-color: rgba(100, 200, 100, 0.5);
+}
+
+.newsletter-error {
+    display: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #ef5350;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.newsletter-input:invalid:not(:placeholder-shown) ~ .newsletter-error {
+    display: block;
+}
+
+/* Loading state for submit button */
+.newsletter-button[aria-busy="true"] {
+    opacity: 0.7;
+    cursor: wait;
+    pointer-events: none;
+}
+
+.newsletter-button[aria-busy="true"]::after {
+    content: '';
+    width: 14px;
+    height: 14px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 8px;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   20. STATUS TICKER DISMISS
+   Allow users to close the ticker
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.status-ticker {
+    position: relative;
+}
+
+.status-ticker__dismiss {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: rgba(212, 168, 75, 0.15);
+    border: 1px solid rgba(212, 168, 75, 0.3);
+    border-radius: 50%;
+    color: var(--gold);
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-ticker:hover .status-ticker__dismiss {
+    opacity: 1;
+}
+
+.status-ticker__dismiss:hover {
+    background: rgba(212, 168, 75, 0.25);
+    border-color: var(--gold);
+}
+
+.status-ticker.dismissed {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   21. HIGH CONTRAST MODE SUPPORT
+   Enhanced accessibility for users who need it
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-contrast: more) {
+    :root {
+        --text-dim: rgba(240, 235, 227, 0.9);
+        --text-faint: rgba(240, 235, 227, 0.75);
+    }
+
+    .accordion-item,
+    .concept-card,
+    .evidence-card {
+        border-width: 2px;
+    }
+
+    button, a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   22. CONSTELLATION NAV ACCESSIBILITY
+   Screen reader labels for visual navigation
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.constellation-node {
+    position: relative;
+}
+
+.constellation-node .sr-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Show label on focus for keyboard users */
+.constellation-node:focus .sr-label {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 4px 8px;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: nowrap;
+    background: var(--void);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--text);
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 8px;
+    z-index: 100;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   23. ENHANCED ACCORDION HEADERS WITH CONTENT INDICATORS
+   Show content type and reading time
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.accordion-header__meta {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.content-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    letter-spacing: 0.05em;
+}
+
+.content-indicator svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.content-indicator--video { color: rgba(212, 168, 75, 0.7); }
+.content-indicator--text { color: rgba(240, 235, 227, 0.5); }
+.content-indicator--time { color: rgba(240, 235, 227, 0.4); }
+
+@media (max-width: 768px) {
+    .accordion-header__meta {
+        margin-top: 8px;
+    }
+
+    .content-indicator {
+        font-size: 0.6rem;
     }
 }
 </style>
