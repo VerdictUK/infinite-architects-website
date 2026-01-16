@@ -86,7 +86,7 @@
     // ─────────────────────────────────────────────────────────────────────────────────────
     cinema: {
       enabled: true,
-      duration: 1500, // ms before auto-dismiss
+      duration: 3000, // ms before auto-dismiss
       // Only show full-screen for these critical accordions
       criticalAccordions: ['accordion-evidence', 'accordion-get-book'],
       // Part data with UPGRADED titles from the audit
@@ -131,10 +131,10 @@
           title: 'JOIN THE MOVEMENT', 
           hook: 'Your seat is waiting' 
         },
-        'accordion-faq': { 
-          part: 'FAQ', 
-          title: 'QUESTIONS', 
-          hook: 'What readers ask most' 
+        'accordion-faq': {
+          part: 'FAQ',
+          title: 'FREQUENTLY ASKED',
+          hook: 'What readers ask most'
         },
       },
     },
