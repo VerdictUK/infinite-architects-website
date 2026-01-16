@@ -2122,6 +2122,126 @@
   margin: 0;
 }
 
+/* Expert Headers */
+.experts-header,
+.paths-header {
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+
+.experts-header__label,
+.paths-header__label {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accordion-text-faint);
+}
+
+/* Eden vs Babylon Enhanced */
+.eden-babylon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.eden-babylon__card {
+  padding: var(--space-md);
+  border-radius: 12px;
+  text-align: left;
+}
+
+.eden-babylon__card--eden {
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.eden-babylon__card--babylon {
+  background: rgba(255, 68, 68, 0.06);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+.eden-babylon__icon {
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.eden-babylon__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.6rem 0;
+}
+
+.eden-babylon__card--eden .eden-babylon__title {
+  color: #4ade80;
+}
+
+.eden-babylon__card--babylon .eden-babylon__title {
+  color: #ff4444;
+}
+
+.eden-babylon__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.eden-babylon__list li {
+  font-size: 0.75rem;
+  color: var(--accordion-text-secondary);
+  padding-left: 0.8rem;
+  position: relative;
+}
+
+.eden-babylon__list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--accordion-text-faint);
+}
+
+.eden-babylon__description {
+  font-size: 0.78rem;
+  color: var(--accordion-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Action Callout */
+.action-callout {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.1), rgba(212, 168, 75, 0.03));
+  border: 1px solid rgba(212, 168, 75, 0.25);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+  text-align: center;
+}
+
+.action-callout__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.action-callout__text {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--accordion-text-secondary);
+  margin: 0;
+}
+
+.action-callout__text strong {
+  color: var(--accordion-text);
+}
+
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
    SECTION 12: PART VII — THE VERDICT (Reviews)
