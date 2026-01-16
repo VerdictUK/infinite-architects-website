@@ -950,22 +950,14 @@
             border-radius: 8px;
         }
 
-        /* Video-specific styling - scale up to push black letterbox bars outside visible area */
+        /* Video-specific styling */
         video.hero-book {
             background: transparent;
-            object-fit: contain;
-            width: clamp(220px, 28vw, 320px);
-            transform: scale(1.32);
-            transform-origin: center center;
         }
 
         .hero-book:hover {
+            transform: translateY(-8px) scale(1.02);
             filter: drop-shadow(0 0 80px rgba(212, 168, 75, 0.35)) drop-shadow(0 50px 100px rgba(0, 0, 0, 0.7));
-        }
-
-        /* Video hover - maintain base scale while adding lift effect */
-        video.hero-book:hover {
-            transform: scale(1.35);
         }
 
         @keyframes heroReveal {
@@ -3898,8 +3890,6 @@
             will-change: transform;
             position: relative;
             display: inline-block;
-            overflow: hidden;
-            border-radius: 8px;
         }
 
         .hero-book-3d::before {
