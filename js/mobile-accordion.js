@@ -1186,7 +1186,7 @@
   const conceptsCarousel = {
     init() {
       const carousels = document.querySelectorAll('.concepts-carousel, .accordion-concepts-carousel');
-      
+
       carousels.forEach((carousel) => {
         carousel.addEventListener('scroll', utils.throttle(() => {
           const hint = carousel.parentElement?.querySelector('.concepts-hint, .carousel-swipe-hint');
@@ -1204,6 +1204,59 @@
           }
         }, 300), { passive: true });
       });
+    },
+  };
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // CONCEPT CATEGORY EXCLUSIVE ACCORDION
+  // When one category opens, others close automatically
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  const conceptCategories = {
+    init() {
+      // Find all containers with exclusive accordion behavior
+      const containers = document.querySelectorAll('[data-exclusive-accordion]');
+
+      containers.forEach((container) => {
+        const categories = container.querySelectorAll('.concept-category');
+
+        categories.forEach((category) => {
+          // Listen for toggle event on each category
+          category.addEventListener('toggle', (e) => {
+            // Only act when opening (not closing)
+            if (category.hasAttribute('open')) {
+              // Close all other categories in this container
+              categories.forEach((otherCategory) => {
+                if (otherCategory !== category && otherCategory.hasAttribute('open')) {
+                  otherCategory.removeAttribute('open');
+                }
+              });
+
+              // Haptic feedback
+              utils.haptic('tap');
+
+              // Track the interaction
+              const title = category.querySelector('.concept-category__title')?.textContent || 'Unknown';
+              utils.track('Concepts', 'OpenCategory', title);
+
+              // Scroll category into view with offset
+              setTimeout(() => {
+                const headerHeight = 80;
+                const rect = category.getBoundingClientRect();
+                const scrollTop = window.pageYOffset + rect.top - headerHeight;
+
+                window.scrollTo({
+                  top: scrollTop,
+                  behavior: 'smooth'
+                });
+              }, 100);
+            }
+          });
+        });
+      });
+
+      console.log('[MobileAccordion] Concept category accordions initialized');
     },
   };
 
@@ -1341,6 +1394,7 @@
     resize.init();
     smoothScroll.init();
     conceptsCarousel.init();
+    conceptCategories.init();
     faqAccordion.init();
     progressIndicator.init();
 
