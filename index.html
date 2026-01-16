@@ -20395,6 +20395,9 @@
                     <span class="ask-book-chat__subtitle">AI-powered answers from Infinite Architects</span>
                 </div>
             </div>
+            <button class="ask-book-chat__clear-btn" id="askBookClear" aria-label="Clear history" title="Clear conversation">
+                Clear
+            </button>
             <button class="ask-book-chat__close" id="askBookClose" aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
@@ -20405,7 +20408,7 @@
         <!-- Messages Container -->
         <div class="ask-book-chat__messages" id="askBookMessages">
             <!-- Welcome Message -->
-            <div class="ask-book-chat__welcome">
+            <div class="ask-book-chat__welcome" id="askBookWelcome">
                 <div class="ask-book-chat__welcome-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -20454,6 +20457,14 @@
                     autocomplete="off"
                     maxlength="500"
                 >
+                <button class="ask-book-chat__mic-btn" id="askBookMic" aria-label="Voice input" title="Speak your question">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/>
+                        <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </button>
                 <button class="ask-book-chat__send" id="askBookSend" aria-label="Send message">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
@@ -20961,198 +20972,1139 @@
 }
 </style>
 
-<!-- Ask Book Chat JavaScript -->
+<!-- Council Visualisation Controller - Multi-AI Debate Visualiser -->
 <script>
-(function initAskBookChat() {
-    'use strict';
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * COUNCIL VISUALISATION CONTROLLER
+ * Manages the visual representation of multi-AI debate (the "War Room")
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+const CouncilViz = {
+    // Status messages for each model
+    statusMessages: {
+        claude: [
+            'Analysing ethical implications...',
+            'Cross-referencing Chapter 4...',
+            'Evaluating Eden Protocol alignment...',
+            'Checking recursive patterns...',
+            'Validating Eastwood Equation application...'
+        ],
+        gpt: [
+            'Verifying timeline accuracy...',
+            'Checking prediction methodology...',
+            'Cross-checking historical data...',
+            'Analysing quantum computing claims...',
+            'Reviewing semiconductor context...'
+        ],
+        gemini: [
+            'Searching recent developments...',
+            'Validating against BBC transcript...',
+            'Checking news sources...',
+            'Cross-referencing academic literature...',
+            'Verifying expert quotes...'
+        ]
+    },
 
-    // Elements
-    const fab = document.getElementById('askBookFab');
-    const chat = document.getElementById('askBookChat');
-    const backdrop = document.getElementById('askBookBackdrop');
-    const closeBtn = document.getElementById('askBookClose');
-    const messagesContainer = document.getElementById('askBookMessages');
-    const suggestionsContainer = document.getElementById('askBookSuggestions');
-    const input = document.getElementById('askBookInput');
-    const sendBtn = document.getElementById('askBookSend');
-    const fullModeCheckbox = document.getElementById('askBookFullMode');
-
-    if (!fab || !chat) return;
+    // Consensus messages
+    consensusMessages: [
+        'Building consensus...',
+        'Synthesising perspectives...',
+        'Resolving conflicts...',
+        'Finalising response...',
+        'Council agrees...'
+    ],
 
     // State
-    let isLoading = false;
-    let messageHistory = [];
+    state: {
+        isActive: false,
+        currentModel: null,
+        statusInterval: null,
+        progressInterval: null
+    },
 
-    // API Configuration
-    const API_URL = '/api/ask-book';
+    /**
+     * Create and show the council visualisation
+     */
+    show: function(container) {
+        if (this.state.isActive) return;
+        this.state.isActive = true;
 
-    // Open/Close Chat
-    function openChat() {
-        chat.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        setTimeout(() => input.focus(), 300);
-    }
-
-    function closeChat() {
-        chat.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Event Listeners
-    fab.addEventListener('click', openChat);
-    backdrop.addEventListener('click', closeChat);
-    closeBtn.addEventListener('click', closeChat);
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && chat.classList.contains('active')) {
-            closeChat();
-        }
-    });
-
-    // Suggestion clicks
-    suggestionsContainer.querySelectorAll('.ask-book-chat__suggestion').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const query = btn.dataset.query;
-            if (query) {
-                input.value = query;
-                sendMessage();
-            }
-        });
-    });
-
-    // Send message
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-
-    async function sendMessage() {
-        const query = input.value.trim();
-        if (!query || isLoading) return;
-
-        // Hide suggestions after first message
-        if (suggestionsContainer) {
-            suggestionsContainer.style.display = 'none';
-        }
-
-        // Hide welcome message
-        const welcome = messagesContainer.querySelector('.ask-book-chat__welcome');
-        if (welcome) welcome.style.display = 'none';
-
-        // Add user message
-        addMessage(query, 'user');
-        input.value = '';
-        messageHistory.push({ role: 'user', content: query });
-
-        // Show loading
-        isLoading = true;
-        sendBtn.disabled = true;
-        const loadingEl = showLoading();
-
-        try {
-            const mode = fullModeCheckbox.checked ? 'full' : 'fast';
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query, mode })
-            });
-
-            const data = await response.json();
-
-            // Remove loading
-            loadingEl.remove();
-
-            if (data.success || data.answer) {
-                addMessage(data.answer, 'ai', {
-                    sources: data.sources,
-                    type: data.type,
-                    models: data.models,
-                    modelCount: data.modelCount,
-                    responseTime: data.responseTime
-                });
-                messageHistory.push({ role: 'assistant', content: data.answer });
-            } else {
-                showError(data.error || 'Unable to get a response. Please try again.');
-            }
-
-        } catch (error) {
-            loadingEl.remove();
-            console.error('Ask Book API Error:', error);
-            showError('Connection error. Please check your internet and try again.');
-        } finally {
-            isLoading = false;
-            sendBtn.disabled = false;
-            input.focus();
-        }
-    }
-
-    function addMessage(content, type, meta = {}) {
-        const messageEl = document.createElement('div');
-        messageEl.className = `ask-book-chat__message ask-book-chat__message--${type}`;
-
-        let html = `<div class="ask-book-chat__message-content">${formatContent(content)}</div>`;
-
-        // Add sources for AI messages
-        if (type === 'ai' && meta.sources && meta.sources.length > 0) {
-            html += `
-                <div class="ask-book-chat__sources">
-                    <span class="ask-book-chat__sources-label">Related Concepts</span>
-                    ${meta.sources.map(s => `<span class="ask-book-chat__source-tag">${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`).join('')}
+        // Create HTML
+        const html = `
+            <div class="council" id="councilViz">
+                <div class="council__rings">
+                    <div class="council__ring council__ring--claude">
+                        <div class="council__ring-glow"></div>
+                    </div>
+                    <div class="council__ring council__ring--gpt">
+                        <div class="council__ring-glow"></div>
+                    </div>
+                    <div class="council__ring council__ring--gemini">
+                        <div class="council__ring-glow"></div>
+                    </div>
+                    <div class="council__center">
+                        <div class="council__center-pulse"></div>
+                    </div>
                 </div>
-            `;
-        }
 
-        // Add model info for AI messages
-        if (type === 'ai' && meta.modelCount) {
-            const modelText = meta.modelCount > 1
-                ? `Verified by ${meta.modelCount} AI models`
-                : meta.type === 'faq' ? 'Pre-verified answer' : 'Powered by Claude';
-            html += `<div class="ask-book-chat__model-info">${modelText} · ${meta.responseTime}ms</div>`;
-        }
-
-        messageEl.innerHTML = html;
-        messagesContainer.appendChild(messageEl);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    function formatContent(text) {
-        // Convert markdown-like formatting
-        return text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/\n/g, '<br>');
-    }
-
-    function showLoading() {
-        const loadingEl = document.createElement('div');
-        loadingEl.className = 'ask-book-chat__message ask-book-chat__message--ai';
-        loadingEl.innerHTML = `
-            <div class="ask-book-chat__loading">
-                <div class="ask-book-chat__loading-dots">
-                    <span class="ask-book-chat__loading-dot"></span>
-                    <span class="ask-book-chat__loading-dot"></span>
-                    <span class="ask-book-chat__loading-dot"></span>
+                <div class="council__status">
+                    <span class="council__label">COUNCIL IN SESSION</span>
                 </div>
-                <span class="ask-book-chat__loading-text">Consulting the book...</span>
+
+                <div class="council__models">
+                    <div class="council__model" data-model="claude">
+                        <span class="council__model-dot council__model-dot--claude"></span>
+                        <span class="council__model-name">Claude</span>
+                        <span class="council__model-status">Initialising...</span>
+                    </div>
+                    <div class="council__model" data-model="gpt">
+                        <span class="council__model-dot council__model-dot--gpt"></span>
+                        <span class="council__model-name">GPT-4</span>
+                        <span class="council__model-status">Waiting...</span>
+                    </div>
+                    <div class="council__model" data-model="gemini">
+                        <span class="council__model-dot council__model-dot--gemini"></span>
+                        <span class="council__model-name">Gemini</span>
+                        <span class="council__model-status">Waiting...</span>
+                    </div>
+                </div>
+
+                <div class="council__progress">
+                    <div class="council__progress-bar"></div>
+                    <span class="council__progress-text">Building consensus...</span>
+                </div>
             </div>
         `;
-        messagesContainer.appendChild(loadingEl);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        return loadingEl;
+
+        container.innerHTML = html;
+
+        // Start status rotation
+        this.startStatusRotation();
+
+        // Haptic feedback on mobile
+        if (navigator.vibrate) {
+            navigator.vibrate([50, 100, 50]);
+        }
+    },
+
+    /**
+     * Start rotating status messages
+     */
+    startStatusRotation: function() {
+        const models = ['claude', 'gpt', 'gemini'];
+        let currentModelIndex = 0;
+        let currentMessageIndex = 0;
+
+        // Activate first model
+        this.activateModel('claude');
+
+        this.state.statusInterval = setInterval(() => {
+            const model = models[currentModelIndex];
+            const messages = this.statusMessages[model];
+
+            // Update status text
+            this.updateModelStatus(model, messages[currentMessageIndex]);
+
+            // Move to next message
+            currentMessageIndex++;
+
+            // If we've shown all messages for this model, move to next
+            if (currentMessageIndex >= messages.length) {
+                currentMessageIndex = 0;
+                this.completeModel(model);
+
+                currentModelIndex++;
+
+                if (currentModelIndex < models.length) {
+                    this.activateModel(models[currentModelIndex]);
+                } else {
+                    // All models complete, start consensus
+                    clearInterval(this.state.statusInterval);
+                    this.startConsensus();
+                }
+            }
+        }, 1500);
+    },
+
+    /**
+     * Activate a model (highlight it)
+     */
+    activateModel: function(model) {
+        const element = document.querySelector(`[data-model="${model}"]`);
+        if (element) {
+            element.classList.add('active');
+            element.classList.remove('complete');
+        }
+        this.state.currentModel = model;
+    },
+
+    /**
+     * Mark a model as complete
+     */
+    completeModel: function(model) {
+        const element = document.querySelector(`[data-model="${model}"]`);
+        if (element) {
+            element.classList.remove('active');
+            element.classList.add('complete');
+
+            const status = element.querySelector('.council__model-status');
+            if (status) {
+                status.textContent = 'Complete ✓';
+            }
+        }
+    },
+
+    /**
+     * Update a model's status text
+     */
+    updateModelStatus: function(model, status) {
+        const element = document.querySelector(`[data-model="${model}"] .council__model-status`);
+        if (element) {
+            element.textContent = status;
+        }
+    },
+
+    /**
+     * Start the consensus phase
+     */
+    startConsensus: function() {
+        const progressText = document.querySelector('.council__progress-text');
+        let messageIndex = 0;
+
+        this.state.progressInterval = setInterval(() => {
+            if (progressText && messageIndex < this.consensusMessages.length) {
+                progressText.textContent = this.consensusMessages[messageIndex];
+                messageIndex++;
+            }
+        }, 1000);
+    },
+
+    /**
+     * Trigger convergence animation (when response is ready)
+     */
+    converge: function() {
+        const council = document.getElementById('councilViz');
+        if (council) {
+            council.classList.add('converging');
+
+            const label = council.querySelector('.council__label');
+            if (label) {
+                label.textContent = 'CONSENSUS REACHED';
+            }
+
+            // Haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 200]);
+            }
+        }
+    },
+
+    /**
+     * Hide and clean up
+     */
+    hide: function() {
+        if (this.state.statusInterval) {
+            clearInterval(this.state.statusInterval);
+        }
+        if (this.state.progressInterval) {
+            clearInterval(this.state.progressInterval);
+        }
+
+        const council = document.getElementById('councilViz');
+        if (council) {
+            council.style.opacity = '0';
+            council.style.transform = 'scale(0.9)';
+
+            setTimeout(() => {
+                council.remove();
+            }, 300);
+        }
+
+        this.state.isActive = false;
+        this.state.currentModel = null;
+    },
+
+    /**
+     * Update based on actual API progress (if available)
+     */
+    updateFromAPI: function(progress) {
+        Object.entries(progress).forEach(([model, status]) => {
+            if (status === 'complete') {
+                this.completeModel(model);
+            } else if (status === 'processing') {
+                this.activateModel(model);
+            }
+        });
+    }
+};
+
+// Export for global use
+window.CouncilViz = CouncilViz;
+</script>
+
+<!-- Ask Book Chat JavaScript - ULTIMATE INTELLIGENCE ENGINE -->
+<script>
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ASK THE BOOK - ULTIMATE INTELLIGENCE ENGINE
+ * Infinite Architects by Michael Darius Eastwood
+ *
+ * Features:
+ * - Full knowledge base search
+ * - Conversation memory (localStorage)
+ * - Voice input (Web Speech API)
+ * - Voice output (Speech Synthesis)
+ * - Related questions generation
+ * - Copy/share functionality
+ * - Feedback collection
+ * - Contextual purchase CTAs
+ * - Rich markdown rendering
+ * - Council UI visualisation
+ * - Error recovery
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+(function AskBookUltimate() {
+    'use strict';
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // CONFIGURATION
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const CONFIG = {
+        apiEndpoint: '/api/ask-book',
+        maxHistory: 10,
+        storageKey: 'ia_chat_history',
+        feedbackKey: 'ia_chat_feedback',
+        questionCountKey: 'ia_question_count',
+        ctaThresholds: {
+            light: 3,
+            strong: 5
+        },
+        voice: {
+            lang: 'en-GB',
+            pitch: 0.95,
+            rate: 0.92,
+            volume: 1.0,
+            preferredVoices: [
+                'Google UK English Male',
+                'Daniel',
+                'Microsoft George Online (Natural)',
+                'en-GB-Neural2-B'
+            ]
+        },
+        amazonLinks: {
+            uk: {
+                kindle: 'https://www.amazon.co.uk/dp/B0GDQZ7P21',
+                paperback: 'https://www.amazon.co.uk/dp/1806056208'
+            },
+            us: {
+                kindle: 'https://www.amazon.com/dp/B0GDQZ7P21',
+                paperback: 'https://www.amazon.com/dp/1806056208'
+            }
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // DOM ELEMENTS
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const elements = {
+        fab: document.getElementById('askBookFab'),
+        chat: document.getElementById('askBookChat'),
+        backdrop: document.getElementById('askBookBackdrop'),
+        close: document.getElementById('askBookClose'),
+        clear: document.getElementById('askBookClear'),
+        messages: document.getElementById('askBookMessages'),
+        input: document.getElementById('askBookInput'),
+        send: document.getElementById('askBookSend'),
+        mic: document.getElementById('askBookMic'),
+        fullMode: document.getElementById('askBookFullMode'),
+        welcome: document.querySelector('.ask-book-chat__welcome'),
+        suggestions: document.getElementById('askBookSuggestions')
+    };
+
+    if (!elements.fab || !elements.chat) {
+        console.warn('[ASK BOOK] Required elements not found');
+        return;
     }
 
-    function showError(message) {
-        const errorEl = document.createElement('div');
-        errorEl.className = 'ask-book-chat__error';
-        errorEl.textContent = message;
-        messagesContainer.appendChild(errorEl);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    // ═══════════════════════════════════════════════════════════════════════
+    // STATE
+    // ═══════════════════════════════════════════════════════════════════════
+
+    let state = {
+        isOpen: false,
+        isLoading: false,
+        isListening: false,
+        isSpeaking: false,
+        questionCount: parseInt(localStorage.getItem(CONFIG.questionCountKey) || '0'),
+        history: [],
+        currentSpeech: null,
+        recognition: null,
+        isUK: true // Default to UK
+    };
+
+    // Detect user location for Amazon links
+    (function detectLocation() {
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            state.isUK = !tz.includes('America');
+        } catch (e) {}
+    })();
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // BRAND GUARDIAN - Ensures consistent messaging
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const BrandGuardian = {
+        sanitise: function(text) {
+            let safe = text;
+            safe = safe.replace(/\bis a polymath\b/gi, 'utilises the polymathic method');
+            safe = safe.replace(/109,000/g, '114,000');
+            safe = safe.replace(/109K/g, '114K');
+            const ukFixes = [['color', 'colour'], ['behavior', 'behaviour'], ['realize', 'realise'], ['analyze', 'analyse'], ['center', 'centre']];
+            ukFixes.forEach(([us, uk]) => {
+                safe = safe.replace(new RegExp(`\\b${us}\\b`, 'gi'), uk);
+            });
+            return safe;
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // CONVERSATION MEMORY
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const Memory = {
+        load: function() {
+            try {
+                const saved = localStorage.getItem(CONFIG.storageKey);
+                if (saved) {
+                    state.history = JSON.parse(saved);
+                    return state.history;
+                }
+            } catch (e) {}
+            return [];
+        },
+
+        save: function(message) {
+            try {
+                state.history.push({ ...message, timestamp: Date.now() });
+                if (state.history.length > CONFIG.maxHistory * 2) {
+                    state.history = state.history.slice(-CONFIG.maxHistory * 2);
+                }
+                localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.history));
+            } catch (e) {}
+        },
+
+        clear: function() {
+            state.history = [];
+            localStorage.removeItem(CONFIG.storageKey);
+            localStorage.setItem(CONFIG.questionCountKey, '0');
+            state.questionCount = 0;
+        },
+
+        getContext: function(limit = 6) {
+            return state.history.slice(-limit).map(msg => ({
+                role: msg.type === 'user' ? 'user' : 'assistant',
+                content: msg.text.slice(0, 500)
+            }));
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // VOICE INPUT (Speech Recognition)
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const VoiceInput = {
+        init: function() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                if (elements.mic) elements.mic.style.display = 'none';
+                return;
+            }
+
+            state.recognition = new SpeechRecognition();
+            state.recognition.lang = CONFIG.voice.lang;
+            state.recognition.continuous = false;
+            state.recognition.interimResults = false;
+
+            state.recognition.onstart = () => {
+                state.isListening = true;
+                if (elements.mic) elements.mic.classList.add('listening');
+                if (navigator.vibrate) navigator.vibrate(50);
+            };
+
+            state.recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                if (elements.input) {
+                    elements.input.value = transcript;
+                    elements.input.focus();
+                }
+                setTimeout(() => sendMessage(transcript), 300);
+            };
+
+            state.recognition.onerror = () => {
+                state.isListening = false;
+                if (elements.mic) elements.mic.classList.remove('listening');
+            };
+
+            state.recognition.onend = () => {
+                state.isListening = false;
+                if (elements.mic) elements.mic.classList.remove('listening');
+            };
+        },
+
+        toggle: function() {
+            if (!state.recognition) return;
+            if (state.isListening) {
+                state.recognition.stop();
+            } else {
+                VoiceOutput.stop();
+                state.recognition.start();
+            }
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // VOICE OUTPUT (Speech Synthesis)
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const VoiceOutput = {
+        getPreferredVoice: function() {
+            const voices = speechSynthesis.getVoices();
+            for (const preferred of CONFIG.voice.preferredVoices) {
+                const voice = voices.find(v => v.name.includes(preferred) || v.voiceURI.includes(preferred));
+                if (voice) return voice;
+            }
+            return voices.find(v => v.lang.startsWith('en-GB')) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+        },
+
+        speak: function(text, button) {
+            if (!('speechSynthesis' in window)) return;
+            this.stop();
+
+            const cleanText = text
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/\[.*?\]/g, '')
+                .replace(/#{1,6}\s/g, '')
+                .slice(0, 2000);
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.voice = this.getPreferredVoice();
+            utterance.pitch = CONFIG.voice.pitch;
+            utterance.rate = CONFIG.voice.rate;
+            utterance.volume = CONFIG.voice.volume;
+
+            utterance.onstart = () => {
+                state.isSpeaking = true;
+                state.currentSpeech = utterance;
+                if (button) button.classList.add('playing');
+            };
+
+            utterance.onend = () => {
+                state.isSpeaking = false;
+                state.currentSpeech = null;
+                if (button) button.classList.remove('playing');
+            };
+
+            utterance.onerror = () => {
+                state.isSpeaking = false;
+                if (button) button.classList.remove('playing');
+            };
+
+            speechSynthesis.speak(utterance);
+        },
+
+        stop: function() {
+            if (speechSynthesis.speaking) speechSynthesis.cancel();
+            state.isSpeaking = false;
+            state.currentSpeech = null;
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // MARKDOWN RENDERER
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const MarkdownRenderer = {
+        render: function(text) {
+            let html = text;
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            html = html.replace(/^### (.*$)/gim, '<h4>$1</h4>');
+            html = html.replace(/^## (.*$)/gim, '<h4>$1</h4>');
+            html = html.replace(/^# (.*$)/gim, '<h4>$1</h4>');
+            html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+            html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+            html = html.replace(/\n/g, '<br>');
+            html = html.replace(/<br><br>/g, '</p><p>');
+            return html;
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // RELATED QUESTIONS GENERATOR
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const RelatedQuestions = {
+        templates: [
+            { trigger: 'equation', questions: ['How does U = I × R² work?', 'What evidence supports the Eastwood Equation?'] },
+            { trigger: 'eden', questions: ['What are the three ethical loops?', 'How does the Eden Protocol prevent misalignment?'] },
+            { trigger: 'chokepoint', questions: ['Which four companies control AI hardware?', 'What can we do about the chokepoint?'] },
+            { trigger: 'hrih', questions: ['What is the Hyperspace Recursive Intelligence Hypothesis?', 'Is HRIH testable?'] },
+            { trigger: 'prediction', questions: ['Which predictions have been verified?', 'What did BBC News confirm?'] },
+            { trigger: 'bbc', questions: ['What did BBC News report?', 'How was the prediction verified?'] },
+            { trigger: 'quantum', questions: ['How does quantum computing relate to the thesis?', 'What is Google Willow?'] }
+        ],
+
+        generate: function(query, answer, sources) {
+            const combined = (query + ' ' + answer).toLowerCase();
+            const questions = [];
+
+            this.templates.forEach(template => {
+                if (combined.includes(template.trigger)) {
+                    template.questions.forEach(q => {
+                        if (!questions.includes(q) && !q.toLowerCase().includes(query.toLowerCase().slice(0, 15))) {
+                            questions.push(q);
+                        }
+                    });
+                }
+            });
+
+            if (sources && sources.length > 0) {
+                sources.forEach(source => {
+                    if (source.chapter && !questions.some(q => q.includes(`Chapter ${source.chapter}`))) {
+                        questions.push(`What else is in Chapter ${source.chapter}?`);
+                    }
+                });
+            }
+
+            return questions.sort(() => Math.random() - 0.5).slice(0, 3);
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // FEEDBACK COLLECTOR
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const Feedback = {
+        save: function(query, answer, type) {
+            try {
+                const feedbackList = JSON.parse(localStorage.getItem(CONFIG.feedbackKey) || '[]');
+                feedbackList.push({ query: query.slice(0, 100), answer: answer.slice(0, 100), type, timestamp: Date.now() });
+                if (feedbackList.length > 50) feedbackList.shift();
+                localStorage.setItem(CONFIG.feedbackKey, JSON.stringify(feedbackList));
+
+                if (typeof gtag === 'function') {
+                    gtag('event', 'chat_feedback', { 'event_category': 'Ask Book', 'event_label': type });
+                }
+            } catch (e) {}
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // CTA GENERATOR
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const CTAGenerator = {
+        shouldShowCTA: function() {
+            if (state.questionCount >= CONFIG.ctaThresholds.strong) return 'strong';
+            if (state.questionCount >= CONFIG.ctaThresholds.light) return 'light';
+            return null;
+        },
+
+        getLinks: function() {
+            return state.isUK ? CONFIG.amazonLinks.uk : CONFIG.amazonLinks.us;
+        },
+
+        renderLight: function() {
+            const links = this.getLinks();
+            return `<div class="ask-book-chat__cta ask-book-chat__cta--light">
+                <p>You're exploring just 5% of the framework. The full 114,000-word book awaits.</p>
+                <a href="${links.kindle}" target="_blank" rel="noopener" class="ask-book-chat__cta-link">Get instant access on Kindle →</a>
+            </div>`;
+        },
+
+        renderStrong: function() {
+            const links = this.getLinks();
+            const prices = state.isUK ? { kindle: '£8.99', paperback: '£16.99' } : { kindle: '$9.99', paperback: '$19.99' };
+            return `<div class="ask-book-chat__cta ask-book-chat__cta--strong">
+                <div class="ask-book-chat__cta-box">
+                    <h4>Ready for the Complete Framework?</h4>
+                    <p>This AI knows the book. But nothing beats reading it yourself.</p>
+                    <div class="ask-book-chat__cta-options">
+                        <a href="${links.kindle}" target="_blank" rel="noopener" class="ask-book-chat__cta-btn ask-book-chat__cta-btn--primary">Kindle ${prices.kindle}</a>
+                        <a href="${links.paperback}" target="_blank" rel="noopener" class="ask-book-chat__cta-btn">Paperback ${prices.paperback}</a>
+                    </div>
+                </div>
+            </div>`;
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // COUNCIL VISUALISATION
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const CouncilViz = {
+        statusMessages: {
+            claude: ['Analysing ethical implications...', 'Cross-referencing Chapter 4...', 'Evaluating Eden Protocol alignment...'],
+            gpt: ['Verifying timeline accuracy...', 'Checking prediction methodology...', 'Analysing quantum computing claims...'],
+            gemini: ['Searching recent developments...', 'Validating against BBC transcript...', 'Verifying expert quotes...']
+        },
+        state: { isActive: false, statusInterval: null },
+
+        show: function(container) {
+            if (this.state.isActive) return;
+            this.state.isActive = true;
+
+            container.innerHTML = `<div class="council" id="councilViz">
+                <div class="council__rings">
+                    <div class="council__ring council__ring--claude"></div>
+                    <div class="council__ring council__ring--gpt"></div>
+                    <div class="council__ring council__ring--gemini"></div>
+                    <div class="council__center"><div class="council__center-pulse"></div></div>
+                </div>
+                <div class="council__status"><span class="council__label">COUNCIL IN SESSION</span></div>
+                <div class="council__models">
+                    <div class="council__model active" data-model="claude">
+                        <span class="council__model-dot council__model-dot--claude"></span>
+                        <span class="council__model-name">Claude</span>
+                        <span class="council__model-status">Analysing...</span>
+                    </div>
+                    <div class="council__model" data-model="gpt">
+                        <span class="council__model-dot council__model-dot--gpt"></span>
+                        <span class="council__model-name">GPT-4</span>
+                        <span class="council__model-status">Waiting...</span>
+                    </div>
+                    <div class="council__model" data-model="gemini">
+                        <span class="council__model-dot council__model-dot--gemini"></span>
+                        <span class="council__model-name">Gemini</span>
+                        <span class="council__model-status">Waiting...</span>
+                    </div>
+                </div>
+                <div class="council__progress"><div class="council__progress-bar"></div><span class="council__progress-text">Building consensus...</span></div>
+            </div>`;
+
+            this.startStatusRotation();
+            if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
+        },
+
+        startStatusRotation: function() {
+            const models = ['claude', 'gpt', 'gemini'];
+            let mi = 0, si = 0;
+
+            this.state.statusInterval = setInterval(() => {
+                const m = models[mi];
+                const msgs = this.statusMessages[m];
+                const el = document.querySelector(`[data-model="${m}"] .council__model-status`);
+                if (el) el.textContent = msgs[si % msgs.length];
+                si++;
+                if (si >= 3) {
+                    si = 0;
+                    const prev = document.querySelector(`[data-model="${m}"]`);
+                    if (prev) { prev.classList.remove('active'); prev.classList.add('complete'); prev.querySelector('.council__model-status').textContent = 'Complete ✓'; }
+                    mi++;
+                    if (mi < models.length) {
+                        const next = document.querySelector(`[data-model="${models[mi]}"]`);
+                        if (next) next.classList.add('active');
+                    } else {
+                        clearInterval(this.state.statusInterval);
+                    }
+                }
+            }, 1200);
+        },
+
+        converge: function() {
+            const council = document.getElementById('councilViz');
+            if (council) {
+                council.classList.add('converging');
+                const label = council.querySelector('.council__label');
+                if (label) label.textContent = 'CONSENSUS REACHED';
+                if (navigator.vibrate) navigator.vibrate([100, 50, 200]);
+            }
+        },
+
+        hide: function() {
+            if (this.state.statusInterval) clearInterval(this.state.statusInterval);
+            const council = document.getElementById('councilViz');
+            if (council) {
+                council.style.opacity = '0';
+                council.style.transform = 'scale(0.9)';
+                setTimeout(() => council.remove(), 300);
+            }
+            this.state.isActive = false;
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // UI COMPONENTS
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const UI = {
+        toggleChat: function() {
+            state.isOpen = !state.isOpen;
+            if (elements.chat) elements.chat.classList.toggle('active', state.isOpen);
+            if (elements.fab) elements.fab.classList.toggle('active', state.isOpen);
+            document.body.style.overflow = state.isOpen ? 'hidden' : '';
+
+            if (state.isOpen) {
+                setTimeout(() => { if (elements.input) elements.input.focus(); }, 300);
+                if (typeof gtag === 'function') gtag('event', 'chat_open', { 'event_category': 'Ask Book' });
+            }
+        },
+
+        addMessage: function(text, type, options = {}) {
+            if (!elements.messages) return;
+            const { sources, models, relatedQuestions, showCTA } = options;
+
+            if (elements.welcome) elements.welcome.style.display = 'none';
+            if (elements.suggestions) elements.suggestions.style.display = 'none';
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `ask-book-chat__message ask-book-chat__message--${type}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'ask-book-chat__message-content';
+            contentDiv.innerHTML = type === 'ai' ? MarkdownRenderer.render(BrandGuardian.sanitise(text)) : text;
+            msgDiv.appendChild(contentDiv);
+
+            if (type === 'ai') {
+                // Sources
+                if (sources && sources.length > 0) {
+                    const sourcesDiv = document.createElement('div');
+                    sourcesDiv.className = 'ask-book-chat__sources';
+                    sourcesDiv.innerHTML = `<span class="ask-book-chat__sources-label">Sources</span>
+                        ${sources.map(s => `<span class="ask-book-chat__source-tag">${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`).join('')}`;
+                    msgDiv.appendChild(sourcesDiv);
+                }
+
+                // Action buttons
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'ask-book-chat__message-actions';
+
+                // Listen button
+                const listenBtn = document.createElement('button');
+                listenBtn.className = 'ask-book-chat__listen-btn';
+                listenBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Listen`;
+                listenBtn.onclick = () => VoiceOutput.speak(text, listenBtn);
+                actionsDiv.appendChild(listenBtn);
+
+                // Copy button
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'ask-book-chat__copy-btn';
+                copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+                copyBtn.onclick = () => {
+                    navigator.clipboard.writeText(text).then(() => {
+                        copyBtn.classList.add('copied');
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied`;
+                        setTimeout(() => {
+                            copyBtn.classList.remove('copied');
+                            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+                        }, 2000);
+                    });
+                };
+                actionsDiv.appendChild(copyBtn);
+
+                // Share button
+                if (navigator.share) {
+                    const shareBtn = document.createElement('button');
+                    shareBtn.className = 'ask-book-chat__share-btn';
+                    shareBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
+                    shareBtn.onclick = () => {
+                        navigator.share({ title: 'From Infinite Architects', text: text.slice(0, 200) + '...', url: 'https://www.michaeldariuseastwood.com' });
+                    };
+                    actionsDiv.appendChild(shareBtn);
+                }
+
+                msgDiv.appendChild(actionsDiv);
+
+                // Feedback
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.className = 'ask-book-chat__feedback';
+                feedbackDiv.innerHTML = `<span class="ask-book-chat__feedback-label">Was this helpful?</span>
+                    <button class="ask-book-chat__feedback-btn" data-feedback="up" title="Yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg></button>
+                    <button class="ask-book-chat__feedback-btn" data-feedback="down" title="No"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3zm7-13h2.67A2.31 2.31 0 0122 4v7a2.31 2.31 0 01-2.33 2H17"/></svg></button>`;
+
+                feedbackDiv.querySelectorAll('.ask-book-chat__feedback-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        Feedback.save(options.query || '', text, btn.dataset.feedback);
+                        feedbackDiv.innerHTML = `<span class="ask-book-chat__feedback-thanks">Thanks for your feedback!</span>`;
+                    };
+                });
+                msgDiv.appendChild(feedbackDiv);
+
+                // Model info
+                if (models && models.length > 0) {
+                    const modelDiv = document.createElement('div');
+                    modelDiv.className = 'ask-book-chat__model-info';
+                    modelDiv.textContent = `Answered by ${models.join(', ')}`;
+                    msgDiv.appendChild(modelDiv);
+                }
+
+                // Related questions
+                if (relatedQuestions && relatedQuestions.length > 0) {
+                    const relatedDiv = document.createElement('div');
+                    relatedDiv.className = 'ask-book-chat__related';
+                    relatedDiv.innerHTML = `<span class="ask-book-chat__related-label">Related Questions</span>
+                        <div class="ask-book-chat__related-buttons">${relatedQuestions.map(q => `<button class="ask-book-chat__related-btn" data-query="${q}">${q}</button>`).join('')}</div>`;
+                    relatedDiv.querySelectorAll('.ask-book-chat__related-btn').forEach(btn => {
+                        btn.onclick = () => sendMessage(btn.dataset.query);
+                    });
+                    msgDiv.appendChild(relatedDiv);
+                }
+
+                // CTA
+                if (showCTA) {
+                    const ctaType = CTAGenerator.shouldShowCTA();
+                    if (ctaType === 'strong') msgDiv.insertAdjacentHTML('beforeend', CTAGenerator.renderStrong());
+                    else if (ctaType === 'light') msgDiv.insertAdjacentHTML('beforeend', CTAGenerator.renderLight());
+                }
+            }
+
+            elements.messages.appendChild(msgDiv);
+            elements.messages.scrollTop = elements.messages.scrollHeight;
+            Memory.save({ text, type, sources, timestamp: Date.now() });
+            return msgDiv;
+        },
+
+        addLoading: function() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'ask-book-chat__loading';
+            loadingDiv.id = 'askBookLoading';
+            loadingDiv.innerHTML = `<div class="ask-book-chat__loading-dots"><span class="ask-book-chat__loading-dot"></span><span class="ask-book-chat__loading-dot"></span><span class="ask-book-chat__loading-dot"></span></div><span class="ask-book-chat__loading-text">Consulting the book...</span>`;
+            if (elements.messages) {
+                elements.messages.appendChild(loadingDiv);
+                elements.messages.scrollTop = elements.messages.scrollHeight;
+            }
+            return loadingDiv;
+        },
+
+        removeLoading: function() {
+            const loading = document.getElementById('askBookLoading');
+            if (loading) loading.remove();
+            const councilContainer = document.getElementById('councilContainer');
+            if (councilContainer) councilContainer.remove();
+        },
+
+        addError: function(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'ask-book-chat__error';
+            errorDiv.textContent = message;
+            if (elements.messages) {
+                elements.messages.appendChild(errorDiv);
+                elements.messages.scrollTop = elements.messages.scrollHeight;
+            }
+            setTimeout(() => errorDiv.remove(), 5000);
+        }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // API CALL
+    // ═══════════════════════════════════════════════════════════════════════
+
+    async function callAPI(query, mode = 'fast') {
+        const response = await fetch(CONFIG.apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                query: query,
+                mode: mode,
+                history: Memory.getContext()
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+
+        return await response.json();
     }
 
-    console.log('[Ask Book Chat] Initialized and connected to /api/ask-book');
+    // ═══════════════════════════════════════════════════════════════════════
+    // SEND MESSAGE
+    // ═══════════════════════════════════════════════════════════════════════
+
+    async function sendMessage(text) {
+        const query = text || (elements.input ? elements.input.value.trim() : '');
+
+        if (!query || state.isLoading) return;
+
+        // Clear input
+        if (elements.input) elements.input.value = '';
+
+        // Add user message
+        UI.addMessage(query, 'user');
+
+        // Update question count
+        state.questionCount++;
+        localStorage.setItem(CONFIG.questionCountKey, state.questionCount.toString());
+
+        // Show loading
+        state.isLoading = true;
+        if (elements.send) elements.send.disabled = true;
+        UI.addLoading();
+
+        // Determine mode
+        const mode = (elements.fullMode && elements.fullMode.checked) ? 'full' : 'fast';
+
+        try {
+            const response = await callAPI(query, mode);
+
+            UI.removeLoading();
+
+            if (response.success && response.answer) {
+                const relatedQuestions = response.relatedQuestions ||
+                    RelatedQuestions.generate(query, response.answer, response.sources);
+
+                UI.addMessage(response.answer, 'ai', {
+                    sources: response.sources,
+                    models: response.models,
+                    relatedQuestions: relatedQuestions,
+                    showCTA: true,
+                    query: query
+                });
+
+                // Track success
+                if (typeof gtag === 'function') {
+                    gtag('event', 'chat_response', {
+                        'event_category': 'Ask Book',
+                        'event_label': response.type || 'ai',
+                        'value': response.responseTime
+                    });
+                }
+            } else {
+                throw new Error(response.error || 'No answer received');
+            }
+        } catch (error) {
+            console.error('[ASK BOOK] Error:', error);
+            UI.removeLoading();
+            UI.addError('I had trouble finding that answer. Please try rephrasing your question.');
+
+            // Track error
+            if (typeof gtag === 'function') {
+                gtag('event', 'chat_error', {
+                    'event_category': 'Ask Book',
+                    'event_label': error.message
+                });
+            }
+        } finally {
+            state.isLoading = false;
+            if (elements.send) elements.send.disabled = false;
+        }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // EVENT LISTENERS
+    // ═══════════════════════════════════════════════════════════════════════
+
+    function initEventListeners() {
+        // FAB click
+        if (elements.fab) {
+            elements.fab.addEventListener('click', UI.toggleChat);
+        }
+
+        // Close button
+        if (elements.close) {
+            elements.close.addEventListener('click', UI.toggleChat);
+        }
+
+        // Backdrop click
+        if (elements.backdrop) {
+            elements.backdrop.addEventListener('click', UI.toggleChat);
+        }
+
+        // Clear history
+        if (elements.clear) {
+            elements.clear.addEventListener('click', () => {
+                if (confirm('Clear conversation history?')) {
+                    Memory.clear();
+                    if (elements.messages) elements.messages.innerHTML = '';
+                    if (elements.welcome) elements.welcome.style.display = 'block';
+                    if (elements.suggestions) elements.suggestions.style.display = 'block';
+                }
+            });
+        }
+
+        // Send button
+        if (elements.send) {
+            elements.send.addEventListener('click', () => sendMessage());
+        }
+
+        // Input enter key
+        if (elements.input) {
+            elements.input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        // Microphone
+        if (elements.mic) {
+            elements.mic.addEventListener('click', VoiceInput.toggle);
+        }
+
+        // Suggestion buttons
+        document.querySelectorAll('.ask-book-chat__suggestion').forEach(btn => {
+            btn.addEventListener('click', () => {
+                sendMessage(btn.dataset.query);
+            });
+        });
+
+        // Quick buttons (old format)
+        document.querySelectorAll('.ask-book-quick-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                sendMessage(btn.dataset.question);
+            });
+        });
+
+        // Escape key to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && state.isOpen) {
+                UI.toggleChat();
+            }
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════
+    // INITIALIZATION
+    // ═══════════════════════════════════════════════════════════════════════
+
+    function init() {
+        // Load history
+        Memory.load();
+
+        // Initialize voice input
+        VoiceInput.init();
+
+        // Preload voices for speech synthesis
+        if ('speechSynthesis' in window) {
+            speechSynthesis.getVoices();
+            speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+        }
+
+        // Initialize event listeners
+        initEventListeners();
+
+        console.log('[ASK BOOK] Ultimate Intelligence Engine initialized');
+        console.log('[ASK BOOK] Questions asked this session:', state.questionCount);
+    }
+
+    // Start when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
 })();
 </script>
 
