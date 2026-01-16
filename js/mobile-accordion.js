@@ -1,417 +1,631 @@
 /**
- * ═══════════════════════════════════════════════════════════════════════════════
- * INFINITE ARCHITECTS — MOBILE ACCORDION CONTROLLER
- * Digital Consulate Interface JavaScript
- * 
- * PRODUCTION VERSION: January 16, 2026
- * INCLUDES: Haptic feedback, lazy loading, analytics tracking
- * ═══════════════════════════════════════════════════════════════════════════════
+ * ═══════════════════════════════════════════════════════════════════════════
+ * INFINITE ARCHITECTS — ULTIMATE MOBILE ACCORDION ENGINE
+ * Version: 4.0.0 ULTIMATE
+ * ═══════════════════════════════════════════════════════════════════════════
  */
 
 (function() {
   'use strict';
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════
   // CONFIGURATION
-  // ─────────────────────────────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════
+
   const CONFIG = {
-    breakpoint: 1023,
-    buyBarScrollThreshold: 0.25,
-    selectors: {
-      mobileExperience: '.mobile-experience',
-      accordionContainer: '.accordion-container',
-      accordionItem: '.accordion-item',
-      accordionContent: '.accordion-content',
-      buyBar: '.mobile-buy-bar',
-      hero: '.mobile-hero',
-      lazyVideo: '[data-src]',
-      heavyAsset: '[data-heavy-asset]'
-    },
-    analytics: {
+    cinema: {
       enabled: true,
-      events: {
-        accordionOpen: 'accordion_open',
-        accordionClose: 'accordion_close',
-        videoPlay: 'video_play',
-        ctaClick: 'cta_click'
-      }
-    }
+      duration: 1400,
+      criticalParts: ['accordion-evidence', 'accordion-join'],
+    },
+    particles: {
+      enabled: true,
+      count: 40,
+      connectionDistance: 80,
+      speed: 0.25,
+      size: { min: 1.5, max: 3.5 },
+      glow: true,
+      glowIntensity: 0.6,
+    },
+    haptics: {
+      enabled: true,
+      patterns: {
+        light: 8, medium: 15, heavy: 30,
+        success: [8, 40, 15], error: [40, 25, 40],
+        open: [8, 25], close: 12,
+      },
+    },
+    buyBar: { showAfterScroll: 0.3 },
+    performance: { throttleScroll: 80, debounceResize: 200 },
   };
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════
   // STATE
-  // ─────────────────────────────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════
+
   const state = {
+    initialized: false,
     isMobile: false,
+    accordions: new Map(),
+    particleSystem: null,
     buyBarVisible: false,
-    buyBarShownOnce: false,
-    loadedAssets: new Set(),
-    openAccordions: new Set()
+    pageVisible: true,
   };
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // ═══════════════════════════════════════════════════════════════
   // UTILITIES
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function debounce(fn, wait) {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => fn.apply(this, args), wait);
-    };
-  }
+  // ═══════════════════════════════════════════════════════════════
 
-  function throttle(fn, limit) {
-    let inThrottle;
-    return function(...args) {
-      if (!inThrottle) {
-        fn.apply(this, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+  const utils = {
+    throttle(fn, wait) {
+      let lastTime = 0;
+      return function(...args) {
+        const now = performance.now();
+        if (now - lastTime >= wait) {
+          lastTime = now;
+          requestAnimationFrame(() => fn.apply(this, args));
+        }
+      };
+    },
+
+    debounce(fn, wait) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => fn.apply(this, args), wait);
+      };
+    },
+
+    haptic(pattern) {
+      if (!CONFIG.haptics.enabled || !navigator.vibrate) return;
+      const vibration = CONFIG.haptics.patterns[pattern];
+      if (vibration) try { navigator.vibrate(vibration); } catch (e) {}
+    },
+
+    track(category, action, label = null) {
+      if (typeof gtag === 'function') {
+        gtag('event', action, { event_category: category, event_label: label });
       }
-    };
-  }
+    },
+  };
 
-  function trackEvent(eventName, params = {}) {
-    if (!CONFIG.analytics.enabled) return;
-    
-    // Google Analytics 4
-    if (typeof gtag === 'function') {
-      gtag('event', eventName, params);
-    }
-    
-    // Meta Pixel
-    if (typeof fbq === 'function') {
-      fbq('trackCustom', eventName, params);
-    }
-    
-    // Microsoft Clarity
-    if (typeof clarity === 'function') {
-      clarity('set', eventName, JSON.stringify(params));
-    }
-    
-    // Console log for debugging
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      console.log('[Analytics]', eventName, params);
-    }
-  }
+  // ═══════════════════════════════════════════════════════════════
+  // PARTICLE SYSTEM
+  // ═══════════════════════════════════════════════════════════════
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // HAPTIC FEEDBACK — Apple-grade tactile response
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function hapticFeedback(type = 'light') {
-    if (!navigator.vibrate) return;
-    
-    const patterns = {
-      light: 10,      // Quick tap
-      medium: 20,     // Standard interaction
-      heavy: 40,      // Important action
-      success: [10, 50, 20] // Success pattern
-    };
-    
-    navigator.vibrate(patterns[type] || patterns.light);
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // LAZY LOADING
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function loadVideo(video) {
-    if (!video || state.loadedAssets.has(video)) return;
-    
-    const dataSrc = video.getAttribute('data-src');
-    if (!dataSrc) return;
-    
-    video.src = dataSrc;
-    video.removeAttribute('data-src');
-    
-    video.querySelectorAll('source[data-src]').forEach(source => {
-      source.src = source.getAttribute('data-src');
-      source.removeAttribute('data-src');
-    });
-    
-    video.load();
-    state.loadedAssets.add(video);
-    
-    const wrapper = video.closest('.accordion-video-wrapper');
-    if (wrapper) {
-      wrapper.removeAttribute('data-loading');
+  class ParticleSystem {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d', { alpha: true });
+      this.particles = [];
+      this.mouse = { x: -1000, y: -1000 };
+      this.animationId = null;
+      this.running = false;
+      
+      this.resize();
+      this.createParticles();
+      this.bindEvents();
     }
-    
-    video.addEventListener('play', () => {
-      trackEvent(CONFIG.analytics.events.videoPlay, {
-        video_id: video.id || 'bbc-evidence',
-        section: video.closest('.accordion-item')?.id || 'unknown'
+
+    resize() {
+      const rect = this.canvas.parentElement.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      
+      this.canvas.width = rect.width * dpr;
+      this.canvas.height = rect.height * dpr;
+      this.canvas.style.width = `${rect.width}px`;
+      this.canvas.style.height = `${rect.height}px`;
+      
+      this.ctx.scale(dpr, dpr);
+      this.width = rect.width;
+      this.height = rect.height;
+    }
+
+    createParticles() {
+      this.particles = [];
+      const { count, size } = CONFIG.particles;
+      
+      for (let i = 0; i < count; i++) {
+        this.particles.push({
+          x: Math.random() * this.width,
+          y: Math.random() * this.height,
+          vx: (Math.random() - 0.5) * CONFIG.particles.speed * 2,
+          vy: (Math.random() - 0.5) * CONFIG.particles.speed * 2,
+          size: size.min + Math.random() * (size.max - size.min),
+          hue: 40 + (Math.random() - 0.5) * 15,
+          saturation: 70 + (Math.random() - 0.5) * 10,
+          lightness: 55 + (Math.random() - 0.5) * 10,
+          alpha: 0.4 + Math.random() * 0.5,
+          pulsePhase: Math.random() * Math.PI * 2,
+          pulseSpeed: 0.01 + Math.random() * 0.02,
+        });
+      }
+    }
+
+    bindEvents() {
+      this.canvas.parentElement.addEventListener('mousemove', (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        this.mouse.x = e.clientX - rect.left;
+        this.mouse.y = e.clientY - rect.top;
       });
-    });
-  }
 
-  function loadHeavyAsset(element) {
-    if (!element || state.loadedAssets.has(element)) return;
-    
-    const assetType = element.getAttribute('data-heavy-asset');
-    
-    switch (assetType) {
-      case 'equation-particles':
-        initEquationParticles(element);
-        break;
-      default:
-        console.warn('[LazyLoad] Unknown asset type:', assetType);
-    }
-    
-    state.loadedAssets.add(element);
-  }
-
-  function initEquationParticles(container) {
-    const canvas = document.createElement('canvas');
-    canvas.width = container.offsetWidth || 300;
-    canvas.height = 150;
-    canvas.style.cssText = 'width: 100%; height: 150px; display: block;';
-    container.appendChild(canvas);
-    
-    const ctx = canvas.getContext('2d');
-    const particles = [];
-    
-    for (let i = 0; i < 25; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.4 + 0.2
+      this.canvas.parentElement.addEventListener('mouseleave', () => {
+        this.mouse.x = -1000;
+        this.mouse.y = -1000;
       });
     }
-    
-    let animationId;
-    let isAnimating = true;
-    
-    function animate() {
-      if (!isAnimating) return;
-      
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(p => {
+
+    update() {
+      this.particles.forEach(p => {
+        p.pulsePhase += p.pulseSpeed;
+        p.currentAlpha = p.alpha * (Math.sin(p.pulsePhase) * 0.3 + 0.7);
+        
+        // Mouse interaction
+        const dx = this.mouse.x - p.x;
+        const dy = this.mouse.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        
+        if (dist < 100) {
+          const force = (100 - dist) / 100;
+          p.vx -= (dx / dist) * force * 0.02;
+          p.vy -= (dy / dist) * force * 0.02;
+        }
+        
         p.x += p.vx;
         p.y += p.vy;
         
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+        p.vx += (Math.random() - 0.5) * 0.02;
+        p.vy += (Math.random() - 0.5) * 0.02;
+        
+        // Speed limit
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed > CONFIG.particles.speed * 2) {
+          p.vx = (p.vx / speed) * CONFIG.particles.speed * 2;
+          p.vy = (p.vy / speed) * CONFIG.particles.speed * 2;
+        }
+        
+        // Wrap
+        if (p.x < -10) p.x = this.width + 10;
+        if (p.x > this.width + 10) p.x = -10;
+        if (p.y < -10) p.y = this.height + 10;
+        if (p.y > this.height + 10) p.y = -10;
+      });
+    }
+
+    draw() {
+      const ctx = this.ctx;
+      const { connectionDistance, glow, glowIntensity } = CONFIG.particles;
+      
+      ctx.clearRect(0, 0, this.width, this.height);
+      
+      // Draw connections
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < this.particles.length; i++) {
+        const p1 = this.particles[i];
+        for (let j = i + 1; j < this.particles.length; j++) {
+          const p2 = this.particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist < connectionDistance) {
+            const opacity = (1 - dist / connectionDistance) * 0.35 * Math.min(p1.currentAlpha, p2.currentAlpha);
+            ctx.strokeStyle = `hsla(40, 60%, 50%, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+      
+      // Draw particles
+      this.particles.forEach(p => {
+        if (glow) {
+          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 5);
+          gradient.addColorStop(0, `hsla(${p.hue}, ${p.saturation}%, ${p.lightness}%, ${p.currentAlpha * glowIntensity})`);
+          gradient.addColorStop(1, 'transparent');
+          ctx.beginPath();
+          ctx.fillStyle = gradient;
+          ctx.arc(p.x, p.y, p.size * 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
         
         ctx.beginPath();
+        ctx.fillStyle = `hsla(${p.hue}, ${p.saturation}%, ${p.lightness}%, ${p.currentAlpha})`;
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(212, 168, 75, ${p.opacity})`;
         ctx.fill();
       });
-      
-      animationId = requestAnimationFrame(animate);
     }
-    
-    animate();
-    
-    const accordion = container.closest('.accordion-item');
-    if (accordion) {
-      accordion.addEventListener('toggle', (e) => {
-        if (!e.target.open) {
-          isAnimating = false;
-          if (animationId) cancelAnimationFrame(animationId);
-        } else {
-          isAnimating = true;
-          animate();
-        }
-      });
+
+    animate() {
+      if (!this.running || !state.pageVisible) return;
+      this.update();
+      this.draw();
+      this.animationId = requestAnimationFrame(() => this.animate());
     }
-  }
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // ACCORDION CONTROLLER
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function initAccordions() {
-    const accordions = document.querySelectorAll(CONFIG.selectors.accordionItem);
-    
-    accordions.forEach(accordion => {
-      accordion.addEventListener('toggle', handleAccordionToggle);
-      
-      // Add haptic feedback on summary click
-      const summary = accordion.querySelector('summary');
-      if (summary) {
-        summary.addEventListener('click', () => {
-          hapticFeedback('light');
-        });
-      }
-    });
-  }
+    start() {
+      if (this.running) return;
+      this.running = true;
+      this.animate();
+    }
 
-  function handleAccordionToggle(event) {
-    const accordion = event.target;
-    const id = accordion.id || 'unnamed';
-    const content = accordion.querySelector(CONFIG.selectors.accordionContent);
-    
-    if (accordion.open) {
-      state.openAccordions.add(id);
-      
-      // Lazy load content
-      const inner = content?.querySelector('.accordion-content__inner');
-      if (inner) {
-        inner.querySelectorAll(CONFIG.selectors.lazyVideo).forEach(loadVideo);
-        inner.querySelectorAll(CONFIG.selectors.heavyAsset).forEach(loadHeavyAsset);
-      }
-      
-      // Smooth scroll into view
-      setTimeout(() => {
-        const rect = accordion.getBoundingClientRect();
-        if (rect.top < 0 || rect.top > window.innerHeight * 0.3) {
-          accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      
-      trackEvent(CONFIG.analytics.events.accordionOpen, { section_id: id });
-      
-    } else {
-      state.openAccordions.delete(id);
-      trackEvent(CONFIG.analytics.events.accordionClose, { section_id: id });
+    stop() {
+      this.running = false;
+      if (this.animationId) cancelAnimationFrame(this.animationId);
+    }
+
+    destroy() {
+      this.stop();
+      this.particles = [];
     }
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // BUY BAR CONTROLLER
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function initBuyBar() {
-    const buyBar = document.querySelector(CONFIG.selectors.buyBar);
-    const hero = document.querySelector(CONFIG.selectors.hero);
-    
-    if (!buyBar || !hero) return;
-    
-    const heroHeight = hero.offsetHeight;
-    const threshold = heroHeight * CONFIG.buyBarScrollThreshold;
-    
-    function updateBuyBar() {
-      const scrollY = window.scrollY;
+  // ═══════════════════════════════════════════════════════════════
+  // CINEMATIC OVERLAY
+  // ═══════════════════════════════════════════════════════════════
+
+  const cinema = {
+    overlay: null,
+    timeout: null,
+    isShowing: false,
+
+    create() {
+      if (this.overlay) return;
       
-      // Once shown, keep it shown forever
-      if (scrollY > threshold) {
-        state.buyBarShownOnce = true;
-      }
-      
-      if (state.buyBarShownOnce && !state.buyBarVisible) {
-        buyBar.classList.add('visible');
-        state.buyBarVisible = true;
-        hapticFeedback('light');
-      }
-    }
-    
-    window.addEventListener('scroll', throttle(updateBuyBar, 100), { passive: true });
-    updateBuyBar();
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CTA TRACKING
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function initCTATracking() {
-    document.querySelectorAll('[data-analytics]').forEach(el => {
-      el.addEventListener('click', () => {
-        trackEvent(CONFIG.analytics.events.ctaClick, {
-          cta_id: el.getAttribute('data-analytics'),
-          location: el.closest('.accordion-item')?.id || 'hero'
-        });
-      });
-    });
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // VIDEO CLICK-TO-LOAD
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function initVideoClickToLoad() {
-    document.querySelectorAll('.accordion-video-wrapper[data-loading="true"]').forEach(wrapper => {
-      wrapper.addEventListener('click', function() {
-        const video = this.querySelector('video');
-        if (video) {
-          loadVideo(video);
-          video.play().catch(() => {
-            // Autoplay blocked, that's fine
-          });
-        }
-        hapticFeedback('medium');
-      }, { once: true });
-    });
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // VIEWPORT HANDLER
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function handleViewportChange() {
-    const wasMobile = state.isMobile;
-    state.isMobile = window.innerWidth <= CONFIG.breakpoint;
-    
-    if (wasMobile !== state.isMobile) {
-      console.log('[MobileAccordion] Viewport:', state.isMobile ? 'Mobile' : 'Desktop');
-      
-      if (!state.isMobile) {
-        state.buyBarVisible = false;
-        state.buyBarShownOnce = false;
-        document.querySelector(CONFIG.selectors.buyBar)?.classList.remove('visible');
-      }
-    }
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // INITIALIZATION
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  function init() {
-    console.log('[MobileAccordion] Initializing...');
-    
-    handleViewportChange();
-    
-    if (state.isMobile) {
-      initAccordions();
-      initBuyBar();
-      initCTATracking();
-      initVideoClickToLoad();
-    }
-    
-    window.addEventListener('resize', debounce(handleViewportChange, 250));
-    
-    console.log('[MobileAccordion] Ready');
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // PUBLIC API
-  // ─────────────────────────────────────────────────────────────────────────────
-  
-  window.MobileAccordion = {
-    openAccordion: (id) => {
-      const accordion = document.getElementById(id);
-      if (accordion) {
-        accordion.open = true;
-        accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        hapticFeedback('light');
-      }
+      this.overlay = document.createElement('div');
+      this.overlay.className = 'cinema-overlay';
+      this.overlay.innerHTML = `
+        <span class="cinema-overlay__part"></span>
+        <div class="cinema-overlay__divider"></div>
+        <span class="cinema-overlay__title"></span>
+        <span class="cinema-overlay__hook"></span>
+      `;
+      this.overlay.addEventListener('click', () => this.hide());
+      document.body.appendChild(this.overlay);
     },
-    closeAccordion: (id) => {
-      const accordion = document.getElementById(id);
-      if (accordion) accordion.open = false;
+
+    show(partLabel, title, hook) {
+      if (!CONFIG.cinema.enabled || !this.overlay || this.isShowing) return;
+      
+      this.isShowing = true;
+      this.overlay.querySelector('.cinema-overlay__part').textContent = partLabel;
+      this.overlay.querySelector('.cinema-overlay__title').textContent = title;
+      this.overlay.querySelector('.cinema-overlay__hook').textContent = hook;
+      
+      this.overlay.classList.remove('active');
+      void this.overlay.offsetWidth;
+      this.overlay.classList.add('active');
+      
+      document.body.style.overflow = 'hidden';
+      utils.haptic('success');
+      
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => this.hide(), CONFIG.cinema.duration);
     },
-    getState: () => ({ ...state }),
-    setDebug: (enabled) => { CONFIG.analytics.enabled = enabled; }
+
+    hide() {
+      if (!this.overlay) return;
+      this.overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      this.isShowing = false;
+    },
+
+    destroy() {
+      clearTimeout(this.timeout);
+      if (this.overlay) this.overlay.remove();
+    },
   };
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // START
-  // ─────────────────────────────────────────────────────────────────────────────
-  
+  // ═══════════════════════════════════════════════════════════════
+  // ACCORDION MANAGER
+  // ═══════════════════════════════════════════════════════════════
+
+  const accordionManager = {
+    init() {
+      document.querySelectorAll('.accordion-item').forEach((accordion) => {
+        const id = accordion.id;
+        const summary = accordion.querySelector('.accordion-header');
+        
+        state.accordions.set(id, {
+          element: accordion,
+          isOpen: accordion.hasAttribute('open'),
+          hasAnimated: false,
+        });
+        
+        summary.addEventListener('click', (e) => this.handleToggle(e, id));
+        
+        if (accordion.hasAttribute('open')) {
+          this.onOpen(id, state.accordions.get(id), false);
+        }
+      });
+    },
+
+    handleToggle(event, id) {
+      const data = state.accordions.get(id);
+      if (!data) return;
+      
+      const willBeOpen = !data.element.hasAttribute('open');
+      utils.haptic(willBeOpen ? 'open' : 'close');
+      
+      if (willBeOpen) this.onOpen(id, data, true);
+      else this.onClose(id, data);
+      
+      data.isOpen = willBeOpen;
+      utils.track('Accordion', willBeOpen ? 'Open' : 'Close', id);
+    },
+
+    onOpen(id, data, showCinema = true) {
+      if (showCinema && CONFIG.cinema.criticalParts.includes(id) && !data.hasAnimated) {
+        const label = data.element.querySelector('.accordion-header__label')?.textContent || '';
+        const title = data.element.querySelector('.accordion-header__title')?.textContent || '';
+        const hook = data.element.querySelector('.accordion-header__subtitle')?.textContent || '';
+        cinema.show(label, title, hook);
+      }
+      
+      data.hasAnimated = true;
+      this.lazyLoadContent(data.element);
+      
+      if (showCinema) {
+        const delay = CONFIG.cinema.enabled && CONFIG.cinema.criticalParts.includes(id) ? CONFIG.cinema.duration + 100 : 150;
+        setTimeout(() => {
+          const header = data.element.querySelector('.accordion-header');
+          if (header) {
+            const rect = header.getBoundingClientRect();
+            if (rect.top < 0 || rect.top > window.innerHeight * 0.3) {
+              header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        }, delay);
+      }
+    },
+
+    onClose(id, data) {},
+
+    lazyLoadContent(accordion) {
+      accordion.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+      
+      accordion.querySelectorAll('.video-placeholder:not(.loaded)').forEach(placeholder => {
+        placeholder.classList.add('loaded');
+        placeholder.addEventListener('click', () => this.loadVideo(placeholder), { once: true });
+      });
+    },
+
+    loadVideo(placeholder) {
+      const wrapper = placeholder.closest('.video-wrapper');
+      const src = placeholder.getAttribute('data-video-src');
+      if (!src || !wrapper) return;
+      
+      utils.haptic('medium');
+      utils.track('Video', 'Play', src);
+      
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      
+      placeholder.style.opacity = '0';
+      setTimeout(() => {
+        wrapper.innerHTML = '';
+        wrapper.appendChild(iframe);
+      }, 200);
+    },
+
+    openById(id) {
+      const data = state.accordions.get(id);
+      if (data && !data.isOpen) {
+        data.element.setAttribute('open', '');
+        this.onOpen(id, data, true);
+        data.isOpen = true;
+      }
+    },
+
+    closeById(id) {
+      const data = state.accordions.get(id);
+      if (data && data.isOpen) {
+        data.element.removeAttribute('open');
+        this.onClose(id, data);
+        data.isOpen = false;
+      }
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // BUY BAR
+  // ═══════════════════════════════════════════════════════════════
+
+  const buyBar = {
+    element: null,
+
+    init() {
+      this.element = document.querySelector('.buy-bar');
+      if (!this.element) return;
+      
+      window.addEventListener('scroll', utils.throttle(() => this.check(), CONFIG.performance.throttleScroll), { passive: true });
+      this.check();
+    },
+
+    check() {
+      const hero = document.querySelector('.mobile-hero');
+      if (!hero) return;
+      
+      const scrolled = -hero.getBoundingClientRect().top / hero.offsetHeight;
+      const shouldShow = scrolled > CONFIG.buyBar.showAfterScroll;
+      
+      if (shouldShow !== state.buyBarVisible) {
+        state.buyBarVisible = shouldShow;
+        shouldShow ? this.show() : this.hide();
+      }
+    },
+
+    show() {
+      if (this.element) this.element.classList.add('visible');
+    },
+
+    hide() {
+      if (this.element) this.element.classList.remove('visible');
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // SHARE MANAGER
+  // ═══════════════════════════════════════════════════════════════
+
+  const shareManager = {
+    init() {
+      document.querySelectorAll('[data-share="tweet"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.tweet(btn.getAttribute('data-text'));
+        });
+      });
+      
+      document.querySelectorAll('[data-share="copy"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.copy(btn.getAttribute('data-text'), btn);
+        });
+      });
+    },
+
+    tweet(text) {
+      const defaultText = '"The creator is not behind us." — Infinite Architects\nhttps://michaeldariuseastwood.com';
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text || defaultText)}`, '_blank', 'width=550,height=420');
+      utils.haptic('success');
+      utils.track('Share', 'Tweet');
+    },
+
+    async copy(text, button) {
+      const defaultText = '"I am my own first experiment. The results have surprised even me." — Michael Darius Eastwood';
+      try {
+        await navigator.clipboard.writeText(text || defaultText);
+        utils.haptic('success');
+        utils.track('Share', 'Copy');
+        
+        const span = button.querySelector('span');
+        if (span) {
+          const original = span.textContent;
+          span.textContent = 'Copied!';
+          setTimeout(() => { span.textContent = original; }, 1500);
+        }
+      } catch (e) {
+        utils.haptic('error');
+      }
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // EVENT HANDLERS
+  // ═══════════════════════════════════════════════════════════════
+
+  const handlers = {
+    visibility() {
+      document.addEventListener('visibilitychange', () => {
+        state.pageVisible = !document.hidden;
+        if (state.pageVisible && state.particleSystem) state.particleSystem.start();
+        else if (state.particleSystem) state.particleSystem.stop();
+      });
+    },
+
+    resize() {
+      window.addEventListener('resize', utils.debounce(() => {
+        if (state.particleSystem) {
+          state.particleSystem.resize();
+          state.particleSystem.createParticles();
+        }
+      }, CONFIG.performance.debounceResize));
+    },
+
+    smoothScroll() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          const targetId = anchor.getAttribute('href');
+          const target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            utils.haptic('light');
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (target.classList.contains('accordion-item')) {
+              setTimeout(() => accordionManager.openById(target.id), 500);
+            }
+          }
+        });
+      });
+    },
+
+    ctaTracking() {
+      document.querySelectorAll('[data-analytics]').forEach(el => {
+        el.addEventListener('click', () => {
+          utils.haptic('medium');
+          utils.track('CTA', 'Click', el.getAttribute('data-analytics'));
+        });
+      });
+    },
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // INITIALIZATION
+  // ═══════════════════════════════════════════════════════════════
+
+  function init() {
+    state.isMobile = window.innerWidth < 1024;
+    if (!state.isMobile) return;
+
+    console.log('[InfiniteArchitects] Initializing v4.0.0');
+
+    cinema.create();
+
+    const particleCanvas = document.querySelector('.mobile-hero__particles');
+    if (particleCanvas && CONFIG.particles.enabled) {
+      state.particleSystem = new ParticleSystem(particleCanvas);
+      state.particleSystem.start();
+    }
+
+    accordionManager.init();
+    buyBar.init();
+    shareManager.init();
+    handlers.visibility();
+    handlers.resize();
+    handlers.smoothScroll();
+    handlers.ctaTracking();
+
+    state.initialized = true;
+    utils.track('Page', 'Load', 'Mobile');
+    console.log('[InfiniteArchitects] Ready');
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // PUBLIC API
+  // ═══════════════════════════════════════════════════════════════
+
+  window.InfiniteArchitects = {
+    version: '4.0.0',
+    openAccordion: (id) => accordionManager.openById(id),
+    closeAccordion: (id) => accordionManager.closeById(id),
+    showBuyBar: () => buyBar.show(),
+    hideBuyBar: () => buyBar.hide(),
+    showCinema: (part, title, hook) => cinema.show(part, title, hook),
+    hideCinema: () => cinema.hide(),
+    pauseParticles: () => state.particleSystem?.stop(),
+    resumeParticles: () => state.particleSystem?.start(),
+    haptic: (pattern) => utils.haptic(pattern),
+    track: (cat, act, label) => utils.track(cat, act, label),
+  };
+
+  // ═══════════════════════════════════════════════════════════════
+  // DOM READY
+  // ═══════════════════════════════════════════════════════════════
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    init();
+    requestAnimationFrame(init);
   }
 
 })();
