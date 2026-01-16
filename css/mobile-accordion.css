@@ -1702,6 +1702,59 @@
   margin: 0;
 }
 
+/* Scale Diagram */
+.scale-diagram {
+  background: var(--accordion-card-bg);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 14px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.scale-diagram__title {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accordion-text-faint);
+  text-align: center;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.scale-diagram__scales {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scale-item {
+  display: grid;
+  grid-template-columns: 2rem 5rem 1fr;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.6rem;
+  background: rgba(212, 168, 75, 0.04);
+  border-radius: 8px;
+  border-left: 2px solid var(--accordion-gold);
+}
+
+.scale-item__icon {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.scale-item__name {
+  font-family: var(--accordion-font-display);
+  font-size: 0.8rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.05em;
+}
+
+.scale-item__example {
+  font-size: 0.72rem;
+  color: var(--accordion-text-dim);
+}
+
 /* Equation Insight Block */
 .equation-insight {
   background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
@@ -3310,6 +3363,58 @@
    SECTION 21: CINEMATIC EVIDENCE SECTION — APPLE-GRADE PRESENTATION
    Full-width video sections with dramatic typography and elegant spacing
    ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Verified Hero Badge — Maximum Impact */
+.verified-hero-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(74, 222, 128, 0.05));
+  border: 2px solid rgba(74, 222, 128, 0.4);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  animation: verifiedPulse 3s ease-in-out infinite;
+}
+
+@keyframes verifiedPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.35); }
+}
+
+.verified-hero-badge__icon {
+  width: 48px;
+  height: 48px;
+  background: #4ade80;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.verified-hero-badge__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.verified-hero-badge__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #4ade80;
+}
+
+.verified-hero-badge__subtitle {
+  font-size: 0.78rem;
+  color: var(--accordion-text-secondary);
+}
 
 /* Container */
 .evidence-cinematic-container {
@@ -5413,5 +5518,85 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   PART I: EMOTIONAL HOOK — "Why I Wrote This Book"
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.emotional-hook {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.08), rgba(212, 168, 75, 0.02));
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+.emotional-hook__icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+}
+
+.emotional-hook__question {
+  font-family: var(--accordion-font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--accordion-gold);
+  margin: 0 0 var(--space-md) 0;
+  letter-spacing: 0.02em;
+}
+
+.emotional-hook__answer {
+  font-family: var(--accordion-font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--accordion-text);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.emotional-hook__answer em {
+  color: var(--accordion-gold);
+  font-style: italic;
+}
+
+.emotional-hook__stakes {
+  background: rgba(212, 168, 75, 0.06);
+  border-left: 3px solid var(--accordion-gold);
+  padding: var(--space-md);
+  margin: var(--space-md) 0;
+  text-align: left;
+}
+
+.emotional-hook__label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accordion-gold);
+  margin-bottom: 0.5rem;
+}
+
+.emotional-hook__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--accordion-text-secondary);
+}
+
+.emotional-hook__coda {
+  font-family: var(--accordion-font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--accordion-text);
+  margin: var(--space-md) 0 0 0;
+}
+
+.emotional-hook__coda em {
+  color: var(--accordion-gold);
+  font-weight: 600;
+  font-style: normal;
 }
 
