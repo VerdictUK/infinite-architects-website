@@ -4252,6 +4252,59 @@
   --cat-action-glow: rgba(74, 222, 128, 0.15);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════════
+   CRITICAL: FORCE HIDE DEFAULT DETAILS MARKERS (iOS Safari Fix)
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Hide ALL default disclosure markers - every possible selector */
+.concept-category,
+.concept-category summary,
+.concept-category > summary,
+.concept-category__header,
+details.concept-category,
+details.concept-category > summary {
+  list-style: none !important;
+  list-style-type: none !important;
+}
+
+.concept-category::-webkit-details-marker,
+.concept-category summary::-webkit-details-marker,
+.concept-category > summary::-webkit-details-marker,
+.concept-category__header::-webkit-details-marker,
+details.concept-category::-webkit-details-marker,
+details.concept-category > summary::-webkit-details-marker {
+  display: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.concept-category::marker,
+.concept-category summary::marker,
+.concept-category > summary::marker,
+.concept-category__header::marker,
+details.concept-category::marker,
+details.concept-category > summary::marker {
+  display: none !important;
+  content: '' !important;
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
+/* Force ALL SVGs inside concept categories to be small */
+.concept-category svg,
+.concept-category__header svg,
+.concepts-categories svg,
+details.concept-category svg,
+.concept-category summary svg {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  flex-shrink: 0 !important;
+}
+
 /* Container for all categories */
 .concepts-categories {
   display: flex;
