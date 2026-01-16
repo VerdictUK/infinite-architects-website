@@ -470,6 +470,203 @@
 }
 
 
+/* ═══ ENHANCED RECEIPTS — Single Powerful Verification Display ═══ */
+
+.receipts--enhanced {
+  max-width: 360px;
+  background: linear-gradient(145deg,
+    rgba(212, 168, 75, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(74, 222, 128, 0.04) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 0 60px rgba(212, 168, 75, 0.06);
+}
+
+.receipts--enhanced .receipts__grid {
+  flex-direction: column;
+  gap: 0;
+}
+
+.receipts--enhanced .receipts__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.receipts--enhanced .receipts__item:last-of-type {
+  border-bottom: none;
+}
+
+.receipts__item--book {
+  position: relative;
+}
+
+.receipts__item--book::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accordion-gold) 0%, transparent 100%);
+  border-radius: 1px;
+  opacity: 0.5;
+}
+
+.receipts__item--bbc {
+  position: relative;
+}
+
+.receipts__item--bbc::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accordion-verified) 0%, transparent 100%);
+  border-radius: 1px;
+  opacity: 0.5;
+}
+
+.receipts--enhanced .receipts__item--book,
+.receipts--enhanced .receipts__item--bbc {
+  padding-left: 12px;
+}
+
+.receipts--enhanced .receipts__icon {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.receipts--enhanced .receipts__source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  margin-bottom: 6px;
+}
+
+.receipts--enhanced .receipts__quote {
+  margin-top: 0;
+  font-size: 0.9375rem;
+  color: var(--accordion-text);
+  font-weight: 500;
+}
+
+.receipts__attribution {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text-faint);
+  margin-top: 6px;
+}
+
+/* Gap indicator between items */
+.receipts--enhanced .receipts__gap {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(212, 168, 75, 0.08) 50%,
+    transparent 100%);
+  padding: 16px 0;
+  margin: 4px 0;
+  border-radius: 8px;
+}
+
+.receipts--enhanced .receipts__gap-number {
+  font-size: 2.25rem;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(212, 168, 75, 0.3);
+}
+
+.receipts--enhanced .receipts__gap-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text-dim);
+}
+
+/* Footer with verified badge and CTA */
+.receipts__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 12px;
+}
+
+.receipts__footer .receipts__verified {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.receipts__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--accordion-font-display);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--accordion-gold);
+  text-decoration: none;
+  padding: 6px 10px;
+  border: 1px solid rgba(212, 168, 75, 0.25);
+  border-radius: 6px;
+  background: rgba(212, 168, 75, 0.05);
+  transition: all 0.3s var(--accordion-ease);
+  white-space: nowrap;
+}
+
+.receipts__cta:hover {
+  background: rgba(212, 168, 75, 0.12);
+  border-color: rgba(212, 168, 75, 0.4);
+  color: var(--accordion-gold-bright);
+  transform: translateX(2px);
+}
+
+.receipts__cta svg {
+  transition: transform 0.3s var(--accordion-ease);
+}
+
+.receipts__cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* Mobile responsive tweaks for enhanced receipts */
+@media (max-width: 380px) {
+  .receipts--enhanced {
+    max-width: 100%;
+    padding: 16px 18px;
+  }
+
+  .receipts--enhanced .receipts__quote {
+    font-size: 0.875rem;
+  }
+
+  .receipts__footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .receipts__cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
 /* ✨ Hero CTA — Apple-grade button */
 .mobile-hero__cta {
   display: inline-flex;
@@ -7587,93 +7784,6 @@
 
 
 /* ─────────────────────────────────────────────────────────────────────────────────────────
-   TRUST BAR: "AS VERIFIED BY BBC"
-   Prominent trust signal at top of accordion
-   ───────────────────────────────────────────────────────────────────────────────────────── */
-
-.trust-bar {
-  background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
-  border: 1px solid rgba(212, 168, 75, 0.2);
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 20px;
-}
-
-.trust-bar__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-}
-
-.trust-bar__badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: linear-gradient(135deg, rgba(46, 160, 67, 0.15) 0%, rgba(46, 160, 67, 0.05) 100%);
-  border: 1px solid rgba(46, 160, 67, 0.3);
-  border-radius: 100px;
-  padding: 6px 12px;
-}
-
-.trust-bar__checkmark {
-  color: #2ea043;
-  flex-shrink: 0;
-}
-
-.trust-bar__text {
-  font-family: var(--accordion-font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  color: #2ea043;
-  text-transform: uppercase;
-}
-
-.trust-bar__source {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--accordion-font-mono);
-  font-size: 0.7rem;
-  color: var(--accordion-text-dim);
-}
-
-.trust-bar__bbc {
-  font-weight: 700;
-  color: var(--accordion-text);
-  letter-spacing: 0.05em;
-}
-
-.trust-bar__divider {
-  opacity: 0.4;
-}
-
-.trust-bar__date {
-  opacity: 0.7;
-}
-
-.trust-bar__link {
-  margin-top: 4px;
-}
-
-.trust-bar__cta {
-  font-family: var(--accordion-font-display);
-  font-size: 0.75rem;
-  color: var(--accordion-gold);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-}
-
-.trust-bar__cta:hover {
-  color: var(--accordion-gold-bright);
-  text-shadow: 0 0 10px rgba(212, 168, 75, 0.4);
-}
-
-
-/* ─────────────────────────────────────────────────────────────────────────────────────────
    SKEPTIC FAQ ITEMS
    Objection-handling questions with special styling
    ───────────────────────────────────────────────────────────────────────────────────────── */
@@ -7940,11 +8050,6 @@
    ───────────────────────────────────────────────────────────────────────────────────────── */
 
 @media (min-width: 480px) {
-  .trust-bar__inner {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
   .skeptic-guarantee__body {
     padding-left: 0;
   }
