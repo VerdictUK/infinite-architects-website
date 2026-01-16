@@ -21497,6 +21497,27 @@
     color: #f0ebe3;
 }
 
+/* Clear History Button */
+.ask-book-chat__clear-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(240, 235, 227, 0.5);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ask-book-chat__clear-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(212, 168, 75, 0.3);
+    color: rgba(240, 235, 227, 0.8);
+}
+
 /* Messages Container */
 .ask-book-chat__messages {
     flex: 1;
@@ -21523,40 +21544,65 @@
 /* Welcome Message */
 .ask-book-chat__welcome {
     text-align: center;
-    padding: 20px;
+    padding: 28px 20px 20px;
 }
 
 .ask-book-chat__welcome-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 16px;
-    background: linear-gradient(135deg, rgba(212, 168, 75, 0.15) 0%, rgba(212, 168, 75, 0.05) 100%);
-    border: 1px solid rgba(212, 168, 75, 0.2);
-    border-radius: 14px;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 20px;
+    background: linear-gradient(145deg, rgba(212, 168, 75, 0.18) 0%, rgba(212, 168, 75, 0.06) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.25);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #d4a84b;
+    box-shadow:
+        0 8px 24px rgba(212, 168, 75, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.ask-book-chat__welcome-icon::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 20px;
+    background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    animation: welcomeIconPulse 3s ease-in-out infinite;
+}
+
+@keyframes welcomeIconPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
 }
 
 .ask-book-chat__welcome-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 2px 4px rgba(212, 168, 75, 0.3));
 }
 
 .ask-book-chat__welcome-title {
     font-family: 'Cinzel', serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #d4a84b;
-    margin: 0 0 8px 0;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.03em;
+    text-shadow: 0 2px 8px rgba(212, 168, 75, 0.2);
 }
 
 .ask-book-chat__welcome-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    color: rgba(240, 235, 227, 0.7);
-    line-height: 1.6;
+    font-size: 0.95rem;
+    color: rgba(240, 235, 227, 0.75);
+    line-height: 1.65;
     margin: 0;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Suggestions */
@@ -21582,21 +21628,29 @@
 
 .ask-book-chat__suggestion {
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: rgba(240, 235, 227, 0.8);
-    background: rgba(212, 168, 75, 0.08);
-    border: 1px solid rgba(212, 168, 75, 0.2);
-    border-radius: 100px;
-    padding: 8px 14px;
+    font-size: 0.72rem;
+    color: rgba(240, 235, 227, 0.85);
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.1) 0%, rgba(212, 168, 75, 0.05) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.25);
+    border-radius: 14px;
+    padding: 12px 16px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .ask-book-chat__suggestion:hover {
-    background: rgba(212, 168, 75, 0.15);
-    border-color: rgba(212, 168, 75, 0.4);
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.1) 100%);
+    border-color: rgba(212, 168, 75, 0.5);
     color: #d4a84b;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 168, 75, 0.15);
+}
+
+.ask-book-chat__suggestion:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Chat Messages */
@@ -21755,6 +21809,42 @@
     box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.1);
 }
 
+/* Microphone Button */
+.ask-book-chat__mic-btn {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 12px;
+    color: rgba(240, 235, 227, 0.7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ask-book-chat__mic-btn:hover {
+    background: rgba(212, 168, 75, 0.1);
+    border-color: rgba(212, 168, 75, 0.4);
+    color: #d4a84b;
+}
+
+.ask-book-chat__mic-btn:active,
+.ask-book-chat__mic-btn.listening {
+    background: rgba(212, 168, 75, 0.2);
+    border-color: #d4a84b;
+    color: #d4a84b;
+    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.2);
+}
+
+.ask-book-chat__mic-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Send Button */
 .ask-book-chat__send {
     width: 44px;
     height: 44px;
@@ -21838,17 +21928,137 @@
         max-height: 100%;
         border-radius: 0;
         border: none;
+        background: linear-gradient(180deg, rgba(10, 12, 20, 0.99) 0%, rgba(2, 3, 10, 0.99) 100%);
+    }
+
+    /* FIXED: Suggestion buttons - proper 2-column grid instead of broken horizontal scroll */
+    .ask-book-chat__suggestions {
+        padding: 0 4px;
+    }
+
+    .ask-book-chat__suggestions-label {
+        font-size: 0.68rem;
+        margin-bottom: 16px;
+        padding-left: 4px;
     }
 
     .ask-book-chat__suggestions-grid {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 8px;
-        -webkit-overflow-scrolling: touch;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        flex-wrap: unset;
+        overflow-x: visible;
     }
 
+    .ask-book-chat__suggestion {
+        white-space: normal;
+        text-align: center;
+        padding: 14px 12px;
+        font-size: 0.72rem;
+        line-height: 1.3;
+        border-radius: 14px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Welcome section mobile enhancements */
+    .ask-book-chat__welcome {
+        padding: 32px 20px 24px;
+    }
+
+    .ask-book-chat__welcome-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.08) 100%);
+        box-shadow: 0 8px 24px rgba(212, 168, 75, 0.15);
+    }
+
+    .ask-book-chat__welcome-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .ask-book-chat__welcome-title {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .ask-book-chat__welcome-text {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    /* Header mobile refinements */
+    .ask-book-chat__header {
+        padding: 14px 16px;
+        gap: 8px;
+    }
+
+    .ask-book-chat__avatar {
+        width: 38px;
+        height: 38px;
+    }
+
+    .ask-book-chat__title {
+        font-size: 0.95rem;
+    }
+
+    .ask-book-chat__subtitle {
+        font-size: 0.62rem;
+    }
+
+    .ask-book-chat__clear-btn {
+        font-size: 0.65rem;
+        padding: 6px 10px;
+    }
+
+    .ask-book-chat__close {
+        width: 34px;
+        height: 34px;
+    }
+
+    /* Input area mobile polish */
     .ask-book-chat__input-area {
-        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        padding: 16px;
+        padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        background: rgba(5, 8, 16, 0.95);
+        border-top: 1px solid rgba(212, 168, 75, 0.1);
+    }
+
+    .ask-book-chat__input-wrapper {
+        gap: 10px;
+    }
+
+    .ask-book-chat__input {
+        font-size: 1rem;
+        padding: 14px 16px;
+    }
+
+    .ask-book-chat__mic-btn,
+    .ask-book-chat__send {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+    }
+
+    .ask-book-chat__input-hint {
+        margin-top: 10px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .ask-book-chat__mode-text {
+        font-size: 0.68rem;
+    }
+
+    .ask-book-chat__powered {
+        font-size: 0.62rem;
     }
 }
 
