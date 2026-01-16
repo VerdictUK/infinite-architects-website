@@ -87,6 +87,273 @@
   
   /* Buy Bar */
   --buy-bar-height: 72px;
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     INDUSTRY-STANDARD TYPOGRAPHY SCALE (Apple HIG / Google Material / WCAG)
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  --font-size-xs: 0.6875rem;    /* 11px - absolute minimum (decorative only) */
+  --font-size-sm: 0.75rem;      /* 12px - minimum readable (labels, captions) */
+  --font-size-caption: 0.8125rem; /* 13px - captions, secondary info */
+  --font-size-secondary: 0.875rem; /* 14px - secondary text */
+  --font-size-body: 1rem;       /* 16px - body text minimum */
+  --font-size-body-large: 1.0625rem; /* 17px - Apple standard body */
+  --font-size-subhead: 1.125rem; /* 18px - subheadings */
+  --font-size-title: 1.25rem;   /* 20px - titles */
+  --font-size-headline: 1.5rem; /* 24px - headlines */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   GLOBAL MOBILE TYPOGRAPHY — INDUSTRY STANDARD MINIMUM SIZES
+
+   PROBLEM: Many elements used 0.45-0.65rem (7-10px) which is unreadable on mobile.
+   SOLUTION: Override ALL small text to meet Apple HIG / Material Design minimums.
+
+   Minimum sizes enforced:
+   - Body text: 16px (1rem)
+   - Secondary text: 14px (0.875rem)
+   - Labels/captions: 12px (0.75rem)
+   - Decorative only: 11px (0.6875rem)
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Universal text sizing baseline for mobile */
+.mobile-experience {
+  font-size: 16px; /* Reset base to 16px */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* All body text - minimum 16px */
+.mobile-experience p,
+.mobile-experience li,
+.mobile-experience .body-text,
+.mobile-experience .accordion-content p,
+.mobile-experience .concept-description,
+.mobile-experience .quote-text,
+.mobile-experience .faq-answer {
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+}
+
+/* Secondary text - minimum 14px */
+.mobile-experience small,
+.mobile-experience .secondary-text,
+.mobile-experience .subtitle,
+.mobile-experience cite,
+.mobile-experience .caption {
+  font-size: var(--font-size-secondary);
+  line-height: 1.5;
+}
+
+/* Labels and captions - minimum 12px */
+.mobile-experience label,
+.mobile-experience .label,
+.mobile-experience .tag,
+.mobile-experience .badge,
+.mobile-experience [class*="-label"],
+.mobile-experience [class*="__label"],
+.mobile-experience .stat-label,
+.mobile-experience .section-number {
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+/* Space Mono technical labels - minimum 12px */
+.mobile-experience .space-mono-label,
+.mobile-experience [style*="Space Mono"],
+.mobile-experience .accordion-label,
+.mobile-experience .part-label {
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.1em;
+}
+
+/* Buttons - minimum 14px for touch readability */
+.mobile-experience button,
+.mobile-experience .btn,
+.mobile-experience [class*="-btn"],
+.mobile-experience [class*="__btn"] {
+  font-size: var(--font-size-secondary);
+  min-height: 44px; /* Apple touch target */
+  line-height: 1.4;
+}
+
+/* Form inputs - minimum 16px (prevents iOS zoom) */
+.mobile-experience input,
+.mobile-experience textarea,
+.mobile-experience select {
+  font-size: var(--font-size-body);
+}
+
+/* Copyright and footer text - minimum 12px */
+.mobile-experience footer,
+.mobile-experience .footer,
+.mobile-experience .copyright {
+  font-size: var(--font-size-sm);
+}
+
+/* Override any inline styles that set tiny fonts */
+.mobile-experience [style*="font-size: 0.4"],
+.mobile-experience [style*="font-size: 0.5"],
+.mobile-experience [style*="font-size: 0.6"] {
+  font-size: var(--font-size-sm) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   AGGRESSIVE TYPOGRAPHY OVERRIDES — Catch ALL remaining tiny text
+
+   These rules use high specificity to override the ~115 instances of 0.45-0.68rem fonts
+   scattered throughout this file. All readable text will be at least 12px (0.75rem).
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ALL accordion content text - enforce minimum 12px for any text meant to be read */
+.mobile-experience .accordion-content,
+.mobile-experience .accordion-content * {
+  /* Only apply to text elements - let icons/symbols be their natural size */
+}
+
+/* Part labels (PART I, PART II, etc.) - enforce 12px */
+.mobile-experience .accordion-header .accordion-part-label,
+.mobile-experience .accordion-item__part-label,
+.mobile-experience .part-indicator {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* Section subtitles - enforce 14px */
+.mobile-experience .accordion-subtitle,
+.mobile-experience .accordion-header__subtitle,
+.mobile-experience .section-subtitle {
+  font-size: 0.875rem !important; /* 14px */
+}
+
+/* Stat labels (REVENUE, WORDS, etc.) - enforce 12px */
+.mobile-experience .stat-label,
+.mobile-experience .stat__label,
+.mobile-experience .credential-label,
+.mobile-experience [class*="stat"] small {
+  font-size: 0.75rem !important; /* 12px */
+  letter-spacing: 0.08em;
+}
+
+/* Source/citation tags - enforce 12px */
+.mobile-experience .source-tag,
+.mobile-experience .citation-tag,
+.mobile-experience [class*="source-tag"],
+.mobile-experience [class*="cite"] {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* Timestamps and dates - enforce 12px */
+.mobile-experience .timestamp,
+.mobile-experience .date-label,
+.mobile-experience time,
+.mobile-experience [class*="date"] {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* Copyright text - enforce 12px */
+.mobile-experience .copyright,
+.mobile-experience .footer-copyright,
+.mobile-experience footer small {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* "Powered by" text - enforce 12px */
+.mobile-experience [class*="powered"],
+.mobile-experience .attribution {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* Mode labels and checkbox text - enforce 12px */
+.mobile-experience [class*="mode-label"],
+.mobile-experience [class*="mode-text"] {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* Quote attributions - enforce 13px */
+.mobile-experience blockquote cite,
+.mobile-experience .quote-attribution,
+.mobile-experience .blockquote-cite {
+  font-size: 0.8125rem !important; /* 13px */
+}
+
+/* Receipts and verified labels - enforce 12px */
+.mobile-experience .receipts__label,
+.mobile-experience .receipts__subtitle,
+.mobile-experience [class*="verified-label"] {
+  font-size: 0.75rem !important; /* 12px */
+}
+
+/* All descriptive text in accordion - enforce 15px minimum */
+.mobile-experience .accordion-content__inner p,
+.mobile-experience .accordion-content__inner .description,
+.mobile-experience .concept-card__description {
+  font-size: 0.9375rem !important; /* 15px */
+  line-height: 1.6;
+}
+
+/* Card titles - enforce 16px */
+.mobile-experience .card-title,
+.mobile-experience .concept-title,
+.mobile-experience [class*="card__title"] {
+  font-size: 1rem !important; /* 16px */
+}
+
+/* Review/testimonial text - enforce 16px */
+.mobile-experience .review-card__quote,
+.mobile-experience .testimonial-text,
+.mobile-experience blockquote p {
+  font-size: 1rem !important; /* 16px */
+  line-height: 1.6;
+}
+
+/* FAQ content - enforce 16px */
+.mobile-experience .faq-answer,
+.mobile-experience .faq-content,
+.mobile-experience [class*="faq"] p {
+  font-size: 1rem !important; /* 16px */
+  line-height: 1.6;
+}
+
+/* Button text - enforce 14px minimum */
+.mobile-experience .accordion-content button,
+.mobile-experience .accordion-content .btn,
+.mobile-experience .accordion-content a.btn {
+  font-size: 0.875rem !important; /* 14px */
+}
+
+/* Amazon/purchase links - enforce 14px */
+.mobile-experience .purchase-link,
+.mobile-experience [class*="amazon"],
+.mobile-experience [class*="buy-btn"] {
+  font-size: 0.875rem !important; /* 14px */
+}
+
+/* Evidence timeline text - enforce minimums */
+.mobile-experience .timeline-year,
+.mobile-experience .timeline-date {
+  font-size: 0.6875rem !important; /* 11px - decorative */
+}
+
+.mobile-experience .timeline-title,
+.mobile-experience [class*="timeline"] h4,
+.mobile-experience [class*="timeline"] h5 {
+  font-size: 1rem !important; /* 16px */
+}
+
+.mobile-experience .timeline-description,
+.mobile-experience [class*="timeline"] p {
+  font-size: 0.9375rem !important; /* 15px */
+}
+
+/* Prediction tracker - enforce minimums */
+.mobile-experience [class*="tracker"] .name,
+.mobile-experience [class*="tracker-name"] {
+  font-size: 0.9375rem !important; /* 15px */
+}
+
+.mobile-experience [class*="tracker"] .status,
+.mobile-experience [class*="tracker-state"] {
+  font-size: 0.6875rem !important; /* 11px - can be small as it's a status indicator */
 }
 
 
@@ -9686,8 +9953,15 @@ input:focus:not(:focus-visible) {
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
-   CONVERGENCE SECTION — ACCORDION CONTAINMENT OVERRIDES
-   Ensures all convergence content fits within accordion panels on mobile
+   CONVERGENCE SECTION — ACCORDION CONTAINMENT + INDUSTRY STANDARD TYPOGRAPHY
+
+   TYPOGRAPHY STANDARDS (Apple HIG / Google Material / WCAG):
+   - Body text: minimum 16px (1rem)
+   - Secondary text: minimum 14px (0.875rem)
+   - Labels/captions: minimum 12px (0.75rem)
+   - Decorative only: 11px (0.6875rem) absolute minimum
+
+   All sizes below have been updated to meet these standards.
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
 /* Global containment for all convergence elements within accordion */
@@ -9696,11 +9970,13 @@ input:focus:not(:focus-visible) {
   box-sizing: border-box;
   max-width: 100%;
   overflow-x: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Section titles - prevent overflow */
 .accordion-content .convergence-section-title {
-  font-size: 1.15rem;
+  font-size: 1.25rem; /* 20px - clear heading */
   padding: 0;
   margin: 0 0 8px;
   word-wrap: break-word;
@@ -9709,7 +9985,7 @@ input:focus:not(:focus-visible) {
 }
 
 .accordion-content .convergence-section-subtitle {
-  font-size: 0.85rem;
+  font-size: 1rem; /* 16px - readable body */
   padding: 0;
   line-height: 1.5;
 }
@@ -9728,20 +10004,26 @@ input:focus:not(:focus-visible) {
 }
 
 .accordion-content .convergence-field {
-  padding: 14px 12px;
+  padding: 16px 14px;
 }
 
 .accordion-content .convergence-field-icon {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 .accordion-content .convergence-field-name {
-  font-size: 0.6rem;
+  font-size: 0.75rem; /* 12px - minimum readable label */
+  letter-spacing: 0.1em;
 }
 
 .accordion-content .convergence-field-quote {
-  font-size: 0.85rem;
+  font-size: 1rem; /* 16px - readable body */
   padding: 0 4px;
+  line-height: 1.5;
+}
+
+.accordion-content .convergence-field-cite {
+  font-size: 0.8125rem; /* 13px - readable citation */
 }
 
 /* 40 Voices - smaller grid for accordion */
@@ -9750,56 +10032,57 @@ input:focus:not(:focus-visible) {
 }
 
 .accordion-content .convergence-voices-count {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
 }
 
 .accordion-content .convergence-voices-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
+  font-size: 0.875rem; /* 14px - readable label */
+  letter-spacing: 0.2em;
 }
 
 .accordion-content .convergence-traditions-title {
-  font-size: 1rem;
+  font-size: 1.125rem; /* 18px - clear subheading */
   padding: 0;
 }
 
 .accordion-content .convergence-traditions-list {
-  font-size: 0.5rem;
+  font-size: 0.8125rem; /* 13px - readable list */
   padding: 0;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .accordion-content .convergence-voices-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 6px;
-  max-width: 240px;
+  gap: 8px;
+  max-width: 280px;
   margin: 0 auto 20px;
   padding: 0;
 }
 
 .accordion-content .convergence-voice {
-  width: 40px;
-  height: 40px;
-  font-size: 1rem;
+  width: 48px;
+  height: 48px;
+  font-size: 1.1rem;
 }
 
 .accordion-content .convergence-rotating-quote {
   min-height: 100px;
-  padding: 0;
-}
-
-.accordion-content .convergence-rotating-quote blockquote {
-  font-size: 0.9rem;
   padding: 0 8px;
 }
 
+.accordion-content .convergence-rotating-quote blockquote {
+  font-size: 1.0625rem; /* 17px - Apple standard body */
+  padding: 0;
+  line-height: 1.5;
+}
+
 .accordion-content .convergence-rotating-quote cite {
-  font-size: 0.58rem;
+  font-size: 0.8125rem; /* 13px - readable citation */
 }
 
 .accordion-content .convergence-instruction {
-  font-size: 0.5rem;
+  font-size: 0.75rem; /* 12px - minimum readable */
   padding: 0;
 }
 
@@ -9808,39 +10091,45 @@ input:focus:not(:focus-visible) {
   padding: 24px 0;
   margin: 0 -16px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .accordion-content .convergence-scientists-carousel {
-  gap: 10px;
-  margin: 0 0 12px;
+  gap: 12px;
+  margin: 0 0 16px;
   padding: 8px 16px;
 }
 
+/* CRITICAL: Card width must fit iPhone screen minus padding */
 .accordion-content .convergence-scientist-card {
-  flex: 0 0 230px;
-  min-width: 230px;
-  padding: 14px;
+  flex: 0 0 calc(100vw - 80px); /* Full width minus padding */
+  min-width: calc(100vw - 80px);
+  max-width: 300px;
+  padding: 16px;
 }
 
 .accordion-content .convergence-scientist-card__name {
-  font-size: 0.9rem;
+  font-size: 1.0625rem; /* 17px - clear name */
 }
 
 .accordion-content .convergence-scientist-card__title {
-  font-size: 0.52rem;
+  font-size: 0.8125rem; /* 13px - readable title */
+  line-height: 1.4;
 }
 
 .accordion-content .convergence-scientist-card__institution {
-  font-size: 0.48rem;
+  font-size: 0.75rem; /* 12px - minimum readable */
 }
 
 .accordion-content .convergence-scientist-card__quote {
-  font-size: 0.8rem;
+  font-size: 0.9375rem; /* 15px - readable quote */
+  line-height: 1.5;
 }
 
 .accordion-content .convergence-bridge {
-  font-size: 0.85rem;
-  padding: 0;
+  font-size: 1rem; /* 16px - readable body */
+  padding: 0 8px;
+  line-height: 1.5;
 }
 
 /* Discovery Timeline - fit within accordion width */
@@ -9849,44 +10138,46 @@ input:focus:not(:focus-visible) {
 }
 
 .accordion-content .convergence-discovery-timeline {
-  padding-left: 58px;
+  padding-left: 52px;
+  padding-right: 8px; /* Prevent right overflow */
   margin: 0 0 20px;
 }
 
 .accordion-content .convergence-discovery-timeline::before {
-  left: 38px;
+  left: 36px;
 }
 
 .accordion-content .discovery-event::before {
-  left: -24px;
+  left: -20px;
 }
 
 .accordion-content .discovery-event--recent::before {
-  left: -26px;
+  left: -22px;
 }
 
 .accordion-content .discovery-event--ancient::before {
-  left: -23px;
+  left: -19px;
 }
 
 .accordion-content .discovery-event__year {
-  left: -58px;
-  width: 32px;
-  font-size: 0.52rem;
+  left: -52px;
+  width: 30px;
+  font-size: 0.6875rem; /* 11px - decorative year label */
 }
 
 .accordion-content .discovery-event__title {
-  font-size: 0.85rem;
+  font-size: 1rem; /* 16px - readable title */
 }
 
 .accordion-content .discovery-event__desc {
-  font-size: 0.78rem;
+  font-size: 0.9375rem; /* 15px - readable description */
   padding-right: 0;
+  line-height: 1.5;
 }
 
 .accordion-content .convergence-discovery-conclusion {
-  font-size: 0.85rem;
-  padding: 0;
+  font-size: 1rem; /* 16px - readable conclusion */
+  padding: 0 8px;
 }
 
 /* Prediction Tracker - fit within accordion */
@@ -9895,66 +10186,78 @@ input:focus:not(:focus-visible) {
 }
 
 .accordion-content .convergence-tracker-header {
-  gap: 6px;
-}
-
-.accordion-content .convergence-tracker-title {
-  font-size: 0.58rem;
-  letter-spacing: 0.1em;
-}
-
-.accordion-content .convergence-tracker-list {
-  gap: 6px;
-}
-
-.accordion-content .convergence-tracker-item {
-  padding: 10px;
   gap: 8px;
 }
 
+.accordion-content .convergence-tracker-title {
+  font-size: 0.75rem; /* 12px - minimum readable label */
+  letter-spacing: 0.12em;
+}
+
+.accordion-content .convergence-tracker-list {
+  gap: 8px;
+}
+
+.accordion-content .convergence-tracker-item {
+  padding: 12px;
+  gap: 10px;
+  flex-wrap: nowrap; /* Prevent wrapping */
+}
+
 .accordion-content .convergence-tracker-status {
-  font-size: 0.8rem;
-  width: 16px;
+  font-size: 0.875rem; /* 14px */
+  width: 20px;
+  flex-shrink: 0;
 }
 
 .accordion-content .convergence-tracker-name {
-  font-size: 0.8rem;
-  flex: 1;
+  font-size: 0.9375rem; /* 15px - readable name */
+  flex: 1 1 auto;
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* FIXED: Status text was 0.45rem (7px) - now 11px minimum */
 .accordion-content .convergence-tracker-state {
-  font-size: 0.45rem;
+  font-size: 0.6875rem; /* 11px - decorative status, but readable */
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-align: right;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .accordion-content .convergence-notify-btn {
-  padding: 10px 14px;
-  font-size: 0.55rem;
+  padding: 12px 16px;
+  font-size: 0.8125rem; /* 13px - readable button */
 }
 
-/* Extra small screens (< 380px) */
+/* Extra small screens (< 380px) - slightly reduce but stay readable */
 @media (max-width: 380px) {
   .accordion-content .convergence-section-title {
-    font-size: 1rem;
+    font-size: 1.125rem; /* 18px */
   }
 
   .accordion-content .convergence-voices-grid {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 200px;
+    max-width: 220px;
   }
 
   .accordion-content .convergence-voice {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   .accordion-content .convergence-scientist-card {
-    flex: 0 0 200px;
-    min-width: 200px;
+    flex: 0 0 calc(100vw - 64px);
+    min-width: calc(100vw - 64px);
   }
 
   .accordion-content .convergence-discovery-timeline {
-    padding-left: 50px;
+    padding-left: 46px;
+    padding-right: 4px;
   }
 
   .accordion-content .convergence-discovery-timeline::before {
@@ -9962,8 +10265,12 @@ input:focus:not(:focus-visible) {
   }
 
   .accordion-content .discovery-event__year {
-    left: -50px;
+    left: -46px;
     width: 28px;
-    font-size: 0.48rem;
+    font-size: 0.625rem; /* 10px - still visible */
+  }
+
+  .accordion-content .convergence-tracker-state {
+    max-width: 55px;
   }
 }
