@@ -2938,6 +2938,36 @@
             margin: 0;
         }
 
+        .cosmic-insight-quote {
+            font-family: var(--font-serif);
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin: 10px 0 0;
+            padding-top: 8px;
+            border-top: 1px solid rgba(212, 168, 75, 0.15);
+            font-style: normal;
+        }
+
+        .cosmic-insight-explore {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(240, 235, 227, 0.6);
+            background: rgba(212, 168, 75, 0.1);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cosmic-insight-explore:hover {
+            background: rgba(212, 168, 75, 0.2);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
         .cosmic-insight-footer {
             padding: 12px 16px;
             border-top: 1px solid rgba(212, 168, 75, 0.1);
@@ -19124,21 +19154,36 @@
                 const imageUrl = data.media_type === 'video' ? data.thumbnail : data.url;
 
                 contentEl.innerHTML = `
-                    <img class="cosmic-insight-image" src="${imageUrl}" alt="${data.title}" loading="lazy" onerror="this.src='https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true'">
+                    <img class="cosmic-insight-image" src="${imageUrl}" alt="${data.title}" loading="lazy" onerror="this.style.display='none'">
                     <div class="cosmic-insight-body">
                         <h4 class="cosmic-insight-title">${data.title}</h4>
-                        <p class="cosmic-insight-date">${formatDate(data.date)}</p>
+                        <p class="cosmic-insight-date">${formatDate(data.date)}${data.chapter ? ` · <span style="color: var(--gold);">${data.chapter}</span>` : ''}</p>
                         <p class="cosmic-insight-explanation">${data.explanation}</p>
                         <div class="cosmic-insight-concept">
                             <p class="cosmic-insight-concept-label">Infinite Architects Connection</p>
-                            <p class="cosmic-insight-concept-text">"${data.concept}"</p>
+                            <p class="cosmic-insight-concept-text">${data.concept}</p>
+                            ${data.quote ? `<p class="cosmic-insight-quote">${data.quote}</p>` : ''}
                         </div>
                     </div>
                     <div class="cosmic-insight-footer">
-                        <span class="cosmic-insight-credit">${data.copyright || 'NASA / Public Domain'}</span>
+                        <button class="cosmic-insight-explore" id="cosmicExplore">Discover Another</button>
                         <a href="https://apod.nasa.gov/" target="_blank" rel="noopener" class="cosmic-insight-nasa">NASA APOD →</a>
                     </div>
                 `;
+
+                // Bind explore button
+                document.getElementById('cosmicExplore')?.addEventListener('click', async () => {
+                    contentEl.innerHTML = '<div class="cosmic-insight-loading"><div class="cosmic-insight-loading-spinner"></div><span class="cosmic-insight-loading-text">Exploring the cosmos...</span></div>';
+                    try {
+                        const response = await fetch('/api/nasa-cosmic?random=true');
+                        const newData = await response.json();
+                        renderCosmicInsight(newData);
+                        triggerHaptic('light');
+                    } catch (err) {
+                        console.error('[COSMIC] Explore error:', err);
+                        renderCosmicInsight(data); // Restore previous
+                    }
+                });
             }
 
             function renderFallback() {
