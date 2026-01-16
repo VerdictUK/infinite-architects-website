@@ -1123,13 +1123,21 @@
     }
 
     .ask-book-chat__suggestions-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
 
     .ask-book-chat__suggestion {
-        padding: 12px 14px;
-        font-size: 0.65rem;
+        padding: 14px 12px;
+        font-size: 0.7rem;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.35;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .ask-book-chat__message {

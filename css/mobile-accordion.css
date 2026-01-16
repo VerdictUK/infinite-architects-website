@@ -9683,3 +9683,287 @@ input:focus:not(:focus-visible) {
     transition: none;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   CONVERGENCE SECTION — ACCORDION CONTAINMENT OVERRIDES
+   Ensures all convergence content fits within accordion panels on mobile
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Global containment for all convergence elements within accordion */
+.accordion-content [class*="convergence-"],
+.accordion-content__inner [class*="convergence-"] {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Section titles - prevent overflow */
+.accordion-content .convergence-section-title {
+  font-size: 1.15rem;
+  padding: 0;
+  margin: 0 0 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.accordion-content .convergence-section-subtitle {
+  font-size: 0.85rem;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* Four Fields Grid - single column in accordion */
+.accordion-content .convergence-fields {
+  padding: 20px 0 28px;
+}
+
+.accordion-content .convergence-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 100%;
+  padding: 0;
+}
+
+.accordion-content .convergence-field {
+  padding: 14px 12px;
+}
+
+.accordion-content .convergence-field-icon {
+  font-size: 1.6rem;
+}
+
+.accordion-content .convergence-field-name {
+  font-size: 0.6rem;
+}
+
+.accordion-content .convergence-field-quote {
+  font-size: 0.85rem;
+  padding: 0 4px;
+}
+
+/* 40 Voices - smaller grid for accordion */
+.accordion-content .convergence-voices {
+  padding: 28px 0;
+}
+
+.accordion-content .convergence-voices-count {
+  font-size: 2.5rem;
+}
+
+.accordion-content .convergence-voices-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+}
+
+.accordion-content .convergence-traditions-title {
+  font-size: 1rem;
+  padding: 0;
+}
+
+.accordion-content .convergence-traditions-list {
+  font-size: 0.5rem;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.accordion-content .convergence-voices-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  max-width: 240px;
+  margin: 0 auto 20px;
+  padding: 0;
+}
+
+.accordion-content .convergence-voice {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.accordion-content .convergence-rotating-quote {
+  min-height: 100px;
+  padding: 0;
+}
+
+.accordion-content .convergence-rotating-quote blockquote {
+  font-size: 0.9rem;
+  padding: 0 8px;
+}
+
+.accordion-content .convergence-rotating-quote cite {
+  font-size: 0.58rem;
+}
+
+.accordion-content .convergence-instruction {
+  font-size: 0.5rem;
+  padding: 0;
+}
+
+/* Scientists Carousel - fit within accordion */
+.accordion-content .convergence-scientists {
+  padding: 24px 0;
+  margin: 0 -16px;
+  overflow-x: auto;
+}
+
+.accordion-content .convergence-scientists-carousel {
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 8px 16px;
+}
+
+.accordion-content .convergence-scientist-card {
+  flex: 0 0 230px;
+  min-width: 230px;
+  padding: 14px;
+}
+
+.accordion-content .convergence-scientist-card__name {
+  font-size: 0.9rem;
+}
+
+.accordion-content .convergence-scientist-card__title {
+  font-size: 0.52rem;
+}
+
+.accordion-content .convergence-scientist-card__institution {
+  font-size: 0.48rem;
+}
+
+.accordion-content .convergence-scientist-card__quote {
+  font-size: 0.8rem;
+}
+
+.accordion-content .convergence-bridge {
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+/* Discovery Timeline - fit within accordion width */
+.accordion-content .convergence-discovery {
+  padding: 24px 0;
+}
+
+.accordion-content .convergence-discovery-timeline {
+  padding-left: 58px;
+  margin: 0 0 20px;
+}
+
+.accordion-content .convergence-discovery-timeline::before {
+  left: 38px;
+}
+
+.accordion-content .discovery-event::before {
+  left: -24px;
+}
+
+.accordion-content .discovery-event--recent::before {
+  left: -26px;
+}
+
+.accordion-content .discovery-event--ancient::before {
+  left: -23px;
+}
+
+.accordion-content .discovery-event__year {
+  left: -58px;
+  width: 32px;
+  font-size: 0.52rem;
+}
+
+.accordion-content .discovery-event__title {
+  font-size: 0.85rem;
+}
+
+.accordion-content .discovery-event__desc {
+  font-size: 0.78rem;
+  padding-right: 0;
+}
+
+.accordion-content .convergence-discovery-conclusion {
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+/* Prediction Tracker - fit within accordion */
+.accordion-content .convergence-tracker {
+  padding: 24px 0 12px;
+}
+
+.accordion-content .convergence-tracker-header {
+  gap: 6px;
+}
+
+.accordion-content .convergence-tracker-title {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+}
+
+.accordion-content .convergence-tracker-list {
+  gap: 6px;
+}
+
+.accordion-content .convergence-tracker-item {
+  padding: 10px;
+  gap: 8px;
+}
+
+.accordion-content .convergence-tracker-status {
+  font-size: 0.8rem;
+  width: 16px;
+}
+
+.accordion-content .convergence-tracker-name {
+  font-size: 0.8rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion-content .convergence-tracker-state {
+  font-size: 0.45rem;
+}
+
+.accordion-content .convergence-notify-btn {
+  padding: 10px 14px;
+  font-size: 0.55rem;
+}
+
+/* Extra small screens (< 380px) */
+@media (max-width: 380px) {
+  .accordion-content .convergence-section-title {
+    font-size: 1rem;
+  }
+
+  .accordion-content .convergence-voices-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 200px;
+  }
+
+  .accordion-content .convergence-voice {
+    width: 44px;
+    height: 44px;
+  }
+
+  .accordion-content .convergence-scientist-card {
+    flex: 0 0 200px;
+    min-width: 200px;
+  }
+
+  .accordion-content .convergence-discovery-timeline {
+    padding-left: 50px;
+  }
+
+  .accordion-content .convergence-discovery-timeline::before {
+    left: 32px;
+  }
+
+  .accordion-content .discovery-event__year {
+    left: -50px;
+    width: 28px;
+    font-size: 0.48rem;
+  }
+}
