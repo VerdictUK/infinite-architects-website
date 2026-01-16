@@ -1287,6 +1287,32 @@
 
     console.log('[MobileAccordion] Initializing V6 ULTIMATE FINAL');
 
+    // Force hero video autoplay on iOS Safari
+    const heroVideo = document.getElementById('hero-video');
+    if (heroVideo) {
+      // Ensure muted (required for autoplay)
+      heroVideo.muted = true;
+      heroVideo.setAttribute('muted', '');
+      heroVideo.setAttribute('playsinline', '');
+      heroVideo.setAttribute('webkit-playsinline', '');
+
+      // Try to play immediately
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // If autoplay blocked, try on first interaction
+          const playOnInteraction = () => {
+            heroVideo.play();
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+          };
+          document.addEventListener('touchstart', playOnInteraction, { once: true, passive: true });
+          document.addEventListener('click', playOnInteraction, { once: true });
+        });
+      }
+      console.log('[MobileAccordion] Hero video autoplay initialized');
+    }
+
     // Create particle canvas if needed
     let particleCanvas = document.querySelector('.mobile-hero__particles');
     if (!particleCanvas && CONFIG.particles.enabled) {
