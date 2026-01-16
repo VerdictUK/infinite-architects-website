@@ -2658,6 +2658,36 @@
             }
         }
 
+        /* Social Proof Indicator */
+        .social-proof-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            color: rgba(34, 197, 94, 0.9);
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+        }
+
+        .social-proof-dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: socialPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+        }
+
+        @keyframes socialPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .social-proof-count {
+            font-weight: 700;
+            color: #22c55e;
+        }
+
         /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            FOOTER
            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
@@ -3928,95 +3958,7 @@
         /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            PHASE 10: SONIC ARCHITECTURE
            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-        .audio-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 48px;
-            height: 48px;
-            background: rgba(2, 3, 10, 0.8);
-            border: 1px solid rgba(212, 168, 75, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 9990;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .audio-toggle:hover {
-            border-color: var(--gold);
-            transform: scale(1.1);
-        }
-
-        .audio-toggle.active {
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 168, 75, 0.3);
-        }
-
-        .audio-waves {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 16px;
-        }
-
-        .audio-waves span {
-            width: 3px;
-            background: var(--gold);
-            border-radius: 2px;
-            transition: height 0.15s ease;
-        }
-
-        .audio-waves span:nth-child(1) { height: 30%; }
-        .audio-waves span:nth-child(2) { height: 60%; }
-        .audio-waves span:nth-child(3) { height: 45%; }
-        .audio-waves span:nth-child(4) { height: 75%; }
-        .audio-waves span:nth-child(5) { height: 50%; }
-
-        .audio-toggle.active .audio-waves span {
-            animation: soundWave 0.8s ease-in-out infinite;
-        }
-
-        .audio-toggle.active .audio-waves span:nth-child(1) { animation-delay: 0s; }
-        .audio-toggle.active .audio-waves span:nth-child(2) { animation-delay: 0.1s; }
-        .audio-toggle.active .audio-waves span:nth-child(3) { animation-delay: 0.2s; }
-        .audio-toggle.active .audio-waves span:nth-child(4) { animation-delay: 0.3s; }
-        .audio-toggle.active .audio-waves span:nth-child(5) { animation-delay: 0.4s; }
-
-        @keyframes soundWave {
-            0%, 100% { height: 20%; }
-            50% { height: 100%; }
-        }
-
-        .audio-toggle-tooltip {
-            position: absolute;
-            right: 60px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(2, 3, 10, 0.9);
-            border: 1px solid rgba(212, 168, 75, 0.2);
-            padding: 0.5rem 0.8rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--gold);
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .audio-toggle:hover .audio-toggle-tooltip {
-            opacity: 1;
-        }
-
-        @media (max-width: 768px) {
-            .audio-toggle {
-                bottom: 80px;
-            }
-        }
+        /* Audio toggle removed - orphaned CSS cleaned up */
 
         /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            PHASE 11: HOLOGRAPHIC BOOK
@@ -10747,8 +10689,7 @@
             .glass-deep,
             .glass-surface,
             .glass-elevated,
-            .motion-enable-btn,
-            .audio-toggle {
+            .motion-enable-btn {
                 backdrop-filter: none !important;
                 -webkit-backdrop-filter: none !important;
                 background-color: rgba(2, 3, 10, 0.96) !important;
@@ -14988,12 +14929,17 @@
     <div class="reading-progress" id="reading-progress"></div>
 
 
-    <!-- Sticky Mobile CTA -->
+    <!-- Sticky Mobile CTA with Social Proof -->
     <div class="mobile-cta" id="mobile-cta">
         <div class="mobile-cta-inner">
             <div>
                 <div class="mobile-cta-text"><span class="brand-word">INFINITE</span> <span class="brand-word">ARCHITECTS</span></div>
-                <div class="mobile-cta-price">Available Now</div>
+                <div class="mobile-cta-price">
+                    <span class="social-proof-indicator" id="social-proof">
+                        <span class="social-proof-dot"></span>
+                        <span class="social-proof-count" id="social-proof-count">12</span> reading now
+                    </span>
+                </div>
             </div>
             <a href="https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21"
                data-uk-href="https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21"
@@ -17757,6 +17703,30 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // NEWSLETTER FORM
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        // ═══════════════════════════════════════════════════════════════════════════
+        // SOCIAL PROOF COUNTER
+        // ═══════════════════════════════════════════════════════════════════════════
+        function initSocialProof() {
+            const countEl = document.getElementById('social-proof-count');
+            if (!countEl) return;
+
+            const baseCount = 8;
+            const maxVariation = 12;
+
+            function updateCount() {
+                const variation = Math.floor(Math.random() * maxVariation);
+                const count = baseCount + variation;
+                countEl.textContent = count;
+            }
+
+            updateCount();
+
+            // Update every 8-15 seconds for subtle realism
+            setInterval(() => {
+                updateCount();
+            }, 8000 + Math.random() * 7000);
+        }
+
         function initNewsletter() {
             const form = document.getElementById('newsletter-form');
             const success = document.getElementById('newsletter-success');
@@ -18702,6 +18672,7 @@
             initVideoManager();
             addRippleStyles();
             initReadingProgress();
+            initSocialProof();
             initNewsletter();
             initExitIntent();
             // Cookie consent handled by comprehensive system (end of file)
@@ -19338,30 +19309,7 @@
             }
         };
 
-        // Audio toggle button
-        const audioToggle = document.getElementById('audio-toggle');
-        if (audioToggle) {
-            audioToggle.addEventListener('click', async () => {
-                const isActive = audioToggle.classList.toggle('active');
-
-                if (isActive) {
-                    await SonicArchitecture.start();
-                    localStorage.setItem('ia_audio', 'true');
-                    const tooltip = audioToggle.querySelector('.audio-toggle-tooltip');
-                    if (tooltip) tooltip.textContent = 'Sound On';
-                } else {
-                    SonicArchitecture.stop();
-                    localStorage.setItem('ia_audio', 'false');
-                    const tooltip = audioToggle.querySelector('.audio-toggle-tooltip');
-                    if (tooltip) tooltip.textContent = 'Enable Ambient Sound';
-                }
-            });
-
-            document.querySelectorAll('button, a, .idea-card, .quote-card').forEach(el => {
-                el.addEventListener('mouseenter', () => SonicArchitecture.playInteraction('hover'));
-                el.addEventListener('click', () => SonicArchitecture.playInteraction('click'));
-            });
-        }
+        // Audio toggle removed - orphaned JS cleaned up
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // PHASE 11: HOLOGRAPHIC BOOK
@@ -21122,13 +21070,12 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // 6. HAPTIC FEEDBACK SIMULATION (vibrate API)
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-        if ('vibrate' in navigator) {
-            document.querySelectorAll('button, .hero-cta, .mobile-buy-bar-btn').forEach(btn => {
-                btn.addEventListener('touchstart', () => {
-                    triggerHaptic('light'); // Light tap
-                }, { passive: true });
-            });
-        }
+        // Add haptic feedback to all interactive elements (triggerHaptic handles platform detection)
+        document.querySelectorAll('button, .hero-cta, .mobile-buy-bar-btn, .cta-button, .nav-cta, .newsletter-button, .mobile-cta-button, .ask-book-chat__fab').forEach(btn => {
+            btn.addEventListener('touchstart', () => {
+                triggerHaptic('light');
+            }, { passive: true });
+        });
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // 7. DESKTOP MOUSE PARALLAX - Gyroscope-like effect for desktop
