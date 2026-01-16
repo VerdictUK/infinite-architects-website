@@ -917,48 +917,40 @@
   line-height: 1.5;
 }
 
-/* AI Models Grid */
-.ai-models-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-sm);
+/* Credentials Bar — Author Achievement Stats */
+.credentials-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.06) 0%, rgba(212, 168, 75, 0.02) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 12px;
+  padding: var(--space-md) var(--space-sm);
+  margin: var(--space-md) 0;
 }
 
-.ai-model-card {
-  background: var(--accordion-card-bg);
-  border: 1px solid var(--accordion-card-border);
-  border-radius: 8px;
-  padding: var(--space-sm);
+.credential-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  opacity: 0;
-  transform: scale(0.95);
-  animation: cardReveal 0.4s var(--accordion-ease) forwards;
+  gap: 4px;
 }
 
-.ai-model-card:nth-child(1) { animation-delay: 0.15s; }
-.ai-model-card:nth-child(2) { animation-delay: 0.22s; }
-.ai-model-card:nth-child(3) { animation-delay: 0.29s; }
-.ai-model-card:nth-child(4) { animation-delay: 0.36s; }
-.ai-model-card:nth-child(5) { animation-delay: 0.43s; }
-.ai-model-card:nth-child(6) { animation-delay: 0.50s; }
-
-@keyframes cardReveal {
-  to { opacity: 1; transform: scale(1); }
+.credential-item__value {
+  font-family: var(--accordion-font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--accordion-gold);
+  letter-spacing: 0.02em;
 }
 
-.ai-model-card__icon {
-  width: 28px;
-  height: 28px;
-  margin: 0 auto var(--space-xs);
-  opacity: 0.75;
-}
-
-.ai-model-card__name {
-  display: block;
+.credential-item__label {
   font-family: var(--accordion-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.08em;
   color: var(--accordion-text-dim);
+  text-transform: uppercase;
 }
 
 /* Storm Card */
@@ -1600,48 +1592,179 @@
   z-index: 1;
 }
 
-/* Equation Components */
-.equation-components {
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   EQUATION HERO — Visually Impactful Equation Display
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.equation-hero {
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.08) 0%, transparent 70%);
+  border-radius: 16px;
+  margin-bottom: var(--space-md);
+}
+
+.equation-hero__label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.equation-hero__formula {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: var(--space-sm);
 }
 
-.equation-component {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--accordion-card-bg);
-  border-radius: 8px;
-  border: 1px solid var(--accordion-card-border);
+.equation-hero__symbol {
+  font-family: var(--accordion-font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
-.equation-component__symbol {
+.equation-hero__symbol--u { color: #a78bfa; } /* Purple - Universe */
+.equation-hero__symbol--i { color: #60a5fa; } /* Blue - Intelligence */
+.equation-hero__symbol--r { color: #4ade80; } /* Green - Recursion */
+
+.equation-hero__operator {
   font-family: var(--accordion-font-display);
-  font-size: 1.4rem;
-  color: var(--accordion-gold);
-  width: 32px;
-  text-align: center;
+  font-size: 1.5rem;
+  color: var(--accordion-text-dim);
+  opacity: 0.6;
+}
+
+/* Equation Breakdown Cards */
+.equation-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.equation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border-left: 3px solid var(--accordion-gold);
+}
+
+.equation-card--u { border-left-color: #a78bfa; }
+.equation-card--i { border-left-color: #60a5fa; }
+.equation-card--r { border-left-color: #4ade80; }
+
+.equation-card__symbol {
+  font-family: var(--accordion-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
   flex-shrink: 0;
 }
 
-.equation-component__text {
-  flex: 1;
+.equation-card--u .equation-card__symbol {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+}
+.equation-card--i .equation-card__symbol {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+}
+.equation-card--r .equation-card__symbol {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
 }
 
-.equation-component__name {
-  display: block;
+.equation-card__title {
   font-family: var(--accordion-font-display);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--accordion-text);
-  margin-bottom: 0.1rem;
+  margin: 0 0 4px 0;
 }
 
-.equation-component__desc {
+.equation-card__desc {
   font-family: var(--accordion-font-serif);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--accordion-text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Equation Insight Block */
+.equation-insight {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  border-radius: 12px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.equation-insight__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.9rem;
+  color: var(--accordion-gold);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.equation-insight__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.88rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Equation Evidence Card */
+.equation-evidence {
+  background: rgba(74, 222, 128, 0.05);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 12px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.equation-evidence__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.equation-evidence__badge {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.15);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.equation-evidence__source {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  color: var(--accordion-text-faint);
+}
+
+.equation-evidence__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.85rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.55;
+  margin: 0;
 }
 
 
@@ -2068,6 +2191,137 @@
   height: 12px;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   RATING HERO — Aggregate Rating Display
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.rating-hero {
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.1) 0%, transparent 70%);
+  border-radius: 16px;
+  margin-bottom: var(--space-md);
+}
+
+.rating-hero__score {
+  font-family: var(--accordion-font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--accordion-gold);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.rating-hero__stars {
+  font-size: 1.25rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+}
+
+.rating-hero__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rating-hero__count {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.85rem;
+  color: var(--accordion-text-dim);
+}
+
+.rating-hero__source {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+/* Reviews Grid */
+.reviews-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.reviews-grid .review-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+
+.reviews-grid .review-card--featured {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.06) 0%, rgba(212, 168, 75, 0.02) 100%);
+  border-color: rgba(212, 168, 75, 0.2);
+}
+
+.reviews-grid .review-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.reviews-grid .review-card__stars {
+  font-size: 0.85rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.05em;
+}
+
+.reviews-grid .review-card__badge {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.reviews-grid .review-card__badge--verified {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.reviews-grid .review-card__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--accordion-text);
+  line-height: 1.6;
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.reviews-grid .review-card__author {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+/* Reviews CTA */
+.reviews-cta {
+  text-align: center;
+  margin-top: var(--space-md);
+}
+
+.reviews-cta__link {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.reviews-cta__link:hover {
+  color: var(--accordion-gold-bright);
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
    SECTION 13: PART VIII — JOIN THE MOVEMENT (Pricing)
@@ -2189,6 +2443,130 @@
   color: var(--accordion-text-faint);
   text-align: center;
   margin: 0;
+}
+
+/* First Edition Badge */
+.first-edition-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.15), rgba(212, 168, 75, 0.05));
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  border-radius: 100px;
+  margin-bottom: var(--space-lg);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.first-edition-badge__icon {
+  color: var(--accordion-gold);
+  font-size: 0.9rem;
+}
+
+.first-edition-badge__text {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+}
+
+/* Book Includes List */
+.book-includes {
+  background: rgba(212, 168, 75, 0.04);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.book-includes__title {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accordion-gold);
+  margin: 0 0 var(--space-md) 0;
+  text-align: center;
+}
+
+.book-includes__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.book-includes__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--accordion-text-secondary);
+}
+
+.book-includes__check {
+  color: var(--accordion-gold);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Pricing Card Badge */
+.accordion-pricing-card__badge {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accordion-gold);
+  color: var(--accordion-void);
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.accordion-pricing-card {
+  position: relative;
+}
+
+/* Purchase Guarantee */
+.purchase-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: var(--space-md);
+  background: rgba(76, 175, 80, 0.08);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 10px;
+  margin-bottom: var(--space-lg);
+}
+
+.purchase-guarantee__icon {
+  flex-shrink: 0;
+  color: #4caf50;
+}
+
+.purchase-guarantee__icon svg {
+  display: block;
+}
+
+.purchase-guarantee__text {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--accordion-text-secondary);
+}
+
+.purchase-guarantee__text strong {
+  color: #4caf50;
 }
 
 
