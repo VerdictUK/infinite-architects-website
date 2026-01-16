@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════════════════
-   TAILWIND-ALIGNED IDEAS SECTION - VISIBILITY FIX
-   This CSS ensures all concept cards are visible without clipping
-   Include this file AFTER your main styles for highest specificity
+   TAILWIND-ALIGNED IDEAS SECTION - COMPACT UNIFORM CARDS
+   All cards same size, smaller footprint, readable text
    ═══════════════════════════════════════════════════════════════════════════════ */
 
 /* Section and container overflow visibility */
@@ -14,87 +13,98 @@
     height: auto !important;
 }
 
-/* Ideas grid - Tailwind equivalent: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible max-h-none h-auto */
+/* Ideas grid - 5 columns on desktop, compact gap */
 #ideas .ideas-grid,
 .ideas-section .ideas-grid {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)) !important;
-    gap: 2rem !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 1.25rem !important;
     overflow: visible !important;
     max-height: none !important;
     height: auto !important;
-    align-items: start !important;
-    grid-auto-rows: auto !important;
+    align-items: stretch !important;
 }
 
-/* Idea card - Tailwind equivalent: relative flex flex-col gap-4 p-6 rounded-card border border-gold-alpha-15 bg-void-surface/95 transition-all duration-600 */
+/* Idea card - compact, uniform height */
 #ideas .idea-card,
 .ideas-section .idea-card {
     display: flex !important;
     flex-direction: column !important;
-    gap: 1.25rem !important;
-    padding: 1.75rem !important;
-    border-radius: 1rem !important;
+    gap: 0.75rem !important;
+    padding: 1rem !important;
+    border-radius: 0.75rem !important;
     border: 1px solid rgba(212, 168, 75, 0.15) !important;
     background: rgba(10, 12, 20, 0.95) !important;
     position: relative !important;
-    height: auto !important;
-    min-height: unset !important;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Hover state - Tailwind equivalent: hover:-translate-y-2 hover:border-gold hover:shadow-card-hover */
+/* Hover state */
 #ideas .idea-card:hover,
 .ideas-section .idea-card:hover {
-    transform: translateY(-8px) !important;
+    transform: translateY(-4px) !important;
     border-color: #d4a84b !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 168, 75, 0.15) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 168, 75, 0.1) !important;
 }
 
-/* Title - Tailwind equivalent: font-display text-gold text-body-lg tracking-wide */
+/* Title - readable but compact */
 #ideas .idea-title,
 .ideas-section .idea-title {
     font-family: 'Cinzel', serif !important;
     color: #d4a84b !important;
-    font-size: clamp(1.1rem, 1.5vw, 1.35rem) !important;
-    letter-spacing: 0.04em !important;
-    margin-top: 0.5rem !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.03em !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
 }
 
-/* Text - Tailwind equivalent: font-serif text-text-dim text-body leading-relaxed */
+/* Text - readable, compact */
 #ideas .idea-text,
 .ideas-section .idea-text {
     font-family: 'Cormorant Garamond', serif !important;
-    color: rgba(240, 235, 227, 0.8) !important;
-    font-size: clamp(1rem, 1.15vw, 1.15rem) !important;
-    line-height: 1.7 !important;
+    color: rgba(240, 235, 227, 0.75) !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
 }
 
-/* Number badge - Tailwind equivalent: absolute top-4 right-4 font-display text-gold opacity-10 text-2xl */
+/* Number badge */
 #ideas .idea-number,
 .ideas-section .idea-number {
     position: absolute !important;
-    top: 1rem !important;
-    right: 1rem !important;
+    top: 0.75rem !important;
+    right: 0.75rem !important;
     font-family: 'Cinzel', serif !important;
     color: #d4a84b !important;
-    opacity: 0.1 !important;
-    font-size: 1.5rem !important;
+    opacity: 0.15 !important;
+    font-size: 1.25rem !important;
 }
 
-/* Image in cards - MUCH LARGER thumbnails */
+/* Image - FIXED HEIGHT for uniform cards */
 #ideas .idea-image,
 .ideas-section .idea-image {
-    width: calc(100% + 3.5rem) !important;
-    height: auto !important;
-    min-height: 200px !important;
-    max-height: 280px !important;
+    width: calc(100% + 2rem) !important;
+    height: 140px !important;
     object-fit: cover !important;
-    border-radius: 1rem 1rem 0 0 !important;
-    margin: -1.75rem -1.75rem 0.75rem -1.75rem !important;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+    margin: -1rem -1rem 0.5rem -1rem !important;
 }
 
-/* Mobile responsive - horizontal scroll */
+/* Featured card (first card) - same size as others */
+#ideas .idea-card--featured,
+.ideas-section .idea-card--featured {
+    /* No special sizing - keep uniform */
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* Mobile - horizontal scroll */
 @media (max-width: 768px) {
     #ideas .ideas-grid,
     .ideas-section .ideas-grid {
@@ -110,90 +120,96 @@
 
     #ideas .idea-card,
     .ideas-section .idea-card {
-        flex: 0 0 300px !important;
-        min-width: 300px !important;
+        flex: 0 0 260px !important;
+        min-width: 260px !important;
         scroll-snap-align: center !important;
     }
 
     #ideas .idea-image,
     .ideas-section .idea-image {
-        min-height: 180px !important;
-        max-height: 220px !important;
+        height: 130px !important;
     }
 }
 
-/* Tablet responsive */
+/* Tablet - 2 columns */
 @media (min-width: 769px) and (max-width: 1024px) {
     #ideas .ideas-grid,
     .ideas-section .ideas-grid {
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: 1.5rem !important;
+        gap: 1rem !important;
     }
 
     #ideas .idea-image,
     .ideas-section .idea-image {
-        min-height: 180px !important;
-        max-height: 240px !important;
+        height: 150px !important;
     }
 }
 
-/* Desktop responsive */
-@media (min-width: 1025px) {
+/* Small desktop - 3 columns */
+@media (min-width: 1025px) and (max-width: 1399px) {
     #ideas .ideas-grid,
     .ideas-section .ideas-grid {
         grid-template-columns: repeat(3, 1fr) !important;
-        gap: 2rem !important;
+        gap: 1.25rem !important;
     }
 
     #ideas .idea-image,
     .ideas-section .idea-image {
-        min-height: 200px !important;
-        max-height: 280px !important;
+        height: 140px !important;
     }
 }
 
-/* Large desktop - bigger cards, bigger images */
+/* Large desktop - 5 columns */
 @media (min-width: 1400px) {
     #ideas .ideas-grid,
     .ideas-section .ideas-grid {
-        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)) !important;
-        gap: 2.5rem !important;
-    }
-
-    #ideas .idea-card,
-    .ideas-section .idea-card {
-        padding: 2rem !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 1.25rem !important;
     }
 
     #ideas .idea-image,
     .ideas-section .idea-image {
-        min-height: 220px !important;
-        max-height: 320px !important;
-        margin: -2rem -2rem 1rem -2rem !important;
-        width: calc(100% + 4rem) !important;
+        height: 140px !important;
     }
 
     #ideas .idea-title,
     .ideas-section .idea-title {
-        font-size: 1.4rem !important;
+        font-size: 0.95rem !important;
     }
 
     #ideas .idea-text,
     .ideas-section .idea-text {
-        font-size: 1.15rem !important;
+        font-size: 0.88rem !important;
     }
 }
 
-/* Extra large desktop */
+/* Extra large desktop - 5 columns, slightly bigger */
 @media (min-width: 1800px) {
     #ideas .ideas-grid,
     .ideas-section .ideas-grid {
         grid-template-columns: repeat(5, 1fr) !important;
+        gap: 1.5rem !important;
+    }
+
+    #ideas .idea-card,
+    .ideas-section .idea-card {
+        padding: 1.25rem !important;
     }
 
     #ideas .idea-image,
     .ideas-section .idea-image {
-        min-height: 240px !important;
-        max-height: 360px !important;
+        height: 160px !important;
+        width: calc(100% + 2.5rem) !important;
+        margin: -1.25rem -1.25rem 0.5rem -1.25rem !important;
+    }
+
+    #ideas .idea-title,
+    .ideas-section .idea-title {
+        font-size: 1rem !important;
+    }
+
+    #ideas .idea-text,
+    .ideas-section .idea-text {
+        font-size: 0.92rem !important;
     }
 }
