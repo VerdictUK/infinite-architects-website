@@ -950,9 +950,12 @@
             border-radius: 8px;
         }
 
-        /* Video-specific styling */
+        /* Video-specific styling - crop black letterbox bars */
         video.hero-book {
             background: transparent;
+            object-fit: cover;
+            width: clamp(200px, 25vw, 280px);
+            aspect-ratio: 3 / 4;
         }
 
         .hero-book:hover {
@@ -13460,8 +13463,6 @@
                         loop
                         muted
                         playsinline
-                        width="320"
-                        height="480"
                     ></video>
                     <div class="book-light-layer"></div>
                 </div>
