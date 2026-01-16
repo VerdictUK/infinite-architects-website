@@ -1215,3 +1215,615 @@
         display: none !important;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   17. SCROLL FIX — CRITICAL FOR DESKTOP
+   Ensures messages container scrolls properly on all devices
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Override any conflicting overflow settings */
+.ask-book-chat__panel {
+    overflow: visible !important;
+}
+
+.ask-book-chat__messages {
+    flex: 1 1 auto !important;
+    min-height: 0 !important; /* Critical for flex scroll */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+}
+
+/* Ensure panel flex container works correctly */
+@media (min-width: 769px) {
+    .ask-book-chat__panel {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+
+    .ask-book-chat__header {
+        flex: 0 0 auto !important;
+    }
+
+    .ask-book-chat__messages {
+        flex: 1 1 0 !important;
+        min-height: 0 !important;
+    }
+
+    .ask-book-chat__input-area {
+        flex: 0 0 auto !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   18. FULLSCREEN MODE — DESKTOP/TABLET EXPANSION
+   Toggle to expand chat to full viewport
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Fullscreen toggle button */
+.ask-book-chat__fullscreen-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    color: var(--tac-text-dim);
+    cursor: pointer;
+    display: none; /* Hidden on mobile */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.ask-book-chat__fullscreen-btn:hover {
+    background: rgba(0, 255, 136, 0.1);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+}
+
+.ask-book-chat__fullscreen-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* Show fullscreen button on desktop/tablet */
+@media (min-width: 769px) {
+    .ask-book-chat__fullscreen-btn {
+        display: flex;
+    }
+}
+
+/* Fullscreen state */
+.ask-book-chat.fullscreen .ask-book-chat__panel {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__panel::before,
+.ask-book-chat.fullscreen .ask-book-chat__panel::after {
+    display: none;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__messages {
+    max-height: none !important;
+    padding: 32px 10%;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__message {
+    max-width: 800px !important;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__input-area {
+    padding: 20px 10%;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__input-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Fullscreen icon rotation */
+.ask-book-chat.fullscreen .ask-book-chat__fullscreen-btn svg {
+    transform: rotate(45deg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   19. ELEGANT AI FAILURE HANDLING
+   Graceful error states with retry, fallback, and diagnostic info
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__error {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255, 68, 68, 0.08) 0%, rgba(255, 68, 68, 0.03) 100%);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-left: 3px solid var(--tac-red);
+    border-radius: 0 8px 8px 0;
+    padding: 20px;
+    margin: 8px 0;
+    animation: errorSlideIn 0.4s var(--tac-ease);
+}
+
+@keyframes errorSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.ask-book-chat__error-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.ask-book-chat__error-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 68, 68, 0.15);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tac-red);
+    font-size: 1rem;
+    animation: errorPulse 2s ease-in-out infinite;
+}
+
+@keyframes errorPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.3); }
+    50% { box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
+}
+
+.ask-book-chat__error-title {
+    font-family: var(--tac-font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--tac-red);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.ask-book-chat__error-subtitle {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    color: var(--tac-text-faint);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+.ask-book-chat__error-message {
+    font-family: var(--tac-font-body);
+    font-size: 0.9rem;
+    color: var(--tac-text-dim);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.ask-book-chat__error-details {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    color: var(--tac-text-faint);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+}
+
+.ask-book-chat__error-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.ask-book-chat__error-retry {
+    font-family: var(--tac-font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--tac-void);
+    background: var(--tac-gold);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ask-book-chat__error-retry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--tac-gold-glow);
+}
+
+.ask-book-chat__error-retry:active {
+    transform: translateY(0);
+}
+
+.ask-book-chat__error-retry svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ask-book-chat__error-dismiss {
+    font-family: var(--tac-font-mono);
+    font-size: 0.7rem;
+    color: var(--tac-text-dim);
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.ask-book-chat__error-dismiss:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--tac-text-dim);
+}
+
+/* Error types - different colors/icons for different failures */
+.ask-book-chat__error--network {
+    border-left-color: var(--tac-amber);
+}
+
+.ask-book-chat__error--network .ask-book-chat__error-icon {
+    background: rgba(255, 170, 0, 0.15);
+    border-color: rgba(255, 170, 0, 0.3);
+    color: var(--tac-amber);
+}
+
+.ask-book-chat__error--network .ask-book-chat__error-title {
+    color: var(--tac-amber);
+}
+
+.ask-book-chat__error--timeout {
+    border-left-color: var(--tac-cyan);
+}
+
+.ask-book-chat__error--timeout .ask-book-chat__error-icon {
+    background: rgba(0, 212, 255, 0.15);
+    border-color: rgba(0, 212, 255, 0.3);
+    color: var(--tac-cyan);
+}
+
+.ask-book-chat__error--timeout .ask-book-chat__error-title {
+    color: var(--tac-cyan);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   20. MESSAGE DISPLAY IMPROVEMENTS
+   Better rendering of AI responses with code, lists, quotes
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Message content - ensure proper overflow handling */
+.ask-book-chat__message-content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* Headings in messages */
+.ask-book-chat__message-content h1,
+.ask-book-chat__message-content h2,
+.ask-book-chat__message-content h3,
+.ask-book-chat__message-content h4 {
+    font-family: var(--tac-font-display);
+    color: var(--tac-gold);
+    margin: 16px 0 8px 0;
+    line-height: 1.3;
+}
+
+.ask-book-chat__message-content h1 { font-size: 1.2rem; }
+.ask-book-chat__message-content h2 { font-size: 1.1rem; }
+.ask-book-chat__message-content h3 { font-size: 1rem; }
+.ask-book-chat__message-content h4 { font-size: 0.9rem; }
+
+/* Paragraphs */
+.ask-book-chat__message-content p {
+    margin: 0 0 12px 0;
+    line-height: 1.7;
+}
+
+.ask-book-chat__message-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Lists */
+.ask-book-chat__message-content ul,
+.ask-book-chat__message-content ol {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.ask-book-chat__message-content li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+}
+
+.ask-book-chat__message-content li::marker {
+    color: var(--tac-green);
+}
+
+/* Inline code */
+.ask-book-chat__message-content code {
+    font-family: var(--tac-font-mono);
+    font-size: 0.85em;
+    background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.15);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: var(--tac-green);
+}
+
+/* Code blocks */
+.ask-book-chat__message-content pre {
+    background: var(--tac-void);
+    border: 1px solid var(--tac-border);
+    border-left: 3px solid var(--tac-green);
+    border-radius: 0 4px 4px 0;
+    padding: 12px 16px;
+    margin: 12px 0;
+    overflow-x: auto;
+    font-family: var(--tac-font-mono);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.ask-book-chat__message-content pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--tac-text);
+}
+
+/* Blockquotes */
+.ask-book-chat__message-content blockquote {
+    border-left: 3px solid var(--tac-gold);
+    margin: 12px 0;
+    padding: 8px 16px;
+    background: rgba(212, 168, 75, 0.05);
+    font-style: italic;
+    color: var(--tac-text-dim);
+}
+
+.ask-book-chat__message-content blockquote p {
+    margin: 0;
+}
+
+/* Bold and emphasis */
+.ask-book-chat__message-content strong {
+    color: var(--tac-gold);
+    font-weight: 600;
+}
+
+.ask-book-chat__message-content em {
+    color: var(--tac-text);
+    font-style: italic;
+}
+
+/* Links */
+.ask-book-chat__message-content a {
+    color: var(--tac-green);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+}
+
+.ask-book-chat__message-content a:hover {
+    color: var(--tac-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   21. CONSENSUS BADGE — COUNCIL AGREEMENT INDICATOR
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__consensus-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--tac-green);
+    background: rgba(0, 255, 136, 0.08);
+    border: 1px solid rgba(0, 255, 136, 0.25);
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ask-book-chat__consensus-badge::before {
+    content: '✓';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    background: var(--tac-green);
+    color: var(--tac-void);
+    border-radius: 50%;
+    font-size: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   22. ACTION BUTTONS — LISTEN, COPY, SHARE
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__message-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--tac-border);
+    flex-wrap: wrap;
+}
+
+.ask-book-chat__listen-btn,
+.ask-book-chat__copy-btn,
+.ask-book-chat__share-btn {
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    color: var(--tac-text-dim);
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ask-book-chat__listen-btn:hover,
+.ask-book-chat__copy-btn:hover,
+.ask-book-chat__share-btn:hover {
+    background: rgba(0, 255, 136, 0.08);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+}
+
+.ask-book-chat__copy-btn.copied {
+    background: rgba(0, 255, 136, 0.15);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+}
+
+.ask-book-chat__listen-btn svg,
+.ask-book-chat__copy-btn svg,
+.ask-book-chat__share-btn svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   23. FEEDBACK SECTION
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__feedback {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--tac-border);
+}
+
+.ask-book-chat__feedback-label {
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    color: var(--tac-text-faint);
+    letter-spacing: 0.05em;
+}
+
+.ask-book-chat__feedback-btn {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid var(--tac-border);
+    border-radius: 4px;
+    color: var(--tac-text-faint);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__feedback-btn:hover {
+    background: rgba(0, 255, 136, 0.08);
+    border-color: var(--tac-green);
+    color: var(--tac-green);
+}
+
+.ask-book-chat__feedback-btn[data-feedback="down"]:hover {
+    background: rgba(255, 68, 68, 0.08);
+    border-color: var(--tac-red);
+    color: var(--tac-red);
+}
+
+.ask-book-chat__feedback-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ask-book-chat__feedback-thanks {
+    font-family: var(--tac-font-mono);
+    font-size: 0.6rem;
+    color: var(--tac-green);
+    letter-spacing: 0.05em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   24. RELATED QUESTIONS
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.ask-book-chat__related {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--tac-border);
+}
+
+.ask-book-chat__related-label {
+    font-family: var(--tac-font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: var(--tac-cyan);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.ask-book-chat__related-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ask-book-chat__related-btn {
+    font-family: var(--tac-font-mono);
+    font-size: 0.65rem;
+    color: var(--tac-text-dim);
+    background: rgba(0, 212, 255, 0.05);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    line-height: 1.4;
+}
+
+.ask-book-chat__related-btn:hover {
+    background: rgba(0, 212, 255, 0.12);
+    border-color: var(--tac-cyan);
+    color: var(--tac-cyan);
+}

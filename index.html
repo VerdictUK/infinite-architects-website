@@ -21287,6 +21287,11 @@
                     <span class="ask-book-chat__subtitle">SECURE CONNECTION ACTIVE</span>
                 </div>
             </div>
+            <button class="ask-book-chat__fullscreen-btn" id="askBookFullscreen" aria-label="Toggle fullscreen" title="Expand to fullscreen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/>
+                </svg>
+            </button>
             <button class="ask-book-chat__clear-btn" id="askBookClear" aria-label="Clear history" title="Clear conversation">
                 Clear
             </button>
@@ -21434,8 +21439,9 @@
     transform: translateY(0) scale(1);
 }
 
-/* Header */
+/* Header - flex-shrink: 0 prevents collapse */
 .ask-book-chat__header {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21501,6 +21507,78 @@
     color: #f0ebe3;
 }
 
+/* Fullscreen Toggle Button */
+.ask-book-chat__fullscreen-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: rgba(240, 235, 227, 0.6);
+    cursor: pointer;
+    display: none; /* Hidden on mobile */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.ask-book-chat__fullscreen-btn:hover {
+    background: rgba(212, 168, 75, 0.15);
+    border-color: rgba(212, 168, 75, 0.4);
+    color: #d4a84b;
+}
+
+.ask-book-chat__fullscreen-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 769px) {
+    .ask-book-chat__fullscreen-btn {
+        display: flex;
+    }
+}
+
+/* Fullscreen Mode */
+.ask-book-chat.fullscreen .ask-book-chat__panel {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__messages {
+    padding: 32px 15%;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__message {
+    max-width: 800px;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__input-area {
+    padding: 20px 15%;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__input-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ask-book-chat.fullscreen .ask-book-chat__fullscreen-btn svg {
+    transform: rotate(45deg);
+}
+
+@media (max-width: 1200px) {
+    .ask-book-chat.fullscreen .ask-book-chat__messages,
+    .ask-book-chat.fullscreen .ask-book-chat__input-area {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
 /* Clear History Button */
 .ask-book-chat__clear-btn {
     font-family: 'Space Mono', monospace;
@@ -21522,14 +21600,18 @@
     color: rgba(240, 235, 227, 0.8);
 }
 
-/* Messages Container */
+/* Messages Container - CRITICAL: min-height: 0 required for flex scroll */
 .ask-book-chat__messages {
-    flex: 1;
+    flex: 1 1 0;
+    min-height: 0; /* Essential for overflow scroll in flex container */
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
 }
 
 .ask-book-chat__messages::-webkit-scrollbar {
@@ -21778,8 +21860,9 @@
     color: rgba(240, 235, 227, 0.5);
 }
 
-/* Input Area */
+/* Input Area - flex-shrink: 0 prevents collapse */
 .ask-book-chat__input-area {
+    flex: 0 0 auto;
     padding: 16px 20px 20px;
     border-top: 1px solid rgba(212, 168, 75, 0.1);
     background: rgba(0, 0, 0, 0.2);
@@ -23758,6 +23841,7 @@ window.CouncilViz = CouncilViz;
         backdrop: document.getElementById('askBookBackdrop'),
         close: document.getElementById('askBookClose'),
         clear: document.getElementById('askBookClear'),
+        fullscreen: document.getElementById('askBookFullscreen'),
         messages: document.getElementById('askBookMessages'),
         input: document.getElementById('askBookInput'),
         send: document.getElementById('askBookSend'),
@@ -23781,6 +23865,8 @@ window.CouncilViz = CouncilViz;
         isLoading: false,
         isListening: false,
         isSpeaking: false,
+        isFullscreen: false,
+        lastFailedQuery: null,
         questionCount: parseInt(localStorage.getItem(CONFIG.questionCountKey) || '0'),
         history: [],
         currentSpeech: null,
@@ -24254,6 +24340,20 @@ window.CouncilViz = CouncilViz;
             if (state.isOpen) {
                 setTimeout(() => { if (elements.input) elements.input.focus(); }, 300);
                 if (typeof gtag === 'function') gtag('event', 'chat_open', { 'event_category': 'Ask Book' });
+            } else {
+                // Reset fullscreen when closing
+                if (state.isFullscreen) UI.toggleFullscreen();
+            }
+        },
+
+        toggleFullscreen: function() {
+            state.isFullscreen = !state.isFullscreen;
+            if (elements.chat) elements.chat.classList.toggle('fullscreen', state.isFullscreen);
+            if (elements.fullscreen) {
+                elements.fullscreen.title = state.isFullscreen ? 'Exit fullscreen' : 'Expand to fullscreen';
+            }
+            if (typeof gtag === 'function') {
+                gtag('event', state.isFullscreen ? 'chat_fullscreen_enter' : 'chat_fullscreen_exit', { 'event_category': 'Ask Book' });
             }
         },
 
@@ -24398,15 +24498,70 @@ window.CouncilViz = CouncilViz;
             if (councilContainer) councilContainer.remove();
         },
 
-        addError: function(message) {
+        addError: function(message, errorType = 'general', details = null) {
             const errorDiv = document.createElement('div');
-            errorDiv.className = 'ask-book-chat__error';
-            errorDiv.textContent = message;
+            const errorClass = errorType === 'network' ? 'ask-book-chat__error--network'
+                            : errorType === 'timeout' ? 'ask-book-chat__error--timeout'
+                            : '';
+            errorDiv.className = `ask-book-chat__error ${errorClass}`;
+
+            const errorIcon = errorType === 'network' ? '📡'
+                           : errorType === 'timeout' ? '⏱️'
+                           : '⚠️';
+
+            const errorTitle = errorType === 'network' ? 'CONNECTION INTERRUPTED'
+                            : errorType === 'timeout' ? 'RESPONSE TIMEOUT'
+                            : 'ANALYSIS FAILED';
+
+            const errorSubtitle = errorType === 'network' ? 'Unable to reach intelligence servers'
+                               : errorType === 'timeout' ? 'The AI council took too long to respond'
+                               : 'Error processing your query';
+
+            errorDiv.innerHTML = `
+                <div class="ask-book-chat__error-header">
+                    <div class="ask-book-chat__error-icon">${errorIcon}</div>
+                    <div>
+                        <div class="ask-book-chat__error-title">${errorTitle}</div>
+                        <div class="ask-book-chat__error-subtitle">${errorSubtitle}</div>
+                    </div>
+                </div>
+                <div class="ask-book-chat__error-message">${message}</div>
+                ${details ? `<div class="ask-book-chat__error-details">Error: ${details}</div>` : ''}
+                <div class="ask-book-chat__error-actions">
+                    <button class="ask-book-chat__error-retry">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+                        </svg>
+                        Retry Query
+                    </button>
+                    <button class="ask-book-chat__error-dismiss">Dismiss</button>
+                </div>
+            `;
+
+            // Add retry functionality
+            const retryBtn = errorDiv.querySelector('.ask-book-chat__error-retry');
+            if (retryBtn && state.lastFailedQuery) {
+                retryBtn.addEventListener('click', () => {
+                    errorDiv.remove();
+                    sendMessage(state.lastFailedQuery);
+                });
+            }
+
+            // Add dismiss functionality
+            const dismissBtn = errorDiv.querySelector('.ask-book-chat__error-dismiss');
+            if (dismissBtn) {
+                dismissBtn.addEventListener('click', () => {
+                    errorDiv.style.opacity = '0';
+                    errorDiv.style.transform = 'translateX(-10px)';
+                    setTimeout(() => errorDiv.remove(), 300);
+                });
+            }
+
             if (elements.messages) {
                 elements.messages.appendChild(errorDiv);
                 elements.messages.scrollTop = elements.messages.scrollHeight;
             }
-            setTimeout(() => errorDiv.remove(), 5000);
         }
     };
 
@@ -24558,6 +24713,9 @@ window.CouncilViz = CouncilViz;
         } catch (error) {
             console.error('[ASK BOOK] Error:', error);
 
+            // Store the failed query for retry
+            state.lastFailedQuery = query;
+
             if (mode === 'full' && window.CouncilViz) {
                 window.CouncilViz.hide();
             }
@@ -24565,13 +24723,34 @@ window.CouncilViz = CouncilViz;
                 councilContainer.remove();
             }
             UI.removeLoading();
-            UI.addError('I had trouble finding that answer. Please try rephrasing your question.');
+
+            // Determine error type for elegant handling
+            let errorType = 'general';
+            let errorMessage = 'The intelligence system encountered an issue processing your query. Please try again.';
+            let errorDetails = error.message;
+
+            if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch') || error.message.includes('network')) {
+                errorType = 'network';
+                errorMessage = 'Unable to connect to the intelligence servers. Please check your connection and try again.';
+            } else if (error.message.includes('timeout') || error.message.includes('Timeout') || error.message.includes('408')) {
+                errorType = 'timeout';
+                errorMessage = 'The analysis took longer than expected. Try a simpler query or switch to Quick mode.';
+            } else if (error.message.includes('API error: 5')) {
+                errorType = 'general';
+                errorMessage = 'The AI service is temporarily overloaded. Please wait a moment and retry.';
+            } else if (error.message.includes('API error: 4')) {
+                errorType = 'general';
+                errorMessage = 'There was an issue with your query. Please try rephrasing your question.';
+            }
+
+            UI.addError(errorMessage, errorType, errorDetails);
 
             // Track error
             if (typeof gtag === 'function') {
                 gtag('event', 'chat_error', {
                     'event_category': 'Ask Book',
-                    'event_label': error.message
+                    'event_label': errorType,
+                    'value': error.message
                 });
             }
         } finally {
@@ -24633,6 +24812,11 @@ window.CouncilViz = CouncilViz;
         // Backdrop click
         if (elements.backdrop) {
             elements.backdrop.addEventListener('click', UI.toggleChat);
+        }
+
+        // Fullscreen toggle
+        if (elements.fullscreen) {
+            elements.fullscreen.addEventListener('click', UI.toggleFullscreen);
         }
 
         // Clear history
