@@ -7955,3 +7955,248 @@
     gap: 16px;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   WHAT THIS BOOK IS NOT — Preemptive objection handling
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.book-contrast {
+  background: linear-gradient(180deg,
+    rgba(10, 12, 20, 0.9) 0%,
+    rgba(4, 5, 12, 0.95) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.12);
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin: 24px 0;
+}
+
+.book-contrast__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  color: var(--accordion-text-primary);
+  text-align: center;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.02em;
+}
+
+.book-contrast__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.book-contrast__column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.book-contrast__column--negative {
+  opacity: 0.75;
+}
+
+.book-contrast__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--accordion-text-secondary);
+}
+
+.book-contrast__icon--negative {
+  color: #ef5350;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.book-contrast__icon--positive {
+  color: #4caf50;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 480px) {
+  .book-contrast__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   COMPARISON TABLE — Differentiation from other AI books
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.comparison-table {
+  background: rgba(10, 12, 20, 0.85);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 12px;
+  padding: 20px 16px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+.comparison-table__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  color: var(--accordion-gold);
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.comparison-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.78rem;
+}
+
+.comparison-table th {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accordion-text-dim);
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+}
+
+.comparison-table th:last-child {
+  color: var(--accordion-gold);
+  text-align: center;
+  background: rgba(212, 168, 75, 0.08);
+}
+
+.comparison-table td {
+  padding: 12px 8px;
+  color: var(--accordion-text-secondary);
+  border-bottom: 1px solid rgba(212, 168, 75, 0.06);
+}
+
+.comparison-table td:first-child {
+  font-weight: 500;
+  color: var(--accordion-text-primary);
+}
+
+.comparison-table td:last-child {
+  color: var(--accordion-gold);
+  text-align: center;
+  font-weight: 500;
+  background: rgba(212, 168, 75, 0.04);
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table__highlight {
+  background: rgba(212, 168, 75, 0.1) !important;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   EXPERT ALIGNMENT QUOTES — Authority stacking with AI thought leaders
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.expert-quotes {
+  background: linear-gradient(180deg,
+    rgba(10, 12, 20, 0.85) 0%,
+    rgba(4, 5, 12, 0.9) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin: 24px 0;
+}
+
+.expert-quotes__header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.expert-quotes__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  color: var(--accordion-text-primary);
+  margin: 0 0 6px 0;
+}
+
+.expert-quotes__subtitle {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accordion-text-dim);
+}
+
+.expert-quotes__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.expert-quote {
+  background: rgba(212, 168, 75, 0.04);
+  border-left: 3px solid rgba(212, 168, 75, 0.3);
+  border-radius: 0 8px 8px 0;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.expert-quote:hover {
+  background: rgba(212, 168, 75, 0.08);
+  border-left-color: var(--accordion-gold);
+}
+
+.expert-quote__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--accordion-text-primary);
+  margin: 0 0 12px 0;
+}
+
+.expert-quote__attribution {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.expert-quote__author {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.68rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.03em;
+}
+
+.expert-quote__credentials {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.58rem;
+  color: var(--accordion-text-dim);
+  display: block;
+  margin-top: 2px;
+}
+
+.expert-quote__reference {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.58rem;
+  color: var(--accordion-text-secondary);
+}
+
+.expert-quote__reference a {
+  color: var(--accordion-gold);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.expert-quote__reference a:hover {
+  text-decoration: underline;
+}
