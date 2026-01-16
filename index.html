@@ -15041,12 +15041,13 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         const CONFIG = {
             loader: {
-                // Apple-subtle: shorter, fewer particles, elegant emergence
-                duration: PERF.isSlowConnection ? 2000 : 3000,
+                // Premium loader: elegant emergence with adequate viewing time
+                duration: PERF.isMobile ? 4000 : 3500,
                 particleCount: Math.floor(120 * PERF.multiplier) || 40,
                 ringCount: PERF.isSlowConnection ? 1 : 2,
                 trailLength: PERF.isSlowConnection ? 4 : 8,
-                goldHue: 38
+                goldHue: 38,
+                skipDelay: 1500  // Prevent accidental skip for first 1.5s
             },
             main: {
                 particleCount: Math.floor(400 * PERF.multiplier) || 80,
@@ -15346,9 +15347,12 @@
                 new LoaderRing(170, 80, -0.25, 1.2, -0.0008, 50)
             ];
 
-            // Skip functionality
+            // Skip functionality (with delay to prevent accidental taps)
+            let canSkip = false;
+            setTimeout(() => { canSkip = true; }, CONFIG.loader.skipDelay);
+
             function skipLoader() {
-                if (!loaderState.skipped) {
+                if (!loaderState.skipped && canSkip) {
                     loaderState.skipped = true;
                     completeLoader();
                 }
@@ -19412,6 +19416,17 @@
 
 <!-- Mobile Accordion JavaScript -->
 <script src="js/mobile-accordion.js" defer></script>
+
+<!-- Desktop App Bundle (includes Titan Slam, 3D Book, Soul Engine) -->
+<script>
+  // Only load heavy desktop bundle on non-mobile devices
+  if (window.innerWidth >= 1024) {
+    const script = document.createElement('script');
+    script.src = 'js/app-bundle.js';
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+</script>
 
 </body>
 </html>
