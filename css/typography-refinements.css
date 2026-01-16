@@ -50,6 +50,44 @@ pre {
 }
 
 /* ============================================================================
+   1.5 UNIVERSAL TOUCH & INTERACTION OPTIMISATION
+   Removes 300ms tap delay on iOS, improves all platforms
+   ============================================================================ */
+
+/* Interactive elements - eliminate tap delay */
+button,
+.btn,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+a {
+    touch-action: manipulation;
+}
+
+/* Form inputs - prevent zoom on focus (iOS) */
+input,
+textarea,
+select {
+    touch-action: manipulation;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+/* Newsletter form specific */
+.newsletter-button,
+.newsletter-input {
+    touch-action: manipulation;
+}
+
+/* Autofill styling - consistent across browsers */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text-primary, #e8d4a0);
+    -webkit-box-shadow: 0 0 0px 1000px var(--void-surface, #0a0c14) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ============================================================================
    2. SYSTEMATIC LETTER-SPACING
    Following the strategy: 0.02em, 0.04em, 0.08em, 0.12em, 0.15em
    ============================================================================ */
