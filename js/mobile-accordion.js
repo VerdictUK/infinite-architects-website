@@ -7,25 +7,38 @@
  * ██║██║ ╚████║██║     ██║██║ ╚████║██║   ██║   ███████╗
  * ╚═╝╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚══════╝
  * 
- * ARCHITECTS — MOBILE ACCORDION SYSTEM
+ * ARCHITECTS — MOBILE ACCORDION SYSTEM V6 ULTIMATE FINAL
  * ═══════════════════════════════════════════════════════════════════════════════════════════
  * 
- * VERSION: 4.0.0 ULTIMATE (Option B - TRUE COMPLETE)
+ * VERSION: 6.0.0-FINAL
  * DATE: January 16, 2026
  * 
  * FEATURES:
  * ─────────────────────────────────────────────────────────────────────────────────────────
+ * ✓ updateHeaders() - Fixes SECTION → PART labels automatically
  * ✓ GPU-accelerated particle system with glowing connections
  * ✓ Cinematic full-screen overlay on accordion open
+ * ✓ Text scramble decryption effect (Matrix-style)
+ * ✓ Deep linking with URL hash (#the-mind, #the-evidence)
+ * ✓ State persistence via sessionStorage
+ * ✓ Native Web Share API with clipboard fallback
+ * ✓ Share toast notifications
  * ✓ Haptic feedback patterns (iOS/Android vibration API)
  * ✓ Lazy loading for videos and heavy assets
  * ✓ Sticky buy bar with scroll threshold trigger
- * ✓ Analytics tracking (GA4 + Meta Pixel)
+ * ✓ Analytics tracking (GA4 + Meta Pixel + Plausible)
  * ✓ Page Visibility API for battery optimization
- * ✓ Orientation change handling
- * ✓ Smooth scroll for anchor links
- * ✓ Concepts carousel swipe detection
- * ✓ Public API for external control
+ * ✓ Progress indicator dots
+ * ✓ Single-open accordion mode
+ * 
+ * VERIFIED FACTS (IMMUTABLE):
+ * ─────────────────────────────────────────────────────────────────────────────────────────
+ * • Book published: January 2, 2026
+ * • BBC broadcast: January 7, 2026
+ * • Gap: 5 DAYS
+ * • Prediction quote: "practical quantum computing within approximately five years"
+ * • Kindle ASIN: B0DS2L8BVC (£9.99)
+ * • Paperback ASIN: B0DS7BZ4L9 (£14.99)
  * 
  * ═══════════════════════════════════════════════════════════════════════════════════════════
  */
@@ -39,22 +52,125 @@
 
   const CONFIG = {
     // ─────────────────────────────────────────────────────────────────────────────────────
+    // Part Data — CINEMATIC TITLES
+    // ORDER: Mind → Evidence → Thesis → Philosophy → Convergence → Stakes → Verdict → Join
+    // ─────────────────────────────────────────────────────────────────────────────────────
+    partData: {
+      'accordion-mind': {
+        part: 'PART I',
+        numeral: 'I',
+        title: 'THE MIND',
+        displayTitle: 'The Mind',
+        hook: 'The pattern-finder who saw it coming',
+        hash: 'the-mind',
+        order: 1
+      },
+      'accordion-evidence': {
+        part: 'PART II',
+        numeral: 'II',
+        title: 'THE EVIDENCE',
+        displayTitle: 'The Evidence',
+        hook: 'BBC confirmed this 5 days later',
+        hash: 'the-evidence',
+        order: 2
+      },
+      'accordion-equation': {
+        part: 'PART III',
+        numeral: 'III',
+        title: 'THE THESIS',
+        displayTitle: 'The Thesis',
+        hook: 'One equation. All of creation.',
+        hash: 'the-thesis',
+        order: 3
+      },
+      'accordion-concepts': {
+        part: 'PART IV',
+        numeral: 'IV',
+        title: 'THE PHILOSOPHY',
+        displayTitle: 'The Philosophy',
+        hook: '37 concepts that exist nowhere else',
+        hash: 'the-philosophy',
+        order: 4
+      },
+      'accordion-predictions': {
+        part: 'PART V',
+        numeral: 'V',
+        title: 'THE CONVERGENCE',
+        displayTitle: 'The Convergence',
+        hook: 'When the loops close',
+        hash: 'the-convergence',
+        order: 5
+      },
+      'accordion-stakes': {
+        part: 'PART VI',
+        numeral: 'VI',
+        title: 'THE STAKES',
+        displayTitle: 'The Stakes',
+        hook: "This isn't tomorrow. It's now.",
+        hash: 'the-stakes',
+        order: 6
+      },
+      'accordion-reviews': {
+        part: 'PART VII',
+        numeral: 'VII',
+        title: 'THE VERDICT',
+        displayTitle: 'The Verdict',
+        hook: 'What early readers discovered',
+        hash: 'the-verdict',
+        order: 7
+      },
+      'accordion-get-book': { 
+        part: 'PART VIII', 
+        numeral: 'VIII',
+        title: 'JOIN THE MOVEMENT',
+        displayTitle: 'Join the Movement',
+        hook: 'Your seat is waiting',
+        hash: 'join',
+        order: 8
+      },
+      'accordion-faq': {
+        part: 'FAQ',
+        numeral: '?',
+        title: 'FREQUENTLY ASKED',
+        displayTitle: 'Frequently Asked',
+        hook: 'What readers ask most',
+        hash: 'faq',
+        order: 9
+      },
+    },
+
+    // ─────────────────────────────────────────────────────────────────────────────────────
+    // Hash Map (URL → Accordion ID)
+    // ─────────────────────────────────────────────────────────────────────────────────────
+    hashMap: {
+      'the-mind': 'accordion-mind',
+      'the-evidence': 'accordion-evidence',
+      'the-thesis': 'accordion-equation',
+      'the-philosophy': 'accordion-concepts',
+      'the-convergence': 'accordion-predictions',
+      'the-stakes': 'accordion-stakes',
+      'the-verdict': 'accordion-reviews',
+      'join': 'accordion-get-book',
+      'faq': 'accordion-faq'
+    },
+
+    // ─────────────────────────────────────────────────────────────────────────────────────
     // Particle System
     // ─────────────────────────────────────────────────────────────────────────────────────
     particles: {
       enabled: true,
-      count: 38,
-      connectionDistance: 85,
-      speed: 0.32,
-      sizeRange: { min: 1.5, max: 3.2 },
+      count: 42,
+      connectionDistance: 90,
+      speed: 0.35,
+      sizeRange: { min: 1.5, max: 3.5 },
       colors: {
-        particle: { h: 42, s: 68, l: 56 },    // Gold
-        connection: { h: 42, s: 62, l: 52 },  // Slightly darker gold
+        particle: { h: 42, s: 68, l: 56 },
+        connection: { h: 42, s: 62, l: 52 },
       },
       glow: true,
-      glowIntensity: 0.55,
-      mouseRepelRadius: 110,
-      mouseRepelForce: 0.035,
+      glowIntensity: 0.6,
+      mouseRepelRadius: 120,
+      mouseRepelForce: 0.04,
     },
 
     // ─────────────────────────────────────────────────────────────────────────────────────
@@ -71,14 +187,25 @@
         open: [10, 35],
         close: 15,
         tap: 8,
+        share: [15, 40, 15],
       },
+    },
+
+    // ─────────────────────────────────────────────────────────────────────────────────────
+    // Text Scramble Effect
+    // ─────────────────────────────────────────────────────────────────────────────────────
+    textScramble: {
+      enabled: true,
+      duration: 450,
+      frameRate: 30,
+      chars: '▓█▒░╔╗╚╝║═╬┼◆◇○●□■△▲▽▼',
     },
 
     // ─────────────────────────────────────────────────────────────────────────────────────
     // Buy Bar
     // ─────────────────────────────────────────────────────────────────────────────────────
     buyBar: {
-      scrollThreshold: 0.28, // Show after scrolling 28% past hero
+      scrollThreshold: 0.28,
     },
 
     // ─────────────────────────────────────────────────────────────────────────────────────
@@ -86,57 +213,8 @@
     // ─────────────────────────────────────────────────────────────────────────────────────
     cinema: {
       enabled: true,
-      duration: 3000, // ms before auto-dismiss
-      // Only show full-screen for these critical accordions
+      duration: 1800,
       criticalAccordions: ['accordion-evidence', 'accordion-get-book'],
-      // Part data with UPGRADED titles from the audit
-      partData: {
-        'accordion-mind': {
-          part: 'PART I',
-          title: 'THE MIND',
-          hook: 'The pattern-finder who saw it coming'
-        },
-        'accordion-equation': {
-          part: 'PART II',
-          title: 'THE THESIS',
-          hook: 'One equation. All of creation.'
-        },
-        'accordion-evidence': {
-          part: 'PART III',
-          title: 'THE EVIDENCE',
-          hook: 'BBC confirmed this 5 days later'
-        },
-        'accordion-concepts': {
-          part: 'PART IV',
-          title: 'THE PHILOSOPHY',
-          hook: '37 concepts that exist nowhere else'
-        },
-        'accordion-predictions': {
-          part: 'PART V',
-          title: 'THE CONVERGENCE',
-          hook: 'Multiple predictions. All validated.'
-        },
-        'accordion-stakes': {
-          part: 'PART VI',
-          title: 'THE STAKES',
-          hook: 'This isn\'t tomorrow. It\'s now.'
-        },
-        'accordion-reviews': {
-          part: 'PART VII',
-          title: 'THE VERDICT',
-          hook: 'What early readers discovered'
-        },
-        'accordion-get-book': { 
-          part: 'PART VIII', 
-          title: 'JOIN THE MOVEMENT', 
-          hook: 'Your seat is waiting' 
-        },
-        'accordion-faq': {
-          part: 'FAQ',
-          title: 'FREQUENTLY ASKED',
-          hook: 'What readers ask most'
-        },
-      },
     },
 
     // ─────────────────────────────────────────────────────────────────────────────────────
@@ -144,7 +222,7 @@
     // ─────────────────────────────────────────────────────────────────────────────────────
     analytics: {
       enabled: true,
-      debug: false, // Set true to log events to console
+      debug: false,
     },
 
     // ─────────────────────────────────────────────────────────────────────────────────────
@@ -165,7 +243,7 @@
     particleSystem: null,
     buyBarVisible: false,
     pageVisible: true,
-    shownCinemaIds: new Set(), // Track which cinematic overlays have been shown
+    shownCinemaIds: new Set(),
     lastScrollY: 0,
   };
 
@@ -175,9 +253,6 @@
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const utils = {
-    /**
-     * Throttle function execution
-     */
     throttle(fn, delay) {
       let lastCall = 0;
       let rafId = null;
@@ -191,9 +266,6 @@
       };
     },
 
-    /**
-     * Debounce function execution
-     */
     debounce(fn, delay) {
       let timeoutId;
       return function(...args) {
@@ -202,9 +274,6 @@
       };
     },
 
-    /**
-     * Request idle callback with fallback
-     */
     requestIdle(callback, timeout = 100) {
       if ('requestIdleCallback' in window) {
         return window.requestIdleCallback(callback, { timeout });
@@ -212,70 +281,39 @@
       return setTimeout(callback, 1);
     },
 
-    /**
-     * Trigger haptic feedback
-     */
     haptic(pattern) {
       if (!CONFIG.haptics.enabled) return;
       if (!navigator.vibrate) return;
-
       const vibration = CONFIG.haptics.patterns[pattern];
       if (vibration) {
-        try {
-          navigator.vibrate(vibration);
-        } catch (e) {
-          // Vibration not supported or blocked
-        }
+        try { navigator.vibrate(vibration); } catch (e) {}
       }
     },
 
-    /**
-     * Track analytics event
-     */
     track(category, action, label = null, value = null) {
       if (!CONFIG.analytics.enabled) return;
-
       if (CONFIG.analytics.debug) {
         console.log(`[Analytics] ${category}/${action}`, label || '', value || '');
       }
-
-      // Google Analytics 4
       if (typeof gtag === 'function') {
-        gtag('event', action, {
-          event_category: category,
-          event_label: label,
-          value: value,
-        });
+        gtag('event', action, { event_category: category, event_label: label, value });
       }
-
-      // Meta Pixel
       if (typeof fbq === 'function') {
-        if (action === 'Click' && category === 'CTA') {
-          fbq('track', 'InitiateCheckout');
-        }
-        if (action === 'Open' && category === 'Accordion') {
-          fbq('track', 'ViewContent', { content_name: label });
-        }
+        if (action === 'Click' && category === 'CTA') fbq('track', 'InitiateCheckout');
+      }
+      if (typeof plausible === 'function') {
+        plausible(action, { props: { category, label } });
       }
     },
 
-    /**
-     * Random number in range
-     */
     randomRange(min, max) {
       return min + Math.random() * (max - min);
     },
 
-    /**
-     * Clamp value between min and max
-     */
     clamp(value, min, max) {
       return Math.min(Math.max(value, min), max);
     },
 
-    /**
-     * Linear interpolation
-     */
     lerp(start, end, factor) {
       return start + (end - start) * factor;
     },
@@ -283,7 +321,222 @@
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // PARTICLE SYSTEM — GPU-Accelerated with Glowing Connections
+  // TEXT SCRAMBLE EFFECT
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  class TextScramble {
+    constructor(element, options = {}) {
+      this.el = element;
+      this.chars = options.chars || CONFIG.textScramble.chars;
+      this.duration = options.duration || CONFIG.textScramble.duration;
+      this.frameRate = options.frameRate || CONFIG.textScramble.frameRate;
+    }
+
+    async scramble(newText) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this.el.textContent = newText;
+        return;
+      }
+
+      const length = newText.length;
+      const frameInterval = 1000 / this.frameRate;
+      const totalFrames = this.duration / frameInterval;
+
+      return new Promise(resolve => {
+        let frame = 0;
+
+        const update = () => {
+          let output = '';
+          const progress = frame / totalFrames;
+
+          for (let i = 0; i < length; i++) {
+            const charProgress = progress * length;
+            if (i < charProgress) {
+              output += `<span class="char-resolved">${newText[i]}</span>`;
+            } else {
+              output += `<span class="char-scrambling">${this.randomChar()}</span>`;
+            }
+          }
+
+          this.el.innerHTML = output;
+          frame++;
+
+          if (frame <= totalFrames) {
+            requestAnimationFrame(update);
+          } else {
+            this.el.textContent = newText;
+            resolve();
+          }
+        };
+
+        update();
+      });
+    }
+
+    randomChar() {
+      return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+  }
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // STATE MANAGER (Deep Linking + Persistence)
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  const stateManager = {
+    storageKey: 'ia-accordion-state',
+    expiry: 24 * 60 * 60 * 1000, // 24 hours
+
+    init() {
+      // Handle hash on load
+      this.restore();
+
+      // Listen for hash changes
+      window.addEventListener('hashchange', () => this.handleHashChange());
+      window.addEventListener('popstate', () => this.handleHashChange());
+    },
+
+    save(accordionId, scrollY) {
+      try {
+        sessionStorage.setItem(this.storageKey, JSON.stringify({
+          accordionId,
+          scrollY,
+          timestamp: Date.now()
+        }));
+      } catch (e) {}
+    },
+
+    restore() {
+      // Check URL hash first
+      const hash = window.location.hash.slice(1);
+      if (hash && CONFIG.hashMap[hash]) {
+        setTimeout(() => {
+          accordion.openById(CONFIG.hashMap[hash]);
+        }, 300);
+        return;
+      }
+
+      // Then check sessionStorage
+      try {
+        const saved = sessionStorage.getItem(this.storageKey);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (Date.now() - data.timestamp < this.expiry) {
+            setTimeout(() => {
+              accordion.openById(data.accordionId);
+            }, 300);
+          } else {
+            this.cleanup();
+          }
+        }
+      } catch (e) {}
+    },
+
+    handleHashChange() {
+      const hash = window.location.hash.slice(1);
+      if (hash && CONFIG.hashMap[hash]) {
+        accordion.openById(CONFIG.hashMap[hash]);
+      }
+    },
+
+    updateHash(accordionId) {
+      const data = CONFIG.partData[accordionId];
+      if (data && data.hash) {
+        history.pushState(null, '', `#${data.hash}`);
+      }
+    },
+
+    clearHash() {
+      if (window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+      }
+    },
+
+    cleanup() {
+      try { sessionStorage.removeItem(this.storageKey); } catch (e) {}
+    }
+  };
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // SHARE MANAGER (Native Web Share API)
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  const shareManager = {
+    async share(data) {
+      const { title, text, url } = data;
+
+      // Try native share first
+      if (navigator.share && this.isMobile()) {
+        try {
+          await navigator.share({ title, text, url });
+          utils.haptic('share');
+          utils.track('Share', 'Native', title);
+          return { success: true, method: 'native' };
+        } catch (err) {
+          if (err.name === 'AbortError') {
+            return { success: false, method: 'cancelled' };
+          }
+        }
+      }
+
+      // Fallback to clipboard
+      return this.copyToClipboard(text, url);
+    },
+
+    isMobile() {
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    },
+
+    async copyToClipboard(text, url) {
+      const fullText = `${text}\n\n${url}`;
+      try {
+        await navigator.clipboard.writeText(fullText);
+        utils.haptic('success');
+        this.showToast('Link copied to clipboard');
+        utils.track('Share', 'Clipboard', text);
+        return { success: true, method: 'clipboard' };
+      } catch (e) {
+        return { success: false, method: 'error' };
+      }
+    },
+
+    showToast(message) {
+      let toast = document.querySelector('.share-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.className = 'share-toast';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        document.body.appendChild(toast);
+      }
+      toast.textContent = message;
+      toast.classList.add('visible');
+      setTimeout(() => toast.classList.remove('visible'), 2500);
+    },
+
+    getSectionShareData(accordionId) {
+      const data = CONFIG.partData[accordionId];
+      if (!data) return null;
+      return {
+        title: `${data.part}: ${data.displayTitle} — Infinite Architects`,
+        text: `Read "${data.displayTitle}" from Infinite Architects — ${data.hook}`,
+        url: `${window.location.origin}${window.location.pathname}#${data.hash}`
+      };
+    },
+
+    getBookShareData() {
+      return {
+        title: 'Infinite Architects by Michael Darius Eastwood',
+        text: 'A book that predicted a BBC headline 5 days before it happened. The future of AI, explained.',
+        url: window.location.origin
+      };
+    }
+  };
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // PARTICLE SYSTEM
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   class ParticleSystem {
@@ -295,7 +548,7 @@
       this.animationId = null;
       this.running = false;
       this.lastTime = 0;
-      this.frameInterval = 1000 / 60; // Target 60fps
+      this.frameInterval = 1000 / 60;
       this.dpr = 1;
 
       this.resize();
@@ -341,7 +594,6 @@
     bindEvents() {
       const parent = this.canvas.parentElement;
 
-      // Mouse events
       parent.addEventListener('mousemove', (e) => {
         const rect = this.canvas.getBoundingClientRect();
         this.mouse.x = e.clientX - rect.left;
@@ -355,7 +607,6 @@
         this.mouse.active = false;
       });
 
-      // Touch events
       parent.addEventListener('touchmove', (e) => {
         if (e.touches.length > 0) {
           const rect = this.canvas.getBoundingClientRect();
@@ -376,11 +627,9 @@
       const { speed, mouseRepelRadius, mouseRepelForce } = CONFIG.particles;
 
       this.particles.forEach((p) => {
-        // Pulse animation
         p.pulsePhase += p.pulseSpeed;
         p.currentAlpha = p.alpha * (Math.sin(p.pulsePhase) * 0.32 + 0.68);
 
-        // Mouse repulsion
         if (this.mouse.active) {
           const dx = this.mouse.x - p.x;
           const dy = this.mouse.y - p.y;
@@ -393,19 +642,13 @@
           }
         }
 
-        // Apply velocity
         p.x += p.vx;
         p.y += p.vy;
-
-        // Friction
         p.vx *= 0.988;
         p.vy *= 0.988;
-
-        // Random drift
         p.vx += (Math.random() - 0.5) * 0.018;
         p.vy += (Math.random() - 0.5) * 0.018;
 
-        // Speed limit
         const currentSpeed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         const maxSpeed = speed * 2.2;
         if (currentSpeed > maxSpeed) {
@@ -413,7 +656,6 @@
           p.vy = (p.vy / currentSpeed) * maxSpeed;
         }
 
-        // Wrap around edges
         if (p.x < -12) p.x = this.width + 12;
         if (p.x > this.width + 12) p.x = -12;
         if (p.y < -12) p.y = this.height + 12;
@@ -425,7 +667,6 @@
       const ctx = this.ctx;
       const { connectionDistance, glow, glowIntensity, colors } = CONFIG.particles;
 
-      // Clear canvas
       ctx.clearRect(0, 0, this.width, this.height);
 
       // Draw connections
@@ -450,48 +691,43 @@
         }
       }
 
-      // Draw particles
+      // Draw particles with glow
       this.particles.forEach((p) => {
-        // Glow effect
         if (glow) {
-          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 5.5);
+          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4);
           gradient.addColorStop(0, `hsla(${p.hue}, ${p.saturation}%, ${p.lightness}%, ${p.currentAlpha * glowIntensity})`);
-          gradient.addColorStop(1, 'transparent');
-          ctx.beginPath();
+          gradient.addColorStop(1, `hsla(${p.hue}, ${p.saturation}%, ${p.lightness}%, 0)`);
           ctx.fillStyle = gradient;
-          ctx.arc(p.x, p.y, p.size * 5.5, 0, Math.PI * 2);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 4, 0, Math.PI * 2);
           ctx.fill();
         }
 
-        // Core particle
-        ctx.beginPath();
         ctx.fillStyle = `hsla(${p.hue}, ${p.saturation}%, ${p.lightness}%, ${p.currentAlpha})`;
+        ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
     }
 
-    animate(currentTime = 0) {
-      if (!this.running || !state.pageVisible) {
-        this.animationId = null;
-        return;
-      }
+    render(timestamp) {
+      if (!this.running) return;
 
-      const deltaTime = currentTime - this.lastTime;
-      if (deltaTime >= this.frameInterval) {
-        this.lastTime = currentTime - (deltaTime % this.frameInterval);
+      const elapsed = timestamp - this.lastTime;
+      if (elapsed >= this.frameInterval) {
+        this.lastTime = timestamp - (elapsed % this.frameInterval);
         this.update();
         this.draw();
       }
 
-      this.animationId = requestAnimationFrame((t) => this.animate(t));
+      this.animationId = requestAnimationFrame((t) => this.render(t));
     }
 
     start() {
       if (this.running) return;
       this.running = true;
       this.lastTime = performance.now();
-      this.animate(this.lastTime);
+      this.animationId = requestAnimationFrame((t) => this.render(t));
     }
 
     stop() {
@@ -505,110 +741,101 @@
     destroy() {
       this.stop();
       this.particles = [];
-      if (this.ctx) {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      }
     }
   }
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // CINEMATIC OVERLAY SYSTEM
+  // CINEMATIC OVERLAY
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const cinema = {
     overlay: null,
     dismissTimeout: null,
+    textScrambler: null,
 
     init() {
       if (!CONFIG.cinema.enabled) return;
-
-      // Get or create overlay element
-      this.overlay = document.querySelector('.cinema-overlay');
-      if (!this.overlay) {
-        this.createOverlay();
-      }
-
-      // Click to dismiss
-      this.overlay.addEventListener('click', () => this.hide());
-      
-      // Keyboard dismiss (Escape key)
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.overlay.classList.contains('active')) {
-          this.hide();
-        }
-      });
+      this.createOverlay();
+      this.bindEvents();
     },
 
     createOverlay() {
+      if (this.overlay) return;
       this.overlay = document.createElement('div');
       this.overlay.className = 'cinema-overlay';
       this.overlay.setAttribute('role', 'dialog');
-      this.overlay.setAttribute('aria-modal', 'true');
+      this.overlay.setAttribute('aria-hidden', 'true');
       this.overlay.innerHTML = `
-        <span class="cinema-overlay__part" aria-hidden="true"></span>
+        <span class="cinema-overlay__part"></span>
         <span class="cinema-overlay__divider" aria-hidden="true"></span>
         <span class="cinema-overlay__title"></span>
         <span class="cinema-overlay__hook"></span>
       `;
       document.body.appendChild(this.overlay);
+
+      // Initialize text scrambler
+      const titleEl = this.overlay.querySelector('.cinema-overlay__title');
+      this.textScrambler = new TextScramble(titleEl);
     },
 
-    show(accordionId) {
+    bindEvents() {
+      if (!this.overlay) return;
+      this.overlay.addEventListener('click', () => this.hide());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') this.hide();
+      });
+    },
+
+    async show(accordionId) {
       if (!CONFIG.cinema.enabled || !this.overlay) return;
 
-      // Check if this is a critical accordion (always show) or first-time
       const isCritical = CONFIG.cinema.criticalAccordions.includes(accordionId);
       const alreadyShown = state.shownCinemaIds.has(accordionId);
 
-      // For critical accordions, always show. For others, show only first time.
       if (!isCritical && alreadyShown) return;
 
-      const data = CONFIG.cinema.partData[accordionId];
+      const data = CONFIG.partData[accordionId];
       if (!data) return;
 
-      // Mark as shown
       state.shownCinemaIds.add(accordionId);
 
-      // Clear any existing timeout
       if (this.dismissTimeout) {
         clearTimeout(this.dismissTimeout);
       }
 
-      // Populate overlay content
+      // Set part and hook
       this.overlay.querySelector('.cinema-overlay__part').textContent = data.part;
-      this.overlay.querySelector('.cinema-overlay__title').textContent = data.title;
       this.overlay.querySelector('.cinema-overlay__hook').textContent = data.hook;
 
-      // Lock body scroll
+      // Clear title for scramble
+      this.overlay.querySelector('.cinema-overlay__title').textContent = '';
+
       document.body.style.overflow = 'hidden';
-
-      // Show overlay
       this.overlay.classList.add('active');
+      this.overlay.setAttribute('aria-hidden', 'false');
 
-      // Haptic feedback
       utils.haptic('success');
 
-      // Auto-dismiss after duration
-      this.dismissTimeout = setTimeout(() => this.hide(), CONFIG.cinema.duration);
+      // Text scramble effect
+      if (CONFIG.textScramble.enabled && this.textScrambler) {
+        await this.textScrambler.scramble(data.title);
+      } else {
+        this.overlay.querySelector('.cinema-overlay__title').textContent = data.title;
+      }
 
-      // Track analytics
+      this.dismissTimeout = setTimeout(() => this.hide(), CONFIG.cinema.duration);
       utils.track('Cinema', 'Show', accordionId);
     },
 
     hide() {
       if (!this.overlay) return;
-
-      // Clear timeout
       if (this.dismissTimeout) {
         clearTimeout(this.dismissTimeout);
         this.dismissTimeout = null;
       }
-
-      // Hide overlay
       this.overlay.classList.remove('active');
-
-      // Restore body scroll
+      this.overlay.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     },
   };
@@ -626,12 +853,10 @@
         const header = item.querySelector('.accordion-header');
         if (!header) return;
 
-        // Click handler
         header.addEventListener('click', (e) => {
           this.handleToggle(e, item);
         });
 
-        // Keyboard handler
         header.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -639,9 +864,54 @@
           }
         });
 
-        // If already open, lazy load content
         if (item.hasAttribute('open')) {
           this.lazyLoadContent(item);
+        }
+      });
+
+      // *** CRITICAL: Update accordion headers with correct PART labels ***
+      this.updateHeaders();
+    },
+
+    /**
+     * Update accordion headers with correct PART labels and titles
+     * This fixes "SECTION 01" → "PART I" etc.
+     */
+    updateHeaders() {
+      document.querySelectorAll('.accordion-item').forEach((item) => {
+        const id = item.id;
+        const data = CONFIG.partData[id];
+        if (!data) return;
+
+        // Find header elements (supports multiple HTML structures)
+        const partLabel = item.querySelector('.accordion-header__part, .accordion-header__label');
+        const titleEl = item.querySelector('.accordion-header__title');
+        const hookEl = item.querySelector('.accordion-header__hook, .accordion-header__subtitle');
+
+        // Update PART label (SECTION 01 → PART I)
+        if (partLabel) {
+          partLabel.textContent = data.part;
+        }
+
+        // Update title
+        if (titleEl) {
+          // Check if title has hook as child or if it's standalone
+          const hookChild = titleEl.querySelector('.accordion-header__hook');
+          if (hookChild) {
+            // Title structure: <h2>Title <span class="hook">hook</span></h2>
+            const textNodes = Array.from(titleEl.childNodes).filter(n => n.nodeType === Node.TEXT_NODE);
+            if (textNodes.length > 0) {
+              textNodes[0].textContent = data.displayTitle + ' ';
+            }
+          } else {
+            // Simple title
+            titleEl.textContent = data.displayTitle;
+          }
+        }
+
+        // Update hook/subtitle
+        if (hookEl) {
+          hookEl.textContent = data.hook;
         }
       });
     },
@@ -650,17 +920,15 @@
       const willBeOpen = !item.hasAttribute('open');
       const accordionId = item.id;
 
-      // Haptic feedback
       utils.haptic(willBeOpen ? 'open' : 'close');
 
       if (willBeOpen) {
-        // Show cinematic overlay for critical sections
+        this.closeAllExcept(accordionId);
         cinema.show(accordionId);
-
-        // Lazy load content
         this.lazyLoadContent(item);
+        stateManager.updateHash(accordionId);
+        stateManager.save(accordionId, window.scrollY);
 
-        // Scroll into view after animation settles
         setTimeout(() => {
           const header = item.querySelector('.accordion-header');
           if (header) {
@@ -670,28 +938,34 @@
             }
           }
         }, 220);
+      } else {
+        stateManager.clearHash();
       }
 
-      // Track analytics
-      const title = item.querySelector('.accordion-header__title')?.textContent || accordionId;
+      const title = CONFIG.partData[accordionId]?.title || accordionId;
       utils.track('Accordion', willBeOpen ? 'Open' : 'Close', title);
     },
 
+    closeAllExcept(exceptId) {
+      document.querySelectorAll('.accordion-item[open]').forEach((item) => {
+        if (item.id !== exceptId) {
+          item.removeAttribute('open');
+        }
+      });
+    },
+
     lazyLoadContent(item) {
-      // Lazy load videos
       const videos = item.querySelectorAll('.accordion-video-wrapper[data-loading="true"]');
       videos.forEach((wrapper) => {
         wrapper.addEventListener('click', () => this.loadVideo(wrapper), { once: true });
       });
 
-      // Lazy load images
       const images = item.querySelectorAll('img[data-src]');
       images.forEach((img) => {
         img.src = img.getAttribute('data-src');
         img.removeAttribute('data-src');
       });
 
-      // Lazy load heavy assets
       const heavyAssets = item.querySelectorAll('[data-heavy-asset]');
       heavyAssets.forEach((el) => {
         el.classList.add('loaded');
@@ -701,36 +975,25 @@
     loadVideo(wrapper) {
       const video = wrapper.querySelector('video');
       if (!video) return;
-
       const src = video.getAttribute('data-src');
       if (!src) return;
-
-      // Remove loading state
       wrapper.removeAttribute('data-loading');
-
-      // Load and play video
       video.src = src;
       video.load();
-      video.play().catch(() => {
-        // Autoplay blocked, user will need to tap again
-      });
-
-      // Haptic feedback
+      video.play().catch(() => {});
       utils.haptic('medium');
-
-      // Track
       utils.track('Video', 'Load', src);
     },
 
     openById(id) {
       const item = document.getElementById(id);
       if (item && !item.hasAttribute('open')) {
+        this.closeAllExcept(id);
         item.setAttribute('open', '');
         this.lazyLoadContent(item);
         cinema.show(id);
         utils.haptic('open');
-        
-        // Scroll to it
+        stateManager.updateHash(id);
         setTimeout(() => {
           item.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
@@ -745,28 +1008,27 @@
       }
     },
 
-    closeAll() {
-      document.querySelectorAll('.accordion-item[open]').forEach((item) => {
-        item.removeAttribute('open');
-      });
-      utils.haptic('close');
-    },
-
     toggleById(id) {
       const item = document.getElementById(id);
       if (!item) return;
-      
       if (item.hasAttribute('open')) {
         this.closeById(id);
       } else {
         this.openById(id);
       }
     },
+
+    closeAll() {
+      document.querySelectorAll('.accordion-item[open]').forEach((item) => {
+        item.removeAttribute('open');
+      });
+      stateManager.clearHash();
+    },
   };
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // BUY BAR CONTROLLER
+  // BUY BAR
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const buyBar = {
@@ -776,38 +1038,34 @@
       this.element = document.querySelector('.mobile-buy-bar');
       if (!this.element) return;
 
-      // Scroll handler
       window.addEventListener('scroll', utils.throttle(() => {
         this.check();
       }, CONFIG.throttleDelay), { passive: true });
-
-      // Initial check
-      this.check();
     },
 
     check() {
       const hero = document.querySelector('.mobile-hero');
-      if (!hero || !this.element) return;
+      if (!hero) return;
 
-      const rect = hero.getBoundingClientRect();
-      const scrolled = -rect.top / hero.offsetHeight;
-      const shouldShow = scrolled > CONFIG.buyBar.scrollThreshold;
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      const scrollY = window.scrollY;
+      const threshold = heroBottom * CONFIG.buyBar.scrollThreshold;
 
-      if (shouldShow && !state.buyBarVisible) {
+      if (scrollY > threshold && !state.buyBarVisible) {
         this.show();
-      } else if (!shouldShow && state.buyBarVisible) {
+      } else if (scrollY <= threshold && state.buyBarVisible) {
         this.hide();
       }
     },
 
     show() {
-      if (!this.element) return;
+      if (!this.element || state.buyBarVisible) return;
       this.element.classList.add('visible');
       state.buyBarVisible = true;
     },
 
     hide() {
-      if (!this.element) return;
+      if (!this.element || !state.buyBarVisible) return;
       this.element.classList.remove('visible');
       state.buyBarVisible = false;
     },
@@ -820,55 +1078,46 @@
 
   const ctaTracking = {
     init() {
-      // Track elements with data-analytics attribute
-      document.querySelectorAll('[data-analytics]').forEach((el) => {
-        el.addEventListener('click', () => {
-          utils.haptic('tap');
-          utils.track('CTA', 'Click', el.getAttribute('data-analytics'));
-        });
-      });
-
-      // Track pricing CTAs
-      document.querySelectorAll('.accordion-pricing-card__cta').forEach((cta) => {
+      document.querySelectorAll('[data-track-cta]').forEach((cta) => {
         cta.addEventListener('click', () => {
-          const card = cta.closest('.accordion-pricing-card');
-          const format = card?.querySelector('.accordion-pricing-card__format')?.textContent || 'Unknown';
-          utils.haptic('medium');
-          utils.track('Purchase', 'Click', format);
+          const label = cta.getAttribute('data-track-label') || cta.textContent.trim();
+          utils.haptic('tap');
+          utils.track('CTA', 'Click', label);
         });
       });
 
-      // Track buy bar CTA
-      const buyBarCta = document.querySelector('.mobile-buy-bar__cta');
-      if (buyBarCta) {
-        buyBarCta.addEventListener('click', () => {
-          utils.haptic('medium');
-          utils.track('Purchase', 'Click', 'BuyBar');
+      // Track share buttons
+      document.querySelectorAll('.share-button, [data-share]').forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const shareType = btn.getAttribute('data-share') || 'book';
+          let data;
+
+          if (shareType === 'book') {
+            data = shareManager.getBookShareData();
+          } else {
+            const accordionId = btn.closest('.accordion-item')?.id;
+            data = shareManager.getSectionShareData(accordionId) || shareManager.getBookShareData();
+          }
+
+          await shareManager.share(data);
         });
-      }
+      });
     },
   };
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // PAGE VISIBILITY HANDLER
+  // PAGE VISIBILITY
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const visibility = {
     init() {
       document.addEventListener('visibilitychange', () => {
         state.pageVisible = !document.hidden;
-
         if (state.pageVisible) {
-          // Resume particle system
-          if (state.particleSystem) {
-            state.particleSystem.start();
-          }
+          if (state.particleSystem) state.particleSystem.start();
         } else {
-          // Pause particle system (battery optimization)
-          if (state.particleSystem) {
-            state.particleSystem.stop();
-          }
+          if (state.particleSystem) state.particleSystem.stop();
         }
       });
     },
@@ -886,28 +1135,23 @@
       }, CONFIG.debounceDelay));
 
       window.addEventListener('orientationchange', () => {
-        // Delay to allow browser to settle
         setTimeout(() => this.onResize(), 180);
       });
     },
 
     onResize() {
       state.isMobile = window.innerWidth < 1024;
-
-      // Resize particle system
       if (state.particleSystem) {
         state.particleSystem.resize();
         state.particleSystem.createParticles();
       }
-
-      // Re-check buy bar
       buyBar.check();
     },
   };
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // SMOOTH SCROLL FOR ANCHOR LINKS
+  // SMOOTH SCROLL
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const smoothScroll = {
@@ -921,15 +1165,11 @@
           if (target) {
             e.preventDefault();
             utils.haptic('tap');
-
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-            // If it's an accordion, open it after scrolling
             if (target.classList.contains('accordion-item') && !target.hasAttribute('open')) {
               setTimeout(() => {
-                target.setAttribute('open', '');
-                accordion.lazyLoadContent(target);
-                cinema.show(target.id);
+                accordion.openById(target.id);
               }, 550);
             }
           }
@@ -940,24 +1180,22 @@
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // CONCEPTS CAROUSEL (Horizontal Swipe)
+  // CONCEPTS CAROUSEL
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const conceptsCarousel = {
     init() {
-      const carousels = document.querySelectorAll('.concepts-carousel');
+      const carousels = document.querySelectorAll('.concepts-carousel, .accordion-concepts-carousel');
       
       carousels.forEach((carousel) => {
-        // Hide hint after scrolling
         carousel.addEventListener('scroll', utils.throttle(() => {
-          const hint = carousel.parentElement?.querySelector('.concepts-hint');
+          const hint = carousel.parentElement?.querySelector('.concepts-hint, .carousel-swipe-hint');
           if (hint && carousel.scrollLeft > 55) {
             hint.style.opacity = '0';
             hint.style.pointerEvents = 'none';
           }
         }, 120), { passive: true });
 
-        // Track scroll engagement
         let hasTrackedScroll = false;
         carousel.addEventListener('scroll', utils.debounce(() => {
           if (!hasTrackedScroll && carousel.scrollLeft > 100) {
@@ -971,15 +1209,15 @@
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
-  // FAQ ACCORDION (Nested details elements)
+  // FAQ ACCORDION
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   const faqAccordion = {
     init() {
-      const faqItems = document.querySelectorAll('.accordion-faq-item');
+      const faqItems = document.querySelectorAll('.accordion-faq-item, .faq-item');
       
       faqItems.forEach((item) => {
-        item.addEventListener('toggle', (e) => {
+        item.addEventListener('toggle', () => {
           if (item.open) {
             utils.haptic('light');
             utils.track('FAQ', 'Open', item.querySelector('summary')?.textContent || 'Unknown');
@@ -991,11 +1229,55 @@
 
 
   // ═══════════════════════════════════════════════════════════════════════════════════════
+  // PROGRESS INDICATOR
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  const progressIndicator = {
+    init() {
+      const dots = document.querySelectorAll('.progress-dot');
+      if (dots.length === 0) return;
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          const accordionId = dot.getAttribute('data-accordion');
+          if (accordionId) {
+            accordion.openById(accordionId);
+            utils.haptic('tap');
+          }
+        });
+      });
+
+      // Update active dot on scroll
+      this.updateActiveDot();
+      window.addEventListener('scroll', utils.throttle(() => {
+        this.updateActiveDot();
+      }, 150), { passive: true });
+    },
+
+    updateActiveDot() {
+      const items = document.querySelectorAll('.accordion-item');
+      const dots = document.querySelectorAll('.progress-dot');
+      
+      let activeIndex = 0;
+      items.forEach((item, index) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < window.innerHeight / 2) {
+          activeIndex = index;
+        }
+      });
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+      });
+    },
+  };
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
   // INITIALIZATION
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   function init() {
-    // Check if mobile
     state.isMobile = window.innerWidth < 1024;
     
     if (!state.isMobile) {
@@ -1003,9 +1285,9 @@
       return;
     }
 
-    console.log('[MobileAccordion] Initializing v4.0 ULTIMATE');
+    console.log('[MobileAccordion] Initializing V6 ULTIMATE FINAL');
 
-    // Create particle canvas if enabled and doesn't exist
+    // Create particle canvas if needed
     let particleCanvas = document.querySelector('.mobile-hero__particles');
     if (!particleCanvas && CONFIG.particles.enabled) {
       const hero = document.querySelector('.mobile-hero');
@@ -1026,6 +1308,7 @@
     // Initialize all modules
     cinema.init();
     accordion.init();
+    stateManager.init();
     buyBar.init();
     ctaTracking.init();
     visibility.init();
@@ -1033,13 +1316,10 @@
     smoothScroll.init();
     conceptsCarousel.init();
     faqAccordion.init();
+    progressIndicator.init();
 
-    // Mark as initialized
     state.initialized = true;
-
-    // Track page load
     utils.track('Page', 'Load', 'Mobile');
-
     console.log('[MobileAccordion] Initialization complete ✓');
   }
 
@@ -1049,7 +1329,7 @@
   // ═══════════════════════════════════════════════════════════════════════════════════════
 
   window.MobileAccordion = {
-    version: '4.0.0-ultimate',
+    version: '6.0.0-final',
 
     // Accordion controls
     openAccordion: (id) => accordion.openById(id),
@@ -1068,15 +1348,23 @@
     // Particle controls
     pauseParticles: () => state.particleSystem?.stop(),
     resumeParticles: () => state.particleSystem?.start(),
-    destroyParticles: () => state.particleSystem?.destroy(),
 
-    // Haptic feedback
+    // Share functionality
+    share: (data) => shareManager.share(data),
+    shareBook: () => shareManager.share(shareManager.getBookShareData()),
+    shareSection: (id) => shareManager.share(shareManager.getSectionShareData(id)),
+
+    // Navigation
+    navigateTo: (hash) => {
+      const id = CONFIG.hashMap[hash];
+      if (id) accordion.openById(id);
+    },
+
+    // Utilities
     haptic: (pattern) => utils.haptic(pattern),
+    track: (cat, action, label, val) => utils.track(cat, action, label, val),
 
-    // Analytics
-    track: (category, action, label, value) => utils.track(category, action, label, value),
-
-    // State getter
+    // State getters
     getState: () => ({
       initialized: state.initialized,
       isMobile: state.isMobile,
@@ -1086,7 +1374,9 @@
       shownCinemas: Array.from(state.shownCinemaIds),
     }),
 
-    // Re-initialize
+    getPartData: () => CONFIG.partData,
+    getHashMap: () => CONFIG.hashMap,
+
     reinit() {
       if (state.particleSystem) {
         state.particleSystem.destroy();
@@ -1097,7 +1387,6 @@
       init();
     },
 
-    // Force scroll to section
     scrollTo(id) {
       const el = document.getElementById(id);
       if (el) {
@@ -1115,7 +1404,6 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    // Use requestIdleCallback for non-blocking initialization
     utils.requestIdle(init, 60);
   }
 
