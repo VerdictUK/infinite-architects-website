@@ -136,7 +136,7 @@ const quotes = kb.quotes;
 const faq = kb.faq;
 const evidence = kb.evidence;
 
-// Configuration - 4 Model Council
+// Configuration - 5 Model Council (expanded)
 const CONFIG = {
   maxTokens: 1024,
   temperature: 0.3,
@@ -144,7 +144,8 @@ const CONFIG = {
     claude: { id: 'claude-sonnet-4-20250514', name: 'Claude', weight: 1.3 },
     gpt: { id: 'gpt-4o', name: 'GPT-4o', weight: 1.2 },
     gemini: { id: 'gemini-1.5-flash', name: 'Gemini', weight: 1.1 },
-    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 1.0 }
+    perplexity: { id: 'llama-3.1-sonar-large-128k-online', name: 'Perplexity', weight: 1.0 },
+    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 0.9 }
   }
 };
 
@@ -489,7 +490,9 @@ async function callGPT(query, context) {
  * Call Google Gemini API
  */
 async function callGemini(query, context) {
-  if (!process.env.GOOGLE_API_KEY) {
+  // Support both GEMINI_API_KEY and GOOGLE_API_KEY for flexibility
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!apiKey) {
     return { success: false, model: 'Gemini', error: 'API key not configured' };
   }
 
@@ -499,7 +502,7 @@ async function callGemini(query, context) {
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${CONFIG.models.gemini.id}:generateContent?key=${process.env.GOOGLE_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${CONFIG.models.gemini.id}:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -574,6 +577,53 @@ async function callDeepSeek(query, context) {
     return { success: false, model: 'DeepSeek', error: data.error?.message || 'Invalid response' };
   } catch (error) {
     return { success: false, model: 'DeepSeek', error: error.message };
+  }
+}
+
+/**
+ * Call Perplexity API (Sonar model with real-time search)
+ */
+async function callPerplexity(query, context) {
+  if (!process.env.PERPLEXITY_API_KEY) {
+    return { success: false, model: 'Perplexity', error: 'API key not configured' };
+  }
+
+  const userMessage = context
+    ? `Using the following context from the book:\n${context}\n\nUser question: ${query}`
+    : query;
+
+  try {
+    const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.PERPLEXITY_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: CONFIG.models.perplexity.id,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMessage }
+        ],
+        max_tokens: CONFIG.maxTokens,
+        temperature: CONFIG.temperature
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.choices && data.choices[0]) {
+      return {
+        success: true,
+        model: 'Perplexity',
+        weight: CONFIG.models.perplexity.weight,
+        content: data.choices[0].message.content
+      };
+    }
+
+    return { success: false, model: 'Perplexity', error: data.error?.message || 'Invalid response' };
+  } catch (error) {
+    return { success: false, model: 'Perplexity', error: error.message };
   }
 }
 
@@ -674,16 +724,17 @@ export default async function handler(req, res) {
         responseTime: Date.now() - startTime
       });
     } else {
-      // Full mode: All 4 models for triangulation
-      const [claudeResult, gptResult, geminiResult, deepseekResult] = await Promise.all([
+      // Full mode: All 5 models for triangulation (AI Council)
+      const [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult] = await Promise.all([
         callClaude(query, context),
         callGPT(query, context),
         callGemini(query, context),
+        callPerplexity(query, context),
         callDeepSeek(query, context)
       ]);
 
       const synthesis = synthesiseResponses(
-        [claudeResult, gptResult, geminiResult, deepseekResult],
+        [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult],
         kbResults
       );
 
