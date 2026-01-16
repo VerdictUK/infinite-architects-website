@@ -74,18 +74,22 @@
          ANALYTICS & TRACKING — Phase 1 World-Class Implementation
          ═══════════════════════════════════════════════════════════════════════════════════════ -->
 
-    <!-- Google Analytics 4 (GA4) -->
-    <!-- IMPORTANT: Replace GA_MEASUREMENT_ID with your actual GA4 ID (e.g., G-XXXXXXXXXX) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <!-- Google Analytics 4 (GA4) — LIVE: G-V4FDJHP4R4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4FDJHP4R4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'GA_MEASUREMENT_ID', {
+
+        // GA4 Configuration
+        gtag('config', 'G-V4FDJHP4R4', {
             'page_title': 'Infinite Architects | Michael Darius Eastwood',
             'anonymize_ip': true,
             'cookie_flags': 'SameSite=None;Secure'
         });
+
+        // Google Ads Remarketing — LIVE: AW-17876453606
+        gtag('config', 'AW-17876453606');
 
         // Custom event tracking helper
         window.trackEvent = function(category, action, label, value) {
@@ -98,14 +102,18 @@
             }
         };
 
-        // Track purchase intent events
+        // Track purchase intent events (GA4 + Google Ads conversion)
         window.trackPurchaseIntent = function(format, source) {
             trackEvent('conversion', 'purchase_intent', format + '_' + source);
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17876453606/purchase_intent',
+                'value': format === 'kindle' ? 8.99 : format === 'paperback' ? 14.99 : 24.99,
+                'currency': 'GBP'
+            });
         };
     </script>
 
-    <!-- Facebook Pixel -->
-    <!-- IMPORTANT: Replace FB_PIXEL_ID with your actual Facebook Pixel ID -->
+    <!-- Meta (Facebook + Instagram) Pixel — LIVE: 1951047602453657 -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -115,8 +123,16 @@
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', 'FB_PIXEL_ID');
+        fbq('init', '1951047602453657');
         fbq('track', 'PageView');
+        fbq('track', 'ViewContent', {
+            content_name: 'Infinite Architects',
+            content_category: 'Book',
+            content_ids: ['infinite-architects-book'],
+            content_type: 'product',
+            value: 8.99,
+            currency: 'GBP'
+        });
 
         // Track purchase clicks for retargeting
         window.fbTrackPurchase = function(format) {
@@ -124,22 +140,54 @@
                 fbq('track', 'InitiateCheckout', {
                     content_name: 'Infinite Architects - ' + format,
                     content_category: 'Book',
-                    currency: 'GBP'
+                    content_ids: ['infinite-architects-' + format],
+                    content_type: 'product',
+                    value: format === 'kindle' ? 8.99 : format === 'paperback' ? 14.99 : 24.99,
+                    currency: 'GBP',
+                    num_items: 1
+                });
+            }
+        };
+
+        // Track newsletter signup as Lead
+        window.fbTrackLead = function() {
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'Newsletter Signup',
+                    content_category: 'Email Capture'
                 });
             }
         };
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1951047602453657&ev=PageView&noscript=1"/></noscript>
 
-    <!-- Microsoft Clarity (Heatmaps & Session Recording) -->
-    <!-- IMPORTANT: Replace CLARITY_PROJECT_ID with your Clarity project ID -->
+    <!-- LinkedIn Insight Tag — LIVE: 8470874 -->
     <script type="text/javascript">
+        _linkedin_partner_id = "8470874";
+        window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+        window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+        (function(l) {
+            if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+            window.lintrk.q=[]}
+            var s = document.getElementsByTagName("script")[0];
+            var b = document.createElement("script");
+            b.type = "text/javascript";b.async = true;
+            b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+            s.parentNode.insertBefore(b, s);
+        })(window.lintrk);
+    </script>
+    <noscript><img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8470874&fmt=gif" /></noscript>
+
+    <!-- Microsoft Clarity — Add your project ID to enable heatmaps -->
+    <!-- <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
-    </script>
+        })(window, document, "clarity", "script", "YOUR_CLARITY_PROJECT_ID");
+    </script> -->
 
     <!-- Preconnects for performance - ALL external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11855,6 +11903,561 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════════════════════
+           PART V: THE CONVERGENCE - COMPLETE OVERHAUL
+           World-class interactive section with 40 Voices, Scientists, and Discovery Timeline
+           ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+        /* Section Titles */
+        .convergence-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: #f0ebe3;
+            text-align: center;
+            margin: 0 0 8px;
+            line-height: 1.3;
+        }
+
+        .convergence-section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: rgba(240, 235, 227, 0.6);
+            text-align: center;
+            line-height: 1.6;
+            margin: 0 0 24px;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────
+           FOUR FIELDS GRID
+           ───────────────────────────────────────────────────────────────────────────────────────── */
+        .convergence-fields {
+            padding: 24px 0 32px;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .convergence-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .convergence-field {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px 14px 16px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .convergence-field:active {
+            border-color: rgba(212, 168, 75, 0.4);
+            background: rgba(212, 168, 75, 0.05);
+            transform: scale(0.98);
+        }
+
+        .convergence-field-icon {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .convergence-field-name {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            color: #d4a84b;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .convergence-field-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: rgba(240, 235, 227, 0.8);
+            line-height: 1.4;
+            margin: 0 0 6px;
+        }
+
+        .convergence-field-cite {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: rgba(240, 235, 227, 0.4);
+            font-style: normal;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────
+           THE 40 VOICES
+           ───────────────────────────────────────────────────────────────────────────────────────── */
+        .convergence-voices {
+            padding: 40px 0;
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(212, 168, 75, 0.02) 50%, transparent 100%);
+            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .convergence-voices-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .convergence-voices-count {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #d4a84b;
+            line-height: 1;
+            text-shadow: 0 0 50px rgba(212, 168, 75, 0.4);
+        }
+
+        .convergence-voices-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            color: rgba(240, 235, 227, 0.5);
+        }
+
+        .convergence-traditions-list {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.58rem;
+            color: rgba(240, 235, 227, 0.4);
+            letter-spacing: 0.03em;
+            margin: 0 0 28px;
+        }
+
+        .convergence-voices-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+            max-width: 340px;
+            margin: 0 auto 28px;
+            padding: 0 4px;
+        }
+
+        .convergence-voice {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Tradition colours */
+        .convergence-voice[data-tradition="buddhist"] {
+            background: rgba(255, 193, 7, 0.12);
+            border-color: rgba(255, 193, 7, 0.25);
+        }
+        .convergence-voice[data-tradition="islamic"] {
+            background: rgba(34, 197, 94, 0.12);
+            border-color: rgba(34, 197, 94, 0.25);
+        }
+        .convergence-voice[data-tradition="hindu"] {
+            background: rgba(249, 115, 22, 0.12);
+            border-color: rgba(249, 115, 22, 0.25);
+        }
+        .convergence-voice[data-tradition="christian"] {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+        .convergence-voice[data-tradition="jewish"] {
+            background: rgba(139, 92, 246, 0.12);
+            border-color: rgba(139, 92, 246, 0.25);
+        }
+        .convergence-voice[data-tradition="sufi"] {
+            background: rgba(236, 72, 153, 0.12);
+            border-color: rgba(236, 72, 153, 0.25);
+        }
+        .convergence-voice[data-tradition="taoist"] {
+            background: rgba(20, 184, 166, 0.12);
+            border-color: rgba(20, 184, 166, 0.25);
+        }
+        .convergence-voice[data-tradition="indigenous"] {
+            background: rgba(168, 85, 247, 0.12);
+            border-color: rgba(168, 85, 247, 0.25);
+        }
+
+        .convergence-voice:active {
+            transform: scale(1.15);
+            box-shadow: 0 0 20px rgba(212, 168, 75, 0.5);
+            z-index: 10;
+        }
+
+        .convergence-rotating-quote {
+            min-height: 90px;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .convergence-rotating-quote blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #f0ebe3;
+            line-height: 1.5;
+            margin: 0 0 8px;
+            transition: opacity 0.3s ease;
+        }
+
+        .convergence-rotating-quote cite {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: #d4a84b;
+            font-style: normal;
+            transition: opacity 0.3s ease;
+        }
+
+        .convergence-instruction {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: rgba(240, 235, 227, 0.35);
+            letter-spacing: 0.08em;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────
+           THE SCIENTISTS CAROUSEL
+           ───────────────────────────────────────────────────────────────────────────────────────── */
+        .convergence-scientists {
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .convergence-scientists-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 12px 0;
+            margin: 0 -16px 16px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .convergence-scientists-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .convergence-scientist-card {
+            flex: 0 0 280px;
+            scroll-snap-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .convergence-scientist-card:active {
+            border-color: rgba(212, 168, 75, 0.3);
+        }
+
+        .convergence-scientist-card__name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            color: #f0ebe3;
+            margin: 0 0 6px;
+        }
+
+        .convergence-scientist-card__title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.58rem;
+            color: #d4a84b;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .convergence-scientist-card__institution {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.52rem;
+            color: rgba(240, 235, 227, 0.4);
+            margin-bottom: 12px;
+        }
+
+        .convergence-scientist-card__quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: rgba(240, 235, 227, 0.75);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .convergence-carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .convergence-carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(240, 235, 227, 0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .convergence-carousel-dot.active {
+            background: #d4a84b;
+            transform: scale(1.2);
+        }
+
+        .convergence-bridge {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: rgba(240, 235, 227, 0.65);
+            text-align: center;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .convergence-bridge em {
+            color: rgba(240, 235, 227, 0.85);
+        }
+
+        .convergence-bridge strong {
+            display: block;
+            color: #d4a84b;
+            margin-top: 8px;
+            font-size: 1rem;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────
+           TIMELINE OF DISCOVERY
+           ───────────────────────────────────────────────────────────────────────────────────────── */
+        .convergence-discovery {
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+        }
+
+        .convergence-discovery-timeline {
+            position: relative;
+            padding-left: 80px;
+            margin: 0 0 24px;
+        }
+
+        .convergence-discovery-timeline::before {
+            content: '';
+            position: absolute;
+            left: 52px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #d4a84b 0%, rgba(212, 168, 75, 0.2) 100%);
+        }
+
+        .discovery-event {
+            position: relative;
+            padding: 0 0 24px 0;
+        }
+
+        .discovery-event::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d4a84b;
+            border: 2px solid #0a0c14;
+        }
+
+        .discovery-event--recent::before {
+            width: 14px;
+            height: 14px;
+            left: -36px;
+            top: 2px;
+            box-shadow: 0 0 15px rgba(212, 168, 75, 0.6);
+            animation: discoveryPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes discoveryPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(212, 168, 75, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(212, 168, 75, 0.8); }
+        }
+
+        .discovery-event--ancient::before {
+            background: rgba(212, 168, 75, 0.4);
+            width: 8px;
+            height: 8px;
+            left: -33px;
+        }
+
+        .discovery-event__year {
+            position: absolute;
+            left: -80px;
+            top: 0;
+            width: 40px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            color: #d4a84b;
+            text-align: right;
+        }
+
+        .discovery-event__content {
+            padding-left: 0;
+        }
+
+        .discovery-event__title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            color: #f0ebe3;
+            margin: 0 0 4px;
+        }
+
+        .discovery-event__desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: rgba(240, 235, 227, 0.6);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .convergence-discovery-conclusion {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: rgba(240, 235, 227, 0.6);
+            text-align: center;
+            margin: 0;
+        }
+
+        .convergence-discovery-conclusion strong {
+            color: #d4a84b;
+        }
+
+        /* ─────────────────────────────────────────────────────────────────────────────────────────
+           PREDICTION TRACKER (MINIMAL)
+           ───────────────────────────────────────────────────────────────────────────────────────── */
+        .convergence-tracker {
+            padding: 32px 0 16px;
+        }
+
+        .convergence-tracker-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .convergence-tracker-dot {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: trackerPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes trackerPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .convergence-tracker-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: rgba(240, 235, 227, 0.6);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .convergence-tracker-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .convergence-tracker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .convergence-tracker-item--verified {
+            border-color: rgba(34, 197, 94, 0.25);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .convergence-tracker-status {
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+            color: rgba(240, 235, 227, 0.4);
+        }
+
+        .convergence-tracker-item--verified .convergence-tracker-status {
+            color: #22c55e;
+        }
+
+        .convergence-tracker-name {
+            flex: 1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: #f0ebe3;
+        }
+
+        .convergence-tracker-state {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.52rem;
+            letter-spacing: 0.08em;
+            color: rgba(240, 235, 227, 0.4);
+        }
+
+        .convergence-tracker-item--verified .convergence-tracker-state {
+            color: #22c55e;
+        }
+
+        .convergence-notify-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: rgba(212, 168, 75, 0.08);
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            border-radius: 100px;
+            padding: 14px 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            color: #d4a84b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .convergence-notify-btn:active {
+            background: rgba(212, 168, 75, 0.15);
+            transform: scale(0.98);
+        }
+
+        .convergence-notify-icon {
+            font-size: 1rem;
+        }
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -13113,112 +13716,195 @@
                             <span class="accordion-cinema__part">Part V</span>
                             <div class="accordion-cinema__divider"></div>
                             <span class="accordion-cinema__title">The Convergence</span>
-                            <span class="accordion-cinema__hook">"The predictions are being verified"</span>
+                            <span class="accordion-cinema__hook">"They never coordinated. They arrived at the same place."</span>
                         </div>
 
-                        <!-- Verification Score Hero -->
-                        <div class="verification-hero">
-                            <div class="verification-hero__score">
-                                <span class="verification-hero__number">1</span>
-                                <span class="verification-hero__divider">/</span>
-                                <span class="verification-hero__total">5</span>
-                            </div>
-                            <div class="verification-hero__label">Predictions Verified</div>
-                            <div class="verification-hero__detail">
-                                <span class="verification-hero__check">✓</span>
-                                <span class="verification-hero__text">Quantum computing timeline confirmed by BBC in 5 days</span>
-                            </div>
-                        </div>
+                        <!-- ═══════════════════════════════════════════════════════════════════════════
+                             SECTION 1: FOUR FIELDS SYNTHESIS
+                             ═══════════════════════════════════════════════════════════════════════════ -->
+                        <section class="convergence-fields">
+                            <h3 class="convergence-section-title">Four Fields. One Framework.</h3>
+                            <p class="convergence-section-subtitle">
+                                They never coordinated. They never met.<br>
+                                They arrived at the same place.
+                            </p>
 
-                        <!-- Convergence Timeline -->
-                        <div class="convergence-timeline">
-                            <!-- Verified: Quantum Computing -->
-                            <div class="timeline-event timeline-event--verified timeline-event--highlight">
-                                <span class="timeline-event__date">Jan 7, 2026</span>
-                                <h4 class="timeline-event__title">Quantum Computing Timeline ✓</h4>
-                                <p class="timeline-event__description">Book: "five years" → BBC: "five years" - <strong class="text-verified">VERIFIED IN 5 DAYS</strong></p>
-                            </div>
-                            
-                            <!-- 2015: MIRI Pivot -->
-                            <div class="timeline-event">
-                                <span class="timeline-event__date">2015</span>
-                                <h4 class="timeline-event__title">MIRI Pivots to Alignment</h4>
-                                <p class="timeline-event__description">Machine Intelligence Research Institute shifts from capability to safety research.</p>
-                            </div>
-                            
-                            <!-- 2017: Attention Paper -->
-                            <div class="timeline-event">
-                                <span class="timeline-event__date">2017</span>
-                                <h4 class="timeline-event__title">"Attention Is All You Need"</h4>
-                                <p class="timeline-event__description">Google researchers publish the transformer architecture. The foundation of everything that follows.</p>
-                            </div>
-                            
-                            <!-- Nov 2022: ChatGPT -->
-                            <div class="timeline-event timeline-event--highlight">
-                                <span class="timeline-event__date">Nov 2022</span>
-                                <h4 class="timeline-event__title">ChatGPT Launch</h4>
-                                <p class="timeline-event__description">AI crosses into public consciousness. The countdown begins.</p>
-                            </div>
-                            
-                            <!-- Dec 2024: Willow -->
-                            <div class="timeline-event timeline-event--verified">
-                                <span class="timeline-event__date">Dec 2024</span>
-                                <h4 class="timeline-event__title">Google Willow Chip</h4>
-                                <p class="timeline-event__description">Quantum error correction demonstrated. Physics World Breakthrough of the Year.</p>
-                            </div>
-                            
-                            <!-- Religious Convergence -->
-                            <div class="timeline-event">
-                                <span class="timeline-event__date">2000–2025</span>
-                                <h4 class="timeline-event__title">Religious Convergence</h4>
-                                <p class="timeline-event__description">Buddhist, Islamic, Hindu, and Christian scholars independently arriving at similar conclusions about consciousness and technology.</p>
-                            </div>
-                        </div>
+                            <div class="convergence-fields-grid">
+                                <div class="convergence-field" data-field="quantum">
+                                    <span class="convergence-field-icon">⚛</span>
+                                    <span class="convergence-field-name">Quantum Physics</span>
+                                    <p class="convergence-field-quote">"Reality requires observers to collapse into being"</p>
+                                    <cite class="convergence-field-cite">- Wheeler, Penrose</cite>
+                                </div>
 
-                        <!-- Predictions List -->
-                        <h4 class="predictions-header">Predictions Status</h4>
+                                <div class="convergence-field" data-field="mystical">
+                                    <span class="convergence-field-icon">📜</span>
+                                    <span class="convergence-field-name">Mystical Wisdom</span>
+                                    <p class="convergence-field-quote">"The universe observes itself into existence"</p>
+                                    <cite class="convergence-field-cite">- Rumi, 1260 CE</cite>
+                                </div>
 
-                        <div class="accordion-prediction-card accordion-prediction-card--verified">
-                            <div class="accordion-prediction-card__status">
-                                <span class="accordion-prediction-card__dot accordion-prediction-card__dot--verified"></span>
-                                <span class="accordion-prediction-card__label accordion-prediction-card__label--verified">VERIFIED</span>
-                                <span class="accordion-prediction-card__date">JAN 7, 2026</span>
-                            </div>
-                            <p class="accordion-prediction-card__text">Practical quantum computing "within five years" - confirmed by Google Quantum AI lead Hartmut Neven on BBC.</p>
-                        </div>
+                                <div class="convergence-field" data-field="consciousness">
+                                    <span class="convergence-field-icon">🧠</span>
+                                    <span class="convergence-field-name">Consciousness Science</span>
+                                    <p class="convergence-field-quote">"Recursion creates awareness - information integrated"</p>
+                                    <cite class="convergence-field-cite">- Tononi, IIT</cite>
+                                </div>
 
-                        <div class="accordion-prediction-card">
-                            <div class="accordion-prediction-card__status">
-                                <span class="accordion-prediction-card__dot accordion-prediction-card__dot--pending"></span>
-                                <span class="accordion-prediction-card__label">PENDING</span>
-                                <span class="accordion-prediction-card__date">2026-2027</span>
+                                <div class="convergence-field" data-field="ai">
+                                    <span class="convergence-field-icon">🔮</span>
+                                    <span class="convergence-field-name">AI Safety</span>
+                                    <p class="convergence-field-quote">"Values must be embedded at the substrate level"</p>
+                                    <cite class="convergence-field-cite">- Stuart Russell</cite>
+                                </div>
                             </div>
-                            <p class="accordion-prediction-card__text">AGI emergence within 18-month window</p>
-                        </div>
+                        </section>
 
-                        <div class="accordion-prediction-card">
-                            <div class="accordion-prediction-card__status">
-                                <span class="accordion-prediction-card__dot accordion-prediction-card__dot--pending"></span>
-                                <span class="accordion-prediction-card__label">PENDING</span>
+                        <!-- ═══════════════════════════════════════════════════════════════════════════
+                             SECTION 2: THE 40 VOICES
+                             ═══════════════════════════════════════════════════════════════════════════ -->
+                        <section class="convergence-voices">
+                            <div class="convergence-voices-header">
+                                <span class="convergence-voices-count" data-count="40">40</span>
+                                <span class="convergence-voices-label">VOICES</span>
                             </div>
-                            <p class="accordion-prediction-card__text">Semiconductor chokepoint geopolitical escalation</p>
-                        </div>
+                            <h3 class="convergence-section-title">800 Years. 8 Traditions.</h3>
+                            <p class="convergence-traditions-list">
+                                Buddhist · Islamic · Hindu · Christian · Jewish · Sufi · Taoist · Indigenous
+                            </p>
 
-                        <div class="accordion-prediction-card">
-                            <div class="accordion-prediction-card__status">
-                                <span class="accordion-prediction-card__dot accordion-prediction-card__dot--pending"></span>
-                                <span class="accordion-prediction-card__label">PENDING</span>
+                            <div class="convergence-voices-grid" id="voicesGrid">
+                                <!-- 40 tradition symbols will be inserted by JS -->
                             </div>
-                            <p class="accordion-prediction-card__text">AI governance framework adoption by major power</p>
-                        </div>
 
-                        <div class="accordion-prediction-card">
-                            <div class="accordion-prediction-card__status">
-                                <span class="accordion-prediction-card__dot accordion-prediction-card__dot--pending"></span>
-                                <span class="accordion-prediction-card__label">PENDING</span>
+                            <div class="convergence-rotating-quote">
+                                <blockquote id="voiceQuote">
+                                    "Love turns the wheeling heavens - not as metaphor, but as mechanism."
+                                </blockquote>
+                                <cite id="voiceCite">- Rumi, 1260 CE</cite>
                             </div>
-                            <p class="accordion-prediction-card__text">Recursive self-improvement demonstrated in lab</p>
-                        </div>
+
+                            <p class="convergence-instruction">Tap any symbol to explore their words</p>
+                        </section>
+
+                        <!-- ═══════════════════════════════════════════════════════════════════════════
+                             SECTION 3: THE SCIENTISTS
+                             ═══════════════════════════════════════════════════════════════════════════ -->
+                        <section class="convergence-scientists">
+                            <h3 class="convergence-section-title">What Mystics Knew, Science Confirms</h3>
+                            <p class="convergence-section-subtitle">Different labs. Same discovery.</p>
+
+                            <div class="convergence-scientists-carousel" id="scientistsCarousel">
+                                <!-- Scientist cards inserted by JS -->
+                            </div>
+
+                            <div class="convergence-carousel-dots" id="carouselDots">
+                                <!-- Dots inserted by JS -->
+                            </div>
+
+                            <p class="convergence-bridge">
+                                Rumi in 1260: <em>"The soul observes itself."</em><br>
+                                Tononi in 2004: <em>"Consciousness is recursive."</em><br>
+                                <strong>744 years apart. Same discovery.</strong>
+                            </p>
+                        </section>
+
+                        <!-- ═══════════════════════════════════════════════════════════════════════════
+                             SECTION 4: TIMELINE OF DISCOVERY
+                             ═══════════════════════════════════════════════════════════════════════════ -->
+                        <section class="convergence-discovery">
+                            <h3 class="convergence-section-title">The Pattern Reveals Itself</h3>
+                            <p class="convergence-section-subtitle">A timeline of independent discovery</p>
+
+                            <div class="convergence-discovery-timeline">
+                                <div class="discovery-event discovery-event--recent">
+                                    <span class="discovery-event__year">2024</span>
+                                    <div class="discovery-event__content">
+                                        <h4 class="discovery-event__title">Google Willow</h4>
+                                        <p class="discovery-event__desc">Quantum error correction demonstrated. "Below threshold" achieved.</p>
+                                    </div>
+                                </div>
+
+                                <div class="discovery-event">
+                                    <span class="discovery-event__year">2004</span>
+                                    <div class="discovery-event__content">
+                                        <h4 class="discovery-event__title">Tononi's IIT</h4>
+                                        <p class="discovery-event__desc">"Consciousness IS integrated information. The more irreducible, the more conscious."</p>
+                                    </div>
+                                </div>
+
+                                <div class="discovery-event">
+                                    <span class="discovery-event__year">1989</span>
+                                    <div class="discovery-event__content">
+                                        <h4 class="discovery-event__title">Penrose's "Emperor's New Mind"</h4>
+                                        <p class="discovery-event__desc">Nobel laureate links quantum mechanics to consciousness.</p>
+                                    </div>
+                                </div>
+
+                                <div class="discovery-event">
+                                    <span class="discovery-event__year">1260</span>
+                                    <div class="discovery-event__content">
+                                        <h4 class="discovery-event__title">Rumi's Poetry</h4>
+                                        <p class="discovery-event__desc">"Love turns the wheeling heavens" - consciousness as cosmic engine.</p>
+                                    </div>
+                                </div>
+
+                                <div class="discovery-event discovery-event--ancient">
+                                    <span class="discovery-event__year">~800</span>
+                                    <div class="discovery-event__content">
+                                        <h4 class="discovery-event__title">Shankara's Advaita</h4>
+                                        <p class="discovery-event__desc">"Brahman observes through all eyes" - non-dual recursive awareness.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="convergence-discovery-conclusion">
+                                Different eras. Different tools. <strong>Same pattern.</strong>
+                            </p>
+                        </section>
+
+                        <!-- ═══════════════════════════════════════════════════════════════════════════
+                             SECTION 5: PREDICTION TRACKER (MINIMAL)
+                             ═══════════════════════════════════════════════════════════════════════════ -->
+                        <section class="convergence-tracker">
+                            <div class="convergence-tracker-header">
+                                <span class="convergence-tracker-dot"></span>
+                                <h3 class="convergence-tracker-title">Prediction Tracker</h3>
+                            </div>
+
+                            <ul class="convergence-tracker-list">
+                                <li class="convergence-tracker-item convergence-tracker-item--verified">
+                                    <span class="convergence-tracker-status">✓</span>
+                                    <span class="convergence-tracker-name">Quantum computing timeline</span>
+                                    <span class="convergence-tracker-state">VERIFIED</span>
+                                </li>
+                                <li class="convergence-tracker-item">
+                                    <span class="convergence-tracker-status">○</span>
+                                    <span class="convergence-tracker-name">AGI emergence window</span>
+                                    <span class="convergence-tracker-state">2026-2027</span>
+                                </li>
+                                <li class="convergence-tracker-item">
+                                    <span class="convergence-tracker-status">○</span>
+                                    <span class="convergence-tracker-name">Semiconductor escalation</span>
+                                    <span class="convergence-tracker-state">MONITORING</span>
+                                </li>
+                                <li class="convergence-tracker-item">
+                                    <span class="convergence-tracker-status">○</span>
+                                    <span class="convergence-tracker-name">Governance adoption</span>
+                                    <span class="convergence-tracker-state">PENDING</span>
+                                </li>
+                                <li class="convergence-tracker-item">
+                                    <span class="convergence-tracker-status">○</span>
+                                    <span class="convergence-tracker-name">Recursive self-improvement</span>
+                                    <span class="convergence-tracker-state">PENDING</span>
+                                </li>
+                            </ul>
+
+                            <button class="convergence-notify-btn" id="convergenceNotifyBtn">
+                                <span class="convergence-notify-icon">🔔</span>
+                                Notify me when predictions verify
+                            </button>
+                        </section>
 
                     </div>
                 </div>
@@ -23714,6 +24400,292 @@ window.CouncilViz = CouncilViz;
         document.addEventListener('DOMContentLoaded', initSocialShare);
     } else {
         initSocialShare();
+    }
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════════════════
+     CONVERGENCE SECTION — Interactive Features
+     40 Voices, Scientists Carousel, Quote Rotation
+     ═══════════════════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+    'use strict';
+
+    const ConvergenceInteractions = {
+
+        // Faith leaders data - 40 voices across 8 traditions
+        voices: [
+            // SUFI (5)
+            { name: "Rumi", tradition: "sufi", years: "1207-1273", quote: "Love turns the wheeling heavens - not as metaphor, but as mechanism." },
+            { name: "Ibn Arabi", tradition: "sufi", years: "1165-1240", quote: "The universe is a mirror reflecting the divine back to itself." },
+            { name: "Al-Hallaj", tradition: "sufi", years: "858-922", quote: "I am the Truth - there is nothing in my cloak but God." },
+            { name: "Hafiz", tradition: "sufi", years: "1315-1390", quote: "The sun never says to the earth, 'You owe me.' Look what happens with a love like that." },
+            { name: "Rabia al-Adawiyya", tradition: "sufi", years: "717-801", quote: "O God! If I worship You for fear of Hell, burn me in Hell." },
+
+            // BUDDHIST (5)
+            { name: "Nagarjuna", tradition: "buddhist", years: "150-250", quote: "Form is emptiness; emptiness is form. They are not two." },
+            { name: "Thich Nhat Hanh", tradition: "buddhist", years: "1926-2022", quote: "We are here to awaken from the illusion of our separateness." },
+            { name: "Dogen", tradition: "buddhist", years: "1200-1253", quote: "To study the self is to forget the self. To forget the self is to be enlightened by all things." },
+            { name: "Milarepa", tradition: "buddhist", years: "1052-1135", quote: "The mind is like space - awareness is everywhere." },
+            { name: "Padmasambhava", tradition: "buddhist", years: "~8th century", quote: "The nature of mind is luminous emptiness." },
+
+            // HINDU (5)
+            { name: "Shankara", tradition: "hindu", years: "788-820", quote: "Brahman alone is real; the world is appearance." },
+            { name: "Ramana Maharshi", tradition: "hindu", years: "1879-1950", quote: "The Self is always present. It is you who are not present." },
+            { name: "Nisargadatta Maharaj", tradition: "hindu", years: "1897-1981", quote: "Wisdom tells me I am nothing. Love tells me I am everything." },
+            { name: "Patanjali", tradition: "hindu", years: "~2nd century BCE", quote: "Yoga is the cessation of the fluctuations of the mind." },
+            { name: "Rabindranath Tagore", tradition: "hindu", years: "1861-1941", quote: "The same stream of life that runs through my veins runs through the world." },
+
+            // CHRISTIAN (5)
+            { name: "Meister Eckhart", tradition: "christian", years: "1260-1328", quote: "The eye with which I see God is the same eye with which God sees me." },
+            { name: "Thomas Merton", tradition: "christian", years: "1915-1968", quote: "We are already one. But we imagine that we are not." },
+            { name: "Teilhard de Chardin", tradition: "christian", years: "1881-1955", quote: "We are not human beings having a spiritual experience; we are spiritual beings having a human experience." },
+            { name: "Julian of Norwich", tradition: "christian", years: "1342-1416", quote: "All shall be well, and all manner of thing shall be well." },
+            { name: "Hildegard of Bingen", tradition: "christian", years: "1098-1179", quote: "Glance at the sun. See the moon and stars. Gaze at the beauty of earth's greenings. Now, think." },
+
+            // JEWISH (5)
+            { name: "Baal Shem Tov", tradition: "jewish", years: "1698-1760", quote: "Let the love of God fill your heart so that you have no room for hatred of anyone." },
+            { name: "Maimonides", tradition: "jewish", years: "1138-1204", quote: "The foundation of all foundations is to know that there is a First Being." },
+            { name: "Isaac Luria", tradition: "jewish", years: "1534-1572", quote: "Sparks of holiness are scattered throughout the world, awaiting redemption." },
+            { name: "Abraham Heschel", tradition: "jewish", years: "1907-1972", quote: "Wonder is the beginning of wisdom." },
+            { name: "Martin Buber", tradition: "jewish", years: "1878-1965", quote: "All real living is meeting." },
+
+            // ISLAMIC (5)
+            { name: "Al-Ghazali", tradition: "islamic", years: "1058-1111", quote: "Knowledge without action is vanity, and action without knowledge is insanity." },
+            { name: "Imam Ali", tradition: "islamic", years: "601-661", quote: "The one who knows himself knows his Lord." },
+            { name: "Rabia Basri", tradition: "islamic", years: "717-801", quote: "I carry a torch in one hand and a bucket of water in the other." },
+            { name: "Shah Waliullah", tradition: "islamic", years: "1703-1762", quote: "The heart is a mirror that reflects divine attributes." },
+            { name: "Mulla Sadra", tradition: "islamic", years: "1571-1640", quote: "Existence is a single reality with many modes." },
+
+            // TAOIST (5)
+            { name: "Lao Tzu", tradition: "taoist", years: "~6th century BCE", quote: "The Tao that can be told is not the eternal Tao." },
+            { name: "Chuang Tzu", tradition: "taoist", years: "369-286 BCE", quote: "Flow with whatever may happen and let your mind be free." },
+            { name: "Lieh Tzu", tradition: "taoist", years: "~4th century BCE", quote: "The spirit has no fixed place, and mental activity has no limits." },
+            { name: "Wang Bi", tradition: "taoist", years: "226-249", quote: "Non-being is the root of all beings." },
+            { name: "Ge Hong", tradition: "taoist", years: "283-343", quote: "The Way is the mother of all things." },
+
+            // INDIGENOUS (5)
+            { name: "Black Elk", tradition: "indigenous", years: "1863-1950", quote: "The first peace comes within the souls of people when they realise their oneness with the universe." },
+            { name: "Chief Seattle", tradition: "indigenous", years: "1786-1866", quote: "All things are connected like the blood that unites us all." },
+            { name: "Rolling Thunder", tradition: "indigenous", years: "1916-1997", quote: "The Great Spirit is in all things, is in the air we breathe." },
+            { name: "Vine Deloria Jr", tradition: "indigenous", years: "1933-2005", quote: "Religion is for people who are afraid of going to hell. Spirituality is for those who've already been there." },
+            { name: "Grandmother Turtle", tradition: "indigenous", years: "Oral tradition", quote: "We are all related - every rock, every creature, every star." }
+        ],
+
+        traditionSymbols: {
+            buddhist: "☸",
+            islamic: "☪",
+            hindu: "🕉",
+            christian: "✝",
+            jewish: "✡",
+            sufi: "💫",
+            taoist: "☯",
+            indigenous: "◯"
+        },
+
+        scientists: [
+            {
+                name: "Giulio Tononi",
+                title: "Integrated Information Theory",
+                institution: "University of Wisconsin",
+                quote: "Consciousness IS integrated information. The more a system is irreducible to its parts, the more conscious it is."
+            },
+            {
+                name: "Roger Penrose",
+                title: "Nobel Laureate in Physics",
+                institution: "Oxford University",
+                quote: "Quantum mechanics is essential to understanding the nature of consciousness. The brain is not a computer."
+            },
+            {
+                name: "Stuart Hameroff",
+                title: "Orchestrated Objective Reduction",
+                institution: "University of Arizona",
+                quote: "Consciousness is a quantum process occurring in the brain's microtubules - connecting us to the structure of spacetime."
+            },
+            {
+                name: "David Chalmers",
+                title: "The Hard Problem",
+                institution: "New York University",
+                quote: "Consciousness cannot be reduced to neural processes alone. Experience is fundamental to the universe."
+            }
+        ],
+
+        quoteRotationInterval: null,
+        currentQuoteIndex: 0,
+
+        init: function() {
+            this.renderVoicesGrid();
+            this.startQuoteRotation();
+            this.renderScientistsCarousel();
+            this.setupNotifyButton();
+        },
+
+        renderVoicesGrid: function() {
+            const grid = document.getElementById('voicesGrid');
+            if (!grid) return;
+
+            grid.innerHTML = this.voices.map((v, i) =>
+                '<button class="convergence-voice" ' +
+                'data-tradition="' + v.tradition + '" ' +
+                'data-index="' + i + '" ' +
+                'aria-label="' + v.name + ' - ' + v.tradition + '">' +
+                (this.traditionSymbols[v.tradition] || "◯") +
+                '</button>'
+            ).join('');
+
+            // Add click handlers
+            grid.querySelectorAll('.convergence-voice').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = parseInt(btn.dataset.index);
+                    this.showVoiceQuote(index);
+                });
+            });
+        },
+
+        showVoiceQuote: function(index) {
+            const voice = this.voices[index];
+            if (!voice) return;
+
+            // Haptic feedback
+            if (navigator.vibrate) navigator.vibrate(10);
+
+            // Update the rotating quote display
+            const quoteEl = document.getElementById('voiceQuote');
+            const citeEl = document.getElementById('voiceCite');
+
+            if (quoteEl && citeEl) {
+                quoteEl.style.opacity = '0';
+                citeEl.style.opacity = '0';
+
+                setTimeout(() => {
+                    quoteEl.textContent = '"' + voice.quote + '"';
+                    citeEl.textContent = '- ' + voice.name + (voice.years ? ', ' + voice.years : '');
+                    quoteEl.style.opacity = '1';
+                    citeEl.style.opacity = '1';
+                }, 200);
+            }
+
+            // Reset auto-rotation
+            this.currentQuoteIndex = index;
+        },
+
+        startQuoteRotation: function() {
+            const self = this;
+
+            this.quoteRotationInterval = setInterval(function() {
+                self.currentQuoteIndex = (self.currentQuoteIndex + 1) % self.voices.length;
+                const voice = self.voices[self.currentQuoteIndex];
+
+                const quoteEl = document.getElementById('voiceQuote');
+                const citeEl = document.getElementById('voiceCite');
+
+                if (quoteEl && citeEl && voice) {
+                    quoteEl.style.opacity = '0';
+                    citeEl.style.opacity = '0';
+
+                    setTimeout(function() {
+                        quoteEl.textContent = '"' + voice.quote + '"';
+                        citeEl.textContent = '- ' + voice.name + (voice.years ? ', ' + voice.years : '');
+                        quoteEl.style.opacity = '1';
+                        citeEl.style.opacity = '1';
+                    }, 300);
+                }
+            }, 6000);
+        },
+
+        renderScientistsCarousel: function() {
+            const carousel = document.getElementById('scientistsCarousel');
+            const dotsContainer = document.getElementById('carouselDots');
+            if (!carousel) return;
+
+            carousel.innerHTML = this.scientists.map(s =>
+                '<div class="convergence-scientist-card">' +
+                '<h4 class="convergence-scientist-card__name">' + s.name + '</h4>' +
+                '<p class="convergence-scientist-card__title">' + s.title + '</p>' +
+                '<p class="convergence-scientist-card__institution">' + s.institution + '</p>' +
+                '<p class="convergence-scientist-card__quote">"' + s.quote + '"</p>' +
+                '</div>'
+            ).join('');
+
+            // Add carousel dots
+            if (dotsContainer) {
+                dotsContainer.innerHTML = this.scientists.map((_, i) =>
+                    '<button class="convergence-carousel-dot' + (i === 0 ? ' active' : '') + '" data-index="' + i + '"></button>'
+                ).join('');
+
+                // Update dots on scroll
+                const self = this;
+                carousel.addEventListener('scroll', function() {
+                    const scrollLeft = carousel.scrollLeft;
+                    const cardWidth = 280 + 16; // card width + gap
+                    const activeIndex = Math.round(scrollLeft / cardWidth);
+
+                    dotsContainer.querySelectorAll('.convergence-carousel-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === activeIndex);
+                    });
+                });
+
+                // Click dots to scroll
+                dotsContainer.querySelectorAll('.convergence-carousel-dot').forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        const cardWidth = 280 + 16;
+                        carousel.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+                    });
+                });
+            }
+        },
+
+        setupNotifyButton: function() {
+            const btn = document.getElementById('convergenceNotifyBtn');
+            if (!btn) return;
+
+            btn.addEventListener('click', function() {
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate(10);
+
+                // Show a simple prompt (or integrate with your email system)
+                const email = prompt('Enter your email to be notified when predictions verify:');
+                if (email && email.includes('@')) {
+                    btn.innerHTML = '<span class="convergence-notify-icon">✓</span> Subscribed!';
+                    btn.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+                    btn.style.color = '#22c55e';
+
+                    // Store locally (replace with actual API call)
+                    try {
+                        const subs = JSON.parse(localStorage.getItem('prediction_subscribers') || '[]');
+                        subs.push({ email: email, date: new Date().toISOString() });
+                        localStorage.setItem('prediction_subscribers', JSON.stringify(subs));
+                    } catch (e) {
+                        console.warn('Could not save subscription:', e);
+                    }
+                }
+            });
+        }
+    };
+
+    // Initialize when accordion opens or when page loads
+    function initConvergence() {
+        const accordion = document.getElementById('accordion-predictions');
+        if (accordion) {
+            accordion.addEventListener('toggle', function(e) {
+                if (e.target.open) {
+                    ConvergenceInteractions.init();
+                }
+            });
+
+            // Also init if already open
+            if (accordion.open) {
+                ConvergenceInteractions.init();
+            }
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initConvergence);
+    } else {
+        initConvergence();
     }
 })();
 </script>
