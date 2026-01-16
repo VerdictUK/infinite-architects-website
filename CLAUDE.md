@@ -141,12 +141,21 @@ Use these exact quotes — they are designed for virality:
 
 ### 2.6 Purchase Links
 
-| Retailer | Link |
-|----------|------|
-| **Amazon UK** | https://www.amazon.co.uk/dp/B0DS2L8BVC |
-| **Amazon US** | https://www.amazon.com/dp/B0DS2L8BVC |
-| **Amazon Global** | https://www.amazon.com/dp/B0DS2L8BVC |
-| **Kindle** | https://www.amazon.co.uk/dp/B0DS2L8BVC |
+**Product IDs:**
+- Ebook ASIN: B0GDQZ7P21
+- Paperback ISBN: 1806056208
+- Hardcover ASIN: B0GFD2GCCQ
+
+| Format | Region | Price | Link |
+|--------|--------|-------|------|
+| **Ebook** | UK | £8.99 | https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21 |
+| **Ebook** | US | $9.99 | https://www.amazon.com/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21 |
+| **Paperback** | UK | £16.99 | https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything/dp/1806056208 |
+| **Paperback** | US | $19.99 | https://www.amazon.com/Infinite-Architects-Intelligence-Recursion-Everything/dp/1806056208 |
+| **Hardcover** | UK | £24.99 | https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything/dp/B0GFD2GCCQ |
+| **Hardcover** | US | $29.99 | https://www.amazon.com/Infinite-Architects-Intelligence-Recursion-Everything/dp/B0GFD2GCCQ |
+
+**Default Strategy:** Ebook links are used as primary CTAs (lowest friction, highest conversion). UK links are default; US links shown when user location detected via timezone.
 
 ---
 

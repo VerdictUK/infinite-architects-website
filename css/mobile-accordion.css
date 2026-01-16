@@ -6979,3 +6979,602 @@
   animation: gentleFloat 4s ease-in-out infinite;
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   UI REFINEMENT — PREMIUM AESTHETIC POLISH
+   Complete visual overhaul for Apple-grade presentation
+   Added: January 16, 2026
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   1. PREMIUM BUTTON STYLES — Apple-like with depth and shine
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-pricing-card__cta,
+.mobile-hero__cta,
+.mobile-buy-bar__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  background: linear-gradient(
+    180deg,
+    #f0c75e 0%,
+    #d4a84b 40%,
+    #b8913d 100%
+  );
+  border: none;
+  border-radius: 12px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #0a0c14;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow:
+    0 4px 12px rgba(212, 168, 75, 0.35),
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.accordion-pricing-card__cta::before,
+.mobile-hero__cta::before,
+.mobile-buy-bar__cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.accordion-pricing-card__cta:hover::before,
+.mobile-hero__cta:hover::before,
+.mobile-buy-bar__cta:hover::before {
+  left: 150%;
+}
+
+.accordion-pricing-card__cta:hover,
+.mobile-hero__cta:hover,
+.mobile-buy-bar__cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 8px 24px rgba(212, 168, 75, 0.45),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.accordion-pricing-card__cta:active,
+.mobile-hero__cta:active,
+.mobile-buy-bar__cta:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow:
+    0 2px 6px rgba(212, 168, 75, 0.3),
+    inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Outline Button Variant */
+.accordion-pricing-card__cta--outline {
+  background: transparent;
+  border: 2px solid rgba(212, 168, 75, 0.4);
+  color: var(--accordion-gold);
+  box-shadow: none;
+}
+
+.accordion-pricing-card__cta--outline:hover {
+  background: rgba(212, 168, 75, 0.1);
+  border-color: var(--accordion-gold);
+  box-shadow: 0 0 30px rgba(212, 168, 75, 0.2);
+  transform: translateY(-2px);
+}
+
+.accordion-pricing-card__cta--outline::before {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   2. GLASS CARD REFINEMENTS
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-cinema,
+.storm-card,
+.book-includes,
+.purchase-guarantee,
+.equation-insight,
+.equation-evidence {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.accordion-cinema::after,
+.storm-card::after,
+.book-includes::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 10%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 90%
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   3. PRICING CARD ENHANCEMENT
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.accordion-pricing-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.accordion-pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.accordion-pricing-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.accordion-pricing-card--featured {
+  background: linear-gradient(
+    180deg,
+    rgba(212, 168, 75, 0.1) 0%,
+    rgba(212, 168, 75, 0.03) 100%
+  );
+  border-color: rgba(212, 168, 75, 0.3);
+}
+
+.accordion-pricing-card--featured::before {
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.3), transparent);
+}
+
+.accordion-pricing-card--featured:hover {
+  border-color: rgba(212, 168, 75, 0.5);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(212, 168, 75, 0.15);
+}
+
+/* Pricing Badge */
+.accordion-pricing-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #f0c75e 0%, #d4a84b 50%, #b8913d 100%);
+  border-radius: 100px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0a0c14;
+  text-transform: uppercase;
+  box-shadow:
+    0 4px 12px rgba(212, 168, 75, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  white-space: nowrap;
+}
+
+/* Pricing Typography */
+.accordion-pricing-card__format {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text-dim);
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+.accordion-pricing-card__price {
+  display: block;
+  font-family: var(--accordion-font-display);
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--accordion-gold);
+  line-height: 1.1;
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 0 30px rgba(212, 168, 75, 0.3);
+}
+
+.accordion-pricing-card__note {
+  display: block;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.78rem;
+  color: var(--accordion-text-faint);
+  margin-bottom: var(--space-lg);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   4. EQUATION HERO ENHANCEMENT
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.equation-hero {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 168, 75, 0.12) 0%,
+    transparent 65%
+  );
+  border: 1px solid rgba(212, 168, 75, 0.12);
+  border-radius: 24px;
+  position: relative;
+}
+
+.equation-hero__label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.equation-hero__formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.equation-hero__symbol {
+  font-family: var(--accordion-font-display);
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.equation-hero__symbol--u { 
+  color: #a78bfa; 
+  text-shadow: 0 0 40px rgba(167, 139, 250, 0.5);
+}
+.equation-hero__symbol--i { 
+  color: #60a5fa; 
+  text-shadow: 0 0 40px rgba(96, 165, 250, 0.5);
+}
+.equation-hero__symbol--r { 
+  color: #4ade80; 
+  text-shadow: 0 0 40px rgba(74, 222, 128, 0.5);
+}
+
+.equation-hero__operator {
+  font-family: var(--accordion-font-display);
+  font-size: 2rem;
+  color: var(--accordion-text-dim);
+  opacity: 0.4;
+}
+
+/* Equation Breakdown Cards */
+.equation-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.equation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background: rgba(255, 255, 255, 0.025);
+  border-radius: 16px;
+  border-left: 4px solid var(--accordion-gold);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.equation-card:hover {
+  background: rgba(255, 255, 255, 0.045);
+  transform: translateX(6px);
+}
+
+.equation-card__symbol {
+  font-family: var(--accordion-font-display);
+  font-size: 2rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+
+.equation-card--u { border-left-color: #a78bfa; }
+.equation-card--i { border-left-color: #60a5fa; }
+.equation-card--r { border-left-color: #4ade80; }
+
+.equation-card--u .equation-card__symbol {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+}
+.equation-card--i .equation-card__symbol {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+}
+.equation-card--r .equation-card__symbol {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+}
+
+.equation-card__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  color: var(--accordion-text);
+  margin: 0 0 6px 0;
+}
+
+.equation-card__desc {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.88rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   5. RATING HERO ENHANCEMENT
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.rating-hero {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(212, 168, 75, 0.15) 0%,
+    transparent 70%
+  );
+  border: 1px solid rgba(212, 168, 75, 0.12);
+  border-radius: 24px;
+}
+
+.rating-hero__score {
+  font-family: var(--accordion-font-display);
+  font-size: 4rem;
+  font-weight: 400;
+  color: var(--accordion-gold);
+  line-height: 1;
+  text-shadow: 0 0 50px rgba(212, 168, 75, 0.5);
+  margin-bottom: var(--space-xs);
+}
+
+.rating-hero__stars {
+  font-size: 1.75rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 25px rgba(212, 168, 75, 0.5);
+  margin-bottom: var(--space-md);
+}
+
+.rating-hero__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rating-hero__count {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.9rem;
+  color: var(--accordion-text-dim);
+}
+
+.rating-hero__source {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   6. REVIEWS GRID ENHANCEMENT
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.reviews-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.reviews-grid .review-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  transition: all 0.3s ease;
+}
+
+.reviews-grid .review-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+
+.reviews-grid .review-card--featured {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 168, 75, 0.08) 0%,
+    rgba(212, 168, 75, 0.02) 100%
+  );
+  border-color: rgba(212, 168, 75, 0.2);
+}
+
+.reviews-grid .review-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.reviews-grid .review-card__stars {
+  font-size: 0.9rem;
+  color: var(--accordion-gold);
+  letter-spacing: 0.08em;
+}
+
+.reviews-grid .review-card__badge {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.reviews-grid .review-card__badge--verified {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.15);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+
+.reviews-grid .review-card__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--accordion-text);
+  line-height: 1.65;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.reviews-grid .review-card__author {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+/* Reviews CTA Link */
+.reviews-cta {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.reviews-cta__link {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.reviews-cta__link:hover {
+  background: rgba(212, 168, 75, 0.1);
+  border-color: var(--accordion-gold);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   7. CREDENTIALS BAR ENHANCEMENT
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.credentials-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--space-xl) var(--space-md);
+  background: linear-gradient(
+    135deg,
+    rgba(212, 168, 75, 0.1) 0%,
+    rgba(212, 168, 75, 0.03) 100%
+  );
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.credentials-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 75, 0.5), transparent);
+}
+
+.credential-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.credential-item__value {
+  font-family: var(--accordion-font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--accordion-gold);
+  text-shadow: 0 0 25px rgba(212, 168, 75, 0.4);
+}
+
+.credential-item__label {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text-dim);
+  text-transform: uppercase;
+}
