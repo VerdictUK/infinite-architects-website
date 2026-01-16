@@ -24725,6 +24725,18 @@ window.CouncilViz = CouncilViz;
 
             elements.messages.appendChild(msgDiv);
             elements.messages.scrollTop = elements.messages.scrollHeight;
+
+            // Ensure scroll after DOM updates complete
+            requestAnimationFrame(() => {
+                elements.messages.scrollTop = elements.messages.scrollHeight;
+                // Additional delayed scroll for long messages that might reflow
+                setTimeout(() => {
+                    if (elements.messages) {
+                        elements.messages.scrollTop = elements.messages.scrollHeight;
+                    }
+                }, 100);
+            });
+
             Memory.save({ text, type, sources, timestamp: Date.now() });
             return msgDiv;
         },
@@ -24921,12 +24933,15 @@ window.CouncilViz = CouncilViz;
                 // Hide council
                 window.CouncilViz.hide();
 
-                // Remove council container after animation
-                setTimeout(() => {
-                    if (councilContainer && councilContainer.parentNode) {
-                        councilContainer.remove();
-                    }
-                }, 500);
+                // Wait for council container fade-out, then remove it
+                await new Promise(resolve => {
+                    setTimeout(() => {
+                        if (councilContainer && councilContainer.parentNode) {
+                            councilContainer.remove();
+                        }
+                        resolve();
+                    }, 500);
+                });
             } else {
                 UI.removeLoading();
             }
