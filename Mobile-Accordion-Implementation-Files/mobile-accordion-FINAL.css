@@ -1,0 +1,874 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   INFINITE ARCHITECTS — MOBILE ACCORDION SYSTEM
+   Digital Consulate Interface for <1024px viewports
+   
+   CORRECTED VERSION: January 16, 2026
+   ═══════════════════════════════════════════════════════════════════════════════
+   
+   VERIFIED FACTS:
+   - Book Publication: January 2, 2026
+   - BBC Broadcast: January 7, 2026  
+   - Gap: 5 DAYS
+   - Prediction: "practical quantum computing within approximately five years"
+   - BBC Confirmation: "Within the next five years" — Hartmut Neven, Google Quantum AI
+   
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   1. DESIGN TOKENS
+   ───────────────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Colors - Cosmic Gold Theme (inherits from main CSS) */
+  --accordion-gold: #d4a84b;
+  --accordion-gold-bright: #f4c856;
+  --accordion-gold-pale: #e8d4a0;
+  --accordion-gold-dark: #a67c35;
+  --accordion-gold-glow: rgba(212, 168, 75, 0.35);
+  
+  --accordion-void: #02030a;
+  --accordion-void-mid: #050810;
+  --accordion-card-bg: rgba(255, 255, 255, 0.02);
+  --accordion-card-border: rgba(212, 168, 75, 0.15);
+  
+  --accordion-text: #f0ebe3;
+  --accordion-text-dim: rgba(240, 235, 227, 0.65);
+  --accordion-text-faint: rgba(240, 235, 227, 0.35);
+  
+  /* Status colors */
+  --accordion-verified: #4ade80;
+  --accordion-pending: var(--accordion-gold);
+  
+  /* Typography */
+  --accordion-font-display: 'Cinzel', serif;
+  --accordion-font-serif: 'Cormorant Garamond', Georgia, serif;
+  --accordion-font-mono: 'Space Mono', 'SF Mono', monospace;
+  
+  /* Animation */
+  --accordion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --accordion-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   2. RESPONSIVE TOGGLE (THE CORE MECHANISM)
+   ───────────────────────────────────────────────────────────────────────────────── */
+
+/* Mobile: Show accordion, hide desktop */
+@media (max-width: 1023px) {
+  .mobile-experience {
+    display: block !important;
+  }
+  .desktop-experience {
+    display: none !important;
+  }
+}
+
+/* Desktop: Hide accordion, show desktop */
+@media (min-width: 1024px) {
+  .mobile-experience {
+    display: none !important;
+  }
+  .desktop-experience {
+    display: block !important;
+  }
+  .mobile-buy-bar {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   3. MOBILE HERO — THE WOW + PROOF
+   ───────────────────────────────────────────────────────────────────────────────── */
+.mobile-hero {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport for mobile browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(212, 168, 75, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(13, 31, 60, 0.3) 0%, transparent 40%),
+    var(--accordion-void);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Verification Badge */
+.mobile-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(212, 168, 75, 0.1);
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  border-radius: 100px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-hero__badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accordion-gold);
+  border-radius: 50%;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Book Cover */
+.mobile-hero__book {
+  width: 160px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(212, 168, 75, 0.15);
+  animation: bookFloat 6s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes bookFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Title */
+.mobile-hero__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-hero__subtitle {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--accordion-text-dim);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* THE RECEIPTS — Proof Panel */
+.mobile-hero__receipts {
+  width: 100%;
+  max-width: 360px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-hero__receipts-header {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--accordion-text-faint);
+  text-align: center;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.mobile-hero__receipts-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.mobile-hero__receipt-side {
+  text-align: center;
+}
+
+.mobile-hero__receipt-label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.mobile-hero__receipt-quote {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--accordion-text-dim);
+  line-height: 1.4;
+}
+
+.mobile-hero__receipt-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.mobile-hero__receipt-days {
+  font-family: var(--accordion-font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accordion-gold-bright);
+}
+
+.mobile-hero__receipt-days-label {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+}
+
+.mobile-hero__receipt-verified {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(212, 168, 75, 0.1);
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-verified);
+}
+
+.mobile-hero__receipt-verified svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Primary CTA */
+.mobile-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-dark) 100%);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-void);
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
+  transition: all 0.3s var(--accordion-ease);
+  margin-bottom: 2rem;
+}
+
+.mobile-hero__cta:active {
+  transform: scale(0.98);
+}
+
+/* Scroll Hint */
+.mobile-hero__scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   4. ACCORDION CONTAINER
+   ───────────────────────────────────────────────────────────────────────────────── */
+.accordion-container {
+  background: var(--accordion-void);
+  padding: 0 0 calc(80px + env(safe-area-inset-bottom, 0px)) 0; /* Space for buy bar */
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   5. ACCORDION ITEM (Native <details>/<summary>)
+   ───────────────────────────────────────────────────────────────────────────────── */
+.accordion-item {
+  border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+.accordion-item:first-child {
+  border-top: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+/* Remove default arrow */
+.accordion-item summary {
+  list-style: none;
+}
+.accordion-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Header */
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accordion-header:active {
+  background: rgba(212, 168, 75, 0.05);
+}
+
+.accordion-header__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion-header__label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.accordion-header__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text);
+  margin-bottom: 0.25rem;
+}
+
+.accordion-header__subtitle {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.8rem;
+  color: var(--accordion-text-dim);
+  font-style: italic;
+}
+
+/* Chevron Icon */
+.accordion-header__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accordion-gold);
+  transition: transform 0.4s var(--accordion-ease);
+}
+
+.accordion-header__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.accordion-item[open] .accordion-header__icon {
+  transform: rotate(180deg);
+}
+
+/* Content Area — Smooth Height Animation */
+.accordion-content {
+  overflow: hidden;
+  padding: 0 1.5rem;
+  max-height: 0;
+  opacity: 0;
+  transition: 
+    max-height 0.5s var(--accordion-ease),
+    opacity 0.3s ease,
+    padding 0.5s var(--accordion-ease);
+}
+
+.accordion-item[open] .accordion-content {
+  max-height: 3000px; /* Arbitrary large value */
+  opacity: 1;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   6. ACCORDION VARIANTS
+   ───────────────────────────────────────────────────────────────────────────────── */
+
+/* Critical (Evidence + Buy) - Subtle gold border */
+.accordion-item--critical {
+  border-left: 2px solid var(--accordion-gold);
+}
+
+/* Premium (Equation) - Subtle glow */
+.accordion-item--premium .accordion-header__title {
+  background: linear-gradient(90deg, var(--accordion-text) 0%, var(--accordion-gold-pale) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   7. CONTENT COMPONENTS
+   ───────────────────────────────────────────────────────────────────────────────── */
+
+/* Video Wrapper with Lazy Load Skeleton */
+.accordion-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--accordion-void-mid);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.accordion-video-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.accordion-video-wrapper[data-loading="true"]::before {
+  content: '▶ TAP TO LOAD';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-gold);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Evidence Cards */
+.accordion-evidence-card {
+  background: var(--accordion-card-bg);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.accordion-evidence-card__source {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.accordion-evidence-card__source-name {
+  color: var(--accordion-gold);
+}
+
+.accordion-evidence-card__date {
+  color: var(--accordion-text-faint);
+}
+
+.accordion-evidence-card__quote {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--accordion-text-dim);
+  line-height: 1.6;
+  border-left: 2px solid var(--accordion-gold);
+  padding-left: 1rem;
+  margin: 0;
+}
+
+/* Equation Display */
+.accordion-equation-display {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: radial-gradient(ellipse at center, rgba(212, 168, 75, 0.05) 0%, transparent 70%);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.accordion-equation-display__label {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.accordion-equation-display__formula {
+  font-family: var(--accordion-font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text);
+  text-shadow: 0 0 40px rgba(212, 168, 75, 0.3);
+}
+
+/* Concept Cards Grid */
+.accordion-concept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.accordion-concept-card {
+  background: var(--accordion-card-bg);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.accordion-concept-card:active {
+  transform: scale(0.98);
+  border-color: var(--accordion-gold);
+}
+
+.accordion-concept-card__number {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.accordion-concept-card__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  color: var(--accordion-text);
+  margin-bottom: 0.35rem;
+}
+
+.accordion-concept-card__desc {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.75rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Pricing Grid */
+.accordion-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.accordion-pricing-card {
+  background: var(--accordion-card-bg);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.accordion-pricing-card--featured {
+  border-color: var(--accordion-gold);
+  background: rgba(212, 168, 75, 0.05);
+}
+
+.accordion-pricing-card__format {
+  display: block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-text-faint);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.accordion-pricing-card__price {
+  display: block;
+  font-family: var(--accordion-font-display);
+  font-size: 1.5rem;
+  color: var(--accordion-gold);
+  margin-bottom: 0.25rem;
+}
+
+.accordion-pricing-card__note {
+  display: block;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.75rem;
+  color: var(--accordion-text-dim);
+  margin-bottom: 1rem;
+}
+
+.accordion-pricing-card__cta {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-dark) 100%);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-void);
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.accordion-pricing-card__cta--outline {
+  background: transparent;
+  border: 1px solid var(--accordion-gold);
+  color: var(--accordion-gold);
+}
+
+/* Prediction Cards */
+.accordion-prediction-card {
+  background: var(--accordion-card-bg);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.accordion-prediction-card--verified {
+  border-color: var(--accordion-verified);
+  background: rgba(74, 222, 128, 0.05);
+}
+
+.accordion-prediction-card__status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.accordion-prediction-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accordion-gold);
+}
+
+.accordion-prediction-card__dot--verified {
+  background: var(--accordion-verified);
+}
+
+.accordion-prediction-card__dot--pending {
+  background: var(--accordion-gold);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+.accordion-prediction-card__label {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--accordion-gold);
+  text-transform: uppercase;
+}
+
+.accordion-prediction-card__label--verified {
+  color: var(--accordion-verified);
+}
+
+.accordion-prediction-card__date {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  color: var(--accordion-text-faint);
+  margin-left: auto;
+}
+
+.accordion-prediction-card__text {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.9rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FAQ Nested Accordions */
+.accordion-faq-item {
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.accordion-faq-item summary {
+  padding: 1rem;
+  cursor: pointer;
+  font-family: var(--accordion-font-display);
+  font-size: 0.9rem;
+  color: var(--accordion-text);
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.accordion-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-faq-answer {
+  padding: 0 1rem 1rem 1rem;
+  font-family: var(--accordion-font-serif);
+  font-size: 0.9rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   8. MOBILE BUY BAR (STICKY)
+   ───────────────────────────────────────────────────────────────────────────────── */
+.mobile-buy-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(180deg, transparent 0%, var(--accordion-void) 20%);
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.4s var(--accordion-ease);
+}
+
+.mobile-buy-bar.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-buy-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  background: rgba(2, 3, 10, 0.95);
+  border: 1px solid var(--accordion-card-border);
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.mobile-buy-bar__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-buy-bar__title {
+  font-family: var(--accordion-font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accordion-text);
+  margin-bottom: 0.15rem;
+}
+
+.mobile-buy-bar__price {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  color: var(--accordion-gold);
+}
+
+.mobile-buy-bar__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-dark) 100%);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-void);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   9. MOBILE FOOTER
+   ───────────────────────────────────────────────────────────────────────────────── */
+.mobile-footer {
+  background: var(--accordion-void);
+  padding: 2rem 1.5rem;
+  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); /* Space for buy bar */
+  text-align: center;
+  border-top: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+.mobile-footer__copyright {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text-faint);
+  margin-bottom: 1rem;
+}
+
+.mobile-footer__links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.mobile-footer__link {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--accordion-text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────────
+   10. ACCESSIBILITY & POLISH
+   ───────────────────────────────────────────────────────────────────────────────── */
+
+/* Focus states */
+.accordion-header:focus-visible {
+  outline: 2px solid var(--accordion-gold);
+  outline-offset: -2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .accordion-header__title,
+  .accordion-header__subtitle {
+    color: #ffffff;
+  }
+  .accordion-card-border {
+    border-color: #ffffff;
+  }
+}
