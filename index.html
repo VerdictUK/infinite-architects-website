@@ -21373,6 +21373,390 @@
 
 /* Perplexity model dot (4th AI) */
 .council__model-dot--perplexity { background: #8b5cf6; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WORLD-CLASS POLISH - 360° Enhancement Package
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. HIDE MOTION PERMISSION BUTTON & INDICATOR
+   Motion auto-enables based on device capability - no friction needed
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.motion-permission-btn,
+.enable-motion-button,
+#enableMotionEffects,
+.motion-permission-prompt,
+.motion-enable-container,
+[class*="enable-motion"],
+button[onclick*="enableMotion"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Hide MOTION indicator on mobile - competes with credibility markers */
+@media (max-width: 768px) {
+    .motion-status,
+    .motion-indicator,
+    .motion-badge,
+    [class*="motion-status"],
+    [class*="motion-indicator"] {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. MOBILE TYPOGRAPHY READABILITY UPGRADE
+   Strategic font size increases without losing authority
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    /* Section labels and small text - increase by ~16% */
+    .section-label,
+    .part-label,
+    .accordion-label,
+    [class*="section-"] span:first-child {
+        font-size: 0.72rem !important;
+        letter-spacing: 0.12em !important;
+    }
+
+    /* Timestamps and dates */
+    .timestamp,
+    .date-label,
+    .verified-date,
+    time,
+    [class*="-date"] {
+        font-size: 0.75rem !important;
+    }
+
+    /* Source/citation tags */
+    .source-tag,
+    .ask-book-chat__source-tag,
+    .citation-tag {
+        font-size: 0.72rem !important;
+        padding: 4px 10px !important;
+    }
+
+    /* Mode labels */
+    .ask-book-chat__mode-text,
+    .mode-label {
+        font-size: 0.72rem !important;
+    }
+
+    /* "Powered by" text */
+    .ask-book-chat__powered,
+    .powered-by,
+    .attribution {
+        font-size: 0.68rem !important;
+    }
+
+    /* Feedback labels */
+    .ask-book-chat__feedback-label,
+    .feedback-label {
+        font-size: 0.68rem !important;
+    }
+
+    /* Related questions label */
+    .ask-book-chat__related-label {
+        font-size: 0.7rem !important;
+    }
+
+    /* Model info text */
+    .ask-book-chat__model-info {
+        font-size: 0.68rem !important;
+    }
+
+    /* Copyright notice */
+    .copyright,
+    footer small,
+    .footer-copyright {
+        font-size: 0.72rem !important;
+    }
+
+    /* Stats labels */
+    .stats-label,
+    .credential-label,
+    [class*="stats"] span {
+        font-size: 0.68rem !important;
+    }
+
+    /* Concept descriptions */
+    .concept-description,
+    .faq-answer,
+    .accordion-content p {
+        font-size: 0.98rem !important;
+        line-height: 1.6 !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. PREMIUM HOVER STATES
+   Subtle, elegant interactions that feel premium
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Card hover effects */
+.concept-card,
+.faq-item,
+.evidence-card,
+.accordion-trigger,
+.book-format-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.concept-card:hover,
+.evidence-card:hover,
+.book-format-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(212, 168, 75, 0.2);
+}
+
+.faq-item:hover,
+.accordion-trigger:hover {
+    background: rgba(212, 168, 75, 0.05);
+}
+
+/* Button micro-interactions */
+.btn,
+button:not(.ask-book-chat__send):not(.ask-book-fab) {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Link underline animation */
+.content-link,
+a:not(.btn):not(.cta-btn):not([class*="accordion"]) {
+    position: relative;
+    text-decoration: none;
+}
+
+.content-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.content-link:hover::after {
+    width: 100%;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. SKELETON LOADING STATES
+   Premium loading feedback for dynamic content
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(212, 168, 75, 0.05) 25%,
+        rgba(212, 168, 75, 0.1) 50%,
+        rgba(212, 168, 75, 0.05) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+    height: 1em;
+    margin-bottom: 0.5em;
+}
+
+.skeleton-text:last-child {
+    width: 60%;
+}
+
+.skeleton-image {
+    aspect-ratio: 16 / 9;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. SECTION ENTRANCE ANIMATIONS
+   Subtle reveal animations for premium feel
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.section-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered children */
+.stagger-children > * {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; }
+.stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; }
+
+.stagger-children.visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .section-reveal,
+    .stagger-children > * {
+        animation: none;
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. AUTHOR EXPERTISE TAGS
+   Display areas of expertise in bio section
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.expertise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+    justify-content: center;
+}
+
+.expertise-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(212, 168, 75, 0.1);
+    border: 1px solid rgba(212, 168, 75, 0.25);
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(232, 212, 160, 0.9);
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+}
+
+.expertise-tag:hover {
+    background: rgba(212, 168, 75, 0.15);
+    border-color: rgba(212, 168, 75, 0.4);
+    transform: translateY(-1px);
+}
+
+.expertise-tag-icon {
+    font-size: 0.9em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. ENHANCED VERIFIED BADGE
+   The BBC verification badge - make it unmissable
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.verified-pulse {
+    animation: verifiedPulse 2s ease-in-out infinite;
+}
+
+@keyframes verifiedPulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4);
+    }
+    50% {
+        opacity: 0.8;
+        box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. IMPROVED TOUCH TARGETS
+   Ensure 44px minimum for accessibility
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .touch-target,
+    .accordion-trigger,
+    .buy-btn,
+    .cta-btn,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Increase tap area without visual change */
+    .small-link::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        bottom: -10px;
+        left: -10px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. FOCUS STATES FOR ACCESSIBILITY
+   Visible focus for keyboard navigation
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:focus-visible {
+    outline: 2px solid #d4a84b;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid #d4a84b;
+    outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. PRINT STYLES
+   For users who want to print/save as PDF
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media print {
+    .ask-book-fab,
+    .ask-book-chat,
+    .motion-status,
+    .scroll-indicator,
+    video,
+    .particle-canvas {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .hero,
+    .section {
+        page-break-inside: avoid;
+    }
+}
 </style>
 
 <!-- Council Visualisation Controller - Multi-AI Debate Visualiser -->
