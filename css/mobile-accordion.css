@@ -458,6 +458,9 @@
 .receipts__verified svg {
   width: 14px;
   height: 14px;
+  max-width: 24px;
+  max-height: 24px;
+  flex-shrink: 0;
 }
 
 
@@ -516,6 +519,9 @@
 .mobile-hero__explore svg {
   width: 18px;
   height: 18px;
+  max-width: 24px;
+  max-height: 24px;
+  flex-shrink: 0;
   color: var(--accordion-gold);
   animation: bounce 2s ease-in-out infinite;
 }
