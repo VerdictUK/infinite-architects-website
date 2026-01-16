@@ -4252,59 +4252,6 @@
   --cat-action-glow: rgba(74, 222, 128, 0.15);
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════════
-   CRITICAL: FORCE HIDE DEFAULT DETAILS MARKERS (iOS Safari Fix)
-   ═══════════════════════════════════════════════════════════════════════════════ */
-
-/* Hide ALL default disclosure markers - every possible selector */
-.concept-category,
-.concept-category summary,
-.concept-category > summary,
-.concept-category__header,
-details.concept-category,
-details.concept-category > summary {
-  list-style: none !important;
-  list-style-type: none !important;
-}
-
-.concept-category::-webkit-details-marker,
-.concept-category summary::-webkit-details-marker,
-.concept-category > summary::-webkit-details-marker,
-.concept-category__header::-webkit-details-marker,
-details.concept-category::-webkit-details-marker,
-details.concept-category > summary::-webkit-details-marker {
-  display: none !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-.concept-category::marker,
-.concept-category summary::marker,
-.concept-category > summary::marker,
-.concept-category__header::marker,
-details.concept-category::marker,
-details.concept-category > summary::marker {
-  display: none !important;
-  content: '' !important;
-  font-size: 0 !important;
-  color: transparent !important;
-}
-
-/* Force ALL SVGs inside concept categories to be small */
-.concept-category svg,
-.concept-category__header svg,
-.concepts-categories svg,
-details.concept-category svg,
-.concept-category summary svg {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-  flex-shrink: 0 !important;
-}
-
 /* Container for all categories */
 .concepts-categories {
   display: flex;
@@ -4430,34 +4377,27 @@ details.concept-category svg,
   color: var(--accordion-gold-pale);
 }
 
-/* CRITICAL: Force SVG icon sizing */
+/* Category chevron icon - pure CSS approach */
 .concept-category__icon {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-  color: var(--accordion-gold);
-  opacity: 0.6;
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease;
+  display: none; /* Hide SVG, use CSS chevron instead */
+}
+
+/* Pure CSS chevron indicator */
+.concept-category__header::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--accordion-gold);
+  border-bottom: 2px solid var(--accordion-gold);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
   flex-shrink: 0;
+  opacity: 0.6;
+  margin-left: auto;
 }
 
-.concept-category__icon svg,
-.concept-category__header svg {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-}
-
-.concept-category[open] .concept-category__icon {
-  transform: rotate(180deg);
+.concept-category[open] .concept-category__header::after {
+  transform: rotate(-135deg);
   opacity: 1;
 }
 
@@ -4614,8 +4554,8 @@ details.concept-category svg,
 .concept-category:nth-child(2) .concept-item::before {
   background: var(--cat-safety-primary);
 }
-.concept-category:nth-child(2) .concept-category__icon {
-  color: var(--cat-safety-primary);
+.concept-category:nth-child(2) .concept-category__header::after {
+  border-color: var(--cat-safety-primary);
 }
 
 /* Category 3: Cosmological Theories (13-18) — PURPLE */
@@ -4640,8 +4580,8 @@ details.concept-category svg,
 .concept-category:nth-child(3) .concept-item::before {
   background: var(--cat-cosmic-primary);
 }
-.concept-category:nth-child(3) .concept-category__icon {
-  color: var(--cat-cosmic-primary);
+.concept-category:nth-child(3) .concept-category__header::after {
+  border-color: var(--cat-cosmic-primary);
 }
 
 /* Category 4: Philosophical Frameworks (19-24) — TEAL */
@@ -4666,8 +4606,8 @@ details.concept-category svg,
 .concept-category:nth-child(4) .concept-item::before {
   background: var(--cat-philo-primary);
 }
-.concept-category:nth-child(4) .concept-category__icon {
-  color: var(--cat-philo-primary);
+.concept-category:nth-child(4) .concept-category__header::after {
+  border-color: var(--cat-philo-primary);
 }
 
 /* Category 5: Consciousness & Emergence (25-30) — PINK */
@@ -4692,8 +4632,8 @@ details.concept-category svg,
 .concept-category:nth-child(5) .concept-item::before {
   background: var(--cat-mind-primary);
 }
-.concept-category:nth-child(5) .concept-category__icon {
-  color: var(--cat-mind-primary);
+.concept-category:nth-child(5) .concept-category__header::after {
+  border-color: var(--cat-mind-primary);
 }
 
 /* Category 6: Practical Applications (31-37) — GREEN */
@@ -4718,8 +4658,8 @@ details.concept-category svg,
 .concept-category:nth-child(6) .concept-item::before {
   background: var(--cat-action-primary);
 }
-.concept-category:nth-child(6) .concept-category__icon {
-  color: var(--cat-action-primary);
+.concept-category:nth-child(6) .concept-category__header::after {
+  border-color: var(--cat-action-primary);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════
