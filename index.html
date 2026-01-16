@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- Immediately reset scroll position to prevent flash of previous section -->
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+
     <title>Infinite Architects | Michael Darius Eastwood</title>
     <meta name="description" content="What if the god we're building is the god that built us? Intelligence, Recursion, and the Creation of Everything. 37 original concepts for understanding AI, consciousness, and creation.">
     <meta name="keywords" content="AI, artificial intelligence, consciousness, recursion, superintelligence, AI safety, AI alignment, Michael Darius Eastwood, Infinite Architects">
@@ -311,6 +320,21 @@
         body:not(.cinematic) {
             overflow: hidden;
             height: 100vh;
+        }
+
+        /* Hide all content until loader completes - prevents flash of previous scroll position */
+        body:not(.cinematic) .mobile-experience,
+        body:not(.cinematic) .desktop-experience {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Reveal content when loader completes */
+        body.cinematic .mobile-experience,
+        body.cinematic .desktop-experience {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-out;
         }
 
         /* Reduced motion */
