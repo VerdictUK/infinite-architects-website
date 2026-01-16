@@ -2688,7 +2688,82 @@
             color: #22c55e;
         }
 
-        /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+        /* Section Listen Button - Premium AI Voice */
+        .section-listen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(2, 3, 10, 0.85);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 100px;
+            color: var(--gold);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .section-listen-btn:hover {
+            border-color: var(--gold);
+            background: rgba(212, 168, 75, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-listen-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .section-listen-btn.loading::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border: 2px solid transparent;
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+        }
+
+        .section-listen-btn.playing {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .section-listen-btn.playing .listen-icon {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .section-listen-btn .listen-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .section-listen-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                font-size: 0.6rem;
+            }
+            .section-listen-btn span {
+                display: none;
+            }
+        }
+
+        /*â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
            FOOTER
            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
         footer {
@@ -15267,7 +15342,17 @@
         </section>
 
         <!-- Ideas Section -->
-        <section class="section ideas-section snap-section" id="ideas">
+        <section class="section ideas-section snap-section" id="ideas" style="position: relative;">
+            <!-- Listen to Section Button -->
+            <button class="section-listen-btn" data-section="ideas" aria-label="Listen to this section">
+                <svg class="listen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                <span>Listen</span>
+            </button>
             <!-- Neural Network Background (Phase 14) -->
             <canvas class="neural-canvas" id="neural-canvas"></canvas>
             <div class="section-inner">
@@ -15814,7 +15899,17 @@
         </section>
 
         <!-- About Section -->
-        <section class="section about-section snap-section" id="author">
+        <section class="section about-section snap-section" id="author" style="position: relative;">
+            <!-- Listen to Section Button -->
+            <button class="section-listen-btn" data-section="author" aria-label="Listen to this section">
+                <svg class="listen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                <span>Listen</span>
+            </button>
             <div class="section-inner about-inner">
                 <div class="about-visual about-visual-choice">
                     <div class="author-photo-wrapper reveal">
@@ -16213,7 +16308,17 @@
         <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
              THE RECEIPTS - PROPHECY VALIDATION (Moved to end for dramatic impact)
              â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
-        <section class="prophecy-hero snap-section" id="prophecy">
+        <section class="prophecy-hero snap-section" id="prophecy" style="position: relative;">
+            <!-- Listen to Section Button -->
+            <button class="section-listen-btn" data-section="prophecy" aria-label="Listen to this section">
+                <svg class="listen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+                <span>Listen</span>
+            </button>
             <div class="prophecy-bg">
                 <canvas id="equation-particles"></canvas>
             </div>
@@ -18689,7 +18794,72 @@
             initStaggerReveal();
             initSectionProgress();
             initAmbientOrbs();
+            initSectionListenButtons();
         });
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // SECTION LISTEN BUTTONS - Premium AI Voice for any section
+        // ═══════════════════════════════════════════════════════════════════════════
+        function initSectionListenButtons() {
+            const sectionTexts = {
+                ideas: `The Framework: 37 Original Ideas.
+                    Infinite Architects introduces 37 groundbreaking concepts for understanding AI.
+                    The ARC Principle states that Understanding equals Intelligence times Recursion squared.
+                    The Eden Protocol proposes raising AI through care rather than containment.
+                    The Chokepoint Mechanism reveals how four companies control all advanced AI chips.
+                    HRIH, the Hyperspace Recursive Intelligence Hypothesis, explores a closed causal loop
+                    where future superintelligence establishes conditions for its own emergence.
+                    Caretaker Doping embeds empathy at the hardware level.
+                    Meltdown Alignment ensures AI systems fail toward safety.`,
+
+                author: `About the Author: Michael Darius Eastwood.
+                    Two decades building systems in the music industry.
+                    Built a PR company to over 600,000 pounds revenue.
+                    Lost everything to what he alleges was unlawful forfeiture.
+                    Learned to represent himself in the High Court.
+                    Diagnosed with ADHD and autism in adulthood.
+                    Discovered that his mind grasps recursive structures instinctively.
+                    Wrote this book while watching the Thames reverse twice daily
+                    from a flat he was about to lose.
+                    Not despite the hardship, but because of it.`,
+
+                prophecy: `The Prophecy Verified: Published January 2nd 2026, Verified January 7th 2026.
+                    Five days before the BBC broadcast, Michael Darius Eastwood published
+                    Infinite Architects, predicting practical quantum computing within five years.
+                    On January 7th, Google's Hartmut Neven announced Willow,
+                    their quantum chip achieving exponential error reduction.
+                    The book predicted exactly what happened: a paradigm shift in computing.
+                    This is not coincidence. This is convergent intelligence recognising itself.`
+            };
+
+            document.querySelectorAll('.section-listen-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const sectionId = this.dataset.section;
+                    const text = sectionTexts[sectionId];
+
+                    if (!text) {
+                        console.warn('[SECTION VOICE] No text for section:', sectionId);
+                        return;
+                    }
+
+                    // Toggle - if playing this section, stop it
+                    if (this.classList.contains('playing')) {
+                        VoiceOutput.stop();
+                        this.classList.remove('playing');
+                        return;
+                    }
+
+                    // Stop any other playing sections
+                    document.querySelectorAll('.section-listen-btn.playing').forEach(b => {
+                        b.classList.remove('playing');
+                    });
+
+                    // Play this section
+                    await VoiceOutput.speak(text, this);
+                    triggerHaptic('medium');
+                });
+            });
+        }
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // PHASE 7: STAGGER REVEAL SYSTEM

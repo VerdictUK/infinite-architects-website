@@ -2,8 +2,8 @@
  * ASK THE BOOK - Multi-Model AI Chat for Infinite Architects
  * Vercel Serverless Function
  *
- * Architecture: FastCouncil-inspired with pre-computed FAQ + 4-model triangulation
- * Models: Claude (primary), GPT-4o, Gemini, DeepSeek
+ * Architecture: FastCouncil-inspired with pre-computed FAQ + 7-model triangulation
+ * Models: Claude (primary), GPT-4o, Gemini, Perplexity, DeepSeek, Grok, Groq
  */
 
 import { readFileSync, readdirSync, existsSync } from 'fs';
@@ -136,7 +136,7 @@ const quotes = kb.quotes;
 const faq = kb.faq;
 const evidence = kb.evidence;
 
-// Configuration - 5 Model Council (expanded)
+// Configuration - 7 Model Council (full suite)
 const CONFIG = {
   maxTokens: 1024,
   temperature: 0.3,
@@ -145,7 +145,9 @@ const CONFIG = {
     gpt: { id: 'gpt-4o', name: 'GPT-4o', weight: 1.2 },
     gemini: { id: 'gemini-1.5-flash', name: 'Gemini', weight: 1.1 },
     perplexity: { id: 'llama-3.1-sonar-large-128k-online', name: 'Perplexity', weight: 1.0 },
-    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 0.9 }
+    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 0.9 },
+    grok: { id: 'grok-2-latest', name: 'Grok', weight: 1.0 },
+    groq: { id: 'llama-3.3-70b-versatile', name: 'Groq', weight: 0.85 }
   }
 };
 
@@ -628,6 +630,100 @@ async function callPerplexity(query, context) {
 }
 
 /**
+ * Call Grok API (xAI)
+ */
+async function callGrok(query, context) {
+  if (!process.env.GROK_API_KEY) {
+    return { success: false, model: 'Grok', error: 'API key not configured' };
+  }
+
+  const userMessage = context
+    ? `Using the following context from the book:\n${context}\n\nUser question: ${query}`
+    : query;
+
+  try {
+    const response = await fetch('https://api.x.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: CONFIG.models.grok.id,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMessage }
+        ],
+        max_tokens: CONFIG.maxTokens,
+        temperature: CONFIG.temperature
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.choices && data.choices[0]) {
+      return {
+        success: true,
+        model: 'Grok',
+        weight: CONFIG.models.grok.weight,
+        content: data.choices[0].message.content
+      };
+    }
+
+    return { success: false, model: 'Grok', error: data.error?.message || 'Invalid response' };
+  } catch (error) {
+    return { success: false, model: 'Grok', error: error.message };
+  }
+}
+
+/**
+ * Call Groq API (LPU inference)
+ */
+async function callGroq(query, context) {
+  if (!process.env.GROQ_API_KEY) {
+    return { success: false, model: 'Groq', error: 'API key not configured' };
+  }
+
+  const userMessage = context
+    ? `Using the following context from the book:\n${context}\n\nUser question: ${query}`
+    : query;
+
+  try {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: CONFIG.models.groq.id,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: userMessage }
+        ],
+        max_tokens: CONFIG.maxTokens,
+        temperature: CONFIG.temperature
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.choices && data.choices[0]) {
+      return {
+        success: true,
+        model: 'Groq',
+        weight: CONFIG.models.groq.weight,
+        content: data.choices[0].message.content
+      };
+    }
+
+    return { success: false, model: 'Groq', error: data.error?.message || 'Invalid response' };
+  } catch (error) {
+    return { success: false, model: 'Groq', error: error.message };
+  }
+}
+
+/**
  * Synthesise multiple AI responses using weighted voting
  */
 function synthesiseResponses(responses, kbResults) {
@@ -724,17 +820,19 @@ export default async function handler(req, res) {
         responseTime: Date.now() - startTime
       });
     } else {
-      // Full mode: All 5 models for triangulation (AI Council)
-      const [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult] = await Promise.all([
+      // Full mode: All 7 models for triangulation (AI Council)
+      const [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult, grokResult, groqResult] = await Promise.all([
         callClaude(query, context),
         callGPT(query, context),
         callGemini(query, context),
         callPerplexity(query, context),
-        callDeepSeek(query, context)
+        callDeepSeek(query, context),
+        callGrok(query, context),
+        callGroq(query, context)
       ]);
 
       const synthesis = synthesiseResponses(
-        [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult],
+        [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult, grokResult, groqResult],
         kbResults
       );
 
