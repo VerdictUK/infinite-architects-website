@@ -6,12 +6,67 @@
  * Models: Claude (primary), GPT-4o, Gemini, DeepSeek
  */
 
-// Import knowledge base (these will be bundled by Vercel)
-import concepts from '../knowledge/concepts.json' with { type: 'json' };
-import chapters from '../knowledge/chapters.json' with { type: 'json' };
-import quotes from '../knowledge/quotes.json' with { type: 'json' };
-import faq from '../knowledge/faq.json' with { type: 'json' };
-import evidence from '../knowledge/evidence.json' with { type: 'json' };
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+// Get current directory for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load knowledge base from JSON files
+function loadKnowledgeBase() {
+  const knowledgePath = join(__dirname, '..', 'knowledge');
+
+  try {
+    // Load raw data
+    const rawConcepts = JSON.parse(readFileSync(join(knowledgePath, 'concepts.json'), 'utf-8'));
+    const rawChapters = JSON.parse(readFileSync(join(knowledgePath, 'chapters.json'), 'utf-8'));
+    const rawQuotes = JSON.parse(readFileSync(join(knowledgePath, 'quotes.json'), 'utf-8'));
+    const rawFaq = JSON.parse(readFileSync(join(knowledgePath, 'faq.json'), 'utf-8'));
+    const rawEvidence = JSON.parse(readFileSync(join(knowledgePath, 'evidence.json'), 'utf-8'));
+
+    // Normalize structures - handle both array and object formats
+    return {
+      concepts: {
+        concepts: Array.isArray(rawConcepts) ? rawConcepts.map(c => ({
+          name: c.title || c.name,
+          fullDescription: c.description || c.fullDescription || '',
+          chapter: c.chapter || null,
+          epistemicStatus: c.epistemicStatus || 'NOVEL PROPOSAL',
+          keywords: c.keywords || [c.title?.toLowerCase(), c.category?.toLowerCase()].filter(Boolean)
+        })) : (rawConcepts.concepts || [])
+      },
+      chapters: {
+        chapters: Array.isArray(rawChapters) ? rawChapters : (rawChapters.chapters || [])
+      },
+      quotes: {
+        quotes: Array.isArray(rawQuotes) ? rawQuotes : (rawQuotes.quotes || [])
+      },
+      faq: rawFaq,  // Already has correct structure with 'faqs' array
+      evidence: {
+        verifiedClaims: rawEvidence.verifiedClaims || rawEvidence.claims || (Array.isArray(rawEvidence) ? rawEvidence : [])
+      }
+    };
+  } catch (error) {
+    console.error('Failed to load knowledge base:', error);
+    return {
+      concepts: { concepts: [] },
+      chapters: { chapters: [] },
+      quotes: { quotes: [] },
+      faq: { faqs: [] },
+      evidence: { verifiedClaims: [] }
+    };
+  }
+}
+
+// Load knowledge base at module level (cached across invocations)
+const kb = loadKnowledgeBase();
+const concepts = kb.concepts;
+const chapters = kb.chapters;
+const quotes = kb.quotes;
+const faq = kb.faq;
+const evidence = kb.evidence;
 
 // Configuration - 4 Model Council
 const CONFIG = {

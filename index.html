@@ -20292,6 +20292,11 @@
 }
 </style>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════════════
+     ASK THE BOOK - AI-Powered Chat Interface
+     Connected to /api/ask-book with full knowledge base
+     ═══════════════════════════════════════════════════════════════════════════════════ -->
+
 <!-- Ask Book Floating Button -->
 <button class="ask-book-fab" id="askBookFab" aria-label="Ask about the book">
     <span class="ask-book-fab__pulse"></span>
@@ -20301,106 +20306,781 @@
     </svg>
 </button>
 
-<!-- Ask Book Modal -->
-<div class="ask-book-modal" id="askBookModal">
-    <div class="ask-book-modal__backdrop" id="askBookBackdrop"></div>
-    <div class="ask-book-modal__content">
-        <div class="ask-book-modal__header">
-            <h3 class="ask-book-modal__title">Ask About the Book</h3>
-            <button class="ask-book-modal__close" id="askBookClose" aria-label="Close">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<!-- Ask Book Chat Panel -->
+<div class="ask-book-chat" id="askBookChat">
+    <div class="ask-book-chat__backdrop" id="askBookBackdrop"></div>
+    <div class="ask-book-chat__panel">
+        <!-- Header -->
+        <div class="ask-book-chat__header">
+            <div class="ask-book-chat__header-info">
+                <div class="ask-book-chat__avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <div class="ask-book-chat__header-text">
+                    <h3 class="ask-book-chat__title">Ask the Book</h3>
+                    <span class="ask-book-chat__subtitle">AI-powered answers from Infinite Architects</span>
+                </div>
+            </div>
+            <button class="ask-book-chat__close" id="askBookClose" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
             </button>
         </div>
-        <div class="ask-book-modal__body">
-            <p class="ask-book-modal__intro">
-                Curious about <strong>Infinite Architects</strong>? Explore the key concepts below or get your copy to dive into the complete 109,000-word framework.
-            </p>
 
-            <div class="ask-book-modal__topics">
-                <a href="#accordion-thesis" class="ask-book-modal__topic" data-close-modal>
-                    <span class="ask-book-modal__topic-icon">📐</span>
-                    <div class="ask-book-modal__topic-text">
-                        <h4 class="ask-book-modal__topic-title">The Eastwood Equation</h4>
-                        <p class="ask-book-modal__topic-desc">U = I × R² — One formula that scales from quantum to cosmic</p>
-                    </div>
-                </a>
-
-                <a href="#accordion-philosophy" class="ask-book-modal__topic" data-close-modal>
-                    <span class="ask-book-modal__topic-icon">🌱</span>
-                    <div class="ask-book-modal__topic-text">
-                        <h4 class="ask-book-modal__topic-title">The Eden Protocol</h4>
-                        <p class="ask-book-modal__topic-desc">A governance framework for raising AI with wisdom</p>
-                    </div>
-                </a>
-
-                <a href="#accordion-convergence" class="ask-book-modal__topic" data-close-modal>
-                    <span class="ask-book-modal__topic-icon">🔮</span>
-                    <div class="ask-book-modal__topic-text">
-                        <h4 class="ask-book-modal__topic-title">Verified Predictions</h4>
-                        <p class="ask-book-modal__topic-desc">1 of 5 predictions confirmed by BBC in just 5 days</p>
-                    </div>
-                </a>
-
-                <a href="#accordion-stakes" class="ask-book-modal__topic" data-close-modal>
-                    <span class="ask-book-modal__topic-icon">⚡</span>
-                    <div class="ask-book-modal__topic-text">
-                        <h4 class="ask-book-modal__topic-title">Why It Matters Now</h4>
-                        <p class="ask-book-modal__topic-desc">AGI by 2026-2027 — the window is closing</p>
-                    </div>
-                </a>
+        <!-- Messages Container -->
+        <div class="ask-book-chat__messages" id="askBookMessages">
+            <!-- Welcome Message -->
+            <div class="ask-book-chat__welcome">
+                <div class="ask-book-chat__welcome-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h4 class="ask-book-chat__welcome-title">Welcome to the Book's Intelligence</h4>
+                <p class="ask-book-chat__welcome-text">
+                    Ask me anything about <strong>Infinite Architects</strong> — the concepts, predictions, evidence, or the author's journey. I'm powered by the full knowledge base.
+                </p>
             </div>
 
-            <a href="https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21"
-               data-uk-href="https://www.amazon.co.uk/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21"
-               data-us-href="https://www.amazon.com/Infinite-Architects-Intelligence-Recursion-Everything-ebook/dp/B0GDQZ7P21"
-               target="_blank" rel="noopener" class="ask-book-modal__cta amazon-link">
-                Get the Book
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+            <!-- Suggested Questions -->
+            <div class="ask-book-chat__suggestions" id="askBookSuggestions">
+                <span class="ask-book-chat__suggestions-label">Try asking:</span>
+                <div class="ask-book-chat__suggestions-grid">
+                    <button class="ask-book-chat__suggestion" data-query="What is the Eastwood Equation?">
+                        What is U = I × R²?
+                    </button>
+                    <button class="ask-book-chat__suggestion" data-query="What is the Eden Protocol?">
+                        Explain the Eden Protocol
+                    </button>
+                    <button class="ask-book-chat__suggestion" data-query="What prediction was verified by BBC?">
+                        BBC prediction verification
+                    </button>
+                    <button class="ask-book-chat__suggestion" data-query="What is HRIH?">
+                        What is HRIH?
+                    </button>
+                    <button class="ask-book-chat__suggestion" data-query="What is the semiconductor chokepoint?">
+                        The Chokepoint Mechanism
+                    </button>
+                    <button class="ask-book-chat__suggestion" data-query="Who is the author?">
+                        About the author
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="ask-book-chat__input-area">
+            <div class="ask-book-chat__input-wrapper">
+                <input
+                    type="text"
+                    id="askBookInput"
+                    class="ask-book-chat__input"
+                    placeholder="Ask about the book..."
+                    autocomplete="off"
+                    maxlength="500"
+                >
+                <button class="ask-book-chat__send" id="askBookSend" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="ask-book-chat__input-hint">
+                <span class="ask-book-chat__mode-toggle">
+                    <label class="ask-book-chat__mode-label">
+                        <input type="checkbox" id="askBookFullMode" class="ask-book-chat__mode-checkbox">
+                        <span class="ask-book-chat__mode-text">Deep Analysis (4 AI models)</span>
+                    </label>
+                </span>
+                <span class="ask-book-chat__powered">Powered by the book's knowledge base</span>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-(function initAskBook() {
-    const fab = document.getElementById('askBookFab');
-    const modal = document.getElementById('askBookModal');
-    const backdrop = document.getElementById('askBookBackdrop');
-    const closeBtn = document.getElementById('askBookClose');
+<!-- Ask Book Chat Styles -->
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════════════
+   ASK THE BOOK CHAT - Complete Styling
+   ═══════════════════════════════════════════════════════════════════════════════════ */
 
-    if (!fab || !modal) return;
+.ask-book-chat {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 20px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
 
-    function openModal() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+.ask-book-chat.active {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.ask-book-chat__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 3, 10, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.ask-book-chat__panel {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 70vh;
+    max-height: 600px;
+    background: linear-gradient(135deg, rgba(10, 12, 20, 0.98) 0%, rgba(5, 8, 16, 0.98) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 168, 75, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ask-book-chat.active .ask-book-chat__panel {
+    transform: translateY(0) scale(1);
+}
+
+/* Header */
+.ask-book-chat__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+    background: rgba(212, 168, 75, 0.03);
+}
+
+.ask-book-chat__header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ask-book-chat__avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.2) 0%, rgba(212, 168, 75, 0.05) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4a84b;
+}
+
+.ask-book-chat__avatar svg {
+    width: 22px;
+    height: 22px;
+}
+
+.ask-book-chat__title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: #f0ebe3;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.ask-book-chat__subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(240, 235, 227, 0.5);
+    letter-spacing: 0.05em;
+}
+
+.ask-book-chat__close {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: rgba(240, 235, 227, 0.6);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f0ebe3;
+}
+
+/* Messages Container */
+.ask-book-chat__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.ask-book-chat__messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ask-book-chat__messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ask-book-chat__messages::-webkit-scrollbar-thumb {
+    background: rgba(212, 168, 75, 0.3);
+    border-radius: 2px;
+}
+
+/* Welcome Message */
+.ask-book-chat__welcome {
+    text-align: center;
+    padding: 20px;
+}
+
+.ask-book-chat__welcome-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.15) 0%, rgba(212, 168, 75, 0.05) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4a84b;
+}
+
+.ask-book-chat__welcome-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.ask-book-chat__welcome-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    color: #d4a84b;
+    margin: 0 0 8px 0;
+}
+
+.ask-book-chat__welcome-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: rgba(240, 235, 227, 0.7);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Suggestions */
+.ask-book-chat__suggestions {
+    padding: 0;
+}
+
+.ask-book-chat__suggestions-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(240, 235, 227, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.ask-book-chat__suggestions-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ask-book-chat__suggestion {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(240, 235, 227, 0.8);
+    background: rgba(212, 168, 75, 0.08);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 100px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.ask-book-chat__suggestion:hover {
+    background: rgba(212, 168, 75, 0.15);
+    border-color: rgba(212, 168, 75, 0.4);
+    color: #d4a84b;
+}
+
+/* Chat Messages */
+.ask-book-chat__message {
+    max-width: 90%;
+    animation: chatMessageIn 0.3s ease;
+}
+
+@keyframes chatMessageIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ask-book-chat__message--user {
+    align-self: flex-end;
+}
+
+.ask-book-chat__message--ai {
+    align-self: flex-start;
+}
+
+.ask-book-chat__message-content {
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.ask-book-chat__message--user .ask-book-chat__message-content {
+    background: linear-gradient(135deg, #d4a84b 0%, #a67c35 100%);
+    color: #02030a;
+    border-bottom-right-radius: 4px;
+}
+
+.ask-book-chat__message--ai .ask-book-chat__message-content {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 168, 75, 0.15);
+    color: rgba(240, 235, 227, 0.9);
+    border-bottom-left-radius: 4px;
+}
+
+.ask-book-chat__message--ai .ask-book-chat__message-content strong {
+    color: #d4a84b;
+}
+
+/* Sources */
+.ask-book-chat__sources {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+.ask-book-chat__sources-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(240, 235, 227, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.ask-book-chat__source-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    color: #d4a84b;
+    background: rgba(212, 168, 75, 0.1);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+/* Model Info */
+.ask-book-chat__model-info {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(240, 235, 227, 0.3);
+    margin-top: 8px;
+}
+
+/* Loading State */
+.ask-book-chat__loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 168, 75, 0.1);
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+}
+
+.ask-book-chat__loading-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.ask-book-chat__loading-dot {
+    width: 6px;
+    height: 6px;
+    background: #d4a84b;
+    border-radius: 50%;
+    animation: loadingPulse 1.4s ease-in-out infinite;
+}
+
+.ask-book-chat__loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.ask-book-chat__loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes loadingPulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1); }
+}
+
+.ask-book-chat__loading-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(240, 235, 227, 0.5);
+}
+
+/* Input Area */
+.ask-book-chat__input-area {
+    padding: 16px 20px 20px;
+    border-top: 1px solid rgba(212, 168, 75, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.ask-book-chat__input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ask-book-chat__input {
+    flex: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: #f0ebe3;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__input::placeholder {
+    color: rgba(240, 235, 227, 0.4);
+}
+
+.ask-book-chat__input:focus {
+    border-color: rgba(212, 168, 75, 0.5);
+    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.1);
+}
+
+.ask-book-chat__send {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #d4a84b 0%, #a67c35 100%);
+    border: none;
+    border-radius: 12px;
+    color: #02030a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.ask-book-chat__send:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(212, 168, 75, 0.3);
+}
+
+.ask-book-chat__send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ask-book-chat__send svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ask-book-chat__input-hint {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+}
+
+.ask-book-chat__mode-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(240, 235, 227, 0.5);
+    cursor: pointer;
+}
+
+.ask-book-chat__mode-checkbox {
+    width: 14px;
+    height: 14px;
+    accent-color: #d4a84b;
+}
+
+.ask-book-chat__powered {
+    color: rgba(240, 235, 227, 0.3);
+}
+
+/* Error Message */
+.ask-book-chat__error {
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #fca5a5;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .ask-book-chat {
+        padding: 0;
+        align-items: stretch;
+        justify-content: stretch;
     }
 
-    function closeModal() {
-        modal.classList.remove('active');
+    .ask-book-chat__panel {
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+
+    .ask-book-chat__suggestions-grid {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ask-book-chat__input-area {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* Desktop positioning - bottom right */
+@media (min-width: 769px) {
+    .ask-book-chat {
+        padding: 24px;
+    }
+}
+</style>
+
+<!-- Ask Book Chat JavaScript -->
+<script>
+(function initAskBookChat() {
+    'use strict';
+
+    // Elements
+    const fab = document.getElementById('askBookFab');
+    const chat = document.getElementById('askBookChat');
+    const backdrop = document.getElementById('askBookBackdrop');
+    const closeBtn = document.getElementById('askBookClose');
+    const messagesContainer = document.getElementById('askBookMessages');
+    const suggestionsContainer = document.getElementById('askBookSuggestions');
+    const input = document.getElementById('askBookInput');
+    const sendBtn = document.getElementById('askBookSend');
+    const fullModeCheckbox = document.getElementById('askBookFullMode');
+
+    if (!fab || !chat) return;
+
+    // State
+    let isLoading = false;
+    let messageHistory = [];
+
+    // API Configuration
+    const API_URL = '/api/ask-book';
+
+    // Open/Close Chat
+    function openChat() {
+        chat.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => input.focus(), 300);
+    }
+
+    function closeChat() {
+        chat.classList.remove('active');
         document.body.style.overflow = '';
     }
 
-    fab.addEventListener('click', openModal);
-    backdrop.addEventListener('click', closeModal);
-    closeBtn.addEventListener('click', closeModal);
+    // Event Listeners
+    fab.addEventListener('click', openChat);
+    backdrop.addEventListener('click', closeChat);
+    closeBtn.addEventListener('click', closeChat);
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+        if (e.key === 'Escape' && chat.classList.contains('active')) {
+            closeChat();
         }
     });
 
-    // Close modal when clicking topic links (for mobile accordion navigation)
-    modal.querySelectorAll('[data-close-modal]').forEach(link => {
-        link.addEventListener('click', () => {
-            closeModal();
+    // Suggestion clicks
+    suggestionsContainer.querySelectorAll('.ask-book-chat__suggestion').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const query = btn.dataset.query;
+            if (query) {
+                input.value = query;
+                sendMessage();
+            }
         });
     });
+
+    // Send message
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+
+    async function sendMessage() {
+        const query = input.value.trim();
+        if (!query || isLoading) return;
+
+        // Hide suggestions after first message
+        if (suggestionsContainer) {
+            suggestionsContainer.style.display = 'none';
+        }
+
+        // Hide welcome message
+        const welcome = messagesContainer.querySelector('.ask-book-chat__welcome');
+        if (welcome) welcome.style.display = 'none';
+
+        // Add user message
+        addMessage(query, 'user');
+        input.value = '';
+        messageHistory.push({ role: 'user', content: query });
+
+        // Show loading
+        isLoading = true;
+        sendBtn.disabled = true;
+        const loadingEl = showLoading();
+
+        try {
+            const mode = fullModeCheckbox.checked ? 'full' : 'fast';
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query, mode })
+            });
+
+            const data = await response.json();
+
+            // Remove loading
+            loadingEl.remove();
+
+            if (data.success || data.answer) {
+                addMessage(data.answer, 'ai', {
+                    sources: data.sources,
+                    type: data.type,
+                    models: data.models,
+                    modelCount: data.modelCount,
+                    responseTime: data.responseTime
+                });
+                messageHistory.push({ role: 'assistant', content: data.answer });
+            } else {
+                showError(data.error || 'Unable to get a response. Please try again.');
+            }
+
+        } catch (error) {
+            loadingEl.remove();
+            console.error('Ask Book API Error:', error);
+            showError('Connection error. Please check your internet and try again.');
+        } finally {
+            isLoading = false;
+            sendBtn.disabled = false;
+            input.focus();
+        }
+    }
+
+    function addMessage(content, type, meta = {}) {
+        const messageEl = document.createElement('div');
+        messageEl.className = `ask-book-chat__message ask-book-chat__message--${type}`;
+
+        let html = `<div class="ask-book-chat__message-content">${formatContent(content)}</div>`;
+
+        // Add sources for AI messages
+        if (type === 'ai' && meta.sources && meta.sources.length > 0) {
+            html += `
+                <div class="ask-book-chat__sources">
+                    <span class="ask-book-chat__sources-label">Related Concepts</span>
+                    ${meta.sources.map(s => `<span class="ask-book-chat__source-tag">${s.name}${s.chapter ? ` (Ch. ${s.chapter})` : ''}</span>`).join('')}
+                </div>
+            `;
+        }
+
+        // Add model info for AI messages
+        if (type === 'ai' && meta.modelCount) {
+            const modelText = meta.modelCount > 1
+                ? `Verified by ${meta.modelCount} AI models`
+                : meta.type === 'faq' ? 'Pre-verified answer' : 'Powered by Claude';
+            html += `<div class="ask-book-chat__model-info">${modelText} · ${meta.responseTime}ms</div>`;
+        }
+
+        messageEl.innerHTML = html;
+        messagesContainer.appendChild(messageEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function formatContent(text) {
+        // Convert markdown-like formatting
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n/g, '<br>');
+    }
+
+    function showLoading() {
+        const loadingEl = document.createElement('div');
+        loadingEl.className = 'ask-book-chat__message ask-book-chat__message--ai';
+        loadingEl.innerHTML = `
+            <div class="ask-book-chat__loading">
+                <div class="ask-book-chat__loading-dots">
+                    <span class="ask-book-chat__loading-dot"></span>
+                    <span class="ask-book-chat__loading-dot"></span>
+                    <span class="ask-book-chat__loading-dot"></span>
+                </div>
+                <span class="ask-book-chat__loading-text">Consulting the book...</span>
+            </div>
+        `;
+        messagesContainer.appendChild(loadingEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        return loadingEl;
+    }
+
+    function showError(message) {
+        const errorEl = document.createElement('div');
+        errorEl.className = 'ask-book-chat__error';
+        errorEl.textContent = message;
+        messagesContainer.appendChild(errorEl);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    console.log('[Ask Book Chat] Initialized and connected to /api/ask-book');
 })();
 </script>
 
