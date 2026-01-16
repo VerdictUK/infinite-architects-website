@@ -4,12 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    <!-- Immediately reset scroll position to prevent flash of previous section -->
+    <!-- AGGRESSIVE SCROLL RESET — Force fresh start on every page load (mobile Safari fix) -->
     <script>
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
+        (function() {
+            // 1. Disable browser's automatic scroll restoration
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+
+            // 2. Clear any cached scroll position from sessionStorage
+            try {
+                sessionStorage.removeItem('scrollPos');
+                sessionStorage.removeItem('scroll');
+                // Clear all scroll-related session data
+                for (let key of Object.keys(sessionStorage)) {
+                    if (key.toLowerCase().includes('scroll')) {
+                        sessionStorage.removeItem(key);
+                    }
+                }
+            } catch (e) {}
+
+            // 3. Force scroll to top immediately (multiple methods for cross-browser)
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            if (document.body) document.body.scrollTop = 0;
+
+            // 4. Force scroll again after a tiny delay (catches deferred restoration)
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                if (document.body) document.body.scrollTop = 0;
+            }, 0);
+
+            // 5. And again after paint (for stubborn mobile browsers)
+            requestAnimationFrame(function() {
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                if (document.body) document.body.scrollTop = 0;
+            });
+        })();
     </script>
 
     <title>Infinite Architects | Michael Darius Eastwood</title>
@@ -15513,14 +15546,41 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // SCROLL POSITION FIX - Ensure page starts at top
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-        // Disable browser's automatic scroll restoration (fixes page opening mid-scroll)
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        // Force scroll to top immediately
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0; // For Safari
+        // AGGRESSIVE SCROLL RESET FOR MOBILE SAFARI
+        // Ensures page ALWAYS starts fresh from hero section
+        (function enforceScrollReset() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+
+            function forceScrollTop() {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                window.scrollTo(0, 0);
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
+
+            forceScrollTop();
+
+            // Handle bfcache (back-forward cache) restoration
+            window.addEventListener('pageshow', function(event) {
+                forceScrollTop();
+                setTimeout(forceScrollTop, 0);
+                setTimeout(forceScrollTop, 50);
+                setTimeout(forceScrollTop, 100);
+            });
+
+            // Reset before page is cached/unloaded
+            window.addEventListener('pagehide', forceScrollTop);
+            window.addEventListener('beforeunload', forceScrollTop);
+
+            // Delayed resets for stubborn browsers
+            setTimeout(forceScrollTop, 0);
+            setTimeout(forceScrollTop, 10);
+            setTimeout(forceScrollTop, 50);
+            setTimeout(forceScrollTop, 100);
+            requestAnimationFrame(forceScrollTop);
+        })();
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // LAZY LOAD THREE.JS - After first paint for faster initial render
@@ -16461,33 +16521,45 @@
         // INITIALIZE
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-        // ALWAYS START AT TOP - Force scroll to top on page load
+        // ALWAYS START AT TOP - Aggressive reset for mobile Safari
         // Prevents browser from restoring previous scroll position
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-
-        // Also scroll to top after DOM is ready (backup)
-        document.addEventListener('DOMContentLoaded', () => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-
-            // Ensure hero section is visible
-            const hero = document.getElementById('hero');
-            if (hero) {
-                hero.scrollIntoView({ behavior: 'auto', block: 'start' });
+        (function initScrollReset() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
             }
-        });
 
-        // And on window load (after all resources loaded)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
+            function resetScroll() {
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
                 window.scrollTo(0, 0);
-            }, 0);
-        });
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
+
+            resetScroll();
+
+            // Handle bfcache restoration (critical for mobile Safari)
+            window.addEventListener('pageshow', function(e) {
+                resetScroll();
+                setTimeout(resetScroll, 0);
+                setTimeout(resetScroll, 50);
+            });
+
+            // Reset before caching
+            window.addEventListener('pagehide', resetScroll);
+
+            document.addEventListener('DOMContentLoaded', () => {
+                resetScroll();
+                const hero = document.getElementById('hero');
+                if (hero) {
+                    hero.scrollIntoView({ behavior: 'auto', block: 'start' });
+                }
+            });
+
+            window.addEventListener('load', () => {
+                setTimeout(resetScroll, 0);
+                setTimeout(resetScroll, 100);
+            });
+        })();
 
         document.addEventListener('DOMContentLoaded', initLoader);
 
