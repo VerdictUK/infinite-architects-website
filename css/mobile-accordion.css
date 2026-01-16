@@ -7578,3 +7578,380 @@
   color: var(--accordion-text-dim);
   text-transform: uppercase;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   SKEPTIC CONVERSION ELEMENTS
+   High-impact conversion tactics for skeptical readers
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   TRUST BAR: "AS VERIFIED BY BBC"
+   Prominent trust signal at top of accordion
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.trust-bar {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.08) 0%, rgba(212, 168, 75, 0.02) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.trust-bar__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.trust-bar__badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.15) 0%, rgba(46, 160, 67, 0.05) 100%);
+  border: 1px solid rgba(46, 160, 67, 0.3);
+  border-radius: 100px;
+  padding: 6px 12px;
+}
+
+.trust-bar__checkmark {
+  color: #2ea043;
+  flex-shrink: 0;
+}
+
+.trust-bar__text {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #2ea043;
+  text-transform: uppercase;
+}
+
+.trust-bar__source {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.7rem;
+  color: var(--accordion-text-dim);
+}
+
+.trust-bar__bbc {
+  font-weight: 700;
+  color: var(--accordion-text);
+  letter-spacing: 0.05em;
+}
+
+.trust-bar__divider {
+  opacity: 0.4;
+}
+
+.trust-bar__date {
+  opacity: 0.7;
+}
+
+.trust-bar__link {
+  margin-top: 4px;
+}
+
+.trust-bar__cta {
+  font-family: var(--accordion-font-display);
+  font-size: 0.75rem;
+  color: var(--accordion-gold);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.trust-bar__cta:hover {
+  color: var(--accordion-gold-bright);
+  text-shadow: 0 0 10px rgba(212, 168, 75, 0.4);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   SKEPTIC FAQ ITEMS
+   Objection-handling questions with special styling
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.accordion-faq-item--skeptic {
+  border-left: 3px solid var(--accordion-gold);
+  background: linear-gradient(90deg, rgba(212, 168, 75, 0.05) 0%, transparent 100%);
+}
+
+.accordion-faq-item--skeptic summary {
+  position: relative;
+}
+
+.faq-skeptic-badge {
+  display: inline-block;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accordion-gold);
+  background: rgba(212, 168, 75, 0.1);
+  border: 1px solid rgba(212, 168, 75, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.accordion-faq-item--skeptic .accordion-faq-answer p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.accordion-faq-item--skeptic .accordion-faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.accordion-faq-item--skeptic .accordion-faq-answer strong {
+  color: var(--accordion-gold);
+}
+
+.accordion-faq-item--skeptic .accordion-faq-answer em {
+  color: var(--accordion-gold-pale);
+  font-style: italic;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   SKEPTIC'S GUARANTEE
+   Enhanced risk reversal with prominent display
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.skeptic-guarantee {
+  background: linear-gradient(135deg, rgba(46, 160, 67, 0.08) 0%, rgba(46, 160, 67, 0.02) 100%);
+  border: 1px solid rgba(46, 160, 67, 0.25);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.skeptic-guarantee__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.skeptic-guarantee__shield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(46, 160, 67, 0.15);
+  border: 1px solid rgba(46, 160, 67, 0.3);
+  border-radius: 50%;
+  color: #2ea043;
+  flex-shrink: 0;
+}
+
+.skeptic-guarantee__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1.1rem;
+  color: var(--accordion-text);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.skeptic-guarantee__body {
+  padding-left: 60px;
+}
+
+.skeptic-guarantee__promise {
+  font-family: var(--accordion-font-serif);
+  font-size: 1rem;
+  color: var(--accordion-text);
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+}
+
+.skeptic-guarantee__terms {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeptic-guarantee__terms li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--accordion-font-mono);
+  font-size: 0.75rem;
+  color: var(--accordion-text-dim);
+}
+
+.skeptic-guarantee__check {
+  color: #2ea043;
+  font-size: 0.9rem;
+}
+
+.skeptic-guarantee__confidence {
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  color: var(--accordion-gold);
+  font-style: italic;
+  margin: 0;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   VERIFIED TRUST BADGE
+   Near-CTA trust signal
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.verified-trust-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(46, 160, 67, 0.08);
+  border: 1px solid rgba(46, 160, 67, 0.2);
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.verified-trust-badge svg {
+  color: #2ea043;
+  flex-shrink: 0;
+}
+
+.verified-trust-badge span {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  color: var(--accordion-text-dim);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   5 IDEAS PREVIEW
+   Quick value demonstration for skeptics
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+.ideas-preview {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.06) 0%, rgba(212, 168, 75, 0.02) 100%);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.ideas-preview__title {
+  font-family: var(--accordion-font-display);
+  font-size: 1rem;
+  color: var(--accordion-gold);
+  text-align: center;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.03em;
+}
+
+.ideas-preview__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ideas-preview__item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 1px solid rgba(212, 168, 75, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ideas-preview__item:hover {
+  border-color: rgba(212, 168, 75, 0.25);
+  transform: translateX(4px);
+}
+
+.ideas-preview__number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--accordion-gold) 0%, var(--accordion-gold-dark) 100%);
+  border-radius: 50%;
+  font-family: var(--accordion-font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accordion-void);
+  flex-shrink: 0;
+}
+
+.ideas-preview__content {
+  flex: 1;
+}
+
+.ideas-preview__content strong {
+  display: block;
+  font-family: var(--accordion-font-display);
+  font-size: 0.9rem;
+  color: var(--accordion-gold);
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.ideas-preview__content p {
+  font-family: var(--accordion-font-serif);
+  font-size: 0.85rem;
+  color: var(--accordion-text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ideas-preview__footer {
+  font-family: var(--accordion-font-mono);
+  font-size: 0.7rem;
+  color: var(--accordion-text-dim);
+  text-align: center;
+  margin: 16px 0 0 0;
+}
+
+.ideas-preview__footer a {
+  color: var(--accordion-gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.ideas-preview__footer a:hover {
+  color: var(--accordion-gold-bright);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE: Skeptic Elements
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 480px) {
+  .trust-bar__inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .skeptic-guarantee__body {
+    padding-left: 0;
+  }
+
+  .skeptic-guarantee__terms {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
