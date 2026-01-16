@@ -25545,5 +25545,257 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════════════════
+     UX ENHANCEMENT SCRIPTS - Parallax, Ticker Dismiss, Focus Trap, Video Error Handling
+     ═══════════════════════════════════════════════════════════════════════════════════════ -->
+
+<script>
+(function() {
+    'use strict';
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       PARALLAX SCROLL TRACKING
+       Updates CSS custom property for parallax background effects
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    let parallaxTicking = false;
+
+    function updateParallax() {
+        document.documentElement.style.setProperty(
+            '--scroll-y',
+            `${window.scrollY * 0.1}px`
+        );
+        parallaxTicking = false;
+    }
+
+    // Only enable parallax if user doesn't prefer reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.addEventListener('scroll', function() {
+            if (!parallaxTicking) {
+                requestAnimationFrame(updateParallax);
+                parallaxTicking = true;
+            }
+        }, { passive: true });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       STATUS TICKER DISMISS
+       Allow users to close the scrolling ticker
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function initTickerDismiss() {
+        const tickers = document.querySelectorAll('.status-ticker');
+
+        tickers.forEach(function(ticker) {
+            // Check if already dismissed
+            if (sessionStorage.getItem('ticker_dismissed') === 'true') {
+                ticker.classList.add('dismissed');
+                return;
+            }
+
+            // Add dismiss button if not already present
+            if (!ticker.querySelector('.status-ticker__dismiss')) {
+                const dismissBtn = document.createElement('button');
+                dismissBtn.className = 'status-ticker__dismiss';
+                dismissBtn.setAttribute('aria-label', 'Dismiss ticker');
+                dismissBtn.innerHTML = '×';
+
+                dismissBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    ticker.classList.add('dismissed');
+                    sessionStorage.setItem('ticker_dismissed', 'true');
+                });
+
+                ticker.appendChild(dismissBtn);
+            }
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       VIDEO ERROR HANDLING
+       Show fallback when videos fail to load
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function initVideoErrorHandling() {
+        const videos = document.querySelectorAll('video');
+
+        videos.forEach(function(video) {
+            video.addEventListener('error', function() {
+                const wrapper = video.closest('.video-wrapper, .accordion-video-wrapper, [class*="video"]');
+                if (wrapper) {
+                    wrapper.setAttribute('data-video-error', 'true');
+
+                    // Add error message if not present
+                    if (!wrapper.querySelector('.video-error')) {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'video-error';
+                        errorDiv.innerHTML = `
+                            <svg class="video-error__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                            <p class="video-error__text">Video unavailable</p>
+                            <a href="#" class="video-error__link" onclick="location.reload(); return false;">Retry</a>
+                        `;
+                        wrapper.appendChild(errorDiv);
+                    }
+                }
+            });
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       CAROUSEL PAUSE CONTROL
+       Add pause button to auto-scrolling carousels
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function initCarouselPause() {
+        const carouselSections = document.querySelectorAll('.carousel-section, .quote-carousel, [class*="carousel"]');
+
+        carouselSections.forEach(function(section) {
+            const track = section.querySelector('.carousel-track, [class*="track"]');
+            if (!track || section.querySelector('.carousel-pause')) return;
+
+            const pauseBtn = document.createElement('button');
+            pauseBtn.className = 'carousel-pause';
+            pauseBtn.setAttribute('aria-pressed', 'false');
+            pauseBtn.setAttribute('aria-label', 'Pause carousel');
+            pauseBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <rect x="6" y="4" width="4" height="16"/>
+                    <rect x="14" y="4" width="4" height="16"/>
+                </svg>
+            `;
+
+            pauseBtn.addEventListener('click', function() {
+                const isPaused = pauseBtn.getAttribute('aria-pressed') === 'true';
+                pauseBtn.setAttribute('aria-pressed', !isPaused);
+                pauseBtn.setAttribute('aria-label', isPaused ? 'Pause carousel' : 'Play carousel');
+
+                if (isPaused) {
+                    track.style.animationPlayState = 'running';
+                    pauseBtn.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="4" width="4" height="16"/>
+                            <rect x="14" y="4" width="4" height="16"/>
+                        </svg>
+                    `;
+                } else {
+                    track.style.animationPlayState = 'paused';
+                    pauseBtn.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
+                    `;
+                }
+            });
+
+            section.style.position = 'relative';
+            section.appendChild(pauseBtn);
+        });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       FOCUS TRAP FOR MOBILE NAVIGATION
+       Keep focus within open navigation drawer
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function initFocusTrap() {
+        const navMenu = document.querySelector('.nav-menu, .mobile-nav, [class*="nav-drawer"]');
+        const navToggle = document.querySelector('.nav-toggle, .hamburger, [class*="menu-toggle"]');
+
+        if (!navMenu || !navToggle) return;
+
+        let focusTrapActive = false;
+
+        function trapFocus(e) {
+            if (!focusTrapActive) return;
+
+            const focusableElements = navMenu.querySelectorAll(
+                'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+
+            if (focusableElements.length === 0) return;
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            }
+
+            if (e.key === 'Escape') {
+                navToggle.click();
+            }
+        }
+
+        // Watch for nav open/close
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const isOpen = navMenu.classList.contains('open') ||
+                                   navMenu.classList.contains('active') ||
+                                   navMenu.classList.contains('is-open');
+
+                    focusTrapActive = isOpen;
+
+                    if (isOpen) {
+                        document.addEventListener('keydown', trapFocus);
+                        const firstFocusable = navMenu.querySelector('a, button');
+                        if (firstFocusable) firstFocusable.focus();
+                    } else {
+                        document.removeEventListener('keydown', trapFocus);
+                        navToggle.focus();
+                    }
+                }
+            });
+        });
+
+        observer.observe(navMenu, { attributes: true });
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       TOUCH ACTION FOR INTERACTIVE ELEMENTS
+       Prevent double-tap zoom on buttons while allowing page zoom
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function initTouchOptimisation() {
+        const style = document.createElement('style');
+        style.textContent = `
+            button, a, input, select, textarea, [role="button"], [tabindex] {
+                touch-action: manipulation;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       INITIALISATION
+       ═══════════════════════════════════════════════════════════════════════════ */
+
+    function init() {
+        initTickerDismiss();
+        initVideoErrorHandling();
+        initCarouselPause();
+        initFocusTrap();
+        initTouchOptimisation();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
+
 </body>
 </html>
