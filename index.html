@@ -14257,21 +14257,21 @@
                                 <p class="equation-playground__subtitle">Drag the sliders. Watch capability compound.</p>
                             </div>
 
-                            <!-- Live calculation display -->
-                            <div class="equation-playground__live">
-                                <div class="equation-playground__formula">
-                                    <span class="equation-playground__symbol equation-playground__symbol--u" id="playgroundU">U</span>
-                                    <span class="equation-playground__operator">=</span>
-                                    <span class="equation-playground__symbol equation-playground__symbol--i" id="playgroundIDisplay">50</span>
-                                    <span class="equation-playground__operator">×</span>
-                                    <span class="equation-playground__symbol equation-playground__symbol--r" id="playgroundRDisplay">3<sup>1.3</sup></span>
-                                </div>
-                                <div class="equation-playground__result">
-                                    <span class="equation-playground__result-label">Effective Capability</span>
-                                    <span class="equation-playground__result-value" id="playgroundResult">213</span>
-                                </div>
-                                <div class="equation-playground__result-bar">
-                                    <div class="equation-playground__result-fill" id="playgroundBar" style="width: 15%;"></div>
+                            <!-- Neural Network Visualization -->
+                            <div class="equation-playground__neural">
+                                <canvas id="neuralCanvas" class="equation-playground__canvas"></canvas>
+                                <div class="equation-playground__neural-overlay">
+                                    <div class="equation-playground__formula">
+                                        <span class="equation-playground__symbol equation-playground__symbol--u" id="playgroundU">U</span>
+                                        <span class="equation-playground__operator">=</span>
+                                        <span class="equation-playground__symbol equation-playground__symbol--i" id="playgroundIDisplay">50</span>
+                                        <span class="equation-playground__operator">×</span>
+                                        <span class="equation-playground__symbol equation-playground__symbol--r" id="playgroundRDisplay">3<sup>1.3</sup></span>
+                                    </div>
+                                    <div class="equation-playground__result">
+                                        <span class="equation-playground__result-label">Effective Capability</span>
+                                        <span class="equation-playground__result-value" id="playgroundResult">213</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -26870,6 +26870,39 @@ html:not(:has(.accordion-item[open])) #canvas-container {
     margin: 0;
 }
 
+/* Neural Network Visualization */
+.equation-playground__neural {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    background: radial-gradient(ellipse at center, rgba(26, 35, 126, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.equation-playground__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.equation-playground__neural-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+}
+
 /* Live Equation Display */
 .equation-playground__live {
     background: rgba(0, 0, 0, 0.4);
@@ -27143,6 +27176,10 @@ html:not(:has(.accordion-item[open])) #canvas-container {
     .equation-playground {
         padding: 1.5rem 1rem;
         margin: 2rem 0;
+    }
+
+    .equation-playground__neural {
+        height: 220px;
     }
 
     .equation-playground__title {
@@ -32634,13 +32671,14 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════════
-     INTERACTIVE EQUATION PLAYGROUND - TACTILE AHA MOMENT ENGINE
+     INTERACTIVE EQUATION PLAYGROUND - NEURAL NETWORK VISUALIZATION
      ═══════════════════════════════════════════════════════════════ -->
 <script>
 (function initEquationPlayground() {
     'use strict';
 
     // Element references
+    const canvas = document.getElementById('neuralCanvas');
     const sliderI = document.getElementById('sliderI');
     const sliderR = document.getElementById('sliderR');
     const sliderA = document.getElementById('sliderA');
@@ -32650,39 +32688,216 @@ if ('serviceWorker' in navigator) {
     const playgroundIDisplay = document.getElementById('playgroundIDisplay');
     const playgroundRDisplay = document.getElementById('playgroundRDisplay');
     const playgroundResult = document.getElementById('playgroundResult');
-    const playgroundBar = document.getElementById('playgroundBar');
     const playgroundInsight = document.getElementById('playgroundInsight');
     const presetButtons = document.querySelectorAll('.equation-playground__preset');
 
-    if (!sliderI || !sliderR || !sliderA) return;
+    if (!canvas || !sliderI || !sliderR || !sliderA) return;
+
+    const ctx = canvas.getContext('2d');
+    let animationId = null;
+    let particles = [];
+    let connections = [];
+
+    // Current equation values
+    let currentI = 50;
+    let currentR = 3;
+    let currentAlpha = 1.3;
 
     // Preset configurations based on real data
     const presets = {
         human: {
-            I: 70,
-            R: 2,
-            alpha: 1.0,
+            I: 70, R: 2, alpha: 1.0,
             insight: '<strong>Human Cognition:</strong> At α = 1.0, doubling recursive thought (R: 2→4) doubles capability. Linear returns — what we naturally experience when "thinking harder."'
         },
         gpt4: {
-            I: 85,
-            R: 8,
-            alpha: 0.2,
+            I: 85, R: 8, alpha: 0.2,
             insight: '<strong>GPT-4 (Parallel Sampling):</strong> At α = 0.2, even massive parallel sampling shows diminishing returns. The OpenAI o1 data shows α ≈ 0.1–0.3 for parallel approaches. <strong>Recursion type matters.</strong>'
         },
         deepseek: {
-            I: 50,
-            R: 3,
-            alpha: 1.3,
+            I: 50, R: 3, alpha: 1.3,
             insight: '<strong>DeepSeek-R1:</strong> At α = 1.3, tripling recursive depth (R: 3→9) increases capability by <strong>5.4×</strong>. This is super-linear amplification — each recursive layer contributes more than the last.'
         },
         theoretical: {
-            I: 100,
-            R: 10,
-            alpha: 2.0,
+            I: 100, R: 10, alpha: 2.0,
             insight: '<strong>Theoretical ASI (α = 2):</strong> At quadratic scaling, doubling recursion <strong>quadruples</strong> capability. This is the theoretical ceiling — like the speed of light, systems approach but may never reach it.'
         }
     };
+
+    // Resize canvas
+    function resizeCanvas() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * window.devicePixelRatio;
+        canvas.height = rect.height * window.devicePixelRatio;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    }
+
+    // Particle class
+    class Particle {
+        constructor(x, y, layer) {
+            this.x = x;
+            this.y = y;
+            this.baseX = x;
+            this.baseY = y;
+            this.layer = layer;
+            this.size = 2 + Math.random() * 3;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.angle = Math.random() * Math.PI * 2;
+            this.orbitRadius = 5 + Math.random() * 15;
+            this.orbitSpeed = 0.01 + Math.random() * 0.02;
+            this.pulsePhase = Math.random() * Math.PI * 2;
+        }
+
+        update(alpha) {
+            this.angle += this.orbitSpeed * (1 + alpha * 0.5);
+            this.x = this.baseX + Math.cos(this.angle) * this.orbitRadius;
+            this.y = this.baseY + Math.sin(this.angle) * this.orbitRadius * 0.6;
+            this.pulsePhase += 0.05;
+        }
+
+        draw(alpha) {
+            const pulse = 1 + Math.sin(this.pulsePhase) * 0.3 * alpha;
+            const size = this.size * pulse;
+
+            // Layer-based colouring
+            let color;
+            if (this.layer === 0) {
+                color = `rgba(144, 202, 249, ${0.6 + alpha * 0.2})`; // Blue for I
+            } else if (this.layer < 3) {
+                color = `rgba(129, 199, 132, ${0.5 + alpha * 0.25})`; // Green for R
+            } else {
+                color = `rgba(212, 168, 75, ${0.7 + alpha * 0.15})`; // Gold for output
+            }
+
+            // Glow effect
+            ctx.shadowBlur = 10 + alpha * 15;
+            ctx.shadowColor = color;
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+        }
+    }
+
+    // Create particles based on I value
+    function createParticles() {
+        particles = [];
+        const rect = canvas.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const centerY = height / 2;
+
+        // Calculate number of particles based on I
+        const baseParticles = Math.floor(currentI / 5);
+        // Calculate layers based on R
+        const layers = Math.min(Math.ceil(currentR), 8);
+
+        // Create particles in neural network formation
+        for (let layer = 0; layer < layers; layer++) {
+            const layerX = (width * 0.15) + (layer * (width * 0.7) / (layers - 1 || 1));
+            const particlesInLayer = Math.max(3, Math.floor(baseParticles * Math.pow(1.2, layer * currentAlpha / 2)));
+
+            for (let i = 0; i < Math.min(particlesInLayer, 30); i++) {
+                const spread = height * 0.35;
+                const y = centerY + (Math.random() - 0.5) * spread * 2;
+                particles.push(new Particle(layerX, y, layer));
+            }
+        }
+    }
+
+    // Draw connections between layers
+    function drawConnections() {
+        const layerGroups = {};
+        particles.forEach(p => {
+            if (!layerGroups[p.layer]) layerGroups[p.layer] = [];
+            layerGroups[p.layer].push(p);
+        });
+
+        const layers = Object.keys(layerGroups).sort((a, b) => a - b);
+
+        for (let i = 0; i < layers.length - 1; i++) {
+            const currentLayer = layerGroups[layers[i]];
+            const nextLayer = layerGroups[layers[parseInt(i) + 1]];
+
+            if (!currentLayer || !nextLayer) continue;
+
+            // Connection intensity based on alpha
+            const connectionStrength = 0.1 + (currentAlpha / 2.5) * 0.3;
+
+            currentLayer.forEach(p1 => {
+                nextLayer.forEach(p2 => {
+                    const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+                    if (dist < 200) {
+                        const opacity = connectionStrength * (1 - dist / 200);
+
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+
+                        // Gradient connection
+                        const gradient = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                        gradient.addColorStop(0, `rgba(144, 202, 249, ${opacity})`);
+                        gradient.addColorStop(0.5, `rgba(212, 168, 75, ${opacity * 1.5})`);
+                        gradient.addColorStop(1, `rgba(129, 199, 132, ${opacity})`);
+
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = 0.5 + currentAlpha * 0.5;
+                        ctx.stroke();
+                    }
+                });
+            });
+        }
+    }
+
+    // Draw central energy core representing U
+    function drawEnergyCore() {
+        const rect = canvas.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const U = calculateU(currentI, currentR, currentAlpha);
+        const maxU = 100 * Math.pow(20, 2.5);
+        const normalizedU = Math.min(1, Math.log(U + 1) / Math.log(maxU + 1));
+
+        // Pulsing energy ring
+        const time = Date.now() / 1000;
+        const pulse = 1 + Math.sin(time * 2) * 0.1 * currentAlpha;
+        const radius = 30 + normalizedU * 40;
+
+        // Outer glow
+        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius * 2 * pulse);
+        gradient.addColorStop(0, `rgba(212, 168, 75, ${0.3 * normalizedU})`);
+        gradient.addColorStop(0.5, `rgba(212, 168, 75, ${0.1 * normalizedU})`);
+        gradient.addColorStop(1, 'rgba(212, 168, 75, 0)');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, rect.width, rect.height);
+    }
+
+    // Main animation loop
+    function animate() {
+        const rect = canvas.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+
+        // Draw energy core background
+        drawEnergyCore();
+
+        // Draw connections first (behind particles)
+        drawConnections();
+
+        // Update and draw particles
+        particles.forEach(p => {
+            p.update(currentAlpha);
+            p.draw(currentAlpha);
+        });
+
+        animationId = requestAnimationFrame(animate);
+    }
 
     // Calculate U = I × R^α
     function calculateU(I, R, alpha) {
@@ -32691,64 +32906,50 @@ if ('serviceWorker' in navigator) {
 
     // Format large numbers
     function formatNumber(num) {
-        if (num >= 1000000) {
-            return (num / 1000000).toFixed(1) + 'M';
-        } else if (num >= 10000) {
-            return (num / 1000).toFixed(1) + 'K';
-        } else if (num >= 1000) {
-            return (num / 1000).toFixed(2) + 'K';
-        } else if (num >= 100) {
-            return Math.round(num).toString();
-        } else {
-            return num.toFixed(1);
-        }
+        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+        if (num >= 10000) return (num / 1000).toFixed(1) + 'K';
+        if (num >= 1000) return (num / 1000).toFixed(2) + 'K';
+        if (num >= 100) return Math.round(num).toString();
+        return num.toFixed(1);
     }
 
-    // Update the display
+    // Update the display and visualization
     function updateDisplay() {
-        const I = parseFloat(sliderI.value);
-        const R = parseFloat(sliderR.value);
-        const alpha = parseFloat(sliderA.value);
-        const U = calculateU(I, R, alpha);
+        currentI = parseFloat(sliderI.value);
+        currentR = parseFloat(sliderR.value);
+        currentAlpha = parseFloat(sliderA.value);
+        const U = calculateU(currentI, currentR, currentAlpha);
 
         // Update value displays
-        valueI.textContent = I;
-        valueR.textContent = R.toFixed(1);
-        valueA.textContent = alpha.toFixed(1);
+        valueI.textContent = currentI;
+        valueR.textContent = currentR.toFixed(1);
+        valueA.textContent = currentAlpha.toFixed(1);
 
         // Update formula display
-        playgroundIDisplay.textContent = I;
-        playgroundRDisplay.innerHTML = R.toFixed(1) + '<sup>' + alpha.toFixed(1) + '</sup>';
+        playgroundIDisplay.textContent = currentI;
+        playgroundRDisplay.innerHTML = currentR.toFixed(1) + '<sup>' + currentAlpha.toFixed(1) + '</sup>';
 
-        // Update result with animation
+        // Update result
         playgroundResult.textContent = formatNumber(U);
 
-        // Update bar (logarithmic scale for visual balance)
-        // Max theoretical: 100 × 20^2.5 ≈ 178,000
-        const maxU = 100 * Math.pow(20, 2.5);
-        const percentage = Math.min(100, (Math.log(U + 1) / Math.log(maxU + 1)) * 100);
-        playgroundBar.style.width = percentage + '%';
+        // Recreate particles for new values
+        createParticles();
 
-        // Clear active state from presets if values changed manually
+        // Clear preset active states
         presetButtons.forEach(btn => btn.classList.remove('equation-playground__preset--active'));
     }
 
-    // Generate dynamic insight based on current values
+    // Generate dynamic insight
     function generateInsight(I, R, alpha) {
-        const U = calculateU(I, R, alpha);
         const U_doubled_R = calculateU(I, R * 2, alpha);
+        const U = calculateU(I, R, alpha);
         const multiplier = (U_doubled_R / U).toFixed(1);
 
         let scalingType = '';
-        if (alpha < 0.8) {
-            scalingType = 'sub-linear (diminishing returns)';
-        } else if (alpha < 1.2) {
-            scalingType = 'approximately linear';
-        } else if (alpha < 1.8) {
-            scalingType = 'super-linear (compounding)';
-        } else {
-            scalingType = 'approaching quadratic';
-        }
+        if (alpha < 0.8) scalingType = 'sub-linear (diminishing returns)';
+        else if (alpha < 1.2) scalingType = 'approximately linear';
+        else if (alpha < 1.8) scalingType = 'super-linear (compounding)';
+        else scalingType = 'approaching quadratic';
 
         return `<strong>Current Configuration:</strong> At α = ${alpha.toFixed(1)}, doubling recursive depth (R: ${R.toFixed(1)}→${(R*2).toFixed(1)}) multiplies capability by <strong>${multiplier}×</strong>. This is ${scalingType}.`;
     }
@@ -32763,38 +32964,37 @@ if ('serviceWorker' in navigator) {
         sliderA.value = preset.alpha;
 
         updateDisplay();
-
-        // Update insight
         playgroundInsight.innerHTML = preset.insight;
 
-        // Update active state
         presetButtons.forEach(btn => {
-            btn.classList.toggle('equation-playground__preset--active',
-                btn.dataset.preset === presetName);
+            btn.classList.toggle('equation-playground__preset--active', btn.dataset.preset === presetName);
         });
     }
 
-    // Event listeners for sliders
+    // Event listeners
     [sliderI, sliderR, sliderA].forEach(slider => {
         slider.addEventListener('input', function() {
             updateDisplay();
-            // Update insight with dynamic calculation
-            const I = parseFloat(sliderI.value);
-            const R = parseFloat(sliderR.value);
-            const alpha = parseFloat(sliderA.value);
-            playgroundInsight.innerHTML = generateInsight(I, R, alpha);
+            playgroundInsight.innerHTML = generateInsight(currentI, currentR, currentAlpha);
         });
     });
 
-    // Event listeners for presets
     presetButtons.forEach(btn => {
         btn.addEventListener('click', function() {
             applyPreset(this.dataset.preset);
         });
     });
 
-    // Initialize with DeepSeek preset (the measured case)
+    // Handle resize
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        createParticles();
+    });
+
+    // Initialize
+    resizeCanvas();
     updateDisplay();
+    animate();
 
 })();
 </script>
