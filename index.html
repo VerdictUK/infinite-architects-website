@@ -14249,6 +14249,96 @@
                             </div>
                         </div>
 
+                        <!-- Interactive Equation Playground -->
+                        <div class="equation-playground" id="equationPlayground">
+                            <div class="equation-playground__header">
+                                <span class="equation-playground__badge">⚡ Interactive</span>
+                                <h4 class="equation-playground__title">Test the Equation Yourself</h4>
+                                <p class="equation-playground__subtitle">Drag the sliders. Watch capability compound.</p>
+                            </div>
+
+                            <!-- Live calculation display -->
+                            <div class="equation-playground__live">
+                                <div class="equation-playground__formula">
+                                    <span class="equation-playground__symbol equation-playground__symbol--u" id="playgroundU">U</span>
+                                    <span class="equation-playground__operator">=</span>
+                                    <span class="equation-playground__symbol equation-playground__symbol--i" id="playgroundIDisplay">50</span>
+                                    <span class="equation-playground__operator">×</span>
+                                    <span class="equation-playground__symbol equation-playground__symbol--r" id="playgroundRDisplay">3<sup>1.3</sup></span>
+                                </div>
+                                <div class="equation-playground__result">
+                                    <span class="equation-playground__result-label">Effective Capability</span>
+                                    <span class="equation-playground__result-value" id="playgroundResult">213</span>
+                                </div>
+                                <div class="equation-playground__result-bar">
+                                    <div class="equation-playground__result-fill" id="playgroundBar" style="width: 15%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Sliders -->
+                            <div class="equation-playground__sliders">
+                                <div class="equation-playground__slider-group">
+                                    <div class="equation-playground__slider-label">
+                                        <span class="equation-playground__slider-symbol equation-playground__slider-symbol--i">I</span>
+                                        <span class="equation-playground__slider-name">Intelligence</span>
+                                    </div>
+                                    <div class="equation-playground__slider-track">
+                                        <input type="range" class="equation-playground__slider equation-playground__slider--i" id="sliderI" min="1" max="100" value="50">
+                                    </div>
+                                    <span class="equation-playground__slider-value equation-playground__slider-value--i" id="valueI">50</span>
+                                </div>
+
+                                <div class="equation-playground__slider-group">
+                                    <div class="equation-playground__slider-label">
+                                        <span class="equation-playground__slider-symbol equation-playground__slider-symbol--r">R</span>
+                                        <span class="equation-playground__slider-name">Recursion</span>
+                                    </div>
+                                    <div class="equation-playground__slider-track">
+                                        <input type="range" class="equation-playground__slider equation-playground__slider--r" id="sliderR" min="1" max="20" value="3" step="0.1">
+                                    </div>
+                                    <span class="equation-playground__slider-value equation-playground__slider-value--r" id="valueR">3.0</span>
+                                </div>
+
+                                <div class="equation-playground__slider-group">
+                                    <div class="equation-playground__slider-label">
+                                        <span class="equation-playground__slider-symbol equation-playground__slider-symbol--a">α</span>
+                                        <span class="equation-playground__slider-name">Exponent</span>
+                                    </div>
+                                    <div class="equation-playground__slider-track">
+                                        <input type="range" class="equation-playground__slider equation-playground__slider--a" id="sliderA" min="0.5" max="2.5" value="1.3" step="0.1">
+                                    </div>
+                                    <span class="equation-playground__slider-value equation-playground__slider-value--a" id="valueA">1.3</span>
+                                </div>
+                            </div>
+
+                            <!-- Presets based on real data -->
+                            <div class="equation-playground__presets">
+                                <button class="equation-playground__preset" data-preset="human">
+                                    <span class="equation-playground__preset-label">Human</span>
+                                    <span class="equation-playground__preset-detail">α ≈ 1.0</span>
+                                </button>
+                                <button class="equation-playground__preset" data-preset="gpt4">
+                                    <span class="equation-playground__preset-label">GPT-4</span>
+                                    <span class="equation-playground__preset-detail">Parallel α ≈ 0.2</span>
+                                </button>
+                                <button class="equation-playground__preset equation-playground__preset--active" data-preset="deepseek">
+                                    <span class="equation-playground__preset-label">DeepSeek-R1</span>
+                                    <span class="equation-playground__preset-detail">Sequential α ≈ 1.3</span>
+                                </button>
+                                <button class="equation-playground__preset" data-preset="theoretical">
+                                    <span class="equation-playground__preset-label">Theoretical ASI</span>
+                                    <span class="equation-playground__preset-detail">α → 2.0</span>
+                                </button>
+                            </div>
+
+                            <!-- Dynamic insight -->
+                            <div class="equation-playground__insight">
+                                <p class="equation-playground__insight-text" id="playgroundInsight">
+                                    <strong>DeepSeek-R1:</strong> At α = 1.3, tripling recursive depth (R: 3→9) increases capability by <strong>5.4×</strong>. This is super-linear amplification — each recursive layer contributes more than the last.
+                                </p>
+                            </div>
+                        </div>
+
                         <!-- Scale Diagram -->
                         <div class="scale-diagram">
                             <h4 class="scale-diagram__title">The Equation at Every Scale</h4>
@@ -26722,6 +26812,371 @@ html:not(:has(.accordion-item[open])) #canvas-container {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   INTERACTIVE EQUATION PLAYGROUND - TACTILE AHA MOMENT
+   ═══════════════════════════════════════════════════════════════ */
+
+.equation-playground {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(10, 12, 20, 0.95) 0%, rgba(26, 35, 126, 0.15) 100%);
+    border: 2px solid var(--gold-primary);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.equation-playground::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), var(--gold-bright), var(--gold-primary), transparent);
+}
+
+.equation-playground__header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.equation-playground__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(212, 168, 75, 0.15);
+    border: 1px solid var(--gold-primary);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--gold-bright);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.equation-playground__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--gold-primary);
+    margin: 0 0 0.5rem;
+}
+
+.equation-playground__subtitle {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Live Equation Display */
+.equation-playground__live {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.equation-playground__formula {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.equation-playground__symbol {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.equation-playground__symbol--u {
+    background: rgba(212, 168, 75, 0.2);
+    color: var(--gold-bright);
+    border: 1px solid var(--gold-primary);
+}
+
+.equation-playground__symbol--i {
+    background: rgba(144, 202, 249, 0.15);
+    color: #90caf9;
+    border: 1px solid rgba(144, 202, 249, 0.4);
+}
+
+.equation-playground__symbol--r {
+    background: rgba(129, 199, 132, 0.15);
+    color: #81c784;
+    border: 1px solid rgba(129, 199, 132, 0.4);
+}
+
+.equation-playground__operator {
+    color: var(--text-secondary);
+    font-size: 1.4rem;
+}
+
+.equation-playground__result {
+    margin-top: 1rem;
+}
+
+.equation-playground__result-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.equation-playground__result-value {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--gold-bright);
+    text-shadow: 0 0 30px rgba(212, 168, 75, 0.5);
+    transition: all 0.3s ease;
+}
+
+.equation-playground__result-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin-top: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.equation-playground__result-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), var(--gold-bright));
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.5);
+}
+
+/* Sliders */
+.equation-playground__sliders {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.equation-playground__slider-group {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: 1rem;
+}
+
+.equation-playground__slider-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.equation-playground__slider-symbol {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.equation-playground__slider-symbol--i { color: #90caf9; }
+.equation-playground__slider-symbol--r { color: #81c784; }
+.equation-playground__slider-symbol--a { color: var(--gold-primary); }
+
+.equation-playground__slider-name {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.equation-playground__slider-track {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.equation-playground__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.equation-playground__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gold-primary);
+    cursor: grab;
+    box-shadow: 0 0 15px rgba(212, 168, 75, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.equation-playground__slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(212, 168, 75, 0.8), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.equation-playground__slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+.equation-playground__slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gold-primary);
+    cursor: grab;
+    border: none;
+    box-shadow: 0 0 15px rgba(212, 168, 75, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.equation-playground__slider--i::-webkit-slider-thumb { background: #90caf9; box-shadow: 0 0 15px rgba(144, 202, 249, 0.6); }
+.equation-playground__slider--r::-webkit-slider-thumb { background: #81c784; box-shadow: 0 0 15px rgba(129, 199, 132, 0.6); }
+.equation-playground__slider--a::-webkit-slider-thumb { background: var(--gold-primary); }
+
+.equation-playground__slider--i::-moz-range-thumb { background: #90caf9; }
+.equation-playground__slider--r::-moz-range-thumb { background: #81c784; }
+
+.equation-playground__slider-value {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: right;
+    min-width: 50px;
+}
+
+.equation-playground__slider-value--i { color: #90caf9; }
+.equation-playground__slider-value--r { color: #81c784; }
+.equation-playground__slider-value--a { color: var(--gold-primary); }
+
+/* Presets */
+.equation-playground__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.equation-playground__preset {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.equation-playground__preset:hover {
+    background: rgba(212, 168, 75, 0.15);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.equation-playground__preset--active {
+    background: rgba(212, 168, 75, 0.2);
+    border-color: var(--gold-primary);
+    color: var(--gold-bright);
+}
+
+.equation-playground__preset-label {
+    display: block;
+    font-weight: 600;
+}
+
+.equation-playground__preset-detail {
+    display: block;
+    font-size: 0.6rem;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+}
+
+/* Insight callout */
+.equation-playground__insight {
+    background: rgba(212, 168, 75, 0.1);
+    border-left: 3px solid var(--gold-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    margin-top: 1rem;
+}
+
+.equation-playground__insight-text {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.equation-playground__insight-text strong {
+    color: var(--gold-primary);
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .equation-playground {
+        padding: 1.5rem 1rem;
+        margin: 2rem 0;
+    }
+
+    .equation-playground__title {
+        font-size: 1.2rem;
+    }
+
+    .equation-playground__formula {
+        font-size: 1.4rem;
+    }
+
+    .equation-playground__result-value {
+        font-size: 2.2rem;
+    }
+
+    .equation-playground__slider-group {
+        grid-template-columns: 60px 1fr 45px;
+        gap: 0.75rem;
+    }
+
+    .equation-playground__slider-symbol {
+        font-size: 1rem;
+    }
+
+    .equation-playground__slider-value {
+        font-size: 0.95rem;
+    }
+
+    .equation-playground__preset {
+        font-size: 0.65rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
    EASTWOOD'S ARC PRINCIPLE DISCOVERY SECTION - ULTIMATE SHOWCASE
    ═══════════════════════════════════════════════════════════════ */
 
@@ -32175,6 +32630,172 @@ if ('serviceWorker' in navigator) {
     } else {
         initExclusiveAccordions();
     }
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     INTERACTIVE EQUATION PLAYGROUND - TACTILE AHA MOMENT ENGINE
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function initEquationPlayground() {
+    'use strict';
+
+    // Element references
+    const sliderI = document.getElementById('sliderI');
+    const sliderR = document.getElementById('sliderR');
+    const sliderA = document.getElementById('sliderA');
+    const valueI = document.getElementById('valueI');
+    const valueR = document.getElementById('valueR');
+    const valueA = document.getElementById('valueA');
+    const playgroundIDisplay = document.getElementById('playgroundIDisplay');
+    const playgroundRDisplay = document.getElementById('playgroundRDisplay');
+    const playgroundResult = document.getElementById('playgroundResult');
+    const playgroundBar = document.getElementById('playgroundBar');
+    const playgroundInsight = document.getElementById('playgroundInsight');
+    const presetButtons = document.querySelectorAll('.equation-playground__preset');
+
+    if (!sliderI || !sliderR || !sliderA) return;
+
+    // Preset configurations based on real data
+    const presets = {
+        human: {
+            I: 70,
+            R: 2,
+            alpha: 1.0,
+            insight: '<strong>Human Cognition:</strong> At α = 1.0, doubling recursive thought (R: 2→4) doubles capability. Linear returns — what we naturally experience when "thinking harder."'
+        },
+        gpt4: {
+            I: 85,
+            R: 8,
+            alpha: 0.2,
+            insight: '<strong>GPT-4 (Parallel Sampling):</strong> At α = 0.2, even massive parallel sampling shows diminishing returns. The OpenAI o1 data shows α ≈ 0.1–0.3 for parallel approaches. <strong>Recursion type matters.</strong>'
+        },
+        deepseek: {
+            I: 50,
+            R: 3,
+            alpha: 1.3,
+            insight: '<strong>DeepSeek-R1:</strong> At α = 1.3, tripling recursive depth (R: 3→9) increases capability by <strong>5.4×</strong>. This is super-linear amplification — each recursive layer contributes more than the last.'
+        },
+        theoretical: {
+            I: 100,
+            R: 10,
+            alpha: 2.0,
+            insight: '<strong>Theoretical ASI (α = 2):</strong> At quadratic scaling, doubling recursion <strong>quadruples</strong> capability. This is the theoretical ceiling — like the speed of light, systems approach but may never reach it.'
+        }
+    };
+
+    // Calculate U = I × R^α
+    function calculateU(I, R, alpha) {
+        return I * Math.pow(R, alpha);
+    }
+
+    // Format large numbers
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1) + 'M';
+        } else if (num >= 10000) {
+            return (num / 1000).toFixed(1) + 'K';
+        } else if (num >= 1000) {
+            return (num / 1000).toFixed(2) + 'K';
+        } else if (num >= 100) {
+            return Math.round(num).toString();
+        } else {
+            return num.toFixed(1);
+        }
+    }
+
+    // Update the display
+    function updateDisplay() {
+        const I = parseFloat(sliderI.value);
+        const R = parseFloat(sliderR.value);
+        const alpha = parseFloat(sliderA.value);
+        const U = calculateU(I, R, alpha);
+
+        // Update value displays
+        valueI.textContent = I;
+        valueR.textContent = R.toFixed(1);
+        valueA.textContent = alpha.toFixed(1);
+
+        // Update formula display
+        playgroundIDisplay.textContent = I;
+        playgroundRDisplay.innerHTML = R.toFixed(1) + '<sup>' + alpha.toFixed(1) + '</sup>';
+
+        // Update result with animation
+        playgroundResult.textContent = formatNumber(U);
+
+        // Update bar (logarithmic scale for visual balance)
+        // Max theoretical: 100 × 20^2.5 ≈ 178,000
+        const maxU = 100 * Math.pow(20, 2.5);
+        const percentage = Math.min(100, (Math.log(U + 1) / Math.log(maxU + 1)) * 100);
+        playgroundBar.style.width = percentage + '%';
+
+        // Clear active state from presets if values changed manually
+        presetButtons.forEach(btn => btn.classList.remove('equation-playground__preset--active'));
+    }
+
+    // Generate dynamic insight based on current values
+    function generateInsight(I, R, alpha) {
+        const U = calculateU(I, R, alpha);
+        const U_doubled_R = calculateU(I, R * 2, alpha);
+        const multiplier = (U_doubled_R / U).toFixed(1);
+
+        let scalingType = '';
+        if (alpha < 0.8) {
+            scalingType = 'sub-linear (diminishing returns)';
+        } else if (alpha < 1.2) {
+            scalingType = 'approximately linear';
+        } else if (alpha < 1.8) {
+            scalingType = 'super-linear (compounding)';
+        } else {
+            scalingType = 'approaching quadratic';
+        }
+
+        return `<strong>Current Configuration:</strong> At α = ${alpha.toFixed(1)}, doubling recursive depth (R: ${R.toFixed(1)}→${(R*2).toFixed(1)}) multiplies capability by <strong>${multiplier}×</strong>. This is ${scalingType}.`;
+    }
+
+    // Apply preset
+    function applyPreset(presetName) {
+        const preset = presets[presetName];
+        if (!preset) return;
+
+        sliderI.value = preset.I;
+        sliderR.value = preset.R;
+        sliderA.value = preset.alpha;
+
+        updateDisplay();
+
+        // Update insight
+        playgroundInsight.innerHTML = preset.insight;
+
+        // Update active state
+        presetButtons.forEach(btn => {
+            btn.classList.toggle('equation-playground__preset--active',
+                btn.dataset.preset === presetName);
+        });
+    }
+
+    // Event listeners for sliders
+    [sliderI, sliderR, sliderA].forEach(slider => {
+        slider.addEventListener('input', function() {
+            updateDisplay();
+            // Update insight with dynamic calculation
+            const I = parseFloat(sliderI.value);
+            const R = parseFloat(sliderR.value);
+            const alpha = parseFloat(sliderA.value);
+            playgroundInsight.innerHTML = generateInsight(I, R, alpha);
+        });
+    });
+
+    // Event listeners for presets
+    presetButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            applyPreset(this.dataset.preset);
+        });
+    });
+
+    // Initialize with DeepSeek preset (the measured case)
+    updateDisplay();
+
 })();
 </script>
 
