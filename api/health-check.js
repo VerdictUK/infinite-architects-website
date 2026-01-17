@@ -24,7 +24,7 @@ const API_CONFIGS = {
     name: 'Gemini (Google)',
     envKey: 'GEMINI_API_KEY',
     altEnvKey: 'GOOGLE_API_KEY',
-    endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent',
+    endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
     testMethod: 'google'
   },
   perplexity: {
@@ -141,7 +141,7 @@ async function testOpenAICompatible(endpoint, apiKey, model = 'gpt-4o') {
  */
 async function testGoogle(apiKey) {
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -237,9 +237,9 @@ async function testService(serviceName, config) {
         // Map service to correct model
         const modelMap = {
           gpt: 'gpt-4o',
-          perplexity: 'llama-3.1-sonar-large-128k-online',
+          perplexity: 'sonar-pro',
           deepseek: 'deepseek-chat',
-          grok: 'grok-2-latest',
+          grok: 'grok-3',
           groq: 'llama-3.3-70b-versatile'
         };
         result = await testOpenAICompatible(config.endpoint, apiKey, modelMap[serviceName]);

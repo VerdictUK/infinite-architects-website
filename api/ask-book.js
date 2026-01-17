@@ -179,10 +179,10 @@ const CONFIG = {
   models: {
     claude: { id: 'claude-sonnet-4-20250514', name: 'Claude', weight: 1.3 },
     gpt: { id: 'gpt-4o', name: 'GPT-4o', weight: 1.2 },
-    gemini: { id: 'gemini-1.5-flash', name: 'Gemini', weight: 1.1 },
-    perplexity: { id: 'llama-3.1-sonar-large-128k-online', name: 'Perplexity', weight: 1.0 },
+    gemini: { id: 'gemini-2.0-flash', name: 'Gemini', weight: 1.1 },
+    perplexity: { id: 'sonar-pro', name: 'Perplexity', weight: 1.0 },
     deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 0.9 },
-    grok: { id: 'grok-2-latest', name: 'Grok', weight: 1.0 },
+    grok: { id: 'grok-3', name: 'Grok', weight: 1.0 },
     groq: { id: 'llama-3.3-70b-versatile', name: 'Groq', weight: 0.85 }
   }
 };
