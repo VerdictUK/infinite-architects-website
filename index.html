@@ -26203,6 +26203,9 @@ window.SynthesisViz = SynthesisViz;
 
         let synthesisContainer = null;
 
+        // Failsafe timeout ID - ensures visualization doesn't hang forever
+        let visualizationTimeout = null;
+
         if (mode === 'full' && window.SynthesisViz) {
             // Create synthesis container in messages area
             synthesisContainer = document.createElement('div');
@@ -26217,6 +26220,23 @@ window.SynthesisViz = SynthesisViz;
 
             // Show the AI convergence
             window.SynthesisViz.show(synthesisContainer);
+
+            // FAILSAFE: Auto-hide visualization after 35 seconds if API hangs
+            visualizationTimeout = setTimeout(() => {
+                console.warn('[ASK BOOK] Visualization timeout - forcing cleanup');
+                if (window.SynthesisViz) {
+                    window.SynthesisViz.hide();
+                }
+                if (synthesisContainer && synthesisContainer.parentNode) {
+                    synthesisContainer.remove();
+                }
+                // Show timeout error if still loading
+                if (state.isLoading) {
+                    UI.addError('The AI analysis is taking longer than expected. Please try again or use Quick mode.', 'timeout', 'Visualization timeout');
+                    state.isLoading = false;
+                    if (elements.send) elements.send.disabled = false;
+                }
+            }, 35000);
 
             // Add transcript header
             const transcriptDiv = document.createElement('div');
@@ -26288,6 +26308,9 @@ window.SynthesisViz = SynthesisViz;
 
                 // Now wait for synthesis response
                 const synthesisResponse = await synthesisPromise;
+
+                // Clear failsafe timeout since we got a response
+                if (visualizationTimeout) clearTimeout(visualizationTimeout);
 
                 // Hide synthesis visualization
                 if (window.SynthesisViz && synthesisContainer) {
@@ -26363,6 +26386,9 @@ window.SynthesisViz = SynthesisViz;
             }
         } catch (error) {
             console.error('[ASK BOOK] Error:', error);
+
+            // Clear failsafe timeout
+            if (visualizationTimeout) clearTimeout(visualizationTimeout);
 
             // Store the failed query for retry
             state.lastFailedQuery = query;
