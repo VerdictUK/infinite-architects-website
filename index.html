@@ -17585,11 +17585,64 @@
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
         // SCROLL POSITION FIX - Ensure page starts at top
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-        // AGGRESSIVE SCROLL RESET FOR MOBILE SAFARI
-        // Ensures page ALWAYS starts fresh from hero section
-        (function enforceScrollReset() {
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
+        // WELCOME BACK SYSTEM - Resume reading for returning visitors
+        (function initWelcomeBackSystem() {
+            const WELCOME_CONFIG = {
+                minScrollToSave: 300,
+                minTimeToSave: 10000,
+                sessionGapThreshold: 30 * 60 * 1000,
+                storageKeys: {
+                    scrollPosition: 'ia_resume_scroll',
+                    partNumber: 'ia_resume_part',
+                    partName: 'ia_resume_part_name',
+                    lastVisit: 'ia_resume_timestamp',
+                    sessionId: 'ia_session_id',
+                    hasSeenWelcome: 'ia_seen_welcome_this_session'
+                }
+            };
+
+            const welcomePartDefs = {
+                1: { name: 'Part I: The Thesis', percentage: 0 },
+                2: { name: 'Part II: The Evidence', percentage: 25 },
+                3: { name: 'Part III: The Philosophy', percentage: 50 },
+                4: { name: 'Part IV: The Stakes', percentage: 75 },
+                5: { name: 'Part V: Get The Book', percentage: 90 }
+            };
+
+            function getWelcomeCurrentPart() {
+                const scrollY = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+                if (scrollPercent >= 85) return 5;
+                if (scrollPercent >= 65) return 4;
+                if (scrollPercent >= 45) return 3;
+                if (scrollPercent >= 20) return 2;
+                return 1;
+            }
+
+            let welcomeSaveTimeout = null;
+            let welcomePageLoadTime = Date.now();
+
+            function saveWelcomeProgress() {
+                if (Date.now() - welcomePageLoadTime < WELCOME_CONFIG.minTimeToSave) return;
+                if (window.scrollY < WELCOME_CONFIG.minScrollToSave) return;
+                const currentPart = getWelcomeCurrentPart();
+                try {
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.scrollPosition, window.scrollY.toString());
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.partNumber, currentPart.toString());
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.partName, welcomePartDefs[currentPart].name);
+                    localStorage.setItem(WELCOME_CONFIG.storageKeys.lastVisit, Date.now().toString());
+                } catch (e) {}
+            }
+
+            function debouncedSaveWelcomeProgress() {
+                clearTimeout(welcomeSaveTimeout);
+                welcomeSaveTimeout = setTimeout(saveWelcomeProgress, 1000);
+            }
+
+            function calculateWelcomeProgress(scrollY) {
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                return docHeight > 0 ? Math.min(95, Math.round((scrollY / docHeight) * 100)) : 0;
             }
 
             function forceScrollTop() {
@@ -17599,26 +17652,136 @@
                 document.body.scrollTop = 0;
             }
 
-            forceScrollTop();
+            function checkReturningVisitor() {
+                try {
+                    const savedScroll = localStorage.getItem(WELCOME_CONFIG.storageKeys.scrollPosition);
+                    const savedPart = localStorage.getItem(WELCOME_CONFIG.storageKeys.partNumber);
+                    const lastVisit = localStorage.getItem(WELCOME_CONFIG.storageKeys.lastVisit);
+                    const hasSeenWelcome = sessionStorage.getItem(WELCOME_CONFIG.storageKeys.hasSeenWelcome);
 
-            // Handle bfcache (back-forward cache) restoration
-            window.addEventListener('pageshow', function(event) {
+                    if (hasSeenWelcome || !savedScroll || !savedPart || !lastVisit) return null;
+                    if (Date.now() - parseInt(lastVisit) < WELCOME_CONFIG.sessionGapThreshold) return null;
+
+                    const savedScrollNum = parseInt(savedScroll);
+                    const savedPartNum = parseInt(savedPart);
+                    if (savedScrollNum < WELCOME_CONFIG.minScrollToSave) return null;
+                    if (savedPartNum <= 1 && savedScrollNum < 800) return null;
+
+                    return {
+                        scrollPosition: savedScrollNum,
+                        partNumber: savedPartNum,
+                        partName: welcomePartDefs[savedPartNum]?.name || 'Part ' + savedPartNum,
+                        percentage: calculateWelcomeProgress(savedScrollNum)
+                    };
+                } catch (e) { return null; }
+            }
+
+            function showWelcomeBack(data) {
+                const overlay = document.getElementById('welcome-back-overlay');
+                if (!overlay) {
+                    forceScrollTop();
+                    return;
+                }
+
+                const partNameEl = document.getElementById('welcome-back-part-name');
+                const progressFill = document.getElementById('welcome-back-progress-fill');
+                const progressText = document.getElementById('welcome-back-progress-text');
+                const resumeBtn = document.getElementById('welcome-back-resume');
+                const freshBtn = document.getElementById('welcome-back-fresh');
+                const dismissBtn = document.getElementById('welcome-back-dismiss');
+
+                if (partNameEl) partNameEl.textContent = data.partName;
+                if (progressFill) progressFill.style.width = data.percentage + '%';
+                if (progressText) progressText.textContent = data.percentage + '% explored';
+
+                overlay.querySelectorAll('.progress-pip').forEach((pip, i) => {
+                    pip.classList.remove('completed', 'current');
+                    if (i + 1 < data.partNumber) pip.classList.add('completed');
+                    else if (i + 1 === data.partNumber) pip.classList.add('current');
+                });
+
+                function closeWelcomeBack() {
+                    overlay.classList.remove('active');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    sessionStorage.setItem(WELCOME_CONFIG.storageKeys.hasSeenWelcome, 'true');
+                }
+
+                if (resumeBtn) resumeBtn.onclick = () => {
+                    closeWelcomeBack();
+                    window.scrollTo({ top: data.scrollPosition, behavior: 'smooth' });
+                };
+
+                if (freshBtn) freshBtn.onclick = () => {
+                    closeWelcomeBack();
+                    try {
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.scrollPosition);
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.partNumber);
+                        localStorage.removeItem(WELCOME_CONFIG.storageKeys.partName);
+                    } catch (e) {}
+                    forceScrollTop();
+                };
+
+                if (dismissBtn) dismissBtn.onclick = () => {
+                    closeWelcomeBack();
+                    forceScrollTop();
+                };
+
+                overlay.onclick = (e) => {
+                    if (e.target === overlay) {
+                        closeWelcomeBack();
+                        forceScrollTop();
+                    }
+                };
+
+                const welcomeEscHandler = (e) => {
+                    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                        closeWelcomeBack();
+                        forceScrollTop();
+                        document.removeEventListener('keydown', welcomeEscHandler);
+                    }
+                };
+                document.addEventListener('keydown', welcomeEscHandler);
+
+                // Force scroll to top first, then show modal
                 forceScrollTop();
-                setTimeout(forceScrollTop, 0);
-                setTimeout(forceScrollTop, 50);
-                setTimeout(forceScrollTop, 100);
-            });
 
-            // Reset before page is cached/unloaded
-            window.addEventListener('pagehide', forceScrollTop);
-            window.addEventListener('beforeunload', forceScrollTop);
+                setTimeout(() => {
+                    overlay.classList.add('active');
+                    overlay.setAttribute('aria-hidden', 'false');
+                }, 100);
+            }
 
-            // Delayed resets for stubborn browsers
-            setTimeout(forceScrollTop, 0);
-            setTimeout(forceScrollTop, 10);
-            setTimeout(forceScrollTop, 50);
-            setTimeout(forceScrollTop, 100);
-            requestAnimationFrame(forceScrollTop);
+            function initWelcomeSystem() {
+                const returningData = checkReturningVisitor();
+
+                if (returningData) {
+                    showWelcomeBack(returningData);
+                } else {
+                    forceScrollTop();
+                    setTimeout(forceScrollTop, 0);
+                    setTimeout(forceScrollTop, 50);
+                    setTimeout(forceScrollTop, 100);
+                }
+
+                window.addEventListener('scroll', debouncedSaveWelcomeProgress, { passive: true });
+
+                window.addEventListener('pageshow', function(event) {
+                    if (event.persisted) {
+                        const data = checkReturningVisitor();
+                        if (data && !sessionStorage.getItem(WELCOME_CONFIG.storageKeys.hasSeenWelcome)) {
+                            showWelcomeBack(data);
+                        } else {
+                            forceScrollTop();
+                        }
+                    }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initWelcomeSystem);
+            } else {
+                initWelcomeSystem();
+            }
         })();
 
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
@@ -18019,8 +18182,13 @@
                 document.body.classList.add('cinematic');
                 loader.classList.add('hidden');
 
-                // Ensure page is at top when loader completes
-                window.scrollTo(0, 0);
+                // Only scroll to top if Welcome Back modal is not active
+                // (user may have clicked "Resume Reading" to go to their saved position)
+                const welcomeOverlay = document.getElementById('welcome-back-overlay');
+                const isWelcomeActive = welcomeOverlay && welcomeOverlay.classList.contains('active');
+                if (!isWelcomeActive && window.scrollY < 50) {
+                    window.scrollTo(0, 0);
+                }
 
                 // Initialize Three.js canvas only when library is ready
                 if (window.THREE) {
@@ -18560,45 +18728,8 @@
         // INITIALIZE
         // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
-        // ALWAYS START AT TOP - Aggressive reset for mobile Safari
-        // Prevents browser from restoring previous scroll position
-        (function initScrollReset() {
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-
-            function resetScroll() {
-                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                document.body.scrollTop = 0;
-            }
-
-            resetScroll();
-
-            // Handle bfcache restoration (critical for mobile Safari)
-            window.addEventListener('pageshow', function(e) {
-                resetScroll();
-                setTimeout(resetScroll, 0);
-                setTimeout(resetScroll, 50);
-            });
-
-            // Reset before caching
-            window.addEventListener('pagehide', resetScroll);
-
-            document.addEventListener('DOMContentLoaded', () => {
-                resetScroll();
-                const hero = document.getElementById('hero');
-                if (hero) {
-                    hero.scrollIntoView({ behavior: 'auto', block: 'start' });
-                }
-            });
-
-            window.addEventListener('load', () => {
-                setTimeout(resetScroll, 0);
-                setTimeout(resetScroll, 100);
-            });
-        })();
+        // Scroll reset now handled by Welcome Back System (line ~17588)
+        // Removed duplicate aggressive reset to allow "Continue where you left off" feature
 
         document.addEventListener('DOMContentLoaded', initLoader);
 
