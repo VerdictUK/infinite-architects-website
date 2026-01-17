@@ -14,7 +14,7 @@ body {
     color: #1a1a1a;
     max-width: 210mm;
     margin: 0 auto;
-    padding: 20mm 25mm;
+    padding: 15mm 20mm;
 }
 
 h1 {
@@ -34,52 +34,55 @@ h2 {
     letter-spacing: 1pt;
     border-bottom: 1px solid #ccc;
     padding-bottom: 4pt;
-    margin: 24pt 0 12pt;
+    margin: 20pt 0 10pt;
+    page-break-after: avoid;
 }
 
 h3 {
     font-family: var(--sans);
     font-size: 11pt;
     font-weight: 600;
-    margin: 16pt 0 8pt;
+    margin: 14pt 0 6pt;
+    page-break-after: avoid;
 }
 
 h4 {
     font-family: var(--sans);
     font-size: 10pt;
     font-weight: 600;
-    margin: 12pt 0 6pt;
+    margin: 10pt 0 4pt;
+    page-break-after: avoid;
 }
 
 p {
     text-align: justify;
-    margin: 0 0 10pt;
+    margin: 0 0 8pt;
     orphans: 3;
     widows: 3;
 }
 
 .title-subtitle {
     font-family: var(--serif);
-    font-size: 12pt;
+    font-size: 11pt;
     font-style: italic;
     text-align: center;
-    margin: 0 0 16pt;
+    margin: 0 0 12pt;
     color: #333;
 }
 
 .author-block {
     text-align: center;
-    margin: 16pt 0 8pt;
+    margin: 12pt 0 6pt;
     font-family: var(--sans);
 }
 
 .author-name {
-    font-size: 12pt;
+    font-size: 11pt;
     font-weight: 600;
 }
 
 .author-affiliation {
-    font-size: 10pt;
+    font-size: 9pt;
     font-style: italic;
     color: #555;
 }
@@ -87,51 +90,53 @@ p {
 .date {
     text-align: center;
     font-family: var(--sans);
-    font-size: 10pt;
+    font-size: 9pt;
     color: #666;
-    margin-bottom: 24pt;
+    margin-bottom: 16pt;
 }
 
 .abstract {
     background: #f8f8f8;
-    padding: 12pt 16pt;
-    margin: 16pt 0;
+    padding: 10pt 14pt;
+    margin: 12pt 0;
     border-left: 3pt solid #333;
+    page-break-inside: avoid;
 }
 
 .abstract-title {
     font-family: var(--sans);
-    font-size: 10pt;
+    font-size: 9pt;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1pt;
-    margin-bottom: 8pt;
+    margin-bottom: 6pt;
 }
 
 .keywords {
-    font-size: 9pt;
+    font-size: 8pt;
     color: #555;
-    margin-top: 8pt;
+    margin-top: 6pt;
 }
 
 .equation-box {
     background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
     border: 1px solid #ddd;
     border-radius: 4pt;
-    padding: 16pt;
-    margin: 16pt 0;
+    padding: 12pt;
+    margin: 12pt 0;
     text-align: center;
+    page-break-inside: avoid;
 }
 
 .equation-main {
-    font-size: 18pt;
+    font-size: 16pt;
     font-weight: 600;
     letter-spacing: 2pt;
-    margin-bottom: 8pt;
+    margin-bottom: 6pt;
 }
 
 .equation-caption {
-    font-size: 9pt;
+    font-size: 8pt;
     color: #666;
     font-style: italic;
 }
@@ -139,8 +144,9 @@ p {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12pt 0;
-    font-size: 9.5pt;
+    margin: 10pt 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
 }
 
 th {
@@ -148,12 +154,12 @@ th {
     font-family: var(--sans);
     font-weight: 600;
     text-align: left;
-    padding: 8pt;
+    padding: 6pt;
     border: 1px solid #ddd;
 }
 
 td {
-    padding: 6pt 8pt;
+    padding: 5pt 6pt;
     border: 1px solid #ddd;
     vertical-align: top;
 }
@@ -164,34 +170,36 @@ tr:nth-child(even) {
 
 code {
     font-family: var(--mono);
-    font-size: 9pt;
+    font-size: 8pt;
     background: #f4f4f4;
-    padding: 1pt 4pt;
+    padding: 1pt 3pt;
     border-radius: 2pt;
 }
 
 pre {
     font-family: var(--mono);
-    font-size: 8.5pt;
+    font-size: 8pt;
     background: #f4f4f4;
-    padding: 12pt;
+    padding: 10pt;
     border-radius: 4pt;
     overflow-x: auto;
     line-height: 1.4;
+    page-break-inside: avoid;
 }
 
 blockquote {
     border-left: 3pt solid #666;
-    padding-left: 12pt;
-    margin: 12pt 0;
+    padding-left: 10pt;
+    margin: 10pt 0;
     font-style: italic;
     color: #444;
 }
 
 figure {
-    margin: 20pt 0;
+    margin: 16pt 0;
     text-align: center;
     page-break-inside: avoid;
+    page-break-before: auto;
 }
 
 figure img {
@@ -202,11 +210,11 @@ figure img {
 
 figcaption {
     font-family: var(--sans);
-    font-size: 9pt;
+    font-size: 8pt;
     color: #555;
-    margin-top: 8pt;
+    margin-top: 6pt;
     text-align: justify;
-    padding: 0 20pt;
+    padding: 0 16pt;
 }
 
 .figure-label {
@@ -217,32 +225,38 @@ figcaption {
 hr {
     border: none;
     border-top: 1px solid #ddd;
-    margin: 24pt 0;
+    margin: 16pt 0;
 }
 
 ul, ol {
-    margin: 8pt 0;
-    padding-left: 24pt;
+    margin: 6pt 0;
+    padding-left: 20pt;
 }
 
 li {
-    margin-bottom: 4pt;
+    margin-bottom: 3pt;
 }
 
 .footer {
-    margin-top: 32pt;
-    padding-top: 12pt;
+    margin-top: 24pt;
+    padding-top: 10pt;
     border-top: 1px solid #ccc;
-    font-size: 9pt;
+    font-size: 8pt;
     color: #666;
     text-align: center;
 }
 
-@media print {
-    body { padding: 0; }
-    h2 { page-break-after: avoid; }
-    figure { page-break-inside: avoid; }
-    table { page-break-inside: avoid; }
+.page-break {
+    page-break-before: always;
+}
+
+.keep-together {
+    page-break-inside: avoid;
+}
+
+.section-start {
+    page-break-before: always;
+    padding-top: 10pt;
 }
 </style>
 
