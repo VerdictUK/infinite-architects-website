@@ -9,14 +9,15 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import algoliasearch from 'algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 
 // Algolia client for enhanced search (if configured)
-let algoliaIndex = null;
+let algoliaClient = null;
+const algoliaIndexName = process.env.ALGOLIA_INDEX_NAME || 'infinite_architects';
+
 if (process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_KEY) {
   try {
-    const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY);
-    algoliaIndex = client.initIndex(process.env.ALGOLIA_INDEX_NAME || 'infinite_architects');
+    algoliaClient = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY);
     console.log('[ASK BOOK] Algolia search enabled');
   } catch (e) {
     console.warn('[ASK BOOK] Algolia init failed:', e.message);
@@ -24,15 +25,19 @@ if (process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_KEY) {
 }
 
 /**
- * Search Algolia for relevant context (if configured)
+ * Search Algolia for relevant context (if configured) - v5 API
  */
 async function searchAlgolia(query) {
-  if (!algoliaIndex) return [];
+  if (!algoliaClient) return [];
 
   try {
-    const { hits } = await algoliaIndex.search(query, {
-      hitsPerPage: 5,
-      attributesToRetrieve: ['name', 'description', 'chapter', 'type', 'keywords']
+    const { hits } = await algoliaClient.searchSingleIndex({
+      indexName: algoliaIndexName,
+      searchParams: {
+        query,
+        hitsPerPage: 5,
+        attributesToRetrieve: ['name', 'description', 'chapter', 'type', 'keywords']
+      }
     });
     return hits.map(hit => ({
       type: hit.type,

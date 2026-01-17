@@ -8,7 +8,7 @@
  * Free tier: 10K records, 10K searches/month
  */
 
-import algoliasearch from 'algoliasearch';
+import { algoliasearch } from 'algoliasearch';
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -49,9 +49,9 @@ async function syncToAlgolia() {
         epistemicStatus: concept.epistemicStatus || 'NOVEL PROPOSAL'
       });
     });
-    console.log(`  - Loaded ${concepts.length} concepts`);
+    console.log(`  ✓ Loaded ${concepts.length} concepts`);
   } catch (e) {
-    console.warn('  - Could not load concepts:', e.message);
+    console.warn('  ⚠ Could not load concepts:', e.message);
   }
 
   // Load chapters
@@ -69,9 +69,9 @@ async function syncToAlgolia() {
         keyConcepts: chapter.keyConcepts || []
       });
     });
-    console.log(`  - Loaded ${chapters.length} chapters`);
+    console.log(`  ✓ Loaded ${chapters.length} chapters`);
   } catch (e) {
-    console.warn('  - Could not load chapters:', e.message);
+    console.warn('  ⚠ Could not load chapters:', e.message);
   }
 
   // Load quotes
@@ -89,9 +89,9 @@ async function syncToAlgolia() {
         keywords: quote.keywords || []
       });
     });
-    console.log(`  - Loaded ${quotes.length} quotes`);
+    console.log(`  ✓ Loaded ${quotes.length} quotes`);
   } catch (e) {
-    console.warn('  - Could not load quotes:', e.message);
+    console.warn('  ⚠ Could not load quotes:', e.message);
   }
 
   // Load FAQ
@@ -109,9 +109,9 @@ async function syncToAlgolia() {
         keywords: faq.patterns || []
       });
     });
-    console.log(`  - Loaded ${faqs.length} FAQs`);
+    console.log(`  ✓ Loaded ${faqs.length} FAQs`);
   } catch (e) {
-    console.warn('  - Could not load FAQs:', e.message);
+    console.warn('  ⚠ Could not load FAQs:', e.message);
   }
 
   console.log(`\nTotal records: ${records.length}`);
@@ -123,38 +123,44 @@ async function syncToAlgolia() {
 
   console.log(`\nSyncing to Algolia index: ${indexName}...`);
 
+  // Algolia v5 client
   const client = algoliasearch(appId, adminKey);
-  const index = client.initIndex(indexName);
 
-  // Configure index settings
-  await index.setSettings({
-    searchableAttributes: [
-      'name',
-      'description',
-      'keywords'
-    ],
-    attributesForFaceting: [
-      'type',
-      'chapter',
-      'epistemicStatus'
-    ],
-    customRanking: [
-      'desc(type=concept)',
-      'desc(type=chapter)',
-      'desc(type=quote)'
-    ],
-    highlightPreTag: '<mark>',
-    highlightPostTag: '</mark>'
+  // Configure index settings (v5 API)
+  console.log('  → Configuring search settings...');
+  await client.setSettings({
+    indexName,
+    indexSettings: {
+      searchableAttributes: [
+        'name',
+        'description',
+        'keywords'
+      ],
+      attributesForFaceting: [
+        'type',
+        'chapter',
+        'epistemicStatus'
+      ],
+      highlightPreTag: '<mark>',
+      highlightPostTag: '</mark>'
+    }
   });
 
-  // Upload records
-  const { objectIDs } = await index.saveObjects(records);
+  // Upload records (v5 API)
+  console.log('  → Uploading records...');
+  const response = await client.saveObjects({
+    indexName,
+    objects: records
+  });
 
-  console.log(`\nSuccess! Synced ${objectIDs.length} records to Algolia.`);
+  console.log(`\n✅ Success! Synced ${records.length} records to Algolia.`);
   console.log('\nYour search index is ready. Add these to Vercel:');
   console.log(`  ALGOLIA_APP_ID=${appId}`);
   console.log(`  ALGOLIA_SEARCH_KEY=<your-search-only-key>`);
   console.log(`  ALGOLIA_INDEX_NAME=${indexName}`);
 }
 
-syncToAlgolia().catch(console.error);
+syncToAlgolia().catch(err => {
+  console.error('\n❌ Sync failed:', err.message);
+  process.exit(1);
+});
