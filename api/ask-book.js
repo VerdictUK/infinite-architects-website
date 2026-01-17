@@ -35,15 +35,17 @@ async function searchAlgolia(query) {
       indexName: algoliaIndexName,
       searchParams: {
         query,
-        hitsPerPage: 5,
-        attributesToRetrieve: ['name', 'description', 'chapter', 'type', 'keywords']
+        hitsPerPage: 8,
+        attributesToRetrieve: ['name', 'description', 'chapter', 'type', 'keywords', 'text', 'title', 'part']
       }
     });
     return hits.map(hit => ({
       type: hit.type,
-      name: hit.name,
-      description: hit.description,
-      chapter: hit.chapter
+      name: hit.name || hit.title,
+      description: hit.description || hit.text?.slice(0, 500),
+      chapter: hit.chapter,
+      part: hit.part,
+      text: hit.text
     }));
   } catch (e) {
     console.warn('[ASK BOOK] Algolia search failed:', e.message);
@@ -851,11 +853,17 @@ export default async function handler(req, res) {
     // Enhance context with Algolia results
     let context = buildContext(kbResults);
     if (algoliaResults.length > 0) {
-      context += '\n\nADDITIONAL RELEVANT CONTENT (from Algolia search):\n';
+      context += '\n\nRELEVANT BOOK PASSAGES (from full text search):\n';
       for (const hit of algoliaResults) {
-        context += `- [${hit.type}] ${hit.name}`;
-        if (hit.chapter) context += ` (Chapter ${hit.chapter})`;
-        context += `: ${hit.description?.slice(0, 200) || ''}\n`;
+        if (hit.type === 'book_passage' && hit.text) {
+          // Full book passage - include more text
+          context += `\n[${hit.name || hit.title}]:\n"${hit.text.slice(0, 600)}${hit.text.length > 600 ? '...' : ''}"\n`;
+        } else {
+          // Concept/quote - shorter format
+          context += `- [${hit.type}] ${hit.name}`;
+          if (hit.chapter) context += ` (Chapter ${hit.chapter})`;
+          context += `: ${hit.description?.slice(0, 300) || ''}\n`;
+        }
       }
     }
 
