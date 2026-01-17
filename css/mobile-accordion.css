@@ -8975,11 +8975,11 @@
 
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
-   COUNCIL VISUALISATION
+   AI CONVERGENCE
    The War Room in action - Multi-AI debate made visible
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council {
+.ai-synthesis {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8998,14 +8998,14 @@
    Three rings representing the three AI models
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council__rings {
+.ai-synthesis__rings {
     position: relative;
     width: 180px;
     height: 180px;
     margin-bottom: 32px;
 }
 
-.council__ring {
+.ai-synthesis__ring {
     position: absolute;
     border-radius: 50%;
     border: 2px solid transparent;
@@ -9014,42 +9014,42 @@
 }
 
 /* Claude ring - Gold, outermost, slowest */
-.council__ring--claude {
+.ai-synthesis__ring--claude {
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     color: #d4a84b;
-    animation: councilSpin 4s linear infinite;
+    animation: ai-synthesisSpin 4s linear infinite;
 }
 
 /* GPT ring - Blue, middle, medium speed */
-.council__ring--gpt {
+.ai-synthesis__ring--gpt {
     width: 70%;
     height: 70%;
     top: 15%;
     left: 15%;
     color: #3b82f6;
-    animation: councilSpin 3s linear infinite reverse;
+    animation: ai-synthesisSpin 3s linear infinite reverse;
 }
 
 /* Gemini ring - Green, innermost, fastest */
-.council__ring--gemini {
+.ai-synthesis__ring--gemini {
     width: 40%;
     height: 40%;
     top: 30%;
     left: 30%;
     color: #22c55e;
-    animation: councilSpin 2s linear infinite;
+    animation: ai-synthesisSpin 2s linear infinite;
 }
 
-@keyframes councilSpin {
+@keyframes ai-synthesisSpin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
 /* Ring glow effect */
-.council__ring-glow {
+.ai-synthesis__ring-glow {
     position: absolute;
     inset: -4px;
     border-radius: 50%;
@@ -9059,7 +9059,7 @@
 }
 
 /* Center pulse */
-.council__center {
+.ai-synthesis__center {
     position: absolute;
     width: 20%;
     height: 20%;
@@ -9075,7 +9075,7 @@
     animation: centerPulse 2s ease-in-out infinite;
 }
 
-.council__center-pulse {
+.ai-synthesis__center-pulse {
     position: absolute;
     inset: 0;
     border-radius: 50%;
@@ -9094,14 +9094,14 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
-   COUNCIL STATUS LABEL
+   AI CONVERGENCE STATUS LABEL
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council__status {
+.ai-synthesis__status {
     margin-bottom: 24px;
 }
 
-.council__label {
+.ai-synthesis__label {
     font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
     color: #d4a84b;
@@ -9120,7 +9120,7 @@
    Shows what each AI is doing
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council__models {
+.ai-synthesis__models {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -9129,7 +9129,7 @@
     max-width: 300px;
 }
 
-.council__model {
+.ai-synthesis__model {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -9142,9 +9142,9 @@
     animation: modelSlideIn 0.4s ease forwards;
 }
 
-.council__model:nth-child(1) { animation-delay: 0.1s; }
-.council__model:nth-child(2) { animation-delay: 0.4s; }
-.council__model:nth-child(3) { animation-delay: 0.7s; }
+.ai-synthesis__model:nth-child(1) { animation-delay: 0.1s; }
+.ai-synthesis__model:nth-child(2) { animation-delay: 0.4s; }
+.ai-synthesis__model:nth-child(3) { animation-delay: 0.7s; }
 
 @keyframes modelSlideIn {
     to {
@@ -9154,7 +9154,7 @@
 }
 
 /* Model dots */
-.council__model-dot {
+.ai-synthesis__model-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -9162,17 +9162,17 @@
     animation: dotPulse 1.5s ease-in-out infinite;
 }
 
-.council__model-dot--claude {
+.ai-synthesis__model-dot--claude {
     background: #d4a84b;
     box-shadow: 0 0 8px rgba(212, 168, 75, 0.5);
 }
 
-.council__model-dot--gpt {
+.ai-synthesis__model-dot--gpt {
     background: #3b82f6;
     box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
 }
 
-.council__model-dot--gemini {
+.ai-synthesis__model-dot--gemini {
     background: #22c55e;
     box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
 }
@@ -9183,7 +9183,7 @@
 }
 
 /* Model text */
-.council__model-name {
+.ai-synthesis__model-name {
     font-family: 'Space Mono', monospace;
     font-size: 0.72rem;
     color: rgba(240, 235, 227, 0.9);
@@ -9191,7 +9191,7 @@
     min-width: 60px;
 }
 
-.council__model-status {
+.ai-synthesis__model-status {
     font-family: 'Cormorant Garamond', serif;
     font-size: 0.85rem;
     color: rgba(240, 235, 227, 0.6);
@@ -9202,21 +9202,21 @@
 }
 
 /* Active state for model */
-.council__model.active {
+.ai-synthesis__model.active {
     border-color: rgba(212, 168, 75, 0.3);
     background: rgba(212, 168, 75, 0.05);
 }
 
-.council__model.active .council__model-status {
+.ai-synthesis__model.active .ai-synthesis__model-status {
     color: rgba(240, 235, 227, 0.85);
 }
 
 /* Complete state for model */
-.council__model.complete .council__model-dot {
+.ai-synthesis__model.complete .ai-synthesis__model-dot {
     animation: none;
 }
 
-.council__model.complete .council__model-status {
+.ai-synthesis__model.complete .ai-synthesis__model-status {
     color: #22c55e;
 }
 
@@ -9225,12 +9225,12 @@
    Shows overall consensus progress
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council__progress {
+.ai-synthesis__progress {
     width: 100%;
     max-width: 300px;
 }
 
-.council__progress-bar {
+.ai-synthesis__progress-bar {
     height: 3px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
@@ -9238,7 +9238,7 @@
     margin-bottom: 8px;
 }
 
-.council__progress-bar::after {
+.ai-synthesis__progress-bar::after {
     content: '';
     display: block;
     height: 100%;
@@ -9257,7 +9257,7 @@
     100% { width: 100%; }
 }
 
-.council__progress-text {
+.ai-synthesis__progress-text {
     font-family: 'Space Mono', monospace;
     font-size: 0.65rem;
     color: rgba(240, 235, 227, 0.5);
@@ -9267,22 +9267,22 @@
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
    CONVERGENCE STATE
-   When the council reaches consensus
+   When the ai-synthesis reaches consensus
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
-.council.converging .council__ring {
+.ai-synthesis.converging .ai-synthesis__ring {
     animation: ringConverge 1s ease-out forwards;
 }
 
-.council.converging .council__ring--claude {
+.ai-synthesis.converging .ai-synthesis__ring--claude {
     animation-delay: 0s;
 }
 
-.council.converging .council__ring--gpt {
+.ai-synthesis.converging .ai-synthesis__ring--gpt {
     animation-delay: 0.15s;
 }
 
-.council.converging .council__ring--gemini {
+.ai-synthesis.converging .ai-synthesis__ring--gemini {
     animation-delay: 0.3s;
 }
 
@@ -9297,7 +9297,7 @@
     }
 }
 
-.council.converging .council__center {
+.ai-synthesis.converging .ai-synthesis__center {
     animation: centerExpand 0.8s ease-out forwards 0.5s;
 }
 
@@ -9316,7 +9316,7 @@
     }
 }
 
-.council.converging .council__label {
+.ai-synthesis.converging .ai-synthesis__label {
     animation: labelFlash 0.5s ease-out forwards 0.8s;
 }
 
@@ -9328,61 +9328,61 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
-   COUNCIL MOBILE ADJUSTMENTS
+   AI CONVERGENCE MOBILE ADJUSTMENTS
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
 @media (max-width: 768px) {
-    .council {
+    .ai-synthesis {
         padding: 30px 16px;
         min-height: 260px;
     }
 
-    .council__rings {
+    .ai-synthesis__rings {
         width: 140px;
         height: 140px;
         margin-bottom: 24px;
     }
 
-    .council__models {
+    .ai-synthesis__models {
         max-width: 260px;
     }
 
-    .council__model {
+    .ai-synthesis__model {
         padding: 8px 12px;
         gap: 10px;
     }
 
-    .council__model-name {
+    .ai-synthesis__model-name {
         font-size: 0.68rem;
         min-width: 50px;
     }
 
-    .council__model-status {
+    .ai-synthesis__model-status {
         font-size: 0.78rem;
     }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
-   COUNCIL REDUCED MOTION
+   AI CONVERGENCE REDUCED MOTION
    Respect user preferences
    ═══════════════════════════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-    .council__ring,
-    .council__center,
-    .council__center-pulse,
-    .council__model-dot,
-    .council__label,
-    .council__progress-bar::after {
+    .ai-synthesis__ring,
+    .ai-synthesis__center,
+    .ai-synthesis__center-pulse,
+    .ai-synthesis__model-dot,
+    .ai-synthesis__label,
+    .ai-synthesis__progress-bar::after {
         animation: none;
     }
 
-    .council__model {
+    .ai-synthesis__model {
         opacity: 1;
         transform: none;
     }
 
-    .council__progress-bar::after {
+    .ai-synthesis__progress-bar::after {
         width: 100%;
     }
 }

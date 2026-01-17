@@ -23673,10 +23673,10 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   COUNCIL VISUALIZATION STYLES - 4 AI Debate War Room
+   AI CONVERGENCE STYLES - 4 AI Debate War Room
    ═══════════════════════════════════════════════════════════════════════════ */
 
-.ask-book-chat__council-container {
+.ask-book-chat__synthesis-container {
     background: linear-gradient(135deg, rgba(10, 12, 20, 0.95), rgba(4, 5, 12, 0.98));
     border: 1px solid rgba(212, 168, 75, 0.3);
     border-radius: 16px;
@@ -23686,7 +23686,7 @@
     overflow: hidden;
 }
 
-.ask-book-chat__council-container::before {
+.ask-book-chat__synthesis-container::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -23694,7 +23694,7 @@
     pointer-events: none;
 }
 
-.ask-book-chat__council-title {
+.ask-book-chat__synthesis-title {
     font-family: 'Cinzel', serif;
     font-size: 1.1rem;
     color: #d4a84b;
@@ -23704,54 +23704,54 @@
     letter-spacing: 2px;
 }
 
-/* Council Rings Animation */
-.council {
+/* Convergence Rings Animation */
+.ai-synthesis {
     position: relative;
     width: 200px;
     height: 200px;
     margin: 0 auto 24px;
 }
 
-.council__rings {
+.ai-synthesis__rings {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.council__ring {
+.ai-synthesis__ring {
     position: absolute;
     border-radius: 50%;
     border: 2px solid;
-    animation: council-spin 3s linear infinite;
+    animation: synthesis-spin 3s linear infinite;
 }
 
-.council__ring--claude {
+.ai-synthesis__ring--claude {
     inset: 0;
     border-color: #d4a84b;
     animation-duration: 4s;
 }
 
-.council__ring--gpt {
+.ai-synthesis__ring--gpt {
     inset: 20px;
     border-color: #10a37f;
     animation-duration: 3s;
     animation-direction: reverse;
 }
 
-.council__ring--gemini {
+.ai-synthesis__ring--gemini {
     inset: 40px;
     border-color: #4285f4;
     animation-duration: 2.5s;
 }
 
-.council__ring--perplexity {
+.ai-synthesis__ring--perplexity {
     inset: 60px;
     border-color: #8b5cf6;
     animation-duration: 2s;
     animation-direction: reverse;
 }
 
-.council__ring-glow {
+.ai-synthesis__ring-glow {
     position: absolute;
     width: 10px;
     height: 10px;
@@ -23763,12 +23763,12 @@
     box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
 }
 
-.council__ring--claude .council__ring-glow { background: #d4a84b; }
-.council__ring--gpt .council__ring-glow { background: #10a37f; }
-.council__ring--gemini .council__ring-glow { background: #4285f4; }
-.council__ring--perplexity .council__ring-glow { background: #8b5cf6; }
+.ai-synthesis__ring--claude .ai-synthesis__ring-glow { background: #d4a84b; }
+.ai-synthesis__ring--gpt .ai-synthesis__ring-glow { background: #10a37f; }
+.ai-synthesis__ring--gemini .ai-synthesis__ring-glow { background: #4285f4; }
+.ai-synthesis__ring--perplexity .ai-synthesis__ring-glow { background: #8b5cf6; }
 
-.council__center {
+.ai-synthesis__center {
     position: absolute;
     inset: 75px;
     background: radial-gradient(circle, rgba(212, 168, 75, 0.2), transparent);
@@ -23778,53 +23778,53 @@
     justify-content: center;
 }
 
-.council__center-pulse {
+.ai-synthesis__center-pulse {
     width: 30px;
     height: 30px;
     background: #d4a84b;
     border-radius: 50%;
-    animation: council-pulse 1.5s ease-in-out infinite;
+    animation: synthesis-pulse 1.5s ease-in-out infinite;
 }
 
-@keyframes council-spin {
+@keyframes synthesis-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-@keyframes council-pulse {
+@keyframes synthesis-pulse {
     0%, 100% { transform: scale(1); opacity: 0.8; }
     50% { transform: scale(1.3); opacity: 1; }
 }
 
-/* Council Status */
-.council__status {
+/* Convergence Status */
+.ai-synthesis__status {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.council__label {
+.ai-synthesis__label {
     font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
     color: #d4a84b;
     letter-spacing: 3px;
     text-transform: uppercase;
-    animation: council-status-pulse 2s ease-in-out infinite;
+    animation: synthesis-status-pulse 2s ease-in-out infinite;
 }
 
-@keyframes council-status-pulse {
+@keyframes synthesis-status-pulse {
     0%, 100% { opacity: 0.7; }
     50% { opacity: 1; }
 }
 
-/* Council Models Grid - 4 AI models */
-.council__models {
+/* Convergence Models Grid - 4 AI models */
+.ai-synthesis__models {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.council__model {
+.ai-synthesis__model {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -23833,19 +23833,19 @@
     transition: all 0.3s ease;
 }
 
-.council__model.active {
+.ai-synthesis__model.active {
     background: rgba(212, 168, 75, 0.1);
     border-color: rgba(212, 168, 75, 0.5);
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(212, 168, 75, 0.2);
 }
 
-.council__model.complete {
+.ai-synthesis__model.complete {
     background: rgba(34, 197, 94, 0.1);
     border-color: rgba(34, 197, 94, 0.3);
 }
 
-.council__model-dot {
+.ai-synthesis__model-dot {
     display: inline-block;
     width: 8px;
     height: 8px;
@@ -23854,15 +23854,15 @@
     animation: model-dot-pulse 1s ease-in-out infinite;
 }
 
-.council__model-dot--claude { background: #d4a84b; }
-.council__model-dot--gpt { background: #10a37f; }
-.council__model-dot--gemini { background: #4285f4; }
+.ai-synthesis__model-dot--claude { background: #d4a84b; }
+.ai-synthesis__model-dot--gpt { background: #10a37f; }
+.ai-synthesis__model-dot--gemini { background: #4285f4; }
 
-.council__model.active .council__model-dot {
+.ai-synthesis__model.active .ai-synthesis__model-dot {
     animation: model-dot-pulse 0.5s ease-in-out infinite;
 }
 
-.council__model.complete .council__model-dot {
+.ai-synthesis__model.complete .ai-synthesis__model-dot {
     background: #22c55e;
     animation: none;
 }
@@ -23872,7 +23872,7 @@
     50% { opacity: 1; transform: scale(1.2); }
 }
 
-.council__model-name {
+.ai-synthesis__model-name {
     display: block;
     font-family: 'Space Mono', monospace;
     font-size: 0.7rem;
@@ -23880,7 +23880,7 @@
     margin-bottom: 4px;
 }
 
-.council__model-status {
+.ai-synthesis__model-status {
     display: block;
     font-size: 0.6rem;
     color: rgba(232, 212, 160, 0.6);
@@ -23888,28 +23888,28 @@
     line-height: 1.2;
 }
 
-/* Council Progress */
-.council__progress {
+/* Convergence Progress */
+.ai-synthesis__progress {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 4px;
     position: relative;
 }
 
-.council__progress-bar {
+.ai-synthesis__progress-bar {
     height: 6px;
     background: linear-gradient(90deg, #d4a84b, #f4c856);
     border-radius: 20px;
     width: 0%;
-    animation: council-progress 8s ease-out forwards;
+    animation: synthesis-progress 8s ease-out forwards;
 }
 
-@keyframes council-progress {
+@keyframes synthesis-progress {
     0% { width: 0%; }
     100% { width: 100%; }
 }
 
-.council__progress-text {
+.ai-synthesis__progress-text {
     display: block;
     text-align: center;
     font-size: 0.65rem;
@@ -23919,15 +23919,15 @@
 }
 
 /* Convergence State */
-.council.converging .council__ring {
+.ai-synthesis.converging .ai-synthesis__ring {
     animation-duration: 0.5s;
 }
 
-.council.converging .council__center-pulse {
-    animation: council-converge 0.5s ease-out forwards;
+.ai-synthesis.converging .ai-synthesis__center-pulse {
+    animation: synthesis-converge 0.5s ease-out forwards;
 }
 
-@keyframes council-converge {
+@keyframes synthesis-converge {
     0% { transform: scale(1); }
     50% { transform: scale(2); opacity: 0.5; }
     100% { transform: scale(1.5); opacity: 0; }
@@ -23990,7 +23990,7 @@
     font-style: italic;
 }
 
-/* Council Consensus Badge for AI messages */
+/* Convergence Consensus Badge for AI messages */
 .ask-book-chat__consensus-badge {
     display: inline-flex;
     align-items: center;
@@ -24010,34 +24010,34 @@
     font-size: 0.8rem;
 }
 
-/* Mobile adjustments for council - 4 AI */
+/* Mobile adjustments for AI convergence - 4 AI */
 @media (max-width: 480px) {
-    .council {
+    .ai-synthesis {
         width: 140px;
         height: 140px;
     }
 
-    .council__ring--gpt { inset: 12px; }
-    .council__ring--gemini { inset: 24px; }
-    .council__ring--perplexity { inset: 36px; }
-    .council__center { inset: 48px; }
+    .ai-synthesis__ring--gpt { inset: 12px; }
+    .ai-synthesis__ring--gemini { inset: 24px; }
+    .ai-synthesis__ring--perplexity { inset: 36px; }
+    .ai-synthesis__center { inset: 48px; }
 
-    .council__models {
+    .ai-synthesis__models {
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
     }
 
-    .council__model {
+    .ai-synthesis__model {
         padding: 8px 6px;
         text-align: center;
     }
 
-    .council__model-name {
+    .ai-synthesis__model-name {
         font-size: 0.6rem;
         margin-bottom: 2px;
     }
 
-    .council__model-status {
+    .ai-synthesis__model-status {
         font-size: 0.5rem;
         min-height: 2em;
     }
@@ -24045,7 +24045,7 @@
 
 /* Tablet - 2x2 grid */
 @media (min-width: 481px) and (max-width: 600px) {
-    .council__models {
+    .ai-synthesis__models {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -24063,7 +24063,7 @@
 }
 
 /* Perplexity model dot (4th AI) */
-.council__model-dot--perplexity { background: #8b5cf6; }
+.ai-synthesis__model-dot--perplexity { background: #8b5cf6; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    WORLD-CLASS POLISH - 360° Enhancement Package
@@ -24998,15 +24998,15 @@ html:not(:has(.accordion-item[open])) #canvas-container {
 }
 </style>
 
-<!-- Council Visualisation Controller - Multi-AI Debate Visualiser -->
+<!-- Convergence Visualisation Controller - Multi-AI Debate Visualiser -->
 <script>
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * COUNCIL VISUALISATION CONTROLLER
+ * AI CONVERGENCE CONTROLLER
  * Manages the visual representation of multi-AI debate (the "War Room")
  * ═══════════════════════════════════════════════════════════════════════════
  */
-const CouncilViz = {
+const SynthesisViz = {
     // Status messages for each model
     statusMessages: {
         claude: [
@@ -25045,7 +25045,7 @@ const CouncilViz = {
         'Synthesising perspectives...',
         'Resolving conflicts...',
         'Finalising response...',
-        'Council agrees...'
+        'Convergence...'
     ],
 
     // State
@@ -25057,63 +25057,63 @@ const CouncilViz = {
     },
 
     /**
-     * Create and show the council visualisation
+     * Create and show the AI convergence
      */
     show: function(container) {
         if (this.state.isActive) return;
         this.state.isActive = true;
 
-        // Create HTML - 4 AI Council
+        // Create HTML - 4 AI Convergence
         const html = `
-            <div class="council" id="councilViz">
-                <div class="council__rings">
-                    <div class="council__ring council__ring--claude">
-                        <div class="council__ring-glow"></div>
+            <div class="ai-synthesis" id="synthesisViz">
+                <div class="ai-synthesis__rings">
+                    <div class="ai-synthesis__ring ai-synthesis__ring--claude">
+                        <div class="ai-synthesis__ring-glow"></div>
                     </div>
-                    <div class="council__ring council__ring--gpt">
-                        <div class="council__ring-glow"></div>
+                    <div class="ai-synthesis__ring ai-synthesis__ring--gpt">
+                        <div class="ai-synthesis__ring-glow"></div>
                     </div>
-                    <div class="council__ring council__ring--gemini">
-                        <div class="council__ring-glow"></div>
+                    <div class="ai-synthesis__ring ai-synthesis__ring--gemini">
+                        <div class="ai-synthesis__ring-glow"></div>
                     </div>
-                    <div class="council__ring council__ring--perplexity">
-                        <div class="council__ring-glow"></div>
+                    <div class="ai-synthesis__ring ai-synthesis__ring--perplexity">
+                        <div class="ai-synthesis__ring-glow"></div>
                     </div>
-                    <div class="council__center">
-                        <div class="council__center-pulse"></div>
-                    </div>
-                </div>
-
-                <div class="council__status">
-                    <span class="council__label">4 AI COUNCIL IN SESSION</span>
-                </div>
-
-                <div class="council__models">
-                    <div class="council__model" data-model="claude">
-                        <span class="council__model-dot council__model-dot--claude"></span>
-                        <span class="council__model-name">Claude</span>
-                        <span class="council__model-status">Initialising...</span>
-                    </div>
-                    <div class="council__model" data-model="gpt">
-                        <span class="council__model-dot council__model-dot--gpt"></span>
-                        <span class="council__model-name">GPT-4</span>
-                        <span class="council__model-status">Waiting...</span>
-                    </div>
-                    <div class="council__model" data-model="gemini">
-                        <span class="council__model-dot council__model-dot--gemini"></span>
-                        <span class="council__model-name">Gemini</span>
-                        <span class="council__model-status">Waiting...</span>
-                    </div>
-                    <div class="council__model" data-model="perplexity">
-                        <span class="council__model-dot council__model-dot--perplexity"></span>
-                        <span class="council__model-name">Perplexity</span>
-                        <span class="council__model-status">Waiting...</span>
+                    <div class="ai-synthesis__center">
+                        <div class="ai-synthesis__center-pulse"></div>
                     </div>
                 </div>
 
-                <div class="council__progress">
-                    <div class="council__progress-bar"></div>
-                    <span class="council__progress-text">Building consensus...</span>
+                <div class="ai-synthesis__status">
+                    <span class="ai-synthesis__label">AI CONVERGENCE IN SESSION</span>
+                </div>
+
+                <div class="ai-synthesis__models">
+                    <div class="ai-synthesis__model" data-model="claude">
+                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--claude"></span>
+                        <span class="ai-synthesis__model-name">Claude</span>
+                        <span class="ai-synthesis__model-status">Initialising...</span>
+                    </div>
+                    <div class="ai-synthesis__model" data-model="gpt">
+                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--gpt"></span>
+                        <span class="ai-synthesis__model-name">GPT-4</span>
+                        <span class="ai-synthesis__model-status">Waiting...</span>
+                    </div>
+                    <div class="ai-synthesis__model" data-model="gemini">
+                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--gemini"></span>
+                        <span class="ai-synthesis__model-name">Gemini</span>
+                        <span class="ai-synthesis__model-status">Waiting...</span>
+                    </div>
+                    <div class="ai-synthesis__model" data-model="perplexity">
+                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--perplexity"></span>
+                        <span class="ai-synthesis__model-name">Perplexity</span>
+                        <span class="ai-synthesis__model-status">Waiting...</span>
+                    </div>
+                </div>
+
+                <div class="ai-synthesis__progress">
+                    <div class="ai-synthesis__progress-bar"></div>
+                    <span class="ai-synthesis__progress-text">Building consensus...</span>
                 </div>
             </div>
         `;
@@ -25187,7 +25187,7 @@ const CouncilViz = {
             element.classList.remove('active');
             element.classList.add('complete');
 
-            const status = element.querySelector('.council__model-status');
+            const status = element.querySelector('.ai-synthesis__model-status');
             if (status) {
                 status.textContent = 'Complete ✓';
             }
@@ -25198,7 +25198,7 @@ const CouncilViz = {
      * Update a model's status text
      */
     updateModelStatus: function(model, status) {
-        const element = document.querySelector(`[data-model="${model}"] .council__model-status`);
+        const element = document.querySelector(`[data-model="${model}"] .ai-synthesis__model-status`);
         if (element) {
             element.textContent = status;
         }
@@ -25208,7 +25208,7 @@ const CouncilViz = {
      * Start the consensus phase
      */
     startConsensus: function() {
-        const progressText = document.querySelector('.council__progress-text');
+        const progressText = document.querySelector('.ai-synthesis__progress-text');
         let messageIndex = 0;
 
         this.state.progressInterval = setInterval(() => {
@@ -25223,11 +25223,11 @@ const CouncilViz = {
      * Trigger convergence animation (when response is ready)
      */
     converge: function() {
-        const council = document.getElementById('councilViz');
-        if (council) {
-            council.classList.add('converging');
+        const synthesis = document.getElementById('synthesisViz');
+        if (synthesis) {
+            synthesis.classList.add('converging');
 
-            const label = council.querySelector('.council__label');
+            const label = synthesis.querySelector('.ai-synthesis__label');
             if (label) {
                 label.textContent = 'CONSENSUS REACHED';
             }
@@ -25248,13 +25248,13 @@ const CouncilViz = {
             clearInterval(this.state.progressInterval);
         }
 
-        const council = document.getElementById('councilViz');
-        if (council) {
-            council.style.opacity = '0';
-            council.style.transform = 'scale(0.9)';
+        const synthesis = document.getElementById('synthesisViz');
+        if (synthesis) {
+            synthesis.style.opacity = '0';
+            synthesis.style.transform = 'scale(0.9)';
 
             setTimeout(() => {
-                council.remove();
+                synthesis.remove();
             }, 300);
         }
 
@@ -25277,7 +25277,7 @@ const CouncilViz = {
 };
 
 // Export for global use
-window.CouncilViz = CouncilViz;
+window.SynthesisViz = SynthesisViz;
 </script>
 
 <!-- Ask Book Chat JavaScript - ULTIMATE INTELLIGENCE ENGINE -->
@@ -25297,7 +25297,7 @@ window.CouncilViz = CouncilViz;
  * - Feedback collection
  * - Contextual purchase CTAs
  * - Rich markdown rendering
- * - Council UI visualisation
+ * - Convergence UI visualisation
  * - Error recovery
  * ═══════════════════════════════════════════════════════════════════════════
  */
@@ -25753,7 +25753,7 @@ window.CouncilViz = CouncilViz;
 
     // ═══════════════════════════════════════════════════════════════════════
     // UI COMPONENTS
-    // NOTE: CouncilViz is defined globally at window.CouncilViz (see earlier in file)
+    // NOTE: SynthesisViz is defined globally at window.SynthesisViz (see earlier in file)
     // ═══════════════════════════════════════════════════════════════════════
 
     const UI = {
@@ -25785,7 +25785,7 @@ window.CouncilViz = CouncilViz;
 
         addMessage: function(text, type, options = {}) {
             if (!elements.messages) return;
-            const { sources, models, relatedQuestions, showCTA, isCouncilConsensus } = options;
+            const { sources, models, relatedQuestions, showCTA, isConvergenceConsensus } = options;
 
             if (elements.welcome) elements.welcome.style.display = 'none';
             if (elements.suggestions) elements.suggestions.style.display = 'none';
@@ -25793,11 +25793,11 @@ window.CouncilViz = CouncilViz;
             const msgDiv = document.createElement('div');
             msgDiv.className = `ask-book-chat__message ask-book-chat__message--${type}`;
 
-            // Add Council Consensus badge for Deep Analysis responses
-            if (type === 'ai' && isCouncilConsensus) {
+            // Add Convergence Consensus badge for Deep Analysis responses
+            if (type === 'ai' && isConvergenceConsensus) {
                 const consensusBadge = document.createElement('div');
                 consensusBadge.className = 'ask-book-chat__consensus-badge';
-                consensusBadge.innerHTML = '4 AI Council Consensus';
+                consensusBadge.innerHTML = '4 AI Convergence';
                 msgDiv.appendChild(consensusBadge);
             }
 
@@ -25902,7 +25902,7 @@ window.CouncilViz = CouncilViz;
             elements.messages.appendChild(msgDiv);
 
             // Force instant scroll (bypass CSS scroll-behavior: smooth)
-            // This ensures the message is immediately visible after council animation
+            // This ensures the message is immediately visible after synthesis animation
             const scrollToMessage = () => {
                 if (msgDiv && elements.messages) {
                     // Temporarily disable smooth scrolling
@@ -25946,8 +25946,8 @@ window.CouncilViz = CouncilViz;
         removeLoading: function() {
             const loading = document.getElementById('askBookLoading');
             if (loading) loading.remove();
-            const councilContainer = document.getElementById('councilContainer');
-            if (councilContainer) councilContainer.remove();
+            const synthesisContainer = document.getElementById('synthesisContainer');
+            if (synthesisContainer) synthesisContainer.remove();
         },
 
         addError: function(message, errorType = 'general', details = null) {
@@ -25966,7 +25966,7 @@ window.CouncilViz = CouncilViz;
                             : 'ANALYSIS FAILED';
 
             const errorSubtitle = errorType === 'network' ? 'Unable to reach intelligence servers'
-                               : errorType === 'timeout' ? 'The AI council took too long to respond'
+                               : errorType === 'timeout' ? 'The AI models took too long to respond'
                                : 'Error processing your query';
 
             errorDiv.innerHTML = `
@@ -26068,25 +26068,25 @@ window.CouncilViz = CouncilViz;
         const mode = (elements.fullMode && elements.fullMode.checked) ? 'full' : 'fast';
 
         // ═══════════════════════════════════════════════════════════════
-        // COUNCIL VISUALIZATION - Show 4 AI models deliberating
+        // AI CONVERGENCE VISUALIZATION - Show 4 AI models deliberating
         // ═══════════════════════════════════════════════════════════════
 
-        let councilContainer = null;
+        let synthesisContainer = null;
 
-        if (mode === 'full' && window.CouncilViz) {
-            // Create council container in messages area
-            councilContainer = document.createElement('div');
-            councilContainer.id = 'councilContainer';
-            councilContainer.className = 'ask-book-chat__council-container';
-            councilContainer.innerHTML = '<div class="ask-book-chat__council-title">🔮 AI Council Convened</div>';
+        if (mode === 'full' && window.SynthesisViz) {
+            // Create synthesis container in messages area
+            synthesisContainer = document.createElement('div');
+            synthesisContainer.id = 'synthesisContainer';
+            synthesisContainer.className = 'ask-book-chat__synthesis-container';
+            synthesisContainer.innerHTML = '<div class="ask-book-chat__synthesis-title">🔮 AI Convergence Initiated</div>';
 
             if (elements.messages) {
-                elements.messages.appendChild(councilContainer);
+                elements.messages.appendChild(synthesisContainer);
                 elements.messages.scrollTop = elements.messages.scrollHeight;
             }
 
-            // Show the council visualization
-            window.CouncilViz.show(councilContainer);
+            // Show the AI convergence
+            window.SynthesisViz.show(synthesisContainer);
 
             // Add transcript header
             const transcriptDiv = document.createElement('div');
@@ -26094,11 +26094,11 @@ window.CouncilViz = CouncilViz;
             transcriptDiv.innerHTML = `
                 <div class="ask-book-chat__transcript-header">
                     <span class="ask-book-chat__transcript-icon">📜</span>
-                    <span class="ask-book-chat__transcript-title">Council Deliberation</span>
+                    <span class="ask-book-chat__transcript-title">AI Synthesis</span>
                 </div>
-                <div class="ask-book-chat__transcript-entries" id="councilTranscript"></div>
+                <div class="ask-book-chat__transcript-entries" id="synthesisTranscript"></div>
             `;
-            councilContainer.appendChild(transcriptDiv);
+            synthesisContainer.appendChild(transcriptDiv);
 
             // Add simulated transcript entries
             addTranscriptEntries();
@@ -26110,24 +26110,24 @@ window.CouncilViz = CouncilViz;
             const response = await callAPI(query, mode);
 
             // ═══════════════════════════════════════════════════════════════
-            // HANDLE RESPONSE - Converge council and show answer
+            // HANDLE RESPONSE - Show convergence and show answer
             // ═══════════════════════════════════════════════════════════════
 
-            if (mode === 'full' && window.CouncilViz && councilContainer) {
+            if (mode === 'full' && window.SynthesisViz && synthesisContainer) {
                 // Trigger convergence animation
-                window.CouncilViz.converge();
+                window.SynthesisViz.converge();
 
                 // Wait for convergence animation
                 await new Promise(resolve => setTimeout(resolve, 1500));
 
-                // Hide council
-                window.CouncilViz.hide();
+                // Hide synthesis
+                window.SynthesisViz.hide();
 
-                // Wait for council container fade-out, then remove it
+                // Wait for synthesis container fade-out, then remove it
                 await new Promise(resolve => {
                     setTimeout(() => {
-                        if (councilContainer && councilContainer.parentNode) {
-                            councilContainer.remove();
+                        if (synthesisContainer && synthesisContainer.parentNode) {
+                            synthesisContainer.remove();
                         }
                         resolve();
                     }, 500);
@@ -26151,14 +26151,14 @@ window.CouncilViz = CouncilViz;
                     relatedQuestions: relatedQuestions,
                     showCTA: true,
                     query: query,
-                    isCouncilConsensus: mode === 'full'
+                    isConvergenceConsensus: mode === 'full'
                 });
 
                 // Track success
                 if (typeof gtag === 'function') {
                     gtag('event', 'chat_response', {
                         'event_category': 'Ask Book',
-                        'event_label': mode === 'full' ? 'council' : 'fast',
+                        'event_label': mode === 'full' ? 'convergence' : 'fast',
                         'value': response.responseTime
                     });
                 }
@@ -26171,11 +26171,11 @@ window.CouncilViz = CouncilViz;
             // Store the failed query for retry
             state.lastFailedQuery = query;
 
-            if (mode === 'full' && window.CouncilViz) {
-                window.CouncilViz.hide();
+            if (mode === 'full' && window.SynthesisViz) {
+                window.SynthesisViz.hide();
             }
-            if (councilContainer && councilContainer.parentNode) {
-                councilContainer.remove();
+            if (synthesisContainer && synthesisContainer.parentNode) {
+                synthesisContainer.remove();
             }
             UI.removeLoading();
 
@@ -26219,7 +26219,7 @@ window.CouncilViz = CouncilViz;
     // ═══════════════════════════════════════════════════════════════════════
 
     function addTranscriptEntries() {
-        const transcript = document.getElementById('councilTranscript');
+        const transcript = document.getElementById('synthesisTranscript');
         if (!transcript) return;
 
         const entries = [
@@ -26235,7 +26235,7 @@ window.CouncilViz = CouncilViz;
 
         entries.forEach(entry => {
             setTimeout(() => {
-                if (!document.getElementById('councilTranscript')) return;
+                if (!document.getElementById('synthesisTranscript')) return;
 
                 const entryDiv = document.createElement('div');
                 entryDiv.className = 'ask-book-chat__transcript-entry';

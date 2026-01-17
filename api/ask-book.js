@@ -2,7 +2,7 @@
  * ASK THE BOOK - Multi-Model AI Chat for Infinite Architects
  * Vercel Serverless Function
  *
- * Architecture: FastCouncil-inspired with pre-computed FAQ + 7-model triangulation
+ * Architecture: FastConvergence-inspired with pre-computed FAQ + 7-model convergence
  * Models: Claude (primary), GPT-4o, Gemini, Perplexity, DeepSeek, Grok, Groq
  */
 
@@ -179,20 +179,28 @@ const quotes = kb.quotes;
 const faq = kb.faq;
 const evidence = kb.evidence;
 
-// Configuration - 7 Model Council (full suite)
+// Configuration - 4 Model Convergence (optimised for speed)
 const CONFIG = {
   maxTokens: 1024,
   temperature: 0.3,
+  timeout: 10000, // 10 second timeout per model
   models: {
     claude: { id: 'claude-sonnet-4-20250514', name: 'Claude', weight: 1.3 },
     gpt: { id: 'gpt-4o', name: 'GPT-4o', weight: 1.2 },
     gemini: { id: 'gemini-2.0-flash', name: 'Gemini', weight: 1.1 },
-    perplexity: { id: 'sonar-pro', name: 'Perplexity', weight: 1.0 },
-    deepseek: { id: 'deepseek-chat', name: 'DeepSeek', weight: 0.9 },
-    grok: { id: 'grok-3', name: 'Grok', weight: 1.0 },
-    groq: { id: 'llama-3.3-70b-versatile', name: 'Groq', weight: 0.85 }
+    groq: { id: 'llama-3.3-70b-versatile', name: 'Groq', weight: 1.0 }
   }
 };
+
+/**
+ * Wrap a promise with a timeout
+ */
+function withTimeout(promise, ms, modelName) {
+  const timeout = new Promise((_, reject) => {
+    setTimeout(() => reject(new Error(`${modelName} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]);
+}
 
 // System prompt for AI models
 const SYSTEM_PROMPT = `You are an expert assistant for "Infinite Architects: Intelligence, Recursion, and the Creation of Everything" by Michael Darius Eastwood.
@@ -869,38 +877,58 @@ export default async function handler(req, res) {
 
     // Step 3: Call AI model(s)
     if (mode === 'fast') {
-      // Fast mode: Claude only
-      const claudeResult = await callClaude(query, context);
+      // Fast mode: Claude only with timeout
+      try {
+        const claudeResult = await withTimeout(
+          callClaude(query, context),
+          CONFIG.timeout,
+          'Claude'
+        );
 
-      return res.status(200).json({
-        success: claudeResult.success,
-        type: 'ai',
-        answer: claudeResult.content || 'Unable to generate response',
-        sources: kbResults.concepts.map(c => ({ name: c.name, chapter: c.chapter })),
-        model: 'Claude',
-        modelCount: 1,
-        responseTime: Date.now() - startTime
-      });
+        return res.status(200).json({
+          success: claudeResult.success,
+          type: 'ai',
+          answer: claudeResult.content || 'Unable to generate response',
+          sources: kbResults.concepts.map(c => ({ name: c.name, chapter: c.chapter })),
+          model: 'Claude',
+          modelCount: 1,
+          responseTime: Date.now() - startTime
+        });
+      } catch (timeoutError) {
+        // Claude timed out, return graceful error
+        return res.status(200).json({
+          success: false,
+          type: 'ai',
+          answer: 'The AI is taking longer than expected. Please try again.',
+          model: 'Claude',
+          modelCount: 0,
+          responseTime: Date.now() - startTime
+        });
+      }
     } else {
-      // Full mode: All 7 models for triangulation (AI Council)
-      const [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult, grokResult, groqResult] = await Promise.all([
-        callClaude(query, context),
-        callGPT(query, context),
-        callGemini(query, context),
-        callPerplexity(query, context),
-        callDeepSeek(query, context),
-        callGrok(query, context),
-        callGroq(query, context)
+      // Full mode: 4 models with timeouts (AI Convergence)
+      // Using Promise.allSettled so slow models don't block fast ones
+      const results = await Promise.allSettled([
+        withTimeout(callClaude(query, context), CONFIG.timeout, 'Claude'),
+        withTimeout(callGPT(query, context), CONFIG.timeout, 'GPT-4o'),
+        withTimeout(callGemini(query, context), CONFIG.timeout, 'Gemini'),
+        withTimeout(callGroq(query, context), CONFIG.timeout, 'Groq')
       ]);
 
-      const synthesis = synthesiseResponses(
-        [claudeResult, gptResult, geminiResult, perplexityResult, deepseekResult, grokResult, groqResult],
-        kbResults
-      );
+      // Extract successful results
+      const modelResults = results.map((result, index) => {
+        const modelNames = ['Claude', 'GPT-4o', 'Gemini', 'Groq'];
+        if (result.status === 'fulfilled') {
+          return result.value;
+        }
+        return { success: false, model: modelNames[index], error: result.reason?.message || 'Timed out' };
+      });
+
+      const synthesis = synthesiseResponses(modelResults, kbResults);
 
       return res.status(200).json({
         success: true,
-        type: 'ai-council',
+        type: 'ai-convergence',
         ...synthesis,
         responseTime: Date.now() - startTime
       });
