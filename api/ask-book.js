@@ -9,6 +9,42 @@
 import { readFileSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import algoliasearch from 'algoliasearch';
+
+// Algolia client for enhanced search (if configured)
+let algoliaIndex = null;
+if (process.env.ALGOLIA_APP_ID && process.env.ALGOLIA_SEARCH_KEY) {
+  try {
+    const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_SEARCH_KEY);
+    algoliaIndex = client.initIndex(process.env.ALGOLIA_INDEX_NAME || 'infinite_architects');
+    console.log('[ASK BOOK] Algolia search enabled');
+  } catch (e) {
+    console.warn('[ASK BOOK] Algolia init failed:', e.message);
+  }
+}
+
+/**
+ * Search Algolia for relevant context (if configured)
+ */
+async function searchAlgolia(query) {
+  if (!algoliaIndex) return [];
+
+  try {
+    const { hits } = await algoliaIndex.search(query, {
+      hitsPerPage: 5,
+      attributesToRetrieve: ['name', 'description', 'chapter', 'type', 'keywords']
+    });
+    return hits.map(hit => ({
+      type: hit.type,
+      name: hit.name,
+      description: hit.description,
+      chapter: hit.chapter
+    }));
+  } catch (e) {
+    console.warn('[ASK BOOK] Algolia search failed:', e.message);
+    return [];
+  }
+}
 
 // Get current directory for ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -801,9 +837,22 @@ export default async function handler(req, res) {
       });
     }
 
-    // Step 2: Search knowledge base for context
-    const kbResults = searchKnowledgeBase(query);
-    const context = buildContext(kbResults);
+    // Step 2: Search knowledge base for context (local + Algolia)
+    const [kbResults, algoliaResults] = await Promise.all([
+      Promise.resolve(searchKnowledgeBase(query)),
+      searchAlgolia(query)
+    ]);
+
+    // Enhance context with Algolia results
+    let context = buildContext(kbResults);
+    if (algoliaResults.length > 0) {
+      context += '\n\nADDITIONAL RELEVANT CONTENT (from Algolia search):\n';
+      for (const hit of algoliaResults) {
+        context += `- [${hit.type}] ${hit.name}`;
+        if (hit.chapter) context += ` (Chapter ${hit.chapter})`;
+        context += `: ${hit.description?.slice(0, 200) || ''}\n`;
+      }
+    }
 
     // Step 3: Call AI model(s)
     if (mode === 'fast') {

@@ -3321,7 +3321,141 @@
 
             /* NEWSLETTER */
             .newsletter-section {
-                padding: var(--space-lg) var(--space-md);
+                padding: var(--space-xl) var(--space-md);
+                background: linear-gradient(180deg, transparent, rgba(212, 168, 75, 0.03), transparent);
+                border-top: 1px solid rgba(212, 168, 75, 0.1);
+                border-bottom: 1px solid rgba(212, 168, 75, 0.1);
+                text-align: center;
+            }
+
+            .newsletter-inner {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .newsletter-label {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                letter-spacing: 0.2em;
+                color: var(--gold-primary);
+                margin-bottom: var(--space-sm);
+                opacity: 0.8;
+            }
+
+            .newsletter-title {
+                font-family: var(--font-display);
+                font-size: clamp(1.5rem, 4vw, 2rem);
+                color: var(--text-primary);
+                margin-bottom: var(--space-xs);
+            }
+
+            .newsletter-subtitle {
+                font-family: var(--font-serif);
+                font-size: 1rem;
+                color: var(--text-secondary);
+                margin-bottom: var(--space-md);
+            }
+
+            .newsletter-form {
+                display: flex;
+                flex-direction: column;
+                gap: var(--space-sm);
+                align-items: center;
+            }
+
+            .newsletter-input-group {
+                display: flex;
+                width: 100%;
+                max-width: 420px;
+                gap: 0.5rem;
+            }
+
+            .newsletter-input {
+                flex: 1;
+                padding: 0.875rem 1rem;
+                background: rgba(10, 12, 20, 0.8);
+                border: 1px solid rgba(212, 168, 75, 0.3);
+                border-radius: 8px;
+                color: var(--text-primary);
+                font-family: var(--font-serif);
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .newsletter-input:focus {
+                outline: none;
+                border-color: var(--gold-primary);
+                box-shadow: 0 0 20px rgba(212, 168, 75, 0.2);
+            }
+
+            .newsletter-input::placeholder {
+                color: var(--text-dim);
+            }
+
+            .newsletter-btn {
+                padding: 0.875rem 1.5rem;
+                background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+                border: none;
+                border-radius: 8px;
+                color: var(--void-deep);
+                font-family: var(--font-mono);
+                font-size: 0.85rem;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+            }
+
+            .newsletter-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(212, 168, 75, 0.4);
+            }
+
+            .newsletter-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .newsletter-message {
+                font-family: var(--font-serif);
+                font-size: 0.9rem;
+                margin-top: var(--space-xs);
+                min-height: 1.5rem;
+            }
+
+            .newsletter-message.success {
+                color: #4ade80;
+            }
+
+            .newsletter-message.error {
+                color: #f87171;
+            }
+
+            .newsletter-live {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: var(--space-md);
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-secondary);
+            }
+
+            .live-dot {
+                width: 8px;
+                height: 8px;
+                background: #4ade80;
+                border-radius: 50%;
+                animation: pulse-live 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse-live {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(0.8); }
             }
 
             /* FOOTER */
@@ -13016,7 +13150,7 @@
     <!-- Military-Grade Chat Interface - Tactical Intelligence System -->
     <link rel="stylesheet" href="css/chat-tactical.css">
 </head>
-<body class="has-ticker">
+<body class="has-ticker" data-clarity-id="v2la0ovmkx">
 
 <!-- Skip to Main Content — Accessibility -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -16950,6 +17084,35 @@
                 <div class="press-contact reveal reveal-delay-3">
                     <p>Interview requests, review copies & speaking engagements:</p>
                     <a href="mailto:press@michaeldariuseastwood.com" class="email-link">press@michaeldariuseastwood.com</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Subscription -->
+        <section class="newsletter-section" id="newsletter">
+            <div class="newsletter-inner">
+                <span class="newsletter-label">JOIN THE CONVERSATION</span>
+                <h3 class="newsletter-title">Get Notified When Predictions Come True</h3>
+                <p class="newsletter-subtitle">Be the first to know when the next prophecy is verified. No spam. Unsubscribe anytime.</p>
+                <form class="newsletter-form" id="subscribe-form">
+                    <div class="newsletter-input-group">
+                        <input type="email" name="email" placeholder="your@email.com" required class="newsletter-input" autocomplete="email">
+                        <button type="submit" class="newsletter-btn">
+                            <span class="newsletter-btn-text">Subscribe</span>
+                            <span class="newsletter-btn-loading" style="display:none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" stroke-dasharray="60" stroke-dashoffset="20">
+                                        <animate attributeName="stroke-dashoffset" values="60;0" dur="1s" repeatCount="indefinite"/>
+                                    </circle>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <p class="newsletter-message" id="subscribeMessage"></p>
+                </form>
+                <div class="newsletter-live" id="liveCounter" style="display:none;">
+                    <span class="live-dot"></span>
+                    <span class="live-text"><span id="live-visitor-count">0</span> people exploring right now</span>
                 </div>
             </div>
         </section>
@@ -21794,6 +21957,9 @@
 
 <!-- App Bundle (includes Titan Slam, 3D Book, Soul Engine) — loaded for all devices -->
 <script src="js/app-bundle.js" defer></script>
+
+<!-- Premium Integrations (Clarity, Presence, Search, Subscribe) -->
+<script src="js/integrations.js" defer></script>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════════
      LOCATION DETECTION — Auto-detect UK/US for pricing and links
