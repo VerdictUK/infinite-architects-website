@@ -426,7 +426,7 @@ pip install numpy scipy matplotlib pandas seaborn
 python arc_principle_research_toolkit.py
 ```
 
-All contributions welcome — including falsifications.
+All contributions welcome, including falsifications.
 
 ---
 
@@ -500,7 +500,7 @@ Extensions to cosmology, biology, or consciousness remain speculative until inde
 
 ---
 
-*Paper version: 5.0 (Ultimate Edition)*
+*Paper version: 5.0*
 
 *Date: 17 January 2026*
 
