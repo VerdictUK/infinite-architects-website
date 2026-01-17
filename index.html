@@ -14558,6 +14558,97 @@
                             </div>
                         </div>
 
+                        <!-- ════════════════════════════════════════════════════════════════════════════════
+                             TEST IT YOURSELF — Research Toolkit with Infographics
+                             ════════════════════════════════════════════════════════════════════════════════ -->
+                        <div class="thesis-toolkit">
+                            <div class="thesis-toolkit__header">
+                                <span class="thesis-toolkit__badge">OPEN SCIENCE</span>
+                                <h3 class="thesis-toolkit__title">Test It Yourself</h3>
+                                <p class="thesis-toolkit__subtitle">The code, data, and methodology are open. Run the tests. Challenge the findings.</p>
+                            </div>
+
+                            <!-- Infographic 1: Scaling Comparison -->
+                            <details class="thesis-infographic thesis-sub-accordion">
+                                <summary class="thesis-infographic__trigger">
+                                    <span class="thesis-infographic__icon">📊</span>
+                                    <span class="thesis-infographic__label">
+                                        <strong>Parallel vs Sequential Scaling</strong>
+                                        <small>The core finding visualised</small>
+                                    </span>
+                                    <svg class="thesis-infographic__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </summary>
+                                <div class="thesis-infographic__content">
+                                    <img src="images/research/arc_scaling_comparison.png" alt="Scaling comparison: Parallel recursion (OpenAI o1) shows α ≈ 0.18, Sequential recursion (DeepSeek-R1) shows α ≈ 1.35" class="thesis-infographic__image" loading="lazy">
+                                    <p class="thesis-infographic__caption">
+                                        <strong>Left:</strong> Parallel sampling (majority voting) produces sub-linear scaling (α ≈ 0.18).
+                                        <strong>Right:</strong> Sequential chain-of-thought produces super-linear scaling (α ≈ 1.35).
+                                        Grey dotted line shows theoretical α = 2 limit.
+                                    </p>
+                                </div>
+                            </details>
+
+                            <!-- Infographic 2: Falsification Criteria -->
+                            <details class="thesis-infographic thesis-sub-accordion">
+                                <summary class="thesis-infographic__trigger">
+                                    <span class="thesis-infographic__icon">🎯</span>
+                                    <span class="thesis-infographic__label">
+                                        <strong>Falsification Criteria</strong>
+                                        <small>Where the measured values fall</small>
+                                    </span>
+                                    <svg class="thesis-infographic__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </summary>
+                                <div class="thesis-infographic__content">
+                                    <img src="images/research/arc_falsification_regions.png" alt="Falsification criteria showing o1 in red FALSIFIED zone and DeepSeek-R1 in orange PARTIAL zone" class="thesis-infographic__image" loading="lazy">
+                                    <p class="thesis-infographic__caption">
+                                        <strong>Blue arrows:</strong> OpenAI o1 parallel sampling (α ≈ 0.1–0.3) falls in FALSIFIED zone.
+                                        <strong>Green arrow:</strong> DeepSeek-R1 sequential reasoning (α ≈ 1.34) falls in PARTIAL support zone—super-linear but not yet quadratic.
+                                        <strong>Dashed line:</strong> Theoretical limit α = 2.
+                                    </p>
+                                </div>
+                            </details>
+
+                            <!-- Infographic 3: Sensitivity Analysis -->
+                            <details class="thesis-infographic thesis-sub-accordion">
+                                <summary class="thesis-infographic__trigger">
+                                    <span class="thesis-infographic__icon">📈</span>
+                                    <span class="thesis-infographic__label">
+                                        <strong>Sensitivity Analysis</strong>
+                                        <small>Robustness to token ratio assumptions</small>
+                                    </span>
+                                    <svg class="thesis-infographic__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </summary>
+                                <div class="thesis-infographic__content">
+                                    <img src="images/research/arc_sensitivity_analysis.png" alt="Sensitivity analysis showing α remains above 1 for token ratios below 2.4×" class="thesis-infographic__image" loading="lazy">
+                                    <p class="thesis-infographic__caption">
+                                        The key finding (α > 1 for sequential reasoning) is <strong>robust</strong>. Even if the token ratio is 2.4× instead of the estimated 1.9×, α remains above 1.
+                                        Only at ratios above 2.4× does α drop below linear—and such large ratios are implausible given the model descriptions.
+                                    </p>
+                                </div>
+                            </details>
+
+                            <!-- GitHub Toolkit Link -->
+                            <div class="thesis-toolkit__cta">
+                                <div class="thesis-toolkit__cta-content">
+                                    <h4>Run the Analysis Yourself</h4>
+                                    <p>Python toolkit with complete source code, data, and visualisation scripts.</p>
+                                    <code class="thesis-toolkit__code">pip install numpy scipy matplotlib && python arc_principle_research_toolkit.py</code>
+                                </div>
+                                <a href="https://github.com/VerdictUK/infinite-architects-website/tree/main/arc-research-toolkit" class="thesis-toolkit__github-btn" target="_blank" rel="noopener">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                    <span>View on GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+
                         <!-- The Insight -->
                         <div class="equation-insight equation-insight--enhanced">
                             <h4 class="equation-insight__title">Why the Squaring Changes Everything</h4>
@@ -27439,6 +27530,192 @@ html:not(:has(.accordion-item[open])) #canvas-container {
 
 .thesis-parallel-insight strong {
     color: var(--gold-pale);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   THESIS TOOLKIT — Test It Yourself section with infographics
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+.thesis-toolkit {
+    background: linear-gradient(135deg, rgba(10, 12, 20, 0.8) 0%, rgba(26, 35, 126, 0.15) 100%);
+    border: 1px solid rgba(26, 35, 126, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.thesis-toolkit__header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.thesis-toolkit__badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #4fc3f7;
+    background: rgba(79, 195, 247, 0.15);
+    border: 1px solid rgba(79, 195, 247, 0.4);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+}
+
+.thesis-toolkit__title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.thesis-toolkit__subtitle {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Infographic Accordions */
+.thesis-infographic {
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(212, 168, 75, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.thesis-infographic__trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    background: rgba(10, 12, 20, 0.5);
+    cursor: pointer;
+    list-style: none;
+}
+
+.thesis-infographic__trigger::-webkit-details-marker {
+    display: none;
+}
+
+.thesis-infographic__icon {
+    font-size: 1.25rem;
+}
+
+.thesis-infographic__label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.thesis-infographic__label strong {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.thesis-infographic__label small {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.thesis-infographic__chevron {
+    stroke: var(--text-dim);
+    transition: transform 0.3s ease;
+}
+
+.thesis-infographic[open] .thesis-infographic__chevron {
+    transform: rotate(180deg);
+}
+
+.thesis-infographic__content {
+    padding: 1rem;
+    background: rgba(10, 12, 20, 0.3);
+    border-top: 1px solid rgba(212, 168, 75, 0.1);
+}
+
+.thesis-infographic__image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    margin-bottom: 0.75rem;
+}
+
+.thesis-infographic__caption {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.thesis-infographic__caption strong {
+    color: var(--gold-pale);
+}
+
+/* GitHub CTA */
+.thesis-toolkit__cta {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(10, 12, 20, 0.6);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 12px;
+}
+
+.thesis-toolkit__cta-content {
+    margin-bottom: 1rem;
+}
+
+.thesis-toolkit__cta-content h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--gold-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.thesis-toolkit__cta-content p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.75rem 0;
+}
+
+.thesis-toolkit__code {
+    display: block;
+    font-family: 'JetBrains Mono', var(--font-mono);
+    font-size: 0.7rem;
+    color: #4fc3f7;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.thesis-toolkit__github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: #fff;
+    background: linear-gradient(135deg, #333 0%, #24292e 100%);
+    padding: 0.7rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.thesis-toolkit__github-btn:hover {
+    background: linear-gradient(135deg, #444 0%, #333 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.thesis-toolkit__github-btn svg {
+    fill: #fff;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════
