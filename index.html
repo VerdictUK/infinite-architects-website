@@ -14586,11 +14586,6 @@
                                         <div class="limit-bar">
                                             <div class="limit-bar__fill" style="width: 65%;"></div>
                                         </div>
-                                        <div class="limit-labels">
-                                            <span>α = 0 (No recursion)</span>
-                                            <span>α = 1 (Linear)</span>
-                                            <span>α = 2 (Quadratic limit)</span>
-                                        </div>
                                     </div>
                                 </div>
                                 <p class="thesis-discovery__limit-text">
@@ -27586,11 +27581,13 @@ html:not(:has(.accordion-item[open])) #canvas-container {
 
 .limit-visual {
     margin-bottom: 1.5rem;
+    overflow: hidden;
 }
 
 .limit-scale {
     position: relative;
-    padding: 3rem 0 2rem;
+    padding: 2.5rem 0 1rem;
+    overflow: visible;
 }
 
 .limit-bar {
@@ -27599,6 +27596,7 @@ html:not(:has(.accordion-item[open])) #canvas-container {
     border-radius: 4px;
     position: relative;
     overflow: hidden;
+    margin-top: 2rem;
 }
 
 .limit-bar__fill {
@@ -27613,6 +27611,7 @@ html:not(:has(.accordion-item[open])) #canvas-container {
     top: 0;
     transform: translateX(-50%);
     text-align: center;
+    z-index: 1;
 }
 
 .limit-marker__value {
@@ -27632,12 +27631,7 @@ html:not(:has(.accordion-item[open])) #canvas-container {
 }
 
 .limit-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-dim);
+    display: none;
 }
 
 .thesis-discovery__limit-text {
@@ -27865,11 +27859,6 @@ html:not(:has(.accordion-item[open])) #canvas-container {
         justify-content: center;
     }
 
-    .limit-labels {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-    }
 }
 
 .thesis-significance {
