@@ -406,6 +406,30 @@ Wei, J., Wang, X., Schuurmans, D., et al. (2022). Chain-of-Thought Prompting Eli
 
 ---
 
+## TEST IT YOURSELF
+
+The complete research toolkit is available on GitHub:
+
+**https://github.com/VerdictUK/infinite-architects-website/tree/main/arc-research-toolkit**
+
+The toolkit includes:
+- Full Python implementation (~800 lines)
+- Pre-computed results for verification
+- Sensitivity analysis tools
+- Publication-quality visualisations
+- Functions to add your own data and test new models
+
+```bash
+git clone https://github.com/VerdictUK/infinite-architects-website.git
+cd infinite-architects-website/arc-research-toolkit
+pip install numpy scipy matplotlib pandas seaborn
+python arc_principle_research_toolkit.py
+```
+
+All contributions welcome — including falsifications.
+
+---
+
 ## APPENDIX A: REPRODUCIBILITY
 
 All calculations can be verified from publicly available sources:
