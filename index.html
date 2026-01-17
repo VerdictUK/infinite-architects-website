@@ -31033,5 +31033,70 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     EXCLUSIVE ACCORDION SYSTEM
+     Only one accordion can be open at a time within each group
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+    'use strict';
+
+    function initExclusiveAccordions() {
+        // Define accordion groups - each group allows only one open at a time
+        const accordionGroups = [
+            // Main section accordions (PART I through FAQ)
+            {
+                selector: '.accordion-container > .accordion-item',
+                name: 'main-sections'
+            },
+            // FAQ items within the FAQ accordion
+            {
+                selector: '.accordion-faq-item',
+                name: 'faq-items'
+            },
+            // Concept categories
+            {
+                selector: '.concepts-categories .concept-category',
+                name: 'concept-categories'
+            },
+            // Thesis detail sections
+            {
+                selector: '.thesis-significance .thesis-detail',
+                name: 'thesis-details'
+            }
+        ];
+
+        accordionGroups.forEach(group => {
+            const items = document.querySelectorAll(group.selector);
+            if (items.length === 0) return;
+
+            items.forEach(item => {
+                // Listen for the toggle event on each details element
+                item.addEventListener('toggle', function(e) {
+                    // Only act when opening (not closing)
+                    if (!this.open) return;
+
+                    // Close all other items in the same group
+                    items.forEach(otherItem => {
+                        if (otherItem !== this && otherItem.open) {
+                            otherItem.removeAttribute('open');
+                        }
+                    });
+                });
+            });
+        });
+
+        // console.log('Exclusive accordions initialised');
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initExclusiveAccordions);
+    } else {
+        initExclusiveAccordions();
+    }
+})();
+</script>
+
 </body>
 </html>
