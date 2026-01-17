@@ -26366,29 +26366,30 @@ window.SynthesisViz = SynthesisViz;
                 // Clear failsafe timeout since we got a response
                 if (visualizationTimeout) clearTimeout(visualizationTimeout);
 
-                // Hide synthesis visualization
-                if (window.SynthesisViz && synthesisContainer) {
+                // Hide synthesis visualization (only if still visible)
+                if (window.SynthesisViz && synthesisContainer && synthesisContainer.parentNode) {
                     window.SynthesisViz.converge();
                     await new Promise(resolve => setTimeout(resolve, 800));
                     window.SynthesisViz.hide();
-                    setTimeout(() => {
-                        if (synthesisContainer && synthesisContainer.parentNode) {
-                            synthesisContainer.remove();
-                        }
-                    }, 300);
+                    if (synthesisContainer.parentNode) {
+                        synthesisContainer.remove();
+                    }
                 }
 
                 // Update with synthesis response
                 if (synthesisResponse.success && synthesisResponse.answer) {
-                    // Remove the preliminary message if we showed one
+                    // Remove the preliminary message BEFORE adding synthesis message
                     if (fastMessageDiv && fastMessageDiv.parentNode) {
                         fastMessageDiv.remove();
                     }
 
+                    // Small delay to ensure DOM update completes
+                    await new Promise(resolve => requestAnimationFrame(resolve));
+
                     const relatedQuestions = synthesisResponse.relatedQuestions ||
                         RelatedQuestions.generate(query, synthesisResponse.answer, synthesisResponse.sources);
 
-                    UI.addMessage(synthesisResponse.answer, 'ai', {
+                    const synthesisMsgDiv = UI.addMessage(synthesisResponse.answer, 'ai', {
                         sources: synthesisResponse.sources,
                         models: synthesisResponse.models || ['Claude', 'GPT-4', 'Gemini', 'Groq'],
                         relatedQuestions: relatedQuestions,
@@ -26396,6 +26397,21 @@ window.SynthesisViz = SynthesisViz;
                         query: query,
                         isConvergenceConsensus: true
                     });
+
+                    // DEFENSIVE: Ensure message is visible and in DOM
+                    if (synthesisMsgDiv && elements.messages) {
+                        // Force the message to be visible
+                        synthesisMsgDiv.style.display = '';
+                        synthesisMsgDiv.style.visibility = 'visible';
+                        synthesisMsgDiv.style.opacity = '1';
+
+                        // Scroll to ensure it's visible
+                        requestAnimationFrame(() => {
+                            if (synthesisMsgDiv.parentNode) {
+                                synthesisMsgDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                            }
+                        });
+                    }
 
                     // Track success
                     if (typeof gtag === 'function') {
@@ -26418,7 +26434,7 @@ window.SynthesisViz = SynthesisViz;
                     const relatedQuestions = response.relatedQuestions ||
                         RelatedQuestions.generate(query, response.answer, response.sources);
 
-                    UI.addMessage(response.answer, 'ai', {
+                    const fastModeMsg = UI.addMessage(response.answer, 'ai', {
                         sources: response.sources,
                         models: ['Claude'],
                         relatedQuestions: relatedQuestions,
@@ -26426,6 +26442,18 @@ window.SynthesisViz = SynthesisViz;
                         query: query,
                         isConvergenceConsensus: false
                     });
+
+                    // DEFENSIVE: Ensure message is visible and in DOM
+                    if (fastModeMsg && elements.messages) {
+                        fastModeMsg.style.display = '';
+                        fastModeMsg.style.visibility = 'visible';
+                        fastModeMsg.style.opacity = '1';
+                        requestAnimationFrame(() => {
+                            if (fastModeMsg.parentNode) {
+                                fastModeMsg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                            }
+                        });
+                    }
 
                     if (typeof gtag === 'function') {
                         gtag('event', 'chat_response', {
