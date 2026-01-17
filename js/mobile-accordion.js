@@ -407,7 +407,7 @@
     },
 
     restore() {
-      // Check URL hash first
+      // Check URL hash first (direct links always work)
       const hash = window.location.hash.slice(1);
       if (hash && CONFIG.hashMap[hash]) {
         setTimeout(() => {
@@ -416,20 +416,164 @@
         return;
       }
 
-      // Then check sessionStorage
+      // Then check sessionStorage - but ASK before restoring
       try {
         const saved = sessionStorage.getItem(this.storageKey);
         if (saved) {
           const data = JSON.parse(saved);
-          if (Date.now() - data.timestamp < this.expiry) {
-            setTimeout(() => {
-              accordion.openById(data.accordionId);
-            }, 300);
+          if (Date.now() - data.timestamp < this.expiry && data.accordionId) {
+            // Show continue prompt instead of auto-restoring
+            this.showContinuePrompt(data);
           } else {
             this.cleanup();
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        this.cleanup();
+      }
+    },
+
+    showContinuePrompt(savedData) {
+      // Get the section name for display
+      const partData = CONFIG.partData[savedData.accordionId];
+      const sectionName = partData ? partData.part : 'your previous section';
+
+      // Create prompt overlay
+      const prompt = document.createElement('div');
+      prompt.id = 'continue-prompt';
+      prompt.innerHTML = `
+        <div class="continue-prompt-backdrop"></div>
+        <div class="continue-prompt-card">
+          <div class="continue-prompt-icon">📖</div>
+          <h3 class="continue-prompt-title">Welcome Back</h3>
+          <p class="continue-prompt-text">Continue reading from <strong>${sectionName}</strong>?</p>
+          <div class="continue-prompt-buttons">
+            <button class="continue-prompt-btn continue-prompt-btn--secondary" id="continueNo">Start Fresh</button>
+            <button class="continue-prompt-btn continue-prompt-btn--primary" id="continueYes">Continue</button>
+          </div>
+        </div>
+      `;
+
+      // Add styles if not already present
+      if (!document.getElementById('continue-prompt-styles')) {
+        const styles = document.createElement('style');
+        styles.id = 'continue-prompt-styles';
+        styles.textContent = `
+          #continue-prompt {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          .continue-prompt-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(2, 3, 10, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+          }
+          .continue-prompt-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(10, 12, 20, 0.98) 0%, rgba(5, 6, 10, 0.98) 100%);
+            border: 1px solid rgba(212, 168, 75, 0.3);
+            border-radius: 16px;
+            padding: 32px 24px;
+            max-width: 320px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 168, 75, 0.1);
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+          }
+          .continue-prompt-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+          }
+          .continue-prompt-title {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 1.25rem;
+            color: #f0ebe3;
+            margin: 0 0 8px;
+          }
+          .continue-prompt-text {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-size: 1rem;
+            color: rgba(240, 235, 227, 0.7);
+            margin: 0 0 24px;
+            line-height: 1.5;
+          }
+          .continue-prompt-text strong {
+            color: #d4a84b;
+          }
+          .continue-prompt-buttons {
+            display: flex;
+            gap: 12px;
+          }
+          .continue-prompt-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+          }
+          .continue-prompt-btn--secondary {
+            background: rgba(240, 235, 227, 0.1);
+            color: rgba(240, 235, 227, 0.8);
+            border: 1px solid rgba(240, 235, 227, 0.2);
+          }
+          .continue-prompt-btn--secondary:hover {
+            background: rgba(240, 235, 227, 0.15);
+            color: #f0ebe3;
+          }
+          .continue-prompt-btn--primary {
+            background: linear-gradient(135deg, #d4a84b 0%, #8b6914 100%);
+            color: #02030a;
+          }
+          .continue-prompt-btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(212, 168, 75, 0.4);
+          }
+        `;
+        document.head.appendChild(styles);
+      }
+
+      document.body.appendChild(prompt);
+
+      // Handle button clicks
+      document.getElementById('continueYes').addEventListener('click', () => {
+        prompt.remove();
+        setTimeout(() => {
+          accordion.openById(savedData.accordionId);
+        }, 100);
+        utils.haptic('light');
+      });
+
+      document.getElementById('continueNo').addEventListener('click', () => {
+        prompt.remove();
+        this.cleanup();
+        utils.haptic('light');
+      });
+
+      // Also close on backdrop click (start fresh)
+      prompt.querySelector('.continue-prompt-backdrop').addEventListener('click', () => {
+        prompt.remove();
+        this.cleanup();
+      });
     },
 
     handleHashChange() {
