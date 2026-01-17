@@ -2928,6 +2928,8 @@
             padding: 16px;
             max-height: 280px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .cosmic-insight-title {
@@ -3068,7 +3070,7 @@
             letter-spacing: 0.1em;
         }
 
-        /* Mobile positioning */
+        /* Mobile - Full Screen Experience */
         @media (max-width: 768px) {
             .cosmic-insight-trigger {
                 bottom: 160px;
@@ -3079,19 +3081,45 @@
             }
 
             .cosmic-insight-panel {
-                bottom: 220px;
-                left: 16px;
-                right: 16px;
-                width: auto;
-                max-width: calc(100vw - 32px);
+                /* Full screen on mobile like Ask Book */
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
             }
 
-            .cosmic-insight-image {
-                height: 140px;
+            .cosmic-insight-panel .cosmic-insight-header {
+                flex-shrink: 0;
+                padding: 16px 20px;
+                padding-top: max(16px, env(safe-area-inset-top));
             }
 
-            .cosmic-insight-body {
-                max-height: 220px;
+            .cosmic-insight-panel .cosmic-insight-image {
+                height: 200px;
+                flex-shrink: 0;
+            }
+
+            .cosmic-insight-panel .cosmic-insight-body {
+                flex: 1;
+                max-height: none;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 20px;
+            }
+
+            .cosmic-insight-panel .cosmic-insight-footer {
+                flex-shrink: 0;
+                padding: 16px 20px;
+                padding-bottom: max(16px, env(safe-area-inset-bottom));
             }
         }
 
@@ -19904,14 +19932,15 @@
                     </div>
                 `;
 
-                // Bind explore button
-                document.getElementById('cosmicExplore')?.addEventListener('click', async () => {
+                // Bind explore button - MUST stop propagation to prevent panel close
+                document.getElementById('cosmicExplore')?.addEventListener('click', async (e) => {
+                    e.stopPropagation(); // Prevent document click handler from closing panel
                     contentEl.innerHTML = '<div class="cosmic-insight-loading"><div class="cosmic-insight-loading-spinner"></div><span class="cosmic-insight-loading-text">Exploring the cosmos...</span></div>';
                     try {
                         const response = await fetch('/api/nasa-cosmic?random=true');
                         const newData = await response.json();
                         renderCosmicInsight(newData);
-                        triggerHaptic('light');
+                        triggerHaptic('medium');
                     } catch (err) {
                         console.error('[COSMIC] Explore error:', err);
                         renderCosmicInsight(data); // Restore previous
@@ -26274,6 +26303,31 @@ window.SynthesisViz = SynthesisViz;
                 // Show Claude's response as soon as it arrives
                 try {
                     const fastResponse = await fastPromise;
+
+                    // HIDE visualization immediately when fast response arrives
+                    if (window.SynthesisViz && synthesisContainer) {
+                        window.SynthesisViz.hide();
+                        if (synthesisContainer.parentNode) {
+                            synthesisContainer.remove();
+                        }
+                    }
+
+                    // If fast response was FAQ, use it directly (synthesis will be same)
+                    if (fastResponse.type === 'faq') {
+                        if (visualizationTimeout) clearTimeout(visualizationTimeout);
+                        const relatedQuestions = RelatedQuestions.generate(query, fastResponse.answer, fastResponse.sources);
+                        UI.addMessage(fastResponse.answer, 'ai', {
+                            sources: fastResponse.sources,
+                            models: ['Instant'],
+                            relatedQuestions: relatedQuestions,
+                            showCTA: true,
+                            query: query,
+                            isConvergenceConsensus: false
+                        });
+                        state.isLoading = false;
+                        if (elements.send) elements.send.disabled = false;
+                        return; // Skip synthesis - FAQ answers are definitive
+                    }
 
                     if (fastResponse.success && fastResponse.answer) {
                         // Show fast response immediately with "thinking" indicator
