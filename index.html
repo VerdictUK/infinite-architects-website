@@ -23650,15 +23650,130 @@
     color: rgba(240, 235, 227, 0.3);
 }
 
-/* Error Message */
+/* Error Message - Enhanced tactical styling */
 .ask-book-chat__error {
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: 12px;
-    padding: 12px 16px;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.12) 0%, rgba(220, 38, 38, 0.06) 100%);
+    border: 1px solid rgba(220, 38, 38, 0.35);
+    border-radius: 14px;
+    padding: 16px;
     color: #fca5a5;
     font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
+    animation: errorEntry 0.4s ease-out;
+}
+
+@keyframes errorEntry {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.ask-book-chat__error--network {
+    border-color: rgba(234, 179, 8, 0.4);
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(234, 179, 8, 0.05) 100%);
+}
+
+.ask-book-chat__error--timeout {
+    border-color: rgba(168, 85, 247, 0.4);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+}
+
+.ask-book-chat__error-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.ask-book-chat__error-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.ask-book-chat__error-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #fca5a5;
+    margin-bottom: 2px;
+}
+
+.ask-book-chat__error--network .ask-book-chat__error-title {
+    color: #fde047;
+}
+
+.ask-book-chat__error--timeout .ask-book-chat__error-title {
+    color: #d8b4fe;
+}
+
+.ask-book-chat__error-subtitle {
+    font-size: 0.68rem;
+    color: rgba(252, 165, 165, 0.7);
+}
+
+.ask-book-chat__error-message {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: rgba(240, 235, 227, 0.8);
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 12px;
+}
+
+.ask-book-chat__error-details {
+    font-size: 0.65rem;
+    color: rgba(252, 165, 165, 0.5);
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ask-book-chat__error-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.ask-book-chat__error-retry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(212, 168, 75, 0.15);
+    border: 1px solid rgba(212, 168, 75, 0.4);
+    border-radius: 8px;
+    color: #d4a84b;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__error-retry:hover {
+    background: rgba(212, 168, 75, 0.25);
+    transform: translateY(-1px);
+}
+
+.ask-book-chat__error-retry svg {
+    width: 14px;
+    height: 14px;
+}
+
+.ask-book-chat__error-dismiss {
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: rgba(240, 235, 227, 0.5);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ask-book-chat__error-dismiss:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(240, 235, 227, 0.8);
 }
 
 /* Mobile Responsive */
@@ -23824,10 +23939,12 @@
     background: linear-gradient(135deg, rgba(10, 12, 20, 0.95), rgba(4, 5, 12, 0.98));
     border: 1px solid rgba(212, 168, 75, 0.3);
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px 16px;
     margin: 16px 0;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .ask-book-chat__synthesis-container::before {
@@ -23888,9 +24005,9 @@
     animation-duration: 2.5s;
 }
 
-.ai-synthesis__ring--perplexity {
+.ai-synthesis__ring--groq {
     inset: 60px;
-    border-color: #8b5cf6;
+    border-color: #f97316;
     animation-duration: 2s;
     animation-direction: reverse;
 }
@@ -23910,7 +24027,7 @@
 .ai-synthesis__ring--claude .ai-synthesis__ring-glow { background: #d4a84b; }
 .ai-synthesis__ring--gpt .ai-synthesis__ring-glow { background: #10a37f; }
 .ai-synthesis__ring--gemini .ai-synthesis__ring-glow { background: #4285f4; }
-.ai-synthesis__ring--perplexity .ai-synthesis__ring-glow { background: #8b5cf6; }
+.ai-synthesis__ring--groq .ai-synthesis__ring-glow { background: #f97316; }
 
 .ai-synthesis__center {
     position: absolute;
@@ -23963,9 +24080,11 @@
 /* Convergence Models Grid - 4 AI models */
 .ai-synthesis__models {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .ai-synthesis__model {
@@ -24026,10 +24145,13 @@
 
 .ai-synthesis__model-status {
     display: block;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     color: rgba(232, 212, 160, 0.6);
-    min-height: 2.4em;
+    min-height: 1.8em;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Convergence Progress */
@@ -24139,19 +24261,87 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: linear-gradient(135deg, rgba(212, 168, 75, 0.2), rgba(244, 200, 86, 0.1));
-    border: 1px solid rgba(212, 168, 75, 0.4);
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.25), rgba(244, 200, 86, 0.12));
+    border: 1px solid rgba(212, 168, 75, 0.5);
     border-radius: 20px;
-    padding: 4px 12px;
+    padding: 5px 14px;
     font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.68rem;
     color: #d4a84b;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    letter-spacing: 0.03em;
+    animation: consensusBadgeEntry 0.5s ease-out;
+    box-shadow: 0 2px 8px rgba(212, 168, 75, 0.15);
+}
+
+@keyframes consensusBadgeEntry {
+    0% { opacity: 0; transform: translateY(-10px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .ask-book-chat__consensus-badge::before {
-    content: '✓';
-    font-size: 0.8rem;
+    content: '◆';
+    font-size: 0.6rem;
+    animation: consensusDotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes consensusDotPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Preliminary message styling - shows while synthesis in progress */
+.ask-book-chat__message--preliminary {
+    position: relative;
+    border-left: 2px solid rgba(212, 168, 75, 0.4);
+}
+
+.ask-book-chat__message--preliminary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(180deg, #d4a84b, #f4c856, #d4a84b);
+    background-size: 100% 200%;
+    animation: preliminaryPulse 1.5s linear infinite;
+}
+
+@keyframes preliminaryPulse {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% 200%; }
+}
+
+/* Smooth message entry animation */
+.ask-book-chat__message {
+    animation: messageEntry 0.35s ease-out;
+}
+
+@keyframes messageEntry {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Enhanced synthesis response - shows after convergence */
+.ask-book-chat__message--synthesised {
+    position: relative;
+}
+
+.ask-book-chat__message--synthesised::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.15), transparent 50%);
+    pointer-events: none;
+    opacity: 0;
+    animation: synthesisGlow 0.8s ease-out forwards;
+}
+
+@keyframes synthesisGlow {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 /* Mobile adjustments for AI convergence - 4 AI */
@@ -24163,7 +24353,7 @@
 
     .ai-synthesis__ring--gpt { inset: 12px; }
     .ai-synthesis__ring--gemini { inset: 24px; }
-    .ai-synthesis__ring--perplexity { inset: 36px; }
+    .ai-synthesis__ring--groq { inset: 36px; }
     .ai-synthesis__center { inset: 48px; }
 
     .ai-synthesis__models {
@@ -24206,8 +24396,8 @@
     cursor: not-allowed;
 }
 
-/* Perplexity model dot (4th AI) */
-.ai-synthesis__model-dot--perplexity { background: #8b5cf6; }
+/* Groq model dot (4th AI) */
+.ai-synthesis__model-dot--groq { background: #f97316; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    WORLD-CLASS POLISH - 360° Enhancement Package
@@ -25174,12 +25364,12 @@ const SynthesisViz = {
             'Cross-referencing academic literature...',
             'Verifying expert quotes...'
         ],
-        perplexity: [
-            'Searching web sources...',
-            'Verifying citations...',
-            'Cross-checking factual claims...',
-            'Analysing source reliability...',
-            'Compiling evidence...'
+        groq: [
+            'LPU acceleration engaged...',
+            'High-speed verification...',
+            'Cross-checking with council...',
+            'Finalising consensus...',
+            'Synthesis complete...'
         ]
     },
 
@@ -25220,7 +25410,7 @@ const SynthesisViz = {
                     <div class="ai-synthesis__ring ai-synthesis__ring--gemini">
                         <div class="ai-synthesis__ring-glow"></div>
                     </div>
-                    <div class="ai-synthesis__ring ai-synthesis__ring--perplexity">
+                    <div class="ai-synthesis__ring ai-synthesis__ring--groq">
                         <div class="ai-synthesis__ring-glow"></div>
                     </div>
                     <div class="ai-synthesis__center">
@@ -25248,9 +25438,9 @@ const SynthesisViz = {
                         <span class="ai-synthesis__model-name">Gemini</span>
                         <span class="ai-synthesis__model-status">Waiting...</span>
                     </div>
-                    <div class="ai-synthesis__model" data-model="perplexity">
-                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--perplexity"></span>
-                        <span class="ai-synthesis__model-name">Perplexity</span>
+                    <div class="ai-synthesis__model" data-model="groq">
+                        <span class="ai-synthesis__model-dot ai-synthesis__model-dot--groq"></span>
+                        <span class="ai-synthesis__model-name">Groq</span>
                         <span class="ai-synthesis__model-status">Waiting...</span>
                     </div>
                 </div>
@@ -25275,7 +25465,7 @@ const SynthesisViz = {
      * Start rotating status messages
      */
     startStatusRotation: function() {
-        const models = ['claude', 'gpt', 'gemini', 'perplexity'];
+        const models = ['claude', 'gpt', 'gemini', 'groq'];
         let currentModelIndex = 0;
         let currentMessageIndex = 0;
 
@@ -26168,7 +26358,7 @@ window.SynthesisViz = SynthesisViz;
     async function callAPI(query, mode = 'fast') {
         // Create AbortController for timeout
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
         try {
             const response = await fetch(CONFIG.apiEndpoint, {
@@ -26250,22 +26440,26 @@ window.SynthesisViz = SynthesisViz;
             // Show the AI convergence
             window.SynthesisViz.show(synthesisContainer);
 
-            // FAILSAFE: Auto-hide visualization after 35 seconds if API hangs
+            // FAILSAFE: Auto-hide visualization after 12 seconds if API hangs
             visualizationTimeout = setTimeout(() => {
-                console.warn('[ASK BOOK] Visualization timeout - forcing cleanup');
+                console.warn('[ASK BOOK] Server timeout - forcing cleanup');
                 if (window.SynthesisViz) {
                     window.SynthesisViz.hide();
                 }
                 if (synthesisContainer && synthesisContainer.parentNode) {
                     synthesisContainer.remove();
                 }
+                // Clean up any orphaned elements
+                document.querySelectorAll('.ai-synthesis, #synthesisViz, .ask-book-chat__synthesis-container').forEach(el => {
+                    if (el.parentNode) el.remove();
+                });
                 // Show timeout error if still loading
                 if (state.isLoading) {
-                    UI.addError('The AI analysis is taking longer than expected. Please try again or use Quick mode.', 'timeout', 'Visualization timeout');
+                    UI.addError('The AI is taking longer than expected. Try Quick mode for faster responses.', 'timeout', 'Analysis timeout');
                     state.isLoading = false;
                     if (elements.send) elements.send.disabled = false;
                 }
-            }, 35000);
+            }, 12000);
 
             // Add transcript header
             const transcriptDiv = document.createElement('div');
@@ -26304,13 +26498,23 @@ window.SynthesisViz = SynthesisViz;
                 try {
                     const fastResponse = await fastPromise;
 
-                    // HIDE visualization immediately when fast response arrives
-                    if (window.SynthesisViz && synthesisContainer) {
-                        window.SynthesisViz.hide();
-                        if (synthesisContainer.parentNode) {
-                            synthesisContainer.remove();
-                        }
+                    // Clear failsafe timeout
+                    if (visualizationTimeout) {
+                        clearTimeout(visualizationTimeout);
+                        visualizationTimeout = null;
                     }
+
+                    // ALWAYS hide visualization when fast response arrives
+                    if (window.SynthesisViz) {
+                        window.SynthesisViz.hide();
+                    }
+                    if (synthesisContainer && synthesisContainer.parentNode) {
+                        synthesisContainer.remove();
+                    }
+                    // Also remove any orphaned visualization elements
+                    document.querySelectorAll('.ai-synthesis, #synthesisViz, .ask-book-chat__synthesis-container').forEach(el => {
+                        if (el.parentNode) el.remove();
+                    });
 
                     // If fast response was FAQ, use it directly (synthesis will be same)
                     if (fastResponse.type === 'faq') {
@@ -26343,15 +26547,18 @@ window.SynthesisViz = SynthesisViz;
                             isPreliminary: true  // Flag for styling
                         });
 
-                        // Add synthesis indicator
+                        // Add preliminary styling class
                         if (fastMessageDiv) {
+                            fastMessageDiv.classList.add('ask-book-chat__message--preliminary');
+
+                            // Add synthesis indicator
                             const thinkingIndicator = document.createElement('div');
                             thinkingIndicator.className = 'ask-book-chat__synthesis-thinking';
                             thinkingIndicator.innerHTML = `
                                 <span class="synthesis-thinking-dots">
                                     <span></span><span></span><span></span>
                                 </span>
-                                <span class="synthesis-thinking-text">Multi-AI synthesis in progress...</span>
+                                <span class="synthesis-thinking-text">Synthesising 4 AI perspectives...</span>
                             `;
                             fastMessageDiv.appendChild(thinkingIndicator);
                         }
@@ -26397,6 +26604,11 @@ window.SynthesisViz = SynthesisViz;
                         query: query,
                         isConvergenceConsensus: true
                     });
+
+                    // Add synthesised styling class for glow effect
+                    if (synthesisMsgDiv) {
+                        synthesisMsgDiv.classList.add('ask-book-chat__message--synthesised');
+                    }
 
                     // DEFENSIVE: Ensure message is visible and in DOM
                     if (synthesisMsgDiv && elements.messages) {
@@ -26530,11 +26742,11 @@ window.SynthesisViz = SynthesisViz;
             { model: 'Claude', color: '#d4a84b', text: 'Analysing query against Chapter frameworks...', delay: 500 },
             { model: 'GPT-4', color: '#10a37f', text: 'Cross-referencing with verified sources...', delay: 1500 },
             { model: 'Gemini', color: '#4285f4', text: 'Checking alignment with recent developments...', delay: 2500 },
-            { model: 'Perplexity', color: '#8b5cf6', text: 'Searching academic literature...', delay: 3500 },
+            { model: 'Groq', color: '#f97316', text: 'LPU speed-check: validating initial analysis...', delay: 3500 },
             { model: 'Claude', color: '#d4a84b', text: 'Evaluating ethical implications per Eden Protocol...', delay: 4500 },
             { model: 'GPT-4', color: '#10a37f', text: 'I concur with Claude\'s assessment...', delay: 5500 },
             { model: 'Gemini', color: '#4285f4', text: 'Adding context from Eastwood Equation...', delay: 6500 },
-            { model: 'Perplexity', color: '#8b5cf6', text: 'Validated. Building consensus...', delay: 7500 }
+            { model: 'Groq', color: '#f97316', text: 'Final verification complete. Synthesising...', delay: 7500 }
         ];
 
         entries.forEach(entry => {
