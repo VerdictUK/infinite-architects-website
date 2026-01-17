@@ -196,4 +196,4 @@ MIT Licence — Free to use, modify, and distribute with attribution.
 
 ---
 
-**Questions?** Read the full paper: [Eastwood_Scaling_Law_Paper.pdf](../Eastwood_Scaling_Law_Paper.pdf)
+**Questions?** Read the full paper: [Eastwood's ARC Principle (PDF)](../Eastwoods_ARC_Principle.pdf)
