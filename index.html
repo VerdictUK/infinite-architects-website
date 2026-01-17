@@ -23376,6 +23376,52 @@
     color: rgba(240, 235, 227, 0.5);
 }
 
+/* Synthesis Thinking Indicator - shows while multi-AI analysis runs */
+.ask-book-chat__synthesis-thinking {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.1) 0%, rgba(212, 168, 75, 0.05) 100%);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: 8px;
+    animation: synthesisPulse 2s ease-in-out infinite;
+}
+
+@keyframes synthesisPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.synthesis-thinking-dots {
+    display: flex;
+    gap: 4px;
+}
+
+.synthesis-thinking-dots span {
+    width: 6px;
+    height: 6px;
+    background: #d4a84b;
+    border-radius: 50%;
+    animation: synthesisDot 1.4s ease-in-out infinite;
+}
+
+.synthesis-thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.synthesis-thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes synthesisDot {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.7); }
+    40% { opacity: 1; transform: scale(1); }
+}
+
+.synthesis-thinking-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(212, 168, 75, 0.8);
+    letter-spacing: 0.02em;
+}
+
 /* Input Area - flex-shrink: 0 prevents collapse */
 .ask-book-chat__input-area {
     flex: 0 0 auto;
@@ -26022,23 +26068,38 @@ window.SynthesisViz = SynthesisViz;
     // ═══════════════════════════════════════════════════════════════════════
 
     async function callAPI(query, mode = 'fast') {
-        const response = await fetch(CONFIG.apiEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                query: query,
-                mode: mode,
-                history: Memory.getContext()
-            })
-        });
+        // Create AbortController for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status}`);
+        try {
+            const response = await fetch(CONFIG.apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query: query,
+                    mode: mode,
+                    history: Memory.getContext()
+                }),
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            clearTimeout(timeoutId);
+            if (error.name === 'AbortError') {
+                throw new Error('Request timeout - the server took too long to respond');
+            }
+            throw error;
         }
-
-        return await response.json();
     }
 
     // ═══════════════════════════════════════════════════════════════════════
@@ -26107,63 +26168,129 @@ window.SynthesisViz = SynthesisViz;
         }
 
         try {
-            const response = await callAPI(query, mode);
-
             // ═══════════════════════════════════════════════════════════════
-            // HANDLE RESPONSE - Show convergence and show answer
+            // PROGRESSIVE RESPONSE - Show Claude fast, then converge council
             // ═══════════════════════════════════════════════════════════════
 
-            if (mode === 'full' && window.SynthesisViz && synthesisContainer) {
-                // Trigger convergence animation
-                window.SynthesisViz.converge();
+            if (mode === 'full') {
+                // PARALLEL STRATEGY: Call Claude fast AND council simultaneously
+                // Show Claude response immediately, update with council when ready
 
-                // Wait for convergence animation
-                await new Promise(resolve => setTimeout(resolve, 1500));
+                let fastMessageDiv = null;
 
-                // Hide synthesis
-                window.SynthesisViz.hide();
+                // Start BOTH requests in parallel
+                const fastPromise = callAPI(query, 'fast');
+                const councilPromise = callAPI(query, 'full');
 
-                // Wait for synthesis container fade-out, then remove it
-                await new Promise(resolve => {
+                // Show Claude's response as soon as it arrives
+                try {
+                    const fastResponse = await fastPromise;
+
+                    if (fastResponse.success && fastResponse.answer) {
+                        // Show fast response immediately with "thinking" indicator
+                        const relatedQuestions = RelatedQuestions.generate(query, fastResponse.answer, fastResponse.sources);
+
+                        fastMessageDiv = UI.addMessage(fastResponse.answer, 'ai', {
+                            sources: fastResponse.sources,
+                            models: ['Claude'],
+                            relatedQuestions: relatedQuestions,
+                            showCTA: false,
+                            query: query,
+                            isConvergenceConsensus: false,
+                            isPreliminary: true  // Flag for styling
+                        });
+
+                        // Add "council deliberating" indicator
+                        if (fastMessageDiv) {
+                            const thinkingIndicator = document.createElement('div');
+                            thinkingIndicator.className = 'ask-book-chat__synthesis-thinking';
+                            thinkingIndicator.innerHTML = `
+                                <span class="synthesis-thinking-dots">
+                                    <span></span><span></span><span></span>
+                                </span>
+                                <span class="synthesis-thinking-text">Multi-AI synthesis in progress...</span>
+                            `;
+                            fastMessageDiv.appendChild(thinkingIndicator);
+                        }
+                    }
+                } catch (fastError) {
+                    console.log('[ASK BOOK] Fast response failed, waiting for council:', fastError.message);
+                }
+
+                // Now wait for council response
+                const councilResponse = await councilPromise;
+
+                // Hide synthesis visualization
+                if (window.SynthesisViz && synthesisContainer) {
+                    window.SynthesisViz.converge();
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    window.SynthesisViz.hide();
                     setTimeout(() => {
                         if (synthesisContainer && synthesisContainer.parentNode) {
                             synthesisContainer.remove();
                         }
-                        resolve();
-                    }, 500);
-                });
-            } else {
-                UI.removeLoading();
-            }
-
-            if (response.success && response.answer) {
-                const relatedQuestions = response.relatedQuestions ||
-                    RelatedQuestions.generate(query, response.answer, response.sources);
-
-                // Add consensus badge for full mode
-                const modelsInfo = mode === 'full'
-                    ? ['Claude', 'GPT-4', 'Gemini', 'Perplexity']
-                    : (response.models || ['Claude']);
-
-                UI.addMessage(response.answer, 'ai', {
-                    sources: response.sources,
-                    models: modelsInfo,
-                    relatedQuestions: relatedQuestions,
-                    showCTA: true,
-                    query: query,
-                    isConvergenceConsensus: mode === 'full'
-                });
-
-                // Track success
-                if (typeof gtag === 'function') {
-                    gtag('event', 'chat_response', {
-                        'event_category': 'Ask Book',
-                        'event_label': mode === 'full' ? 'convergence' : 'fast',
-                        'value': response.responseTime
-                    });
+                    }, 300);
                 }
+
+                // Update with council response
+                if (councilResponse.success && councilResponse.answer) {
+                    // Remove the preliminary message if we showed one
+                    if (fastMessageDiv && fastMessageDiv.parentNode) {
+                        fastMessageDiv.remove();
+                    }
+
+                    const relatedQuestions = councilResponse.relatedQuestions ||
+                        RelatedQuestions.generate(query, councilResponse.answer, councilResponse.sources);
+
+                    UI.addMessage(councilResponse.answer, 'ai', {
+                        sources: councilResponse.sources,
+                        models: councilResponse.models || ['Claude', 'GPT-4', 'Gemini', 'Groq'],
+                        relatedQuestions: relatedQuestions,
+                        showCTA: true,
+                        query: query,
+                        isConvergenceConsensus: true
+                    });
+
+                    // Track success
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'chat_response', {
+                            'event_category': 'Ask Book',
+                            'event_label': 'convergence',
+                            'value': councilResponse.responseTime
+                        });
+                    }
+                } else {
+                    throw new Error(councilResponse.error || 'Council failed to respond');
+                }
+
             } else {
-                throw new Error(response.error || 'No answer received');
+                // FAST MODE - Just Claude
+                const response = await callAPI(query, 'fast');
+                UI.removeLoading();
+
+                if (response.success && response.answer) {
+                    const relatedQuestions = response.relatedQuestions ||
+                        RelatedQuestions.generate(query, response.answer, response.sources);
+
+                    UI.addMessage(response.answer, 'ai', {
+                        sources: response.sources,
+                        models: ['Claude'],
+                        relatedQuestions: relatedQuestions,
+                        showCTA: true,
+                        query: query,
+                        isConvergenceConsensus: false
+                    });
+
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'chat_response', {
+                            'event_category': 'Ask Book',
+                            'event_label': 'fast',
+                            'value': response.responseTime
+                        });
+                    }
+                } else {
+                    throw new Error(response.error || 'No answer received');
+                }
             }
         } catch (error) {
             console.error('[ASK BOOK] Error:', error);

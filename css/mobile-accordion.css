@@ -1149,6 +1149,9 @@
   padding: 0 var(--space-md);
   padding-bottom: calc(var(--buy-bar-height) + var(--space-xl));
   background: var(--accordion-void);
+  /* Prevent horizontal overflow */
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Accordion Item */
