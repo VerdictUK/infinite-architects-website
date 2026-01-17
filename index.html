@@ -4,44 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <!-- AGGRESSIVE SCROLL RESET — Force fresh start on every page load (mobile Safari fix) -->
+    <!-- SMART SCROLL RESET — Checks for returning visitor before deciding -->
     <script>
         (function() {
-            // 1. Disable browser's automatic scroll restoration
+            // Disable browser's automatic scroll restoration
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'manual';
             }
 
-            // 2. Clear any cached scroll position from sessionStorage
+            // Clear sessionStorage scroll data (but NOT localStorage - that's for Welcome Back)
             try {
                 sessionStorage.removeItem('scrollPos');
                 sessionStorage.removeItem('scroll');
-                // Clear all scroll-related session data
                 for (let key of Object.keys(sessionStorage)) {
-                    if (key.toLowerCase().includes('scroll')) {
+                    if (key.toLowerCase().includes('scroll') && !key.includes('ia_')) {
                         sessionStorage.removeItem(key);
                     }
                 }
             } catch (e) {}
 
-            // 3. Force scroll to top immediately (multiple methods for cross-browser)
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            if (document.body) document.body.scrollTop = 0;
+            // Check if returning visitor with saved progress
+            var hasProgress = false;
+            var seenWelcome = false;
+            try {
+                var savedScroll = localStorage.getItem('ia_resume_scroll');
+                var lastVisit = localStorage.getItem('ia_resume_timestamp');
+                seenWelcome = sessionStorage.getItem('ia_seen_welcome_this_session') === 'true';
 
-            // 4. Force scroll again after a tiny delay (catches deferred restoration)
-            setTimeout(function() {
+                // Has progress if: scroll > 300, timestamp exists, not seen this session
+                if (savedScroll && parseInt(savedScroll) > 300 && lastVisit && !seenWelcome) {
+                    // Check if enough time has passed (30 minutes)
+                    var timeSince = Date.now() - parseInt(lastVisit);
+                    if (timeSince > 30 * 60 * 1000) {
+                        hasProgress = true;
+                        window._welcomeBackData = {
+                            scroll: parseInt(savedScroll),
+                            timestamp: parseInt(lastVisit)
+                        };
+                    }
+                }
+            } catch (e) {}
+
+            // If NO progress to restore, force scroll to top immediately
+            if (!hasProgress) {
                 window.scrollTo(0, 0);
                 document.documentElement.scrollTop = 0;
                 if (document.body) document.body.scrollTop = 0;
-            }, 0);
 
-            // 5. And again after paint (for stubborn mobile browsers)
-            requestAnimationFrame(function() {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                if (document.body) document.body.scrollTop = 0;
-            });
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    if (document.body) document.body.scrollTop = 0;
+                }, 0);
+
+                requestAnimationFrame(function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    if (document.body) document.body.scrollTop = 0;
+                });
+            }
+            // If HAS progress, Welcome Back modal will handle scroll decision
         })();
     </script>
 
@@ -13119,6 +13141,294 @@
             }
         }
 
+        /* ═══════════════════════════════════════════════════════════════════════════
+           WELCOME BACK - RESUME READING OVERLAY
+           ═══════════════════════════════════════════════════════════════════════════ */
+        .welcome-back-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(2, 3, 10, 0.97);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .welcome-back-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .welcome-back-content {
+            position: relative;
+            text-align: center;
+            padding: 3rem 3.5rem;
+            max-width: 420px;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 168, 75, 0.08) 0%,
+                rgba(10, 12, 20, 0.95) 50%,
+                rgba(212, 168, 75, 0.05) 100%
+            );
+            border: 1px solid rgba(212, 168, 75, 0.25);
+            border-radius: 16px;
+            box-shadow:
+                0 0 60px rgba(212, 168, 75, 0.15),
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: welcomeEnter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes welcomeEnter {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .welcome-back-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-back-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary, #d4a84b);
+            animation: bookGlow 3s ease-in-out infinite;
+        }
+
+        .welcome-back-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes bookGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(212, 168, 75, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(212, 168, 75, 0.7));
+            }
+        }
+
+        .welcome-back-title {
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 600;
+            color: var(--gold-bright, #f4c856);
+            margin: 0;
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 30px rgba(212, 168, 75, 0.4);
+        }
+
+        .welcome-back-message {
+            font-family: var(--font-serif, 'Cormorant Garamond', serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            color: var(--text-primary, #e8d4a0);
+            margin: 0 0 1.75rem;
+            line-height: 1.5;
+        }
+
+        .welcome-back-message strong {
+            color: var(--gold-primary, #d4a84b);
+            font-weight: 600;
+        }
+
+        .welcome-back-progress-container {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-back-progress-track {
+            position: relative;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: visible;
+            margin-bottom: 0.75rem;
+        }
+
+        .welcome-back-progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-dark, #8b6914), var(--gold-primary, #d4a84b), var(--gold-bright, #f4c856));
+            border-radius: 3px;
+            transition: width 0.8s ease-out;
+            box-shadow: 0 0 15px rgba(212, 168, 75, 0.5);
+        }
+
+        .welcome-back-progress-markers {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2%;
+        }
+
+        .welcome-back-progress-markers .progress-pip {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(212, 168, 75, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .welcome-back-progress-markers .progress-pip.completed {
+            background: var(--gold-primary, #d4a84b);
+            border-color: var(--gold-bright, #f4c856);
+            box-shadow: 0 0 8px rgba(212, 168, 75, 0.6);
+        }
+
+        .welcome-back-progress-markers .progress-pip.current {
+            background: var(--gold-bright, #f4c856);
+            border-color: var(--gold-bright, #f4c856);
+            box-shadow: 0 0 12px rgba(244, 200, 86, 0.8);
+            animation: pipPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pipPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .welcome-back-progress-text {
+            font-family: var(--font-mono, 'Space Mono', monospace);
+            font-size: 0.8rem;
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            margin: 0;
+            letter-spacing: 0.05em;
+        }
+
+        .welcome-back-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .welcome-back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 1rem 1.5rem;
+            font-family: var(--font-display, 'Cinzel', serif);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .welcome-back-resume {
+            color: var(--void-deep, #02030a);
+            background: linear-gradient(135deg, var(--gold-primary, #d4a84b), var(--gold-bright, #f4c856));
+            box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
+        }
+
+        .welcome-back-resume:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 168, 75, 0.5);
+        }
+
+        .welcome-back-resume .btn-icon {
+            font-size: 0.8rem;
+        }
+
+        .welcome-back-fresh {
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            background: transparent;
+            border: 1px solid rgba(212, 168, 75, 0.3);
+        }
+
+        .welcome-back-fresh:hover {
+            color: var(--text-primary, #e8d4a0);
+            border-color: rgba(212, 168, 75, 0.5);
+            background: rgba(212, 168, 75, 0.1);
+        }
+
+        .welcome-back-dismiss {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-dim, rgba(232, 212, 160, 0.4));
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-back-dismiss:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary, rgba(232, 212, 160, 0.7));
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .welcome-back-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+                max-width: calc(100vw - 2rem);
+            }
+
+            .welcome-back-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .welcome-back-btn {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .welcome-back-overlay {
+                transition: opacity 0.2s ease;
+            }
+            .welcome-back-content {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+            .welcome-back-icon {
+                animation: none;
+            }
+            .welcome-back-progress-markers .progress-pip.current {
+                animation: none;
+            }
+        }
+
     </style>
 
     <!-- Lenis Smooth Scroll (Phase 9) - Deferred for performance -->
@@ -15378,6 +15688,55 @@
     </main>
     <!-- END MOBILE EXPERIENCE -->
 
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════════════
+         WELCOME BACK - RESUME READING OVERLAY
+         Shows when returning visitor has previous reading progress
+         ═══════════════════════════════════════════════════════════════════════════════════════ -->
+    <div class="welcome-back-overlay" id="welcome-back-overlay" aria-hidden="true" role="dialog" aria-labelledby="welcome-back-title">
+        <div class="welcome-back-content">
+            <div class="welcome-back-header">
+                <div class="welcome-back-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+                    </svg>
+                </div>
+                <h2 class="welcome-back-title" id="welcome-back-title">Welcome Back</h2>
+            </div>
+
+            <p class="welcome-back-message">
+                Continue from <strong id="welcome-back-part-name">Part III: The Philosophy</strong>?
+            </p>
+
+            <div class="welcome-back-progress-container">
+                <div class="welcome-back-progress-track">
+                    <div class="welcome-back-progress-fill" id="welcome-back-progress-fill"></div>
+                    <div class="welcome-back-progress-markers">
+                        <span class="progress-pip" data-part="1"></span>
+                        <span class="progress-pip" data-part="2"></span>
+                        <span class="progress-pip" data-part="3"></span>
+                        <span class="progress-pip" data-part="4"></span>
+                        <span class="progress-pip" data-part="5"></span>
+                    </div>
+                </div>
+                <p class="welcome-back-progress-text" id="welcome-back-progress-text">60% explored</p>
+            </div>
+
+            <div class="welcome-back-actions">
+                <button type="button" class="welcome-back-btn welcome-back-resume" id="welcome-back-resume">
+                    <span class="btn-icon">▶</span>
+                    <span class="btn-text">Resume Reading</span>
+                </button>
+                <button type="button" class="welcome-back-btn welcome-back-fresh" id="welcome-back-fresh">
+                    <span class="btn-text">Start Fresh</span>
+                </button>
+            </div>
+
+            <button type="button" class="welcome-back-dismiss" id="welcome-back-dismiss" aria-label="Dismiss">
+                <span>×</span>
+            </button>
+        </div>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════════════════════════════════════
          CINEMATIC OVERLAY (Injected by JS)
@@ -19370,10 +19729,12 @@
             }
 
             function renderCosmicInsight(data) {
-                const imageUrl = data.media_type === 'video' ? data.thumbnail : data.url;
+                const rawImageUrl = data.media_type === 'video' ? data.thumbnail : data.url;
+                // Proxy through our API to avoid CORS/service worker issues
+                const imageUrl = rawImageUrl ? `/api/image-proxy?url=${encodeURIComponent(rawImageUrl)}` : '';
 
                 contentEl.innerHTML = `
-                    <img class="cosmic-insight-image" src="${imageUrl}" alt="${data.title}" loading="lazy" onerror="this.style.display='none'">
+                    ${imageUrl ? `<img class="cosmic-insight-image" src="${imageUrl}" alt="${data.title}" loading="lazy" onerror="this.parentElement.querySelector('.cosmic-insight-image')?.remove()">` : ''}
                     <div class="cosmic-insight-body">
                         <h4 class="cosmic-insight-title">${data.title}</h4>
                         <p class="cosmic-insight-date">${formatDate(data.date)}${data.chapter ? ` · <span style="color: var(--gold);">${data.chapter}</span>` : ''}</p>
